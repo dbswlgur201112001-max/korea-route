@@ -1,0 +1,1553 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Korea Route — Smart Korea Travel Planner</title>
+<meta name="theme-color" content="#0b2345">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Korea Route">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<style>
+:root{
+  --bg:#f4f7fb; --card:#fff; --ink:#0c213e; --muted:#6d7b8f;
+  --navy:#091f3f; --navy2:#123f78; --blue:#2f6fed; --blue2:#6d95ff;
+  --mint:#18b7a4; --mintbg:#e8faf7; --gold:#f2b85b; --line:#e6edf5;
+  --shadow:0 18px 48px rgba(18,48,91,.10);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:#edf2f8;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink)}
+body{min-height:100vh}
+.app{max-width:460px;margin:0 auto;min-height:100vh;background:
+radial-gradient(circle at 85% 0%,rgba(83,135,255,.16),transparent 28%),
+linear-gradient(180deg,#eef5ff 0,#f7f9fc 24%,#f4f7fb 100%);position:relative;overflow:hidden}
+.screen{display:none;padding:18px 16px 112px}.screen.active{display:block}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:950;letter-spacing:-.5px}
+.logo{width:42px;height:42px;border-radius:15px;background:linear-gradient(135deg,var(--navy),var(--blue));display:grid;place-items:center;color:#fff;font-weight:950;box-shadow:0 10px 26px rgba(47,111,237,.27)}
+.pill,.back{border:1px solid var(--line);background:#fff;color:var(--ink);font-weight:850}
+.pill{border-radius:14px;padding:10px 12px}.back{width:40px;height:40px;border-radius:13px;font-size:20px}
+.hero{background:linear-gradient(145deg,#091f3f 0%,#153f79 56%,#326ee8 100%);border-radius:31px;color:#fff;padding:28px 24px 24px;box-shadow:0 20px 48px rgba(17,54,104,.25);position:relative;overflow:hidden}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.15)}
+.hero:before{width:250px;height:250px;right:-130px;top:-105px}.hero:after{width:135px;height:135px;right:-45px;top:-20px}
+.kicker{font-size:12px;font-weight:950;letter-spacing:.14em;text-transform:uppercase;color:#add4ff}
+h1{font-size:36px;line-height:1.03;letter-spacing:-1.4px;margin:9px 0 12px}
+.hero p{margin:0;color:#dfebff;line-height:1.5;font-size:15px}
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:20px}
+.quick div{background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.13);border-radius:15px;padding:11px 7px;text-align:center}
+.quick b{font-size:13px;display:block}.quick span{font-size:10px;color:#d9e8ff}
+.section-head{display:flex;justify-content:space-between;align-items:end;margin:26px 3px 12px}
+.section-head h2{font-size:19px;margin:0;letter-spacing:-.5px}.section-head span{font-size:10px;color:var(--muted);font-weight:900;letter-spacing:.06em}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:var(--shadow)}
+.route-title{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.route-title h3{font-size:18px;margin:0}.sub{font-size:12px;color:var(--muted);margin-top:4px}
+.badge{font-size:10px;font-weight:950;padding:7px 9px;border-radius:999px;background:var(--mintbg);color:#06796b;white-space:nowrap}
+.cities-line{display:flex;align-items:center;gap:7px;margin:16px 0;overflow-x:auto;scrollbar-width:none}.cities-line::-webkit-scrollbar{display:none}
+.city-chip{white-space:nowrap;border:1px solid var(--line);background:#f6f8fb;border-radius:999px;padding:8px 10px;font-size:11px;font-weight:900}
+.arrow{color:#9ba9bb}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.price{border-radius:16px;padding:13px;background:#f7f9fc}.price.best{background:#edfdf9;border:1px solid #c9f4e9}
+.price span{font-size:10px;color:var(--muted);font-weight:850}.price b{display:block;font-size:20px;margin-top:4px}
+.save{margin-top:12px;padding:11px;border-radius:14px;background:#fff4dc;color:#835800;text-align:center;font-size:12px;font-weight:950}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.city-card{border:1px solid var(--line);background:#fff;border-radius:18px;padding:14px 9px;text-align:center;box-shadow:0 8px 20px rgba(19,47,88,.05);cursor:pointer}
+.city-card .emoji{font-size:26px}.city-card b{display:block;font-size:13px;margin-top:7px}.city-card small{display:block;font-size:9px;color:var(--muted);margin-top:2px}
+.tip{display:flex;gap:12px}.tip .ico{width:42px;height:42px;display:grid;place-items:center;border-radius:14px;background:#edf3ff;flex:0 0 auto}.tip b{font-size:13px}.tip p{margin:4px 0 0;color:var(--muted);font-size:11px;line-height:1.5}
+.bottom{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:min(460px,100%);padding:14px 16px 20px;background:linear-gradient(180deg,rgba(244,247,251,0),rgba(244,247,251,.97) 34%,#f4f7fb 100%);z-index:10}
+.cta{width:100%;border:0;border-radius:18px;padding:17px;background:linear-gradient(135deg,var(--blue),#2359c2);color:#fff;font-size:15px;font-weight:950;box-shadow:0 12px 30px rgba(47,111,237,.28)}
+.page-title{font-size:29px;letter-spacing:-.9px;margin:4px 0 6px}.page-sub{color:var(--muted);font-size:13px;line-height:1.5;margin:0 0 20px}
+.form-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:17px;box-shadow:var(--shadow)}
+label{display:block;font-size:10px;font-weight:950;margin:13px 0 7px;letter-spacing:.05em}
+select,input{width:100%;border:1px solid var(--line);background:#fbfcfe;border-radius:14px;padding:14px;font-size:14px;color:var(--ink)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.route-builder{margin-top:14px}.stop{display:flex;gap:10px;align-items:center;margin:10px 0}.dot{width:12px;height:12px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 5px #eaf1ff}.stop .name{font-weight:900;font-size:13px}.stop .desc{font-size:10px;color:var(--muted)}.line-v{width:2px;height:22px;background:#cfd9e7;margin-left:5px}
+.summary-hero{background:linear-gradient(145deg,#0a2244,#255eb8);border-radius:27px;padding:22px;color:#fff;box-shadow:0 18px 42px rgba(28,74,143,.23);position:relative;overflow:hidden}
+.summary-hero:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;border:1px solid rgba(255,255,255,.13);right:-70px;top:-58px}
+.summary-hero .small{font-size:10px;color:#bdd8ff;font-weight:900;letter-spacing:.05em}.summary-hero .big{font-size:36px;font-weight:950;letter-spacing:-1px;margin:4px 0}.summary-hero .save-text{font-size:11px;color:#e8f2ff;line-height:1.5}
+.route-map{background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:var(--shadow)}
+.map-track{position:relative;padding-left:28px}
+.map-track:before{content:"";position:absolute;left:9px;top:13px;bottom:14px;width:2px;background:linear-gradient(var(--blue),var(--mint))}
+.map-stop{position:relative;margin:0 0 18px}.map-stop:last-child{margin-bottom:0}
+.map-stop:before{content:"";position:absolute;left:-24px;top:4px;width:10px;height:10px;border-radius:50%;background:#fff;border:3px solid var(--blue);box-shadow:0 0 0 4px #edf3ff}
+.map-stop:last-child:before{border-color:var(--mint);box-shadow:0 0 0 4px #e9faf7}
+.map-stop b{font-size:13px}.map-stop span{display:block;font-size:10px;color:var(--muted);margin-top:2px}
+.segment{margin-top:7px;display:flex;gap:7px;flex-wrap:wrap}.mini{font-size:9px;font-weight:850;background:#f3f6fa;border:1px solid var(--line);border-radius:999px;padding:5px 7px;color:#4d6078}
+.option{margin-top:12px;background:#fff;border:1px solid var(--line);border-radius:21px;padding:16px;box-shadow:0 8px 24px rgba(19,47,88,.06)}
+.option.best{border:1.5px solid #78d4c8;background:#fbfffe}
+.option-top{display:flex;justify-content:space-between;gap:10px}.option h3{font-size:16px;margin:0}.tag{font-size:9px;font-weight:950;border-radius:999px;padding:6px 8px;background:#ddfbf7;color:#06796b;height:max-content}
+.meta{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:9px;margin:7px 0 12px}
+.option-price{display:flex;justify-content:space-between;align-items:end}.option-price b{font-size:22px}.option-price span{font-size:9px;color:var(--muted)}
+.book-row{display:grid;grid-template-columns:1fr auto;gap:9px;margin-top:13px}
+.book{border:0;border-radius:13px;padding:12px 13px;background:var(--navy);color:#fff;font-weight:900;font-size:11px}
+.ghost{border:1px solid var(--line);border-radius:13px;padding:12px 13px;background:#fff;color:var(--ink);font-weight:900;font-size:11px}
+.notice{margin-top:12px;padding:13px 14px;border-radius:17px;background:#fff8e9;border:1px solid #f7e2b4;color:#70531b;font-size:10px;line-height:1.5}
+.city-hero{border-radius:28px;padding:24px;color:#fff;background:linear-gradient(145deg,#18385e,#2f6fed);box-shadow:0 16px 40px rgba(27,74,139,.22)}
+.city-hero .emoji{font-size:36px}.city-hero h2{font-size:30px;margin:8px 0 4px}.city-hero p{font-size:12px;color:#dbe9ff;margin:0}
+.info-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.info{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px}.info span{font-size:9px;color:var(--muted);font-weight:850}.info b{display:block;font-size:14px;margin-top:5px}
+@media(min-width:700px){.app{margin-top:20px;margin-bottom:20px;border-radius:34px;box-shadow:0 25px 80px rgba(18,44,84,.15)}.bottom{bottom:20px}}
+
+.segment-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px;margin-top:10px;box-shadow:0 8px 24px rgba(19,47,88,.06)}
+.segment-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.segment-route{font-size:15px;font-weight:950}
+.segment-route small{display:block;color:var(--muted);font-size:9px;margin-top:4px;font-weight:800}
+.mode-badge{font-size:9px;font-weight:950;padding:6px 8px;border-radius:999px;background:#edf3ff;color:#2459b7}
+.segment-info{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.segment-info div{background:#f7f9fc;border-radius:13px;padding:10px}
+.segment-info span{display:block;font-size:8px;color:var(--muted);font-weight:850}
+.segment-info b{display:block;font-size:12px;margin-top:4px}
+
+
+.install-box{display:none;margin-top:14px;background:#0b2345;color:white;border-radius:18px;padding:14px 15px;align-items:center;justify-content:space-between;gap:10px}
+.install-box.show{display:flex}
+.install-box b{font-size:12px}.install-box span{display:block;font-size:9px;color:#cbdaf1;margin-top:3px}
+.install-btn{border:0;border-radius:12px;background:white;color:#0b2345;font-weight:950;padding:10px 12px;font-size:10px}
+
+.traveler-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
+.traveler-badge{background:#f7f9fc;border:1px solid var(--line);border-radius:14px;padding:10px 11px;font-size:9px;font-weight:900;color:#34455e;display:flex;align-items:center;gap:7px}
+.traveler-badge .dot{width:8px;height:8px;border-radius:50%;background:#25b36a;box-shadow:0 0 0 4px rgba(37,179,106,.10)}
+.route-shell{background:linear-gradient(180deg,#eef5ff 0%,#ffffff 100%);border:1px solid var(--line);border-radius:22px;padding:16px;margin-top:10px}
+.route-visual{position:relative;padding:8px 0 4px 0}
+.route-line{position:absolute;left:17px;top:18px;bottom:18px;width:3px;background:linear-gradient(#2f6fed,#7d9cf5);border-radius:9px}
+.route-stop{position:relative;display:flex;gap:12px;align-items:center;margin:17px 0}
+.route-stop .pin{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:#fff;border:3px solid #2f6fed;z-index:2;font-weight:950;font-size:10px;color:#173b79;box-shadow:0 4px 12px rgba(47,111,237,.14)}
+.route-stop .stop-card{flex:1;background:white;border:1px solid var(--line);border-radius:16px;padding:11px 12px;box-shadow:0 6px 18px rgba(19,47,88,.05)}
+.route-stop .stop-card b{font-size:13px}.route-stop .stop-card span{display:block;font-size:9px;color:var(--muted);margin-top:3px}
+.option-tabs{display:flex;gap:7px;margin-top:12px;overflow:auto;padding-bottom:2px}
+.option-tab{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 11px;font-size:9px;font-weight:900;color:#4a5870}
+.option-tab.active{background:#0b2345;color:#fff;border-color:#0b2345}
+
+
+.live-map{height:280px;border-radius:18px;overflow:hidden;border:1px solid var(--line);margin-bottom:8px;background:#eaf1fa}
+.map-note{font-size:8px;color:var(--muted);font-weight:800;text-align:right;margin:4px 2px 12px}
+.leaflet-container{font-family:inherit}
+.route-popup{font-weight:900}
+
+
+.city-map-wrap{background:#fff;border:1px solid var(--line);border-radius:22px;padding:14px;margin:16px 0;box-shadow:0 8px 24px rgba(19,47,88,.05)}
+.city-map{height:260px;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#eaf1fa}
+.city-map-head{display:flex;justify-content:space-between;align-items:end;gap:10px;margin-bottom:10px}
+.city-map-head b{font-size:15px}.city-map-head span{font-size:9px;color:var(--muted);font-weight:800}
+.poi-list{display:grid;gap:9px;margin-top:11px}
+.poi-item{display:flex;align-items:center;gap:10px;background:#f8faff;border:1px solid var(--line);border-radius:14px;padding:10px}
+.poi-num{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:#0b2345;color:#fff;font-size:9px;font-weight:950}
+.poi-text b{display:block;font-size:11px}.poi-text span{display:block;font-size:8px;color:var(--muted);margin-top:2px}
+
+
+.city-schematic{position:relative;height:260px;border-radius:18px;overflow:hidden;border:1px solid var(--line);
+background:
+linear-gradient(90deg,rgba(80,120,170,.08) 1px,transparent 1px),
+linear-gradient(rgba(80,120,170,.08) 1px,transparent 1px),
+linear-gradient(180deg,#eef7fb 0%,#f7fbff 100%);
+background-size:32px 32px,32px 32px,100% 100%}
+.city-schematic:before,.city-schematic:after{content:"";position:absolute;border-radius:999px;background:rgba(103,183,214,.22);transform:rotate(-12deg)}
+.city-schematic:before{width:360px;height:54px;left:-70px;top:155px}
+.city-schematic:after{width:260px;height:34px;right:-90px;top:42px}
+.schem-road{position:absolute;height:7px;border-radius:999px;background:rgba(255,255,255,.95);box-shadow:0 0 0 1px rgba(120,150,180,.16)}
+.schem-route{position:absolute;inset:0;pointer-events:none}
+.schem-pin{position:absolute;width:34px;height:34px;border-radius:50%;background:#0b2345;color:white;display:grid;place-items:center;font-size:11px;font-weight:950;border:4px solid white;box-shadow:0 5px 14px rgba(11,35,69,.2);transform:translate(-50%,-50%);z-index:4}
+.schem-label{position:absolute;transform:translate(-50%,12px);background:white;border:1px solid var(--line);padding:6px 8px;border-radius:10px;font-size:8px;font-weight:900;white-space:nowrap;box-shadow:0 4px 12px rgba(19,47,88,.08);z-index:3}
+.city-map-mode{display:flex;gap:7px;margin:0 0 10px}
+.city-map-chip{font-size:8px;font-weight:900;padding:7px 10px;border-radius:999px;background:#eef4ff;color:#2e5ca8}
+
+
+.v11-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.metric-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;box-shadow:0 6px 18px rgba(19,47,88,.05)}
+.metric-card span{display:block;font-size:8px;font-weight:900;color:var(--muted);letter-spacing:.04em}
+.metric-card b{display:block;font-size:17px;margin-top:5px}
+.reco-tabs{display:flex;gap:7px;overflow:auto;padding:2px 0 8px}
+.reco-tab{border:1px solid var(--line);background:white;border-radius:999px;padding:8px 12px;white-space:nowrap;font-size:9px;font-weight:900;color:#53627a}
+.reco-tab.active{background:#0b2345;color:#fff;border-color:#0b2345}
+.route-option{background:#fff;border:1px solid var(--line);border-radius:20px;padding:15px;margin:10px 0;box-shadow:0 7px 22px rgba(19,47,88,.05)}
+.route-option.best{border:2px solid #63cfc0}
+.route-option .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.route-option h3{margin:0;font-size:16px}
+.route-option .badge{font-size:8px;font-weight:950;padding:7px 9px;border-radius:999px;background:#e9fbf7;color:#168874}
+.route-option .meta{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.route-option .meta div{background:#f7f9fc;border-radius:13px;padding:10px}
+.route-option .meta span{display:block;font-size:7px;font-weight:900;color:var(--muted)}
+.route-option .meta b{display:block;font-size:11px;margin-top:3px}
+.itin-wrap{background:#fff;border:1px solid var(--line);border-radius:22px;padding:15px;margin-top:14px}
+.day-card{border-left:3px solid #2f6fed;padding:8px 0 8px 13px;margin:8px 0}
+.day-card b{font-size:12px}.day-card span{display:block;color:var(--muted);font-size:9px;margin-top:4px;line-height:1.5}
+.tip-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.tip-card{background:#f8faff;border:1px solid var(--line);border-radius:16px;padding:11px}
+.tip-card b{display:block;font-size:10px}.tip-card span{display:block;font-size:8px;color:var(--muted);margin-top:4px;line-height:1.4}
+.action-row{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
+.secondary-btn{border:1px solid var(--line);background:#fff;color:#0b2345;border-radius:16px;padding:13px;font-weight:950}
+.favorite-btn.saved{background:#fff4d6}
+.demo-banner{background:#fff8df;border:1px solid #ead895;border-radius:16px;padding:11px 12px;color:#80651e;font-size:8px;font-weight:800;line-height:1.5;margin:12px 0}
+.share-toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#0b2345;color:white;padding:10px 14px;border-radius:999px;font-size:9px;font-weight:900;z-index:9999;opacity:0;pointer-events:none;transition:.25s}
+.share-toast.show{opacity:1}
+@media(max-width:430px){.route-option .meta{grid-template-columns:1fr 1fr 1fr}}
+
+
+/* V11.1 mobile stabilization */
+#result .section-head{align-items:center;gap:10px}
+#result .reco-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;overflow:visible}
+#result .reco-tab{width:100%;min-width:0;padding:10px 8px;text-align:center}
+#result .route-option{width:100%;box-sizing:border-box;overflow:hidden}
+#result .route-option .top{display:flex;align-items:flex-start}
+#result .route-option .meta{grid-template-columns:repeat(3,minmax(0,1fr))}
+#result .route-option .meta div{min-width:0;padding:9px 8px}
+#result .route-option .meta b{font-size:10px;word-break:keep-all;overflow-wrap:anywhere}
+#result .v11-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+#result .metric-card{min-width:0}
+#result .metric-card b{font-size:15px;word-break:keep-all}
+#result .itin-wrap{width:100%;box-sizing:border-box;overflow:hidden}
+#result .day-card{padding-right:4px}
+#result .day-card b,#result .day-card span{word-break:keep-all;overflow-wrap:break-word}
+#result .tip-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+#result .tip-card{min-width:0}
+#result .tip-card b,#result .tip-card span{word-break:keep-all;overflow-wrap:break-word}
+#result .action-row{grid-template-columns:1fr 1fr}
+#result .secondary-btn{min-width:0;white-space:normal;line-height:1.25}
+#result .demo-banner{word-break:keep-all}
+#result{padding-bottom:150px}
+#result .sticky-cta,
+#result > .primary-btn:last-of-type{position:sticky;bottom:16px;z-index:50;box-shadow:0 10px 30px rgba(24,74,170,.24)}
+
+@media(max-width:520px){
+  #result .route-option .top{gap:8px}
+  #result .route-option h3{font-size:14px}
+  #result .route-option .meta{grid-template-columns:1fr 1fr 1fr;gap:6px}
+  #result .route-option .meta span{font-size:7px}
+  #result .route-option .meta b{font-size:9px}
+  #result .v11-grid{grid-template-columns:1fr 1fr;gap:8px}
+  #result .tip-grid{grid-template-columns:1fr}
+  #result .action-row{grid-template-columns:1fr 1fr}
+}
+@media(max-width:390px){
+  #result .reco-tabs{grid-template-columns:1fr 1fr}
+  #result .route-option .meta{grid-template-columns:1fr}
+  #result .v11-grid{grid-template-columns:1fr 1fr}
+  #result .action-row{grid-template-columns:1fr}
+}
+
+
+#result button::before,#result button::after{pointer-events:none}
+#result .secondary-btn,#result .reco-tab{writing-mode:horizontal-tb!important;text-orientation:mixed!important}
+#result *{max-width:100%}
+
+
+.city-attraction-manager{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:14px;box-shadow:0 8px 24px rgba(19,47,88,.05)}
+.city-attraction-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:10px}
+.city-attraction-head b{display:block;font-size:13px}.city-attraction-head span{display:block;font-size:8px;color:var(--muted);margin-top:4px;line-height:1.4}
+.city-attraction-count{flex:0 0 auto!important;background:#eef4ff;color:#2458a8!important;padding:6px 9px;border-radius:999px;font-weight:950!important;margin-top:0!important}
+.city-attraction-list{display:grid;gap:8px}
+.city-attraction-item{display:flex;align-items:center;gap:10px;border:1px solid var(--line);background:#f8faff;border-radius:14px;padding:10px}
+.city-attraction-item input{width:18px;height:18px;flex:0 0 auto;accent-color:#2f6fed}
+.city-attraction-item .city-attraction-text{min-width:0;flex:1}
+.city-attraction-item b{display:block;font-size:11px}.city-attraction-item span{display:block;font-size:8px;color:var(--muted);margin-top:2px}
+.city-attraction-item.base{background:#fbfcfe}
+.city-attraction-apply{width:100%;margin-top:10px;border:0;border-radius:14px;padding:12px;background:#0b2345;color:#fff;font-weight:950}
+.schem-pin.added-poi{background:#2f6fed}
+.itinerary-added-pois{margin-top:7px;padding:9px 10px;background:#eef5ff;border-radius:11px;color:#244f96;font-size:9px;font-weight:850;line-height:1.5}
+
+
+/* 0829 7-menu architecture shell */
+.arch-section{margin-top:18px}
+.arch-title{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:0 2px 10px}
+.arch-title h2{font-size:15px;margin:0;letter-spacing:-.3px}
+.arch-title span{font-size:8px;color:var(--muted);font-weight:900}
+.module-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.module-card{border:1px solid var(--line);background:#fff;border-radius:20px;padding:15px;text-align:left;box-shadow:0 9px 24px rgba(17,54,104,.05);cursor:pointer;min-height:122px}
+.module-card.wide{grid-column:1/-1;min-height:auto}
+.module-card .module-icon{font-size:24px;line-height:1;margin-bottom:12px}
+.module-card b{display:block;font-size:13px;letter-spacing:-.2px}
+.module-card p{margin:5px 0 0;font-size:8px;color:var(--muted);line-height:1.5}
+.module-card .module-ready{display:inline-block;margin-top:9px;font-size:7px;padding:5px 7px;border-radius:999px;background:#eef4ff;color:#285cb1;font-weight:950}
+.arch-screen .top{margin-bottom:14px}
+.arch-screen .arch-hero{background:linear-gradient(145deg,#0a2144,#255eb8);border-radius:25px;color:#fff;padding:21px 18px;margin-bottom:14px}
+.arch-screen .arch-hero .eyebrow{font-size:8px;font-weight:950;letter-spacing:1px;opacity:.72}
+.arch-screen .arch-hero h1{font-size:23px;line-height:1.05;margin:8px 0 7px}
+.arch-screen .arch-hero p{font-size:9px;line-height:1.55;margin:0;opacity:.86}
+.arch-status{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.arch-badge{font-size:7px;font-weight:950;border-radius:999px;padding:5px 7px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.18)}
+.feature-stack{display:grid;gap:10px}
+.feature-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px}
+.feature-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.feature-card h3{font-size:12px;margin:0}
+.feature-card p{font-size:8px;color:var(--muted);line-height:1.5;margin:5px 0 0}
+.slot-type{flex:0 0 auto;font-size:7px;font-weight:950;padding:5px 7px;border-radius:999px;background:#f0f4f9;color:#52657b}
+.slot-type.api{background:#edf3ff;color:#2c5fb3}
+.slot-type.partner{background:#fff5e9;color:#9a5a08}
+.slot-type.local{background:#edf8f2;color:#27714a}
+.data-slot{margin-top:10px;border:1px dashed #cbd6e4;background:#f8fafc;border-radius:12px;padding:9px}
+.data-slot b{font-size:8px;display:block;margin-bottom:4px}
+.data-slot code{font-size:7px;color:#52657b;white-space:normal;word-break:break-word;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.screen-link{width:100%;border:0;border-radius:13px;padding:11px 12px;margin-top:10px;background:#0b2345;color:#fff;font-size:9px;font-weight:950}
+.screen-link.light{background:#eef4ff;color:#295eb2}
+.arch-note{background:#fffbe9;border:1px solid #f0df9f;border-radius:16px;padding:12px;margin-top:12px;font-size:8px;color:#775c12;line-height:1.55}
+.city-mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.city-mini-grid button{border:1px solid var(--line);background:#f8fafc;border-radius:12px;padding:10px 4px;font-size:8px;font-weight:900}
+@media(max-width:380px){.module-grid{grid-template-columns:1fr}.module-card.wide{grid-column:auto}.city-mini-grid{grid-template-columns:1fr 1fr}}
+
+
+#odsayTestResult.success{border-color:#b7dfc6;background:#f2fbf5;color:#22663f}
+#odsayTestResult.error{border-color:#efc1c1;background:#fff5f5;color:#9b3232}
+#odsayTestResult.loading{border-color:#bed0ee;background:#f4f8ff;color:#2c5fb3}
+#odsayTestResult span{font-size:8px;line-height:1.55;display:block}
+
+</style>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+ integrity="sha256-p4NxAoJBhIINfQ3ynflw8TNqcFBCIjiNV+RZ3x6NxVM=" crossorigin="">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+</head>
+<body>
+<div class="app">
+
+<section class="screen active" id="home">
+  <div class="top">
+    <div class="brand"><div class="logo">KR</div><div data-en="Korea Route" data-ko="코리아 루트">Korea Route</div></div>
+    <button class="pill" id="langBtn" onclick="toggleLang()">EN / 한국어</button>
+  </div>
+
+  <div class="hero">
+    <div class="kicker" data-en="Travel Korea smarter" data-ko="더 똑똑한 한국 여행">Travel Korea smarter</div>
+    <h1 data-en="Your Korea trip,<br>made simple." data-ko="복잡한 한국 여행을<br>간단하게.">Your Korea trip,<br>made simple.</h1>
+    <p data-en="Compare transport, estimate your total trip cost, and get a visitor-friendly route in seconds." data-ko="교통수단을 비교하고 총 여행비를 예상해 외국인 여행자에게 쉬운 이동 경로를 빠르게 찾아보세요.">Compare transport, estimate your total trip cost, and get a visitor-friendly route in seconds.</p>
+    <div class="quick">
+      <div><b data-en="KTX · Bus" data-ko="KTX · 버스">KTX · Bus</b><span data-en="compare routes" data-ko="경로 비교">compare routes</span></div>
+      <div><b data-en="6 Cities" data-ko="6개 도시">6 Cities</b><span data-en="starter guide" data-ko="기본 가이드">starter guide</span></div>
+      <div><b data-en="Save ₩" data-ko="비용 절약">Save ₩</b><span data-en="best combination" data-ko="최적 조합">best combination</span></div>
+    </div>
+  </div>
+
+  <div class="install-box" id="installBox">
+  <div><b data-en="Install Korea Route" data-ko="Korea Route 앱 설치">Install Korea Route</b><span data-en="Add it to your home screen like an app." data-ko="홈 화면에 앱처럼 추가할 수 있어요.">Add it to your home screen like an app.</span></div>
+  <button class="install-btn" id="installBtn" data-en="INSTALL" data-ko="설치">INSTALL</button>
+</div>
+
+
+<div class="arch-section" id="featureArchitecture">
+  <div class="arch-title">
+    <h2 data-en="Everything for your Korea trip" data-ko="한국 여행의 모든 기능">Everything for your Korea trip</h2>
+    <span data-en="7 CORE MENUS" data-ko="7개 핵심 메뉴">7 CORE MENUS</span>
+  </div>
+  <div class="module-grid">
+    <button class="module-card wide" type="button" onclick="go('planner')">
+      <div class="module-icon">🗺️</div>
+      <b data-en="1. Plan" data-ko="1. 여행 계획">1. Plan</b>
+      <p data-en="Build the itinerary, optimize stops, budget and travel style." data-ko="일정 생성, 경유지 최적화, 예산과 여행 스타일을 한 번에 설계합니다.">Build the itinerary, optimize stops, budget and travel style.</p>
+      <span class="module-ready" data-en="CORE PROTOTYPE READY" data-ko="핵심 프로토타입 작동">CORE PROTOTYPE READY</span>
+    </button>
+    <button class="module-card" type="button" onclick="go('moveHub')">
+      <div class="module-icon">🚆</div><b data-en="2. Move" data-ko="2. 이동">2. Move</b>
+      <p data-en="Transit, ETA, transfers, exits, accessibility and disruptions." data-ko="대중교통, 도착시간, 환승, 출구, 접근성, 돌발상황을 다룹니다.">Transit, ETA, transfers, exits, accessibility and disruptions.</p>
+    </button>
+    <button class="module-card" type="button" onclick="go('exploreHub')">
+      <div class="module-icon">📍</div><b data-en="3. Explore" data-ko="3. 둘러보기">3. Explore</b>
+      <p data-en="Attractions, food, cafés, tickets, reviews and photo spots." data-ko="관광지, 맛집, 카페, 티켓, 리뷰와 사진 명소를 모읍니다.">Attractions, food, cafés, tickets, reviews and photo spots.</p>
+    </button>
+    <button class="module-card" type="button" onclick="go('stayHub')">
+      <div class="module-icon">🏨</div><b data-en="4. Stay" data-ko="4. 숙소">4. Stay</b>
+      <p data-en="Search stays, deep links and route recalculation from the hotel." data-ko="숙소 검색, 예약 딥링크, 숙소 기준 동선 재계산을 제공합니다.">Search stays, deep links and route recalculation from the hotel.</p>
+    </button>
+    <button class="module-card" type="button" onclick="go('walletHub')">
+      <div class="module-icon">💳</div><b data-en="5. Trip Wallet" data-ko="5. 여행 지갑">5. Trip Wallet</b>
+      <p data-en="FX, trip budget, transport passes, eSIM and payment support." data-ko="환율, 전체 예산, 교통패스, eSIM과 결제 정보를 관리합니다.">FX, trip budget, transport passes, eSIM and payment support.</p>
+    </button>
+    <button class="module-card" type="button" onclick="go('assistantHub')">
+      <div class="module-icon">✨</div><b data-en="6. Trip Assistant" data-ko="6. 여행 도우미">6. Trip Assistant</b>
+      <p data-en="Weather, packing, translation, AI questions, safety and offline." data-ko="날씨, 짐싸기, 번역, AI 질문, 안전과 오프라인 기능을 제공합니다.">Weather, packing, translation, AI questions, safety and offline.</p>
+    </button>
+    <button class="module-card" type="button" onclick="go('myTripHub')">
+      <div class="module-icon">🧳</div><b data-en="7. My Trip" data-ko="7. 내 여행">7. My Trip</b>
+      <p data-en="Saved trips, alerts, calendar sync, sharing and history." data-ko="저장된 여행, 알림, 캘린더, 일정 공유와 여행 기록을 관리합니다.">Saved trips, alerts, calendar sync, sharing and history.</p>
+    </button>
+  </div>
+</div>
+
+<div class="section-head"><h2 data-en="Popular route" data-ko="인기 여행 루트">Popular route</h2><span data-en="4 DAYS" data-ko="4일">4 DAYS</span></div>
+  <div class="card">
+    <div class="route-title">
+      <div><h3 data-en="Classic Korea Route" data-ko="한국 대표 여행 루트">Classic Korea Route</h3><div class="sub" data-en="Seoul to Busan with cultural stops" data-ko="서울에서 부산까지 문화도시를 거치는 코스">Seoul to Busan with cultural stops</div></div>
+      <div class="badge" data-en="BEST VALUE" data-ko="가성비 추천">BEST VALUE</div>
+    </div>
+    <div class="cities-line"><span class="city-chip">Seoul</span><span class="arrow">›</span><span class="city-chip">Suwon</span><span class="arrow">›</span><span class="city-chip">Gyeongju</span><span class="arrow">›</span><span class="city-chip">Busan</span></div>
+    <div class="compare"><div class="price"><span data-en="INDIVIDUAL TICKETS" data-ko="개별 승차권">INDIVIDUAL TICKETS</span><b>₩154,000</b></div><div class="price best"><span data-en="RECOMMENDED" data-ko="추천 조합">RECOMMENDED</span><b>₩121,000</b></div></div>
+    <div class="save" data-en="Estimated saving · ₩33,000 per traveler" data-ko="1인당 예상 절약액 · ₩33,000">Estimated saving · ₩33,000 per traveler</div>
+  </div>
+
+  
+
+  <div class="section-head"><h2 data-en="Visitor friendly" data-ko="외국인 여행자 안내">Visitor friendly</h2><span data-en="TRAVEL TIP" data-ko="여행 팁">TRAVEL TIP</span></div>
+  <div class="card tip"><div class="ico">💳</div><div><b data-en="Made for international travelers" data-ko="외국인 여행자를 위해 만들었어요">Made for international travelers</b><p data-en="We highlight simpler booking options, local transport tips, and services that are easier to use without a Korean phone number." data-ko="한국 전화번호가 없어도 비교적 쉽게 이용할 수 있는 예약 방법, 현지 교통 팁과 서비스를 안내합니다.">We highlight simpler booking options, local transport tips, and services that are easier to use without a Korean phone number.</p></div></div>
+</section>
+
+<section class="screen" id="planner">
+  <div class="top"><button class="back" onclick="go('home')">‹</button><div class="brand" data-en="Trip Planner" data-ko="여행 플래너">Trip Planner</div><div style="width:40px"></div></div>
+  <h2 class="page-title" data-en="Build your Korea route" data-ko="한국 여행 경로 만들기">Build your Korea route</h2>
+  <p class="page-sub" data-en="Pick your main cities, trip length, and number of travelers." data-ko="주요 도시, 여행 기간, 인원수를 선택하세요.">Pick your main cities, trip length, and number of travelers.</p>
+  <div class="form-card">
+    <label data-en="STARTING CITY" data-ko="출발 도시">STARTING CITY</label>
+    <select id="start"><option>Seoul</option><option>Busan</option><option>Jeju</option></select>
+    <label data-en="MAIN DESTINATION" data-ko="주요 목적지">MAIN DESTINATION</label>
+    <select id="dest"><option>Busan</option><option>Gyeongju</option><option>Jeonju</option><option>Suwon</option><option>Jeju</option></select>
+    <div class="row">
+      <div><label data-en="TRAVELERS" data-ko="여행 인원">TRAVELERS</label><input id="travelers" type="number" min="1" max="9" value="2"></div>
+      <div><label data-en="DAYS" data-ko="여행 일수">DAYS</label><input id="days" type="number" min="1" max="21" value="4"></div>
+    </div>
+    <div class="row">
+      <div>
+        <label data-en="DEPARTURE DATE" data-ko="출발 날짜">DEPARTURE DATE</label>
+        <input id="tripDate" type="date">
+      </div>
+      <div>
+        <label data-en="DEPARTURE TIME" data-ko="출발 시간">DEPARTURE TIME</label>
+        <input id="tripTime" type="time" value="09:00">
+      </div>
+    </div>
+    <label data-en="TRAVEL STYLE" data-ko="여행 우선순위">TRAVEL STYLE</label>
+    <select id="travelStyle">
+      <option value="balanced">Balanced</option>
+      <option value="fast">Fastest</option>
+      <option value="cheap">Cheapest</option>
+    </select>
+    <label style="display:flex;align-items:center;gap:8px;margin:16px 0 0;font-size:12px;font-weight:850;letter-spacing:0;text-transform:none">
+      <input id="scenicRoute" type="checkbox" style="width:auto;accent-color:#2f6fed">
+      <span data-en="Prefer scenic route (via Gyeongju, Seoul ↔ Busan)" data-ko="경치 좋은 경로 우선 (서울 ↔ 부산 구간, 경주 경유)">Prefer scenic route (via Gyeongju, Seoul ↔ Busan)</span>
+    </label>
+    <div class="route-builder">
+      <label data-en="SUGGESTED FLOW" data-ko="추천 이동 순서">SUGGESTED FLOW</label>
+      <div id="plannerRoute"></div>
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="result">
+  <div class="top"><button class="back" onclick="go('planner')">‹</button><div class="brand" data-en="Your Best Route" data-ko="추천 경로">Your Best Route</div><div style="width:40px"></div></div>
+
+  <div class="summary-hero">
+    <div class="small" data-en="ESTIMATED TOTAL FOR YOUR TRIP" data-ko="예상 총 교통비">ESTIMATED TOTAL FOR YOUR TRIP</div>
+    <div class="big" id="total">₩242,000</div>
+    <div class="save-text" id="saveText" data-en="You could save about ₩66,000 compared with buying every segment separately." data-ko="구간별로 따로 구매하는 것보다 약 ₩66,000 절약할 수 있어요.">You could save about ₩66,000 compared with buying every segment separately.</div>
+  </div>
+
+  <div class="card" id="tripSummary" style="margin-top:14px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div><div style="font-size:9px;color:var(--muted);font-weight:900" data-en="DEPARTURE" data-ko="출발일">DEPARTURE</div><div id="sumDate" style="font-size:14px;font-weight:950;margin-top:4px">—</div></div>
+      <div><div style="font-size:9px;color:var(--muted);font-weight:900" data-en="TRAVEL STYLE" data-ko="여행 우선순위">TRAVEL STYLE</div><div id="sumStyle" style="font-size:14px;font-weight:950;margin-top:4px">Balanced</div></div>
+      <div><div style="font-size:9px;color:var(--muted);font-weight:900" data-en="DEPART" data-ko="출발">DEPART</div><div id="sumDepart" style="font-size:14px;font-weight:950;margin-top:4px">09:00</div></div>
+      <div><div style="font-size:9px;color:var(--muted);font-weight:900" data-en="EST. ARRIVAL" data-ko="예상 도착">EST. ARRIVAL</div><div id="sumArrival" style="font-size:14px;font-weight:950;margin-top:4px">—</div></div>
+    </div>
+  </div>
+
+  <div class="section-head"><h2 data-en="Your route" data-ko="여행 경로">Your route</h2><span id="stopCount">2 STOPS</span></div>
+  <div class="route-map">
+    <div class="map-track" id="resultRoute"></div>
+    <div id="liveMap" class="city-map" style="margin-top:14px"></div>
+  </div>
+
+  <div class="section-head"><h2 data-en="By segment" data-ko="구간별 교통편">By segment</h2><span data-en="SAMPLE" data-ko="샘플">SAMPLE</span></div>
+  <div class="option-tabs" id="modeTabs">
+    <button class="option-tab active" data-mode="best" data-en="Best match" data-ko="최적 추천">Best match</button>
+    <button class="option-tab" data-mode="fast" data-en="Fastest" data-ko="가장 빠르게">Fastest</button>
+    <button class="option-tab" data-mode="cheap" data-en="Cheapest" data-ko="가장 저렴하게">Cheapest</button>
+    <button class="option-tab" data-mode="easy" data-en="Easiest booking" data-ko="예약 쉬운 순">Easiest booking</button>
+  </div>
+  <div id="segmentCards"></div>
+
+  <div class="section-head"><h2 data-en="Recommended options" data-ko="추천 이동 방법">Recommended options</h2><span data-en="DEMO DATA" data-ko="샘플 데이터">DEMO DATA</span></div>
+
+  <div class="option best">
+    <div class="option-top"><div><h3 data-en="KTX + Local Transit" data-ko="KTX + 대중교통">KTX + Local Transit</h3><div class="meta"><span>⚡ <i data-en="Fast" data-ko="빠름">Fast</i></span><span>🧳 <i data-en="Easy luggage" data-ko="짐 이동 편리">Easy luggage</i></span><span>🌍 <i data-en="Visitor friendly" data-ko="외국인 이용 편리">Visitor friendly</i></span></div></div><div class="tag" data-en="BEST CHOICE" data-ko="최우선 추천">BEST CHOICE</div></div>
+    <div class="option-price"><b id="bestPrice">₩121,000 / person</b><span data-en="estimated transport" data-ko="예상 교통비">estimated transport</span></div>
+    <div class="book-row">
+      <button class="book" onclick="demoBook()" data-en="Check booking options" data-ko="예약 방법 확인">Check booking options</button>
+      <button class="ghost" onclick="alertLang()" data-en="Details" data-ko="상세">Details</button>
+    </div>
+  </div>
+
+  <div class="section-head"><h2 data-en="Smart comparison" data-ko="스마트 비교">Smart comparison</h2><span data-en="DEMO ENGINE" data-ko="데모 엔진">DEMO ENGINE</span></div>
+  <div class="reco-tabs" id="v11RecoTabs">
+    <button class="reco-tab active" data-priority="balanced" data-en="Balanced" data-ko="균형 추천">Balanced</button>
+    <button class="reco-tab" data-priority="fast" data-en="Fastest" data-ko="가장 빠르게">Fastest</button>
+    <button class="reco-tab" data-priority="cheap" data-en="Cheapest" data-ko="가장 저렴하게">Cheapest</button>
+    <button class="reco-tab" data-priority="easy" data-en="Visitor friendly" data-ko="외국인 편의">Visitor friendly</button>
+  </div>
+  <div id="v11RouteOptions"></div>
+
+  <div class="section-head"><h2 data-en="Trip snapshot" data-ko="여행 한눈에 보기">Trip snapshot</h2><span data-en="ESTIMATE" data-ko="예상치">ESTIMATE</span></div>
+  <div class="v11-grid">
+    <div class="metric-card"><span data-en="TOTAL TRANSPORT" data-ko="총 교통비">TOTAL TRANSPORT</span><b id="v11TotalCost">—</b></div>
+    <div class="metric-card"><span data-en="TRAVEL TIME" data-ko="총 이동시간">TRAVEL TIME</span><b id="v11TotalTime">—</b></div>
+    <div class="metric-card"><span data-en="TRAVELERS" data-ko="여행 인원">TRAVELERS</span><b id="v11People">—</b></div>
+    <div class="metric-card"><span data-en="BOOKING DIFFICULTY" data-ko="예약 난이도">BOOKING DIFFICULTY</span><b id="v11Difficulty">Easy</b></div>
+  </div>
+
+  <div class="itin-wrap">
+    <div class="section-head" style="margin-top:0"><h2 data-en="Day-by-day starter itinerary" data-ko="일자별 기본 일정">Day-by-day starter itinerary</h2><span data-en="AUTO" data-ko="자동">AUTO</span></div>
+    <div id="v11Itinerary"></div>
+  </div>
+
+  <div class="section-head"><h2 data-en="Visitor essentials" data-ko="외국인 여행 필수 정보">Visitor essentials</h2><span data-en="CHECKLIST" data-ko="체크리스트">CHECKLIST</span></div>
+  <div class="tip-grid">
+    <div class="tip-card"><b data-en="💳 Payment" data-ko="💳 결제">💳 Payment</b><span data-en="Prefer routes with foreign-card friendly booking." data-ko="해외카드 결제가 쉬운 교통편을 우선 추천합니다.">Prefer routes with foreign-card friendly booking.</span></div>
+    <div class="tip-card"><b data-en="📱 Phone number" data-ko="📱 한국 번호">📱 Phone number</b><span data-en="We flag options that may require a Korean number." data-ko="한국 전화번호가 필요할 수 있는 옵션을 표시합니다.">We flag options that may require a Korean number.</span></div>
+    <div class="tip-card"><b data-en="🧳 Luggage" data-ko="🧳 캐리어">🧳 Luggage</b><span data-en="Rail and airport options are scored for luggage convenience." data-ko="철도·공항 이동편은 캐리어 편의성을 함께 봅니다.">Rail and airport options are scored for luggage convenience.</span></div>
+    <div class="tip-card"><b data-en="🗺️ Local move" data-ko="🗺️ 현지 이동">🗺️ Local move</b><span data-en="City guides show recommended local transport and stops." data-ko="도시 가이드에서 현지 교통과 추천 방문지를 안내합니다.">City guides show recommended local transport and stops.</span></div>
+  </div>
+
+  <div class="action-row">
+    <button id="v11SaveBtn" class="secondary-btn favorite-btn" type="button" data-en="☆ Save trip" data-ko="☆ 여행 저장">☆ Save trip</button>
+    <button id="v11ShareBtn" class="secondary-btn" type="button" data-en="Share plan" data-ko="여행계획 공유">Share plan</button>
+  </div>
+  <div class="demo-banner" data-en="Prototype: prices, travel times and booking availability are sample estimates. Production should connect verified transport and booking data." data-ko="프로토타입: 가격·이동시간·예약 가능 여부는 샘플 예상치입니다. 정식 서비스에서는 검증된 교통·예약 데이터를 연결해야 합니다.">
+    Prototype: prices, travel times and booking availability are sample estimates. Production should connect verified transport and booking data.
+  </div>
+
+  <div class="option">
+    <div class="option-top"><div><h3 data-en="Express Bus Mix" data-ko="고속버스 혼합">Express Bus Mix</h3><div class="meta"><span>💰 <i data-en="Lower cost" data-ko="저렴함">Lower cost</i></span><span>🕒 <i data-en="Slower" data-ko="시간 더 소요">Slower</i></span></div></div></div>
+    <div class="option-price"><b id="busPrice">₩98,000 / person</b><span data-en="estimated transport" data-ko="예상 교통비">estimated transport</span></div>
+  </div>
+
+  <div class="option">
+    <div class="option-top"><div><h3 data-en="Rental Car" data-ko="렌터카">Rental Car</h3><div class="meta"><span>👥 <i data-en="Better for groups" data-ko="여럿이면 유리">Better for groups</i></span><span>🗺 <i data-en="Flexible" data-ko="자유로운 이동">Flexible</i></span></div></div></div>
+    <div class="option-price"><b id="carPrice">₩86,000 / person*</b><span data-en="example 4-person split" data-ko="4인 분담 예시">example 4-person split</span></div>
+  </div>
+
+  <div class="notice" data-en="Prototype: prices and travel times are sample values for interface testing. Live service should connect verified transport and booking data." data-ko="프로토타입: 현재 가격과 이동시간은 화면 테스트용 샘플 값입니다. 정식 서비스에서는 검증된 교통·예약 데이터를 연결해야 합니다.">Prototype: prices and travel times are sample values for interface testing. Live service should connect verified transport and booking data.</div>
+</section>
+
+<section class="screen" id="city">
+  <div class="top"><button class="back" onclick="go('home')">‹</button><div class="brand" data-en="City Guide" data-ko="도시 가이드">City Guide</div><div style="width:40px"></div></div>
+  <div class="city-hero"><div class="emoji" id="cityEmoji">🏯</div><h2 id="cityName">Suwon</h2><p id="cityDesc">Fortress city</p></div>
+  <div class="info-row"><div class="info"><span data-en="BEST LOCAL MOVE" data-ko="추천 현지 교통">BEST LOCAL MOVE</span><b id="cityMove">Subway + local bus</b></div><div class="info"><span data-en="DAILY TRANSPORT" data-ko="하루 교통비">DAILY TRANSPORT</span><b id="cityCost">₩10,000–20,000/day</b></div></div>
+  <div class="section-head"><h2 data-en="Quick guide" data-ko="빠른 여행 가이드">Quick guide</h2><span data-en="FIRST VISIT" data-ko="첫 방문">FIRST VISIT</span></div>
+  <div class="card">
+    <div class="tip"><div class="ico">🚆</div><div><b data-en="How to get there" data-ko="가는 방법">How to get there</b><p data-en="See the simplest airport or intercity connection first, then cheaper alternatives." data-ko="공항 또는 다른 도시에서 오는 가장 쉬운 방법을 먼저 보여주고, 그 다음 저렴한 대안을 안내합니다.">See the simplest airport or intercity connection first, then cheaper alternatives.</p></div></div>
+    <div style="height:14px"></div>
+    <div class="tip"><div class="ico">📍</div><div><b data-en="One-day route" data-ko="하루 여행 코스">One-day route</b><p data-en="A compact itinerary built around realistic travel time." data-ko="실제 이동시간을 고려한 알찬 하루 코스를 제공합니다.">A compact itinerary built around realistic travel time.</p></div></div>
+    <div style="height:14px"></div>
+    <div class="tip"><div class="ico">🎟️</div><div><b data-en="Pass & booking tips" data-ko="패스 & 예약 팁">Pass & booking tips</b><p data-en="Only passes and booking options that actually fit this itinerary are highlighted." data-ko="이 일정에 실제로 도움이 되는 패스와 예약 방법만 골라 안내합니다.">Only passes and booking options that actually fit this itinerary are highlighted.</p></div></div>
+  </div>
+
+  <div class="city-map-wrap">
+    <div class="city-map-head">
+      <b data-en="City map & recommended route" data-ko="도시 지도 & 추천 동선">City map & recommended route</b>
+      <span data-en="SAMPLE ROUTE" data-ko="샘플 동선">SAMPLE ROUTE</span>
+    </div>
+    <div class="city-map-mode"><span class="city-map-chip" data-en="Always available" data-ko="항상 표시">Always available</span><span class="city-map-chip" data-en="Recommended walking flow" data-ko="추천 이동 동선">Recommended walking flow</span></div>
+<div id="citySchematic" class="city-schematic"></div>
+<div id="cityGuideMap" class="city-map" style="display:none"></div>
+    <div id="cityPoiList" class="poi-list"></div>
+
+  <div class="city-attraction-manager">
+    <div class="city-attraction-head">
+      <div>
+        <b data-en="Customize this city" data-ko="이 도시 일정 꾸미기">Customize this city</b>
+        <span data-en="Add or remove attractions. Map and itinerary update together." data-ko="관광지를 추가·삭제하면 지도와 일정에 함께 반영됩니다.">Add or remove attractions. Map and itinerary update together.</span>
+      </div>
+      <span id="cityAttractionCount" class="city-attraction-count">3</span>
+    </div>
+    <div id="cityAttractionList" class="city-attraction-list"></div>
+    <button id="cityAttractionApply" class="city-attraction-apply" type="button"
+      data-en="Apply attractions to this trip" data-ko="선택 관광지를 일정에 반영">Apply attractions to this trip</button>
+  </div>
+
+  
+  <button id="newPlanFromCity" class="secondary-btn" type="button"
+    style="width:100%;margin:12px 0 6px"
+    data-en="Start a new trip plan" data-ko="새 여행 계획 만들기">Start a new trip plan</button>
+</div>
+
+</section>
+
+
+<section class="screen arch-screen" id="moveHub">
+  <div class="top"><button class="back" onclick="go('home')">‹</button><div class="brand" data-en="Move" data-ko="이동">Move</div><button class="pill" onclick="toggleLang()">EN / 한국어</button></div>
+  <div class="arch-hero"><div class="eyebrow">MOVE ENGINE</div><h1 data-en="Get there with less friction." data-ko="한국 이동을 더 쉽게.">Get there with less friction.</h1><p data-en="This screen is the data shell for real-time public transport, ETA and accessibility." data-ko="실시간 대중교통, 예상 도착시간과 접근성 데이터를 연결할 자리입니다.">This screen is the data shell for real-time public transport, ETA and accessibility.</p><div class="arch-status"><span class="arch-badge">Transit API</span><span class="arch-badge">Map/ETA API</span><span class="arch-badge">Weather API</span></div></div>
+  <div class="feature-stack">
+
+  <div class="feature-card" id="odsayLiveTestCard" style="margin-bottom:10px">
+    <div class="feature-top">
+      <div>
+        <h3 data-en="ODsay live connection test" data-ko="ODsay 실시간 연결 테스트">ODsay live connection test</h3>
+        <p data-en="Runs a real public-transit route request from this browser. It will only authenticate on the registered korea-route.vercel.app domain." data-ko="이 브라우저에서 실제 대중교통 경로 요청을 보냅니다. 등록된 korea-route.vercel.app 도메인에서만 인증됩니다.">Runs a real public-transit route request from this browser.</p>
+      </div>
+      <span class="slot-type api">LIVE TEST</span>
+    </div>
+    
+    <div class="data-slot" id="odsayKeyBox" style="margin-top:10px">
+      <b data-en="Temporary Web key" data-ko="테스트용 Web 키">Temporary Web key</b>
+      <input id="odsayKeyInput" type="password" autocomplete="off" placeholder="ODsay Web API key"
+        style="width:100%;box-sizing:border-box;margin-top:7px;border:1px solid #ccd7e5;border-radius:10px;padding:10px;font-size:10px;background:#fff">
+      <span data-en="Stored only for this browser session. It is not included in the deployed source bundle." data-ko="이 브라우저 세션에만 저장되며 배포 파일에는 포함되지 않습니다."
+        style="margin-top:6px;color:#6a7b91">Stored only for this browser session.</span>
+    </div>
+
+    <button class="screen-link" type="button" id="odsayTestBtn" data-en="Test ODsay now" data-ko="ODsay 연결 테스트">Test ODsay now</button>
+    <div class="data-slot" id="odsayTestResult">
+      <b data-en="Status" data-ko="상태">Status</b>
+      <span data-en="Not tested yet" data-ko="아직 테스트하지 않음">Not tested yet</span>
+    </div>
+  </div>
+    <div class="feature-card"><div class="feature-top"><div><h3 data-en="Live transit board" data-ko="실시간 대중교통 도착정보">Live transit board</h3><p data-en="Subway and bus arrivals, service status and transfer countdown." data-ko="지하철·버스 도착, 운행 상태와 환승 남은 시간을 표시합니다.">Subway and bus arrivals, service status and transfer countdown.</p></div><span class="slot-type api">API</span></div><div class="data-slot"><b>Data slot</b><code>stop_id · route_id · arrival_minutes · disruption_status</code></div></div>
+    <div class="feature-card"><div class="feature-top"><div><h3 data-en="Multi-stop optimizer" data-ko="여러 경유지 최적 순서">Multi-stop optimizer</h3><p data-en="Reorders selected stops to reduce total travel time." data-ko="선택한 경유지를 이동시간이 짧아지도록 자동 재배열합니다.">Reorders selected stops to reduce total travel time.</p></div><span class="slot-type local">LOGIC</span></div><div class="data-slot"><b>Data slot</b><code>origin · destination · waypoint[] · travel_matrix</code></div></div>
+    <div class="feature-card"><div class="feature-top"><div><h3 data-en="Live ETA & alternate transport" data-ko="실시간 ETA · 대체 이동수단">Live ETA & alternate transport</h3><p data-en="Updates arrival time with traffic and proposes alternatives in heavy rain or snow." data-ko="교통상황으로 도착시간을 갱신하고 폭우·폭설 때 대체 이동수단을 제안합니다.">Updates arrival time with traffic and proposes alternatives in heavy rain or snow.</p></div><span class="slot-type api">API</span></div><div class="data-slot"><b>Data slot</b><code>traffic_delay · weather_alert · alternative_mode[]</code></div></div>
+    <div class="feature-card"><div class="feature-top"><div><h3 data-en="Transfers, exits & accessibility" data-ko="환승·출구·접근성">Transfers, exits & accessibility</h3><p data-en="Pictograms, station exit numbers, elevators, wheelchair and stroller suitability." data-ko="환승 픽토그램, 역 출구 번호, 엘리베이터와 휠체어·유모차 편의를 표시합니다.">Pictograms, station exit numbers, elevators, wheelchair and stroller suitability.</p></div><span class="slot-type api">DATA</span></div><div class="data-slot"><b>Data slot</b><code>station_exit · elevator · barrier_free · transfer_icon</code></div></div>
+  </div>
+</section>
+
+<section class="screen arch-screen" id="exploreHub">
+  <div class="top"><button class="back" onclick="go('home')">‹</button><div class="brand" data-en="Explore" data-ko="둘러보기">Explore</div><button class="pill" onclick="toggleLang()">EN / 한국어</button></div>
+  <div class="arch-hero"><div class="eyebrow">LOCAL DISCOVERY</div><h1 data-en="Find what is worth your time." data-ko="갈 만한 곳을 바로 찾기.">Find what is worth your time.</h1><p data-en="Attractions, food, cafés, tickets, live waits and trusted local tips live here." data-ko="관광지, 맛집, 카페, 티켓, 웨이팅과 현지 팁을 모으는 화면입니다.">Attractions, food, cafés, tickets, live waits and trusted local tips live here.</p></div>
+  <div class="feature-stack">
+    <div class="feature-card"><div class="feature-top"><div><h3 data-en="City guide & attraction planner" data-ko="도시 가이드 · 관광지 일정">City guide & attraction planner</h3><p data-en="The current city guide plugs into this menu." data-ko="현재 만들어진 도시가이드가 이 메뉴에 연결됩니다.">The current city guide plugs into this menu.</p></div><span class="slot-type local">READY</span></div><div class="city-mini-grid"><button onclick="openCityFromHub('Seoul')">Seoul</button><button onclick="openCityFromHub('Suwon')">Suwon</button><button onclick="openCityFromHub('Gyeongju')">Gyeongju</button><button onclick="openCityFromHub('Busan')">Busan</button><button onclick="openCityFromHub('Jeonju')">Jeonju</button><button onclick="openCityFromHub('Jeju')">Jeju</button></div></div>
+    <div class="feature-card"><div class="feature-top"><div><h3 data-en="Restaurants & cafés" data-ko="맛집 · 카페">Restaurants & cafés</h3><p data-en="Reservation need, golden-time alerts, live wait, translated menu, allergy and vegan labels." data-ko="예약 필요 여부, 골든타임 알림, 실시간 웨이팅, 메뉴 번역, 알레르기·비건 정보를 표시합니다.">Reservation need, golden-time alerts, live wait, translated menu, allergy and vegan labels.</p></div><span class="slot-type api">API</span></div><div class="data-slot"><b>Data slot</b><code>place_id · booking_required · wait_minutes · menu[] · allergy_tags[]</code></div></div>
+    <div class="feature-card"><div class="feature-top"><div><h3 data-en="Tickets, events & booking alerts" data-ko="티켓 · 공연 · 예매 알림">Tickets, events & booking alerts</h3><p data-en="Attraction passes, concerts, performances and pre-booking reminders." data-ko="관광지 입장권, 콘서트·공연과 사전예매 알림을 연결합니다.">Attraction passes, concerts, performances and pre-booking reminders.</p></div><span class="slot-type partner">PARTNER</span></div><div class="data-slot"><b>Data slot</b><code>inventory · booking_url · deadline · event_time</code></div></div>
+    <div class="feature-card"><div class="feature-top"><div><h3 data-en="Reviews & photo spots" data-ko="리뷰 · 인생샷 명소">Reviews & photo spots</h3><p data-en="Visitor tips, local recommendations and best photo-time metadata." data-ko="방문자 팁, 현지인 추천과 사진 찍기 좋은 시간 정보를 모읍니다.">Visitor tips, local recommendations and best photo-time metadata.</p></div><span class="slot-type api">DATA</span></div><div class="data-slot"><b>Data slot</b><code>rating · review_tip · photo_spot · best_time</code></div></div>
+  </div>
+</section>
+
+<section class="screen arch-screen" id="stayHub">
+  <div class="top"><button class="back" onclick="go('home')">‹</button><div class="brand" data-en="Stay" data-ko="숙소">Stay</div><button class="pill" onclick="toggleLang()">EN / 한국어</button></div>
+  <div class="arch-hero"><div class="eyebrow">STAY LAYER</div><h1 data-en="Make the hotel part of the route." data-ko="숙소까지 동선에 넣기.">Make the hotel part of the route.</h1><p data-en="Search, affiliate deep links and hotel-based route recalculation fit here." data-ko="숙소 검색, 제휴 딥링크와 숙소 위치 기반 동선 재계산 자리입니다.">Search, affiliate deep links and hotel-based route recalculation fit here.</p></div>
+  <div class="feature-stack">
+    <div class="feature-card"><div class="feature-top"><div><h3 data-en="Stay search + affiliate deep link" data-ko="숙소 검색 + 제휴 딥링크">Stay search + affiliate deep link</h3><p data-en="Compare useful stay options and hand off to a verified booking partner." data-ko="숙소를 비교하고 검증된 예약 제휴사로 연결합니다.">Compare useful stay options and hand off to a verified booking partner.</p></div><span class="slot-type partner">PARTNER</span></div><div class="data-slot"><b>Data slot</b><code>hotel_id · nightly_price · rating · affiliate_deeplink</code></div></div>
+    <div class="feature-card"><div class="feature-top"><div><h3 data-en="Hotel-based route recalculation" data-ko="숙소 기준 동선 자동 재계산">Hotel-based route recalculation</h3><p data-en="Uses the selected hotel as the daily start/end point." data-ko="선택한 숙소를 매일 출발·도착 기준점으로 사용합니다.">Uses the selected hotel as the daily start/end point.</p></div><span class="slot-type local">LOGIC</span></div><div class="data-slot"><b>Data slot</b><code>hotel_latlng · day_stops[] · travel_matrix</code></div></div>
+    <div class="feature-card"><div class="feature-top"><div><h3 data-en="Check-in / check-out reminders" data-ko="체크인 · 체크아웃 알림">Check-in / check-out reminders</h3><p data-en="Surfaces timing conflicts and baggage-storage suggestions." data-ko="시간 충돌을 알려주고 짐 보관 대안을 제안합니다.">Surfaces timing conflicts and baggage-storage suggestions.</p></div><span class="slot-type local">ALERT</span></div><div class="data-slot"><b>Data slot</b><code>checkin_at · checkout_at · luggage_storage</code></div></div>
+  </div>
+</section>
+
+<section class="screen arch-screen" id="walletHub">
+  <div class="top"><button class="back" onclick="go('home')">‹</button><div class="brand" data-en="Trip Wallet" data-ko="여행 지갑">Trip Wallet</div><button class="pill" onclick="toggleLang()">EN / 한국어</button></div>
+  <div class="arch-hero"><div class="eyebrow">BUDGET & PAYMENT</div><h1 data-en="Know what the trip really costs." data-ko="여행비를 한눈에.">Know what the trip really costs.</h1><p data-en="FX, budget rules, transport passes, eSIM and payment support share one data layer." data-ko="환율, 예산, 교통패스, eSIM과 결제 정보를 하나로 묶습니다.">FX, budget rules, transport passes, eSIM and payment support share one data layer.</p></div>
+  <div class="feature-stack">
+    <div class="feature-card"><div class="feature-top"><div><h3 data-en="Live FX converter" data-ko="실시간 환율 변환">Live FX converter</h3><p data-en="KRW ↔ traveler home currency with last-updated time." data-ko="원화와 여행자 자국 통화를 최신 시각과 함께 변환합니다.">KRW ↔ traveler home currency with last-updated time.</p></div><span class="slot-type api">API</span></div><div class="data-slot"><b>Data slot</b><code>base_currency · quote_currency · rate · updated_at</code></div></div>
+    <div class="feature-card"><div class="feature-top"><div><h3 data-en="Budget-aware itinerary" data-ko="예산 맞춤 일정">Budget-aware itinerary</h3><p data-en="Adjusts transport, attractions and food style to the total budget." data-ko="총예산에 맞춰 교통, 관광지, 식사 스타일을 자동 조정합니다.">Adjusts transport, attractions and food style to the total budget.</p></div><span class="slot-type local">LOGIC</span></div><div class="data-slot"><b>Data slot</b><code>total_budget · travelers · days · budget_split</code></div></div>
+    <div class="feature-card"><div class="feature-top"><div><h3 data-en="Pass comparison" data-ko="교통패스 비교">Pass comparison</h3><p data-en="T-money, rail passes and city passes compared against the itinerary." data-ko="T-money, 레일패스와 지역 패스를 실제 일정 기준으로 비교합니다.">T-money, rail passes and city passes compared against the itinerary.</p></div><span class="slot-type partner">DATA</span></div><div class="data-slot"><b>Data slot</b><code>pass_price · eligible_routes · break_even · purchase_link</code></div></div>
+    <div class="feature-card"><div class="feature-top"><div><h3 data-en="eSIM & foreign-card support" data-ko="eSIM · 해외카드 결제">eSIM & foreign-card support</h3><p data-en="Connectivity offers plus known payment requirements for traveler-facing services." data-ko="통신 상품과 외국인 이용 서비스의 결제 조건을 안내합니다.">Connectivity offers plus known payment requirements for traveler-facing services.</p></div><span class="slot-type partner">PARTNER</span></div><div class="data-slot"><b>Data slot</b><code>esim_plan · affiliate_url · card_support · korean_phone_required</code></div></div>
+  </div>
+</section>
+
+<section class="screen arch-screen" id="assistantHub">
+  <div class="top"><button class="back" onclick="go('home')">‹</button><div class="brand" data-en="Trip Assistant" data-ko="여행 도우미">Trip Assistant</div><button class="pill" onclick="toggleLang()">EN / 한국어</button></div>
+  <div class="arch-hero"><div class="eyebrow">AI & TRAVEL SUPPORT</div><h1 data-en="Help that follows the trip." data-ko="여행 내내 따라오는 도우미.">Help that follows the trip.</h1><p data-en="Weather, packing, translation, safety, offline tools and an in-trip AI assistant." data-ko="날씨, 짐싸기, 번역, 안전, 오프라인과 여행 중 AI 질문을 묶습니다.">Weather, packing, translation, safety, offline tools and an in-trip AI assistant.</p></div>
+  <div class="feature-stack">
+    <div class="feature-card"><div class="feature-top"><div><h3 data-en="Weather-aware itinerary" data-ko="날씨 연동 일정">Weather-aware itinerary</h3><p data-en="Forecast by trip date and indoor replacements when rain hits." data-ko="여행일 예보를 연결하고 비가 오면 실내 일정을 제안합니다.">Forecast by trip date and indoor replacements when rain hits.</p></div><span class="slot-type api">API</span></div><div class="data-slot"><b>Data slot</b><code>forecast[] · severe_alert · indoor_alternative[]</code></div></div>
+    <div class="feature-card"><div class="feature-top"><div><h3 data-en="Smart packing checklist" data-ko="자동 짐싸기 체크리스트">Smart packing checklist</h3><p data-en="Generated from season, weather, activities, traveler count and duration." data-ko="계절, 날씨, 활동, 인원수와 여행기간을 반영해 자동 생성합니다.">Generated from season, weather, activities, traveler count and duration.</p></div><span class="slot-type local">LOGIC</span></div><div class="data-slot"><b>Data slot</b><code>season · forecast · activities[] · travelers · days</code></div></div>
+    <div class="feature-card"><div class="feature-top"><div><h3 data-en="Camera translation + phrasebook" data-ko="카메라 번역 + 필수 회화">Camera translation + phrasebook</h3><p data-en="Signs and menus, plus taxi, restaurant and emergency phrases offline." data-ko="간판·메뉴 번역과 택시, 식당, 응급상황 회화를 오프라인에서도 제공합니다.">Signs and menus, plus taxi, restaurant and emergency phrases offline.</p></div><span class="slot-type api">AI</span></div><div class="data-slot"><b>Data slot</b><code>image_text · translated_text · phrase_category</code></div></div>
+    <div class="feature-card"><div class="feature-top"><div><h3 data-en="Nearby help & emergency" data-ko="근처 도움 · 응급">Nearby help & emergency</h3><p data-en="Hospitals, pharmacies, police, embassy/consulate contacts and multilingual guidance." data-ko="병원, 약국, 경찰서, 대사관·영사관과 다국어 대응 가이드를 제공합니다.">Hospitals, pharmacies, police, embassy/consulate contacts and multilingual guidance.</p></div><span class="slot-type api">DATA</span></div><div class="data-slot"><b>Data slot</b><code>nearby_services[] · embassy_contact · locale</code></div></div>
+    <div class="feature-card"><div class="feature-top"><div><h3 data-en="In-trip AI + place recognition" data-ko="여행 중 AI + 장소 인식">In-trip AI + place recognition</h3><p data-en="Ask 'Where is the nearest restroom?' or identify a place from a photo." data-ko="'이 근처 화장실 어디야?' 같은 질문과 사진 장소 인식을 담당합니다.">Ask 'Where is the nearest restroom?' or identify a place from a photo.</p></div><span class="slot-type api">AI</span></div><div class="data-slot"><b>Data slot</b><code>user_location · trip_context · image · assistant_answer</code></div></div>
+    <div class="feature-card"><div class="feature-top"><div><h3 data-en="Offline travel pack" data-ko="오프라인 여행 팩">Offline travel pack</h3><p data-en="Downloaded map area, saved itinerary and phrasebook for weak connectivity." data-ko="지도 구역, 저장 일정과 회화집을 인터넷이 약할 때 사용할 수 있게 보관합니다.">Downloaded map area, saved itinerary and phrasebook for weak connectivity.</p></div><span class="slot-type local">OFFLINE</span></div><div class="data-slot"><b>Data slot</b><code>offline_region · cached_trip · cached_phrases</code></div></div>
+  </div>
+</section>
+
+<section class="screen arch-screen" id="myTripHub">
+  <div class="top"><button class="back" onclick="go('home')">‹</button><div class="brand" data-en="My Trip" data-ko="내 여행">My Trip</div><button class="pill" onclick="toggleLang()">EN / 한국어</button></div>
+  <div class="arch-hero"><div class="eyebrow">TRIP MEMORY</div><h1 data-en="Keep the whole trip in one place." data-ko="내 여행을 한곳에 저장.">Keep the whole trip in one place.</h1><p data-en="Saved plans, reminders, calendar sync, share links and travel history live here." data-ko="저장 일정, 알림, 캘린더 동기화, 공유 링크와 여행 기록을 관리합니다.">Saved plans, reminders, calendar sync, share links and travel history live here.</p></div>
+  <div class="feature-stack">
+    <div class="feature-card"><div class="feature-top"><div><h3 data-en="Saved trips & history" data-ko="저장 여행 · 히스토리">Saved trips & history</h3><p data-en="Load current plans and keep a searchable record of past trips." data-ko="현재 여행을 불러오고 과거 여행 기록을 검색할 수 있게 보관합니다.">Load current plans and keep a searchable record of past trips.</p></div><span class="slot-type local">READY</span></div><div class="data-slot"><b>Data slot</b><code>trip_id · version · created_at · updated_at · trip_snapshot</code></div></div>
+    <div class="feature-card"><div class="feature-top"><div><h3 data-en="Trip alerts" data-ko="여행 알림">Trip alerts</h3><p data-en="30-minute departure warnings, ticket expiry and destination-arrival alerts." data-ko="이동 30분 전, 티켓 만료 임박, 다음 목적지 도착 임박 알림을 관리합니다.">30-minute departure warnings, ticket expiry and destination-arrival alerts.</p></div><span class="slot-type local">ALERT</span></div><div class="data-slot"><b>Data slot</b><code>alert_type · trigger_at · location_trigger · status</code></div></div>
+    <div class="feature-card"><div class="feature-top"><div><h3 data-en="Calendar sync" data-ko="캘린더 동기화">Calendar sync</h3><p data-en="Exports confirmed itinerary items to the traveler's calendar." data-ko="확정된 일정 항목을 여행자의 캘린더로 동기화합니다.">Exports confirmed itinerary items to the traveler's calendar.</p></div><span class="slot-type api">INTEGRATION</span></div><div class="data-slot"><b>Data slot</b><code>calendar_event_id · start_at · end_at · reminder</code></div></div>
+    <div class="feature-card"><div class="feature-top"><div><h3 data-en="Share one trip link" data-ko="링크 하나로 일정 공유">Share one trip link</h3><p data-en="Family and friends can open a read-only or collaborative itinerary." data-ko="가족·친구가 링크 하나로 읽기 전용 또는 공동 일정을 열 수 있게 합니다.">Family and friends can open a read-only or collaborative itinerary.</p></div><span class="slot-type api">BACKEND</span></div><div class="data-slot"><b>Data slot</b><code>share_token · permission · collaborator[] · expires_at</code></div></div>
+  </div>
+</section>
+
+<div class="bottom"><button class="cta" id="mainCTA" onclick="mainAction()">Plan My Korea Trip</button></div>
+</div>
+
+
+
+
+
+
+
+<div id="v11Toast" class="share-toast">Saved</div>
+
+
+
+
+<script>
+let current='home';
+let lang=localStorage.getItem('koreaRouteLang')||'en';
+let cityState=null;
+
+function applyLang(){
+  document.documentElement.lang=lang==='ko'?'ko':'en';
+  document.querySelectorAll('[data-en][data-ko]').forEach(el=>{
+    el.innerHTML=el.getAttribute(lang==='ko'?'data-ko':'data-en');
+  });
+  const langBtn=document.getElementById('langBtn');
+  if(langBtn) langBtn.textContent=lang==='ko'?'한국어 / EN':'EN / 한국어';
+  if(cityState){ renderCity(); setTimeout(()=>{try{renderCityGuideMap(cityState.key||cityState.en)}catch(e){}},120); }
+  updateRoutePreview();
+  if(current==='result') calculate();
+  updateCTA();
+}
+function toggleLang(){lang=lang==='en'?'ko':'en';localStorage.setItem('koreaRouteLang',lang);applyLang()}
+function go(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active'); current=id; updateCTA();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function updateCTA(){
+  const cta=document.getElementById('mainCTA');
+  const bottom=cta?.closest('.bottom');
+  const text={
+    home:['Plan My Korea Trip','한국 여행 계획하기'],
+    planner:['Find My Best Route','최적 경로 찾기'],
+    result:['Explore Destination Guide','목적지 가이드 보기'],
+    city:['Back to Recommended Route','추천 경로로 돌아가기']
+  }[current];
+  if(!text){
+    if(bottom) bottom.style.display='none';
+    return;
+  }
+  if(bottom) bottom.style.display='';
+  cta.textContent=lang==='ko'?text[1]:text[0];
+}
+
+const cityGuideConfig={
+  Seoul:{ko:'서울',emoji:'🏙️',descEn:'Capital city',descKo:'수도 도시',moveEn:'Subway + bus',moveKo:'지하철 + 버스',costEn:'₩10,000–20,000/day',costKo:'₩10,000–20,000/일'},
+  Suwon:{ko:'수원',emoji:'🏯',descEn:'Fortress city',descKo:'성곽 도시',moveEn:'Subway + local bus',moveKo:'지하철 + 시내버스',costEn:'₩10,000–20,000/day',costKo:'₩10,000–20,000/일'},
+  Jeonju:{ko:'전주',emoji:'🏘️',descEn:'Hanok & food city',descKo:'한옥과 음식 도시',moveEn:'Bus + walking',moveKo:'버스 + 도보',costEn:'₩10,000–20,000/day',costKo:'₩10,000–20,000/일'},
+  Gyeongju:{ko:'경주',emoji:'🌙',descEn:'History city',descKo:'역사 도시',moveEn:'Bus + taxi',moveKo:'버스 + 택시',costEn:'₩15,000–30,000/day',costKo:'₩15,000–30,000/일'},
+  Busan:{ko:'부산',emoji:'🌊',descEn:'Ocean city',descKo:'바다 도시',moveEn:'KTX + subway',moveKo:'KTX + 지하철',costEn:'₩20,000–35,000/day',costKo:'₩20,000–35,000/일'},
+  Jeju:{ko:'제주',emoji:'🏝️',descEn:'Island city',descKo:'섬 여행',moveEn:'Bus + rental car',moveKo:'버스 + 렌터카',costEn:'₩25,000–60,000/day',costKo:'₩25,000–60,000/일'}
+};
+function openDestinationGuide(){
+  const dest=document.getElementById('dest').value;
+  const c=cityGuideConfig[dest]||cityGuideConfig.Suwon;
+  openCity(dest,c.ko,c.emoji,c.descEn,c.descKo,c.moveEn,c.moveKo,c.costEn,c.costKo);
+}
+
+function mainAction(){
+  if(current==='home') return go('planner');
+  if(current==='planner'){go('result');setTimeout(()=>{try{calculate()}catch(e){console.error(e)}},50);return}
+  if(current==='result') return openDestinationGuide();
+  if(current==='city'){
+    go('result');
+    setTimeout(()=>{try{calculate()}catch(e){console.error(e)}},50);
+    return;
+  }
+}
+const cityMeta = {
+  Seoul:{ko:'서울', descEn:'Start in the capital', descKo:'수도 서울에서 여행 시작'},
+  Suwon:{ko:'수원', descEn:'Fortress & local culture', descKo:'성곽과 로컬 문화'},
+  Jeonju:{ko:'전주', descEn:'Hanok & food culture', descKo:'한옥과 음식 문화'},
+  Gyeongju:{ko:'경주', descEn:'History & night views', descKo:'역사와 야경'},
+  Busan:{ko:'부산', descEn:'Ocean city finale', descKo:'바다 도시에서 마무리'},
+  Jeju:{ko:'제주', descEn:'Island escape', descKo:'섬 여행'}
+};
+
+const routeRules = {
+  'Seoul>Suwon':['Seoul','Suwon'],
+  'Seoul>Jeonju':['Seoul','Jeonju'],
+  'Seoul>Gyeongju':['Seoul','Gyeongju'],
+  'Seoul>Busan':['Seoul','Busan'],
+  'Seoul>Jeju':['Seoul','Jeju'],
+
+  'Busan>Suwon':['Busan','Seoul','Suwon'],
+  'Busan>Jeonju':['Busan','Jeonju'],
+  'Busan>Gyeongju':['Busan','Gyeongju'],
+  'Busan>Jeju':['Busan','Jeju'],
+  'Busan>Seoul':['Busan','Seoul'],
+
+  'Jeju>Seoul':['Jeju','Seoul'],
+  'Jeju>Busan':['Jeju','Busan'],
+  'Jeju>Gyeongju':['Jeju','Busan','Gyeongju'],
+  'Jeju>Jeonju':['Jeju','Busan','Jeonju'],
+  'Jeju>Suwon':['Jeju','Seoul','Suwon']
+};
+
+function getRoute(start,dest){
+  if(start===dest) return [start];
+  const scenic=document.getElementById('scenicRoute')?.checked;
+  if(scenic && start==='Seoul' && dest==='Busan') return ['Seoul','Gyeongju','Busan'];
+  if(scenic && start==='Busan' && dest==='Seoul') return ['Busan','Gyeongju','Seoul'];
+  return routeRules[`${start}>${dest}`] || [start,dest];
+}
+
+function routeDesc(city,index,lastIndex){
+  if(index===0) return lang==='ko'?'여행 시작':'Start your journey';
+  if(index===lastIndex) return lang==='ko'?'최종 목적지':'Final destination';
+  const m=cityMeta[city];
+  return lang==='ko'?m.descKo:m.descEn;
+}
+
+function transportLabel(a,b){
+  if(a==='Jeju' || b==='Jeju') return lang==='ko'?'✈️ 항공':'✈️ Flight';
+  if((a==='Seoul'&&b==='Suwon') || (a==='Suwon'&&b==='Seoul')) return lang==='ko'?'🚆 전철/철도':'🚆 Subway/Rail';
+  return lang==='ko'?'🚆 철도/버스':'🚆 Rail/Bus';
+}
+
+function renderPlannerRoute(route){
+  const box=document.getElementById('plannerRoute');
+  box.innerHTML='';
+  route.forEach((city,i)=>{
+    const stop=document.createElement('div');
+    stop.className='stop';
+    stop.innerHTML=`<div class="dot"></div><div><div class="name">${lang==='ko'?cityMeta[city].ko:city}</div><div class="desc">${routeDesc(city,i,route.length-1)}</div></div>`;
+    box.appendChild(stop);
+    if(i<route.length-1){
+      const line=document.createElement('div');
+      line.className='line-v';
+      box.appendChild(line);
+    }
+  });
+}
+
+function renderResultRoute(route){
+  const box=document.getElementById('resultRoute');
+  box.innerHTML='<div class="route-line"></div>';
+  route.forEach((city,i)=>{
+    const row=document.createElement('div');
+    row.className='route-stop';
+    const name=lang==='ko'?cityMeta[city].ko:city;
+    const label=i===0?(lang==='ko'?'출발':'START'):(i===route.length-1?(lang==='ko'?'도착':'DESTINATION'):(lang==='ko'?'경유':'STOP'));
+    row.innerHTML=`<div class="pin">${i+1}</div><div class="stop-card"><b>${name}</b><span>${label}</span></div>`;
+    box.appendChild(row);
+  });
+  document.getElementById('stopCount').textContent=`${route.length} ${lang==='ko'?'개 도시':'STOPS'}`;
+}
+
+function updateRoutePreview(){
+  const start=document.getElementById('start').value;
+  const dest=document.getElementById('dest').value;
+  renderPlannerRoute(getRoute(start,dest));
+}
+
+
+
+
+const cityPois={
+  Seoul:[
+    {en:'Gyeongbokgung Palace',ko:'경복궁',lat:37.5796,lng:126.9770},
+    {en:'Bukchon Hanok Village',ko:'북촌한옥마을',lat:37.5826,lng:126.9830},
+    {en:'Myeongdong',ko:'명동',lat:37.5636,lng:126.9869}
+  ],
+  Suwon:[
+    {en:'Hwaseong Haenggung',ko:'화성행궁',lat:37.2819,lng:127.0141},
+    {en:'Banghwasuryujeong',ko:'방화수류정',lat:37.2873,lng:127.0166},
+    {en:'Haenggung-dong',ko:'행궁동',lat:37.2828,lng:127.0153}
+  ],
+  Jeonju:[
+    {en:'Jeonju Hanok Village',ko:'전주한옥마을',lat:35.8149,lng:127.1530},
+    {en:'Gyeonggijeon Shrine',ko:'경기전',lat:35.8154,lng:127.1496},
+    {en:'Nambu Market',ko:'남부시장',lat:35.8119,lng:127.1476}
+  ],
+  Gyeongju:[
+    {en:'Daereungwon',ko:'대릉원',lat:35.8381,lng:129.2107},
+    {en:'Cheomseongdae',ko:'첨성대',lat:35.8347,lng:129.2190},
+    {en:'Donggung & Wolji',ko:'동궁과 월지',lat:35.8343,lng:129.2265}
+  ],
+  Busan:[
+    {en:'Haeundae Beach',ko:'해운대해수욕장',lat:35.1587,lng:129.1604},
+    {en:'Gamcheon Culture Village',ko:'감천문화마을',lat:35.0975,lng:129.0106},
+    {en:'Gwangalli Beach',ko:'광안리해수욕장',lat:35.1532,lng:129.1186}
+  ],
+  Jeju:[
+    {en:'Dongmun Market',ko:'동문시장',lat:33.5126,lng:126.5289},
+    {en:'Seongsan Ilchulbong',ko:'성산일출봉',lat:33.4580,lng:126.9426},
+    {en:'Iho Tewoo Beach',ko:'이호테우해변',lat:33.4974,lng:126.4524}
+  ]
+};
+
+const cityExtraPois={
+  Seoul:[
+    {en:'N Seoul Tower',ko:'N서울타워',lat:37.5512,lng:126.9882},
+    {en:'Gwangjang Market',ko:'광장시장',lat:37.5700,lng:126.9996},
+    {en:'Hongdae',ko:'홍대',lat:37.5563,lng:126.9236}
+  ],
+  Suwon:[
+    {en:'Janganmun Gate',ko:'장안문',lat:37.2880,lng:127.0131},
+    {en:'Paldalmun Gate',ko:'팔달문',lat:37.2770,lng:127.0160},
+    {en:'Suwon Hwaseong Museum',ko:'수원화성박물관',lat:37.2826,lng:127.0196}
+  ],
+  Jeonju:[
+    {en:'Jaman Mural Village',ko:'자만벽화마을',lat:35.8158,lng:127.1588},
+    {en:'Jeondong Cathedral',ko:'전동성당',lat:35.8133,lng:127.1492},
+    {en:'Omokdae',ko:'오목대',lat:35.8146,lng:127.1570}
+  ],
+  Gyeongju:[
+    {en:'Hwangnidan-gil',ko:'황리단길',lat:35.8370,lng:129.2094},
+    {en:'Bulguksa Temple',ko:'불국사',lat:35.7900,lng:129.3320},
+    {en:'Woljeonggyo Bridge',ko:'월정교',lat:35.8294,lng:129.2148}
+  ],
+  Busan:[
+    {en:'Jagalchi Market',ko:'자갈치시장',lat:35.0967,lng:129.0305},
+    {en:'Huinnyeoul Culture Village',ko:'흰여울문화마을',lat:35.0788,lng:129.0435},
+    {en:'Haedong Yonggungsa',ko:'해동용궁사',lat:35.1884,lng:129.2233}
+  ],
+  Jeju:[
+    {en:'Hamdeok Beach',ko:'함덕해수욕장',lat:33.5431,lng:126.6692},
+    {en:'Seogwipo Olle Market',ko:'서귀포매일올레시장',lat:33.2502,lng:126.5634},
+    {en:'Saryeoni Forest',ko:'사려니숲길',lat:33.4073,lng:126.6257}
+  ]
+};
+
+function poiStorageKey(city){return `koreaRoutePois:${city}`;}
+function loadSelectedPoiNames(city){
+  try{
+    const raw=localStorage.getItem(poiStorageKey(city));
+    return raw?JSON.parse(raw):[];
+  }catch(_){return [];}
+}
+function saveSelectedPoiNames(city,names){
+  localStorage.setItem(poiStorageKey(city),JSON.stringify(names));
+}
+function getSelectedCityPois(city){
+  const base=(cityPois[city]||[]).map(p=>({...p,base:true}));
+  const extras=cityExtraPois[city]||[];
+  const selected=loadSelectedPoiNames(city);
+  const selectedExtras=extras.filter(p=>selected.includes(p.en)).map(p=>({...p,base:false}));
+  return [...base,...selectedExtras];
+}
+function renderCityAttractionManager(city){
+  const list=document.getElementById('cityAttractionList');
+  const count=document.getElementById('cityAttractionCount');
+  if(!list) return;
+  const selected=new Set(loadSelectedPoiNames(city));
+  const base=cityPois[city]||[];
+  const extras=cityExtraPois[city]||[];
+  list.innerHTML='';
+  base.forEach(p=>{
+    const row=document.createElement('label');
+    row.className='city-attraction-item base';
+    row.innerHTML=`<input type="checkbox" checked disabled><div class="city-attraction-text"><b>${lang==='ko'?p.ko:p.en}</b><span>${lang==='ko'?'기본 추천 방문지':'Default recommended stop'}</span></div>`;
+    list.appendChild(row);
+  });
+  extras.forEach((p,i)=>{
+    const row=document.createElement('label');
+    row.className='city-attraction-item';
+    row.innerHTML=`<input type="checkbox" data-extra-poi="${i}" ${selected.has(p.en)?'checked':''}><div class="city-attraction-text"><b>${lang==='ko'?p.ko:p.en}</b><span>${lang==='ko'?'선택하면 지도와 일정에 추가':'Add to map and itinerary'}</span></div>`;
+    list.appendChild(row);
+  });
+  if(count) count.textContent=String(base.length+selected.size);
+}
+function applyCityAttractions(){
+  const city=cityState?.key||document.getElementById('dest').value;
+  const extras=cityExtraPois[city]||[];
+  const chosen=[...document.querySelectorAll('#cityAttractionList input[data-extra-poi]')]
+    .filter(x=>x.checked)
+    .map(x=>extras[Number(x.dataset.extraPoi)]?.en)
+    .filter(Boolean);
+  saveSelectedPoiNames(city,chosen);
+  renderCityAttractionManager(city);
+  renderCityGuideMap(city);
+  if(document.getElementById('dest').value===city){
+    v11RenderItinerary();
+  }
+  v11Toast(lang==='ko'?`관광지 ${3+chosen.length}곳을 일정에 반영했어요`:`${3+chosen.length} attractions applied`);
+}
+
+let cityGuideMap=null;
+let cityGuideLayer=null;
+
+
+function renderCitySchematic(city){
+  const host=document.getElementById('citySchematic');
+  if(!host) return;
+  const pois=getSelectedCityPois(city);
+  host.innerHTML=`
+    <div class="schem-road" style="width:78%;left:7%;top:28%;transform:rotate(7deg)"></div>
+    <div class="schem-road" style="width:66%;left:23%;top:62%;transform:rotate(-9deg)"></div>
+    <div class="schem-road" style="width:46%;left:13%;top:48%;transform:rotate(78deg)"></div>
+    <svg class="schem-route" viewBox="0 0 100 100" preserveAspectRatio="none">
+      <polyline id="schemPolyline" points="" fill="none" stroke="#2f6fed" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3 2"/>
+    </svg>`;
+  if(!pois.length) return;
+
+  const lats=pois.map(p=>p.lat), lngs=pois.map(p=>p.lng);
+  const minLat=Math.min(...lats), maxLat=Math.max(...lats);
+  const minLng=Math.min(...lngs), maxLng=Math.max(...lngs);
+  const latSpan=Math.max(maxLat-minLat,0.001), lngSpan=Math.max(maxLng-minLng,0.001);
+
+  const positions=pois.map((p,i)=>{
+    // normalized with safe margins
+    let x=18+((p.lng-minLng)/lngSpan)*64;
+    let y=78-((p.lat-minLat)/latSpan)*56;
+    // separate very close points slightly
+    if(i===1){x+=4;y-=3}
+    if(i===2){x-=3;y+=3}
+    return [x,y];
+  });
+  const poly=host.querySelector('#schemPolyline');
+  if(poly) poly.setAttribute('points',positions.map(p=>p.join(',')).join(' '));
+
+  positions.forEach(([x,y],i)=>{
+    const p=pois[i];
+    const pin=document.createElement('div');
+    pin.className='schem-pin'+(p.base?'':' added-poi');
+    pin.style.left=x+'%'; pin.style.top=y+'%'; pin.textContent=i+1;
+    host.appendChild(pin);
+
+    const label=document.createElement('div');
+    label.className='schem-label';
+    label.style.left=x+'%'; label.style.top=y+'%';
+    label.textContent=lang==='ko'?p.ko:p.en;
+    host.appendChild(label);
+  });
+}
+
+function ensureCityGuideMap(){
+  if(typeof L==='undefined'){
+    const el=document.getElementById('cityGuideMap');
+    if(el) el.innerHTML='<div style="height:100%;display:grid;place-items:center;padding:20px;text-align:center;font-weight:900;color:#6c7b91">Map loads after web deployment.<br><small style="font-weight:700">Local download preview may block map tiles.</small></div>';
+    return null;
+  }
+  if(!cityGuideMap){
+    cityGuideMap=L.map('cityGuideMap',{zoomControl:true,scrollWheelZoom:false}).setView([37.2636,127.0286],12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+      maxZoom:18,
+      attribution:'&copy; OpenStreetMap contributors'
+    }).addTo(cityGuideMap);
+  }
+  setTimeout(()=>cityGuideMap.invalidateSize(),100);
+  return cityGuideMap;
+}
+
+function renderCityGuideMap(city){
+  renderCitySchematic(city);
+  const live=document.getElementById('cityGuideMap');
+  const schematic=document.getElementById('citySchematic');
+  const canLive = location.protocol==='http:' || location.protocol==='https:';
+  if(!canLive){
+    if(live) live.style.display='none';
+    if(schematic) schematic.style.display='block';
+    return;
+  }
+  if(live) live.style.display='block';
+  if(schematic) schematic.style.display='none';
+  const map=ensureCityGuideMap();
+  if(!map){
+    if(live) live.style.display='none';
+    if(schematic) schematic.style.display='block';
+    return;
+  }
+  if(cityGuideLayer) cityGuideLayer.remove();
+  const pois=getSelectedCityPois(city);
+  const group=L.featureGroup();
+  const list=document.getElementById('cityPoiList');
+  if(list) list.innerHTML='';
+  pois.forEach((p,i)=>{
+    L.circleMarker([p.lat,p.lng],{
+      radius:8,weight:4,color:'#0b2345',fillColor:'#ffffff',fillOpacity:1
+    }).bindPopup(`<b>${i+1}. ${lang==='ko'?p.ko:p.en}</b>`).addTo(group);
+    if(list){
+      const item=document.createElement('div');
+      item.className='poi-item';
+      item.innerHTML=`<div class="poi-num">${i+1}</div><div class="poi-text"><b>${lang==='ko'?p.ko:p.en}</b><span>${lang==='ko'?'추천 방문지':'Recommended stop'}</span></div>`;
+      list.appendChild(item);
+    }
+  });
+  if(pois.length>1){
+    const pts=pois.map(p=>[p.lat,p.lng]);
+    L.polyline(pts,{weight:4,opacity:.8,dashArray:'8 8',color:'#2f6fed'}).addTo(group);
+  }
+  group.addTo(map);
+  cityGuideLayer=group;
+  if(pois.length) map.fitBounds(group.getBounds().pad(.18));
+}
+
+const cityCoords={
+  Seoul:[37.5665,126.9780],
+  Suwon:[37.2636,127.0286],
+  Jeonju:[35.8242,127.1480],
+  Gyeongju:[35.8562,129.2247],
+  Busan:[35.1796,129.0756],
+  Jeju:[33.4996,126.5312]
+};
+let routeMap=null;
+let routeLayer=null;
+
+function ensureMap(){
+  if(typeof L==='undefined'){
+    const el=document.getElementById('liveMap');
+    if(el) el.innerHTML='<div style="height:100%;display:grid;place-items:center;padding:20px;text-align:center;font-weight:900;color:#6c7b91">Map loads after web deployment.<br><small style="font-weight:700">Local download preview may block map tiles.</small></div>';
+    return null;
+  }
+  if(!routeMap){
+    routeMap=L.map('liveMap',{zoomControl:true,scrollWheelZoom:false}).setView([36.3,127.8],7);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+      maxZoom:18,
+      attribution:'&copy; OpenStreetMap contributors'
+    }).addTo(routeMap);
+  }
+  setTimeout(()=>routeMap.invalidateSize(),80);
+  return routeMap;
+}
+
+function renderLiveMap(route){
+  let map=null;
+  try{ map=ensureMap(); }catch(e){ console.warn('Map unavailable in local preview',e); return; }
+  if(!map) return;
+  if(routeLayer) routeLayer.remove();
+  const pts=route.map(c=>cityCoords[c]).filter(Boolean);
+  const group=L.featureGroup();
+  pts.forEach((pt,i)=>{
+    const city=route[i];
+    const name=lang==='ko'?cityMeta[city].ko:city;
+    const marker=L.circleMarker(pt,{
+      radius:8,weight:4,color:'#2f6fed',fillColor:'#ffffff',fillOpacity:1
+    }).bindPopup(`<span class="route-popup">${i+1}. ${name}</span>`);
+    marker.addTo(group);
+  });
+  if(pts.length>1){
+    L.polyline(pts,{weight:5,opacity:.85,dashArray:'10 8',color:'#2f6fed'}).addTo(group);
+  }
+  group.addTo(map);
+  routeLayer=group;
+  if(pts.length===1) map.setView(pts[0],10);
+  else map.fitBounds(group.getBounds().pad(.25));
+}
+
+function parseMinutes(text){
+  if(!text) return 120;
+  // Range in minutes only, e.g. "35–50 min" -> average of the two numbers.
+  const rng=text.match(/(\d+)\s*[–-]\s*(\d+)\s*min/);
+  if(rng) return Math.round((Number(rng[1])+Number(rng[2]))/2);
+  // Hours + minutes, e.g. "1h 40m–2h 50m" -> average start and end.
+  const hm=[...text.matchAll(/(\d+)\s*h(?:\s*(\d+)\s*m)?/g)];
+  if(hm.length){
+    const vals=hm.map(m=>Number(m[1])*60+(m[2]?Number(m[2]):0));
+    return Math.round(vals.reduce((a,b)=>a+b,0)/vals.length);
+  }
+  const m=(text.match(/(\d+)\s*m\b/)||[])[1];
+  if(m) return Number(m);
+  return 120;
+}
+function estimateRouteMinutes(route){
+  let total=0;
+  for(let i=0;i<route.length-1;i++){
+    total+=parseMinutes(legData(route[i],route[i+1]).time);
+    if(i<route.length-2) total+=30;
+  }
+  return total;
+}
+function calcArrival(route){
+  const t=(document.getElementById('tripTime').value||'09:00').split(':').map(Number);
+  const base=new Date(2026,0,1,t[0],t[1]||0,0,0);
+  base.setMinutes(base.getMinutes()+estimateRouteMinutes(route));
+  return base.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+}
+
+function getTripStyleLabel(){
+  const v=document.getElementById('travelStyle').value;
+  if(lang==='ko'){
+    if(v==='fast') return '가장 빠르게';
+    if(v==='cheap') return '가장 저렴하게';
+    return '균형 추천';
+  }
+  if(v==='fast') return 'Fastest';
+  if(v==='cheap') return 'Cheapest';
+  return 'Balanced';
+}
+
+function legData(a,b){
+  const key=`${a}>${b}`;
+  const data={
+    'Seoul>Suwon':{mode:'Subway / Rail',modeKo:'전철 / 철도',time:'35–50 min',cost:'₩3,000–9,000'},
+    'Seoul>Jeonju':{mode:'KTX / Express Bus',modeKo:'KTX / 고속버스',time:'1h 40m–2h 50m',cost:'₩18,000–35,000'},
+    'Seoul>Gyeongju':{mode:'KTX',modeKo:'KTX',time:'2h–2h 20m',cost:'₩45,000–55,000'},
+    'Seoul>Busan':{mode:'KTX',modeKo:'KTX',time:'2h 20m–3h',cost:'₩50,000–65,000'},
+    'Seoul>Jeju':{mode:'Flight',modeKo:'항공',time:'1h 10m + airport',cost:'₩40,000–120,000'},
+    'Gyeongju>Busan':{mode:'Rail / Bus',modeKo:'철도 / 버스',time:'35–60 min',cost:'₩6,000–15,000'},
+    'Busan>Gyeongju':{mode:'Rail / Bus',modeKo:'철도 / 버스',time:'35–60 min',cost:'₩6,000–15,000'},
+    'Busan>Jeju':{mode:'Flight',modeKo:'항공',time:'1h + airport',cost:'₩35,000–100,000'},
+    'Jeju>Busan':{mode:'Flight',modeKo:'항공',time:'1h + airport',cost:'₩35,000–100,000'},
+    'Jeju>Seoul':{mode:'Flight',modeKo:'항공',time:'1h 10m + airport',cost:'₩40,000–120,000'},
+    'Busan>Seoul':{mode:'KTX',modeKo:'KTX',time:'2h 20m–3h',cost:'₩50,000–65,000'},
+    'Jeju>Suwon':{mode:'Flight + Rail',modeKo:'항공 + 철도',time:'3h+',cost:'₩50,000–130,000'},
+    'Busan>Suwon':{mode:'KTX + Rail',modeKo:'KTX + 철도',time:'3h+',cost:'₩55,000–75,000'},
+    'Busan>Jeonju':{mode:'Express Bus',modeKo:'고속버스',time:'3h+',cost:'₩20,000–35,000'},
+    'Jeju>Gyeongju':{mode:'Flight + Rail',modeKo:'항공 + 철도',time:'3h+',cost:'₩45,000–120,000'},
+    'Jeju>Jeonju':{mode:'Flight + Bus',modeKo:'항공 + 버스',time:'3h 30m+',cost:'₩50,000–130,000'}
+  };
+  return data[key] || {mode:'Rail / Bus',modeKo:'철도 / 버스',time:'1–3h',cost:'₩10,000–50,000'};
+}
+
+function renderSegmentCards(route){
+  const box=document.getElementById('segmentCards');
+  box.innerHTML='';
+  for(let i=0;i<route.length-1;i++){
+    const a=route[i], b=route[i+1], d=legData(a,b);
+    const card=document.createElement('div');
+    card.className='segment-card';
+    const an=lang==='ko'?cityMeta[a].ko:a;
+    const bn=lang==='ko'?cityMeta[b].ko:b;
+    const alt=(a==='Seoul'&&b==='Suwon')?(lang==='ko'?'대안: 광역버스':'Alt: Express bus'):
+              ((a==='Seoul'&&b==='Gyeongju')||(a==='Seoul'&&b==='Busan'))?(lang==='ko'?'대안: 고속버스':'Alt: Express bus'):
+              ((a==='Seoul'&&b==='Jeju')||(a==='Busan'&&b==='Jeju')||(a==='Jeju'&&b==='Seoul'))?(lang==='ko'?'대안: 다른 항공편':'Alt: Other flight'):
+              (lang==='ko'?'대안 교통편 비교 가능':'Alternative available');
+    card.innerHTML=`
+      <div class="segment-head">
+        <div class="segment-route">${an} → ${bn}<small>${lang==='ko'?'추천 이동 구간':'Suggested travel leg'}</small></div>
+        <div class="mode-badge">${lang==='ko'?d.modeKo:d.mode}</div>
+      </div>
+      <div class="segment-info">
+        <div><span>${lang==='ko'?'예상 시간':'TIME'}</span><b>${d.time}</b></div>
+        <div><span>${lang==='ko'?'예상 요금':'FARE'}</span><b>${d.cost}</b></div>
+        <div><span>${lang==='ko'?'예약':'BOOKING'}</span><b>${lang==='ko'?'쉬움':'Easy'}</b></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:11px;font-size:9px;color:var(--muted);font-weight:850">
+        <span>${alt}</span>
+        <span style="color:#25a866">${lang==='ko'?'외국인 이용 편리':'Visitor friendly'}</span>
+      </div>`;
+    box.appendChild(card);
+  }
+}
+
+
+const v11TransportProfiles = {
+  rail:{en:'Rail + local transit',ko:'철도 + 현지교통',speed:95,cost:1.0,easy:92,luggage:90},
+  bus:{en:'Express bus mix',ko:'고속버스 혼합',speed:75,cost:.78,easy:82,luggage:76},
+  car:{en:'Rental car',ko:'렌터카',speed:82,cost:1.55,easy:68,luggage:98},
+  flight:{en:'Flight + airport transit',ko:'항공 + 공항교통',speed:115,cost:1.35,easy:84,luggage:78}
+};
+
+function v11Distance(a,b){
+  const ca=cityCoords[a], cb=cityCoords[b];
+  if(!ca||!cb) return 250;
+  const R=6371, r=Math.PI/180;
+  const dLat=(cb[0]-ca[0])*r, dLng=(cb[1]-ca[1])*r;
+  const s=Math.sin(dLat/2)**2+Math.cos(ca[0]*r)*Math.cos(cb[0]*r)*Math.sin(dLng/2)**2;
+  return 2*R*Math.asin(Math.sqrt(s));
+}
+function v11ModeFor(a,b,type){
+  if(a==='Jeju'||b==='Jeju') return 'flight';
+  if(type==='car') return 'car';
+  if(type==='cheap') return 'bus';
+  return 'rail';
+}
+function v11Candidates(start,dest){
+  const km=Math.max(28,v11Distance(start,dest));
+  const people=Math.max(1,Number(document.getElementById('travelers').value||1));
+  const make=(type)=>{
+    const mode=v11ModeFor(start,dest,type);
+    const p=v11TransportProfiles[mode];
+    let mins=Math.round((km/p.speed)*60 + (mode==='rail'?45:mode==='bus'?55:mode==='car'?20:110));
+    if(start==='Seoul'&&dest==='Suwon'&&mode==='rail') mins=45;
+    let cost=Math.round((km*150*p.cost + (mode==='flight'?42000:mode==='car'?35000:5000))/1000)*1000;
+    if(mode==='car') cost=Math.round(cost/Math.max(2,people));
+    let score=p.easy + (type==='fast'?12:0)+(type==='cheap'?8:0)+(type==='car'?2:0);
+    return {type,mode,p,mins,cost,score};
+  };
+  return [make('balanced'),make('cheap'),make('car')].sort((a,b)=>a.mins-b.mins);
+}
+function v11FmtMin(m){ const h=Math.floor(m/60), mm=m%60; return h?`${h}h ${mm}m`:`${mm}m`; }
+function v11FmtWon(n){ return '₩'+Math.max(0,Math.round(n)).toLocaleString(); }
+
+function v11RenderOptions(){
+  if(!document.getElementById('v11RouteOptions')) return;
+  const start=document.getElementById('start').value;
+  const dest=document.getElementById('dest').value;
+  const travelers=Math.max(1,Number(document.getElementById('travelers').value||1));
+  const priority=(document.querySelector('#v11RecoTabs .reco-tab.active')||{}).dataset?.priority||'balanced';
+  let arr=v11Candidates(start,dest);
+  const score=c=>{
+    if(priority==='fast') return -c.mins;
+    if(priority==='cheap') return -c.cost;
+    if(priority==='easy') return c.p.easy;
+    return c.p.easy - c.mins/20 - c.cost/12000;
+  };
+  arr=arr.sort((a,b)=>score(b)-score(a));
+  const box=document.getElementById('v11RouteOptions');
+  box.innerHTML='';
+  arr.forEach((c,i)=>{
+    const d=document.createElement('div');
+    d.className='route-option'+(i===0?' best':'');
+    const nm=lang==='ko'?c.p.ko:c.p.en;
+    d.innerHTML=`
+      <div class="top"><div><h3>${nm}</h3><div style="font-size:8px;color:var(--muted);font-weight:800;margin-top:4px">${start} → ${dest}</div></div>${i===0?`<span class="badge">${lang==='ko'?'BEST 추천':'BEST MATCH'}</span>`:''}</div>
+      <div class="meta">
+        <div><span>${lang==='ko'?'예상 시간':'TIME'}</span><b>${v11FmtMin(c.mins)}</b></div>
+        <div><span>${lang==='ko'?'1인 예상':'PER PERSON'}</span><b>${v11FmtWon(c.cost)}</b></div>
+        <div><span>${lang==='ko'?'외국인 편의':'VISITOR'}</span><b>${c.p.easy}/100</b></div>
+      </div>`;
+    box.appendChild(d);
+  });
+  const best=arr[0];
+  document.getElementById('v11TotalCost').textContent=v11FmtWon(best.cost*travelers);
+  document.getElementById('v11TotalTime').textContent=v11FmtMin(best.mins);
+  document.getElementById('v11People').textContent=`${travelers}`;
+  document.getElementById('v11Difficulty').textContent=best.p.easy>=88?(lang==='ko'?'쉬움':'Easy'):(lang==='ko'?'보통':'Medium');
+}
+function v11RenderItinerary(){
+  const host=document.getElementById('v11Itinerary'); if(!host) return;
+  const start=document.getElementById('start').value,dest=document.getElementById('dest').value;
+  const days=Math.max(1,Math.min(10,Number(document.getElementById('days').value||3)));
+  const pois=getSelectedCityPois(dest);
+  host.innerHTML='';
+  for(let d=1;d<=days;d++){
+    const div=document.createElement('div'); div.className='day-card';
+    let title,desc;
+    if(d===1){
+      title=lang==='ko'?`DAY 1 · ${start} → ${dest}`:`DAY 1 · ${start} → ${dest}`;
+      desc=lang==='ko'?'이동 · 체크인 · 주변 산책':'Transfer · check-in · easy neighborhood walk';
+    }else if(d===2 && pois.length){
+      title=lang==='ko'?`DAY 2 · 핵심 명소`:`DAY 2 · Highlights`;
+      desc=pois.map(p=>lang==='ko'?p.ko:p.en).join(' → ');
+    }else{
+      title=(lang==='ko'?`DAY ${d} · 자유 일정`:`DAY ${d} · Flexible day`);
+      desc=lang==='ko'?'카페 · 쇼핑 · 현지 음식 · 예비 일정':'Cafe · shopping · local food · buffer time';
+    }
+    div.innerHTML=`<b>${title}</b><span>${desc}</span>`; host.appendChild(div);
+  }
+}
+function v11Toast(text){
+  const t=document.getElementById('v11Toast'); if(!t) return;
+  t.textContent=text; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1500);
+}
+function v11TripData(){
+  return {
+    start:document.getElementById('start').value,
+    dest:document.getElementById('dest').value,
+    travelers:document.getElementById('travelers').value,
+    days:document.getElementById('days').value,
+    date:document.getElementById('tripDate').value,
+    time:document.getElementById('tripTime').value,
+    style:document.getElementById('travelStyle').value
+  };
+}
+function v11Refresh(){
+  if(current!=='result') return;
+  try{v11RenderOptions();v11RenderItinerary();}catch(e){console.warn(e)}
+}
+
+function calculate(){
+  const travelers=Math.max(1,parseInt(document.getElementById('travelers').value||1));
+  const start=document.getElementById('start').value;
+  const dest=document.getElementById('dest').value;
+  const route=getRoute(start,dest);
+
+  renderPlannerRoute(route);
+  renderResultRoute(route);
+  renderSegmentCards(route);
+  renderLiveMap(route);
+
+  const tripDate=document.getElementById('tripDate').value;
+  const tripTime=document.getElementById('tripTime').value || '09:00';
+  document.getElementById('sumDate').textContent=tripDate || (lang==='ko'?'날짜 미선택':'Not selected');
+  document.getElementById('sumStyle').textContent=getTripStyleLabel();
+  document.getElementById('sumDepart').textContent=tripTime;
+  document.getElementById('sumArrival').textContent=calcArrival(route);
+
+  const priority=document.getElementById('travelStyle').value||'balanced';
+  let candidates=v11Candidates(start,dest);
+  const score=c=>{
+    if(priority==='fast') return -c.mins;
+    if(priority==='cheap') return -c.cost;
+    return c.p.easy - c.mins/20 - c.cost/12000;
+  };
+  candidates=candidates.sort((a,b)=>score(b)-score(a));
+  const best=candidates[0];
+  const bus=candidates.find(c=>c.mode==='bus')||candidates[1]||best;
+  const car=candidates.find(c=>c.mode==='car')||candidates[candidates.length-1]||best;
+
+  const total=best.cost*travelers;
+  const separate=Math.round(total*1.27);
+  const saving=Math.max(0,separate-total);
+
+  document.getElementById('total').textContent=v11FmtWon(total);
+  document.getElementById('saveText').textContent=lang==='ko'
+    ? `개별 구매 예상액보다 약 ${v11FmtWon(saving)} 절약할 수 있어요.`
+    : `Estimated saving: about ${v11FmtWon(saving)} versus separate purchases.`;
+
+  document.getElementById('bestPrice').textContent=`${v11FmtWon(best.cost)}${lang==='ko'?' / 1인':' / person'}`;
+  document.getElementById('busPrice').textContent=`${v11FmtWon(bus.cost)}${lang==='ko'?' / 1인':' / person'}`;
+  document.getElementById('carPrice').textContent=`${v11FmtWon(car.cost)}${lang==='ko'?' / 1인*':' / person*'}`;
+
+  v11RenderOptions();
+  v11RenderItinerary();
+  document.getElementById('v11TotalCost').textContent=v11FmtWon(total);
+  document.getElementById('v11TotalTime').textContent=v11FmtMin(best.mins);
+  document.getElementById('v11People').textContent=String(travelers);
+  document.getElementById('v11Difficulty').textContent=best.p.easy>=88?(lang==='ko'?'쉬움':'Easy'):(lang==='ko'?'보통':'Medium');
+}
+
+function openCityFromHub(city){
+  const cfg=cityGuideConfig[city];
+  if(!cfg) return;
+  openCity(city,cfg.ko,cfg.emoji,cfg.descEn,cfg.descKo,cfg.moveEn,cfg.moveKo,cfg.costEn,cfg.costKo);
+}
+
+function openCity(en,ko,emoji,descEn,descKo,moveEn,moveKo,costEn,costKo){
+  cityState={key:en,en,ko,emoji,descEn,descKo,moveEn,moveKo,costEn,costKo};
+  renderCity();
+  go('city');
+  renderCityAttractionManager(en);
+  setTimeout(()=>{try{renderCityGuideMap(en)}catch(e){console.warn('City map unavailable',e)}},180);
+}
+function renderCity(){
+  if(!cityState)return;
+  document.getElementById('cityEmoji').textContent=cityState.emoji;
+  document.getElementById('cityName').textContent=lang==='ko'?cityState.ko:cityState.en;
+  document.getElementById('cityDesc').textContent=lang==='ko'?cityState.descKo:cityState.descEn;
+  document.getElementById('cityMove').textContent=lang==='ko'?cityState.moveKo:cityState.moveEn;
+  document.getElementById('cityCost').textContent=lang==='ko'?cityState.costKo:cityState.costEn;
+  renderCityAttractionManager(cityState.key||cityState.en);
+}
+function demoBook(){
+  alert(lang==='ko'?'정식 버전에서는 실제 공식/제휴 예약 링크를 연결할 예정입니다.':'The production version will connect verified official or affiliate booking links.');
+}
+function alertLang(){
+  alert(lang==='ko'?'다음 버전에서 노선별 상세 시간·환승·예약 정보를 넣을 수 있어요.':'The next version can show route-level times, transfers and booking details.');
+}
+
+
+let ODSAY_WEB_KEY=sessionStorage.getItem('ODSAY_WEB_KEY')||'';
+
+async function testOdsayConnection(){
+  const btn=document.getElementById('odsayTestBtn');
+  const box=document.getElementById('odsayTestResult');
+  const keyInput=document.getElementById('odsayKeyInput');
+  if(!box) return;
+  const entered=(keyInput?.value||'').trim();
+  if(entered){
+    ODSAY_WEB_KEY=entered;
+    sessionStorage.setItem('ODSAY_WEB_KEY', entered);
+    if(keyInput) keyInput.value='';
+  }
+  if(!ODSAY_WEB_KEY){
+    box.className='data-slot error';
+    box.innerHTML=`<b>${lang==='ko'?'키 필요':'API key required'}</b><span>${lang==='ko'?'테스트용 ODsay Web 키를 입력해주세요.':'Enter the ODsay Web key for this test.'}</span>`;
+    return;
+  }
+  if(location.hostname!=='korea-route.vercel.app'){
+    box.className='data-slot error';
+    box.innerHTML=`<b>${lang==='ko'?'테스트 불가':'Cannot test here'}</b><span>${lang==='ko'?'ODsay Web 키는 등록한 korea-route.vercel.app 도메인의 Referer로 인증됩니다. Vercel 배포본에서 테스트해주세요.':'This ODsay Web key authenticates by the registered korea-route.vercel.app Referer. Test it on the deployed Vercel site.'}</span>`;
+    return;
+  }
+  btn.disabled=true;
+  box.className='data-slot loading';
+  box.innerHTML=`<b>${lang==='ko'?'연결 중':'Connecting'}</b><span>${lang==='ko'?'ODsay 대중교통 경로 API에 실제 요청을 보내고 있습니다…':'Sending a real request to the ODsay public-transit route API…'}</span>`;
+  try{
+    const q=new URLSearchParams({
+      SX:'126.9027279', SY:'37.5349277',
+      EX:'126.9145430', EY:'37.5499421',
+      OPT:'0', SearchType:'0', SearchPathType:'0',
+      lang: lang==='ko'?'0':'1',
+      apiKey: ODSAY_WEB_KEY
+    });
+    const res=await fetch('https://api.odsay.com/v1/api/searchPubTransPathT?'+q.toString());
+    const data=await res.json();
+    if(!res.ok || data.error){
+      const msg=data?.error?.[0]?.message || `HTTP ${res.status}`;
+      throw new Error(msg);
+    }
+    const paths=data?.result?.path || [];
+    const first=paths[0];
+    if(!first) throw new Error(lang==='ko'?'경로 결과가 없습니다.':'No route result.');
+    const info=first.info||{};
+    const minutes=info.totalTime ?? '-';
+    const fare=info.payment ?? info.totalFare ?? '-';
+    const transfers=info.busTransitCount!=null || info.subwayTransitCount!=null
+      ? (Number(info.busTransitCount||0)+Number(info.subwayTransitCount||0))
+      : '-';
+    box.className='data-slot success';
+    box.innerHTML=`<b>${lang==='ko'?'ODsay 연결 성공 ✓':'ODsay connected ✓'}</b><span>${lang==='ko'
+      ? `실제 경로 ${paths.length}개 수신 · 첫 경로 약 ${minutes}분 · 요금 ${fare}원 · 환승 정보 ${transfers}`
+      : `Received ${paths.length} live route option(s) · first route about ${minutes} min · fare KRW ${fare} · transfer info ${transfers}`}</span>`;
+  }catch(err){
+    box.className='data-slot error';
+    box.innerHTML=`<b>${lang==='ko'?'ODsay 연결 실패':'ODsay connection failed'}</b><span>${String(err.message||err)}</span>`;
+  }finally{
+    btn.disabled=false;
+  }
+}
+
+function refreshPlannerAndResult(){
+  updateRoutePreview();
+  if(current==='result') calculate();
+}
+
+document.getElementById('start').addEventListener('change',refreshPlannerAndResult);
+document.getElementById('dest').addEventListener('change',refreshPlannerAndResult);
+document.getElementById('travelStyle').addEventListener('change',()=>{if(current==='result')calculate();});
+document.getElementById('tripDate').addEventListener('change',()=>{if(current==='result')calculate();});
+document.getElementById('tripTime').addEventListener('change',()=>{if(current==='result')calculate();});
+document.getElementById('travelers').addEventListener('change',()=>{if(current==='result')calculate();});
+document.getElementById('days').addEventListener('change',()=>{if(current==='result')calculate();});
+document.getElementById('scenicRoute').addEventListener('change',refreshPlannerAndResult);
+
+document.getElementById('mainCTA').onclick=null;
+document.getElementById('mainCTA').addEventListener('click',e=>{e.preventDefault();mainAction();});
+document.getElementById('newPlanFromCity')?.addEventListener('click',()=>go('planner'));
+document.getElementById('cityAttractionApply')?.addEventListener('click',applyCityAttractions);
+document.getElementById('odsayTestBtn')?.addEventListener('click',testOdsayConnection);
+const odsayInput=document.getElementById('odsayKeyInput');
+if(odsayInput && ODSAY_WEB_KEY) odsayInput.placeholder=lang==='ko'?'이 세션에 키 저장됨':'Key saved for this session';
+
+document.querySelectorAll('#modeTabs .option-tab').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('#modeTabs .option-tab').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const v=btn.dataset.mode;
+    document.getElementById('travelStyle').value=v==='fast'?'fast':(v==='cheap'?'cheap':'balanced');
+    if(current==='result') calculate();
+  });
+});
+
+document.getElementById('v11RecoTabs')?.addEventListener('click',e=>{
+  const tab=e.target.closest('.reco-tab');
+  if(!tab)return;
+  document.querySelectorAll('#v11RecoTabs .reco-tab').forEach(x=>x.classList.remove('active'));
+  tab.classList.add('active');
+  const p=tab.dataset.priority;
+  document.getElementById('travelStyle').value=p==='fast'?'fast':(p==='cheap'?'cheap':'balanced');
+  calculate();
+});
+
+document.getElementById('v11SaveBtn')?.addEventListener('click',()=>{
+  localStorage.setItem('koreaRouteSavedTrip',JSON.stringify(v11TripData()));
+  v11Toast(lang==='ko'?'여행을 저장했어요':'Trip saved');
+});
+document.getElementById('v11ShareBtn')?.addEventListener('click',async()=>{
+  const d=v11TripData();
+  const txt=`Korea Route: ${d.start} → ${d.dest} · ${d.days} days · ${d.travelers} traveler(s)`;
+  try{
+    if(navigator.share) await navigator.share({title:'Korea Route',text:txt});
+    else if(navigator.clipboard){await navigator.clipboard.writeText(txt);v11Toast(lang==='ko'?'복사했어요':'Copied');}
+  }catch(_){}
+});
+
+document.addEventListener('click',e=>{
+  const target=e.target.closest('[data-city]');
+  if(!target)return;
+  const c=target.dataset.city;
+  const cfg=cityGuideConfig[c];
+  if(cfg) openCity(c,cfg.ko,cfg.emoji,cfg.descEn,cfg.descKo,cfg.moveEn,cfg.moveKo,cfg.costEn,cfg.costKo);
+});
+
+let deferredInstallPrompt=null;
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault();
+  deferredInstallPrompt=e;
+  document.getElementById('installBox')?.classList.add('show');
+});
+document.getElementById('installBtn')?.addEventListener('click',async()=>{
+  if(!deferredInstallPrompt)return;
+  deferredInstallPrompt.prompt();
+  await deferredInstallPrompt.userChoice;
+  deferredInstallPrompt=null;
+  document.getElementById('installBox')?.classList.remove('show');
+});
+window.addEventListener('appinstalled',()=>document.getElementById('installBox')?.classList.remove('show'));
+
+if('serviceWorker' in navigator && location.protocol.startsWith('http')){
+  navigator.serviceWorker.register('./sw.js').catch(()=>{});
+}
+
+const savedTrip=localStorage.getItem('koreaRouteSavedTrip');
+if(savedTrip){
+  try{
+    const d=JSON.parse(savedTrip);
+    const vals={start:d.start,dest:d.dest,travelers:d.travelers,days:d.days,tripDate:d.date,tripTime:d.time,travelStyle:d.style};
+    Object.entries(vals).forEach(([id,v])=>{const el=document.getElementById(id);if(el&&v!=null)el.value=v;});
+  }catch(_){}
+}
+
+applyLang();
+updateRoutePreview();
+</script>
+</body>
+</html>
