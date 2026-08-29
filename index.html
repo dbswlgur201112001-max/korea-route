@@ -755,6 +755,75 @@ background-size:32px 32px,32px 32px,100% 100%}
 .move-arrival-actions button{border:1px solid rgba(127,127,127,.18);background:transparent;color:inherit;border-radius:999px;padding:8px 10px;font-size:9px;font-weight:900}
 .move-arrival-feedback{font-size:9px;font-weight:800;opacity:.65}
 
+
+.move-departure-handoff{border-style:dashed}
+
+
+.move-handoff-summary{margin:12px 0;padding:14px;border:1px solid rgba(127,127,127,.18);border-radius:16px;background:rgba(127,127,127,.035)}
+.move-handoff-summary-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.move-handoff-summary-head h3{margin:4px 0 0;font-size:15px}
+.move-handoff-route{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-top:11px}
+.move-handoff-route>div:not(.move-handoff-arrow),.move-handoff-stay{padding:10px;border-radius:12px;background:rgba(127,127,127,.07)}
+.move-handoff-route span,.move-handoff-stay span{display:block;font-size:8px;opacity:.58;margin-bottom:4px}
+.move-handoff-route b,.move-handoff-stay b{display:block;font-size:11px}
+.move-handoff-route small,.move-handoff-stay small{display:block;font-size:8px;opacity:.58;margin-top:3px;line-height:1.4}
+.move-handoff-arrow{font-weight:900;opacity:.55}
+.move-handoff-stay{margin-top:7px}
+.move-handoff-checks{display:grid;gap:5px;margin-top:9px;font-size:9px;line-height:1.4}
+.move-handoff-summary-actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.move-handoff-summary-actions button{border:1px solid rgba(127,127,127,.18);background:transparent;color:inherit;border-radius:999px;padding:8px 10px;font-size:9px;font-weight:900}
+.move-handoff-disclaimer{font-size:8px;line-height:1.5;opacity:.55;margin:9px 0 0}
+
+
+.move-route-readiness{margin:8px 0 12px;padding:13px;border:1px solid rgba(127,127,127,.15);border-radius:15px}
+.move-readiness-bar{height:6px;border-radius:99px;background:rgba(127,127,127,.12);overflow:hidden;margin:9px 0}
+.move-readiness-bar i{display:block;height:100%;background:currentColor;opacity:.55}
+.move-readiness-items{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.move-readiness-items span{font-size:9px;opacity:.5}.move-readiness-items span.ready{opacity:.9;font-weight:800}
+.move-route-readiness p{font-size:8px;opacity:.52;line-height:1.45;margin:8px 0 0}
+
+
+.offline-freshness-badge{display:inline-flex;align-items:center;margin-left:7px;padding:4px 7px;border-radius:999px;font-size:8px;font-weight:900;border:1px solid rgba(127,127,127,.18)}
+.offline-freshness-badge.current{background:rgba(34,197,94,.10)}
+.offline-freshness-badge.changed{background:rgba(245,158,11,.12)}
+.offline-freshness-badge.none{background:rgba(127,127,127,.08)}
+
+
+.mytrip-today-card{margin:12px 0;padding:14px;border:1px solid rgba(127,127,127,.18);border-radius:16px;background:rgba(127,127,127,.035)}
+.mytrip-today-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.mytrip-today-head h3{margin:4px 0 0;font-size:15px}
+.mytrip-today-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}
+.mytrip-today-grid>div{padding:9px;border-radius:12px;background:rgba(127,127,127,.07)}
+.mytrip-today-grid span,.mytrip-today-places>span{display:block;font-size:8px;opacity:.58;margin-bottom:4px}
+.mytrip-today-grid b{display:block;font-size:10px;line-height:1.4}
+.mytrip-today-places{margin-top:8px;padding:10px;border-radius:12px;background:rgba(127,127,127,.055)}
+.mytrip-today-places ol{margin:5px 0 0;padding-left:18px;font-size:10px;line-height:1.55}
+.mytrip-today-places p{margin:4px 0 0;font-size:9px;line-height:1.5;opacity:.68}
+.mytrip-today-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.mytrip-today-actions button{border:1px solid rgba(127,127,127,.18);background:transparent;color:inherit;border-radius:999px;padding:8px 10px;font-size:9px;font-weight:900}
+.mytrip-today-note{font-size:8px;line-height:1.5;opacity:.55;margin:9px 0 0}
+
+
+.move-verify-card{margin:10px 0;padding:13px;border:1px solid rgba(127,127,127,.18);border-radius:16px;background:rgba(127,127,127,.035)}
+.move-verify-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.move-verify-kicker{font-size:8px;font-weight:900;letter-spacing:.08em;opacity:.55}
+.move-verify-head h3{font-size:14px;margin:4px 0 0}
+.move-verify-count{font-size:11px;padding:6px 8px;border-radius:999px;background:rgba(127,127,127,.09)}
+.move-verify-route{margin-top:9px;padding:8px 10px;border-radius:11px;background:rgba(127,127,127,.06);font-size:10px;font-weight:800}
+.move-verify-list{display:grid;gap:6px;margin-top:9px}
+.move-verify-list button{display:flex;align-items:center;gap:8px;width:100%;text-align:left;border:1px solid rgba(127,127,127,.15);background:transparent;color:inherit;border-radius:11px;padding:9px 10px;font-size:10px;font-weight:800}
+.move-verify-list button.is-done{opacity:.62}
+.move-verify-mark{width:18px;font-size:13px}
+.move-verify-card>p{margin:9px 0 0;font-size:8px;line-height:1.5;opacity:.56}
+
+
+.move-verify-scope{margin-top:5px;font-size:8px;line-height:1.45;opacity:.5}
+
+
+.today-verify-pending b{font-weight:900}
+.today-verify-complete{opacity:.72}
+.move-verify-focus{outline:2px solid currentColor;outline-offset:3px;transition:outline-offset .2s ease}
+
 </style>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -1823,6 +1892,7 @@ function assignVisibleExplorePlacesToDay(day){
       ?`${entries.length}곳을 ${targetDay}일차에 추가했습니다.`
       :`Added ${entries.length} place${entries.length===1?'':'s'} to Day ${targetDay}.`
   );
+  renderOfflineTripSnapshot();
 }
 
 function ensureExploreDayAssignUI(){
@@ -1896,6 +1966,7 @@ function saveVisibleExplorePlaces(){
       ?(lang==='ko'?`${added}곳을 여행에 저장했습니다.`:`Saved ${added} place${added===1?'':'s'} to My Trip.`)
       :(lang==='ko'?'표시된 장소가 이미 모두 저장되어 있습니다.':'All visible places are already saved.')
   );
+  renderOfflineTripSnapshot();
 }
 
 function showExploreBulkSaveFeedback(text){
@@ -2470,6 +2541,7 @@ function setSavedPlaceDay(key,day){
   renderUnifiedItinerarySummary();
   renderMyTripChecklist();
   renderMyTripEmergencyCard();
+  renderOfflineTripSnapshot();
 }
 
 function moveSavedPlace(key,dir){
@@ -2492,6 +2564,7 @@ function moveSavedPlace(key,dir){
   plan[b].order=temp;
   sessionStorage.setItem('koreaRouteSavedPlacePlan',JSON.stringify(plan));
   renderSavedPlacesInMyTrip();
+  renderOfflineTripSnapshot();
 }
 
 
@@ -2706,6 +2779,7 @@ function toggleSavedPlace(city,index){
 
   ensureExploreSavedFilterUI();
   refreshSavedPoiFilter();
+  renderOfflineTripSnapshot();
 }
 
 function savedPlaceButtonHtml(city,poi,index){
@@ -2795,6 +2869,8 @@ function toggleMyTripChecklist(id,checked){
   state[id]=!!checked;
   sessionStorage.setItem('koreaRouteTripChecklist',JSON.stringify(state));
   renderMyTripChecklist();
+  renderOfflineTripSnapshot();
+  renderMyTripTodayCard();
 }
 
 function renderMyTripChecklist(){
@@ -2984,6 +3060,189 @@ function myTripUnifiedData(){
   };
 }
 
+
+function myTripChecklistProgress(){
+  try{
+    const raw=sessionStorage.getItem('koreaRouteTripChecklist');
+    const state=raw?JSON.parse(raw):{};
+    const total=Array.isArray(MYTRIP_CHECKLIST_ITEMS)?MYTRIP_CHECKLIST_ITEMS.length:0;
+    const done=Object.values(state||{}).filter(Boolean).length;
+    return {done:Math.min(done,total),total};
+  }catch(e){
+    return {done:0,total:Array.isArray(MYTRIP_CHECKLIST_ITEMS)?MYTRIP_CHECKLIST_ITEMS.length:0};
+  }
+}
+
+function myTripTodayFirstDayPlaces(){
+  try{
+    const saved=savedPlaces();
+    if(!saved.length) return [];
+    const day=myTripTodayDayNumber();
+    const {groups}=savedPlacePlanGroups(saved);
+    return groups?.[day]?.length?groups[day]:saved.slice(0,3);
+  }catch(e){
+    return [];
+  }
+}
+
+function myTripTodayData(){
+  const route=myTripRouteSelection();
+  const stay=myTripStaySelection();
+  const wallet=myTripWalletSelection();
+  const checklist=myTripChecklistProgress();
+  const moveVerify=assistantMoveVerifyProgress();
+  const places=myTripTodayFirstDayPlaces();
+
+  return {route,stay,wallet,checklist,moveVerify,places};
+}
+
+
+function myTripTodayDayNumber(){
+  try{
+    const items=savedPlaces();
+    const {groups}=savedPlacePlanGroups(items);
+    const used=Object.keys(groups).map(Number).filter(d=>groups[d]?.length).sort((a,b)=>a-b);
+    return used[0]||1;
+  }catch(e){
+    return 1;
+  }
+}
+
+
+function openMyTripMoveVerify(){
+  go('moveHub');
+  setTimeout(()=>{
+    mountMoveVerifyBeforeDeparture();
+    const card=document.getElementById('moveVerifyBeforeDeparture');
+    if(card){
+      card.scrollIntoView({behavior:'smooth',block:'center'});
+      card.classList.add('move-verify-focus');
+      setTimeout(()=>card.classList.remove('move-verify-focus'),1400);
+    }
+  },120);
+}
+
+function openMyTripTodayRoute(){
+  const day=myTripTodayDayNumber();
+  try{
+    const places=dayRoutePlaces(day);
+    if(places?.length){
+      openDayRoute(day);
+      return;
+    }
+  }catch(e){}
+  go('exploreHub');
+}
+
+function copyMyTripTodayList(){
+  const day=myTripTodayDayNumber();
+  try{
+    const places=dayRoutePlaces(day);
+    if(places?.length){
+      copyDayRouteList(day);
+      return;
+    }
+  }catch(e){}
+  const btn=document.getElementById('myTripTodayCopyBtn');
+  if(btn){
+    const original=btn.textContent;
+    btn.textContent=lang==='ko'?'Day 장소 없음':'No day places';
+    setTimeout(()=>{btn.textContent=original},1200);
+  }
+}
+
+function myTripTodayCardHtml(){
+  const data=myTripTodayData();
+  const routeText=routeSummaryText(data.route);
+  const stayText=staySummaryText(data.stay);
+  const walletText=walletSummaryText(data.wallet);
+  const places=data.places||[];
+
+  return `<section class="mytrip-today-card">
+    <div class="mytrip-today-head">
+      <div>
+        <span class="mytrip-kicker">${lang==='ko'?'오늘의 여행 카드':'TODAY CARD'}</span>
+        <h3>${lang==='ko'?'지금 필요한 것만 보기':'What you need now'}</h3>
+      </div>
+      <span class="prototype-pill">${lang==='ko'?'준비 요약':'Prep summary'}</span>
+    </div>
+
+    <div class="mytrip-today-grid">
+      <div>
+        <span>${lang==='ko'?'이동':'Move'}</span>
+        <b>${routeText|| (lang==='ko'?'아직 경로 없음':'No route saved')}</b>
+      </div>
+      <div>
+        <span>${lang==='ko'?'숙소':'Stay'}</span>
+        <b>${stayText|| (lang==='ko'?'아직 숙소 권역 없음':'No stay area saved')}</b>
+      </div>
+      <div>
+        <span>${lang==='ko'?'예산':'Budget'}</span>
+        <b>${walletText|| (lang==='ko'?'아직 예산 없음':'No budget saved')}</b>
+      </div>
+      <div>
+        <span>${lang==='ko'?'출발 전 체크':'Checklist'}</span>
+        <b>${data.checklist.done}/${data.checklist.total}</b>
+      </div>
+      <div class="${data.moveVerify.total&&data.moveVerify.done===data.moveVerify.total?'today-verify-complete':'today-verify-pending'}">
+        <span>${lang==='ko'?'이동 출발 확인':'Move verify'}</span>
+        <b>${data.moveVerify.done}/${data.moveVerify.total} · ${data.moveVerify.total&&data.moveVerify.done===data.moveVerify.total
+          ? (lang==='ko'?'완료':'Ready')
+          : (lang==='ko'?'확인 필요':'Needs check')
+        }</b>
+      </div>
+    </div>
+
+    <div class="mytrip-today-places">
+      <span>${lang==='ko'?`Day ${myTripTodayDayNumber()} 장소`:`Day ${myTripTodayDayNumber()} places`}</span>
+      ${places.length
+        ? `<ol>${places.slice(0,3).map(p=>`<li>${lang==='ko'?(p.ko||p.en||''):(p.en||p.ko||'')}</li>`).join('')}</ol>`
+        : `<p>${lang==='ko'?'Explore에서 장소를 저장하고 Day 1에 넣으면 여기에 표시됩니다.':'Save places in Explore and add them to Day 1 to see them here.'}</p>`
+      }
+    </div>
+
+    <div class="mytrip-today-actions">
+      <button type="button" onclick="openMyTripTodayRoute()">${lang==='ko'?'오늘 동선 열기':'Open day route'}</button>
+      <button type="button" id="myTripTodayCopyBtn" onclick="copyMyTripTodayList()">${lang==='ko'?'오늘 목록 복사':'Copy day list'}</button>
+      <button type="button" onclick="openMyTripMoveVerify()">${data.moveVerify.total&&data.moveVerify.done===data.moveVerify.total
+        ? (lang==='ko'?'출발 확인 다시 보기':'Review departure checks')
+        : (lang==='ko'?'출발 확인 계속':'Continue departure checks')
+      }</button>
+      <button type="button" onclick="openMyTripEmergencySheet()">${lang==='ko'?'긴급 카드':'Emergency card'}</button>
+    </div>
+
+    <p class="mytrip-today-note">${lang==='ko'
+      ?'저장된 여행정보를 한눈에 보는 준비용 카드입니다. 실시간 운행·영업·예약 가능 여부를 뜻하지 않습니다.'
+      :'A quick prep card built from your saved trip data. It does not represent live transport, opening hours, or booking availability.'
+    }</p>
+  </section>`;
+}
+
+function renderMyTripTodayCard(){
+  const screen=document.getElementById('myTripHub');
+  if(!screen) return;
+  const panel=screen.querySelector('.mytrip-panel');
+  if(!panel) return;
+
+  let block=document.getElementById('myTripTodayCard');
+  if(!block){
+    block=document.createElement('div');
+    block.id='myTripTodayCard';
+  }
+  block.innerHTML=myTripTodayCardHtml();
+
+  const summary=panel.querySelector('.mytrip-summary');
+  const unified=panel.querySelector('#myTripUnifiedItinerary');
+
+  if(summary?.parentNode===panel){
+    panel.insertBefore(block,summary.nextSibling);
+  }else if(unified?.parentNode===panel){
+    panel.insertBefore(block,unified);
+  }else{
+    panel.insertBefore(block,panel.firstChild);
+  }
+}
+
 function renderUnifiedItinerarySummary(){
   const screen=document.getElementById('myTripHub');
   if(!screen) return;
@@ -3068,7 +3327,9 @@ const OFFLINE_TRIP_SESSION_KEYS=[
   'koreaRouteMove',
   'koreaRouteRoute',
   'koreaRouteTrip',
-  'koreaRouteTripChecklist'
+  'koreaRouteTripChecklist',
+  'koreaRouteMoveVerify',
+  'koreaRouteTransitPayment'
 ];
 
 function readOfflineTripSnapshot(){
@@ -3129,6 +3390,8 @@ function restoreOfflineTripSnapshot(){
   OFFLINE_TRIP_SESSION_KEYS.forEach(key=>{
     if(Object.prototype.hasOwnProperty.call(snapshot.data,key)){
       sessionStorage.setItem(key,String(snapshot.data[key]));
+    }else{
+      sessionStorage.removeItem(key);
     }
   });
 
@@ -3136,11 +3399,22 @@ function restoreOfflineTripSnapshot(){
   renderUnifiedItinerarySummary();
   renderMyTripChecklist();
   renderMyTripEmergencyCard();
+  renderMyTripTodayCard();
+  initStayHub();
 
   const city=document.getElementById('city')?.dataset.currentCity;
   if(city) renderCityPoiList(city);
 
   showOfflineTripFeedback(lang==='ko'?'오프라인 여행 사본을 현재 세션에 불러왔습니다.':'Offline trip copy restored to this session.');
+  renderOfflineTripSnapshot();
+  const {fromCity,toCity}=currentMoveSegmentCities();
+  if(fromCity&&toCity){
+    mountMoveHandoffSummary(fromCity,toCity);
+    mountMoveRouteReadiness(fromCity,toCity);
+    mountMoveVerifyBeforeDeparture();
+    mountTransitPaymentHelper(toCity);
+    mountLanguageHelper();
+  }
 }
 
 function clearOfflineTripSnapshot(){
@@ -3162,30 +3436,77 @@ function showOfflineTripFeedback(text){
   },1800);
 }
 
-function renderOfflineTripSnapshot(){
-  const screen=document.getElementById('myTripHub');
-  if(!screen) return;
-  const panel=screen.querySelector('.mytrip-panel');
-  if(!panel) return;
 
+function offlineSnapshotComparableData(snapshot){
+  const keys=OFFLINE_TRIP_SESSION_KEYS;
+  const source=snapshot?.data||snapshot||{};
+  const out={};
+  keys.forEach(key=>{
+    const value=source[key];
+    if(value!==undefined&&value!==null&&value!=='') out[key]=value;
+  });
+  return out;
+}
+
+function currentOfflineComparableData(){
+  const out={};
+  OFFLINE_TRIP_SESSION_KEYS.forEach(key=>{
+    const value=sessionStorage.getItem(key);
+    if(value!==null&&value!=='') out[key]=value;
+  });
+  return out;
+}
+
+function stableOfflineSnapshotString(value){
+  if(Array.isArray(value)) return `[${value.map(stableOfflineSnapshotString).join(',')}]`;
+  if(value&&typeof value==='object'){
+    return `{${Object.keys(value).sort().map(k=>`${JSON.stringify(k)}:${stableOfflineSnapshotString(value[k])}`).join(',')}}`;
+  }
+  if(typeof value==='string'){
+    try{return stableOfflineSnapshotString(JSON.parse(value))}catch(e){return JSON.stringify(value)}
+  }
+  return JSON.stringify(value);
+}
+
+function offlineSnapshotFreshness(){
+  const saved=readOfflineTripSnapshot();
+  if(!saved) return {state:'none',labelKo:'오프라인 복사본 없음',labelEn:'No offline copy'};
+
+  const a=stableOfflineSnapshotString(offlineSnapshotComparableData(saved));
+  const b=stableOfflineSnapshotString(currentOfflineComparableData());
+
+  if(a===b){
+    return {state:'current',labelKo:'최신 상태',labelEn:'Up to date'};
+  }
+  return {state:'changed',labelKo:'변경사항 미저장',labelEn:'Changes not saved'};
+}
+
+function renderOfflineTripSnapshot(){
   let block=document.getElementById('myTripOfflineSnapshot');
   if(!block){
     block=document.createElement('section');
     block.id='myTripOfflineSnapshot';
     block.className='mytrip-offline-snapshot';
+  }
+  const screen=document.getElementById('myTripHub');
+  if(!screen) return;
+  const panel=screen.querySelector('.mytrip-panel');
+  if(!panel) return;
 
-    const saved=document.getElementById('myTripSavedPlaces');
-    const unified=document.getElementById('myTripUnifiedItinerary');
-    if(saved?.parentNode===panel){
-      panel.insertBefore(block,saved);
-    }else if(unified?.parentNode===panel){
-      unified.parentNode.insertBefore(block,unified.nextSibling);
-    }else{
-      panel.appendChild(block);
-    }
+  const unified=panel.querySelector('#myTripUnifiedItinerary');
+  const savedPlaces=panel.querySelector('#myTripSavedPlaces');
+
+  if(unified?.parentNode===panel){
+    if(unified.nextSibling!==block) panel.insertBefore(block,unified.nextSibling);
+  }else if(savedPlaces?.parentNode===panel){
+    panel.insertBefore(block,savedPlaces);
+  }else{
+    panel.appendChild(block);
   }
 
+
   const snapshot=readOfflineTripSnapshot();
+  const freshness=offlineSnapshotFreshness();
   const savedAt=snapshot?offlineSnapshotDateText(snapshot.savedAt):'';
   const count=snapshot?.data?.koreaRouteSavedPlaces
     ?(()=>{try{return JSON.parse(snapshot.data.koreaRouteSavedPlaces)?.length||0}catch(e){return 0}})()
@@ -3195,7 +3516,7 @@ function renderOfflineTripSnapshot(){
     <div class="offline-trip-head">
       <div>
         <span class="move-kicker">${lang==='ko'?'오프라인 여행 사본':'OFFLINE TRIP COPY'}</span>
-        <h3>${lang==='ko'?'여행 정보를 이 기기에 보관':'Keep a trip copy on this device'}</h3>
+        <h3>${lang==='ko'?'여행 정보를 이 기기에 보관':'Keep a trip copy on this device'}</h3><span class="offline-freshness-badge ${freshness.state}">${lang==='ko'?freshness.labelKo:freshness.labelEn}</span>
       </div>
       ${snapshot?`<span class="offline-trip-badge">${count}${lang==='ko'?'곳':' places'}</span>`:''}
     </div>
@@ -3278,6 +3599,7 @@ function renderSavedPlacesInMyTrip(){
         </div>`).join('')}</div>
     </section>`).join('')}</div>`:`<p class="saved-empty">${lang==='ko'?'Explore에서 마음에 드는 장소를 저장해보세요.':'Save places from Explore to build your trip list.'}</p>`}`;
 
+  renderMyTripTodayCard();
   renderUnifiedItinerarySummary();
   renderOfflineTripSnapshot();
 }
@@ -3291,6 +3613,7 @@ function removeSavedPlace(index){
   renderSavedPlacesInMyTrip();
   const city=document.querySelector('[data-current-city]')?.dataset.currentCity;
   if(city) renderCityPoiList(city);
+  renderOfflineTripSnapshot();
 }
 
 
@@ -4319,10 +4642,30 @@ function refreshMyTrip(){
   }
 }
 
+function currentMoveSegmentCities(){
+  return {
+    fromCity:(document.getElementById('origin')?.value||document.getElementById('start')?.value||document.getElementById('from')?.value||'').trim(),
+    toCity:(document.getElementById('dest')?.value||document.getElementById('to')?.value||'').trim()
+  };
+}
+
 function clearMyTripPart(part){
   if(part==='stay') sessionStorage.removeItem('koreaRouteStayArea');
   if(part==='wallet') sessionStorage.removeItem('koreaRouteWallet');
+
   refreshMyTrip();
+  renderUnifiedItinerarySummary();
+  renderMyTripTodayCard();
+  renderOfflineTripSnapshot();
+
+  if(part==='stay'){
+    renderMyTripEmergencyCard();
+    const {fromCity,toCity}=currentMoveSegmentCities();
+    if(fromCity&&toCity){
+      mountMoveHandoffSummary(fromCity,toCity);
+      mountMoveRouteReadiness(fromCity,toCity);
+    }
+  }
 }
 function initMyTripHub(){
   refreshMyTrip();
@@ -4399,8 +4742,46 @@ function assistantSavedPlacesCount(){
   }
 }
 
+
+function assistantMoveVerifyProgress(){
+  try{
+    const state=moveVerifyState();
+    const total=Array.isArray(MOVE_VERIFY_ITEMS)?MOVE_VERIFY_ITEMS.length:0;
+    const done=MOVE_VERIFY_ITEMS.filter(item=>!!state[item.id]).length;
+    return {done,total};
+  }catch(e){
+    return {done:0,total:0};
+  }
+}
+
+function assistantOfflineSnapshotStatus(){
+  try{
+    return offlineSnapshotFreshness();
+  }catch(e){
+    return null;
+  }
+}
+
 function assistantNextActions(city,situation,stay,wallet){
   const actions=[];
+
+  const moveVerify=assistantMoveVerifyProgress();
+  const offlineFreshness=assistantOfflineSnapshotStatus();
+
+  if(moveVerify.total&&moveVerify.done<moveVerify.total){
+    actions.push({
+      ko:`출발 전 확인 ${moveVerify.done}/${moveVerify.total}: 출발역·시간·승차권·탑승 위치를 다시 확인하세요.`,
+      en:`Before departure ${moveVerify.done}/${moveVerify.total}: recheck the station, departure time, ticket, and boarding point.`
+    });
+  }
+
+  if(offlineFreshness?.state==='changed'){
+    actions.push({
+      ko:'여행 정보가 바뀌었습니다. My Trip의 오프라인 복사본을 업데이트해 두세요.',
+      en:'Your trip has changed. Update the offline copy in My Trip.'
+    });
+  }
+
   const from=document.getElementById('start')?.value||document.getElementById('origin')?.value||document.getElementById('from')?.value||'';
   const to=document.getElementById('dest')?.value||document.getElementById('to')?.value||'';
   const savedCount=assistantSavedPlacesCount();
@@ -4630,6 +5011,10 @@ function saveWalletPlan(city,style,days,people,total){
   if(hero) hero.textContent=lang==='ko'
     ? `${walletCityName(city)} ${days}일 예산을 저장했습니다. 이후 Plan/Move 비용 합산에 연결할 수 있습니다.`
     : `${days}-day ${walletCityName(city)} budget saved. It can feed future Plan/Move cost totals.`;
+
+  renderUnifiedItinerarySummary();
+  renderMyTripTodayCard();
+  renderOfflineTripSnapshot();
 }
 
 function showWalletPassPlaceholder(city){
@@ -4697,10 +5082,12 @@ function renderStayOptions(){
   const box=document.getElementById('stayResults');
   if(!box) return;
   const items=[...(STAY_PROTOTYPE[city]||[])].sort((a,b)=>stayScore(b,priority)-stayScore(a,priority));
+  const savedStay=myTripStaySelection();
   box.innerHTML=items.map((h,i)=>{
     const score=Math.round(stayScore(h,priority));
+    const isSaved=!!(savedStay&&savedStay.city===city&&savedStay.id===h.id);
     const tags=lang==='ko'?h.tagsKo:h.tags;
-    return `<div class="stay-card ${i===0?'selected':''}">
+    return `<div class="stay-card ${isSaved?'selected':''}" data-stay-id="${h.id}">
       <div class="stay-card-top"><div><h3>${lang==='ko'?h.ko:h.en}</h3><p>${stayCityName(city)} · ${lang==='ko'?'숙소 지역 샘플':'stay-area sample'}</p></div><span class="stay-score">${score}/100</span></div>
       <div class="stay-grid">
         <div class="stay-metric"><span>${lang==='ko'?'1박 예상':'Est. nightly'}</span><b>${h.price}</b></div>
@@ -4723,10 +5110,22 @@ function selectStayArea(city,id){
   sessionStorage.setItem('koreaRouteStayArea',JSON.stringify({city,id,nameEn:h.en,nameKo:h.ko}));
   const cards=[...document.querySelectorAll('#stayResults .stay-card')];
   cards.forEach(c=>c.classList.remove('selected'));
+  document.querySelector(`#stayResults .stay-card[data-stay-id="${id}"]`)?.classList.add('selected');
   const summary=document.querySelector('#stayHub .arch-hero p');
   if(summary) summary.textContent=lang==='ko'
     ? `${h.ko}을(를) 숙소 기준점으로 저장했습니다. 이후 일정 동선 재계산에 연결할 수 있습니다.`
     : `${h.en} saved as the stay base. It can feed future route recalculation.`;
+
+  renderUnifiedItinerarySummary();
+  renderMyTripTodayCard();
+  renderMyTripEmergencyCard();
+  renderOfflineTripSnapshot();
+
+  const {fromCity,toCity}=currentMoveSegmentCities();
+  if(fromCity&&toCity){
+    mountMoveHandoffSummary(fromCity,toCity);
+    mountMoveRouteReadiness(fromCity,toCity);
+  }
 }
 
 function showStayBookingPlaceholder(id){
@@ -4741,7 +5140,12 @@ function showStayBookingPlaceholder(id){
 function initStayHub(){
   const dest=document.getElementById('dest')?.value;
   const sel=document.getElementById('stayCity');
-  if(sel && dest && STAY_PROTOTYPE[dest]) sel.value=dest;
+  const savedStay=myTripStaySelection();
+  if(sel && savedStay?.city && STAY_PROTOTYPE[savedStay.city]){
+    sel.value=savedStay.city;
+  }else if(sel && dest && STAY_PROTOTYPE[dest]){
+    sel.value=dest;
+  }
   renderStayOptions();
 }
 
@@ -4943,6 +5347,145 @@ function transitPaymentText(city,key){
   return (TRANSIT_PAYMENT_GUIDE[city]?.[key]||TRANSIT_PAYMENT_GUIDE.default[key]);
 }
 
+
+const MOVE_VERIFY_ITEMS=[
+  {id:'terminal',ko:'출발역·터미널 확인',en:'Confirm departure station / terminal'},
+  {id:'time',ko:'출발 시간 다시 확인',en:'Recheck departure time'},
+  {id:'ticket',ko:'승차권·예약 화면 준비',en:'Have ticket / booking screen ready'},
+  {id:'platform',ko:'승강장·탑승 위치 확인',en:'Confirm platform / boarding point'}
+];
+
+function moveVerifyRouteKey(){
+  const from=(document.getElementById('origin')?.value||document.getElementById('start')?.value||'').trim();
+  const to=(document.getElementById('dest')?.value||'').trim();
+  return `${from||'_'}::${to||'_'}`;
+}
+
+function moveVerifyStore(){
+  try{
+    const raw=JSON.parse(sessionStorage.getItem('koreaRouteMoveVerify')||'{}')||{};
+    // Backward compatibility: migrate the old flat boolean object into current route.
+    const looksFlat=MOVE_VERIFY_ITEMS.some(item=>typeof raw?.[item.id]==='boolean');
+    if(looksFlat){
+      const routeKey=moveVerifyRouteKey();
+      const migrated={};
+      migrated[routeKey]={};
+      MOVE_VERIFY_ITEMS.forEach(item=>{
+        if(typeof raw[item.id]==='boolean') migrated[routeKey][item.id]=raw[item.id];
+      });
+      try{sessionStorage.setItem('koreaRouteMoveVerify',JSON.stringify(migrated))}catch(e){}
+      return migrated;
+    }
+    return raw;
+  }catch(e){
+    return {};
+  }
+}
+
+function moveVerifyState(){
+  const store=moveVerifyStore();
+  return store[moveVerifyRouteKey()]||{};
+}
+
+function saveMoveVerifyState(state){
+  try{
+    const store=moveVerifyStore();
+    store[moveVerifyRouteKey()]=state||{};
+    sessionStorage.setItem('koreaRouteMoveVerify',JSON.stringify(store));
+  }catch(e){}
+}
+
+function toggleMoveVerifyItem(id){
+  const state=moveVerifyState();
+  state[id]=!state[id];
+  saveMoveVerifyState(state);
+  renderMoveVerifyState();
+  const fromCity=(document.getElementById('origin')?.value||document.getElementById('start')?.value||document.getElementById('from')?.value||'').trim();
+  const toCity=(document.getElementById('dest')?.value||'').trim();
+  if(fromCity&&toCity) mountMoveRouteReadiness(fromCity,toCity);
+  renderOfflineTripSnapshot();
+  renderMyTripTodayCard();
+}
+
+function renderMoveVerifyState(){
+  const box=document.getElementById('moveVerifyBeforeDeparture');
+  if(!box) return;
+  const state=moveVerifyState();
+  let done=0;
+  MOVE_VERIFY_ITEMS.forEach(item=>{
+    const checked=!!state[item.id];
+    if(checked) done++;
+    const btn=box.querySelector(`[data-move-verify="${item.id}"]`);
+    if(btn){
+      btn.classList.toggle('is-done',checked);
+      btn.setAttribute('aria-pressed',checked?'true':'false');
+      const mark=btn.querySelector('.move-verify-mark');
+      if(mark) mark.textContent=checked?'✓':'○';
+    }
+  });
+  const count=box.querySelector('.move-verify-count');
+  if(count) count.textContent=`${done}/${MOVE_VERIFY_ITEMS.length}`;
+}
+
+function moveVerifyBeforeDepartureHtml(){
+  const from=(document.getElementById('origin')?.value||document.getElementById('start')?.value||'').trim();
+  const to=(document.getElementById('dest')?.value||'').trim();
+
+  return `<section id="moveVerifyBeforeDeparture" class="move-verify-card">
+    <div class="move-verify-head">
+      <div>
+        <span class="move-verify-kicker">${lang==='ko'?'출발 전 확인':'BEFORE DEPARTURE'}</span>
+        <h3>${lang==='ko'?'탑승 직전 4가지만 확인':'Check these 4 things before boarding'}</h3>
+      </div>
+      <b class="move-verify-count">0/${MOVE_VERIFY_ITEMS.length}</b>
+    </div>
+
+    <div class="move-verify-route">${from&&to
+      ? `${escapeHtmlText(from)} → ${escapeHtmlText(to)}`
+      : (lang==='ko'?'이동 구간을 선택하면 여기에 표시됩니다.':'Choose a route to show it here.')
+    }</div>
+    <div class="move-verify-scope">${lang==='ko'
+      ?'체크 상태는 이 이동 구간별로 따로 저장됩니다.'
+      :'Check status is saved separately for each route.'
+    }</div>
+
+    <div class="move-verify-list">
+      ${MOVE_VERIFY_ITEMS.map(item=>`
+        <button type="button" data-move-verify="${item.id}" onclick="toggleMoveVerifyItem('${item.id}')">
+          <span class="move-verify-mark">○</span>
+          <span>${lang==='ko'?item.ko:item.en}</span>
+        </button>`).join('')}
+    </div>
+
+    <p>${lang==='ko'
+      ?'이 체크는 개인 준비용입니다. 실제 출발시간·승강장·좌석·운행 여부는 이용 직전에 공식 사업자 안내를 다시 확인하세요.'
+      :'This is a personal prep checklist. Recheck the official operator for departure time, platform, seat, and service status before travel.'
+    }</p>
+  </section>`;
+}
+
+function mountMoveVerifyBeforeDeparture(){
+  const screen=document.getElementById('moveHub');
+  if(!screen) return;
+
+  let box=document.getElementById('moveVerifyBeforeDeparture');
+  if(box) box.remove();
+
+  const html=moveVerifyBeforeDepartureHtml();
+  const summary=document.getElementById('moveHandoffSummary');
+  const departure=document.getElementById('moveDepartureHandoff');
+
+  if(summary){
+    summary.insertAdjacentHTML('afterend',html);
+  }else if(departure){
+    departure.insertAdjacentHTML('beforebegin',html);
+  }else{
+    const host=screen.querySelector('.screen-body,.move-body,.move-panel')||screen;
+    host.insertAdjacentHTML('beforeend',html);
+  }
+  renderMoveVerifyState();
+}
+
 function transitPaymentHelperHtml(city){
   const c=city||'Seoul';
   const items=[
@@ -4996,6 +5539,11 @@ function saveTransitPaymentPrefs(){
   };
   sessionStorage.setItem('koreaRouteTransitPayment',JSON.stringify(value));
   updateTransitPaymentReady();
+
+  const {fromCity,toCity}=currentMoveSegmentCities();
+  if(fromCity&&toCity) mountMoveRouteReadiness(fromCity,toCity);
+  renderOfflineTripSnapshot();
+  renderMyTripTodayCard();
 }
 
 function restoreTransitPaymentPrefs(){
@@ -5127,6 +5675,266 @@ const MOVE_ARRIVAL_HANDOFF={
   Geoje:{en:'Gohyeon Bus Terminal',ko:'고현버스터미널'},
   Jeju:{en:'Jeju Airport',ko:'제주공항'}
 };
+
+
+
+
+function moveRouteReadiness(fromCity,toCity){
+  const stay=moveHandoffStayText();
+  let payment={};
+  try{payment=JSON.parse(sessionStorage.getItem('koreaRouteTransitPayment')||'{}')}catch(e){}
+  const transitReady=!!(payment.transitCard||payment.card);
+  const cashReady=!!(payment.cash||payment.krwCash);
+
+  const items=[
+    {ok:!!moveDeparturePoint(fromCity),ko:'출발 거점 확인',en:'Departure hub identified'},
+    {ok:!!moveArrivalPoint(toCity),ko:'도착 거점 확인',en:'Arrival hub identified'},
+    {ok:!!stay,ko:'숙소 권역 저장',en:'Stay area saved'},
+    {ok:(()=>{
+      const v=assistantMoveVerifyProgress();
+      return !!(v.total&&v.done===v.total);
+    })(),ko:'출발 전 확인 완료',en:'Before-departure checks complete'},
+    {ok:transitReady,ko:'교통카드 준비 체크',en:'Transit card checked'},
+    {ok:cashReady,ko:'KRW 현금 백업 체크',en:'KRW cash backup checked'}
+  ];
+  return {items,done:items.filter(x=>x.ok).length,total:items.length};
+}
+
+function renderMoveRouteReadiness(fromCity,toCity){
+  const state=moveRouteReadiness(fromCity,toCity);
+  const pct=Math.round(state.done/state.total*100);
+  return `<section class="move-route-readiness">
+    <div class="move-handoff-summary-head">
+      <div><span class="move-kicker">${lang==='ko'?'이동 준비 상태':'ROUTE READINESS'}</span>
+      <h3>${state.done}/${state.total} ${lang==='ko'?'준비됨':'ready'}</h3></div>
+      <b>${pct}%</b>
+    </div>
+    <div class="move-readiness-bar"><i style="width:${pct}%"></i></div>
+    <div class="move-readiness-items">${state.items.map(x=>`<span class="${x.ok?'ready':''}">${x.ok?'✓':'○'} ${lang==='ko'?x.ko:x.en}</span>`).join('')}</div>
+    <p>${lang==='ko'?'개인 여행 준비 체크입니다. 실제 운행·영업·예약 가능 여부를 의미하지 않습니다.':'Personal trip-prep check only; it does not indicate live service, opening, or booking availability.'}</p>
+  </section>`;
+}
+
+function mountMoveRouteReadiness(fromCity,toCity){
+  document.getElementById('moveRouteReadiness')?.remove();
+  const summary=document.getElementById('moveHandoffSummary');
+  if(!summary) return;
+  const wrap=document.createElement('div');
+  wrap.id='moveRouteReadiness';
+  wrap.innerHTML=renderMoveRouteReadiness(fromCity,toCity);
+  summary.parentNode.insertBefore(wrap,summary.nextSibling);
+}
+
+function moveHandoffStayText(){
+  try{
+    const raw=sessionStorage.getItem('koreaRouteStayArea');
+    if(!raw) return '';
+    const saved=JSON.parse(raw);
+    return lang==='ko'?(saved?.nameKo||saved?.nameEn||saved?.city||''):(saved?.nameEn||saved?.nameKo||saved?.city||'');
+  }catch(e){
+    return '';
+  }
+}
+
+function moveHandoffSummaryText(fromCity,toCity){
+  const from=moveDeparturePoint(fromCity);
+  const to=moveArrivalPoint(toCity);
+  if(!from||!to) return '';
+
+  const stay=moveHandoffStayText();
+  const lines=[
+    `Korea Route`,
+    `Departure: ${from.en} / ${from.ko}`,
+    `Arrival: ${to.en} / ${to.ko}`,
+    `Taxi phrase (departure): ${from.ko}로 가주세요.`,
+    `Taxi phrase (arrival): ${to.ko}로 가주세요.`
+  ];
+  if(stay) lines.push(`Saved stay area: ${stay}`);
+  lines.push(`Verify the exact station/terminal on your ticket before travel.`);
+  return lines.join('\n');
+}
+
+function copyMoveHandoffSummary(fromCity,toCity){
+  const text=moveHandoffSummaryText(fromCity,toCity);
+  if(!text) return;
+
+  const done=(ok)=>{
+    const el=document.getElementById('moveHandoffSummaryFeedback');
+    if(!el) return;
+    el.textContent=ok?(lang==='ko'?'전체 이동 카드 복사됨':'Travel handoff copied'):(lang==='ko'?'복사 실패':'Copy failed');
+    setTimeout(()=>{if(el) el.textContent='';},1400);
+  };
+
+  if(navigator.clipboard?.writeText){
+    navigator.clipboard.writeText(text).then(()=>done(true)).catch(()=>{
+      const ta=document.createElement('textarea');
+      ta.value=text; document.body.appendChild(ta); ta.select();
+      let ok=false;
+      try{ok=document.execCommand('copy')}catch(e){}
+      ta.remove(); done(ok);
+    });
+  }else{
+    const ta=document.createElement('textarea');
+    ta.value=text; document.body.appendChild(ta); ta.select();
+    let ok=false;
+    try{ok=document.execCommand('copy')}catch(e){}
+    ta.remove(); done(ok);
+  }
+}
+
+function renderMoveHandoffSummary(fromCity,toCity){
+  const from=moveDeparturePoint(fromCity);
+  const to=moveArrivalPoint(toCity);
+  if(!from||!to) return '';
+
+  const stay=moveHandoffStayText();
+
+  return `<section class="move-handoff-summary">
+    <div class="move-handoff-summary-head">
+      <div>
+        <span class="move-kicker">${lang==='ko'?'이동 인계 요약':'TRAVEL HANDOFF'}</span>
+        <h3>${fromCity} → ${toCity}</h3>
+      </div>
+      <span class="prototype-pill">${lang==='ko'?'여행 준비용':'Trip prep'}</span>
+    </div>
+
+    <div class="move-handoff-route">
+      <div>
+        <span>${lang==='ko'?'출발 거점':'Departure hub'}</span>
+        <b>${lang==='ko'?from.ko:from.en}</b>
+        <small>${lang==='ko'?from.en:from.ko}</small>
+      </div>
+      <div class="move-handoff-arrow">→</div>
+      <div>
+        <span>${lang==='ko'?'도착 거점':'Arrival hub'}</span>
+        <b>${lang==='ko'?to.ko:to.en}</b>
+        <small>${lang==='ko'?to.en:to.ko}</small>
+      </div>
+    </div>
+
+    ${stay?`<div class="move-handoff-stay">
+      <span>${lang==='ko'?'저장된 숙소 권역':'Saved stay area'}</span>
+      <b>${stay}</b>
+      <small>${lang==='ko'?'도착 후 최종 이동의 기준점으로 사용하세요.':'Use this as your final-leg reference after arrival.'}</small>
+    </div>`:''}
+
+    <div class="move-handoff-checks">
+      <span>✓ ${lang==='ko'?'티켓의 실제 출발 역·터미널 확인':'Verify exact departure point on ticket'}</span>
+      <span>✓ ${lang==='ko'?'도착 역·터미널 확인':'Verify exact arrival point'}</span>
+      <span>✓ ${lang==='ko'?'결제수단·교통카드 준비':'Prepare payment / transit card'}</span>
+    </div>
+
+    <div class="move-handoff-summary-actions">
+      <button type="button" onclick="copyMoveHandoffSummary('${fromCity}','${toCity}')">${lang==='ko'?'전체 이동 카드 복사':'Copy travel handoff'}</button>
+      <span id="moveHandoffSummaryFeedback" class="move-arrival-feedback" aria-live="polite"></span>
+    </div>
+
+    <p class="move-handoff-disclaimer">${lang==='ko'
+      ?'공통 거점을 이용한 여행 준비용 요약입니다. 실시간 운행·예약·좌석·확정 터미널 정보가 아닙니다.'
+      :'Trip-prep summary using common hubs. It is not live timetable, booking, seat, or guaranteed terminal information.'
+    }</p>
+  </section>`;
+}
+
+function mountMoveHandoffSummary(fromCity,toCity){
+  const arrival=document.getElementById('moveArrivalHandoff');
+  const departure=document.getElementById('moveDepartureHandoff');
+  const host=document.getElementById('moveLiveRoutes')||document.getElementById('moveLiveSummary');
+  if(!host) return;
+
+  document.getElementById('moveHandoffSummary')?.remove();
+
+  const html=renderMoveHandoffSummary(fromCity,toCity);
+  if(!html) return;
+
+  const wrap=document.createElement('div');
+  wrap.id='moveHandoffSummary';
+  wrap.innerHTML=html;
+
+  const target=departure||arrival||host;
+  target.parentNode.insertBefore(wrap,target);
+}
+
+function moveDeparturePoint(city){
+  return MOVE_ARRIVAL_HANDOFF[city]||null;
+}
+
+function moveDepartureTaxiPhrase(city){
+  const point=moveDeparturePoint(city);
+  return point?`${point.ko}로 가주세요.`:'';
+}
+
+function copyMoveDeparturePhrase(city){
+  const text=moveDepartureTaxiPhrase(city);
+  if(!text) return;
+  const done=()=>{
+    const el=document.getElementById('moveDepartureCopyFeedback');
+    if(!el) return;
+    el.textContent=lang==='ko'?'복사됨':'Copied';
+    setTimeout(()=>{if(el) el.textContent='';},1200);
+  };
+  if(navigator.clipboard?.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(()=>{
+      const ta=document.createElement('textarea');
+      ta.value=text; document.body.appendChild(ta); ta.select();
+      try{document.execCommand('copy');done()}catch(e){}
+      ta.remove();
+    });
+  }
+}
+
+function openMoveDepartureMap(city){
+  const point=moveDeparturePoint(city);
+  if(!point) return;
+  const q=encodeURIComponent(`${point.en} ${city} Korea`);
+  window.open(`https://www.google.com/maps/search/?api=1&query=${q}`,'_blank','noopener');
+}
+
+function renderMoveDepartureHandoff(city){
+  const point=moveDeparturePoint(city);
+  if(!point) return '';
+  const phrase=moveDepartureTaxiPhrase(city);
+  return `<section class="move-arrival-handoff move-departure-handoff">
+    <div class="move-arrival-head">
+      <div>
+        <span class="move-kicker">${lang==='ko'?'출발지 인계 카드':'DEPARTURE HANDOFF'}</span>
+        <h3>${lang==='ko'?point.ko:point.en}</h3>
+      </div>
+      <span class="prototype-pill">${lang==='ko'?'공통 출발 거점':'Common hub'}</span>
+    </div>
+    <p class="move-arrival-note">${lang==='ko'
+      ?'도시를 떠날 때 지도·택시 기사에게 보여주기 위한 공통 거점입니다. 실제 선택한 열차·버스·항공편은 다른 역·터미널을 사용할 수 있으니 티켓의 정확한 출발지를 확인하세요.'
+      :'A common departure hub for map/taxi handoff when leaving the city. Your actual train, bus or flight may use a different station or terminal, so verify the exact departure point on your ticket.'
+    }</p>
+    <div class="move-arrival-grid">
+      <div><span>${lang==='ko'?'영문':'English'}</span><b>${point.en}</b></div>
+      <div><span>${lang==='ko'?'한국어':'Korean'}</span><b>${point.ko}</b></div>
+    </div>
+    <div class="move-arrival-phrase"><span>${lang==='ko'?'택시 기사에게 보여주기':'Show to driver'}</span><b>${phrase}</b></div>
+    <div class="move-arrival-actions">
+      <button type="button" onclick="openMoveDepartureMap('${city}')">${lang==='ko'?'Google 지도에서 열기':'Open in Google Maps'}</button>
+      <button type="button" onclick="copyMoveDeparturePhrase('${city}')">${lang==='ko'?'한국어 문구 복사':'Copy Korean phrase'}</button>
+      <span id="moveDepartureCopyFeedback" class="move-arrival-feedback" aria-live="polite"></span>
+    </div>
+  </section>`;
+}
+
+function mountMoveDepartureHandoff(city){
+  const arrival=document.getElementById('moveArrivalHandoff');
+  const host=document.getElementById('moveLiveRoutes')||document.getElementById('moveLiveSummary');
+  if(!host) return;
+  document.getElementById('moveDepartureHandoff')?.remove();
+  const html=renderMoveDepartureHandoff(city);
+  if(!html) return;
+  const wrap=document.createElement('div');
+  wrap.id='moveDepartureHandoff';
+  wrap.innerHTML=html;
+  if(arrival?.parentNode){
+    arrival.parentNode.insertBefore(wrap,arrival);
+  }else{
+    host.parentNode.insertBefore(wrap,host);
+  }
+}
 
 function moveArrivalPoint(city){
   return MOVE_ARRIVAL_HANDOFF[city]||null;
@@ -5395,7 +6203,11 @@ function renderMoveLiveRoutes(routes){
 }
 function applyOdsayToSegment(fromCity,toCity,route){
   mountAirportArrivalToolkit(toCity);
+  mountMoveDepartureHandoff(fromCity);
   mountMoveArrivalHandoff(toCity);
+  mountMoveHandoffSummary(fromCity,toCity);
+    mountMoveVerifyBeforeDeparture();
+  mountMoveRouteReadiness(fromCity,toCity);
   mountMoveSituationHelper();
   mountTransitPaymentHelper(toCity);
   mountLanguageHelper();
@@ -5406,8 +6218,8 @@ function applyOdsayToSegment(fromCity,toCity,route){
       const info=card.querySelector('.segment-info');
       if(info){
         const blocks=info.querySelectorAll('div');
-        if(blocks[0]) blocks[0].innerHTML=`<span>${lang==='ko'?'ODsay 실제 시간':'ODsay LIVE TIME'}</span><b>${route.totalTime}${lang==='ko'?'분':' min'}</b>`;
-        if(blocks[1]) blocks[1].innerHTML=`<span>${lang==='ko'?'ODsay 실제 요금':'ODsay LIVE FARE'}</span><b>${route.fare.toLocaleString()}${lang==='ko'?'원':' KRW'}</b>`;
+        if(blocks[0]) blocks[0].innerHTML=`<span>${lang==='ko'?'ODsay 경로 시간':'ODsay ROUTE TIME'}</span><b>${route.totalTime}${lang==='ko'?'분':' min'}</b>`;
+        if(blocks[1]) blocks[1].innerHTML=`<span>${lang==='ko'?'ODsay 경로 요금':'ODsay ROUTE FARE'}</span><b>${route.fare.toLocaleString()}${lang==='ko'?'원':' KRW'}</b>`;
         if(blocks[2]) blocks[2].innerHTML=`<span>${lang==='ko'?'환승':'TRANSFERS'}</span><b>${route.transferCount}</b>`;
       }
       let badge=card.querySelector('.segment-live-badge');
@@ -5416,7 +6228,7 @@ function applyOdsayToSegment(fromCity,toCity,route){
         badge.className='segment-live-badge';
         card.appendChild(badge);
       }
-      badge.textContent=lang==='ko'?'ODsay 실시간 데이터 적용':'ODsay live data applied';
+      badge.textContent=lang==='ko'?'ODsay 경로 데이터 적용':'ODsay route data applied';
     }
   });
 }
@@ -5601,7 +6413,12 @@ document.addEventListener('change',(e)=>{
   if(e.target?.id==='dest'){
     setTimeout(()=>{
       mountAirportArrivalToolkit(e.target.value);
+      const fromCity=document.getElementById('start')?.value||document.getElementById('origin')?.value||document.getElementById('from')?.value||'';
+      mountMoveDepartureHandoff(fromCity);
       mountMoveArrivalHandoff(e.target.value);
+      mountMoveHandoffSummary(fromCity,e.target.value);
+      mountMoveRouteReadiness(fromCity,e.target.value);
+      mountMoveVerifyBeforeDeparture();
       mountTransitPaymentHelper(e.target.value);
       mountLanguageHelper();
     },30);
@@ -5612,7 +6429,12 @@ document.addEventListener('DOMContentLoaded',()=>{
     const city=document.getElementById('dest')?.value||'';
     if(city){
       mountAirportArrivalToolkit(city);
+      const fromCity=document.getElementById('start')?.value||document.getElementById('origin')?.value||document.getElementById('from')?.value||'';
+      mountMoveDepartureHandoff(fromCity);
       mountMoveArrivalHandoff(city);
+      mountMoveHandoffSummary(fromCity,city);
+      mountMoveRouteReadiness(fromCity,city);
+      mountMoveVerifyBeforeDeparture();
       mountTransitPaymentHelper(city);
       mountLanguageHelper();
     }
