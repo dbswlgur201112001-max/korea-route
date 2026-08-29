@@ -290,6 +290,21 @@ background-size:32px 32px,32px 32px,100% 100%}
 #odsayTestResult.loading{border-color:#bed0ee;background:#f4f8ff;color:#2c5fb3}
 #odsayTestResult span{font-size:8px;line-height:1.55;display:block}
 
+
+.route-live-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+.route-live-grid label{display:flex;flex-direction:column;gap:5px;font-size:9px;font-weight:800;color:#31445f}
+.route-live-grid select{width:100%;border:1px solid #d6dfeb;border-radius:10px;padding:10px;background:#fff;color:#18314f;font-size:10px}
+.live-route-list{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.live-route-card{border:1px solid #dfe7f1;border-radius:15px;padding:12px;background:#fff;box-shadow:0 5px 18px rgba(31,61,103,.05)}
+.live-route-card.recommended{border-color:#9fc6ff;background:#f5f9ff}
+.live-route-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.live-route-title{font-weight:900;font-size:12px;color:#17345a}
+.live-route-badge{font-size:8px;font-weight:900;padding:5px 7px;border-radius:999px;background:#eaf2ff;color:#1d5ea9}
+.live-route-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.live-route-meta span{font-size:8px;padding:5px 7px;border-radius:999px;background:#f1f4f8;color:#4a6078}
+.live-route-steps{font-size:8px;line-height:1.6;color:#5d6f84;margin-top:8px}
+.segment-live-badge{display:inline-flex;margin-top:8px;padding:5px 8px;border-radius:999px;background:#eef7ff;color:#28649d;font-size:8px;font-weight:900}
+
 </style>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -588,7 +603,28 @@ background-size:32px 32px,32px 32px,100% 100%}
       <span data-en="Not tested yet" data-ko="아직 테스트하지 않음">Not tested yet</span>
     </div>
   </div>
-    <div class="feature-card"><div class="feature-top"><div><h3 data-en="Live transit board" data-ko="실시간 대중교통 도착정보">Live transit board</h3><p data-en="Subway and bus arrivals, service status and transfer countdown." data-ko="지하철·버스 도착, 운행 상태와 환승 남은 시간을 표시합니다.">Subway and bus arrivals, service status and transfer countdown.</p></div><span class="slot-type api">API</span></div><div class="data-slot"><b>Data slot</b><code>stop_id · route_id · arrival_minutes · disruption_status</code></div></div>
+    
+  <div class="feature-card" id="liveMovePlanner" style="margin-bottom:10px">
+    <div class="feature-top">
+      <div>
+        <h3 data-en="Live public transport route" data-ko="실시간 대중교통 경로">Live public transport route</h3>
+        <p data-en="Search ODsay and apply the result to your trip segment." data-ko="ODsay 실제 경로를 조회해 여행 이동 구간에 반영합니다.">Search ODsay and apply the result to your trip segment.</p>
+      </div>
+      <span class="slot-type api">ODsay LIVE</span>
+    </div>
+    <div class="route-live-grid">
+      <label><span data-en="From" data-ko="출발">From</span><select id="moveFrom"></select></label>
+      <label><span data-en="To" data-ko="도착">To</span><select id="moveTo"></select></label>
+    </div>
+    <button class="screen-link" type="button" id="moveLiveSearchBtn" data-en="Find live route" data-ko="실시간 경로 찾기">Find live route</button>
+    <div id="moveLiveSummary" class="data-slot">
+      <b data-en="Live route" data-ko="실시간 경로">Live route</b>
+      <span data-en="Choose cities and search." data-ko="출발지와 목적지를 선택하고 검색하세요.">Choose cities and search.</span>
+    </div>
+    <div id="moveLiveRoutes" class="live-route-list"></div>
+  </div>
+
+  <div class="feature-card"><div class="feature-top"><div><h3 data-en="Live transit board" data-ko="실시간 대중교통 도착정보">Live transit board</h3><p data-en="Subway and bus arrivals, service status and transfer countdown." data-ko="지하철·버스 도착, 운행 상태와 환승 남은 시간을 표시합니다.">Subway and bus arrivals, service status and transfer countdown.</p></div><span class="slot-type api">API</span></div><div class="data-slot"><b>Data slot</b><code>stop_id · route_id · arrival_minutes · disruption_status</code></div></div>
     <div class="feature-card"><div class="feature-top"><div><h3 data-en="Multi-stop optimizer" data-ko="여러 경유지 최적 순서">Multi-stop optimizer</h3><p data-en="Reorders selected stops to reduce total travel time." data-ko="선택한 경유지를 이동시간이 짧아지도록 자동 재배열합니다.">Reorders selected stops to reduce total travel time.</p></div><span class="slot-type local">LOGIC</span></div><div class="data-slot"><b>Data slot</b><code>origin · destination · waypoint[] · travel_matrix</code></div></div>
     <div class="feature-card"><div class="feature-top"><div><h3 data-en="Live ETA & alternate transport" data-ko="실시간 ETA · 대체 이동수단">Live ETA & alternate transport</h3><p data-en="Updates arrival time with traffic and proposes alternatives in heavy rain or snow." data-ko="교통상황으로 도착시간을 갱신하고 폭우·폭설 때 대체 이동수단을 제안합니다.">Updates arrival time with traffic and proposes alternatives in heavy rain or snow.</p></div><span class="slot-type api">API</span></div><div class="data-slot"><b>Data slot</b><code>traffic_delay · weather_alert · alternative_mode[]</code></div></div>
     <div class="feature-card"><div class="feature-top"><div><h3 data-en="Transfers, exits & accessibility" data-ko="환승·출구·접근성">Transfers, exits & accessibility</h3><p data-en="Pictograms, station exit numbers, elevators, wheelchair and stroller suitability." data-ko="환승 픽토그램, 역 출구 번호, 엘리베이터와 휠체어·유모차 편의를 표시합니다.">Pictograms, station exit numbers, elevators, wheelchair and stroller suitability.</p></div><span class="slot-type api">DATA</span></div><div class="data-slot"><b>Data slot</b><code>station_exit · elevator · barrier_free · transfer_icon</code></div></div>
@@ -1172,6 +1208,8 @@ function renderSegmentCards(route){
     const a=route[i], b=route[i+1], d=legData(a,b);
     const card=document.createElement('div');
     card.className='segment-card';
+    card.dataset.segmentFrom=a;
+    card.dataset.segmentTo=b;
     const an=lang==='ko'?cityMeta[a].ko:a;
     const bn=lang==='ko'?cityMeta[b].ko:b;
     const alt=(a==='Seoul'&&b==='Suwon')?(lang==='ko'?'대안: 광역버스':'Alt: Express bus'):
@@ -1396,6 +1434,180 @@ function alertLang(){
 
 let ODSAY_WEB_KEY=sessionStorage.getItem('ODSAY_WEB_KEY')||'';
 
+const ODSAY_MOVE_POINTS={
+  Seoul:{x:126.9707,y:37.5547,en:'Seoul Station',ko:'서울역'},
+  Suwon:{x:127.0003,y:37.2661,en:'Suwon Station',ko:'수원역'},
+  Jeonju:{x:127.1618,y:35.8498,en:'Jeonju Station',ko:'전주역'},
+  Gyeongju:{x:129.1389,y:35.7982,en:'Singyeongju Station',ko:'신경주역'},
+  Busan:{x:129.0403,y:35.1152,en:'Busan Station',ko:'부산역'},
+  Jeju:{x:126.4930,y:33.5104,en:'Jeju Airport',ko:'제주공항'}
+};
+let lastLiveTransitResult=null;
+
+function isJejuSegment(fromCity,toCity){
+  return fromCity==='Jeju' || toCity==='Jeju';
+}
+function odsayMoveLabel(city){
+  const p=ODSAY_MOVE_POINTS[city];
+  return p ? (lang==='ko'?p.ko:p.en) : city;
+}
+function populateMoveSelectors(){
+  const from=document.getElementById('moveFrom'), to=document.getElementById('moveTo');
+  if(!from||!to) return;
+  const cities=Object.keys(ODSAY_MOVE_POINTS);
+  const currentFrom=document.getElementById('start')?.value || 'Seoul';
+  const currentTo=document.getElementById('dest')?.value || 'Busan';
+  from.innerHTML=cities.map(c=>`<option value="${c}">${odsayMoveLabel(c)}</option>`).join('');
+  to.innerHTML=cities.map(c=>`<option value="${c}">${odsayMoveLabel(c)}</option>`).join('');
+  from.value=ODSAY_MOVE_POINTS[currentFrom]?currentFrom:'Seoul';
+  to.value=ODSAY_MOVE_POINTS[currentTo]?currentTo:'Busan';
+}
+function syncMoveFromPlanner(){
+  const from=document.getElementById('moveFrom'), to=document.getElementById('moveTo');
+  const a=document.getElementById('start')?.value, b=document.getElementById('dest')?.value;
+  if(from&&ODSAY_MOVE_POINTS[a]) from.value=a;
+  if(to&&ODSAY_MOVE_POINTS[b]) to.value=b;
+}
+function odsayTypeLabel(type){
+  const ko={1:'지하철',2:'버스',3:'버스 + 지하철'}, en={1:'Subway',2:'Bus',3:'Bus + Subway'};
+  return (lang==='ko'?ko:en)[type] || (lang==='ko'?'대중교통':'Transit');
+}
+function odsayStepSummary(subPath=[]){
+  return subPath.map(s=>{
+    if(s.trafficType===1){
+      const lane=(s.lane||[])[0]||{};
+      return `${lang==='ko'?'지하철':'Subway'} ${lane.name||''} ${s.startName||''} → ${s.endName||''}`.trim();
+    }
+    if(s.trafficType===2){
+      const lane=(s.lane||[])[0]||{};
+      return `${lang==='ko'?'버스':'Bus'} ${lane.busNo||''} ${s.startName||''} → ${s.endName||''}`.trim();
+    }
+    if(s.trafficType===3) return `${lang==='ko'?'도보':'Walk'} ${s.sectionTime||0}${lang==='ko'?'분':' min'}`;
+    return '';
+  }).filter(Boolean).join(' · ');
+}
+function normalizeOdsayMove(data){
+  return (data?.result?.path||[]).map((p,i)=>{
+    const info=p.info||{};
+    return {
+      id:i,
+      type:p.pathType,
+      totalTime:Number(info.totalTime||0),
+      fare:Number(info.payment??info.totalFare??0),
+      transferCount:Number(info.busTransitCount||0)+Number(info.subwayTransitCount||0),
+      totalWalk:Number(info.totalWalk||0),
+      steps:odsayStepSummary(p.subPath||[])
+    };
+  });
+}
+function recommendedOdsayRoute(routes){
+  return [...routes].sort((a,b)=>
+    (a.totalTime+a.transferCount*7+Math.min(a.totalWalk/500,8))-
+    (b.totalTime+b.transferCount*7+Math.min(b.totalWalk/500,8))
+  )[0]||null;
+}
+function renderMoveLiveRoutes(routes){
+  const list=document.getElementById('moveLiveRoutes'), summary=document.getElementById('moveLiveSummary');
+  if(!list||!summary) return;
+  if(!routes.length){
+    list.innerHTML='';
+    summary.className='data-slot error';
+    summary.innerHTML=`<b>${lang==='ko'?'경로 없음':'No route found'}</b><span>${lang==='ko'?'ODsay에서 경로를 찾지 못했습니다.':'ODsay returned no route.'}</span>`;
+    return;
+  }
+  const rec=recommendedOdsayRoute(routes);
+  summary.className='data-slot success';
+  summary.innerHTML=`<b>${lang==='ko'?'실시간 경로 연결 완료 ✓':'Live route connected ✓'}</b><span>${lang==='ko'?`경로 ${routes.length}개 · 추천 ${rec.totalTime}분 · 환승 ${rec.transferCount} · ${rec.fare.toLocaleString()}원`:`${routes.length} routes · recommended ${rec.totalTime} min · ${rec.transferCount} transfer(s) · KRW ${rec.fare.toLocaleString()}`}</span>`;
+  list.innerHTML=routes.slice(0,4).map(r=>`
+    <div class="live-route-card ${r.id===rec.id?'recommended':''}">
+      <div class="live-route-head">
+        <div class="live-route-title">${odsayTypeLabel(r.type)} · ${r.totalTime}${lang==='ko'?'분':' min'}</div>
+        ${r.id===rec.id?`<span class="live-route-badge">${lang==='ko'?'외국인 추천':'VISITOR PICK'}</span>`:''}
+      </div>
+      <div class="live-route-meta">
+        <span>${lang==='ko'?'요금':'Fare'} ${r.fare.toLocaleString()}${lang==='ko'?'원':' KRW'}</span>
+        <span>${lang==='ko'?'환승':'Transfers'} ${r.transferCount}</span>
+        <span>${lang==='ko'?'도보':'Walk'} ${r.totalWalk}m</span>
+      </div>
+      <div class="live-route-steps">${r.steps||'-'}</div>
+    </div>`).join('');
+}
+function applyOdsayToSegment(fromCity,toCity,route){
+  if(isJejuSegment(fromCity,toCity)) return;
+  document.querySelectorAll('.segment-card').forEach(card=>{
+    if(card.dataset.segmentFrom===fromCity && card.dataset.segmentTo===toCity){
+      const info=card.querySelector('.segment-info');
+      if(info){
+        const blocks=info.querySelectorAll('div');
+        if(blocks[0]) blocks[0].innerHTML=`<span>${lang==='ko'?'ODsay 실제 시간':'ODsay LIVE TIME'}</span><b>${route.totalTime}${lang==='ko'?'분':' min'}</b>`;
+        if(blocks[1]) blocks[1].innerHTML=`<span>${lang==='ko'?'ODsay 실제 요금':'ODsay LIVE FARE'}</span><b>${route.fare.toLocaleString()}${lang==='ko'?'원':' KRW'}</b>`;
+        if(blocks[2]) blocks[2].innerHTML=`<span>${lang==='ko'?'환승':'TRANSFERS'}</span><b>${route.transferCount}</b>`;
+      }
+      let badge=card.querySelector('.segment-live-badge');
+      if(!badge){
+        badge=document.createElement('div');
+        badge.className='segment-live-badge';
+        card.appendChild(badge);
+      }
+      badge.textContent=lang==='ko'?'ODsay 실시간 데이터 적용':'ODsay live data applied';
+    }
+  });
+}
+async function searchLiveMoveRoute(){
+  const fromCity=document.getElementById('moveFrom')?.value;
+  const toCity=document.getElementById('moveTo')?.value;
+  const summary=document.getElementById('moveLiveSummary');
+  const btn=document.getElementById('moveLiveSearchBtn');
+  if(!fromCity||!toCity||!summary) return;
+  if(fromCity===toCity){
+    summary.className='data-slot error';
+    summary.innerHTML=`<b>${lang==='ko'?'같은 장소':'Same place'}</b><span>${lang==='ko'?'출발지와 목적지를 다르게 선택해주세요.':'Choose a different destination.'}</span>`;
+    return;
+  }
+  if(isJejuSegment(fromCity,toCity)){
+    summary.className='data-slot';
+    summary.innerHTML=`<b>${lang==='ko'?'항공 구간':'Flight segment'}</b><span>${lang==='ko'?'제주가 포함된 구간은 ODsay 대중교통 검색에서 제외하고 기존 항공편 샘플 데이터(legData)를 사용합니다.':'Routes involving Jeju are excluded from ODsay public-transit search and continue to use the existing flight sample data (legData).'}</span>`;
+    const list=document.getElementById('moveLiveRoutes');
+    if(list) list.innerHTML='';
+    return;
+  }
+  if(!ODSAY_WEB_KEY){
+    summary.className='data-slot error';
+    summary.innerHTML=`<b>${lang==='ko'?'ODsay 키 필요':'ODsay key required'}</b><span>${lang==='ko'?'위 연결 테스트에서 Web 키를 한 번 입력해주세요.':'Enter the Web key once in the connection test above.'}</span>`;
+    return;
+  }
+  if(location.hostname!=='korea-route.vercel.app'){
+    summary.className='data-slot error';
+    summary.innerHTML=`<b>${lang==='ko'?'Production에서 테스트':'Production only'}</b><span>korea-route.vercel.app</span>`;
+    return;
+  }
+  const s=ODSAY_MOVE_POINTS[fromCity], e=ODSAY_MOVE_POINTS[toCity];
+  btn.disabled=true;
+  summary.className='data-slot loading';
+  summary.innerHTML=`<b>${lang==='ko'?'ODsay 조회 중':'Searching ODsay'}</b><span>${odsayMoveLabel(fromCity)} → ${odsayMoveLabel(toCity)}</span>`;
+  try{
+    const q=new URLSearchParams({
+      SX:String(s.x),SY:String(s.y),EX:String(e.x),EY:String(e.y),
+      OPT:'0',SearchType:'0',SearchPathType:'0',
+      lang:lang==='ko'?'0':'1',apiKey:ODSAY_WEB_KEY
+    });
+    const res=await fetch('https://api.odsay.com/v1/api/searchPubTransPathT?'+q.toString());
+    const data=await res.json();
+    if(!res.ok||data.error) throw new Error(data?.error?.[0]?.message||`HTTP ${res.status}`);
+    const routes=normalizeOdsayMove(data);
+    const rec=recommendedOdsayRoute(routes);
+    lastLiveTransitResult={fromCity,toCity,routes,recommended:rec};
+    renderMoveLiveRoutes(routes);
+    if(rec) applyOdsayToSegment(fromCity,toCity,rec);
+  }catch(err){
+    summary.className='data-slot error';
+    summary.innerHTML=`<b>${lang==='ko'?'ODsay 조회 실패':'ODsay request failed'}</b><span>${String(err.message||err)}</span>`;
+  }finally{
+    btn.disabled=false;
+  }
+}
+
+
 async function testOdsayConnection(){
   const btn=document.getElementById('odsayTestBtn');
   const box=document.getElementById('odsayTestResult');
@@ -1456,6 +1668,7 @@ async function testOdsayConnection(){
 }
 
 function refreshPlannerAndResult(){
+  syncMoveFromPlanner();
   updateRoutePreview();
   if(current==='result') calculate();
 }
@@ -1474,6 +1687,9 @@ document.getElementById('mainCTA').addEventListener('click',e=>{e.preventDefault
 document.getElementById('newPlanFromCity')?.addEventListener('click',()=>go('planner'));
 document.getElementById('cityAttractionApply')?.addEventListener('click',applyCityAttractions);
 document.getElementById('odsayTestBtn')?.addEventListener('click',testOdsayConnection);
+document.getElementById('moveLiveSearchBtn')?.addEventListener('click',searchLiveMoveRoute);
+populateMoveSelectors();
+syncMoveFromPlanner();
 const odsayInput=document.getElementById('odsayKeyInput');
 if(odsayInput && ODSAY_WEB_KEY) odsayInput.placeholder=lang==='ko'?'이 세션에 키 저장됨':'Key saved for this session';
 
