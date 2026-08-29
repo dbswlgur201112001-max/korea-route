@@ -30,6 +30,34 @@ function providerTotalCount(raw) {
   return Number.isFinite(parsed) ? parsed : null;
 }
 
+function compactStationName(name) {
+  return String(name || '')
+    .trim()
+    .replace(/\s+/g, '')
+    .replace(/역$/, '');
+}
+
+function compactRunDate(value) {
+  const digits = String(value || '').replace(/\D/g, '');
+  return digits.length >= 8 ? digits.slice(0, 8) : '';
+}
+
+function trainRunDate(train) {
+  return compactRunDate(train?.departureTime || train?.arrivalTime || '');
+}
+
+function filterNormalizedTrains(trains, departureName, arrivalName, runYmd) {
+  const from = compactStationName(departureName);
+  const to = compactStationName(arrivalName);
+  return (Array.isArray(trains) ? trains : []).filter((train) => {
+    const dep = compactStationName(train?.departureStation);
+    const arr = compactStationName(train?.arrivalStation);
+    const day = trainRunDate(train);
+    return dep === from && arr === to && day === runYmd;
+  });
+}
+
+
 function minutesBetween(start, end) {
   const a = new Date(start);
   const b = new Date(end);
@@ -70,10 +98,32 @@ function normalizeItems(raw) {
 
     return {
       trainNo: item.trainNo ?? item.trnNo ?? item.trn_no ?? item.train_no ?? item.trainNumber ?? null,
-      service: item.trainTypeName ?? item.trainKindName ?? item.trn_knd_nm ?? item.train_type_nm ?? item.trainType ?? null,
-      trainType: item.trainTypeName ?? item.trainKindName ?? item.trn_knd_nm ?? item.train_type_nm ?? item.trainType ?? null,
-      departureStation: item.departureStationName ?? item.dptreStnNm ?? item.dptre_stn_nm ?? item.depPlaceNm ?? null,
-      arrivalStation: item.arrivalStationName ?? item.arvlStnNm ?? item.arvl_stn_nm ?? item.arrPlaceNm ?? null,
+      service:
+        item.trainTypeName ??
+        item.trainKindName ??
+        item.trainClassName ??
+        item.trn_knd_nm ??
+        item.trn_clsf_nm ??
+        item.train_type_nm ??
+        item.train_kind_nm ??
+        item.trainType ??
+        item.trn_knd_cd ??
+        item.trn_clsf_cd ??
+        null,
+      trainType:
+        item.trainTypeName ??
+        item.trainKindName ??
+        item.trainClassName ??
+        item.trn_knd_nm ??
+        item.trn_clsf_nm ??
+        item.train_type_nm ??
+        item.train_kind_nm ??
+        item.trainType ??
+        item.trn_knd_cd ??
+        item.trn_clsf_cd ??
+        null,
+      departureStation: String(item.departureStationName ?? item.dptreStnNm ?? item.dptre_stn_nm ?? item.depPlaceNm ?? '').trim() || null,
+      arrivalStation: String(item.arrivalStationName ?? item.arvlStnNm ?? item.arvl_stn_nm ?? item.arrPlaceNm ?? '').trim() || null,
       departureTime,
       arrivalTime,
       durationMinutes: minutesBetween(departureTime, arrivalTime),
@@ -116,22 +166,12 @@ export default async function handler(req, res) {
   query.set('serviceKey', apiKey);
   query.set('returnType', 'JSON');
   query.set('pageNo', '1');
-  query.set('numOfRows', '100');
+  query.set('numOfRows', '5000');
 
   const debugMode = req.query?.debug || '';
-  const debugNoFilter = debugMode === 'nofilter';
-  const debugAll = debugMode === 'all';
 
-  if(!debugNoFilter && !debugAll){
-    query.set('cond[dptre_stn_nm::LIKE]', `%${departureName}%`);
-    query.set('cond[arvl_stn_nm::LIKE]', `%${arrivalName}%`);
-  }
-
-  if(!debugAll){
-    query.set('cond[run_ymd::GTE]', runYmd);
-    query.set('cond[run_ymd::LTE]', runYmd);
-  }
-
+  // Provider-side cond[...] filters currently return 0 rows even though the
+  // unfiltered endpoint returns data. Fetch a broad page and filter safely here.
   const url = `${apiUrl}${apiUrl.includes('?') ? '&' : '?'}${query.toString()}`;
   const diagnosticQuery = Array.from(query.entries())
     .map(([key,value]) => `${encodeURIComponent(key)}=${encodeURIComponent(key === 'serviceKey' ? '***' : value)}`)
@@ -160,6 +200,14 @@ export default async function handler(req, res) {
       });
     }
 
+    const normalizedTrains = normalizeItems(raw);
+    const filteredTrains = filterNormalizedTrains(
+      normalizedTrains,
+      departureName,
+      arrivalName,
+      runYmd
+    );
+
     return res.status(200).json({
       configured: true,
       source: 'KORAIL_OPEN_API',
@@ -178,7 +226,9 @@ export default async function handler(req, res) {
       },
       diagnosticQuery,
       providerCount: providerTotalCount(raw),
-      trains: normalizeItems(raw)
+      fetchedCount: normalizedTrains.length,
+      matchedCount: filteredTrains.length,
+      trains: debugMode === 'all' ? normalizedTrains : filteredTrains
     });
   } catch (error) {
     return res.status(502).json({
