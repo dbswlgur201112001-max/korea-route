@@ -117,8 +117,8 @@ export default async function handler(req, res) {
   query.set('returnType', 'JSON');
   query.set('pageNo', '1');
   query.set('numOfRows', '100');
-  query.set('cond[dptre_stn_nm::LIKE]', departureName);
-  query.set('cond[arvl_stn_nm::LIKE]', arrivalName);
+  query.set('cond[dptre_stn_nm::LIKE]', `%${departureName}%`);
+  query.set('cond[arvl_stn_nm::LIKE]', `%${arrivalName}%`);
   query.set('cond[run_ymd::GTE]', runYmd);
   query.set('cond[run_ymd::LTE]', runYmd);
 
