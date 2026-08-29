@@ -117,12 +117,20 @@ export default async function handler(req, res) {
   query.set('returnType', 'JSON');
   query.set('pageNo', '1');
   query.set('numOfRows', '100');
-  query.set('cond[dptre_stn_nm::LIKE]', `%${departureName}%`);
-  query.set('cond[arvl_stn_nm::LIKE]', `%${arrivalName}%`);
+
+  const debugNoFilter = req.query?.debug === 'nofilter';
+  if(!debugNoFilter){
+    query.set('cond[dptre_stn_nm::LIKE]', `%${departureName}%`);
+    query.set('cond[arvl_stn_nm::LIKE]', `%${arrivalName}%`);
+  }
+
   query.set('cond[run_ymd::GTE]', runYmd);
   query.set('cond[run_ymd::LTE]', runYmd);
 
   const url = `${apiUrl}${apiUrl.includes('?') ? '&' : '?'}${query.toString()}`;
+  const diagnosticQuery = Array.from(query.entries())
+    .map(([key,value]) => `${encodeURIComponent(key)}=${encodeURIComponent(key === 'serviceKey' ? '***' : value)}`)
+    .join('&');
 
   try {
     const upstream = await fetch(url, { headers: { Accept: 'application/json' } });
@@ -142,7 +150,8 @@ export default async function handler(req, res) {
       return res.status(502).json({
         error: 'RAIL_UPSTREAM_ERROR',
         status: upstream.status,
-        details: raw
+        details: raw,
+        diagnosticQuery
       });
     }
 
@@ -161,6 +170,7 @@ export default async function handler(req, res) {
         arrivalStation: arrivalName,
         runYmd
       },
+      diagnosticQuery,
       providerCount: providerTotalCount(raw),
       trains: normalizeItems(raw)
     });
