@@ -118,14 +118,19 @@ export default async function handler(req, res) {
   query.set('pageNo', '1');
   query.set('numOfRows', '100');
 
-  const debugNoFilter = req.query?.debug === 'nofilter';
-  if(!debugNoFilter){
+  const debugMode = req.query?.debug || '';
+  const debugNoFilter = debugMode === 'nofilter';
+  const debugAll = debugMode === 'all';
+
+  if(!debugNoFilter && !debugAll){
     query.set('cond[dptre_stn_nm::LIKE]', `%${departureName}%`);
     query.set('cond[arvl_stn_nm::LIKE]', `%${arrivalName}%`);
   }
 
-  query.set('cond[run_ymd::GTE]', runYmd);
-  query.set('cond[run_ymd::LTE]', runYmd);
+  if(!debugAll){
+    query.set('cond[run_ymd::GTE]', runYmd);
+    query.set('cond[run_ymd::LTE]', runYmd);
+  }
 
   const url = `${apiUrl}${apiUrl.includes('?') ? '&' : '?'}${query.toString()}`;
   const diagnosticQuery = Array.from(query.entries())
@@ -168,7 +173,8 @@ export default async function handler(req, res) {
       query: {
         departureStation: departureName,
         arrivalStation: arrivalName,
-        runYmd
+        runYmd,
+        debugMode
       },
       diagnosticQuery,
       providerCount: providerTotalCount(raw),
