@@ -1893,6 +1893,8 @@ function assignVisibleExplorePlacesToDay(day){
       :`Added ${entries.length} place${entries.length===1?'':'s'} to Day ${targetDay}.`
   );
   renderOfflineTripSnapshot();
+  renderMyTripTodayCard();
+  refreshAssistantContext();
 }
 
 function ensureExploreDayAssignUI(){
@@ -1967,6 +1969,8 @@ function saveVisibleExplorePlaces(){
       :(lang==='ko'?'표시된 장소가 이미 모두 저장되어 있습니다.':'All visible places are already saved.')
   );
   renderOfflineTripSnapshot();
+  renderMyTripTodayCard();
+  refreshAssistantContext();
 }
 
 function showExploreBulkSaveFeedback(text){
@@ -2542,6 +2546,8 @@ function setSavedPlaceDay(key,day){
   renderMyTripChecklist();
   renderMyTripEmergencyCard();
   renderOfflineTripSnapshot();
+  renderMyTripTodayCard();
+  refreshAssistantContext();
 }
 
 function moveSavedPlace(key,dir){
@@ -2565,6 +2571,7 @@ function moveSavedPlace(key,dir){
   sessionStorage.setItem('koreaRouteSavedPlacePlan',JSON.stringify(plan));
   renderSavedPlacesInMyTrip();
   renderOfflineTripSnapshot();
+  renderMyTripTodayCard();
 }
 
 
@@ -2780,6 +2787,8 @@ function toggleSavedPlace(city,index){
   ensureExploreSavedFilterUI();
   refreshSavedPoiFilter();
   renderOfflineTripSnapshot();
+  renderMyTripTodayCard();
+  refreshAssistantContext();
 }
 
 function savedPlaceButtonHtml(city,poi,index){
@@ -2871,6 +2880,7 @@ function toggleMyTripChecklist(id,checked){
   renderMyTripChecklist();
   renderOfflineTripSnapshot();
   renderMyTripTodayCard();
+  refreshAssistantContext();
 }
 
 function renderMyTripChecklist(){
@@ -3401,6 +3411,8 @@ function restoreOfflineTripSnapshot(){
   renderMyTripEmergencyCard();
   renderMyTripTodayCard();
   initStayHub();
+  initWalletHub();
+  refreshAssistantContext();
 
   const city=document.getElementById('city')?.dataset.currentCity;
   if(city) renderCityPoiList(city);
@@ -3614,6 +3626,8 @@ function removeSavedPlace(index){
   const city=document.querySelector('[data-current-city]')?.dataset.currentCity;
   if(city) renderCityPoiList(city);
   renderOfflineTripSnapshot();
+  renderMyTripTodayCard();
+  refreshAssistantContext();
 }
 
 
@@ -4438,6 +4452,11 @@ async function tryRailLiveThenFallback(fromCity,toCity){
     }
     const payload=await fetchRailLiveData(fromCity,toCity,railTripDate());
     if(renderRailLiveCards(fromCity,toCity,payload)) return true;
+    if(summary && payload?.configured){
+      const q=payload?.query||{};
+      summary.className='data-slot';
+      summary.innerHTML=`<b>${lang==='ko'?'철도 API 연결됨 · 조회 결과 0건':'Rail API connected · 0 results'}</b><span>${q.departureStation||fromCity} → ${q.arrivalStation||toCity} · ${q.runYmd||railTripDate()} · ${lang==='ko'?'해당 조건의 운행계획이 없어서 샘플 경로를 표시합니다.':'No schedule rows matched these conditions, so sample routes are shown.'}</span>`;
+    }
   }catch(err){
     console.info('Rail live API fallback:',err?.code||err?.message||err);
   }
@@ -4657,6 +4676,11 @@ function clearMyTripPart(part){
   renderUnifiedItinerarySummary();
   renderMyTripTodayCard();
   renderOfflineTripSnapshot();
+  refreshAssistantContext();
+
+  if(part==='wallet'){
+    renderTripWallet();
+  }
 
   if(part==='stay'){
     renderMyTripEmergencyCard();
@@ -4938,11 +4962,17 @@ function renderTripWallet(){
   const people=Math.max(1,Math.min(10,Number(document.getElementById('walletPeople')?.value||1)));
   const base=WALLET_CITY_BASE[city]||WALLET_CITY_BASE.Seoul;
   const sf=WALLET_STYLE[style]||WALLET_STYLE.balanced;
+  const savedWallet=myTripWalletSelection();
 
   const daily=(base.food+base.local+base.attraction+base.misc)*sf.factor;
   const total=daily*days*people;
   const connectivity=people*Math.min(days,10)*3500;
   const grand=total+connectivity;
+  const savedMatches=!!(savedWallet
+    && savedWallet.city===city
+    && savedWallet.style===style
+    && Number(savedWallet.days)===days
+    && Number(savedWallet.people)===people);
 
   const sum=document.getElementById('walletSummary');
   const res=document.getElementById('walletResults');
@@ -4961,7 +4991,7 @@ function renderTripWallet(){
     <div class="wallet-card best">
       <div class="wallet-card-top">
         <div><h3>${walletCityName(city)} · ${styleLabel}</h3></div>
-        <span class="wallet-badge">${lang==='ko'?'추천 예산안':'BUDGET PLAN'}</span>
+        <span class="wallet-badge">${savedMatches?(lang==='ko'?'저장됨':'SAVED'):(lang==='ko'?'추천 예산안':'BUDGET PLAN')}</span>
       </div>
       <div class="wallet-breakdown">
         <div><span>${lang==='ko'?'식비 / 일':'Food / day'}</span><b>${walletFmt(base.food*sf.factor)}</b></div>
@@ -4976,7 +5006,7 @@ function renderTripWallet(){
         <span>${lang==='ko'?'eSIM 가격 슬롯':'eSIM price slot'}</span>
       </div>
       <div class="wallet-actions">
-        <button class="wallet-btn primary" type="button" onclick="saveWalletPlan('${city}','${style}',${days},${people},${Math.round(grand)})">${lang==='ko'?'예산 저장':'Save budget'}</button>
+        <button class="wallet-btn primary" type="button" onclick="saveWalletPlan('${city}','${style}',${days},${people},${Math.round(grand)})">${savedMatches?(lang==='ko'?'저장된 예산':'Saved budget'):(lang==='ko'?'예산 저장':'Save budget')}</button>
         <button class="wallet-btn secondary" type="button" onclick="showWalletPassPlaceholder('${city}')">${lang==='ko'?'패스 비교':'Compare passes'}</button>
       </div>
     </div>
@@ -5012,9 +5042,11 @@ function saveWalletPlan(city,style,days,people,total){
     ? `${walletCityName(city)} ${days}일 예산을 저장했습니다. 이후 Plan/Move 비용 합산에 연결할 수 있습니다.`
     : `${days}-day ${walletCityName(city)} budget saved. It can feed future Plan/Move cost totals.`;
 
+  renderTripWallet();
   renderUnifiedItinerarySummary();
   renderMyTripTodayCard();
   renderOfflineTripSnapshot();
+  refreshAssistantContext();
 }
 
 function showWalletPassPlaceholder(city){
@@ -5037,8 +5069,20 @@ function showFxPlaceholder(){
 }
 function initWalletHub(){
   const dest=document.getElementById('dest')?.value;
-  const sel=document.getElementById('walletCity');
-  if(sel && dest && WALLET_CITY_BASE[dest]) sel.value=dest;
+  const citySel=document.getElementById('walletCity');
+  const styleSel=document.getElementById('walletStyle');
+  const daysInput=document.getElementById('walletDays');
+  const peopleInput=document.getElementById('walletPeople');
+  const savedWallet=myTripWalletSelection();
+
+  if(savedWallet?.city && WALLET_CITY_BASE[savedWallet.city]){
+    if(citySel) citySel.value=savedWallet.city;
+    if(styleSel && WALLET_STYLE[savedWallet.style]) styleSel.value=savedWallet.style;
+    if(daysInput && Number(savedWallet.days)>=1) daysInput.value=String(savedWallet.days);
+    if(peopleInput && Number(savedWallet.people)>=1) peopleInput.value=String(savedWallet.people);
+  }else if(citySel && dest && WALLET_CITY_BASE[dest]){
+    citySel.value=dest;
+  }
   renderTripWallet();
 }
 
@@ -5120,6 +5164,7 @@ function selectStayArea(city,id){
   renderMyTripTodayCard();
   renderMyTripEmergencyCard();
   renderOfflineTripSnapshot();
+  refreshAssistantContext();
 
   const {fromCity,toCity}=currentMoveSegmentCities();
   if(fromCity&&toCity){
@@ -5405,6 +5450,7 @@ function toggleMoveVerifyItem(id){
   if(fromCity&&toCity) mountMoveRouteReadiness(fromCity,toCity);
   renderOfflineTripSnapshot();
   renderMyTripTodayCard();
+  refreshAssistantContext();
 }
 
 function renderMoveVerifyState(){
@@ -5544,6 +5590,7 @@ function saveTransitPaymentPrefs(){
   if(fromCity&&toCity) mountMoveRouteReadiness(fromCity,toCity);
   renderOfflineTripSnapshot();
   renderMyTripTodayCard();
+  refreshAssistantContext();
 }
 
 function restoreTransitPaymentPrefs(){
