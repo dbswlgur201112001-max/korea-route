@@ -319,6 +319,24 @@ background-size:32px 32px,32px 32px,100% 100%}
 .live-route-card .route-role{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
 .live-route-card .route-role span{font-size:7px;font-weight:900;padding:4px 6px;border-radius:999px;background:#eef4ff;color:#2c61a9}
 
+
+.ff-layer-note{margin:10px 0 12px;padding:10px 12px;border:1px solid #dbe5f0;border-radius:14px;background:#f8fbff}
+.ff-layer-note b{display:block;font-size:10px;color:#18365a}
+.ff-layer-note span{display:block;margin-top:4px;font-size:8px;line-height:1.5;color:#6c7d91}
+.ff-score{display:inline-flex;align-items:center;gap:6px;padding:5px 8px;border-radius:999px;background:#eef7f0;color:#2a6841;font-size:8px;font-weight:900;white-space:nowrap}
+.ff-score.mid{background:#fff6e8;color:#8a5c18}
+.ff-score.low{background:#fff0f0;color:#a13f3f}
+.ff-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.ff-tag{font-size:7px;font-weight:800;padding:4px 6px;border-radius:999px;background:#f0f4f8;color:#50657c}
+.ff-tag.good{background:#edf8f1;color:#2d7046}
+.ff-tag.warn{background:#fff5e8;color:#8d5c17}
+.ff-tag.unknown{background:#f3f4f6;color:#727b86}
+.ff-place-row{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;width:100%}
+.ff-place-main{min-width:0;flex:1}
+.ff-meta-line{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:6px}
+.ff-sample{font-size:7px;color:#8c99a8}
+.live-route-card .ff-tags{margin-top:8px}
+
 </style>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -567,7 +585,12 @@ background-size:32px 32px,32px 32px,100% 100%}
 <div id="cityGuideMap" class="city-map" style="display:none"></div>
     <div id="cityPoiList" class="poi-list"></div>
 
-  <div class="city-attraction-manager">
+  
+  <div class="ff-layer-note">
+    <b data-en="Foreigner Friendly Layer" data-ko="외국인 이용 편의 레이어">Foreigner Friendly Layer</b>
+    <span data-en="Prototype indicators for card access, language, phone-number requirements and accessibility. These sample values must be replaced with verified data before public release." data-ko="해외카드, 언어, 한국 전화번호 요구, 접근성 등을 보여주는 프로토타입 지표입니다. 공개 전 검증 데이터로 교체해야 합니다.">Prototype indicators only.</span>
+  </div>
+<div class="city-attraction-manager">
     <div class="city-attraction-head">
       <div>
         <b data-en="Customize this city" data-ko="이 도시 일정 꾸미기">Customize this city</b>
@@ -732,7 +755,9 @@ function go(id){
   if(id==='moveHub'||id==='move'){
     setTimeout(()=>{
       syncMoveFromPlanner();
-      if(ODSAY_WEB_KEY && document.getElementById('moveFrom')?.value!==document.getElementById('moveTo')?.value){
+      const mf=document.getElementById('moveFrom')?.value;
+      const mt=document.getElementById('moveTo')?.value;
+      if(mf && mt && mf!==mt && (!shouldUseOdsay(mf,mt) || ODSAY_WEB_KEY)){
         searchLiveMoveRoute();
       }
     },0);
@@ -868,6 +893,101 @@ function updateRoutePreview(){
 
 
 
+
+const FOREIGNER_FRIENDLY_PROTOTYPE={
+  defaults:{
+    card:'unknown',
+    phone:'unknown',
+    language:'basic',
+    accessibility:'unknown',
+    reservation:'unknown'
+  },
+  placeOverrides:{
+    'Gyeongbokgung Palace':{card:'yes',phone:'no',language:'good',accessibility:'partial',reservation:'optional'},
+    'Bukchon Hanok Village':{card:'mixed',phone:'no',language:'basic',accessibility:'limited',reservation:'no'},
+    'Myeongdong':{card:'yes',phone:'no',language:'good',accessibility:'good',reservation:'no'},
+    'Hwaseong Haenggung':{card:'yes',phone:'no',language:'basic',accessibility:'partial',reservation:'optional'},
+    'Banghwasuryujeong':{card:'na',phone:'no',language:'basic',accessibility:'partial',reservation:'no'},
+    'Haenggung-dong':{card:'mixed',phone:'no',language:'basic',accessibility:'partial',reservation:'mixed'},
+    'Jeonju Hanok Village':{card:'mixed',phone:'no',language:'basic',accessibility:'partial',reservation:'mixed'},
+    'Gyeonggijeon Shrine':{card:'yes',phone:'no',language:'basic',accessibility:'partial',reservation:'optional'},
+    'Nambu Market':{card:'mixed',phone:'no',language:'limited',accessibility:'partial',reservation:'no'},
+    'Daereungwon':{card:'yes',phone:'no',language:'basic',accessibility:'partial',reservation:'optional'},
+    'Cheomseongdae':{card:'na',phone:'no',language:'basic',accessibility:'good',reservation:'no'},
+    'Donggung & Wolji':{card:'yes',phone:'no',language:'basic',accessibility:'partial',reservation:'optional'},
+    'Haeundae Beach':{card:'na',phone:'no',language:'good',accessibility:'good',reservation:'no'},
+    'Gamcheon Culture Village':{card:'mixed',phone:'no',language:'basic',accessibility:'limited',reservation:'no'},
+    'Gwangalli Beach':{card:'na',phone:'no',language:'good',accessibility:'good',reservation:'no'},
+    'Dongmun Market':{card:'mixed',phone:'no',language:'limited',accessibility:'partial',reservation:'no'},
+    'Seongsan Ilchulbong':{card:'yes',phone:'no',language:'basic',accessibility:'limited',reservation:'optional'},
+    'Iho Tewoo Beach':{card:'na',phone:'no',language:'basic',accessibility:'good',reservation:'no'}
+  }
+};
+
+function ffPlaceMeta(name){
+  return Object.assign({},FOREIGNER_FRIENDLY_PROTOTYPE.defaults,FOREIGNER_FRIENDLY_PROTOTYPE.placeOverrides[name]||{});
+}
+function ffScore(meta){
+  let score=50;
+  const add=(v,map)=>{score+=(map[v]||0)};
+  add(meta.card,{yes:15,mixed:5,na:10,unknown:0});
+  add(meta.phone,{no:15,yes:-15,unknown:0});
+  add(meta.language,{good:10,basic:5,limited:-3,unknown:0});
+  add(meta.accessibility,{good:10,partial:4,limited:-8,unknown:0});
+  add(meta.reservation,{no:5,optional:4,mixed:0,yes:-3,unknown:0});
+  return Math.max(0,Math.min(100,score));
+}
+function ffScoreClass(score){
+  if(score>=80) return '';
+  if(score>=60) return 'mid';
+  return 'low';
+}
+function ffTag(label,type='good'){ return `<span class="ff-tag ${type}">${label}</span>`; }
+function ffPlaceTags(meta){
+  const t=[];
+  if(meta.card==='yes') t.push(ffTag(lang==='ko'?'해외카드 가능':'Foreign card','good'));
+  else if(meta.card==='mixed') t.push(ffTag(lang==='ko'?'매장별 결제 상이':'Card varies','warn'));
+  else if(meta.card==='na') t.push(ffTag(lang==='ko'?'결제 불필요':'No payment needed','good'));
+  else t.push(ffTag(lang==='ko'?'결제 확인 필요':'Card status unknown','unknown'));
+
+  if(meta.phone==='no') t.push(ffTag(lang==='ko'?'한국 번호 불필요':'No Korean phone','good'));
+  else if(meta.phone==='yes') t.push(ffTag(lang==='ko'?'한국 번호 필요':'Korean phone required','warn'));
+  else t.push(ffTag(lang==='ko'?'번호 요구 확인 필요':'Phone requirement unknown','unknown'));
+
+  if(meta.language==='good') t.push(ffTag(lang==='ko'?'외국어 안내 양호':'Visitor language support','good'));
+  else if(meta.language==='basic') t.push(ffTag(lang==='ko'?'기본 외국어 안내':'Basic language support','good'));
+  else if(meta.language==='limited') t.push(ffTag(lang==='ko'?'언어 지원 제한':'Limited language support','warn'));
+
+  if(meta.accessibility==='good') t.push(ffTag(lang==='ko'?'접근성 양호':'Accessible','good'));
+  else if(meta.accessibility==='partial') t.push(ffTag(lang==='ko'?'부분 접근 가능':'Partly accessible','warn'));
+  else if(meta.accessibility==='limited') t.push(ffTag(lang==='ko'?'경사·계단 주의':'Steps / slopes','warn'));
+
+  return t.join('');
+}
+function ffPlaceHtml(name){
+  const meta=ffPlaceMeta(name), score=ffScore(meta);
+  return `<div class="ff-meta-line"><span class="ff-score ${ffScoreClass(score)}">${lang==='ko'?'외국인 편의':'Foreigner Friendly'} ${score}</span><span class="ff-sample">${lang==='ko'?'샘플 데이터':'sample data'}</span></div><div class="ff-tags">${ffPlaceTags(meta)}</div>`;
+}
+function ffTransitScore(route){
+  let score=92;
+  score-=Math.min(route.transferCount*8,32);
+  score-=Math.min(Math.round((route.totalWalk||0)/250)*3,18);
+  if(route.totalTime>90) score-=6;
+  return Math.max(35,Math.min(98,score));
+}
+function ffTransitTags(route){
+  const tags=[
+    ffTag(lang==='ko'?'한국 번호 불필요':'No Korean phone','good'),
+    ffTag(lang==='ko'?'교통카드 권장':'Transit card recommended','good')
+  ];
+  if(route.transferCount===0) tags.push(ffTag(lang==='ko'?'환승 없음':'No transfer','good'));
+  else if(route.transferCount<=1) tags.push(ffTag(lang==='ko'?'환승 쉬움':'Simple transfer','good'));
+  else tags.push(ffTag(lang==='ko'?'환승 많음':'Many transfers','warn'));
+  if((route.totalWalk||0)>900) tags.push(ffTag(lang==='ko'?'도보 많음':'Long walk','warn'));
+  tags.push(ffTag(lang==='ko'?'엘리베이터 정보 준비중':'Elevator data pending','unknown'));
+  return tags.join('');
+}
+
 const cityPois={
   Seoul:[
     {en:'Gyeongbokgung Palace',ko:'경복궁',lat:37.5796,lng:126.9770},
@@ -962,13 +1082,13 @@ function renderCityAttractionManager(city){
   base.forEach(p=>{
     const row=document.createElement('label');
     row.className='city-attraction-item base';
-    row.innerHTML=`<input type="checkbox" checked disabled><div class="city-attraction-text"><b>${lang==='ko'?p.ko:p.en}</b><span>${lang==='ko'?'기본 추천 방문지':'Default recommended stop'}</span></div>`;
+    row.innerHTML=`<input type="checkbox" checked disabled><div class="city-attraction-text ff-place-main"><div class="ff-place-row"><div><b>${lang==='ko'?p.ko:p.en}</b><span>${lang==='ko'?'기본 추천 방문지':'Default recommended stop'}</span></div></div>${ffPlaceHtml(p.en)}</div>`;
     list.appendChild(row);
   });
   extras.forEach((p,i)=>{
     const row=document.createElement('label');
     row.className='city-attraction-item';
-    row.innerHTML=`<input type="checkbox" data-extra-poi="${i}" ${selected.has(p.en)?'checked':''}><div class="city-attraction-text"><b>${lang==='ko'?p.ko:p.en}</b><span>${lang==='ko'?'선택하면 지도와 일정에 추가':'Add to map and itinerary'}</span></div>`;
+    row.innerHTML=`<input type="checkbox" data-extra-poi="${i}" ${selected.has(p.en)?'checked':''}><div class="city-attraction-text ff-place-main"><div class="ff-place-row"><div><b>${lang==='ko'?p.ko:p.en}</b><span>${lang==='ko'?'선택하면 지도와 일정에 추가':'Add to map and itinerary'}</span></div></div>${ffPlaceHtml(p.en)}</div>`;
     list.appendChild(row);
   });
   if(count) count.textContent=String(base.length+selected.size);
@@ -1085,7 +1205,7 @@ function renderCityGuideMap(city){
     if(list){
       const item=document.createElement('div');
       item.className='poi-item';
-      item.innerHTML=`<div class="poi-num">${i+1}</div><div class="poi-text"><b>${lang==='ko'?p.ko:p.en}</b><span>${lang==='ko'?'추천 방문지':'Recommended stop'}</span></div>`;
+      item.innerHTML=`<div class="poi-num">${i+1}</div><div class="poi-text ff-place-main"><b>${lang==='ko'?p.ko:p.en}</b><span>${lang==='ko'?'추천 방문지':'Recommended stop'}</span>${ffPlaceHtml(p.en)}</div>`;
       list.appendChild(item);
     }
   });
@@ -1509,6 +1629,37 @@ function saveOdsaySessionKey(){
 function isJejuSegment(fromCity,toCity){
   return fromCity==='Jeju' || toCity==='Jeju';
 }
+
+function shouldUseOdsay(fromCity,toCity){
+  if(isJejuSegment(fromCity,toCity)) return false;
+  return v11Distance(fromCity,toCity) <= 300;
+}
+function renderLegDataFallback(fromCity,toCity){
+  const summary=document.getElementById('moveLiveSummary');
+  const list=document.getElementById('moveLiveRoutes');
+  if(!summary||!list) return;
+  const d=legData(fromCity,toCity);
+  const a=lang==='ko'?(cityMeta[fromCity]?.ko||fromCity):fromCity;
+  const b=lang==='ko'?(cityMeta[toCity]?.ko||toCity):toCity;
+  summary.className='data-slot';
+  summary.innerHTML=`<b>${lang==='ko'?'장거리 이동 · 샘플 데이터':'Long-distance travel · sample data'}</b><span>${a} → ${b} · ${lang==='ko'?'ODsay 대신 기존 철도/항공 샘플 데이터를 사용합니다.':'Using existing rail/flight sample data instead of ODsay.'}</span>`;
+  list.innerHTML=`
+    <div class="live-route-card selected recommended">
+      <div class="live-route-head">
+        <div class="live-route-title">${lang==='ko'?d.modeKo:d.mode}</div>
+        <span class="live-route-badge">${lang==='ko'?'장거리 구간':'LONG DISTANCE'}</span>
+      </div>
+      <div class="live-route-meta">
+        <span>${lang==='ko'?'예상 시간':'Est. time'} ${d.time}</span>
+        <span>${lang==='ko'?'예상 비용':'Est. cost'} ${d.cost}</span>
+      </div>
+      <div class="live-route-steps">${a} → ${b}</div>
+      <div class="ff-tags">
+        <span class="ff-tag unknown">${lang==='ko'?'샘플 데이터':'Sample data'}</span>
+        <span class="ff-tag good">${lang==='ko'?'ODsay 미사용':'ODsay skipped'}</span>
+      </div>
+    </div>`;
+}
 function odsayMoveLabel(city){
   const p=ODSAY_MOVE_POINTS[city];
   return p ? (lang==='ko'?p.ko:p.en) : city;
@@ -1578,6 +1729,14 @@ function renderMoveLiveRoutes(routes){
     return;
   }
   const selected=routeForPreference(routes,selectedMovePreference);
+  const ordered=[...routes].sort((a,b)=>{
+    if(a.id===selected?.id) return -1;
+    if(b.id===selected?.id) return 1;
+    if(selectedMovePreference==='fastest') return a.totalTime-b.totalTime || a.transferCount-b.transferCount;
+    if(selectedMovePreference==='fewest') return a.transferCount-b.transferCount || a.totalTime-b.totalTime;
+    const score=x=>x.totalTime+x.transferCount*7+Math.min((x.totalWalk||0)/500,8);
+    return score(a)-score(b);
+  });
   const prefText=selectedMovePreference==='fastest'
     ? (lang==='ko'?'가장 빠른 경로':'Fastest route')
     : selectedMovePreference==='fewest'
@@ -1585,7 +1744,7 @@ function renderMoveLiveRoutes(routes){
       : (lang==='ko'?'외국인 추천 경로':'Visitor Pick');
   summary.className='data-slot success';
   summary.innerHTML=`<b>${prefText} ✓</b><span>${lang==='ko'?`${selected.totalTime}분 · 환승 ${selected.transferCount} · ${selected.fare.toLocaleString()}원 · 도보 ${selected.totalWalk}m`:`${selected.totalTime} min · ${selected.transferCount} transfer(s) · KRW ${selected.fare.toLocaleString()} · walk ${selected.totalWalk}m`}</span>`;
-  list.innerHTML=routes.slice(0,4).map(r=>{
+  list.innerHTML=ordered.slice(0,4).map(r=>{
     const roles=routeRoleBadges(r,routes);
     return `
     <div class="live-route-card ${r.id===selected.id?'selected recommended':''}" data-live-route-id="${r.id}">
@@ -1594,6 +1753,8 @@ function renderMoveLiveRoutes(routes){
         ${r.id===selected.id?`<span class="live-route-badge">${lang==='ko'?'선택됨':'SELECTED'}</span>`:''}
       </div>
       <div class="route-role">${roles.map(x=>`<span>${x}</span>`).join('')}</div>
+      <div class="ff-meta-line"><span class="ff-score ${ffScoreClass(ffTransitScore(r))}">${lang==='ko'?'외국인 이동 편의':'Visitor Ease'} ${ffTransitScore(r)}</span><span class="ff-sample">${lang==='ko'?'경로 기반 추정':'route estimate'}</span></div>
+      <div class="ff-tags">${ffTransitTags(r)}</div>
       <div class="live-route-meta">
         <span>${lang==='ko'?'요금':'Fare'} ${r.fare.toLocaleString()}${lang==='ko'?'원':' KRW'}</span>
         <span>${lang==='ko'?'환승':'Transfers'} ${r.transferCount}</span>
@@ -1603,7 +1764,7 @@ function renderMoveLiveRoutes(routes){
     </div>`}).join('');
 }
 function applyOdsayToSegment(fromCity,toCity,route){
-  if(isJejuSegment(fromCity,toCity)) return;
+  if(!shouldUseOdsay(fromCity,toCity)) return;
   document.querySelectorAll('.segment-card').forEach(card=>{
     if(card.dataset.segmentFrom===fromCity && card.dataset.segmentTo===toCity){
       const info=card.querySelector('.segment-info');
@@ -1634,11 +1795,8 @@ async function searchLiveMoveRoute(){
     summary.innerHTML=`<b>${lang==='ko'?'같은 장소':'Same place'}</b><span>${lang==='ko'?'출발지와 목적지를 다르게 선택해주세요.':'Choose a different destination.'}</span>`;
     return;
   }
-  if(isJejuSegment(fromCity,toCity)){
-    summary.className='data-slot';
-    summary.innerHTML=`<b>${lang==='ko'?'항공 구간':'Flight segment'}</b><span>${lang==='ko'?'제주가 포함된 구간은 ODsay 대중교통 검색에서 제외하고 기존 항공편 샘플 데이터(legData)를 사용합니다.':'Routes involving Jeju are excluded from ODsay public-transit search and continue to use the existing flight sample data (legData).'}</span>`;
-    const list=document.getElementById('moveLiveRoutes');
-    if(list) list.innerHTML='';
+  if(!shouldUseOdsay(fromCity,toCity)){
+    renderLegDataFallback(fromCity,toCity);
     return;
   }
   if(!ODSAY_WEB_KEY){
