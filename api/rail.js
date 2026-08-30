@@ -232,8 +232,8 @@ export default async function handler(req, res) {
   const arrivalName = korailQueryStationName(arrivalDisplayName);
 
   const debugMode = req.query?.debug || '';
-  const FAST_PAGE_SIZE = 1000;
-  const FAST_MAX_PAGES = 2;
+  const PAGE_SIZE = 1000;
+  const MAX_PAGES = 3;
   const FETCH_TIMEOUT_MS = 4500;
 
   function diagnosticQueryFor(q) {
@@ -255,19 +255,17 @@ export default async function handler(req, res) {
     }
   }
 
-  async function fetchRailQuery(extraEntries = {}, pageNo = 1, numOfRows = FAST_PAGE_SIZE) {
+  async function fetchBroadPage(pageNo) {
     const q = new URLSearchParams();
     q.set('serviceKey', apiKey);
     q.set('returnType', 'JSON');
     q.set('pageNo', String(pageNo));
-    q.set('numOfRows', String(numOfRows));
-    for(const [key,value] of Object.entries(extraEntries)){
-      if(value !== undefined && value !== null && value !== '') q.set(key, String(value));
-    }
+    q.set('numOfRows', String(PAGE_SIZE));
 
     const url = `${apiUrl}${apiUrl.includes('?') ? '&' : '?'}${q.toString()}`;
     const upstream = await fetchWithTimeout(url);
     const bodyText = await upstream.text();
+
     let raw;
     try {
       raw = JSON.parse(bodyText);
@@ -296,24 +294,24 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Fast-path 1: exact date only. This is intentionally small and cheap.
-    // The provider previously behaved inconsistently with combined station/date
-    // cond filters, so we test the date alone first and filter stations locally.
-    let strategy = 'date-eq';
-    let pages = [];
-    let diagnostics = [];
+    let providerCount = null;
     let fetchedCount = 0;
+    let scannedPages = 0;
     let filteredTrains = [];
+    let targetDateCount = 0;
+    let sawTargetDate = false;
+    let sawAfterTargetDate = false;
+    const diagnosticQueries = [];
 
-    const dateOnly = {
-      'cond[run_ymd::EQ]': runYmd
-    };
-
-    for(let pageNo = 1; pageNo <= FAST_MAX_PAGES; pageNo += 1){
-      const page = await fetchRailQuery(dateOnly, pageNo, FAST_PAGE_SIZE);
-      pages.push(page);
-      diagnostics.push(page.diagnosticQuery);
+    for(let pageNo = 1; pageNo <= MAX_PAGES; pageNo += 1){
+      const page = await fetchBroadPage(pageNo);
+      scannedPages += 1;
       fetchedCount += page.normalized.length;
+      diagnosticQueries.push(page.diagnosticQuery);
+
+      if(providerCount === null){
+        providerCount = providerTotalCount(page.raw);
+      }
 
       const matches = filterNormalizedTrains(
         page.normalized,
@@ -321,30 +319,27 @@ export default async function handler(req, res) {
         arrivalName,
         runYmd
       );
+
       if(matches.length){
-        filteredTrains = matches;
-        break;
+        filteredTrains.push(...matches);
       }
 
-      if(page.normalized.length < FAST_PAGE_SIZE) break;
-    }
+      for(const train of page.normalized){
+        const day = trainRunDate(train);
+        if(day === runYmd){
+          sawTargetDate = true;
+          targetDateCount += 1;
+        }else if(sawTargetDate && day && day > runYmd){
+          sawAfterTargetDate = true;
+        }
+      }
 
-    // Fast-path 2: one broad page only, then local filtering.
-    // Never scan tens of thousands of rows during a normal user search.
-    if(filteredTrains.length === 0){
-      strategy = 'broad-single-page';
-      const broad = await fetchRailQuery({}, 1, FAST_PAGE_SIZE);
-      diagnostics.push(broad.diagnosticQuery);
-      fetchedCount += broad.normalized.length;
-      filteredTrains = filterNormalizedTrains(
-        broad.normalized,
-        departureName,
-        arrivalName,
-        runYmd
-      );
-    }
+      // Once the requested date has been fully traversed, stop.
+      if(sawTargetDate && sawAfterTargetDate) break;
 
-    const providerCount = pages[0] ? providerTotalCount(pages[0].raw) : null;
+      // If the page is short, there are no more rows.
+      if(page.normalized.length < PAGE_SIZE) break;
+    }
 
     return res.status(200).json({
       configured: true,
@@ -362,15 +357,17 @@ export default async function handler(req, res) {
         runYmd,
         debugMode
       },
-      strategy,
-      fastPageSize: FAST_PAGE_SIZE,
-      fastMaxPages: FAST_MAX_PAGES,
+      strategy: 'broad-date-window',
+      pageSize: PAGE_SIZE,
+      maxPages: MAX_PAGES,
       fetchTimeoutMs: FETCH_TIMEOUT_MS,
-      diagnosticQuery: diagnostics[diagnostics.length - 1] || null,
-      diagnosticQueries: diagnostics,
       providerCount,
+      scannedPages,
       fetchedCount,
+      targetDateCount,
       matchedCount: filteredTrains.length,
+      diagnosticQuery: diagnosticQueries[diagnosticQueries.length - 1] || null,
+      diagnosticQueries,
       trains: filteredTrains
     });
   } catch (error) {
