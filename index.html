@@ -567,20 +567,55 @@ background-size:32px 32px,32px 32px,100% 100%}
 
 .city-map-source-badge{margin:8px 0 10px;font-size:9px;font-weight:800;opacity:.55;text-align:right}
 .city-map-tools{display:grid;gap:9px;margin:0 0 10px}
-.city-map-primary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.city-map-primary{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
 .city-map-primary button,.city-facility-btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:14px;padding:11px 12px;font-size:10px;font-weight:900;cursor:pointer}
 .city-map-primary button.active,.city-facility-btn.active{background:#0b2345;color:#fff;border-color:#0b2345}
 .city-facility-row{display:flex;gap:7px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
 .city-facility-row::-webkit-scrollbar{display:none}
 .city-facility-btn{flex:0 0 auto;padding:9px 11px;border-radius:999px}
+.city-facility-tools{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.city-facility-title{font-size:9px;font-weight:950;color:#44576f}.city-facility-title small{display:block;margin-top:2px;font-size:7px;font-weight:800;color:var(--muted)}
+.city-radius-row{display:flex;gap:5px}.city-radius-btn{border:1px solid var(--line);background:#fff;color:#52657b;border-radius:999px;padding:7px 9px;font-size:8px;font-weight:950;cursor:pointer}.city-radius-btn.active{background:#2f6fed;color:#fff;border-color:#2f6fed}
 .city-map-status{font-size:9px;color:var(--muted);font-weight:800;min-height:14px}
 .city-map .leaflet-control-zoom a{width:38px;height:38px;line-height:38px;font-size:20px}
 .city-map .leaflet-control-attribution{font-size:8px}
+.city-map-wrap.map-loading .city-map{position:relative}
+.city-map-wrap.map-loading .city-map::after{content:"";position:absolute;inset:0;z-index:450;pointer-events:none;background:linear-gradient(90deg,rgba(234,241,250,.25),rgba(255,255,255,.5),rgba(234,241,250,.25));background-size:220% 100%;animation:mapLoadSweep 1.1s linear infinite}
+.city-map-wrap.map-loading .city-map::before{content:"Loading map…";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:451;pointer-events:none;background:rgba(11,35,69,.88);color:#fff;border-radius:999px;padding:7px 11px;font-size:9px;font-weight:900;white-space:nowrap}
+@keyframes mapLoadSweep{0%{background-position:200% 0}100%{background-position:-20% 0}}
 .map-user-dot{width:18px;height:18px;border:4px solid #fff;border-radius:999px;background:#2f6fed;box-shadow:0 2px 10px rgba(0,0,0,.25)}
 .facility-popup b{display:block;margin-bottom:3px}.facility-popup small{opacity:.7}
+.city-facility-marker{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#fff;border:2px solid #0b2345;box-shadow:0 4px 12px rgba(11,35,69,.22);font-size:16px;line-height:1;transition:transform .15s ease,box-shadow .15s ease,background .15s ease}
+.city-facility-marker.selected{transform:scale(1.18);background:#0b2345;box-shadow:0 6px 16px rgba(11,35,69,.35)}
+.city-facility-marker.selected span{filter:drop-shadow(0 1px 0 rgba(255,255,255,.35))}
+.city-facility-results{display:none;margin-top:1px;border:1px solid #e1e8f2;border-radius:15px;background:#fbfdff;overflow:hidden}
+.city-facility-results.show{display:block}
+.city-facility-result-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;border-bottom:1px solid #eaf0f6;font-size:8px;font-weight:900;color:#516176}
+.city-facility-result-head b{font-size:9px;color:#0b2345}.city-facility-result-head small{font-size:7px;color:var(--muted);font-weight:800}
+.city-facility-result{width:100%;display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:8px;align-items:center;border:0;border-bottom:1px solid #edf2f7;background:#fff;padding:9px 10px;text-align:left;cursor:pointer}
+.city-facility-result:last-child{border-bottom:0}.city-facility-result:active{background:#f1f6ff}
+.city-facility-result .ico{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:#eef4ff;font-size:15px}
+.city-facility-result .txt{min-width:0}.city-facility-result .txt b{display:block;font-size:9px;color:#0b2345;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.city-facility-result .txt small{display:block;margin-top:2px;font-size:7px;color:var(--muted);font-weight:800}
+.city-facility-result .go{border:0;border-radius:10px;padding:7px 8px;background:#2f6fed;color:#fff;font-size:8px;font-weight:950;white-space:nowrap}
 
-.city-map-dest-card{display:none;margin:10px 0 0;padding:13px 14px;border:1px solid rgba(47,111,237,.22);border-radius:18px;background:linear-gradient(180deg,#fff,#f7f9ff);box-shadow:0 10px 26px rgba(13,38,76,.08)}
-.city-map-dest-card.show{display:block}.city-map-dest-top{display:flex;gap:10px;align-items:flex-start;justify-content:space-between}.city-map-dest-title{min-width:0}.city-map-dest-title span{display:block;font-size:8px;font-weight:900;letter-spacing:.08em;color:#2f6fed;text-transform:uppercase}.city-map-dest-title b{display:block;margin-top:3px;font-size:15px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.city-map-dest-distance{font-size:10px;font-weight:900;color:var(--muted);white-space:nowrap}.city-map-dest-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-top:10px}.city-map-dest-actions button{border:0;border-radius:13px;padding:11px 8px;font-size:9px;font-weight:900;cursor:pointer}.city-map-dest-actions .go{background:#0b2345;color:#fff}.city-map-dest-actions .soft{background:#edf2fb;color:#0b2345}.city-map-focus{position:fixed!important;inset:0!important;z-index:1600!important;background:#fff!important;padding:10px!important;overflow:auto!important}.city-map-focus .city-map{height:62vh!important;min-height:420px!important;border-radius:18px!important}.city-map-focus .city-map-head{position:sticky;top:0;background:#fff;z-index:3;padding:5px 0 8px}.city-map-focus-exit{display:none}.city-map-focus .city-map-focus-exit{display:inline-flex}.city-map-focus .city-map-mode{display:none}
+
+.city-map-dest-card{display:none;margin:10px 0 0;padding:14px;border:1px solid rgba(47,111,237,.22);border-radius:20px;background:linear-gradient(180deg,#fff,#f6f9ff);box-shadow:0 14px 34px rgba(13,38,76,.12)}
+.city-map-dest-card.show{display:block}.city-map-dest-top{display:flex;gap:10px;align-items:flex-start;justify-content:space-between}.city-map-dest-title{min-width:0}.city-map-dest-title span{display:block;font-size:8px;font-weight:900;letter-spacing:.08em;color:#2f6fed;text-transform:uppercase}.city-map-dest-title b{display:block;margin-top:3px;font-size:16px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.city-map-dest-distance{font-size:10px;font-weight:900;color:var(--muted);white-space:nowrap}.city-map-go-flow{display:grid;grid-template-columns:minmax(0,1fr) 22px minmax(0,1.2fr);gap:7px;align-items:center;margin-top:11px;padding:10px 11px;background:#f1f5fb;border-radius:14px}.city-map-go-flow span{display:block;font-size:7px;font-weight:900;letter-spacing:.08em;color:#7b8da6;text-transform:uppercase}.city-map-go-flow b{display:block;margin-top:2px;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.city-map-go-arrow{display:grid;place-items:center;font-size:14px;color:#8aa0be;font-weight:900}.city-map-go-main{width:100%;margin-top:10px;border:0;border-radius:15px;padding:14px 12px;background:#2f6fed;color:#fff;font-size:13px;font-weight:950;box-shadow:0 10px 20px rgba(47,111,237,.24);cursor:pointer}.city-map-go-main small{display:block;margin-top:3px;font-size:8px;font-weight:800;opacity:.78}.city-map-dest-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.city-map-dest-actions button{border:0;border-radius:13px;padding:10px 8px;font-size:9px;font-weight:900;cursor:pointer}.city-map-dest-actions .soft{background:#edf2fb;color:#0b2345}.city-map-focus{position:fixed!important;inset:0!important;z-index:1600!important;background:#fff!important;padding:10px!important;overflow:auto!important}.city-map-focus .city-map{height:62vh!important;min-height:420px!important;border-radius:18px!important}.city-map-focus .city-map-head{position:sticky;top:0;background:#fff;z-index:3;padding:5px 0 8px}.city-map-focus-exit{display:none}.city-map-focus .city-map-focus-exit{display:inline-flex}.city-map-focus .city-map-mode{display:none}.city-map-focus .city-map-dest-card.show{position:sticky;bottom:8px;z-index:6;margin:8px 0 0;background:rgba(255,255,255,.97);backdrop-filter:blur(10px)}
+
+
+
+
+.city-map-routebar{display:grid;grid-template-columns:minmax(0,1fr) 28px minmax(0,1.25fr) 58px;align-items:stretch;gap:7px;margin:0 0 10px;padding:9px;border:1px solid rgba(47,111,237,.18);border-radius:17px;background:linear-gradient(180deg,#f8fbff,#fff);box-shadow:0 8px 20px rgba(15,44,84,.05)}
+.city-map-routepoint{min-width:0;border:0;background:transparent;text-align:left;padding:2px 4px;cursor:pointer}.city-map-routepoint span{display:block;font-size:7px;letter-spacing:.08em;font-weight:900;color:#718199;text-transform:uppercase}.city-map-routepoint b{display:block;margin-top:2px;font-size:11px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0b2345}.city-map-routearrow{display:grid;place-items:center;color:#8aa0be;font-weight:900}.city-map-quickgo{border:0;border-radius:13px;background:#2f6fed;color:#fff;font-size:12px;font-weight:950;box-shadow:0 8px 18px rgba(47,111,237,.22);cursor:pointer}.city-map-quickgo:disabled{background:#b9c6d8;box-shadow:none;cursor:default}.city-map-oneglance-note{font-size:8px;color:var(--muted);font-weight:800;margin:-3px 2px 8px}.city-map-focus .city-map-routebar{position:sticky;top:46px;z-index:5;background:rgba(255,255,255,.97)}
+.city-walk-guide{display:none;margin:0 0 10px;padding:13px;border-radius:18px;background:linear-gradient(145deg,#0b2345,#153d70);color:#fff;box-shadow:0 14px 30px rgba(11,35,69,.22)}.city-walk-guide.show{display:block}.city-walk-guide-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.city-walk-guide-head span{font-size:8px;font-weight:950;letter-spacing:.09em;text-transform:uppercase;color:#a9c8ff}.city-walk-guide-head button{border:0;border-radius:10px;background:rgba(255,255,255,.12);color:#fff;padding:7px 9px;font-size:9px;font-weight:900;cursor:pointer}.city-walk-guide-head-actions{display:flex;gap:6px;align-items:center}.city-walk-guide-head button.active{background:#fff;color:#0b2345}.city-walk-guide-title{display:block;margin-top:4px;font-size:15px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.city-walk-metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-top:11px}.city-walk-metric{padding:9px 8px;border-radius:13px;background:rgba(255,255,255,.10)}.city-walk-metric span{display:block;font-size:7px;font-weight:900;color:#b8cdf0}.city-walk-metric b{display:block;margin-top:3px;font-size:12px;line-height:1.15}.city-walk-direction-arrow{display:inline-block;margin-right:3px;font-size:15px;vertical-align:-1px;transform-origin:50% 50%}.city-walk-note{margin-top:9px;font-size:8px;line-height:1.45;color:#d7e6ff;font-weight:750}.city-walk-actions{display:grid;grid-template-columns:1fr 1.1fr;gap:7px;margin-top:10px}.city-walk-actions button{border:0;border-radius:12px;padding:10px 8px;font-size:9px;font-weight:950;cursor:pointer}.city-walk-actions .walk-fit{background:rgba(255,255,255,.13);color:#fff}.city-walk-actions .walk-google{background:#fff;color:#0b2345}.city-map-focus .city-walk-guide.show{position:sticky;top:116px;z-index:5}.city-map-routebar.walking{border-color:rgba(17,160,104,.28);box-shadow:0 8px 22px rgba(17,160,104,.10)}.city-map-routebar.walking .city-map-quickgo{background:#11a068}.city-walk-line-note{font-size:7px;color:#9db5d7;margin-top:6px;font-weight:800}.city-walk-signal{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px;padding:8px 9px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.10)}.city-walk-signal>div{min-width:0}.city-walk-signal b{display:block;font-size:9px;line-height:1.25}.city-walk-signal span{display:block;margin-top:2px;font-size:7px;line-height:1.35;color:#c7daf7;font-weight:750}.city-walk-signal button{flex:0 0 auto;border:0;border-radius:10px;padding:7px 8px;background:rgba(255,255,255,.12);color:#fff;font-size:8px;font-weight:900;cursor:pointer}.city-walk-signal.good{border-color:rgba(90,225,165,.24)}.city-walk-signal.fair{border-color:rgba(255,214,102,.28)}.city-walk-signal.weak{border-color:rgba(255,145,145,.30);background:rgba(255,105,105,.10)}.city-walk-arrival{display:none;margin-top:9px;padding:10px 11px;border-radius:14px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12)}.city-walk-arrival.show{display:block}.city-walk-arrival.approaching{background:rgba(255,214,102,.16);border-color:rgba(255,214,102,.25)}.city-walk-arrival.arrived{background:rgba(90,225,165,.16);border-color:rgba(90,225,165,.28)}.city-walk-arrival strong{display:block;font-size:13px;line-height:1.25}.city-walk-arrival span{display:block;margin-top:3px;font-size:8px;line-height:1.45;color:#d7e6ff;font-weight:800}.city-walk-next{display:none;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.city-walk-next.show{display:grid}.city-walk-next button{border:0;border-radius:11px;padding:9px 7px;font-size:8px;font-weight:950;cursor:pointer;background:rgba(255,255,255,.13);color:#fff}.city-walk-next button.primary{background:#fff;color:#0b2345}.city-walk-offroute{display:none;margin-top:9px;padding:10px 11px;border-radius:14px;background:rgba(255,150,70,.16);border:1px solid rgba(255,180,95,.28)}.city-walk-offroute.show{display:block}.city-walk-offroute strong{display:block;font-size:11px;line-height:1.25}.city-walk-offroute span{display:block;margin-top:3px;font-size:8px;line-height:1.45;color:#ffe8d3;font-weight:800}.city-walk-offroute-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.city-walk-offroute-actions button{border:0;border-radius:10px;padding:8px 7px;font-size:8px;font-weight:950;cursor:pointer;background:rgba(255,255,255,.13);color:#fff}.city-walk-offroute-actions button.primary{background:#fff;color:#0b2345}.city-walk-compass{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px;padding:8px 9px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.10)}.city-walk-compass>div{min-width:0}.city-walk-compass b{display:block;font-size:9px;line-height:1.25}.city-walk-compass span{display:block;margin-top:2px;font-size:7px;line-height:1.35;color:#c7daf7;font-weight:750}.city-walk-compass button{flex:0 0 auto;border:0;border-radius:10px;padding:7px 8px;background:rgba(255,255,255,.12);color:#fff;font-size:8px;font-weight:900;cursor:pointer}.city-walk-compass.active{border-color:rgba(90,225,165,.24);background:rgba(90,225,165,.08)}.city-walk-awake{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px;padding:8px 9px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.10)}.city-walk-awake>div{min-width:0}.city-walk-awake b{display:block;font-size:9px;line-height:1.25}.city-walk-awake span{display:block;margin-top:2px;font-size:7px;line-height:1.35;color:#c7daf7;font-weight:750}.city-walk-awake button{flex:0 0 auto;border:0;border-radius:10px;padding:7px 8px;background:rgba(255,255,255,.12);color:#fff;font-size:8px;font-weight:900;cursor:pointer}.city-walk-awake.active{border-color:rgba(90,225,165,.24);background:rgba(90,225,165,.08)}.city-walk-awake.unsupported{opacity:.72}.city-walk-alerts{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;margin-top:8px;padding:8px 9px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.10)}.city-walk-alerts>div{min-width:0}.city-walk-alerts b{display:block;font-size:9px;line-height:1.25}.city-walk-alerts span{display:block;margin-top:2px;font-size:7px;line-height:1.35;color:#c7daf7;font-weight:750}.city-walk-alert-actions{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}.city-walk-alert-actions button{border:0;border-radius:10px;padding:7px 8px;background:rgba(255,255,255,.12);color:#fff;font-size:8px;font-weight:900;cursor:pointer}.city-walk-alert-actions button.active{background:#fff;color:#0b2345}.city-walk-alert-actions button:disabled{opacity:.48;cursor:default}.city-walk-follow{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px;padding:8px 9px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.10)}.city-walk-follow>div{min-width:0}.city-walk-follow b{display:block;font-size:9px;line-height:1.25}.city-walk-follow span{display:block;margin-top:2px;font-size:7px;line-height:1.35;color:#c7daf7;font-weight:750}.city-walk-follow button{flex:0 0 auto;border:0;border-radius:10px;padding:7px 8px;background:rgba(255,255,255,.12);color:#fff;font-size:8px;font-weight:900;cursor:pointer}.city-walk-follow.active{border-color:rgba(90,225,165,.24);background:rgba(90,225,165,.08)}
+.city-map-health{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:7px;padding:8px 10px;border:1px solid var(--line);border-radius:13px;background:#f8fbff;font-size:9px;font-weight:850;color:var(--muted)}
+.city-map-health-left{display:flex;align-items:center;gap:6px;min-width:0}.city-map-health-dot{width:8px;height:8px;border-radius:50%;background:#9aa8b8;flex:0 0 auto}.city-map-health.ready .city-map-health-dot{background:#1f9d61}.city-map-health.loading .city-map-health-dot{background:#e0a426}.city-map-health.error .city-map-health-dot{background:#d84a4a}.city-map-health button{border:0;border-radius:999px;background:#eaf1fb;color:#0b2345;padding:7px 9px;font-size:9px;font-weight:900;white-space:nowrap}.city-map-primary .map-expand-btn{background:#edf2fb;color:#0b2345}.city-map-focus .city-map-health{position:sticky;bottom:0;z-index:4;background:rgba(248,251,255,.96)}
+.city-map-search{margin:0 0 10px;position:relative}.city-map-searchbox{display:grid;grid-template-columns:34px minmax(0,1fr) 64px;gap:6px;align-items:center;border:1px solid rgba(47,111,237,.22);border-radius:16px;padding:7px 7px 7px 10px;background:#fff;box-shadow:0 8px 22px rgba(15,44,84,.06)}.city-map-searchico{font-size:15px;display:grid;place-items:center}.city-map-searchbox input{min-width:0;border:0;outline:0;background:transparent;color:var(--ink);font-size:11px;font-weight:850;padding:8px 2px}.city-map-searchbox button{border:0;border-radius:12px;background:#0b2345;color:#fff;font-size:9px;font-weight:950;padding:10px 8px;cursor:pointer}.city-map-search-hint{font-size:8px;color:var(--muted);font-weight:800;margin:5px 3px 0}.city-map-search-results{display:none;margin-top:7px;border:1px solid var(--line);border-radius:15px;background:#fff;overflow:hidden;box-shadow:0 12px 28px rgba(11,35,69,.12)}.city-map-search-results.show{display:block}.city-map-search-result{width:100%;display:flex;align-items:center;gap:9px;border:0;border-bottom:1px solid #edf1f6;background:#fff;padding:10px 11px;text-align:left;cursor:pointer}.city-map-search-result:last-child{border-bottom:0}.city-map-search-result .ico{width:28px;height:28px;border-radius:10px;background:#eef4ff;display:grid;place-items:center;font-size:14px;flex:0 0 auto}.city-map-search-result .txt{min-width:0;flex:1}.city-map-search-result b{display:block;font-size:10px;color:#0b2345;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.city-map-search-result small{display:block;margin-top:2px;font-size:8px;color:var(--muted);font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.city-map-search-meta{display:flex;align-items:center;gap:5px;margin-top:4px;min-width:0}.city-map-search-cat{display:inline-flex;align-items:center;max-width:92px;border-radius:999px;padding:3px 7px;background:#f1f5fb;color:#42526a;font-size:7px;font-weight:950;line-height:1;white-space:nowrap}.city-map-search-source{font-size:7px;color:var(--muted);font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.city-map-search-empty{padding:11px;font-size:9px;color:var(--muted);font-weight:850}.city-map-focus .city-map-search{position:sticky;top:94px;z-index:5;background:rgba(255,255,255,.97);padding-bottom:2px}
+.city-map-nearby{margin:8px 0 4px;padding:9px;border:1px solid #e3eaf4;border-radius:15px;background:#f8fbff}.city-map-nearby-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px}.city-map-nearby-head b{font-size:9px;color:#0b2345}.city-map-nearby-head small{font-size:7px;color:var(--muted);font-weight:800}.city-map-nearby-row{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.city-map-nearby-row::-webkit-scrollbar{display:none}.city-map-nearby-btn{flex:0 0 auto;border:1px solid #dfe7f2;background:#fff;border-radius:12px;padding:8px 10px;font-size:8px;font-weight:950;color:#33445d;cursor:pointer}.city-map-nearby-btn:active{transform:scale(.98)}
+.city-map-station-essentials{margin-top:9px;padding:9px;border:1px solid #dfe7f2;border-radius:14px;background:#fbfdff}.city-map-station-essentials-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px}.city-map-station-essentials-head b{font-size:8px;color:#0b2345}.city-map-station-essentials-head small{font-size:7px;color:var(--muted);font-weight:800}.city-map-station-essentials-row{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.city-map-station-essentials-row::-webkit-scrollbar{display:none}.city-map-station-essentials-row button{flex:0 0 auto;border:1px solid #dfe7f2;background:#fff;border-radius:11px;padding:8px 9px;font-size:8px;font-weight:950;color:#33445d;cursor:pointer}.city-map-station-info{margin-top:8px;padding:9px;border:1px solid #dce8f7;border-radius:14px;background:#f7fbff}.city-map-station-info-head{display:flex;align-items:center;justify-content:space-between;gap:8px}.city-map-station-info-head b{font-size:8px;color:#0b2345}.city-map-station-info-head button{border:0;background:#0b6cff;color:#fff;border-radius:10px;padding:7px 9px;font-size:7px;font-weight:950;cursor:pointer}.city-map-station-info-note{font-size:7px;color:var(--muted);font-weight:750;line-height:1.45;margin-top:5px}.city-map-station-info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:8px}.city-map-station-info-chip{padding:8px;border:1px solid #e2e9f2;border-radius:11px;background:#fff;display:flex;align-items:center;justify-content:space-between;gap:7px}.city-map-station-info-chip span{font-size:7px;color:#516176;font-weight:850}.city-map-station-info-chip b{font-size:8px;color:#10233f}.city-map-station-info-exits{margin-top:7px;padding:7px 8px;border-radius:10px;background:#fff;border:1px dashed #d9e4f2;font-size:7px;color:#465970;font-weight:800;line-height:1.5}
+.city-map-station-pack{margin-top:9px;padding:10px;border:1px solid rgba(47,111,237,.20);border-radius:15px;background:linear-gradient(180deg,#f8fbff,#fff)}.city-map-station-pack-btn{width:100%;border:0;border-radius:13px;padding:11px 12px;background:#0b6cff;color:#fff;text-align:left;font-size:10px;font-weight:950;cursor:pointer;box-shadow:0 8px 18px rgba(11,108,255,.18)}.city-map-station-pack-btn small{display:block;margin-top:3px;font-size:7px;line-height:1.35;font-weight:800;opacity:.82}.city-map-station-pack-btn:disabled{opacity:.7;cursor:default}.city-map-station-pack-body{margin-top:8px;font-size:8px;color:#53657d;font-weight:800;line-height:1.45}.city-map-station-pack-body.loading{padding:8px;border-radius:11px;background:#f1f5fb}.city-map-station-pack-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.city-map-station-pack-chip{display:flex;align-items:center;justify-content:space-between;gap:7px;padding:8px 9px;border:1px solid #e1e9f4;border-radius:11px;background:#fff}.city-map-station-pack-chip span{font-size:7px;color:#5c6d83}.city-map-station-pack-chip b{font-size:9px;color:#0b2345}.city-map-station-pack-around{margin-top:7px;padding:8px 9px;border-radius:11px;background:#eef5ff;color:#29466f;font-size:7px;font-weight:900;line-height:1.55}.city-map-station-pack-near{margin-top:7px;display:grid;gap:5px}.city-map-station-pack-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;align-items:center;padding:7px 8px;border:1px solid #e5ebf4;border-radius:11px;background:#fff}.city-map-station-pack-item .main{min-width:0;border:0;background:transparent;text-align:left;padding:0;cursor:pointer}.city-map-station-pack-item .main b{display:block;font-size:8px;color:#0b2345;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.city-map-station-pack-item .main small{display:block;margin-top:2px;font-size:7px;color:#7b8da6;font-weight:800}.city-map-station-pack-item .walk{border:0;border-radius:9px;padding:7px 8px;background:#2f6fed;color:#fff;font-size:7px;font-weight:950;white-space:nowrap;cursor:pointer}.city-map-station-pack-note{margin-top:7px;font-size:7px;color:#7a899c;font-weight:750;line-height:1.45}
+.city-map-station-access{margin-top:8px;padding:9px;border:1px solid #dce8f7;border-radius:13px;background:#fff}.city-map-station-access-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px}.city-map-station-access-head b{font-size:8px;color:#0b2345}.city-map-station-access-head small{font-size:7px;color:#7a899c;font-weight:800}.city-map-station-access-list{display:grid;gap:6px}.city-map-station-access-item{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:8px;align-items:center;padding:8px;border:1px solid #e5ebf4;border-radius:11px;background:#fbfdff}.city-map-station-access-item .ico{width:30px;height:30px;border-radius:10px;background:#eef4ff;display:grid;place-items:center;font-size:15px}.city-map-station-access-item .txt{min-width:0}.city-map-station-access-item .txt b{display:block;font-size:8px;color:#0b2345;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.city-map-station-access-item .txt small{display:block;margin-top:2px;font-size:7px;color:#7b8da6;font-weight:800}.city-map-station-access-item button{border:0;border-radius:9px;padding:8px 9px;background:#11a068;color:#fff;font-size:7px;font-weight:950;white-space:nowrap;cursor:pointer}.city-map-station-access-note{margin-top:6px;font-size:7px;color:#7a899c;font-weight:750;line-height:1.4}
+.city-map-search-filters{display:flex;gap:6px;overflow-x:auto;padding:7px 1px 1px;scrollbar-width:none}.city-map-search-filters::-webkit-scrollbar{display:none}.city-map-search-filter{flex:0 0 auto;border:1px solid #dfe7f2;background:#fff;color:#526175;border-radius:999px;padding:7px 9px;font-size:8px;font-weight:950;white-space:nowrap;cursor:pointer}.city-map-search-filter.active{background:#0b2345;color:#fff;border-color:#0b2345}.city-map-search-filter .ficon{margin-right:3px}.city-map-search-count{font-size:7px;color:var(--muted);font-weight:850;margin:4px 3px 0}.city-map-focus .city-map-search-filters{padding-bottom:3px}
 
 
 
@@ -853,6 +888,8 @@ background-size:32px 32px,32px 32px,100% 100%}
 
 
 /* First-time UX · four clear actions */
+
+.city-walk-recovery{display:none;margin:10px 0 12px;padding:12px 13px;border-radius:16px;background:linear-gradient(145deg,#eef6ff,#f8fbff);border:1px solid #d8e7fb;color:#10233f;box-shadow:0 8px 22px rgba(30,72,120,.08)}.city-walk-recovery.show{display:block}.city-walk-recovery-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.city-walk-recovery-head div{min-width:0}.city-walk-recovery-head span{display:block;font-size:8px;font-weight:950;letter-spacing:.08em;color:#3569a8}.city-walk-recovery-head b{display:block;margin-top:3px;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.city-walk-recovery p{margin:7px 0 0;font-size:9px;line-height:1.45;color:#617289}.city-walk-recovery-actions{display:grid;grid-template-columns:1.25fr .75fr;gap:7px;margin-top:9px}.city-walk-recovery-actions button{border:0;border-radius:11px;padding:9px 8px;font-size:9px;font-weight:950;cursor:pointer}.city-walk-recovery-actions .primary{background:#10233f;color:#fff}.city-walk-recovery-actions .soft{background:#e9f0f8;color:#23384f}
 .quick-start{margin:14px 0 12px;padding:14px;border:1px solid #e5ebf0;border-radius:20px;background:#fff;box-shadow:0 8px 24px rgba(22,37,52,.06)}
 .quick-start-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:11px}.quick-start-head b{display:block;font-size:16px;color:#10233f}.quick-start-head span{display:block;margin-top:3px;font-size:11px;line-height:1.45;color:#738093}.quick-start-badge{flex:none!important;margin:0!important;padding:5px 8px;border-radius:999px;background:#eef5ff;color:#2456a6!important;font-size:9px!important;font-weight:900;letter-spacing:.05em}.quick-start-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.quick-start-btn{border:1px solid #e7ecf2;border-radius:16px;background:#f8fafc;padding:14px 10px;text-align:left;display:grid;grid-template-columns:34px 1fr;column-gap:9px;align-items:center;color:#10233f}.quick-start-btn .qs-ico{font-size:25px;grid-row:1/3}.quick-start-btn b{font-size:13px;line-height:1.2}.quick-start-btn small{font-size:9px;color:#7b8795;line-height:1.35;margin-top:3px}.quick-start-btn.primary{background:#10233f;color:#fff;border-color:#10233f}.quick-start-btn.primary small{color:#cbd7e5}.all-tools-toggle{width:100%;margin:12px 0 4px;border:0;border-radius:13px;padding:11px 12px;background:#eef2f5;color:#263847;font-size:11px;font-weight:900}.arch-section.beginner-collapsed{display:none}
 
@@ -882,6 +919,9 @@ background-size:32px 32px,32px 32px,100% 100%}
 @media(max-width:430px){.live-weather-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.live-weather-metric{padding:9px 7px}.live-weather-metric strong{font-size:15px}}
 </style>
 
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link rel="preconnect" href="https://tile.openstreetmap.org" crossorigin>
+<link rel="dns-prefetch" href="//tile.openstreetmap.org">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
  integrity="sha256-p4NxAoJBhIINfQ3ynflw8TNqcFBCIjiNV+RZ3x6NxVM=" crossorigin="">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -913,6 +953,12 @@ background-size:32px 32px,32px 32px,100% 100%}
   <button class="install-btn" id="installBtn" data-en="INSTALL" data-ko="설치">INSTALL</button>
 </div>
 
+
+<div class="city-walk-recovery" id="cityWalkRecovery" aria-live="polite">
+  <div class="city-walk-recovery-head"><div><span data-en="WALK GUIDE SAVED" data-ko="도보 안내 저장됨">WALK GUIDE SAVED</span><b id="cityWalkRecoveryTitle">Destination</b></div><span id="cityWalkRecoveryState" class="quick-start-badge">READY</span></div>
+  <p id="cityWalkRecoveryText" data-en="A walk guide from this browser session can be continued. Location tracking will restart only after you tap Continue." data-ko="이 브라우저 세션의 도보 안내를 이어갈 수 있습니다. 계속하기를 눌러야 위치 추적이 다시 시작됩니다.">A walk guide from this browser session can be continued. Location tracking will restart only after you tap Continue.</p>
+  <div class="city-walk-recovery-actions"><button type="button" class="primary" onclick="resumeRecoveredCityWalk()" data-en="🚶 Continue walk" data-ko="🚶 도보 안내 계속">🚶 Continue walk</button><button type="button" class="soft" onclick="dismissRecoveredCityWalk()" data-en="Dismiss" data-ko="닫기">Dismiss</button></div>
+</div>
 <div class="quick-start" id="quickStart">
   <div class="quick-start-head"><div><b data-en="Start here" data-ko="여기서 시작하세요">Start here</b><span data-en="Four things most travelers need. No setup required." data-ko="처음이라도 이 네 가지만 알면 바로 사용할 수 있어요.">Four things most travelers need. No setup required.</span></div><span class="quick-start-badge">EASY START</span></div>
   <div class="quick-start-grid">
@@ -1165,20 +1211,84 @@ background-size:32px 32px,32px 32px,100% 100%}
       <span data-en="SAMPLE ROUTE" data-ko="샘플 동선">SAMPLE ROUTE</span>
     </div>
     <div class="city-map-mode"><span class="city-map-chip" data-en="Always available" data-ko="항상 표시">Always available</span><span class="city-map-chip" data-en="Recommended walking flow" data-ko="추천 이동 동선">Recommended walking flow</span></div>
+    <div class="city-map-routebar" id="cityMapRouteBar">
+      <button type="button" class="city-map-routepoint" onclick="locateCityMapUser()"><span data-en="FROM" data-ko="출발">FROM</span><b id="cityMapFromLabel" data-en="My location" data-ko="내 위치">My location</b></button>
+      <div class="city-map-routearrow">→</div>
+      <button type="button" class="city-map-routepoint" onclick="cityMapPromptDestination()"><span data-en="TO" data-ko="도착">TO</span><b id="cityMapToLabel" data-en="Tap a place" data-ko="장소를 눌러 선택">Tap a place</b></button>
+      <button type="button" class="city-map-quickgo" id="cityMapQuickGo" onclick="cityMapQuickGo()" disabled>GO</button>
+    </div>
+    <div class="city-map-oneglance-note" id="cityMapOneGlanceNote" data-en="Pick a place on the map. GO starts the in-app walking guide first." data-ko="지도에서 장소를 고르면 GO로 앱 안 도보 안내를 먼저 시작합니다.">Pick a place on the map. GO starts the in-app walking guide first.</div>
+    <div class="city-walk-guide" id="cityWalkGuide" aria-live="polite">
+      <div class="city-walk-guide-head"><span data-en="LIVE WALK GUIDE" data-ko="실시간 도보 안내">LIVE WALK GUIDE</span><div class="city-walk-guide-head-actions"><button type="button" id="cityWalkPauseBtn" onclick="toggleCityWalkPause()" data-en="Pause" data-ko="일시정지">Pause</button><button type="button" onclick="stopCityWalkGuide()" data-en="End" data-ko="종료">End</button></div></div>
+      <b class="city-walk-guide-title" id="cityWalkGuideTitle">Destination</b>
+      <div class="city-walk-metrics">
+        <div class="city-walk-metric"><span data-en="STRAIGHT DIST." data-ko="직선거리">STRAIGHT DIST.</span><b id="cityWalkGuideDistance">—</b></div>
+        <div class="city-walk-metric"><span data-en="ROUGH WALK" data-ko="대략 도보">ROUGH WALK</span><b id="cityWalkGuideEta">—</b></div>
+        <div class="city-walk-metric"><span data-en="DIRECTION" data-ko="방향">DIRECTION</span><b><i class="city-walk-direction-arrow" id="cityWalkGuideArrow">↑</i><span id="cityWalkGuideDirection">—</span></b></div>
+      </div>
+      <div class="city-walk-note" id="cityWalkGuideNote" data-en="GPS shows straight-line distance and destination direction. Before compass mode is enabled, the arrow is north-based. Use Google Maps for streets, crossings and the verified walking route." data-ko="GPS로 직선거리와 목적지 방향을 표시합니다. 나침반을 켜기 전 화살표는 북쪽 기준이며, 골목·횡단보도·실제 보행경로는 Google Maps에서 확인하세요.">Live GPS shows straight-line distance and destination direction. Use Google Maps for streets, crossings and the verified walking route.</div>
+      <div class="city-walk-signal" id="cityWalkSignal"><div><b id="cityWalkSignalTitle">GPS</b><span id="cityWalkSignalText"></span></div><button type="button" onclick="refreshCityWalkLocation()"><span data-en="Recheck" data-ko="위치 재확인">Recheck</span></button></div><div class="city-walk-compass" id="cityWalkCompass"><div><b id="cityWalkCompassTitle">Compass off</b><span id="cityWalkCompassText">Arrow is north-based.</span></div><button type="button" id="cityWalkCompassBtn" onclick="toggleCityWalkCompass()"><span data-en="Use compass" data-ko="나침반 사용">Use compass</span></button></div><div class="city-walk-awake" id="cityWalkAwake"><div><b id="cityWalkAwakeTitle">Screen sleep allowed</b><span id="cityWalkAwakeText">Keep-awake is off.</span></div><button type="button" id="cityWalkAwakeBtn" onclick="toggleCityWalkAwake()"><span data-en="Keep awake" data-ko="화면 켜두기">Keep awake</span></button></div><div class="city-walk-alerts" id="cityWalkAlerts"><div><b id="cityWalkAlertsTitle">Walk alerts</b><span id="cityWalkAlertsText">Optional alerts for important changes only.</span></div><div class="city-walk-alert-actions"><button type="button" id="cityWalkVibrateBtn" onclick="toggleCityWalkAlert('vibrate')">📳 <span data-en="Vibrate" data-ko="진동">Vibrate</span></button><button type="button" id="cityWalkVoiceBtn" onclick="toggleCityWalkAlert('voice')">🔊 <span data-en="Voice" data-ko="음성">Voice</span></button></div></div><div class="city-walk-follow" id="cityWalkFollow"><div><b id="cityWalkFollowTitle">Map follow off</b><span id="cityWalkFollowText">Map stays where you move it.</span></div><button type="button" id="cityWalkFollowBtn" onclick="toggleCityWalkMapFollow()"><span data-en="Follow me" data-ko="내 위치 따라가기">Follow me</span></button></div><div class="city-walk-arrival" id="cityWalkArrival"><strong id="cityWalkArrivalTitle"></strong><span id="cityWalkArrivalText"></span></div>
+      <div class="city-walk-offroute" id="cityWalkOffroute"><strong id="cityWalkOffrouteTitle"></strong><span id="cityWalkOffrouteText"></span><div class="city-walk-offroute-actions"><button type="button" class="primary" onclick="openCityWalkGoogleMaps()">🧭 <span data-en="Check real route" data-ko="실제 경로 확인">Check real route</span></button><button type="button" onclick="fitCityWalkGuide()">◎ <span data-en="Refocus map" data-ko="지도 다시 보기">Refocus map</span></button></div></div>
+      <div class="city-walk-next" id="cityWalkNext"><button type="button" class="primary" onclick="walkGuideNearby('toilets')">🚻 <span data-en="Nearby restroom" data-ko="주변 화장실">Nearby restroom</span></button><button type="button" onclick="walkGuideNearby('convenience')">🏪 <span data-en="Nearby convenience" data-ko="주변 편의점">Nearby convenience</span></button><button type="button" onclick="fitCityWalkGuide()">◎ <span data-en="Check surroundings" data-ko="주변 다시 보기">Check surroundings</span></button><button type="button" onclick="finishCityWalkGuide()">✓ <span data-en="Finish guide" data-ko="안내 완료">Finish guide</span></button></div>
+      <div class="city-walk-actions"><button type="button" class="walk-fit" onclick="fitCityWalkGuide()" data-en="◎ Show me + destination" data-ko="◎ 내 위치 + 목적지 보기">◎ Show me + destination</button><button type="button" class="walk-google" onclick="openCityWalkGoogleMaps()" data-en="Google Maps route ↗" data-ko="Google Maps 실제 경로 ↗">Google Maps route ↗</button></div>
+      <div class="city-walk-line-note" data-en="The line on this map is directional only, not a street route." data-ko="지도 위 선은 방향 표시용이며 실제 도로 경로가 아닙니다.">The line on this map is directional only, not a street route.</div>
+    </div>
+    <div class="city-map-search" id="cityMapSearch">
+      <div class="city-map-searchbox">
+        <span class="city-map-searchico">⌕</span>
+        <input id="cityMapSearchInput" type="search" autocomplete="off" enterkeyhint="search" data-en-placeholder="Search attraction, station, place" data-ko-placeholder="관광지·역·장소 검색" placeholder="Search attraction, station, place" onkeydown="if(event.key==='Enter'){event.preventDefault();searchCityMapPlace();}">
+        <button type="button" onclick="searchCityMapPlace()" data-en="Search" data-ko="검색">Search</button>
+      </div>
+      <div class="city-map-search-filters" id="cityMapSearchFilters" aria-label="Place category filters">
+        <button type="button" class="city-map-search-filter active" data-search-cat="all" onclick="setCityMapSearchFilter('all')"><span class="ficon">✨</span><span data-en="All" data-ko="전체">All</span></button>
+        <button type="button" class="city-map-search-filter" data-search-cat="station" onclick="setCityMapSearchFilter('station')"><span class="ficon">🚉</span><span data-en="Transit" data-ko="역·교통">Transit</span></button>
+        <button type="button" class="city-map-search-filter" data-search-cat="sights" onclick="setCityMapSearchFilter('sights')"><span class="ficon">🏯</span><span data-en="Sights" data-ko="관광지">Sights</span></button>
+        <button type="button" class="city-map-search-filter" data-search-cat="food" onclick="setCityMapSearchFilter('food')"><span class="ficon">🍜</span><span data-en="Food" data-ko="음식">Food</span></button>
+        <button type="button" class="city-map-search-filter" data-search-cat="cafe" onclick="setCityMapSearchFilter('cafe')"><span class="ficon">☕</span><span data-en="Cafe" data-ko="카페">Cafe</span></button>
+        <button type="button" class="city-map-search-filter" data-search-cat="essential" onclick="setCityMapSearchFilter('essential')"><span class="ficon">🧭</span><span data-en="Essentials" data-ko="편의시설">Essentials</span></button>
+      </div>
+      <div class="city-map-search-count" id="cityMapSearchCount"></div>
+      <div class="city-map-nearby" id="cityMapNearbyQuick">
+        <div class="city-map-nearby-head"><b data-en="Nearby now" data-ko="지금 주변 추천">Nearby now</b><small data-en="Tap only when needed" data-ko="필요할 때만 조회">Tap only when needed</small></div>
+        <div class="city-map-nearby-row">
+          <button type="button" class="city-map-nearby-btn" onclick="showCityMapNearby('station')">🚉 <span data-en="Nearest transit" data-ko="가까운 역">Nearest transit</span></button>
+          <button type="button" class="city-map-nearby-btn" onclick="showCityMapNearby('toilets')">🚻 <span data-en="Restroom" data-ko="화장실">Restroom</span></button>
+          <button type="button" class="city-map-nearby-btn" onclick="showCityMapNearby('convenience')">🏪 <span data-en="Convenience" data-ko="편의점">Convenience</span></button>
+          <button type="button" class="city-map-nearby-btn" onclick="showCityMapNearby('sights')">🏯 <span data-en="Attractions" data-ko="관광지">Attractions</span></button>
+        </div>
+      </div>
+      <div class="city-map-search-hint" data-en="Search runs only when you tap Search · OpenStreetMap place data" data-ko="검색 버튼을 누를 때만 조회 · OpenStreetMap 장소 정보">Search runs only when you tap Search · OpenStreetMap place data</div>
+      <div class="city-map-search-results" id="cityMapSearchResults" aria-live="polite"></div>
+    </div>
     <div class="city-map-tools" id="cityMapTools">
       <div class="city-map-primary">
         <button type="button" id="cityMapLocateBtn" onclick="locateCityMapUser()">◎ <span data-en="My location" data-ko="내 위치">My location</span></button>
         <button type="button" id="cityMapFollowBtn" onclick="toggleCityMapFollow()">◉ <span data-en="Follow me" data-ko="내 위치 따라가기">Follow me</span></button>
         <button type="button" onclick="resetCityMapView()">⌂ <span data-en="Fit places" data-ko="장소 전체보기">Fit places</span></button>
+        <button type="button" class="map-expand-btn" onclick="toggleCityMapFocus()">⛶ <span data-en="Big map" data-ko="지도 크게">Big map</span></button>
+      </div>
+      <div class="city-facility-tools">
+        <div class="city-facility-title"><span data-en="Nearby essentials" data-ko="내 주변 편의시설">Nearby essentials</span><small data-en="Choose a type, then set the search radius" data-ko="시설 종류와 검색 거리를 선택하세요">Choose a type, then set the search radius</small></div>
+        <div class="city-radius-row" id="cityFacilityRadiusRow">
+          <button type="button" class="city-radius-btn" data-radius="500" onclick="setCityFacilityRadius(500,this)">500m</button>
+          <button type="button" class="city-radius-btn active" data-radius="1000" onclick="setCityFacilityRadius(1000,this)">1km</button>
+          <button type="button" class="city-radius-btn" data-radius="3000" onclick="setCityFacilityRadius(3000,this)">3km</button>
+        </div>
       </div>
       <div class="city-facility-row" id="cityFacilityRow">
+        <button type="button" class="city-facility-btn" data-facility="all" onclick="toggleCityFacility('all',this)">🧭 <span data-en="All nearby" data-ko="전체">All nearby</span></button>
         <button type="button" class="city-facility-btn" data-facility="convenience" onclick="toggleCityFacility('convenience',this)">🏪 <span data-en="Convenience" data-ko="편의점">Convenience</span></button>
         <button type="button" class="city-facility-btn" data-facility="atm" onclick="toggleCityFacility('atm',this)">💳 ATM</button>
         <button type="button" class="city-facility-btn" data-facility="bank" onclick="toggleCityFacility('bank',this)">🏦 <span data-en="Bank" data-ko="은행">Bank</span></button>
         <button type="button" class="city-facility-btn" data-facility="toilets" onclick="toggleCityFacility('toilets',this)">🚻 <span data-en="Toilet" data-ko="화장실">Toilet</span></button>
         <button type="button" class="city-facility-btn" data-facility="pharmacy" onclick="toggleCityFacility('pharmacy',this)">💊 <span data-en="Pharmacy" data-ko="약국">Pharmacy</span></button>
       </div>
+      <div class="city-facility-results" id="cityFacilityResults" aria-live="polite"></div>
       <div class="city-map-status" id="cityMapStatus" data-en="Tap My location for a faster travel map." data-ko="내 위치를 눌러 여행 지도를 빠르게 맞춰보세요.">Tap My location for a faster travel map.</div>
+      <div class="city-map-health loading" id="cityMapHealth" aria-live="polite">
+        <div class="city-map-health-left"><span class="city-map-health-dot"></span><span id="cityMapHealthText" data-en="Map preparing…" data-ko="지도 준비 중…">Map preparing…</span></div>
+        <button type="button" onclick="reloadCityMapTiles()" data-en="Reload map" data-ko="지도 다시 불러오기">Reload map</button>
+      </div>
     </div>
 <div id="citySchematic" class="city-schematic"></div>
 <div id="cityGuideMap" class="city-map" style="display:none"></div>
@@ -1549,9 +1659,12 @@ function applyLang(){
   updateRoutePreview();
   if(current==='result') calculate();
   updateCTA();
+  if(typeof renderCityWalkAlertsState==='function') renderCityWalkAlertsState();
+  if(typeof renderCityWalkRecovery==='function') renderCityWalkRecovery();
 }
 function toggleLang(){lang=lang==='en'?'ko':'en';localStorage.setItem('koreaRouteLang',lang);applyLang()}
 function go(id){
+  if(id!=='city'&&typeof stopCityWalkGuide==='function'&&cityWalkGuideTarget) stopCityWalkGuide({silent:true});
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active'); current=id; updateCTA();
   window.scrollTo({top:0,behavior:'smooth'});
@@ -2559,6 +2672,101 @@ function renderCitySchematic(city){
   });
 }
 
+let cityMapResizeObserver=null;
+let cityMapInvalidateTimer=null;
+let cityGuideTileLayer=null;
+let cityMapTileErrors=0;
+let cityMapBusyTimer=null;
+let cityMapBusyFailsafe=null;
+const cityMapRequestCache=new Map();
+const CITY_MAP_SESSION_CACHE='koreaRouteCityMapCacheV2';
+let cityMapInitialTileLoadPending=true;
+function cityMapCacheKey(kind,parts=[]){return [kind,...parts].join('|')}
+function cityMapReadSessionCache(){
+  try{return JSON.parse(sessionStorage.getItem(CITY_MAP_SESSION_CACHE)||'{}')||{};}catch(e){return {};}
+}
+function cityMapCacheGet(key,maxAgeMs=180000){
+  let hit=cityMapRequestCache.get(key);
+  if(!hit){
+    const stored=cityMapReadSessionCache()[key];
+    if(stored){hit=stored;cityMapRequestCache.set(key,stored);}
+  }
+  if(!hit||Date.now()-hit.time>maxAgeMs){
+    if(hit) cityMapRequestCache.delete(key);
+    return null;
+  }
+  return hit.value;
+}
+function cityMapCacheSet(key,value){
+  const record={time:Date.now(),value};
+  cityMapRequestCache.set(key,record);
+  if(cityMapRequestCache.size>60){const oldest=cityMapRequestCache.keys().next().value;if(oldest)cityMapRequestCache.delete(oldest);}
+  try{
+    const stored=cityMapReadSessionCache(); stored[key]=record;
+    const entries=Object.entries(stored).sort((a,b)=>(b[1]?.time||0)-(a[1]?.time||0)).slice(0,28);
+    sessionStorage.setItem(CITY_MAP_SESSION_CACHE,JSON.stringify(Object.fromEntries(entries)));
+  }catch(e){}
+  return value;
+}
+function cityMapCenterKey(lat,lng,precision=3){return `${Number(lat).toFixed(precision)},${Number(lng).toFixed(precision)}`;}
+function cityMapBeginNetworkLoad({force=false}={}){
+  if(!force&&!cityMapInitialTileLoadPending) return;
+  clearTimeout(cityMapBusyTimer); clearTimeout(cityMapBusyFailsafe);
+  cityMapBusyTimer=setTimeout(()=>setCityMapLoading(true),420);
+  cityMapBusyFailsafe=setTimeout(()=>setCityMapLoading(false),3200);
+}
+function cityMapEndNetworkLoad(){
+  clearTimeout(cityMapBusyTimer); clearTimeout(cityMapBusyFailsafe);
+  setCityMapLoading(false);
+}
+
+function setCityMapHealth(state,text){
+  const box=document.getElementById('cityMapHealth');
+  const label=document.getElementById('cityMapHealthText');
+  if(box){ box.classList.remove('ready','loading','error'); box.classList.add(state||'loading'); }
+  if(label&&text) label.textContent=text;
+}
+function setCityMapLoading(on){
+  document.querySelector('#city .city-map-wrap')?.classList.toggle('map-loading',!!on);
+  if(on) setCityMapHealth('loading',lang==='ko'?'지도 불러오는 중…':'Loading map…');
+}
+function reloadCityMapTiles(){
+  const map=ensureCityGuideMap();
+  if(!map||!cityGuideTileLayer) return;
+  cityMapTileErrors=0;
+  cityMapBeginNetworkLoad({force:true});
+  try{ cityGuideTileLayer.redraw(); }catch(e){}
+  scheduleCityMapInvalidate();
+  setTimeout(()=>{ try{cityGuideTileLayer.redraw();}catch(e){} },180);
+}
+function refreshCityMapOnlineState(){
+  if(!navigator.onLine){
+    setCityMapHealth('error',lang==='ko'?'오프라인 · 지도 타일을 불러올 수 없습니다.':'Offline · map tiles unavailable.');
+    setCityMapLoading(false);
+    return;
+  }
+  if(cityGuideMap&&!document.querySelector('#city .city-map-wrap')?.classList.contains('map-loading')){
+    setCityMapHealth(cityMapTileErrors?'error':'ready',cityMapTileErrors?(lang==='ko'?'일부 지도 타일 로딩 실패 · 다시 불러오기를 눌러보세요.':'Some map tiles failed · tap Reload map.'):(lang==='ko'?'지도 준비됨':'Map ready'));
+  }
+}
+function scheduleCityMapInvalidate({pan=false}={}){
+  if(!cityGuideMap) return;
+  clearTimeout(cityMapInvalidateTimer);
+  requestAnimationFrame(()=>{
+    try{cityGuideMap.invalidateSize({pan:false,animate:false});}catch(e){}
+    cityMapInvalidateTimer=setTimeout(()=>{
+      try{cityGuideMap.invalidateSize({pan:false,animate:false});}catch(e){}
+    },140);
+  });
+}
+function ensureCityMapResizeObserver(){
+  const el=document.getElementById('cityGuideMap');
+  if(!el||typeof ResizeObserver==='undefined'||cityMapResizeObserver) return;
+  cityMapResizeObserver=new ResizeObserver(()=>scheduleCityMapInvalidate());
+  cityMapResizeObserver.observe(el);
+  const wrap=document.querySelector('#city .city-map-wrap');
+  if(wrap) cityMapResizeObserver.observe(wrap);
+}
 function ensureCityGuideMap(){
   if(typeof L==='undefined'){
     const el=document.getElementById('cityGuideMap');
@@ -2566,15 +2774,43 @@ function ensureCityGuideMap(){
     return null;
   }
   if(!cityGuideMap){
-    cityGuideMap=L.map('cityGuideMap',{zoomControl:true,scrollWheelZoom:true,zoomAnimation:false,fadeAnimation:false,markerZoomAnimation:false}).setView([37.2636,127.0286],12);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    const coarsePointer=!!(window.matchMedia&&window.matchMedia('(pointer: coarse)').matches);
+    cityGuideMap=L.map('cityGuideMap',{
+      zoomControl:true,scrollWheelZoom:true,touchZoom:true,doubleClickZoom:true,
+      zoomAnimation:!coarsePointer,fadeAnimation:false,markerZoomAnimation:false,
+      zoomSnap:1,zoomDelta:1,wheelPxPerZoomLevel:90,
+      inertia:true,inertiaDeceleration:coarsePointer?4200:3600,inertiaMaxSpeed:coarsePointer?1200:1500,
+      bounceAtZoomLimits:false,preferCanvas:true
+    }).setView([37.2636,127.0286],12);
+    cityGuideTileLayer=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
       maxZoom:19,
-      updateWhenIdle:true,
-      keepBuffer:4,
+      updateWhenIdle:coarsePointer,
+      updateWhenZooming:false,
+      updateInterval:coarsePointer?260:180,
+      keepBuffer:coarsePointer?3:4,
       attribution:'&copy; OpenStreetMap contributors'
-    }).addTo(cityGuideMap);
+    });
+    cityGuideTileLayer.on('loading',()=>cityMapBeginNetworkLoad());
+    cityGuideTileLayer.on('load',()=>{
+      cityMapInitialTileLoadPending=false;
+      cityMapEndNetworkLoad(); refreshCityMapOnlineState();
+    });
+    cityGuideTileLayer.on('tileerror',()=>{ cityMapTileErrors++; cityMapEndNetworkLoad(); setCityMapHealth('error',lang==='ko'?'일부 지도 타일 로딩 실패 · 다시 불러오기를 눌러보세요.':'Some map tiles failed · tap Reload map.'); });
+    cityGuideTileLayer.addTo(cityGuideMap);
+    cityGuideMap.on('zoomend moveend',()=>refreshCityMapOnlineState());
+    cityGuideMap.on('dragstart',()=>{
+      if(cityMapFollowActive){
+        stopCityMapFollow();
+        setCityMapStatus(lang==='ko'?'지도를 직접 움직여 위치 따라가기를 잠시 껐습니다.':'Follow me paused because you moved the map.');
+      }
+      if(cityWalkMapFollowActive){
+        setCityWalkMapFollow(false,{silent:true});
+        setCityMapStatus(lang==='ko'?'지도를 직접 움직여 도보 안내 따라가기를 잠시 껐습니다. 다시 켜려면 내 위치 따라가기를 누르세요.':'Walk map follow paused because you moved the map. Tap Follow me to resume.');
+      }
+    });
   }
-  setTimeout(()=>cityGuideMap.invalidateSize(),100);
+  ensureCityMapResizeObserver();
+  scheduleCityMapInvalidate();
   return cityGuideMap;
 }
 
@@ -3937,35 +4173,129 @@ function cityMapSourceBadge(){
 
 
 let cityUserLayer=null;
+let cityUserAccuracyCircle=null;
+let cityUserDot=null;
+let cityMapLastFollowCenter=null;
+let cityMapLastFollowPanAt=0;
 let cityFacilityLayer=null;
 let activeCityFacility='';
+let cityFacilityRadius=1000;
+let cityFacilityRequestSeq=0;
+let cityFacilitySelectedMarker=null;
+let cityMapSelectedFacility=null;
+let cityMapSelectedSearchPlace=null;
+let cityMapSearchLayer=null;
+let cityMapSearchRequestSeq=0;
+let cityMapSearchFilter='all';
+let cityMapSearchAllItems=[];
+let cityMapLoadedFacilities=[];
+let cityMapStationAccessPoints=[];
+let cityStationPackRequestSeq=0;
 
 let cityMapSelectedIndex=-1;
 let cityMapWatchId=null;
 let cityMapFollowActive=false;
+let cityWalkGuideTarget=null;
+let cityWalkGuideWatchId=null;
+let cityWalkGuideLine=null;
+let cityWalkGuideLastPosition=null;
+let cityWalkGuideLastAccuracy=null;
+let cityWalkGuideLastFixAt=0;
+let cityWalkDistanceHistory=[];
+let cityWalkOffrouteActive=false;
+let cityWalkOffrouteCooldownUntil=0;
+let cityWalkCompassActive=false;
+let cityWalkCompassHeading=null;
+let cityWalkGuideLastBearing=null;
+let cityWalkWakeLock=null;
+let cityWalkWakeRequested=false;
+let cityWalkCompassEventMode='';
+let cityWalkAlertPrefs={vibrate:false,voice:false};
+let cityWalkAlertLastArrival='far';
+let cityWalkAlertSpokenAt={};
+let cityWalkMapFollowActive=false;
+let cityWalkGuidePaused=false;
+const CITY_WALK_SESSION_KEY='koreaRouteWalkSessionV15';
+
+function readCityWalkSession(){
+  try{
+    const raw=sessionStorage.getItem(CITY_WALK_SESSION_KEY);
+    if(!raw) return null;
+    const data=JSON.parse(raw);
+    if(!data?.target||!Number.isFinite(Number(data.target.lat))||!Number.isFinite(Number(data.target.lng))) return null;
+    if(data.savedAt&&Date.now()-Number(data.savedAt)>8*60*60*1000){sessionStorage.removeItem(CITY_WALK_SESSION_KEY);return null;}
+    return data;
+  }catch(e){return null;}
+}
+function saveCityWalkSession(){
+  if(!cityWalkGuideTarget) return;
+  try{
+    const city=document.getElementById('city')?.dataset.currentCity||cityState?.key||'';
+    sessionStorage.setItem(CITY_WALK_SESSION_KEY,JSON.stringify({
+      target:{lat:Number(cityWalkGuideTarget.lat),lng:Number(cityWalkGuideTarget.lng),name:cityWalkTargetName(cityWalkGuideTarget),kind:cityWalkGuideTarget.kind||'place'},
+      city,paused:!!cityWalkGuidePaused,savedAt:Date.now()
+    }));
+  }catch(e){}
+  renderCityWalkRecovery();
+}
+function clearCityWalkSession(){
+  try{sessionStorage.removeItem(CITY_WALK_SESSION_KEY);}catch(e){}
+  renderCityWalkRecovery();
+}
+function renderCityWalkRecovery(){
+  const box=document.getElementById('cityWalkRecovery');
+  if(!box) return;
+  const data=readCityWalkSession();
+  box.classList.toggle('show',!!data&&!cityWalkGuideTarget);
+  if(!data||cityWalkGuideTarget) return;
+  const title=document.getElementById('cityWalkRecoveryTitle');
+  const state=document.getElementById('cityWalkRecoveryState');
+  const text=document.getElementById('cityWalkRecoveryText');
+  if(title) title.textContent=data.target?.name||(lang==='ko'?'이전 목적지':'Previous destination');
+  if(state) state.textContent=data.paused?(lang==='ko'?'일시정지':'PAUSED'):(lang==='ko'?'복구 가능':'READY');
+  if(text) text.textContent=lang==='ko'?'이 세션의 목적지만 저장되어 있습니다. 계속하기를 눌러야 GPS 위치 추적이 다시 시작됩니다. 위치 기록은 저장하지 않습니다.':'Only the destination is saved for this session. GPS tracking restarts only after you tap Continue. Location history is not stored.';
+}
+function dismissRecoveredCityWalk(){clearCityWalkSession();setCityMapStatus(lang==='ko'?'저장된 도보 안내를 닫았습니다.':'Saved walk guide dismissed.');}
+function resumeRecoveredCityWalk(){
+  const data=readCityWalkSession();
+  if(!data) return;
+  const launch=()=>setTimeout(()=>startCityWalkGuide({...data.target,kind:data.target.kind||'recovered'}),420);
+  if(data.city&&cityGuideConfig[data.city]){openCityFromHub(data.city);launch();}
+  else{go('city');launch();}
+}
 
 
 function applyCityUserPosition(lat,lng,accuracy,{recenter=true}={}){
   const map=ensureCityGuideMap();
   if(!map) return;
-  exploreUserLocation={lat:Number(lat),lng:Number(lng)};
+  lat=Number(lat); lng=Number(lng);
+  exploreUserLocation={lat,lng};
   const safeAccuracy=Math.max(10,Number(accuracy)||30);
-  if(cityUserLayer) cityUserLayer.remove();
-  cityUserLayer=L.layerGroup([
-    L.circle([lat,lng],{radius:safeAccuracy,weight:1,color:'#2f6fed',fillColor:'#2f6fed',fillOpacity:.08}),
-    L.circleMarker([lat,lng],{radius:8,weight:4,color:'#fff',fillColor:'#2f6fed',fillOpacity:1})
-      .bindPopup(`<b>${lang==='ko'?'내 위치':'My location'}</b><br><small>±${Math.round(safeAccuracy)}m</small>`)
-  ]).addTo(map);
-  if(recenter) map.setView([lat,lng],16,{animate:false});
+  if(!cityUserLayer){
+    cityUserAccuracyCircle=L.circle([lat,lng],{radius:safeAccuracy,weight:1,color:'#2f6fed',fillColor:'#2f6fed',fillOpacity:.08});
+    cityUserDot=L.circleMarker([lat,lng],{radius:8,weight:4,color:'#fff',fillColor:'#2f6fed',fillOpacity:1})
+      .bindPopup(`<b>${lang==='ko'?'내 위치':'My location'}</b><br><small>GPS</small>`);
+    cityUserLayer=L.layerGroup([cityUserAccuracyCircle,cityUserDot]).addTo(map);
+  }else{
+    try{cityUserAccuracyCircle?.setLatLng([lat,lng]);cityUserAccuracyCircle?.setRadius(safeAccuracy);}catch(e){}
+    try{cityUserDot?.setLatLng([lat,lng]);cityUserDot?.setPopupContent(`<b>${lang==='ko'?'내 위치':'My location'}</b><br><small>±${Math.round(safeAccuracy)}m</small>`);}catch(e){}
+  }
+  if(recenter){
+    if(map.getZoom()<16) map.setView([lat,lng],16,{animate:false});
+    else map.panTo([lat,lng],{animate:false,noMoveStart:true});
+  }
   document.getElementById('cityMapLocateBtn')?.classList.add('active');
   setCityMapStatus(lang==='ko'?`현재 위치 확인 · 정확도 약 ${Math.round(safeAccuracy)}m`:`Location ready · about ±${Math.round(safeAccuracy)}m accuracy`);
   const currentCity=document.getElementById('city')?.dataset.currentCity||'';
-  if(cityMapSelectedIndex>=0) selectCityMapDestination(currentCity,cityMapSelectedIndex,{pan:false});
+  if(cityWalkGuideTarget) updateCityWalkGuide({lat,lng,accuracy:safeAccuracy});
+  else if(cityMapSelectedIndex>=0) selectCityMapDestination(currentCity,cityMapSelectedIndex,{pan:false});
+  updateCityMapRouteBar();
 }
 
 function stopCityMapFollow(){
   if(cityMapWatchId!==null&&navigator.geolocation){navigator.geolocation.clearWatch(cityMapWatchId);}
   cityMapWatchId=null; cityMapFollowActive=false;
+  cityMapLastFollowCenter=null; cityMapLastFollowPanAt=0;
   document.getElementById('cityMapFollowBtn')?.classList.remove('active');
 }
 
@@ -3980,7 +4310,15 @@ function toggleCityMapFollow(){
   document.getElementById('cityMapFollowBtn')?.classList.add('active');
   setCityMapStatus(lang==='ko'?'이동 중 현재 위치를 따라가는 중…':'Following your location…');
   cityMapWatchId=navigator.geolocation.watchPosition(pos=>{
-    applyCityUserPosition(pos.coords.latitude,pos.coords.longitude,pos.coords.accuracy,{recenter:true});
+    const next={lat:Number(pos.coords.latitude),lng:Number(pos.coords.longitude)};
+    const now=Date.now();
+    let moved=Infinity;
+    if(cityMapLastFollowCenter){
+      moved=haversineKm(cityMapLastFollowCenter.lat,cityMapLastFollowCenter.lng,next.lat,next.lng)*1000;
+    }
+    const shouldPan=!cityMapLastFollowCenter||moved>=12||(now-cityMapLastFollowPanAt)>=1400;
+    applyCityUserPosition(next.lat,next.lng,pos.coords.accuracy,{recenter:shouldPan});
+    if(shouldPan){cityMapLastFollowCenter=next;cityMapLastFollowPanAt=now;}
     setCityMapStatus(lang==='ko'?`내 위치 따라가는 중 · 정확도 약 ${Math.round(pos.coords.accuracy||30)}m`:`Following you · about ±${Math.round(pos.coords.accuracy||30)}m accuracy`);
   },()=>{
     stopCityMapFollow();
@@ -4009,6 +4347,1029 @@ function openFacilityWalk(lat,lng){
   window.open(url,'_blank','noopener');
 }
 
+function cityWalkBearing(fromLat,fromLng,toLat,toLng){
+  const d2r=Math.PI/180, r2d=180/Math.PI;
+  const a=Number(fromLat)*d2r,b=Number(toLat)*d2r,dLng=(Number(toLng)-Number(fromLng))*d2r;
+  const y=Math.sin(dLng)*Math.cos(b);
+  const x=Math.cos(a)*Math.sin(b)-Math.sin(a)*Math.cos(b)*Math.cos(dLng);
+  return (Math.atan2(y,x)*r2d+360)%360;
+}
+function cityWalkDirectionLabel(deg){
+  const labelsKo=['북','북동','동','남동','남','남서','서','북서'];
+  const labelsEn=['N','NE','E','SE','S','SW','W','NW'];
+  const i=Math.round((Number(deg)||0)/45)%8;
+  return (lang==='ko'?labelsKo:labelsEn)[i];
+}
+function cityWalkTargetName(target){
+  return target?.name||(lang==='ko'?'선택한 목적지':'Selected destination');
+}
+function cityWalkRoughMinutes(km){
+  if(!Number.isFinite(km)) return null;
+  return Math.max(1,Math.round((km*1000)/75));
+}
+function setCityWalkSignalState(accuracy){
+  const box=document.getElementById('cityWalkSignal');
+  const title=document.getElementById('cityWalkSignalTitle');
+  const text=document.getElementById('cityWalkSignalText');
+  if(!box||!title||!text) return;
+  box.classList.remove('good','fair','weak');
+  const a=Number(accuracy);
+  if(!Number.isFinite(a)){
+    title.textContent=lang==='ko'?'GPS 확인 중':'Checking GPS';
+    text.textContent=lang==='ko'?'위치 정확도를 확인하고 있습니다.':'Waiting for a location accuracy reading.';
+    return;
+  }
+  const rounded=Math.max(1,Math.round(a));
+  if(a<=35){
+    box.classList.add('good');
+    title.textContent=lang==='ko'?`GPS 양호 · 약 ±${rounded}m`:`GPS good · about ±${rounded}m`;
+    text.textContent=lang==='ko'?'거리·방향 안내에 사용할 수 있는 수준입니다.':'Suitable for the distance and direction guide.';
+  }else if(a<=80){
+    box.classList.add('fair');
+    title.textContent=lang==='ko'?`GPS 보통 · 약 ±${rounded}m`:`GPS fair · about ±${rounded}m`;
+    text.textContent=lang==='ko'?'거리와 도착 판정에 오차가 있을 수 있습니다.':'Distance and arrival detection may be imprecise.';
+  }else{
+    box.classList.add('weak');
+    title.textContent=lang==='ko'?`GPS 약함 · 약 ±${rounded}m`:`GPS weak · about ±${rounded}m`;
+    text.textContent=lang==='ko'?'도착 판정을 잠시 보류합니다. 열린 곳에서 위치를 재확인하세요.':'Arrival detection is paused. Recheck location in a more open area.';
+  }
+}
+function cityWalkRelativeDirectionLabel(delta){
+  const d=((Number(delta)%360)+360)%360;
+  const labelsKo=['앞쪽','앞쪽 오른편','오른쪽','뒤쪽 오른편','뒤쪽','뒤쪽 왼편','왼쪽','앞쪽 왼편'];
+  const labelsEn=['Ahead','Ahead-right','Right','Behind-right','Behind','Behind-left','Left','Ahead-left'];
+  const i=Math.round(d/45)%8;
+  return lang==='ko'?labelsKo[i]:labelsEn[i];
+}
+function renderCityWalkCompassState(){
+  const box=document.getElementById('cityWalkCompass');
+  const title=document.getElementById('cityWalkCompassTitle');
+  const text=document.getElementById('cityWalkCompassText');
+  const btn=document.getElementById('cityWalkCompassBtn');
+  if(!box||!title||!text||!btn) return;
+  box.classList.toggle('active',cityWalkCompassActive);
+  if(cityWalkCompassActive&&Number.isFinite(cityWalkCompassHeading)){
+    title.textContent=lang==='ko'?'휴대폰 나침반 사용 중':'Phone compass active';
+    text.textContent=lang==='ko'?`센서 방향 약 ${Math.round(cityWalkCompassHeading)}° · 주변 자석/건물에 따라 오차가 날 수 있어요.`:`Sensor heading about ${Math.round(cityWalkCompassHeading)}° · magnets and buildings can affect accuracy.`;
+    btn.querySelector('span').textContent=lang==='ko'?'나침반 끄기':'Turn off';
+  }else if(cityWalkCompassActive){
+    title.textContent=lang==='ko'?'나침반 신호 대기 중':'Waiting for compass';
+    text.textContent=lang==='ko'?'센서 신호가 없으면 화살표는 북쪽 기준으로 유지됩니다.':'If no sensor heading arrives, the arrow stays north-based.';
+    btn.querySelector('span').textContent=lang==='ko'?'나침반 끄기':'Turn off';
+  }else{
+    title.textContent=lang==='ko'?'나침반 꺼짐 · 북쪽 기준':'Compass off · north-based';
+    text.textContent=lang==='ko'?'현재 화살표는 지도 북쪽 기준입니다. 걷는 방향과 자동으로 일치하지 않을 수 있어요.':'The arrow is relative to map north, not automatically to the way your phone is facing.';
+    btn.querySelector('span').textContent=lang==='ko'?'나침반 사용':'Use compass';
+  }
+}
+function updateCityWalkDirectionVisual(bearing=cityWalkGuideLastBearing){
+  if(!Number.isFinite(Number(bearing))) return;
+  cityWalkGuideLastBearing=Number(bearing);
+  const arrow=document.getElementById('cityWalkGuideArrow');
+  const dir=document.getElementById('cityWalkGuideDirection');
+  if(cityWalkCompassActive&&Number.isFinite(cityWalkCompassHeading)){
+    const relative=(Number(bearing)-cityWalkCompassHeading+360)%360;
+    if(arrow) arrow.style.transform=`rotate(${relative}deg)`;
+    if(dir) dir.textContent=cityWalkRelativeDirectionLabel(relative);
+  }else{
+    if(arrow) arrow.style.transform=`rotate(${Number(bearing)}deg)`;
+    if(dir) dir.textContent=cityWalkDirectionLabel(Number(bearing));
+  }
+}
+function cityWalkSetCompassHeading(value){
+  const h=((Number(value)%360)+360)%360;
+  if(!Number.isFinite(h)) return;
+  cityWalkCompassHeading=h;
+  renderCityWalkCompassState();
+  updateCityWalkDirectionVisual();
+}
+function cityWalkOrientationAbsolute(e){
+  if(!cityWalkCompassActive) return;
+  if(Number.isFinite(Number(e.webkitCompassHeading))){cityWalkSetCompassHeading(Number(e.webkitCompassHeading));return;}
+  if(Number.isFinite(Number(e.alpha))) cityWalkSetCompassHeading(360-Number(e.alpha));
+}
+function cityWalkOrientationGeneric(e){
+  if(!cityWalkCompassActive) return;
+  if(Number.isFinite(Number(e.webkitCompassHeading))){cityWalkSetCompassHeading(Number(e.webkitCompassHeading));return;}
+  if(e.absolute===true&&Number.isFinite(Number(e.alpha))) cityWalkSetCompassHeading(360-Number(e.alpha));
+}
+function stopCityWalkCompass({silent=true}={}){
+  window.removeEventListener('deviceorientationabsolute',cityWalkOrientationAbsolute,true);
+  window.removeEventListener('deviceorientation',cityWalkOrientationGeneric,true);
+  cityWalkCompassActive=false; cityWalkCompassHeading=null; cityWalkCompassEventMode='';
+  renderCityWalkCompassState();
+  updateCityWalkDirectionVisual();
+  if(!silent) setCityMapStatus(lang==='ko'?'휴대폰 나침반을 껐습니다. 화살표는 다시 북쪽 기준입니다.':'Phone compass turned off. The arrow is north-based again.');
+}
+async function toggleCityWalkCompass(){
+  if(cityWalkCompassActive){stopCityWalkCompass({silent:false});return;}
+  if(typeof DeviceOrientationEvent==='undefined'){
+    setCityMapStatus(lang==='ko'?'이 브라우저에서는 휴대폰 방향 센서를 사용할 수 없습니다.':'This browser does not expose the phone direction sensor.');
+    return;
+  }
+  try{
+    if(typeof DeviceOrientationEvent.requestPermission==='function'){
+      const result=await DeviceOrientationEvent.requestPermission();
+      if(result!=='granted') throw new Error('permission');
+    }
+    cityWalkCompassActive=true; cityWalkCompassHeading=null;
+    if('ondeviceorientationabsolute' in window){
+      cityWalkCompassEventMode='absolute';
+      window.addEventListener('deviceorientationabsolute',cityWalkOrientationAbsolute,true);
+    }else{
+      cityWalkCompassEventMode='generic';
+      window.addEventListener('deviceorientation',cityWalkOrientationGeneric,true);
+    }
+    renderCityWalkCompassState();
+    setCityMapStatus(lang==='ko'?'나침반 센서를 켰습니다. 화살표가 휴대폰 방향 기준으로 바뀝니다. 센서 오차에 주의하세요.':'Compass sensor enabled. The arrow now uses phone heading when available; sensor error is possible.');
+    setTimeout(()=>{if(cityWalkCompassActive&&!Number.isFinite(cityWalkCompassHeading)) renderCityWalkCompassState();},1800);
+  }catch(e){
+    stopCityWalkCompass({silent:true});
+    setCityMapStatus(lang==='ko'?'나침반 권한을 사용할 수 없습니다. 북쪽 기준 안내를 계속 사용합니다.':'Compass permission is unavailable. Continuing with north-based direction.');
+  }
+}
+function refreshCityWalkLocation(){
+  if(!navigator.geolocation){setCityMapStatus(lang==='ko'?'현재 위치를 사용할 수 없습니다.':'Current location is unavailable.');return;}
+  setCityMapStatus(lang==='ko'?'GPS 위치를 다시 확인하는 중…':'Rechecking GPS location…');
+  navigator.geolocation.getCurrentPosition(pos=>{
+    applyCityUserPosition(pos.coords.latitude,pos.coords.longitude,pos.coords.accuracy,{recenter:false});
+    setCityMapStatus(lang==='ko'?`GPS 재확인 완료 · 정확도 약 ${Math.round(pos.coords.accuracy||30)}m`:`GPS refreshed · about ±${Math.round(pos.coords.accuracy||30)}m accuracy`);
+  },()=>setCityMapStatus(lang==='ko'?'위치를 다시 확인하지 못했습니다. 권한과 GPS 상태를 확인해 주세요.':'Could not refresh location. Check permission and GPS.'),{enableHighAccuracy:true,timeout:12000,maximumAge:0});
+}
+function renderCityWalkAwakeState(){
+  const box=document.getElementById('cityWalkAwake');
+  const title=document.getElementById('cityWalkAwakeTitle');
+  const text=document.getElementById('cityWalkAwakeText');
+  const btn=document.getElementById('cityWalkAwakeBtn');
+  if(!box||!title||!text||!btn) return;
+  const supported='wakeLock' in navigator;
+  box.classList.toggle('active',!!cityWalkWakeLock);
+  box.classList.toggle('unsupported',!supported);
+  const span=btn.querySelector('span');
+  if(!supported){
+    title.textContent=lang==='ko'?'화면 켜두기 미지원':'Keep-awake unavailable';
+    text.textContent=lang==='ko'?'이 브라우저에서는 화면 켜두기 기능을 사용할 수 없습니다.':'This browser does not support the Screen Wake Lock API.';
+    if(span) span.textContent=lang==='ko'?'미지원':'Unavailable';
+    btn.disabled=true;
+    return;
+  }
+  btn.disabled=false;
+  if(cityWalkWakeLock){
+    title.textContent=lang==='ko'?'화면 켜두는 중':'Keeping screen awake';
+    text.textContent=lang==='ko'?'도보 안내 중 화면 자동 꺼짐을 줄입니다. 배터리 사용량은 늘 수 있어요.':'Helps prevent screen sleep during the walk guide. Battery use may increase.';
+    if(span) span.textContent=lang==='ko'?'끄기':'Turn off';
+  }else if(cityWalkWakeRequested){
+    title.textContent=lang==='ko'?'화면 켜두기 대기':'Keep-awake paused';
+    text.textContent=lang==='ko'?'화면이 다시 활성화되면 켜두기를 다시 시도합니다.':'Will try to restore keep-awake when the page becomes active again.';
+    if(span) span.textContent=lang==='ko'?'끄기':'Turn off';
+  }else{
+    title.textContent=lang==='ko'?'화면 자동 꺼짐 허용':'Screen sleep allowed';
+    text.textContent=lang==='ko'?'필요할 때만 켜세요. 도보 안내가 끝나면 자동으로 해제됩니다.':'Enable only when needed. It is released automatically when the walk guide ends.';
+    if(span) span.textContent=lang==='ko'?'화면 켜두기':'Keep awake';
+  }
+}
+async function requestCityWalkWakeLock({silent=false}={}){
+  if(!('wakeLock' in navigator)){
+    cityWalkWakeRequested=false; renderCityWalkAwakeState();
+    if(!silent) setCityMapStatus(lang==='ko'?'이 브라우저에서는 화면 켜두기를 지원하지 않습니다.':'This browser does not support screen wake lock.');
+    return false;
+  }
+  try{
+    cityWalkWakeRequested=true;
+    if(cityWalkWakeLock) return true;
+    cityWalkWakeLock=await navigator.wakeLock.request('screen');
+    cityWalkWakeLock.addEventListener('release',()=>{cityWalkWakeLock=null;renderCityWalkAwakeState();});
+    renderCityWalkAwakeState();
+    if(!silent) setCityMapStatus(lang==='ko'?'도보 안내 중 화면을 켜두도록 설정했습니다. 배터리 사용량이 늘 수 있습니다.':'Screen keep-awake enabled for the walk guide. Battery use may increase.');
+    return true;
+  }catch(e){
+    cityWalkWakeLock=null; renderCityWalkAwakeState();
+    if(!silent) setCityMapStatus(lang==='ko'?'화면 켜두기를 시작하지 못했습니다. 브라우저 상태나 권한을 확인해 주세요.':'Could not enable screen keep-awake. Check browser state or permissions.');
+    return false;
+  }
+}
+async function releaseCityWalkWakeLock({clearRequest=true,silent=true}={}){
+  if(clearRequest) cityWalkWakeRequested=false;
+  const lock=cityWalkWakeLock; cityWalkWakeLock=null;
+  if(lock){try{await lock.release();}catch(e){}}
+  renderCityWalkAwakeState();
+  if(!silent) setCityMapStatus(lang==='ko'?'화면 켜두기를 껐습니다.':'Screen keep-awake turned off.');
+}
+async function toggleCityWalkAwake(){
+  if(cityWalkWakeRequested||cityWalkWakeLock){await releaseCityWalkWakeLock({clearRequest:true,silent:false});return;}
+  await requestCityWalkWakeLock({silent:false});
+}
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState==='visible'&&cityWalkGuideTarget&&cityWalkWakeRequested&&!cityWalkWakeLock){requestCityWalkWakeLock({silent:true});}
+  renderCityWalkAwakeState();
+});
+function loadCityWalkAlertPrefs(){
+  try{
+    const raw=sessionStorage.getItem('koreaRouteWalkAlerts');
+    const parsed=raw?JSON.parse(raw):null;
+    if(parsed&&typeof parsed==='object') cityWalkAlertPrefs={vibrate:!!parsed.vibrate,voice:!!parsed.voice};
+  }catch(e){}
+  renderCityWalkAlertsState();
+}
+function saveCityWalkAlertPrefs(){
+  try{sessionStorage.setItem('koreaRouteWalkAlerts',JSON.stringify(cityWalkAlertPrefs));}catch(e){}
+}
+function renderCityWalkAlertsState(){
+  const title=document.getElementById('cityWalkAlertsTitle');
+  const text=document.getElementById('cityWalkAlertsText');
+  const vBtn=document.getElementById('cityWalkVibrateBtn');
+  const sBtn=document.getElementById('cityWalkVoiceBtn');
+  if(!title||!text||!vBtn||!sBtn) return;
+  const vibrateSupported=typeof navigator!=='undefined'&&typeof navigator.vibrate==='function';
+  const voiceSupported=typeof window!=='undefined'&&'speechSynthesis' in window&&typeof SpeechSynthesisUtterance!=='undefined';
+  if(!vibrateSupported) cityWalkAlertPrefs.vibrate=false;
+  if(!voiceSupported) cityWalkAlertPrefs.voice=false;
+  vBtn.disabled=!vibrateSupported; sBtn.disabled=!voiceSupported;
+  vBtn.classList.toggle('active',vibrateSupported&&cityWalkAlertPrefs.vibrate);
+  sBtn.classList.toggle('active',voiceSupported&&cityWalkAlertPrefs.voice);
+  title.textContent=lang==='ko'?'중요 상태 알림':'Important walk alerts';
+  const enabled=[];
+  if(cityWalkAlertPrefs.vibrate) enabled.push(lang==='ko'?'진동':'vibration');
+  if(cityWalkAlertPrefs.voice) enabled.push(lang==='ko'?'음성':'voice');
+  if(enabled.length){
+    text.textContent=lang==='ko'?`${enabled.join(' + ')} · 도착 임박·거의 도착·방향 재확인만 알려요.`:`${enabled.join(' + ')} · only almost-there, arrival and direction-recheck events.`;
+  }else if(!vibrateSupported&&!voiceSupported){
+    text.textContent=lang==='ko'?'이 브라우저에서는 진동·음성 알림을 사용할 수 없습니다.':'Vibration and voice alerts are unavailable in this browser.';
+  }else{
+    text.textContent=lang==='ko'?'선택 기능입니다. 필요한 알림만 직접 켜세요.':'Optional. Turn on only the alerts you want.';
+  }
+}
+function cityWalkSpeak(text){
+  if(!cityWalkAlertPrefs.voice||!('speechSynthesis' in window)||typeof SpeechSynthesisUtterance==='undefined') return;
+  try{
+    window.speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang=lang==='ko'?'ko-KR':'en-US';
+    u.rate=1; u.pitch=1; u.volume=1;
+    window.speechSynthesis.speak(u);
+  }catch(e){}
+}
+function cityWalkVibrate(pattern){
+  if(!cityWalkAlertPrefs.vibrate||typeof navigator.vibrate!=='function') return;
+  try{navigator.vibrate(pattern);}catch(e){}
+}
+function notifyCityWalkEvent(kind){
+  const now=Date.now();
+  const cooldown=kind==='offroute'?45000:10000;
+  if(cityWalkAlertSpokenAt[kind]&&now-cityWalkAlertSpokenAt[kind]<cooldown) return;
+  cityWalkAlertSpokenAt[kind]=now;
+  if(kind==='approaching'){
+    cityWalkVibrate([120,80,120]);
+    cityWalkSpeak(lang==='ko'?'목적지에 곧 도착합니다. 주변 표지판과 입구를 확인하세요.':'You are almost there. Check nearby signs and the entrance.');
+  }else if(kind==='arrived'){
+    cityWalkVibrate([180,80,180,80,260]);
+    cityWalkSpeak(lang==='ko'?'거의 도착했습니다. 실제 출입구와 표지판을 확인하세요.':'You are at the destination area. Check the actual entrance and signs.');
+  }else if(kind==='offroute'){
+    cityWalkVibrate([220,100,220]);
+    cityWalkSpeak(lang==='ko'?'방향을 다시 확인하세요. 목적지와 거리가 계속 멀어지고 있습니다.':'Recheck your direction. You may be moving away from the destination.');
+  }
+}
+function updateCityWalkArrivalAlert(km,accuracy){
+  let state='far';
+  if(Number.isFinite(Number(accuracy))&&Number(accuracy)>80) state='uncertain';
+  else if(Number.isFinite(Number(km))&&Number(km)<=0.035) state='arrived';
+  else if(Number.isFinite(Number(km))&&Number(km)<=0.12) state='approaching';
+  if(state==='approaching'&&cityWalkAlertLastArrival!=='approaching'&&cityWalkAlertLastArrival!=='arrived') notifyCityWalkEvent('approaching');
+  if(state==='arrived'&&cityWalkAlertLastArrival!=='arrived') notifyCityWalkEvent('arrived');
+  if(state!=='uncertain') cityWalkAlertLastArrival=state;
+}
+function toggleCityWalkAlert(type){
+  if(type==='vibrate'){
+    if(typeof navigator.vibrate!=='function'){renderCityWalkAlertsState();return;}
+    cityWalkAlertPrefs.vibrate=!cityWalkAlertPrefs.vibrate;
+    if(cityWalkAlertPrefs.vibrate) cityWalkVibrate(100);
+  }else if(type==='voice'){
+    if(!('speechSynthesis' in window)||typeof SpeechSynthesisUtterance==='undefined'){renderCityWalkAlertsState();return;}
+    cityWalkAlertPrefs.voice=!cityWalkAlertPrefs.voice;
+    if(cityWalkAlertPrefs.voice) cityWalkSpeak(lang==='ko'?'음성 알림을 켰습니다.':'Voice walk alerts are on.');
+    else{try{window.speechSynthesis.cancel();}catch(e){}}
+  }
+  saveCityWalkAlertPrefs();
+  renderCityWalkAlertsState();
+}
+function resetCityWalkOffrouteState(){
+  cityWalkDistanceHistory=[];
+  cityWalkOffrouteActive=false;
+  cityWalkOffrouteCooldownUntil=0;
+  const box=document.getElementById('cityWalkOffroute'); if(box) box.classList.remove('show');
+}
+function setCityWalkOffrouteState(show,{deltaM=0}={}){
+  const box=document.getElementById('cityWalkOffroute');
+  const title=document.getElementById('cityWalkOffrouteTitle');
+  const text=document.getElementById('cityWalkOffrouteText');
+  if(!box||!title||!text) return;
+  box.classList.toggle('show',!!show);
+  if(!show) return;
+  const d=Math.max(20,Math.round(Number(deltaM)||0));
+  title.textContent=lang==='ko'?'↗ 목적지와 거리가 계속 멀어지고 있어요':'↗ You may be moving away from the destination';
+  text.textContent=lang==='ko'?`최근 GPS 기준 목적지와 약 ${d}m 더 멀어졌습니다. 방향을 다시 확인하세요. GPS 오차일 수도 있습니다.`:`Recent GPS fixes show you about ${d}m farther from the destination. Recheck direction; GPS drift can also cause this.`;
+}
+function updateCityWalkOffroute(km,accuracy){
+  const now=Date.now();
+  const a=Number(accuracy), distM=Number(km)*1000;
+  if(!Number.isFinite(distM)||!Number.isFinite(a)||a>60||distM<120){
+    if(a>80) cityWalkDistanceHistory=[];
+    return;
+  }
+  cityWalkDistanceHistory.push({t:now,d:distM,a});
+  cityWalkDistanceHistory=cityWalkDistanceHistory.filter(x=>now-x.t<=30000).slice(-6);
+  if(cityWalkDistanceHistory.length<4) return;
+  const h=cityWalkDistanceHistory;
+  const last4=h.slice(-4);
+  const increases=last4.slice(1).filter((x,i)=>x.d-last4[i].d>=5).length;
+  const delta=last4[last4.length-1].d-last4[0].d;
+  const span=last4[last4.length-1].t-last4[0].t;
+  if(!cityWalkOffrouteActive&&now>=cityWalkOffrouteCooldownUntil&&increases>=3&&delta>=30&&span>=6000){
+    cityWalkOffrouteActive=true;
+    cityWalkOffrouteCooldownUntil=now+45000;
+    setCityWalkOffrouteState(true,{deltaM:delta});
+    notifyCityWalkEvent('offroute');
+    setCityMapStatus(lang==='ko'?'방향 다시 확인 · 최근 위치에서 목적지와 거리가 계속 늘었습니다.':'Recheck direction · recent fixes show the destination getting farther away.');
+  }else if(cityWalkOffrouteActive){
+    const recent=h.slice(-3);
+    if(recent.length>=3&&recent[recent.length-1].d<=recent[0].d-15){
+      cityWalkOffrouteActive=false;
+      setCityWalkOffrouteState(false);
+    }
+  }
+}
+function renderCityWalkMapFollowState(){
+  const box=document.getElementById('cityWalkFollow');
+  const title=document.getElementById('cityWalkFollowTitle');
+  const text=document.getElementById('cityWalkFollowText');
+  const btn=document.getElementById('cityWalkFollowBtn');
+  if(!box||!title||!text||!btn) return;
+  box.classList.toggle('active',cityWalkMapFollowActive);
+  title.textContent=cityWalkMapFollowActive?(lang==='ko'?'지도 따라가기 켜짐':'Map follow on'):(lang==='ko'?'지도 따라가기 꺼짐':'Map follow off');
+  text.textContent=cityWalkMapFollowActive
+    ?(lang==='ko'?'GPS가 갱신될 때 내 위치를 지도 중앙에 맞춥니다. 지도를 직접 움직이면 자동으로 멈춥니다.':'Keeps your GPS position centered. Dragging the map pauses follow automatically.')
+    :(lang==='ko'?'지도를 자유롭게 움직일 수 있습니다. 필요할 때만 켜세요.':'Move the map freely. Turn follow on only when needed.');
+  btn.innerHTML=cityWalkMapFollowActive
+    ?`<span>${lang==='ko'?'따라가기 끄기':'Stop follow'}</span>`
+    :`<span>${lang==='ko'?'내 위치 따라가기':'Follow me'}</span>`;
+}
+function setCityWalkMapFollow(active,{silent=false}={}){
+  cityWalkMapFollowActive=!!active;
+  renderCityWalkMapFollowState();
+  if(cityWalkMapFollowActive){
+    const map=ensureCityGuideMap();
+    const p=cityWalkGuideLastPosition||exploreUserLocation;
+    if(map&&p&&Number.isFinite(Number(p.lat))&&Number.isFinite(Number(p.lng))){
+      map.setView([Number(p.lat),Number(p.lng)],Math.max(map.getZoom(),16),{animate:false});
+      scheduleCityMapInvalidate();
+    }
+  }
+  if(!silent) setCityMapStatus(cityWalkMapFollowActive
+    ?(lang==='ko'?'도보 안내 지도 따라가기 켜짐 · 지도를 직접 움직이면 자동으로 멈춥니다.':'Walk map follow on · dragging the map pauses it automatically.')
+    :(lang==='ko'?'도보 안내 지도 따라가기를 껐습니다.':'Walk map follow off.'));
+}
+function toggleCityWalkMapFollow(){
+  if(!cityWalkGuideTarget){
+    setCityMapStatus(lang==='ko'?'도보 안내를 시작한 뒤 사용할 수 있습니다.':'Start the walk guide before using map follow.');
+    return;
+  }
+  setCityWalkMapFollow(!cityWalkMapFollowActive);
+}
+function applyCityWalkMapFollow(position){
+  if(!cityWalkMapFollowActive||!cityWalkGuideTarget) return;
+  const map=ensureCityGuideMap();
+  if(!map||!position||!Number.isFinite(Number(position.lat))||!Number.isFinite(Number(position.lng))) return;
+  const center=map.getCenter();
+  const next=L.latLng(Number(position.lat),Number(position.lng));
+  const moved=center.distanceTo(next);
+  if(moved>=8) map.panTo(next,{animate:false});
+}
+function setCityWalkArrivalState(km,accuracy){
+  const box=document.getElementById('cityWalkArrival');
+  const title=document.getElementById('cityWalkArrivalTitle');
+  const text=document.getElementById('cityWalkArrivalText');
+  const next=document.getElementById('cityWalkNext');
+  if(!box||!title||!text||!next) return;
+  box.classList.remove('show','approaching','arrived'); next.classList.remove('show');
+  if(!Number.isFinite(km)||km>0.12) return;
+  if(Number.isFinite(Number(accuracy))&&Number(accuracy)>80) return;
+  box.classList.add('show');
+  if(km<=0.035){
+    box.classList.add('arrived'); next.classList.add('show');
+    title.textContent=lang==='ko'?'✓ 거의 도착했습니다':'✓ You are almost there';
+    text.textContent=cityWalkGuideTarget?.kind==='station-access'
+      ?(lang==='ko'?'선택한 출구·엘리베이터 주변입니다. 실제 역 표지판과 출입 위치를 확인하세요.':'You are near the selected exit or elevator. Check station signs and the actual access point.')
+      :(lang==='ko'?'목적지 주변입니다. 현장 입구·표지판을 확인한 뒤 다음 행동을 선택하세요.':'You are near the destination. Check the actual entrance or signs, then choose what to do next.');
+  }else{
+    box.classList.add('approaching');
+    const m=Math.max(40,Math.round(km*1000/10)*10);
+    title.textContent=lang==='ko'?`도착 임박 · 약 ${m}m`:`Almost there · about ${m}m`;
+    text.textContent=lang==='ko'?'속도를 줄이고 주변 표지판·출구·건물 입구를 확인하세요.':'Slow down and check nearby signs, exits, and the actual entrance.';
+  }
+}
+function walkGuideNearby(type){
+  const t=cityWalkGuideTarget; if(!t) return;
+  const name=cityWalkTargetName(t);
+  loadCityFacility(type,null,{keepActive:false,centerOverride:{lat:Number(t.lat),lng:Number(t.lng)},centerName:name});
+  setCityMapStatus(lang==='ko'?`${name} 주변 시설을 찾습니다.`:`Searching near ${name}.`);
+}
+function finishCityWalkGuide(){
+  const name=cityWalkGuideTarget?cityWalkTargetName(cityWalkGuideTarget):'';
+  stopCityWalkGuide({silent:true});
+  setCityMapStatus(lang==='ko'?`${name||'목적지'} 도착 흐름을 완료했습니다.`:`Finished the arrival flow for ${name||'the destination'}.`);
+}
+
+function updateCityWalkGuide(position=exploreUserLocation){
+  if(cityWalkGuidePaused) return;
+  const panel=document.getElementById('cityWalkGuide');
+  const target=cityWalkGuideTarget;
+  if(!panel||!target) return;
+  panel.classList.add('show');
+  const title=document.getElementById('cityWalkGuideTitle'); if(title) title.textContent=cityWalkTargetName(target);
+  if(!position||!Number.isFinite(Number(position.lat))||!Number.isFinite(Number(position.lng))){
+    const d=document.getElementById('cityWalkGuideDistance'); if(d) d.textContent=lang==='ko'?'위치 확인 중':'Locating…';
+    const e=document.getElementById('cityWalkGuideEta'); if(e) e.textContent='—';
+    const dir=document.getElementById('cityWalkGuideDirection'); if(dir) dir.textContent='—';
+    setCityWalkSignalState(null);
+    setCityWalkArrivalState(Infinity,null);
+    return;
+  }
+  const fromLat=Number(position.lat),fromLng=Number(position.lng),toLat=Number(target.lat),toLng=Number(target.lng);
+  const km=haversineKm(fromLat,fromLng,toLat,toLng);
+  const accuracy=Number(position.accuracy);
+  cityWalkGuideLastAccuracy=Number.isFinite(accuracy)?accuracy:null;
+  cityWalkGuideLastFixAt=Date.now();
+  setCityWalkSignalState(cityWalkGuideLastAccuracy);
+  const meters=Math.max(0,Math.round(km*1000/10)*10);
+  const distanceCore=km<1?`${Math.max(0,meters)}m`:`${km.toFixed(km<10?1:0)}km`;
+  const distanceText=cityWalkGuideLastAccuracy!==null&&cityWalkGuideLastAccuracy>80?`≈ ${distanceCore}`:distanceCore;
+  const mins=cityWalkRoughMinutes(km);
+  const bearing=cityWalkBearing(fromLat,fromLng,toLat,toLng);
+  const d=document.getElementById('cityWalkGuideDistance'); if(d) d.textContent=distanceText;
+  const e=document.getElementById('cityWalkGuideEta'); if(e) e.textContent=mins===null?'—':(lang==='ko'?`약 ${mins}분`:`~${mins} min`);
+  updateCityWalkDirectionVisual(bearing);
+  cityWalkGuideLastPosition={lat:fromLat,lng:fromLng};
+  applyCityWalkMapFollow(cityWalkGuideLastPosition);
+  const map=ensureCityGuideMap();
+  if(map){
+    const points=[[fromLat,fromLng],[toLat,toLng]];
+    if(!cityWalkGuideLine){
+      cityWalkGuideLine=L.polyline(points,{color:'#11a068',weight:4,opacity:.9,dashArray:'8 8',lineCap:'round',interactive:false}).addTo(map);
+    }else{ try{cityWalkGuideLine.setLatLngs(points);}catch(e){} }
+  }
+  updateCityWalkOffroute(km,cityWalkGuideLastAccuracy);
+  setCityWalkArrivalState(km,cityWalkGuideLastAccuracy);
+  updateCityWalkArrivalAlert(km,cityWalkGuideLastAccuracy);
+  if(cityWalkGuideLastAccuracy!==null&&cityWalkGuideLastAccuracy>80){
+    setCityMapStatus(lang==='ko'?'GPS 정확도가 낮아 도착 판정을 보류합니다.':'GPS accuracy is low, so arrival detection is paused.');
+  }else if(km<=0.035){
+    setCityMapStatus(lang==='ko'?'거의 도착했습니다 · 주변 표지판과 실제 출입구를 확인하세요.':'Almost there · check nearby signs and the actual entrance.');
+  }else if(km<=0.12){
+    setCityMapStatus(lang==='ko'?'도착 임박 · 주변 표지판과 입구를 확인하세요.':'Almost there · check nearby signs and the entrance.');
+  }
+}
+function renderCityWalkPauseState(){
+  const btn=document.getElementById('cityWalkPauseBtn');
+  if(!btn) return;
+  btn.classList.toggle('active',cityWalkGuidePaused);
+  btn.textContent=cityWalkGuidePaused?(lang==='ko'?'계속하기':'Resume'):(lang==='ko'?'일시정지':'Pause');
+}
+function beginCityWalkPositionWatch(){
+  if(!cityWalkGuideTarget||!navigator.geolocation||cityWalkGuidePaused) return;
+  if(cityWalkGuideWatchId!==null){try{navigator.geolocation.clearWatch(cityWalkGuideWatchId);}catch(e){}}
+  cityWalkGuideWatchId=navigator.geolocation.watchPosition(pos=>{
+    if(cityWalkGuidePaused) return;
+    applyCityUserPosition(pos.coords.latitude,pos.coords.longitude,pos.coords.accuracy,{recenter:false});
+  },()=>{
+    if(cityWalkGuidePaused) return;
+    setCityMapStatus(lang==='ko'?'실시간 위치 갱신이 중단됐습니다. 위치 권한을 확인하거나 Google Maps 경로를 사용하세요.':'Live location updates stopped. Check location permission or use the Google Maps route.');
+  },{enableHighAccuracy:true,timeout:12000,maximumAge:3000});
+}
+function pauseCityWalkGuide(){
+  if(!cityWalkGuideTarget||cityWalkGuidePaused) return;
+  cityWalkGuidePaused=true;
+  if(cityWalkGuideWatchId!==null&&navigator.geolocation){try{navigator.geolocation.clearWatch(cityWalkGuideWatchId);}catch(e){}}
+  cityWalkGuideWatchId=null;
+  cityWalkMapFollowActive=false;
+  renderCityWalkMapFollowState();
+  try{if('speechSynthesis' in window) window.speechSynthesis.cancel();}catch(e){}
+  renderCityWalkPauseState();
+  saveCityWalkSession();
+  setCityMapStatus(lang==='ko'?'도보 안내 일시정지 · 위치 갱신과 도착/방향 알림을 멈췄습니다. 목적지는 유지됩니다.':'Walk guide paused · location updates and arrival/direction alerts are stopped. Destination is kept.');
+}
+function resumeCityWalkGuide(){
+  if(!cityWalkGuideTarget||!cityWalkGuidePaused) return;
+  cityWalkGuidePaused=false;
+  resetCityWalkOffrouteState();
+  cityWalkAlertLastArrival='far';
+  renderCityWalkPauseState();
+  updateCityWalkGuide(exploreUserLocation);
+  beginCityWalkPositionWatch();
+  saveCityWalkSession();
+  setCityMapStatus(lang==='ko'?'도보 안내 계속 · GPS 위치 갱신을 다시 시작했습니다.':'Walk guide resumed · GPS location updates restarted.');
+}
+function toggleCityWalkPause(){
+  if(!cityWalkGuideTarget){
+    setCityMapStatus(lang==='ko'?'도보 안내를 시작한 뒤 사용할 수 있습니다.':'Start the walk guide before using pause.');
+    return;
+  }
+  cityWalkGuidePaused?resumeCityWalkGuide():pauseCityWalkGuide();
+}
+function startCityWalkGuide(target){
+  if(!target||!Number.isFinite(Number(target.lat))||!Number.isFinite(Number(target.lng))) return;
+  if(!navigator.geolocation){setCityMapStatus(lang==='ko'?'이 기기에서는 현재 위치를 사용할 수 없습니다.':'Current location is unavailable on this device.');return;}
+  stopCityMapFollow();
+  stopCityWalkGuide({silent:true,keepPanel:true});
+  resetCityWalkOffrouteState();
+  cityWalkAlertLastArrival='far'; cityWalkAlertSpokenAt={};
+  loadCityWalkAlertPrefs();
+  cityWalkMapFollowActive=false;
+  cityWalkGuidePaused=false;
+  renderCityWalkPauseState();
+  stopCityWalkCompass({silent:true});
+  renderCityWalkCompassState();
+  renderCityWalkAwakeState();
+  renderCityWalkAlertsState();
+  renderCityWalkMapFollowState();
+  cityWalkGuideTarget={...target,lat:Number(target.lat),lng:Number(target.lng)};
+  saveCityWalkSession();
+  document.querySelector('#cityMapRouteBar')?.classList.add('walking');
+  updateCityWalkGuide(exploreUserLocation);
+  setCityMapStatus(lang==='ko'?'앱 안 도보 안내 시작 · GPS로 거리와 방향을 갱신합니다.':'In-app walk guide started · GPS updates distance and direction.');
+  if(exploreUserLocation) fitCityWalkGuide();
+  beginCityWalkPositionWatch();
+  updateCityMapRouteBar();
+}
+function stopCityWalkGuide({silent=false,keepPanel=false}={}){
+  if(cityWalkGuideWatchId!==null&&navigator.geolocation){try{navigator.geolocation.clearWatch(cityWalkGuideWatchId);}catch(e){}}
+  cityWalkGuideWatchId=null;
+  if(cityWalkGuideLine){try{cityWalkGuideLine.remove();}catch(e){} cityWalkGuideLine=null;}
+  cityWalkGuideTarget=null; clearCityWalkSession(); cityWalkGuideLastPosition=null; cityWalkGuideLastAccuracy=null; cityWalkGuideLastFixAt=0; cityWalkGuideLastBearing=null; cityWalkMapFollowActive=false; cityWalkGuidePaused=false;
+  renderCityWalkMapFollowState();
+  renderCityWalkPauseState();
+  stopCityWalkCompass({silent:true});
+  releaseCityWalkWakeLock({clearRequest:true,silent:true});
+  try{if('speechSynthesis' in window) window.speechSynthesis.cancel();}catch(e){}
+  cityWalkAlertLastArrival='far'; cityWalkAlertSpokenAt={};
+  resetCityWalkOffrouteState();
+  document.querySelector('#cityMapRouteBar')?.classList.remove('walking');
+  const panel=document.getElementById('cityWalkGuide'); if(panel&&!keepPanel) panel.classList.remove('show');
+  setCityWalkSignalState(null);
+  setCityWalkArrivalState(Infinity,null);
+  if(!silent) setCityMapStatus(lang==='ko'?'앱 안 도보 안내를 종료했습니다.':'In-app walk guide ended.');
+  updateCityMapRouteBar();
+}
+function fitCityWalkGuide(){
+  const map=ensureCityGuideMap(),t=cityWalkGuideTarget,p=cityWalkGuideLastPosition||exploreUserLocation;
+  if(!map||!t) return;
+  if(p&&Number.isFinite(Number(p.lat))&&Number.isFinite(Number(p.lng))){
+    const bounds=L.latLngBounds([[Number(p.lat),Number(p.lng)],[Number(t.lat),Number(t.lng)]]);
+    if(bounds.isValid()) map.fitBounds(bounds.pad(.28),{animate:false,maxZoom:17});
+  }else map.setView([Number(t.lat),Number(t.lng)],16,{animate:false});
+  scheduleCityMapInvalidate();
+}
+function openCityWalkGoogleMaps(){
+  const t=cityWalkGuideTarget; if(!t) return;
+  openFacilityWalk(t.lat,t.lng);
+}
+function startSelectedCityWalkGuide(){
+  const city=document.getElementById('city')?.dataset.currentCity||'';
+  const poi=cityMapSelectedIndex>=0?getSelectedCityPois(city)?.[cityMapSelectedIndex]:null;
+  if(poi){startCityWalkGuide({lat:poi.lat,lng:poi.lng,name:lang==='ko'?(poi.ko||poi.en):(poi.en||poi.ko),kind:'poi'});return;}
+  if(cityMapSelectedFacility){startCityWalkGuide({...cityMapSelectedFacility,kind:'facility'});return;}
+  if(cityMapSelectedSearchPlace){startCityWalkGuide({...cityMapSelectedSearchPlace,kind:'search'});return;}
+  cityMapPromptDestination();
+}
+function startFacilityWalkGuideByCoords(lat,lng){
+  const f=(cityMapLoadedFacilities||[]).find(x=>Math.abs(Number(x.lat)-Number(lat))<1e-7&&Math.abs(Number(x.lng)-Number(lng))<1e-7);
+  startCityWalkGuide(f||{lat:Number(lat),lng:Number(lng),name:lang==='ko'?'선택한 시설':'Selected place',kind:'facility'});
+}
+
+function updateCityMapRouteBar(){
+  const from=document.getElementById('cityMapFromLabel');
+  const to=document.getElementById('cityMapToLabel');
+  const go=document.getElementById('cityMapQuickGo');
+  if(from) from.textContent=exploreUserLocation?(lang==='ko'?'현재 위치 확인됨':'Location ready'):(lang==='ko'?'내 위치':'My location');
+  const city=document.getElementById('city')?.dataset.currentCity||'';
+  const poi=cityMapSelectedIndex>=0?getSelectedCityPois(city)?.[cityMapSelectedIndex]:null;
+  const facility=cityMapSelectedFacility;
+  const searchPlace=cityMapSelectedSearchPlace;
+  const selectedName=searchPlace?.name||facility?.name||(poi?(lang==='ko'?(poi.ko||poi.en):(poi.en||poi.ko)):'');
+  if(to) to.textContent=selectedName||(lang==='ko'?'장소를 눌러 선택':'Tap a place');
+  if(go){
+    go.disabled=!(poi||facility||searchPlace||cityWalkGuideTarget);
+    go.textContent=cityWalkGuideTarget?(lang==='ko'?'안내중':'LIVE'):'GO';
+  }
+}
+
+function cityMapSearchFilteredItems(){
+  if(cityMapSearchFilter==='all') return cityMapSearchAllItems||[];
+  return (cityMapSearchAllItems||[]).filter(x=>{
+    const cat=x.category||cityMapSearchCategory(x);
+    return cat.id===cityMapSearchFilter;
+  });
+}
+
+function updateCityMapSearchFilterUI(){
+  document.querySelectorAll('#cityMapSearchFilters [data-search-cat]').forEach(btn=>btn.classList.toggle('active',btn.dataset.searchCat===cityMapSearchFilter));
+  const count=document.getElementById('cityMapSearchCount');
+  if(!count) return;
+  if(!cityMapSearchAllItems?.length){count.textContent='';return;}
+  const shown=cityMapSearchFilteredItems().length,total=cityMapSearchAllItems.length;
+  count.textContent=cityMapSearchFilter==='all'?(lang==='ko'?`검색 결과 ${total}곳`:`${total} results`):(lang==='ko'?`${shown}곳 표시 · 전체 ${total}곳`:`Showing ${shown} of ${total}`);
+}
+
+function setCityMapSearchFilter(id='all'){
+  const valid=['all','station','sights','food','cafe','essential'];
+  cityMapSearchFilter=valid.includes(id)?id:'all';
+  updateCityMapSearchFilterUI();
+  if(cityMapSearchAllItems?.length) cityMapRenderSearchResults(cityMapSearchFilteredItems(),{preserveAll:true});
+  else setCityMapStatus(lang==='ko'?'먼저 장소를 검색하면 종류별로 빠르게 좁힐 수 있습니다.':'Search a place first, then narrow results by type.');
+}
+
+function cityMapSearchClearResults(){
+  const box=document.getElementById('cityMapSearchResults');
+  if(box){box.classList.remove('show');box.innerHTML='';}
+  cityMapSearchAllItems=[];
+  const count=document.getElementById('cityMapSearchCount'); if(count) count.textContent='';
+}
+
+function cityMapSearchCategory(meta={}){
+  const cls=String(meta.class||meta.category||'').toLowerCase();
+  const type=String(meta.type||meta.addresstype||'').toLowerCase();
+  const name=String(meta.name||meta.display_name||'').toLowerCase();
+  const text=`${cls} ${type} ${name}`;
+  if(/railway|station|halt|subway|metro|train|bus_stop|bus station|terminal|역|터미널/.test(text)) return {id:'station',icon:'🚉',en:'Station / Transit',ko:'역·교통',rank:0};
+  if(/restaurant|fast_food|food_court|bbq|restaurant|식당|맛집|음식/.test(text)) return {id:'food',icon:'🍜',en:'Food',ko:'음식',rank:2};
+  if(/cafe|coffee|bakery|카페|커피|베이커리/.test(text)) return {id:'cafe',icon:'☕',en:'Cafe',ko:'카페',rank:3};
+  if(/supermarket|mall|department_store|marketplace|shop|shopping|시장|백화점|쇼핑/.test(text)) return {id:'shopping',icon:'🛍️',en:'Shopping',ko:'쇼핑',rank:4};
+  if(/toilets|pharmacy|atm|bank|convenience|hospital|clinic|tourist_info|information/.test(text)) return {id:'essential',icon:'🧭',en:'Essential',ko:'편의시설',rank:5};
+  if(/tourism|attraction|museum|gallery|viewpoint|monument|memorial|castle|palace|temple|shrine|historic|beach|park|명소|궁|성|박물관|공원/.test(text)) return {id:'sights',icon:'🏯',en:'Attraction',ko:'관광지',rank:1};
+  return {id:'place',icon:'📍',en:'Place',ko:'장소',rank:6};
+}
+
+function cityMapSearchCategoryFromExplore(id){
+  if(id==='food') return {id:'food',icon:'🍜',en:'Food',ko:'음식',rank:2};
+  if(id==='cafe') return {id:'cafe',icon:'☕',en:'Cafe',ko:'카페',rank:3};
+  if(id==='shopping') return {id:'shopping',icon:'🛍️',en:'Shopping',ko:'쇼핑',rank:4};
+  if(id==='indoor') return {id:'sights',icon:'🏛️',en:'Attraction',ko:'관광지',rank:1};
+  if(id==='night') return {id:'sights',icon:'🌙',en:'Attraction',ko:'관광지',rank:1};
+  return {id:'sights',icon:'🏯',en:'Attraction',ko:'관광지',rank:1};
+}
+
+function cityMapSearchSort(items,query=''){
+  const q=String(query||'').trim().toLowerCase();
+  return [...(items||[])].sort((a,b)=>{
+    const an=String(a.name||'').toLowerCase(), bn=String(b.name||'').toLowerCase();
+    const ae=an===q?0:an.startsWith(q)?1:2;
+    const be=bn===q?0:bn.startsWith(q)?1:2;
+    if(ae!==be) return ae-be;
+    const ar=Number.isFinite(a.rank)?a.rank:9, br=Number.isFinite(b.rank)?b.rank:9;
+    if(ar!==br) return ar-br;
+    const ai=Number(a.importance)||0, bi=Number(b.importance)||0;
+    if(ai!==bi) return bi-ai;
+    return an.localeCompare(bn);
+  });
+}
+
+function cityMapSearchLocalMatches(query){
+  const q=String(query||'').trim().toLowerCase();
+  if(!q) return [];
+  const city=document.getElementById('city')?.dataset.currentCity||'';
+  const pois=getSelectedCityPois(city)||[];
+  const out=[];
+  pois.forEach((p,index)=>{
+    const hay=`${p.en||''} ${p.ko||''}`.toLowerCase();
+    if(hay.includes(q)){
+      const cat=cityMapSearchCategoryFromExplore(exploreCategoryForPoi(p,index));
+      out.push({kind:'poi',index,name:lang==='ko'?(p.ko||p.en):(p.en||p.ko),sub:lang==='ko'?'Korea Route 추천 장소':'Korea Route recommended place',icon:cat.icon,category:cat,rank:cat.rank,source:'Korea Route'});
+    }
+  });
+  cityMapLoadedFacilities.forEach((f,index)=>{
+    const visual=cityFacilityVisual(f.type);
+    const hay=`${f.name||''} ${visual.labelKo} ${visual.labelEn}`.toLowerCase();
+    if(hay.includes(q)) out.push({kind:'facility',index,name:f.name||'',sub:lang==='ko'?'현재 지도에 불러온 편의시설':'Nearby essential already loaded on map',icon:visual.icon,category:{id:'essential',icon:visual.icon,en:'Essential',ko:'편의시설',rank:5},rank:5,source:'OpenStreetMap'});
+  });
+  return cityMapSearchSort(out,q).slice(0,8);
+}
+
+function cityMapRenderSearchResults(items,opts={}){
+  const box=document.getElementById('cityMapSearchResults');
+  if(!box) return;
+  if(!opts.preserveAll) cityMapSearchAllItems=[...(items||[])];
+  updateCityMapSearchFilterUI();
+  if(!opts.preserveAll && cityMapSearchFilter!=='all') items=cityMapSearchFilteredItems();
+  if(!items?.length){
+    box.innerHTML=`<div class="city-map-search-empty">${cityMapSearchAllItems?.length?(lang==='ko'?'이 종류의 결과가 없습니다. 다른 필터를 눌러보세요.':'No results in this category. Try another filter.'):(lang==='ko'?'검색 결과가 없습니다. 다른 이름으로 검색해 보세요.':'No places found. Try another name.')}</div>`;
+    box.classList.add('show'); return;
+  }
+  box.innerHTML=items.slice(0,8).map((x,i)=>{
+    const cat=x.category||cityMapSearchCategory(x);
+    const catLabel=lang==='ko'?(cat.ko||'장소'):(cat.en||'Place');
+    return `<button type="button" class="city-map-search-result" onclick="chooseCityMapSearchResult(${i})"><span class="ico">${x.icon||cat.icon||'📍'}</span><span class="txt"><b>${escapeHtmlText(x.name||'')}</b><small>${escapeHtmlText(x.sub||'')}</small><span class="city-map-search-meta"><span class="city-map-search-cat">${escapeHtmlText(catLabel)}</span><span class="city-map-search-source">${escapeHtmlText(x.source||'')}</span></span></span><span>›</span></button>`;
+  }).join('');
+  box._items=items.slice(0,8);
+  box.classList.add('show');
+}
+
+function chooseCityMapSearchResult(i){
+  const box=document.getElementById('cityMapSearchResults');
+  const item=box?._items?.[Number(i)];
+  if(!item) return;
+  cityMapSearchClearResults();
+  if(item.kind==='poi'){
+    const city=document.getElementById('city')?.dataset.currentCity||'';
+    selectCityMapDestination(city,item.index,{pan:true}); return;
+  }
+  if(item.kind==='facility'){
+    const f=cityMapLoadedFacilities[item.index];
+    if(f){renderCityFacilityGoCard(f);cityGuideMap?.setView([f.lat,f.lng],16,{animate:false});} return;
+  }
+  if(item.kind==='osm') selectCityMapSearchPlace(item);
+}
+
+async function showCityMapNearby(type){
+  const map=ensureCityGuideMap(); if(!map) return;
+  const center=exploreUserLocation||{lat:map.getCenter().lat,lng:map.getCenter().lng};
+  const box=document.getElementById('cityMapSearchResults');
+  if(type==='toilets'||type==='convenience'){
+    const btn=document.querySelector(`.city-facility-btn[data-facility="${type}"]`);
+    await loadCityFacility(type,btn,{keepActive:false});
+    const items=cityMapLoadedFacilities.slice(0,8).map((f,index)=>{const v=cityFacilityVisual(type);return {kind:'facility',index,name:f.name,sub:facilityDistanceText(f),icon:v.icon,category:{id:'essential',icon:v.icon,en:'Essential',ko:'편의시설',rank:5},rank:5,source:'OpenStreetMap'};});
+    cityMapRenderSearchResults(items); return;
+  }
+  if(type==='sights'){
+    const city=document.getElementById('city')?.dataset.currentCity||''; const pois=getSelectedCityPois(city)||[];
+    const items=pois.map((p,index)=>({p,index,km:haversineKm(center.lat,center.lng,p.lat,p.lng)})).sort((a,b)=>a.km-b.km).slice(0,8).map(x=>({kind:'poi',index:x.index,name:lang==='ko'?(x.p.ko||x.p.en):(x.p.en||x.p.ko),sub:Number.isFinite(x.km)?(x.km<1?`${Math.round(x.km*1000)}m`:`${x.km.toFixed(1)}km`):'',icon:'🏯',category:{id:'sights',icon:'🏯',en:'Attraction',ko:'관광지',rank:1},rank:1,source:'Korea Route'}));
+    cityMapRenderSearchResults(items); setCityMapStatus(lang==='ko'?'현재 지도 기준 가까운 추천 관광지를 표시했습니다.':'Showing nearby recommended attractions for this map.'); return;
+  }
+  if(type==='station'){
+    if(box){box.innerHTML=`<div class="city-map-search-empty">${lang==='ko'?'가까운 역을 찾는 중…':'Finding nearby transit…'}</div>`;box.classList.add('show');}
+    try{
+      const around=`around:1800,${center.lat},${center.lng}`;
+      const q=`[out:json][timeout:12];(nwr[railway=station](${around});nwr[public_transport=station](${around});nwr[railway=subway_entrance](${around}););out center 30;`;
+      const cacheKey=cityMapCacheKey('station-nearby',[cityMapCenterKey(center.lat,center.lng,4)]);
+      let data=cityMapCacheGet(cacheKey,180000);
+      if(!data){
+        const r=await fetch('https://overpass-api.de/api/interpreter?data='+encodeURIComponent(q),{cache:'no-store'}); if(!r.ok) throw new Error('station');
+        data=cityMapCacheSet(cacheKey,await r.json());
+      }
+      const items=(data.elements||[]).map(el=>{const lat=Number(el.lat??el.center?.lat),lng=Number(el.lon??el.center?.lon);if(!Number.isFinite(lat)||!Number.isFinite(lng))return null;const km=haversineKm(center.lat,center.lng,lat,lng);const name=el.tags?.name||el.tags?.['name:en']||el.tags?.['name:ko']||(lang==='ko'?'이름 미표시 역':'Unnamed station');return {kind:'osm',name,sub:km<1?`${Math.round(km*1000)}m`:`${km.toFixed(1)}km`,lat,lng,icon:'🚉',category:{id:'station',icon:'🚉',en:'Transit',ko:'역·교통',rank:0},rank:0,source:'OpenStreetMap',km};}).filter(Boolean).sort((a,b)=>a.km-b.km).slice(0,8);
+      cityMapRenderSearchResults(items); setCityMapStatus(items.length?(lang==='ko'?`가까운 역·교통 ${items.length}곳을 표시했습니다.`:`Showing ${items.length} nearby transit places.`):(lang==='ko'?'주변에서 역 정보를 찾지 못했습니다.':'No nearby transit places found.'));
+    }catch(e){if(box){box.innerHTML=`<div class="city-map-search-empty">${lang==='ko'?'역 정보를 불러오지 못했습니다.':'Could not load nearby transit.'}</div>`;box.classList.add('show');}}
+  }
+}
+
+async function searchCityMapPlace(){
+  const input=document.getElementById('cityMapSearchInput');
+  const q=String(input?.value||'').trim();
+  if(!q){setCityMapStatus(lang==='ko'?'찾을 장소 이름을 입력하세요.':'Enter a place to search.');input?.focus();return;}
+  const local=cityMapSearchLocalMatches(q);
+  if(local.length){cityMapRenderSearchResults(local);setCityMapStatus(lang==='ko'?`앱 안에서 ${local.length}곳을 찾았습니다.`:`Found ${local.length} matching place${local.length>1?'s':''} in this guide.`);return;}
+  const seq=++cityMapSearchRequestSeq;
+  const city=document.getElementById('city')?.dataset.currentCity||'';
+  setCityMapStatus(lang==='ko'?'OpenStreetMap에서 장소를 찾는 중…':'Searching OpenStreetMap places…');
+  const box=document.getElementById('cityMapSearchResults');
+  if(box){box.innerHTML=`<div class="city-map-search-empty">${lang==='ko'?'검색 중…':'Searching…'}</div>`;box.classList.add('show');}
+  try{
+    const query=`${q}, ${city}, South Korea`;
+    const url=`https://nominatim.openstreetmap.org/search?format=jsonv2&limit=6&addressdetails=1&countrycodes=kr&q=${encodeURIComponent(query)}`;
+    const cacheKey=cityMapCacheKey('place-search',[city.toLowerCase(),q.toLowerCase()]);
+    let data=cityMapCacheGet(cacheKey,600000);
+    if(!data){
+      const r=await fetch(url,{headers:{'Accept':'application/json'},cache:'no-store'});
+      if(!r.ok) throw new Error('search');
+      data=cityMapCacheSet(cacheKey,await r.json());
+    }
+    if(seq!==cityMapSearchRequestSeq) return;
+    const items=cityMapSearchSort((Array.isArray(data)?data:[]).map(x=>{
+      const name=String(x.name||x.display_name||'').split(',')[0]||String(x.display_name||'');
+      const category=cityMapSearchCategory({...x,name});
+      return {kind:'osm',name,sub:String(x.display_name||''),lat:Number(x.lat),lng:Number(x.lon),icon:category.icon,category,rank:category.rank,importance:Number(x.importance)||0,source:'OpenStreetMap'};
+    }).filter(x=>x.name&&Number.isFinite(x.lat)&&Number.isFinite(x.lng)),q);
+    cityMapRenderSearchResults(items);
+    setCityMapStatus(items.length?(lang==='ko'?`OpenStreetMap 장소 ${items.length}곳을 찾았습니다. 실제 영업·운영 여부는 별도 확인하세요.`:`Found ${items.length} OpenStreetMap places · verify current operation separately.`):(lang==='ko'?'검색 결과가 없습니다.':'No mapped places found.'));
+  }catch(e){
+    if(seq!==cityMapSearchRequestSeq) return;
+    if(box){box.innerHTML=`<div class="city-map-search-empty">${lang==='ko'?'장소 검색을 불러오지 못했습니다. 잠시 후 다시 시도하세요.':'Place search is temporarily unavailable. Try again shortly.'}</div>`;box.classList.add('show');}
+    setCityMapStatus(lang==='ko'?'장소 검색을 불러오지 못했습니다.':'Could not load place search.');
+  }
+}
+
+function cityMapStationEssentialsHtml(place){
+  const cat=place?.category||cityMapSearchCategory(place||{});
+  if(cat?.id!=='station') return '';
+  return `<div class="city-map-station-pack"><button type="button" class="city-map-station-pack-btn" onclick="loadSelectedStationPack(this)">🧭 ${lang==='ko'?'역 한눈에 보기':'Station at a glance'}<small>${lang==='ko'?'출구 · 엘리베이터 · 화장실 · ATM · 편의점을 한 번에 확인':'Check entrances, elevators, restrooms, ATM and convenience in one tap'}</small></button><div class="city-map-station-pack-body" id="cityMapStationPackBody">${lang==='ko'?'필요할 때 한 번만 눌러 주변 500m 정보를 불러옵니다.':'Loads the station area within 500m only when you tap it.'}</div></div><div class="city-map-station-essentials"><div class="city-map-station-essentials-head"><b>${lang==='ko'?'🚉 필요한 것만 바로 찾기':'🚉 Find one thing quickly'}</b><small>${lang==='ko'?'역 기준 500m':'500m from station'}</small></div><div class="city-map-station-essentials-row"><button type="button" onclick="loadSelectedStationFacility('convenience',this)">🏪 ${lang==='ko'?'편의점':'Convenience'}</button><button type="button" onclick="loadSelectedStationFacility('toilets',this)">🚻 ${lang==='ko'?'화장실':'Restroom'}</button><button type="button" onclick="loadSelectedStationFacility('atm',this)">💳 ATM</button><button type="button" onclick="loadSelectedStationFacility('pharmacy',this)">💊 ${lang==='ko'?'약국':'Pharmacy'}</button></div></div>`;
+}
+
+async function loadSelectedStationPack(btn){
+  const p=cityMapSelectedSearchPlace;
+  const cat=p?.category||cityMapSearchCategory(p||{});
+  const body=document.getElementById('cityMapStationPackBody');
+  if(!p||cat?.id!=='station'||!body) return;
+  const stationKey=`${Number(p.lat).toFixed(5)},${Number(p.lng).toFixed(5)}|${p.name||''}`;
+  const seq=++cityStationPackRequestSeq;
+  const oldHtml=btn?.innerHTML||'';
+  if(btn){btn.disabled=true;btn.innerHTML=`⏳ ${lang==='ko'?'역 주변 확인 중…':'Checking station area…'}<small>${lang==='ko'?'한 번의 지도 요청으로 필요한 정보를 모으는 중':'Loading the essentials in one map request'}</small>`;}
+  body.classList.add('loading');
+  body.textContent=lang==='ko'?'역 주변 정보를 불러오는 중…':'Loading station-area information…';
+  try{
+    const lat=Number(p.lat), lng=Number(p.lng);
+    const a250=`around:250,${lat},${lng}`;
+    const a500=`around:500,${lat},${lng}`;
+    const q=`[out:json][timeout:12];(nwr[railway=subway_entrance](${a250});nwr[highway=elevator](${a250});nwr[highway=bus_stop](${a250});nwr[public_transport=platform](${a250});nwr[shop=convenience](${a500});nwr[amenity=atm](${a500});nwr[amenity=bank](${a500});nwr[amenity=toilets](${a500});nwr[amenity=pharmacy](${a500}););out center tags 140;`;
+    const cacheKey=cityMapCacheKey('station-pack',[cityMapCenterKey(lat,lng,4)]);
+    let data=cityMapCacheGet(cacheKey,600000);
+    if(!data){
+      const r=await fetch('https://overpass-api.de/api/interpreter?data='+encodeURIComponent(q),{cache:'no-store'});
+      if(!r.ok) throw new Error('station-pack');
+      data=cityMapCacheSet(cacheKey,await r.json());
+    }
+    if(seq!==cityStationPackRequestSeq) return;
+    const current=cityMapSelectedSearchPlace;
+    const currentKey=current?`${Number(current.lat).toFixed(5)},${Number(current.lng).toFixed(5)}|${current.name||''}`:'';
+    if(currentKey!==stationKey) return;
+    const raw=Array.isArray(data.elements)?data.elements:[];
+    const uniq=[...new Map(raw.map(el=>[`${el.type||'x'}:${el.id||Math.random()}`,el])).values()];
+    const items=[];
+    const counts={entrance:0,elevator:0,toiletsNear:0,bus:0,convenience:0,atm:0,bank:0,toilets:0,pharmacy:0};
+    const exitRefs=[];
+    let wheelchairYes=0;
+    uniq.forEach(el=>{
+      const plat=Number(el.lat??el.center?.lat), plng=Number(el.lon??el.center?.lon);
+      if(!Number.isFinite(plat)||!Number.isFinite(plng)) return;
+      const tags=el.tags||{};
+      const km=haversineKm(lat,lng,plat,plng);
+      if(!Number.isFinite(km)) return;
+      let type='';
+      if(tags.railway==='subway_entrance') type='entrance';
+      else if(tags.highway==='elevator') type='elevator';
+      else if(tags.highway==='bus_stop'||tags.public_transport==='platform') type='bus';
+      else type=cityFacilityTypeFromTags(tags);
+      if(type==='all') return;
+      if(type==='entrance'){
+        counts.entrance++;
+        const ref=String(tags.ref||tags.name||'').trim();
+        if(ref&&!exitRefs.includes(ref)&&exitRefs.length<8) exitRefs.push(ref);
+      }else if(type==='elevator') counts.elevator++;
+      else if(type==='bus') counts.bus++;
+      else if(Object.prototype.hasOwnProperty.call(counts,type)) counts[type]++;
+      if(type==='toilets'&&km<=0.25) counts.toiletsNear++;
+      if(String(tags.wheelchair||'').toLowerCase()==='yes') wheelchairYes++;
+      const v=cityFacilityVisual(type);
+      let name=tags.name||tags['name:ko']||tags['name:en']||'';
+      if(!name&&type==='entrance') name=(tags.ref?`${lang==='ko'?'출구/입구':'Exit / entrance'} ${tags.ref}`:(lang==='ko'?'역 출입구':'Station entrance'));
+      if(!name&&type==='elevator') name=lang==='ko'?'역 엘리베이터':'Station elevator';
+      if(!name&&type==='bus') name=lang==='ko'?'환승 정류장/승강장':'Transfer stop / platform';
+      if(!name) name=lang==='ko'?`${v.labelKo} · 이름 미표시`:`Unnamed ${v.labelEn}`;
+      items.push({type,name,lat:plat,lng:plng,km,ref:String(tags.ref||'').trim(),wheelchair:String(tags.wheelchair||'').toLowerCase()});
+    });
+    items.sort((a,b)=>a.km-b.km);
+    document.querySelectorAll('.city-facility-btn').forEach(x=>x.classList.remove('active'));
+    activeCityFacility='';
+    cityFacilityRequestSeq++;
+    const oldLayer=cityFacilityLayer;
+    const group=L.layerGroup();
+    items.slice(0,30).forEach(f=>{
+      const v=cityFacilityVisual(f.type);
+      const marker=L.marker([f.lat,f.lng],{icon:cityFacilityDivIcon(f.type,false),keyboard:true,title:f.name});
+      marker._facilityType=f.type;
+      marker.bindPopup(`<div class="facility-popup"><b>${v.icon} ${escapeHtmlText(f.name)}</b><small>${escapeHtmlText(facilityDistanceText(f))} · ${lang==='ko'?'역 기준':'from station'}</small><button type="button" onclick="startFacilityWalkGuideByCoords(${Number(f.lat)},${Number(f.lng)})" style="margin-top:7px;border:0;border-radius:10px;padding:7px 9px;background:#0b2345;color:#fff;font-weight:900;font-size:9px">🚶 ${lang==='ko'?'앱 안내':'In-app guide'}</button></div>`);
+      marker.on('click',()=>{selectCityFacilityMarker(marker,f.type);renderCityFacilityGoCard(f);});
+      marker.addTo(group);
+    });
+    if(oldLayer){try{oldLayer.remove();}catch(e){}}
+    group.addTo(ensureCityGuideMap());
+    cityFacilityLayer=group;
+    cityMapLoadedFacilities=items.slice(0,30);
+    renderCityFacilityResults();
+    const nearest=items.filter(x=>x.type!=='bus').slice(0,5);
+    const aroundBits=[`🏪 ${counts.convenience}`,`💳 ${counts.atm+counts.bank}`,`🚻 ${counts.toilets}`,`💊 ${counts.pharmacy}`].join(' · ');
+    const nearestHtml=nearest.length?`<div class="city-map-station-pack-near">${nearest.map((f)=>{const v=cityFacilityVisual(f.type);const idx=cityMapLoadedFacilities.findIndex(x=>x===f);return `<div class="city-map-station-pack-item"><button type="button" class="main" onclick="pickCityFacilityResult(${idx})"><b>${v.icon} ${escapeHtmlText(f.name)}</b><small>${escapeHtmlText(facilityDistanceText(f))} · ${lang==='ko'?'역 기준':'from station'}</small></button><button type="button" class="walk" onclick="startFacilityWalkGuideByCoords(${Number(f.lat)},${Number(f.lng)})">🚶 GO</button></div>`}).join('')}</div>`:'';
+    cityMapStationAccessPoints=items.filter(x=>x.type==='entrance'||x.type==='elevator').slice(0,10);
+    const accessHtml=cityMapStationAccessPoints.length?`<div class="city-map-station-access"><div class="city-map-station-access-head"><b>${lang==='ko'?'🚪 출구·엘리베이터를 목적지로':'🚪 Walk to an exit or elevator'}</b><small>${lang==='ko'?'지도에 등록된 위치':'Mapped positions'}</small></div><div class="city-map-station-access-list">${cityMapStationAccessPoints.map((a,i)=>`<div class="city-map-station-access-item"><div class="ico">${a.type==='elevator'?'🛗':'🚪'}</div><div class="txt"><b>${escapeHtmlText(a.name)}</b><small>${escapeHtmlText(facilityDistanceText(a))} · ${a.wheelchair==='yes'?(lang==='ko'?'♿ 접근성 태그 있음':'♿ wheelchair tag'):(lang==='ko'?'OSM 위치':'OSM position')}</small></div><button type="button" onclick="chooseStationAccessPoint(${i})">${lang==='ko'?'선택':'SELECT'}</button></div>`).join('')}</div><div class="city-map-station-access-note">${lang==='ko'?'출구 번호·엘리베이터 위치는 OpenStreetMap 등록 정보입니다. 실제 역 안내판과 함께 확인하세요.':'Exit and elevator positions come from OpenStreetMap. Verify with station signs.'}</div></div>`:'';
+    body.classList.remove('loading');
+    body.innerHTML=`<div class="city-map-station-pack-summary"><div class="city-map-station-pack-chip"><span>${lang==='ko'?'🚪 출입구':'🚪 Entrances'}</span><b>${counts.entrance}</b></div><div class="city-map-station-pack-chip"><span>${lang==='ko'?'🛗 엘리베이터':'🛗 Elevators'}</span><b>${counts.elevator}</b></div><div class="city-map-station-pack-chip"><span>${lang==='ko'?'🚻 250m 화장실':'🚻 Restrooms 250m'}</span><b>${counts.toiletsNear}</b></div><div class="city-map-station-pack-chip"><span>${lang==='ko'?'🚌 환승 지점':'🚌 Transfer points'}</span><b>${counts.bus}</b></div></div>${exitRefs.length?`<div class="city-map-station-info-exits">${lang==='ko'?'표시된 출구/입구':'Mapped exit / entrance labels'} · ${exitRefs.map(escapeHtmlText).join(' · ')}</div>`:''}<div class="city-map-station-pack-around">${lang==='ko'?'주변 500m':'Within 500m'} · ${aroundBits}</div>${nearestHtml}${accessHtml}<div class="city-map-station-pack-note">${lang==='ko'?`OpenStreetMap 기준 · wheelchair=yes 표시 ${wheelchairYes}곳 · 지도 데이터가 빠질 수 있으니 실제 역 안내판을 함께 확인하세요.`:`OpenStreetMap · ${wheelchairYes} feature(s) tagged wheelchair=yes · mapped data can be incomplete, so check station signs too.`}</div>`;
+    const map=ensureCityGuideMap();
+    if(map&&items.length){
+      const pts=[[lat,lng],...items.slice(0,18).map(x=>[x.lat,x.lng])];
+      try{map.fitBounds(L.latLngBounds(pts).pad(.12),{animate:false,maxZoom:17});scheduleCityMapInvalidate();}catch(e){}
+    }
+    setCityMapStatus(lang==='ko'?`${p.name||'선택한 역'} 주변을 한 번에 표시했습니다.`:`Station essentials around ${p.name||'the selected station'} are ready.`);
+  }catch(e){
+    if(seq!==cityStationPackRequestSeq) return;
+    body.classList.remove('loading');
+    body.textContent=lang==='ko'?'역 주변 정보를 불러오지 못했습니다. 아래 개별 버튼으로 필요한 시설만 다시 확인할 수 있습니다.':'Could not load the station pack. Use the individual buttons below to retry only what you need.';
+    setCityMapStatus(lang==='ko'?'역 한눈에 보기를 불러오지 못했습니다.':'Could not load station at-a-glance info.');
+  }finally{
+    if(btn){btn.disabled=false;btn.innerHTML=oldHtml;}
+  }
+}
+
+
+function chooseStationAccessPoint(index){
+  const a=cityMapStationAccessPoints?.[Number(index)];
+  if(!a) return;
+  const station=cityMapSelectedSearchPlace;
+  const stationName=station?.name||'';
+  const label=a.name||(a.type==='elevator'?(lang==='ko'?'역 엘리베이터':'Station elevator'):(lang==='ko'?'역 출입구':'Station entrance'));
+  const place={
+    kind:'station-access',
+    name:stationName?`${stationName} · ${label}`:label,
+    lat:Number(a.lat),lng:Number(a.lng),
+    category:{id:'station-access',icon:a.type==='elevator'?'🛗':'🚪',ko:a.type==='elevator'?'엘리베이터':'역 출구',en:a.type==='elevator'?'Elevator':'Station exit',rank:0},
+    source:'OpenStreetMap'
+  };
+  selectCityMapSearchPlace(place);
+  setCityMapStatus(lang==='ko'?'선택한 출구/엘리베이터를 도보 목적지로 설정했습니다. GO를 누르면 앱 안 안내가 시작됩니다.':'Selected station access point set as the walking destination. Tap GO to start the in-app guide.');
+}
+
+async function loadSelectedStationInfo(btn){
+  const p=cityMapSelectedSearchPlace;
+  const cat=p?.category||cityMapSearchCategory(p||{});
+  const body=document.getElementById('cityMapStationInfoBody');
+  if(!p||cat?.id!=='station'||!body) return;
+  const old=btn?.textContent||'';
+  if(btn){btn.disabled=true;btn.textContent=lang==='ko'?'확인 중…':'Checking…';}
+  body.textContent=lang==='ko'?'역 주변 250m의 지도 시설정보를 확인하는 중…':'Checking mapped facilities within 250m…';
+  try{
+    const around=`around:250,${Number(p.lat)},${Number(p.lng)}`;
+    const q=`[out:json][timeout:12];(nwr[railway=subway_entrance](${around});nwr[highway=elevator](${around});nwr[amenity=toilets](${around});nwr[highway=bus_stop](${around});nwr[public_transport=platform](${around}););out center tags 100;`;
+    const cacheKey=cityMapCacheKey('station-info',[cityMapCenterKey(p.lat,p.lng,4)]);
+    let data=cityMapCacheGet(cacheKey,600000);
+    if(!data){
+      const r=await fetch('https://overpass-api.de/api/interpreter?data='+encodeURIComponent(q),{cache:'no-store'});
+      if(!r.ok) throw new Error('station-info');
+      data=cityMapCacheSet(cacheKey,await r.json());
+    }
+    const els=Array.isArray(data.elements)?data.elements:[];
+    const entrances=els.filter(x=>x.tags?.railway==='subway_entrance');
+    const elevators=els.filter(x=>x.tags?.highway==='elevator');
+    const toilets=els.filter(x=>x.tags?.amenity==='toilets');
+    const transfer=els.filter(x=>x.tags?.highway==='bus_stop'||x.tags?.public_transport==='platform');
+    const exitRefs=[...new Set(entrances.map(x=>String(x.tags?.ref||x.tags?.name||'').trim()).filter(Boolean))].slice(0,6);
+    const wheelchairYes=[...entrances,...elevators,...toilets].filter(x=>String(x.tags?.wheelchair||'').toLowerCase()==='yes').length;
+    body.innerHTML=`<div class="city-map-station-info-grid"><div class="city-map-station-info-chip"><span>${lang==='ko'?'🚪 지도 출입구':'🚪 Mapped entrances'}</span><b>${entrances.length}</b></div><div class="city-map-station-info-chip"><span>${lang==='ko'?'🛗 엘리베이터':'🛗 Elevators'}</span><b>${elevators.length}</b></div><div class="city-map-station-info-chip"><span>${lang==='ko'?'🚻 화장실':'🚻 Restrooms'}</span><b>${toilets.length}</b></div><div class="city-map-station-info-chip"><span>${lang==='ko'?'🚌 환승 정류장':'🚌 Transfer stops'}</span><b>${transfer.length}</b></div></div>${exitRefs.length?`<div class="city-map-station-info-exits">${lang==='ko'?'표시된 출구/출입구':'Mapped exit / entrance labels'} · ${exitRefs.map(escapeHtmlText).join(' · ')}</div>`:''}<div class="city-map-station-info-note">${lang==='ko'?`OpenStreetMap 기준 · 접근성(wheelchair=yes) 표시 ${wheelchairYes}곳 · 누락될 수 있으므로 현장 안내판을 함께 확인하세요.`:`OpenStreetMap · ${wheelchairYes} nearby feature(s) tagged wheelchair=yes · mapped counts can be incomplete, so check station signs too.`}</div>`;
+    setCityMapStatus(lang==='ko'?'역 주변 지도 시설정보를 확인했습니다.':'Mapped station-area info checked.');
+  }catch(e){
+    body.textContent=lang==='ko'?'역 시설정보를 불러오지 못했습니다. 현장 안내판 또는 공식 교통기관 정보를 확인하세요.':'Could not load mapped station info. Check station signs or the official transit operator.';
+    setCityMapStatus(lang==='ko'?'역 이용정보를 불러오지 못했습니다.':'Could not load station-use info.');
+  }finally{if(btn){btn.disabled=false;btn.textContent=old;}}
+}
+
+async function loadSelectedStationFacility(type,btn){
+  const p=cityMapSelectedSearchPlace;
+  const cat=p?.category||cityMapSearchCategory(p||{});
+  if(!p||cat?.id!=='station') return;
+  const oldRadius=cityFacilityRadius;
+  cityFacilityRadius=500;
+  document.querySelectorAll('.city-radius-btn').forEach(x=>x.classList.toggle('active',Number(x.dataset.radius)===500));
+  await loadCityFacility(type,btn,{keepActive:false,centerOverride:{lat:Number(p.lat),lng:Number(p.lng)},centerName:p.name});
+  cityFacilityRadius=oldRadius;
+  document.querySelectorAll('.city-radius-btn').forEach(x=>x.classList.toggle('active',Number(x.dataset.radius)===cityFacilityRadius));
+}
+
+function selectCityMapSearchPlace(place){
+  if(cityWalkGuideTarget) stopCityWalkGuide({silent:true});
+  const map=ensureCityGuideMap();
+  const card=document.getElementById('cityMapDestCard');
+  if(!map||!card||!place) return;
+  cityStationPackRequestSeq++;
+  cityMapSelectedIndex=-1; cityMapSelectedFacility=null; cityMapSelectedSearchPlace=place;
+  if(cityMapSearchLayer){cityMapSearchLayer.remove();cityMapSearchLayer=null;}
+  const marker=L.marker([place.lat,place.lng],{keyboard:true,title:place.name}).bindPopup(`<b>${escapeHtmlText(place.name)}</b><br><small>OpenStreetMap place data</small>`);
+  cityMapSearchLayer=L.layerGroup([marker]).addTo(map);
+  marker.openPopup(); map.setView([place.lat,place.lng],16,{animate:false}); scheduleCityMapInvalidate();
+  const fromLabel=exploreUserLocation?(lang==='ko'?'내 현재 위치':'My current location'):(lang==='ko'?'내 위치 확인 필요':'Location needed');
+  const distance=exploreUserLocation?facilityDistanceText({lat:place.lat,lng:place.lng}):(lang==='ko'?'목적지 선택됨':'Destination selected');
+  const cat=place.category||cityMapSearchCategory(place);
+  card.innerHTML=`<div class="city-map-dest-top"><div class="city-map-dest-title"><span>${cat.icon||'📍'} ${lang==='ko'?(cat.ko||'검색한 장소'):(cat.en||'Search result')}</span><b>${escapeHtmlText(place.name)}</b></div><div class="city-map-dest-distance">${escapeHtmlText(distance)}</div></div><div class="city-map-go-flow"><div><span>${lang==='ko'?'출발':'FROM'}</span><b>${escapeHtmlText(fromLabel)}</b></div><div class="city-map-go-arrow">→</div><div><span>${lang==='ko'?'도착':'TO'}</span><b>${escapeHtmlText(place.name)}</b></div></div><button type="button" class="city-map-go-main" onclick="openCityMapSearchWalk()">🚶 ${lang==='ko'?'앱 안 도보 안내 시작':'Start in-app walk guide'}<small>${lang==='ko'?'거리·방향을 먼저 보고 Google Maps 실제 경로 확인':'See distance and direction first, then verify in Google Maps'}</small></button><div class="city-map-dest-actions"><button type="button" class="soft" onclick="copyCityMapSearchPlace()">📋 ${lang==='ko'?'장소명 복사':'Copy place'}</button><button type="button" class="soft" onclick="openCityMapSearchOnly()">🗺️ ${lang==='ko'?'지도에서 보기':'Open map'}</button></div>${cityMapStationEssentialsHtml(place)}`;
+  card.classList.add('show'); updateCityMapRouteBar();
+}
+
+function openCityMapSearchWalk(){const p=cityMapSelectedSearchPlace;if(!p)return;startCityWalkGuide({...p,kind:'search'})}
+function openCityMapSearchOnly(){const p=cityMapSelectedSearchPlace;if(!p)return;window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.lat+','+p.lng)}`,'_blank','noopener')}
+async function copyCityMapSearchPlace(){const p=cityMapSelectedSearchPlace;if(!p)return;const text=`${p.name}\n${Number(p.lat).toFixed(6)}, ${Number(p.lng).toFixed(6)}`;try{await navigator.clipboard.writeText(text);setCityMapStatus(lang==='ko'?'장소 정보를 복사했습니다.':'Place copied.')}catch(e){try{execCommandCopy(text)}catch(_){}}}
+
+function cityMapPromptDestination(){
+  if(cityMapSelectedSearchPlace){selectCityMapSearchPlace(cityMapSelectedSearchPlace);return;}
+  if(cityMapSelectedFacility){
+    renderCityFacilityGoCard(cityMapSelectedFacility);
+    return;
+  }
+  if(cityMapSelectedIndex>=0){
+    const city=document.getElementById('city')?.dataset.currentCity||'';
+    selectCityMapDestination(city,cityMapSelectedIndex,{pan:true});
+    return;
+  }
+  setCityMapStatus(lang==='ko'?'지도에서 가고 싶은 장소 마커를 한 번 눌러주세요.':'Tap the place marker you want to visit.');
+}
+
+function cityMapQuickGo(){
+  if(cityWalkGuideTarget){fitCityWalkGuide();return;}
+  startSelectedCityWalkGuide();
+}
+
 function cityMapDistanceText(poi){
   if(!poi||!exploreUserLocation) return lang==='ko'?'목적지 선택됨':'Destination selected';
   const km=haversineKm(exploreUserLocation.lat,exploreUserLocation.lng,Number(poi.lat),Number(poi.lng));
@@ -4017,35 +5378,48 @@ function cityMapDistanceText(poi){
 }
 
 function selectCityMapDestination(city,index,{pan=true}={}){
+  if(cityWalkGuideTarget) stopCityWalkGuide({silent:true});
   const pois=getSelectedCityPois(city);
   const poi=pois?.[Number(index)];
   const card=document.getElementById('cityMapDestCard');
   if(!poi||!card) return;
+  cityMapSelectedFacility=null;
+  cityMapSelectedSearchPlace=null;
+  if(cityMapSearchLayer){cityMapSearchLayer.remove();cityMapSearchLayer=null;}
   cityMapSelectedIndex=Number(index);
   const title=lang==='ko'?(poi.ko||poi.en):(poi.en||poi.ko);
   const saved=isPlaceSaved(city,poi);
+  const fromLabel=exploreUserLocation?(lang==='ko'?'내 현재 위치':'My current location'):(lang==='ko'?'내 위치 확인 필요':'Location needed');
   card.innerHTML=`<div class="city-map-dest-top">
     <div class="city-map-dest-title"><span>${lang==='ko'?'선택한 목적지':'Selected destination'}</span><b>${escapeHtmlText(title)}</b></div>
     <div class="city-map-dest-distance">${escapeHtmlText(cityMapDistanceText(poi))}</div>
   </div>
+  <div class="city-map-go-flow">
+    <div><span>${lang==='ko'?'출발':'FROM'}</span><b>${escapeHtmlText(fromLabel)}</b></div>
+    <div class="city-map-go-arrow">→</div>
+    <div><span>${lang==='ko'?'도착':'TO'}</span><b>${escapeHtmlText(title)}</b></div>
+  </div>
+  <button type="button" class="city-map-go-main" onclick="openCityMapSelectedWalk()">🚶 ${lang==='ko'?'앱 안 도보 안내 시작':'Start in-app walk guide'}<small>${lang==='ko'?'거리·방향을 먼저 보고 Google Maps 실제 경로 확인':'See distance and direction first, then verify in Google Maps'}</small></button>
   <div class="city-map-dest-actions">
-    <button type="button" class="go" onclick="openCityMapSelectedWalk()">🚶 ${lang==='ko'?'도보 GO':'Walk GO'}</button>
     <button type="button" class="soft" onclick="toggleSavedPlace('${city}',${Number(index)});selectCityMapDestination('${city}',${Number(index)},{pan:false})">${saved?'★':'☆'} ${lang==='ko'?(saved?'저장됨':'저장'):(saved?'Saved':'Save')}</button>
-    <button type="button" class="soft" onclick="openTaxiCardByCityIndex('${city}',${Number(index)})">🚕 ${lang==='ko'?'택시':'Taxi'}</button>
+    <button type="button" class="soft" onclick="openTaxiCardByCityIndex('${city}',${Number(index)})">🚕 ${lang==='ko'?'택시에게 보여주기':'Show to taxi'}</button>
   </div>`;
   card.classList.add('show');
-  if(pan&&cityGuideMap){cityGuideMap.setView([Number(poi.lat),Number(poi.lng)],Math.max(cityGuideMap.getZoom(),15),{animate:false});}
+  updateCityMapRouteBar();
+  if(pan&&cityGuideMap){
+    const target=[Number(poi.lat),Number(poi.lng)];
+    if(cityGuideMap.getZoom()<15) cityGuideMap.setView(target,15,{animate:false});
+    else cityGuideMap.panTo(target,{animate:false,noMoveStart:true});
+    scheduleCityMapInvalidate();
+  }
 }
 
 function openCityMapSelectedWalk(){
   const city=document.getElementById('city')?.dataset.currentCity||'';
   if(cityMapSelectedIndex<0) return;
-  if(!exploreUserLocation){
-    setCityMapStatus(lang==='ko'?'먼저 내 위치를 눌러주세요. 위치 확인 후 도보 길찾기를 바로 열 수 있습니다.':'Tap My location first. Walking directions will open after your location is ready.');
-    locateCityMapUser();
-    return;
-  }
-  openDirectionsFromMe(city,cityMapSelectedIndex,'walking');
+  const poi=getSelectedCityPois(city)?.[cityMapSelectedIndex];
+  if(!poi) return;
+  startCityWalkGuide({lat:poi.lat,lng:poi.lng,name:lang==='ko'?(poi.ko||poi.en):(poi.en||poi.ko),kind:'poi'});
 }
 
 function toggleCityMapFocus(){
@@ -4062,8 +5436,9 @@ function toggleCityMapFocus(){
     wrap.querySelector('.city-map-head')?.appendChild(exit);
   }
   document.body.style.overflow=on?'hidden':'';
-  setTimeout(()=>cityGuideMap?.invalidateSize(),80);
+  scheduleCityMapInvalidate();
 }
+
 
 function setCityMapStatus(text){
   const el=document.getElementById('cityMapStatus');
@@ -4086,8 +5461,102 @@ function locateCityMapUser(){
   },{enableHighAccuracy:true,timeout:10000,maximumAge:30000});
 }
 
-function cityFacilityQuery(type,lat,lng){
-  const around=`around:1800,${lat},${lng}`;
+
+function cityFacilityVisual(type){
+  return ({
+    all:{icon:'🧭',labelKo:'편의시설',labelEn:'Nearby essentials'},
+    convenience:{icon:'🏪',labelKo:'편의점',labelEn:'Convenience'},
+    atm:{icon:'💳',labelKo:'ATM',labelEn:'ATM'},
+    bank:{icon:'🏦',labelKo:'은행',labelEn:'Bank'},
+    toilets:{icon:'🚻',labelKo:'화장실',labelEn:'Toilet'},
+    pharmacy:{icon:'💊',labelKo:'약국',labelEn:'Pharmacy'},
+    entrance:{icon:'🚪',labelKo:'역 출입구',labelEn:'Station entrance'},
+    elevator:{icon:'🛗',labelKo:'엘리베이터',labelEn:'Elevator'},
+    bus:{icon:'🚌',labelKo:'환승 지점',labelEn:'Transfer point'}
+  })[type]||{icon:'📍',labelKo:'시설',labelEn:'Place'};
+}
+function cityFacilityDivIcon(type,selected=false){
+  const v=cityFacilityVisual(type);
+  return L.divIcon({
+    className:'',
+    html:`<div class="city-facility-marker${selected?' selected':''}" aria-label="${escapeHtmlText(lang==='ko'?v.labelKo:v.labelEn)}"><span>${v.icon}</span></div>`,
+    iconSize:[32,32],iconAnchor:[16,16],popupAnchor:[0,-17]
+  });
+}
+function selectCityFacilityMarker(marker,type){
+  if(cityFacilitySelectedMarker&&cityFacilitySelectedMarker!==marker){
+    try{cityFacilitySelectedMarker.setIcon(cityFacilityDivIcon(cityFacilitySelectedMarker._facilityType||type,false));}catch(e){}
+  }
+  cityFacilitySelectedMarker=marker;
+  marker._facilityType=type;
+  try{marker.setIcon(cityFacilityDivIcon(type,true));}catch(e){}
+}
+
+function facilityDistanceText(facility){
+  if(!facility) return '';
+  if(Number.isFinite(facility.km)) return facility.km<1?`${Math.max(10,Math.round(facility.km*1000/10)*10)}m`:`${facility.km.toFixed(1)}km`;
+  if(exploreUserLocation){
+    const km=haversineKm(exploreUserLocation.lat,exploreUserLocation.lng,Number(facility.lat),Number(facility.lng));
+    if(Number.isFinite(km)) return km<1?`${Math.max(10,Math.round(km*1000/10)*10)}m`:`${km.toFixed(1)}km`;
+  }
+  return lang==='ko'?'거리 확인 필요':'Distance unavailable';
+}
+
+function renderCityFacilityGoCard(facility){
+  if(cityWalkGuideTarget) stopCityWalkGuide({silent:true});
+  const card=document.getElementById('cityMapDestCard');
+  if(!card||!facility) return;
+  cityMapSelectedFacility=facility;
+  cityMapSelectedSearchPlace=null;
+  if(cityMapSearchLayer){cityMapSearchLayer.remove();cityMapSearchLayer=null;}
+  cityMapSelectedIndex=-1;
+  const v=cityFacilityVisual(facility.type);
+  const fromLabel=exploreUserLocation?(lang==='ko'?'내 현재 위치':'My current location'):(lang==='ko'?'내 위치 확인 필요':'Location needed');
+  const name=facility.name||(lang==='ko'?v.labelKo:v.labelEn);
+  card.innerHTML=`<div class="city-map-dest-top">
+    <div class="city-map-dest-title"><span>${v.icon} ${lang==='ko'?'선택한 편의시설':'Selected essential'}</span><b>${escapeHtmlText(name)}</b></div>
+    <div class="city-map-dest-distance">${escapeHtmlText(facilityDistanceText(facility))}</div>
+  </div>
+  <div class="city-map-go-flow">
+    <div><span>${lang==='ko'?'출발':'FROM'}</span><b>${escapeHtmlText(fromLabel)}</b></div>
+    <div class="city-map-go-arrow">→</div>
+    <div><span>${lang==='ko'?'도착':'TO'}</span><b>${escapeHtmlText(name)}</b></div>
+  </div>
+  <button type="button" class="city-map-go-main" onclick="startCityWalkGuide({...cityMapSelectedFacility,kind:'facility'})">🚶 ${lang==='ko'?'앱 안 도보 안내 시작':'Start in-app walk guide'}<small>${lang==='ko'?'거리·방향을 먼저 보고 Google Maps 실제 경로 확인':'See distance and direction first, then verify in Google Maps'}</small></button>
+  <div class="city-map-dest-actions">
+    <button type="button" class="soft" onclick="copyFacilityDestination()">📋 ${lang==='ko'?'장소명 복사':'Copy place'}</button>
+    <button type="button" class="soft" onclick="openFacilityMapOnly()">🗺️ ${lang==='ko'?'지도에서 보기':'Open map'}</button>
+  </div>`;
+  card.classList.add('show');
+  updateCityMapRouteBar();
+}
+
+async function copyFacilityDestination(){
+  const f=cityMapSelectedFacility;
+  if(!f) return;
+  const text=`${f.name||''}${f.lat&&f.lng?`
+${Number(f.lat).toFixed(6)}, ${Number(f.lng).toFixed(6)}`:''}`;
+  try{await navigator.clipboard.writeText(text);setCityMapStatus(lang==='ko'?'편의시설 정보를 복사했습니다.':'Place copied.');}catch(e){try{execCommandCopy(text);setCityMapStatus(lang==='ko'?'편의시설 정보를 복사했습니다.':'Place copied.');}catch(_){} }
+}
+
+function openFacilityMapOnly(){
+  const f=cityMapSelectedFacility;
+  if(!f) return;
+  window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(f.lat+','+f.lng)}`,'_blank','noopener');
+}
+
+function cityFacilityTypeFromTags(tags={}){
+  if(tags.shop==='convenience') return 'convenience';
+  if(tags.amenity==='atm') return 'atm';
+  if(tags.amenity==='bank') return 'bank';
+  if(tags.amenity==='toilets') return 'toilets';
+  if(tags.amenity==='pharmacy') return 'pharmacy';
+  return 'all';
+}
+
+function cityFacilityQuery(type,lat,lng,radius=cityFacilityRadius){
+  const safeRadius=Math.max(300,Math.min(5000,Number(radius)||1000));
+  const around=`around:${safeRadius},${lat},${lng}`;
   const selectors={
     convenience:`nwr[shop=convenience](${around});`,
     atm:`nwr[amenity=atm](${around});`,
@@ -4095,31 +5564,86 @@ function cityFacilityQuery(type,lat,lng){
     toilets:`nwr[amenity=toilets](${around});`,
     pharmacy:`nwr[amenity=pharmacy](${around});`
   };
-  return `[out:json][timeout:12];(${selectors[type]||''});out center 35;`;
+  const body=type==='all'?Object.values(selectors).join(''):(selectors[type]||'');
+  return `[out:json][timeout:12];(${body});out center 45;`;
 }
 
-async function toggleCityFacility(type,btn){
+function renderCityFacilityResults(){
+  const box=document.getElementById('cityFacilityResults');
+  if(!box) return;
+  const items=(cityMapLoadedFacilities||[]).slice(0,6);
+  if(!items.length){box.classList.remove('show');box.innerHTML='';return;}
+  box.innerHTML=`<div class="city-facility-result-head"><b>${lang==='ko'?'가까운 순':'Nearest first'}</b><small>${lang==='ko'?'시설을 누르면 지도에서 바로 선택':'Tap a place to select it on the map'}</small></div>`+items.map((f,i)=>{
+    const v=cityFacilityVisual(f.type);
+    const label=lang==='ko'?v.labelKo:v.labelEn;
+    return `<button type="button" class="city-facility-result" onclick="pickCityFacilityResult(${i})"><span class="ico">${v.icon}</span><span class="txt"><b>${escapeHtmlText(f.name||label)}</b><small>${escapeHtmlText(label)} · ${escapeHtmlText(facilityDistanceText(f))}</small></span><span class="go">${lang==='ko'?'GO':'GO'}</span></button>`;
+  }).join('');
+  box.classList.add('show');
+}
+
+function pickCityFacilityResult(index){
+  const f=cityMapLoadedFacilities?.[Number(index)];
+  if(!f) return;
+  const map=ensureCityGuideMap();
+  if(map){
+    const zoom=Math.max(16,map.getZoom());
+    map.setView([Number(f.lat),Number(f.lng)],zoom,{animate:false});
+  }
+  let matched=null;
+  try{
+    cityFacilityLayer?.eachLayer(layer=>{
+      if(matched||!layer?.getLatLng) return;
+      const ll=layer.getLatLng();
+      if(Math.abs(Number(ll.lat)-Number(f.lat))<1e-7&&Math.abs(Number(ll.lng)-Number(f.lng))<1e-7) matched=layer;
+    });
+  }catch(e){}
+  if(matched){selectCityFacilityMarker(matched,f.type);try{matched.openPopup();}catch(e){}}
+  renderCityFacilityGoCard(f);
+}
+
+function cityFacilityRadiusLabel(){
+  return cityFacilityRadius>=1000?`${(cityFacilityRadius/1000).toFixed(cityFacilityRadius%1000?1:0)}km`:`${cityFacilityRadius}m`;
+}
+
+async function setCityFacilityRadius(radius,btn){
+  cityFacilityRadius=Math.max(300,Math.min(5000,Number(radius)||1000));
+  document.querySelectorAll('.city-radius-btn').forEach(x=>x.classList.toggle('active',Number(x.dataset.radius)===cityFacilityRadius));
+  setCityMapStatus(lang==='ko'?`검색 거리 ${cityFacilityRadiusLabel()}로 설정했습니다.`:`Search radius set to ${cityFacilityRadiusLabel()}.`);
+  if(activeCityFacility){
+    const facilityBtn=document.querySelector(`.city-facility-btn[data-facility="${activeCityFacility}"]`);
+    await loadCityFacility(activeCityFacility,facilityBtn,{keepActive:true});
+  }
+}
+
+async function loadCityFacility(type,btn,{keepActive=false,centerOverride=null,centerName=''}={}){
   const map=ensureCityGuideMap();
   if(!map) return;
-  if(activeCityFacility===type){
-    activeCityFacility='';
-    btn?.classList.remove('active');
-    if(cityFacilityLayer){cityFacilityLayer.remove();cityFacilityLayer=null;}
-    setCityMapStatus(lang==='ko'?'편의시설 표시를 껐습니다.':'Facility layer hidden.');
-    return;
+  if(!keepActive){
+    document.querySelectorAll('.city-facility-btn').forEach(x=>x.classList.remove('active'));
+    btn?.classList.add('active');
+    activeCityFacility=type;
   }
-  document.querySelectorAll('.city-facility-btn').forEach(x=>x.classList.remove('active'));
-  btn?.classList.add('active');
-  activeCityFacility=type;
-  if(cityFacilityLayer){cityFacilityLayer.remove();cityFacilityLayer=null;}
-  const center=exploreUserLocation||{lat:map.getCenter().lat,lng:map.getCenter().lng};
-  setCityMapStatus(lang==='ko'?'주변 시설을 불러오는 중…':'Loading nearby facilities…');
+  const previousFacilityLayer=cityFacilityLayer;
+  const previousFacilityType=cityMapLoadedFacilities?.[0]?.type||'';
+  cityFacilitySelectedMarker=null;
+  cityMapSelectedFacility=null;
+  updateCityMapRouteBar();
+  const center=(centerOverride&&Number.isFinite(Number(centerOverride.lat))&&Number.isFinite(Number(centerOverride.lng)))?{lat:Number(centerOverride.lat),lng:Number(centerOverride.lng)}:(exploreUserLocation||{lat:map.getCenter().lat,lng:map.getCenter().lng});
+  const requestSeq=++cityFacilityRequestSeq;
+  const centerText=centerName?`${centerName} · `:'';
+  setCityMapStatus(lang==='ko'?`${centerText}주변 ${cityFacilityRadiusLabel()} 시설을 불러오는 중…`:`Loading facilities within ${cityFacilityRadiusLabel()} of ${centerName||'the selected area'}…`);
   try{
-    const q=cityFacilityQuery(type,center.lat,center.lng);
-    const r=await fetch('https://overpass-api.de/api/interpreter?data='+encodeURIComponent(q),{cache:'no-store'});
-    if(!r.ok) throw new Error('facility');
-    const data=await r.json();
+    const q=cityFacilityQuery(type,center.lat,center.lng,cityFacilityRadius);
+    const cacheKey=cityMapCacheKey('facility',[type,cityFacilityRadius,cityMapCenterKey(center.lat,center.lng,4)]);
+    let data=cityMapCacheGet(cacheKey,180000);
+    if(!data){
+      const r=await fetch('https://overpass-api.de/api/interpreter?data='+encodeURIComponent(q),{cache:'no-store'});
+      if(!r.ok) throw new Error('facility');
+      data=cityMapCacheSet(cacheKey,await r.json());
+    }
+    if(requestSeq!==cityFacilityRequestSeq) return;
     const group=L.layerGroup();
+    const nextLoadedFacilities=[];
     let count=0;
     const entries=(data.elements||[]).map(el=>{
       const plat=Number(el.lat??el.center?.lat), plng=Number(el.lon??el.center?.lon);
@@ -4128,18 +5652,57 @@ async function toggleCityFacility(type,btn){
       return {el,lat:plat,lng:plng,km:Number.isFinite(km)?km:999};
     }).filter(Boolean).sort((a,b)=>a.km-b.km).slice(0,25);
     entries.forEach(({el,lat,lng,km})=>{
-      const name=el.tags?.name||el.tags?.['name:en']||el.tags?.['name:ko']||(lang==='ko'?'이름 미표시':'Unnamed place');
+      const itemType=type==='all'?cityFacilityTypeFromTags(el.tags||{}):type;
+      const v=cityFacilityVisual(itemType);
+      const name=el.tags?.name||el.tags?.['name:en']||el.tags?.['name:ko']||(lang==='ko'?`${v.labelKo} · 이름 미표시`:`Unnamed ${v.labelEn}`);
+      nextLoadedFacilities.push({type:itemType,name,lat,lng,km});
       const dist=km<1?`${Math.max(10,Math.round(km*1000/10)*10)}m`:`${km.toFixed(1)}km`;
-      L.circleMarker([lat,lng],{radius:7,weight:2,color:'#0b2345',fillColor:'#fff',fillOpacity:1})
-        .bindPopup(`<div class="facility-popup"><b>${escapeHtmlText(name)}</b><small>${escapeHtmlText(dist)} · ${lang==='ko'?'OpenStreetMap 장소 정보':'OpenStreetMap place data'}</small><button type="button" onclick="openFacilityWalk(${lat},${lng})" style="margin-top:7px;border:0;border-radius:10px;padding:7px 9px;background:#0b2345;color:#fff;font-weight:900;font-size:9px">🚶 ${lang==='ko'?'도보 GO':'Walk GO'}</button></div>`)
-        .addTo(group); count++;
+      const marker=L.marker([lat,lng],{icon:cityFacilityDivIcon(itemType,false),keyboard:true,title:name});
+      marker._facilityType=itemType;
+      marker.bindPopup(`<div class="facility-popup"><b>${v.icon} ${escapeHtmlText(name)}</b><small>${escapeHtmlText(dist)} · ${lang==='ko'?'OpenStreetMap 장소 정보':'OpenStreetMap place data'}</small><button type="button" onclick="startFacilityWalkGuideByCoords(${lat},${lng})" style="margin-top:7px;border:0;border-radius:10px;padding:7px 9px;background:#0b2345;color:#fff;font-weight:900;font-size:9px">🚶 ${lang==='ko'?'앱 안내':'In-app guide'}</button></div>`);
+      marker.on('click',()=>{
+        selectCityFacilityMarker(marker,itemType);
+        renderCityFacilityGoCard({type:itemType,name,lat,lng,km});
+      });
+      marker.addTo(group); count++;
     });
-    group.addTo(map); cityFacilityLayer=group;
-    setCityMapStatus(count?(lang==='ko'?`주변 시설 ${count}곳 표시 · 실제 영업 여부는 확인 필요`:`${count} nearby places · verify current availability`):(lang==='ko'?'이 주변에서 표시할 시설을 찾지 못했습니다.':'No mapped facilities found nearby.'));
+    if(previousFacilityLayer&&previousFacilityLayer!==group){try{previousFacilityLayer.remove();}catch(e){}}
+    group.addTo(map); cityFacilityLayer=group; cityMapLoadedFacilities=nextLoadedFacilities;
+    renderCityFacilityResults();
+    setCityMapStatus(count?(lang==='ko'?`${centerName?centerName+' 기준 ':''}${cityFacilityRadiusLabel()} 안 시설 ${count}곳 표시 · 실제 영업 여부는 확인 필요`:`${count} places within ${cityFacilityRadiusLabel()}${centerName?' of '+centerName:''} · verify current availability`):(lang==='ko'?`${centerName?centerName+' 기준 ':''}${cityFacilityRadiusLabel()} 안에서 표시할 시설을 찾지 못했습니다.`:`No mapped facilities found within ${cityFacilityRadiusLabel()}${centerName?' of '+centerName:''}.`));
   }catch(e){
-    btn?.classList.remove('active'); activeCityFacility='';
-    setCityMapStatus(lang==='ko'?'시설 정보를 불러오지 못했습니다. 잠시 후 다시 시도하세요.':'Could not load facilities. Try again shortly.');
+    if(requestSeq!==cityFacilityRequestSeq) return;
+    document.querySelectorAll('.city-facility-btn').forEach(x=>x.classList.remove('active'));
+    if(previousFacilityLayer&&previousFacilityType){
+      cityFacilityLayer=previousFacilityLayer; activeCityFacility=previousFacilityType;
+      document.querySelector(`.city-facility-btn[data-facility="${previousFacilityType}"]`)?.classList.add('active');
+      setCityMapStatus(lang==='ko'?'새 시설 정보를 불러오지 못해 이전 표시를 그대로 유지합니다.':'Could not refresh facilities, so the previous markers remain visible.');
+    }else{
+      activeCityFacility='';
+      setCityMapStatus(lang==='ko'?'시설 정보를 불러오지 못했습니다. 잠시 후 다시 시도하세요.':'Could not load facilities. Try again shortly.');
+    }
   }
+}
+
+async function toggleCityFacility(type,btn){
+  const map=ensureCityGuideMap();
+  if(!map) return;
+  if(activeCityFacility===type){
+    activeCityFacility='';
+    cityFacilityRequestSeq++;
+    btn?.classList.remove('active');
+    if(cityFacilityLayer){cityFacilityLayer.remove();cityFacilityLayer=null;}
+    cityFacilitySelectedMarker=null;
+    cityMapSelectedFacility=null;
+    cityMapLoadedFacilities=[];
+    renderCityFacilityResults();
+    updateCityMapRouteBar();
+    const destCard=document.getElementById('cityMapDestCard');
+    if(destCard&&cityMapSelectedIndex<0){destCard.classList.remove('show');destCard.innerHTML='';}
+    setCityMapStatus(lang==='ko'?'편의시설 표시를 껐습니다.':'Facility layer hidden.');
+    return;
+  }
+  await loadCityFacility(type,btn);
 }
 
 function openCityMapWalkingHelp(){
@@ -4156,8 +5719,22 @@ function openCityMapWalkingHelp(){
 }
 
 function renderCityGuideMap(city){
+  stopCityWalkGuide({silent:true});
   stopCityMapFollow();
+  activeCityFacility=''; cityFacilityRequestSeq++;
+  if(cityFacilityLayer){cityFacilityLayer.remove();cityFacilityLayer=null;}
+  document.querySelectorAll('.city-facility-btn').forEach(x=>x.classList.remove('active'));
   cityMapSelectedIndex=-1;
+  cityMapSelectedFacility=null;
+  cityMapSelectedSearchPlace=null;
+  cityMapLoadedFacilities=[];
+  renderCityFacilityResults();
+  cityMapSearchRequestSeq++;
+  if(cityMapSearchLayer){cityMapSearchLayer.remove();cityMapSearchLayer=null;}
+  cityMapSearchClearResults();
+  const searchInput=document.getElementById('cityMapSearchInput'); if(searchInput) searchInput.value='';
+  cityMapSearchFilter='all'; updateCityMapSearchFilterUI();
+  updateCityMapRouteBar();
   const destCard=document.getElementById('cityMapDestCard');
   if(destCard){destCard.classList.remove('show');destCard.innerHTML='';}
   const pois=renderCityPoiList(city);
@@ -4194,7 +5771,9 @@ function renderCityGuideMap(city){
   group.addTo(map);
   cityGuideLayer=group;
   if(pois.length) map.fitBounds(group.getBounds().pad(.18),{animate:false,maxZoom:15});
-  setCityMapStatus(lang==='ko'?'지도 준비 완료 · 장소 마커를 누르면 도보 GO가 바로 열립니다.':'Map ready · tap a place marker for one-tap Walk GO.');
+  scheduleCityMapInvalidate();
+  setCityMapStatus(lang==='ko'?'지도 준비 완료 · 장소를 누른 뒤 GO만 누르면 됩니다.':'Map ready · choose a place, then tap GO.');
+  updateCityMapRouteBar();
 }
 
 const cityCoords={
@@ -6947,6 +8526,7 @@ if(savedTrip){
   }catch(_){}
 }
 
+loadCityWalkAlertPrefs();
 applyLang();
 updateRoutePreview();
 setTimeout(renderNearbyEssentialsStatus,0);
@@ -7250,6 +8830,11 @@ document.addEventListener('click',e=>{
 document.addEventListener('click',e=>{
   if(e.target?.closest?.('#visitorFilterBar')) setTimeout(applyExploreCategoryFilter,0);
 });
+window.addEventListener('online',()=>{ refreshCityMapOnlineState(); reloadCityMapTiles(); });
+window.addEventListener('offline',refreshCityMapOnlineState);
+
+
+document.addEventListener('DOMContentLoaded',()=>setTimeout(renderCityWalkRecovery,260));
 </script>
 </body>
 </html>
