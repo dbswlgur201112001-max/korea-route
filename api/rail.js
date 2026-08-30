@@ -30,6 +30,16 @@ function providerTotalCount(raw) {
   return Number.isFinite(parsed) ? parsed : null;
 }
 
+function providerPageSize(raw, fallback) {
+  const n =
+    raw?.response?.body?.numOfRows ??
+    raw?.body?.numOfRows ??
+    raw?.numOfRows ??
+    fallback;
+  const parsed = Number(n);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+}
+
 function compactStationName(name) {
   return String(name || '')
     .trim()
@@ -167,8 +177,8 @@ export default async function handler(req, res) {
   query.set('returnType', 'JSON');
 
   const debugMode = req.query?.debug || '';
-  const pageSize = 5000;
-  const maxPages = 20;
+  const pageSize = 10000;
+  const maxPages = 10;
 
   function diagnosticQueryFor(q) {
     return Array.from(q.entries())
@@ -211,7 +221,11 @@ export default async function handler(req, res) {
   try {
     const firstPage = await fetchRailPage(1);
     const providerCount = providerTotalCount(firstPage.raw) || firstPage.normalized.length;
-    const totalPages = Math.max(1, Math.ceil(providerCount / pageSize));
+    const effectivePageSize = providerPageSize(
+      firstPage.raw,
+      firstPage.normalized.length || pageSize
+    );
+    const totalPages = Math.max(1, Math.ceil(providerCount / effectivePageSize));
     const pagesToScan = Math.min(totalPages, maxPages);
 
     let scannedPages = 1;
@@ -241,7 +255,7 @@ export default async function handler(req, res) {
           filteredTrains = matches;
           break;
         }
-        if(page.normalized.length < pageSize) break;
+        if(page.normalized.length < effectivePageSize) break;
       }
     }
 
@@ -264,7 +278,9 @@ export default async function handler(req, res) {
       diagnosticQuery: diagnosticQueries[diagnosticQueries.length - 1],
       diagnosticQueries,
       providerCount,
-      pageSize,
+      requestedPageSize: pageSize,
+      effectivePageSize,
+      maxPages,
       totalPages,
       scannedPages,
       fetchedCount,
