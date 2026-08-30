@@ -75,6 +75,17 @@ function minutesBetween(start, end) {
   return Math.max(0, Math.round((b - a) / 60000));
 }
 
+function rawItems(raw) {
+  const items =
+    raw?.response?.body?.items?.item ??
+    raw?.body?.items?.item ??
+    raw?.items?.item ??
+    raw?.items ??
+    raw?.data ??
+    [];
+  return Array.isArray(items) ? items : (items ? [items] : []);
+}
+
 function normalizeItems(raw) {
   const items =
     raw?.response?.body?.items?.item ??
@@ -238,6 +249,14 @@ export default async function handler(req, res) {
     );
 
     const diagnosticQueries = [firstPage.diagnosticQuery];
+    const rawSamples = [];
+    const pushRawSamples = (raw) => {
+      for(const item of rawItems(raw)){
+        if(rawSamples.length >= 5) break;
+        rawSamples.push(item);
+      }
+    };
+    pushRawSamples(firstPage.raw);
 
     if(debugMode !== 'all' && filteredTrains.length === 0){
       for(let pageNo = 2; pageNo <= pagesToScan; pageNo += 1){
@@ -245,6 +264,7 @@ export default async function handler(req, res) {
         scannedPages += 1;
         fetchedCount += page.normalized.length;
         diagnosticQueries.push(page.diagnosticQuery);
+        pushRawSamples(page.raw);
         const matches = filterNormalizedTrains(
           page.normalized,
           departureName,
@@ -285,6 +305,10 @@ export default async function handler(req, res) {
       scannedPages,
       fetchedCount,
       matchedCount: filteredTrains.length,
+      rawSamples: debugMode === 'rawsample' ? rawSamples : undefined,
+      rawSampleKeys: debugMode === 'rawsample'
+        ? Array.from(new Set(rawSamples.flatMap((item) => Object.keys(item || {})))).sort()
+        : undefined,
       trains: debugMode === 'all' ? firstPage.normalized : filteredTrains
     });
   } catch (error) {
