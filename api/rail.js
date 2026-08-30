@@ -72,6 +72,48 @@ function filterNormalizedTrains(trains, departureName, arrivalName, runYmd) {
   });
 }
 
+function scanMatchDiagnostics(trains, departureName, arrivalName, runYmd) {
+  const from = compactStationName(departureName);
+  const to = compactStationName(arrivalName);
+  let dateCount = 0;
+  let routeCount = 0;
+  let matchedCount = 0;
+  let sawTargetDate = false;
+  let sawAfterTargetDate = false;
+  const dateSamples = [];
+  const routeSamples = [];
+
+  for(const train of (Array.isArray(trains) ? trains : [])){
+    const dep = compactStationName(train?.departureStation);
+    const arr = compactStationName(train?.arrivalStation);
+    const day = trainRunDate(train);
+
+    if(day === runYmd){
+      sawTargetDate = true;
+      dateCount += 1;
+      if(dateSamples.length < 5) dateSamples.push(train);
+    }else if(sawTargetDate && day && day > runYmd){
+      sawAfterTargetDate = true;
+    }
+
+    if(dep === from && arr === to){
+      routeCount += 1;
+      if(routeSamples.length < 5) routeSamples.push(train);
+      if(day === runYmd) matchedCount += 1;
+    }
+  }
+
+  return {
+    dateCount,
+    routeCount,
+    matchedCount,
+    sawTargetDate,
+    sawAfterTargetDate,
+    dateSamples,
+    routeSamples
+  };
+}
+
 
 function minutesBetween(start, end) {
   const a = new Date(start);
@@ -254,6 +296,13 @@ export default async function handler(req, res) {
       runYmd
     );
 
+    let matchDiagnostics = scanMatchDiagnostics(
+      firstPage.normalized,
+      departureName,
+      arrivalName,
+      runYmd
+    );
+
     const diagnosticQueries = [firstPage.diagnosticQuery];
     const runDateCounts = {};
     const countRunDates = (trains) => {
@@ -287,10 +336,38 @@ export default async function handler(req, res) {
           arrivalName,
           runYmd
         );
+        const pageDiagnostics = scanMatchDiagnostics(
+          page.normalized,
+          departureName,
+          arrivalName,
+          runYmd
+        );
+
+        matchDiagnostics.dateCount += pageDiagnostics.dateCount;
+        matchDiagnostics.routeCount += pageDiagnostics.routeCount;
+        matchDiagnostics.matchedCount += pageDiagnostics.matchedCount;
+        matchDiagnostics.sawTargetDate = matchDiagnostics.sawTargetDate || pageDiagnostics.sawTargetDate;
+        matchDiagnostics.sawAfterTargetDate = matchDiagnostics.sawAfterTargetDate || pageDiagnostics.sawAfterTargetDate;
+        if(matchDiagnostics.dateSamples.length < 5){
+          matchDiagnostics.dateSamples.push(
+            ...pageDiagnostics.dateSamples.slice(0, 5 - matchDiagnostics.dateSamples.length)
+          );
+        }
+        if(matchDiagnostics.routeSamples.length < 5){
+          matchDiagnostics.routeSamples.push(
+            ...pageDiagnostics.routeSamples.slice(0, 5 - matchDiagnostics.routeSamples.length)
+          );
+        }
+
         if(matches.length){
           filteredTrains = matches;
           break;
         }
+
+        // Provider data appears ordered by run date. Once the target date has
+        // been seen and later dates are reached, continuing through every page
+        // is unnecessary for this city/date lookup.
+        if(matchDiagnostics.sawTargetDate && pageDiagnostics.sawAfterTargetDate) break;
         if(page.normalized.length < effectivePageSize) break;
       }
     }
@@ -321,6 +398,9 @@ export default async function handler(req, res) {
       scannedPages,
       fetchedCount,
       matchedCount: filteredTrains.length,
+      targetDateCount: matchDiagnostics.dateCount,
+      targetRouteCount: matchDiagnostics.routeCount,
+      matchDiagnostics: debugMode === 'matchdiag' ? matchDiagnostics : undefined,
       rawSamples: debugMode === 'rawsample' ? rawSamples : undefined,
       rawSampleKeys: debugMode === 'rawsample'
         ? Array.from(new Set(rawSamples.flatMap((item) => Object.keys(item || {})))).sort()
