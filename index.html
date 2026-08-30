@@ -1775,9 +1775,9 @@ function toggleAllTools(){
 }
 
 let current='home';
-const APP_RELEASE='Korea Route Public Beta V35';
+const APP_RELEASE='Korea Route Public Beta V36';
 
-// V35 safe auto-restore: persist only explicit, non-sensitive trip state.
+// V36 safe auto-restore: persist only explicit, non-sensitive trip state and user preferences.
 // Never mirror API keys, current/GPS location, sensor state, or walk-recovery data.
 const KOREA_ROUTE_AUTO_PERSIST_KEY='koreaRouteAutoPersist';
 const KOREA_ROUTE_PERSIST_SESSION_KEYS=[
@@ -1792,9 +1792,31 @@ const KOREA_ROUTE_PERSIST_SESSION_KEYS=[
   'koreaRouteTripChecklist',
   'koreaRouteMoveVerify',
   'koreaRouteTransitPayment',
-  'koreaRouteVisitedPlaces'
+  'koreaRouteVisitedPlaces',
+  'koreaRouteFxCurrency',
+  'koreaRouteWalkAlerts',
+  'koreaRouteMoveSituation'
 ];
+const KOREA_ROUTE_PERSIST_EXCLUDED_KEYS=new Set([
+  'koreaRouteLivePosition',
+  'koreaRouteCityMapCacheV2',
+  'koreaRouteWalkSessionV15'
+]);
+const koreaRoutePersistUnknownLogged=new Set();
+function koreaRouteWarnUnknownPersistKeys(){
+  try{
+    for(let i=0;i<sessionStorage.length;i++){
+      const key=sessionStorage.key(i);
+      if(!key || !key.startsWith('koreaRoute')) continue;
+      if(KOREA_ROUTE_PERSIST_SESSION_KEYS.includes(key) || KOREA_ROUTE_PERSIST_EXCLUDED_KEYS.has(key)) continue;
+      if(koreaRoutePersistUnknownLogged.has(key)) continue;
+      koreaRoutePersistUnknownLogged.add(key);
+      console.warn('[Korea Route persist] Unregistered session key excluded from auto-backup:',key);
+    }
+  }catch(e){}
+}
 function koreaRouteBuildPersistedState(){
+  koreaRouteWarnUnknownPersistKeys();
   const data={};
   KOREA_ROUTE_PERSIST_SESSION_KEYS.forEach(key=>{
     const value=sessionStorage.getItem(key);
