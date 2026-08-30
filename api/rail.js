@@ -165,48 +165,85 @@ export default async function handler(req, res) {
   const query = new URLSearchParams();
   query.set('serviceKey', apiKey);
   query.set('returnType', 'JSON');
-  query.set('pageNo', '1');
-  query.set('numOfRows', '5000');
 
   const debugMode = req.query?.debug || '';
+  const pageSize = 5000;
+  const maxPages = 20;
 
-  // Provider-side cond[...] filters currently return 0 rows even though the
-  // unfiltered endpoint returns data. Fetch a broad page and filter safely here.
-  const url = `${apiUrl}${apiUrl.includes('?') ? '&' : '?'}${query.toString()}`;
-  const diagnosticQuery = Array.from(query.entries())
-    .map(([key,value]) => `${encodeURIComponent(key)}=${encodeURIComponent(key === 'serviceKey' ? '***' : value)}`)
-    .join('&');
+  function diagnosticQueryFor(q) {
+    return Array.from(q.entries())
+      .map(([key,value]) => `${encodeURIComponent(key)}=${encodeURIComponent(key === 'serviceKey' ? '***' : value)}`)
+      .join('&');
+  }
 
-  try {
-    const upstream = await fetch(url, { headers: { Accept: 'application/json' } });
-    const text = await upstream.text();
+  async function fetchRailPage(pageNo) {
+    const pageQuery = new URLSearchParams(query);
+    pageQuery.set('pageNo', String(pageNo));
+    pageQuery.set('numOfRows', String(pageSize));
+    const pageUrl = `${apiUrl}${apiUrl.includes('?') ? '&' : '?'}${pageQuery.toString()}`;
+    const upstream = await fetch(pageUrl, { headers: { Accept: 'application/json' } });
+    const bodyText = await upstream.text();
     let raw;
     try {
-      raw = JSON.parse(text);
+      raw = JSON.parse(bodyText);
     } catch {
-      return res.status(502).json({
-        error: 'RAIL_UPSTREAM_NON_JSON',
-        message: 'The rail API returned a non-JSON response.',
-        status: upstream.status
-      });
+      const error = new Error('The rail API returned a non-JSON response.');
+      error.code = 'RAIL_UPSTREAM_NON_JSON';
+      error.status = upstream.status;
+      error.diagnosticQuery = diagnosticQueryFor(pageQuery);
+      throw error;
     }
-
     if (!upstream.ok) {
-      return res.status(502).json({
-        error: 'RAIL_UPSTREAM_ERROR',
-        status: upstream.status,
-        details: raw,
-        diagnosticQuery
-      });
+      const error = new Error('The rail API returned an upstream error.');
+      error.code = 'RAIL_UPSTREAM_ERROR';
+      error.status = upstream.status;
+      error.details = raw;
+      error.diagnosticQuery = diagnosticQueryFor(pageQuery);
+      throw error;
     }
+    return {
+      raw,
+      normalized: normalizeItems(raw),
+      diagnosticQuery: diagnosticQueryFor(pageQuery)
+    };
+  }
 
-    const normalizedTrains = normalizeItems(raw);
-    const filteredTrains = filterNormalizedTrains(
-      normalizedTrains,
+  try {
+    const firstPage = await fetchRailPage(1);
+    const providerCount = providerTotalCount(firstPage.raw) || firstPage.normalized.length;
+    const totalPages = Math.max(1, Math.ceil(providerCount / pageSize));
+    const pagesToScan = Math.min(totalPages, maxPages);
+
+    let scannedPages = 1;
+    let fetchedCount = firstPage.normalized.length;
+    let filteredTrains = filterNormalizedTrains(
+      firstPage.normalized,
       departureName,
       arrivalName,
       runYmd
     );
+
+    const diagnosticQueries = [firstPage.diagnosticQuery];
+
+    if(debugMode !== 'all' && filteredTrains.length === 0){
+      for(let pageNo = 2; pageNo <= pagesToScan; pageNo += 1){
+        const page = await fetchRailPage(pageNo);
+        scannedPages += 1;
+        fetchedCount += page.normalized.length;
+        diagnosticQueries.push(page.diagnosticQuery);
+        const matches = filterNormalizedTrains(
+          page.normalized,
+          departureName,
+          arrivalName,
+          runYmd
+        );
+        if(matches.length){
+          filteredTrains = matches;
+          break;
+        }
+        if(page.normalized.length < pageSize) break;
+      }
+    }
 
     return res.status(200).json({
       configured: true,
@@ -224,11 +261,15 @@ export default async function handler(req, res) {
         runYmd,
         debugMode
       },
-      diagnosticQuery,
-      providerCount: providerTotalCount(raw),
-      fetchedCount: normalizedTrains.length,
+      diagnosticQuery: diagnosticQueries[diagnosticQueries.length - 1],
+      diagnosticQueries,
+      providerCount,
+      pageSize,
+      totalPages,
+      scannedPages,
+      fetchedCount,
       matchedCount: filteredTrains.length,
-      trains: debugMode === 'all' ? normalizedTrains : filteredTrains
+      trains: debugMode === 'all' ? firstPage.normalized : filteredTrains
     });
   } catch (error) {
     return res.status(502).json({
