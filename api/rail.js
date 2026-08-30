@@ -53,7 +53,12 @@ function compactRunDate(value) {
 }
 
 function trainRunDate(train) {
-  return compactRunDate(train?.departureTime || train?.arrivalTime || '');
+  return compactRunDate(
+    train?.runYmd ||
+    train?.departureTime ||
+    train?.arrivalTime ||
+    ''
+  );
 }
 
 function filterNormalizedTrains(trains, departureName, arrivalName, runYmd) {
@@ -147,6 +152,7 @@ function normalizeItems(raw) {
       arrivalStation: String(item.arrivalStationName ?? item.arvlStnNm ?? item.arvl_stn_nm ?? item.arrPlaceNm ?? '').trim() || null,
       departureTime,
       arrivalTime,
+      runYmd: String(item.run_ymd ?? item.runYmd ?? '').replace(/\D/g, '').slice(0, 8) || null,
       durationMinutes: minutesBetween(departureTime, arrivalTime),
       fare: Number(item.fare ?? item.adultFare ?? item.price ?? 0) || null,
       seatStatus: null
@@ -249,6 +255,15 @@ export default async function handler(req, res) {
     );
 
     const diagnosticQueries = [firstPage.diagnosticQuery];
+    const runDateCounts = {};
+    const countRunDates = (trains) => {
+      for(const train of (Array.isArray(trains) ? trains : [])){
+        const day = trainRunDate(train);
+        if(day) runDateCounts[day] = (runDateCounts[day] || 0) + 1;
+      }
+    };
+    countRunDates(firstPage.normalized);
+
     const rawSamples = [];
     const pushRawSamples = (raw) => {
       for(const item of rawItems(raw)){
@@ -264,6 +279,7 @@ export default async function handler(req, res) {
         scannedPages += 1;
         fetchedCount += page.normalized.length;
         diagnosticQueries.push(page.diagnosticQuery);
+        countRunDates(page.normalized);
         pushRawSamples(page.raw);
         const matches = filterNormalizedTrains(
           page.normalized,
@@ -309,6 +325,7 @@ export default async function handler(req, res) {
       rawSampleKeys: debugMode === 'rawsample'
         ? Array.from(new Set(rawSamples.flatMap((item) => Object.keys(item || {})))).sort()
         : undefined,
+      runDateCounts: debugMode === 'rawsample' ? runDateCounts : undefined,
       trains: debugMode === 'all' ? firstPage.normalized : filteredTrains
     });
   } catch (error) {
