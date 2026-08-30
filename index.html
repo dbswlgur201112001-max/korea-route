@@ -824,6 +824,9 @@ background-size:32px 32px,32px 32px,100% 100%}
 .today-verify-complete{opacity:.72}
 .move-verify-focus{outline:2px solid currentColor;outline-offset:3px;transition:outline-offset .2s ease}
 
+
+.live-transit-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}.live-transit-actions .screen-link{margin:0;flex:1;min-width:150px}.live-transit-location{display:grid;gap:4px;margin-top:9px;padding:11px 12px;border-radius:13px;background:rgba(127,127,127,.07)}.live-transit-location b{font-size:10px}.live-transit-location span{font-size:8px;line-height:1.45;opacity:.62}.live-transit-mode-note{margin-top:8px;padding:8px 10px;border:1px dashed rgba(127,127,127,.22);border-radius:11px;font-size:8px;line-height:1.45;opacity:.68}.live-transit-board{display:grid;gap:7px;margin-top:10px}.live-transit-stop{padding:11px;border:1px solid rgba(127,127,127,.15);border-radius:14px}.live-transit-stop-head{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}.live-transit-stop-head b{font-size:11px}.live-transit-stop-head span{font-size:8px;opacity:.58}.live-transit-arrivals{display:grid;gap:6px;margin-top:8px}.live-transit-arrival{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;padding:8px;border-radius:10px;background:rgba(127,127,127,.06)}.live-transit-route{font-size:11px;font-weight:950}.live-transit-arrival small{font-size:8px;opacity:.58}.live-transit-arrival strong{font-size:10px}.live-transit-arrival button{grid-column:1/-1;border:1px solid rgba(127,127,127,.18);background:transparent;color:inherit;border-radius:999px;padding:7px 9px;font-size:9px;font-weight:900}.live-transit-journey{margin-top:9px}.live-transit-journey-card{padding:12px;border-radius:14px;background:rgba(127,127,127,.065)}.live-transit-journey-card h4{margin:0 0 8px;font-size:12px}.live-transit-step{display:flex;gap:8px;padding:7px 0;border-top:1px solid rgba(127,127,127,.11);font-size:9px;line-height:1.45}.live-transit-step:first-of-type{border-top:0}.live-transit-step i{font-style:normal;width:20px}.live-transit-journey-note{font-size:8px;opacity:.56;margin-top:8px;line-height:1.45}
+
 </style>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -1139,7 +1142,26 @@ background-size:32px 32px,32px 32px,100% 100%}
     <div id="moveLiveRoutes" class="live-route-list"></div>
   </div>
 
-  <div class="feature-card"><div class="feature-top"><div><h3 data-en="Live transit board" data-ko="실시간 대중교통 도착정보">Live transit board</h3><p data-en="Subway and bus arrivals, service status and transfer countdown." data-ko="지하철·버스 도착, 운행 상태와 환승 남은 시간을 표시합니다.">Subway and bus arrivals, service status and transfer countdown.</p></div><span class="slot-type api">API</span></div><div class="data-slot"><b>Data slot</b><code>stop_id · route_id · arrival_minutes · disruption_status</code></div></div>
+  <div class="feature-card" id="liveTransitLayer">
+    <div class="feature-top">
+      <div>
+        <h3 data-en="Live transit · Near me" data-ko="실시간 교통 · 내 주변">Live transit · Near me</h3>
+        <p data-en="Use your location, see nearby-stop flow, then switch to real arrivals when the transit provider is connected." data-ko="현재 위치를 사용해 주변 정류장 흐름을 확인하고, 교통 API 연결 후 실제 도착정보로 전환합니다.">Use your location, see nearby-stop flow, then switch to real arrivals when the transit provider is connected.</p>
+      </div>
+      <span class="slot-type api" id="liveTransitProviderBadge">UI READY</span>
+    </div>
+    <div class="live-transit-actions">
+      <button type="button" class="screen-link" id="liveTransitLocateBtn" data-en="Use my location" data-ko="현재 위치 사용">Use my location</button>
+      <button type="button" class="mini-action" id="liveTransitRefreshBtn" data-en="Refresh" data-ko="새로고침">Refresh</button>
+    </div>
+    <div id="liveTransitLocation" class="live-transit-location" aria-live="polite">
+      <b data-en="Location not requested" data-ko="위치 권한을 아직 요청하지 않았습니다">Location not requested</b>
+      <span data-en="Tap “Use my location”. Your coordinates are kept only in this browser session." data-ko="‘현재 위치 사용’을 누르세요. 좌표는 이 브라우저 세션에서만 사용합니다.">Tap “Use my location”. Your coordinates are kept only in this browser session.</span>
+    </div>
+    <div class="live-transit-mode-note" id="liveTransitModeNote" data-en="SAMPLE PREVIEW · Arrival minutes below are demo data until an official transit provider is connected." data-ko="샘플 미리보기 · 아래 도착 분 정보는 공식 교통 API 연결 전까지 데모 데이터입니다.">SAMPLE PREVIEW · Arrival minutes below are demo data until an official transit provider is connected.</div>
+    <div id="liveTransitBoard" class="live-transit-board"></div>
+    <div id="liveTransitJourney" class="live-transit-journey"></div>
+  </div>
     <div class="feature-card"><div class="feature-top"><div><h3 data-en="Multi-stop optimizer" data-ko="여러 경유지 최적 순서">Multi-stop optimizer</h3><p data-en="Reorders selected stops to reduce total travel time." data-ko="선택한 경유지를 이동시간이 짧아지도록 자동 재배열합니다.">Reorders selected stops to reduce total travel time.</p></div><span class="slot-type local">LOGIC</span></div><div class="data-slot"><b>Data slot</b><code>origin · destination · waypoint[] · travel_matrix</code></div></div>
     <div class="feature-card"><div class="feature-top"><div><h3 data-en="Live ETA & alternate transport" data-ko="실시간 ETA · 대체 이동수단">Live ETA & alternate transport</h3><p data-en="Updates arrival time with traffic and proposes alternatives in heavy rain or snow." data-ko="교통상황으로 도착시간을 갱신하고 폭우·폭설 때 대체 이동수단을 제안합니다.">Updates arrival time with traffic and proposes alternatives in heavy rain or snow.</p></div><span class="slot-type api">API</span></div><div class="data-slot"><b>Data slot</b><code>traffic_delay · weather_alert · alternative_mode[]</code></div></div>
     <div class="feature-card"><div class="feature-top"><div><h3 data-en="Transfers, exits & accessibility" data-ko="환승·출구·접근성">Transfers, exits & accessibility</h3><p data-en="Pictograms, station exit numbers, elevators, wheelchair and stroller suitability." data-ko="환승 픽토그램, 역 출구 번호, 엘리베이터와 휠체어·유모차 편의를 표시합니다.">Pictograms, station exit numbers, elevators, wheelchair and stroller suitability.</p></div><span class="slot-type api">DATA</span></div><div class="data-slot"><b>Data slot</b><code>station_exit · elevator · barrier_free · transfer_icon</code></div></div>
@@ -6469,6 +6491,45 @@ applyLang();
 updateRoutePreview();
 
 
+
+const LIVE_TRANSIT_SAMPLE={
+  Seoul:{stopEn:'City Hall · sample stop',stopKo:'시청 · 샘플 정류장',distance:'220 m',arrivals:[['7016','4 min','3 stops away'],['402','9 min','6 stops away']]},
+  Busan:{stopEn:'Gwangalli Beach · sample stop',stopKo:'광안리해수욕장 · 샘플 정류장',distance:'180 m',arrivals:[['41','4 min','3 stops away'],['1001','9 min','6 stops away']]},
+  Jeju:{stopEn:'Jeju Bus Terminal · sample stop',stopKo:'제주버스터미널 · 샘플 정류장',distance:'260 m',arrivals:[['365','6 min','4 stops away'],['202','12 min','8 stops away']]}
+};
+let liveTransitPosition=null;
+function liveTransitCity(){return document.getElementById('moveTo')?.value||document.getElementById('dest')?.value||'Seoul';}
+function liveTransitSampleFor(city){return LIVE_TRANSIT_SAMPLE[city]||{stopEn:`${city} · sample stop`,stopKo:`${city} · 샘플 정류장`,distance:'—',arrivals:[['BUS','5 min','sample arrival'],['SUBWAY','10 min','sample arrival']]};}
+function renderLiveTransitBoard(){
+  const board=document.getElementById('liveTransitBoard'); if(!board)return;
+  const d=liveTransitSampleFor(liveTransitCity());
+  board.innerHTML=`<article class="live-transit-stop"><div class="live-transit-stop-head"><div><b>${lang==='ko'?d.stopKo:d.stopEn}</b><span>${lang==='ko'?'현재 도시 기준 UI 미리보기':'UI preview for selected city'}</span></div><span>${d.distance}</span></div><div class="live-transit-arrivals">${d.arrivals.map((a,i)=>`<div class="live-transit-arrival"><span class="live-transit-route">${a[0]}</span><small>${lang==='ko'?(i?'샘플 도착정보':'샘플 · 3정거장 전'):a[2]}</small><strong>${a[1]}</strong><button type="button" onclick="startLiveTransitSample('${String(a[0]).replace(/'/g,'')}')">${lang==='ko'?'이동 화면 미리보기':'Preview GO mode'}</button></div>`).join('')}</div></article>`;
+}
+function renderLiveTransitLocation(){
+  const el=document.getElementById('liveTransitLocation');if(!el)return;
+  if(!liveTransitPosition){el.innerHTML=`<b>${lang==='ko'?'위치 권한을 아직 요청하지 않았습니다':'Location not requested'}</b><span>${lang==='ko'?'현재 위치 사용을 누르면 브라우저 위치 권한을 요청합니다.':'Tap Use my location to request browser geolocation.'}</span>`;return;}
+  el.innerHTML=`<b>${lang==='ko'?'현재 위치 확인됨':'Location ready'}</b><span>${liveTransitPosition.lat.toFixed(5)}, ${liveTransitPosition.lng.toFixed(5)} · ${lang==='ko'?'세션 내에서만 사용':'session only'}</span>`;
+}
+function requestLiveTransitLocation(){
+  const el=document.getElementById('liveTransitLocation');
+  if(!navigator.geolocation){if(el)el.innerHTML=`<b>${lang==='ko'?'이 브라우저에서는 위치 기능을 사용할 수 없습니다':'Geolocation is unavailable in this browser'}</b>`;return;}
+  if(el)el.innerHTML=`<b>${lang==='ko'?'현재 위치 확인 중…':'Getting your location…'}</b><span>${lang==='ko'?'브라우저 권한 창을 확인하세요.':'Check the browser permission prompt.'}</span>`;
+  navigator.geolocation.getCurrentPosition(pos=>{liveTransitPosition={lat:pos.coords.latitude,lng:pos.coords.longitude,accuracy:pos.coords.accuracy};try{sessionStorage.setItem('koreaRouteLivePosition',JSON.stringify(liveTransitPosition));}catch(_){}renderLiveTransitLocation();renderLiveTransitBoard();},()=>{if(el)el.innerHTML=`<b>${lang==='ko'?'위치 권한을 사용할 수 없습니다':'Location permission unavailable'}</b><span>${lang==='ko'?'권한을 허용하지 않아도 샘플 이동 흐름은 볼 수 있습니다.':'You can still use the sample transit flow without location access.'}</span>`;},{enableHighAccuracy:false,timeout:8000,maximumAge:60000});
+}
+function startLiveTransitSample(route){
+  const el=document.getElementById('liveTransitJourney');if(!el)return;
+  const city=liveTransitCity();
+  el.innerHTML=`<div class="live-transit-journey-card"><h4>${lang==='ko'?'지금 할 일 · 샘플':'What to do now · Sample'}</h4><div class="live-transit-step"><i>🚶</i><div><b>${lang==='ko'?'정류장으로 이동':'Walk to the stop'}</b><br>${lang==='ko'?'현재 위치에서 정류장까지 이동':'Head from your current location to the stop'}</div></div><div class="live-transit-step"><i>🚌</i><div><b>${route} ${lang==='ko'?'탑승':'board'}</b><br>${lang==='ko'?`${city} 이동 흐름 미리보기`:`Preview the ${city} transit flow`}</div></div><div class="live-transit-step"><i>🔔</i><div><b>${lang==='ko'?'하차 준비 알림':'Prepare-to-exit alert'}</b><br>${lang==='ko'?'실제 API 연결 후 정류장 진행상황과 연결':'Connect stop progress after the live provider is added'}</div></div><p class="live-transit-journey-note">${lang==='ko'?'데모 흐름입니다. 실제 도착시간·차량위치·하차 알림으로 표시하지 않습니다.':'Demo flow only. It is not presented as a real arrival, vehicle location, or stop alert.'}</p></div>`;
+  el.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function initLiveTransitLayer(){
+  try{const x=JSON.parse(sessionStorage.getItem('koreaRouteLivePosition')||'null');if(x&&Number.isFinite(x.lat)&&Number.isFinite(x.lng))liveTransitPosition=x;}catch(_){}
+  renderLiveTransitLocation();renderLiveTransitBoard();
+  document.getElementById('liveTransitLocateBtn')?.addEventListener('click',requestLiveTransitLocation);
+  document.getElementById('liveTransitRefreshBtn')?.addEventListener('click',()=>{renderLiveTransitLocation();renderLiveTransitBoard();});
+  document.getElementById('moveTo')?.addEventListener('change',()=>{renderLiveTransitBoard();document.getElementById('liveTransitJourney').innerHTML='';});
+}
+
 document.addEventListener('DOMContentLoaded',()=>{
   setTimeout(ensureVisitorFilterUI,250);
   const observer=new MutationObserver(()=>{ setTimeout(ensureVisitorFilterUI,30); });
@@ -6511,7 +6572,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 document.addEventListener('DOMContentLoaded',()=>setTimeout(mountLanguageHelper,420));
 
 
-document.addEventListener('DOMContentLoaded',()=>setTimeout(mountMoveSituationHelper,390));
+document.addEventListener('DOMContentLoaded',()=>{setTimeout(mountMoveSituationHelper,390);setTimeout(initLiveTransitLayer,430);});
 document.addEventListener('change',e=>{if(e.target?.id==='dest')setTimeout(mountMoveSituationHelper,45)});
 
 document.addEventListener('DOMContentLoaded',()=>setTimeout(cityMapSourceBadge,500));
