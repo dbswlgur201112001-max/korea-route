@@ -827,6 +827,15 @@ background-size:32px 32px,32px 32px,100% 100%}
 
 .live-transit-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}.live-transit-actions .screen-link{margin:0;flex:1;min-width:150px}.live-transit-location{display:grid;gap:4px;margin-top:9px;padding:11px 12px;border-radius:13px;background:rgba(127,127,127,.07)}.live-transit-location b{font-size:10px}.live-transit-location span{font-size:8px;line-height:1.45;opacity:.62}.live-transit-mode-note{margin-top:8px;padding:8px 10px;border:1px dashed rgba(127,127,127,.22);border-radius:11px;font-size:8px;line-height:1.45;opacity:.68}.live-transit-board{display:grid;gap:7px;margin-top:10px}.live-transit-stop{padding:11px;border:1px solid rgba(127,127,127,.15);border-radius:14px}.live-transit-stop-head{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}.live-transit-stop-head b{font-size:11px}.live-transit-stop-head span{font-size:8px;opacity:.58}.live-transit-arrivals{display:grid;gap:6px;margin-top:8px}.live-transit-arrival{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;padding:8px;border-radius:10px;background:rgba(127,127,127,.06)}.live-transit-route{font-size:11px;font-weight:950}.live-transit-arrival small{font-size:8px;opacity:.58}.live-transit-arrival strong{font-size:10px}.live-transit-arrival button{grid-column:1/-1;border:1px solid rgba(127,127,127,.18);background:transparent;color:inherit;border-radius:999px;padding:7px 9px;font-size:9px;font-weight:900}.live-transit-journey{margin-top:9px}.live-transit-journey-card{padding:12px;border-radius:14px;background:rgba(127,127,127,.065)}.live-transit-journey-card h4{margin:0 0 8px;font-size:12px}.live-transit-step{display:flex;gap:8px;padding:7px 0;border-top:1px solid rgba(127,127,127,.11);font-size:9px;line-height:1.45}.live-transit-step:first-of-type{border-top:0}.live-transit-step i{font-style:normal;width:20px}.live-transit-journey-note{font-size:8px;opacity:.56;margin-top:8px;line-height:1.45}
 
+
+/* Live Weather */
+.live-weather-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+.live-weather-metric{border:1px solid #e2e8f0;border-radius:14px;padding:10px;background:#fff;display:grid;gap:3px}
+.live-weather-metric small{font-size:10px;font-weight:800;color:#7b8798;text-transform:uppercase;letter-spacing:.04em}
+.live-weather-metric strong{font-size:17px;color:#10233f}.live-weather-status{margin-top:10px;padding:11px 12px;border-radius:14px;background:#f5f8fc;color:#526278;font-size:12px;font-weight:700;line-height:1.5}
+.live-weather-advice{margin-top:8px;padding:11px 12px;border-radius:14px;background:#fff8e8;color:#6f5620;font-size:12px;font-weight:800;line-height:1.5}
+.live-weather-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+@media(max-width:430px){.live-weather-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.live-weather-metric{padding:9px 7px}.live-weather-metric strong{font-size:15px}}
 </style>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -1161,6 +1170,21 @@ background-size:32px 32px,32px 32px,100% 100%}
     <div class="live-transit-mode-note" id="liveTransitModeNote" data-en="SAMPLE PREVIEW · Arrival minutes below are demo data until an official transit provider is connected." data-ko="샘플 미리보기 · 아래 도착 분 정보는 공식 교통 API 연결 전까지 데모 데이터입니다.">SAMPLE PREVIEW · Arrival minutes below are demo data until an official transit provider is connected.</div>
     <div id="liveTransitBoard" class="live-transit-board"></div>
     <div id="liveTransitJourney" class="live-transit-journey"></div>
+  </div>
+  <div class="feature-card" id="liveWeatherLayer">
+    <div class="feature-top">
+      <div>
+        <h3 data-en="Live weather · right now" data-ko="실시간 날씨 · 지금">Live weather · right now</h3>
+        <p data-en="Current conditions for your location or selected city, useful while you are actually traveling." data-ko="여행 중 바로 판단할 수 있도록 현재 위치 또는 선택 도시의 현재 날씨를 확인합니다.">Current conditions for your location or selected city, useful while you are actually traveling.</p>
+      </div>
+      <span class="slot-type api" id="liveWeatherBadge">LIVE WEB DATA</span>
+    </div>
+    <div id="liveWeatherStatus" class="live-weather-status" aria-live="polite" data-en="Loading current weather…" data-ko="현재 날씨 불러오는 중…">Loading current weather…</div>
+    <div id="liveWeatherGrid" class="live-weather-grid"></div>
+    <div id="liveWeatherAdvice"></div>
+    <div class="live-weather-actions">
+      <button type="button" class="mini-action" id="liveWeatherRefreshBtn" data-en="Refresh weather" data-ko="날씨 새로고침">Refresh weather</button>
+    </div>
   </div>
     <div class="feature-card"><div class="feature-top"><div><h3 data-en="Multi-stop optimizer" data-ko="여러 경유지 최적 순서">Multi-stop optimizer</h3><p data-en="Reorders selected stops to reduce total travel time." data-ko="선택한 경유지를 이동시간이 짧아지도록 자동 재배열합니다.">Reorders selected stops to reduce total travel time.</p></div><span class="slot-type local">LOGIC</span></div><div class="data-slot"><b>Data slot</b><code>origin · destination · waypoint[] · travel_matrix</code></div></div>
     <div class="feature-card"><div class="feature-top"><div><h3 data-en="Live ETA & alternate transport" data-ko="실시간 ETA · 대체 이동수단">Live ETA & alternate transport</h3><p data-en="Updates arrival time with traffic and proposes alternatives in heavy rain or snow." data-ko="교통상황으로 도착시간을 갱신하고 폭우·폭설 때 대체 이동수단을 제안합니다.">Updates arrival time with traffic and proposes alternatives in heavy rain or snow.</p></div><span class="slot-type api">API</span></div><div class="data-slot"><b>Data slot</b><code>traffic_delay · weather_alert · alternative_mode[]</code></div></div>
@@ -6492,6 +6516,55 @@ updateRoutePreview();
 
 
 
+const WEATHER_CODE_TEXT={
+  0:['Clear','맑음'],1:['Mostly clear','대체로 맑음'],2:['Partly cloudy','구름 조금'],3:['Overcast','흐림'],
+  45:['Fog','안개'],48:['Rime fog','서리 안개'],51:['Light drizzle','약한 이슬비'],53:['Drizzle','이슬비'],55:['Heavy drizzle','강한 이슬비'],
+  61:['Light rain','약한 비'],63:['Rain','비'],65:['Heavy rain','강한 비'],66:['Freezing rain','어는 비'],67:['Heavy freezing rain','강한 어는 비'],
+  71:['Light snow','약한 눈'],73:['Snow','눈'],75:['Heavy snow','강한 눈'],77:['Snow grains','싸락눈'],80:['Rain showers','소나기'],81:['Rain showers','소나기'],82:['Heavy showers','강한 소나기'],
+  85:['Snow showers','눈 소나기'],86:['Heavy snow showers','강한 눈 소나기'],95:['Thunderstorm','뇌우'],96:['Thunderstorm','뇌우'],99:['Thunderstorm','강한 뇌우']
+};
+let liveWeatherController=null;
+function liveWeatherTarget(){
+  if(liveTransitPosition&&Number.isFinite(liveTransitPosition.lat)&&Number.isFinite(liveTransitPosition.lng)){
+    return {lat:liveTransitPosition.lat,lng:liveTransitPosition.lng,label:lang==='ko'?'현재 위치':'Current location',source:'location'};
+  }
+  const city=liveTransitCity(); const c=cityCoords[city]||cityCoords.Seoul;
+  return {lat:c[0],lng:c[1],label:lang==='ko'?(cityMeta?.[city]?.ko||city):city,source:'city'};
+}
+function weatherDescription(code){const x=WEATHER_CODE_TEXT[Number(code)]||['Current conditions','현재 날씨'];return lang==='ko'?x[1]:x[0];}
+function liveWeatherRainy(code,precip){return Number(precip)>0 || [51,53,55,61,63,65,66,67,80,81,82,95,96,99].includes(Number(code));}
+async function refreshLiveWeather(){
+  const status=document.getElementById('liveWeatherStatus'),grid=document.getElementById('liveWeatherGrid'),advice=document.getElementById('liveWeatherAdvice'),badge=document.getElementById('liveWeatherBadge');
+  if(!status||!grid)return;
+  const t=liveWeatherTarget();
+  status.textContent=lang==='ko'?`${t.label} 현재 날씨 확인 중…`:`Checking current weather for ${t.label}…`; grid.innerHTML=''; if(advice)advice.innerHTML=''; if(badge)badge.textContent='LOADING';
+  try{
+    if(liveWeatherController)liveWeatherController.abort(); liveWeatherController=new AbortController();
+    const timer=setTimeout(()=>liveWeatherController.abort(),8000);
+    const url=`https://api.open-meteo.com/v1/forecast?latitude=${encodeURIComponent(t.lat)}&longitude=${encodeURIComponent(t.lng)}&current=temperature_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m&timezone=auto`;
+    const r=await fetch(url,{signal:liveWeatherController.signal,headers:{Accept:'application/json'}}); clearTimeout(timer);
+    if(!r.ok)throw new Error(`HTTP ${r.status}`); const d=await r.json(); const c=d?.current; if(!c)throw new Error('No current weather');
+    const temp=Number(c.temperature_2m),feel=Number(c.apparent_temperature),precip=Number(c.precipitation),wind=Number(c.wind_speed_10m),code=Number(c.weather_code);
+    status.innerHTML=`<b>${t.label} · ${weatherDescription(code)}</b><span>${lang==='ko'?'현재 관측/예보 기반 웹 날씨 데이터':'Current web weather data'} · Open-Meteo${t.source==='city'?(lang==='ko'?' · 도시 중심 기준':' · city-center coordinates'):''}</span>`;
+    grid.innerHTML=`<div class="live-weather-metric"><small>${lang==='ko'?'기온':'Temp'}</small><strong>${Number.isFinite(temp)?Math.round(temp)+'°C':'—'}</strong></div><div class="live-weather-metric"><small>${lang==='ko'?'체감':'Feels'}</small><strong>${Number.isFinite(feel)?Math.round(feel)+'°C':'—'}</strong></div><div class="live-weather-metric"><small>${lang==='ko'?'강수':'Rain'}</small><strong>${Number.isFinite(precip)?precip.toFixed(1)+' mm':'—'}</strong></div><div class="live-weather-metric"><small>${lang==='ko'?'바람':'Wind'}</small><strong>${Number.isFinite(wind)?Math.round(wind)+' km/h':'—'}</strong></div><div class="live-weather-metric"><small>${lang==='ko'?'상태':'Now'}</small><strong>${weatherDescription(code)}</strong></div><div class="live-weather-metric"><small>${lang==='ko'?'기준':'Source'}</small><strong>${t.source==='location'?(lang==='ko'?'내 위치':'My GPS'):(lang==='ko'?'선택 도시':'City')}</strong></div>`;
+    if(advice){
+      const rainy=liveWeatherRainy(code,precip);
+      advice.innerHTML=`<div class="live-weather-advice">${rainy?(lang==='ko'?'☔ 비 가능성이 있습니다. 실내·비친화 이동수단을 우선 확인하세요.':'☔ Rain is present or likely now. Check indoor options and rain-friendly transport first.'):(lang==='ko'?'✓ 현재 강수 신호가 뚜렷하지 않습니다. 이동 전 새로고침해 다시 확인하세요.':'✓ No clear current rain signal. Refresh again before you leave.')}</div>`;
+    }
+    if(badge)badge.textContent='LIVE WEATHER';
+  }catch(e){
+    if(e?.name==='AbortError')status.textContent=lang==='ko'?'날씨 조회 시간이 초과되었습니다. 잠시 후 다시 시도하세요.':'Weather request timed out. Try again shortly.';
+    else status.textContent=lang==='ko'?'현재 날씨를 불러오지 못했습니다. 샘플 값은 표시하지 않습니다.':'Current weather is unavailable. No sample values are shown.';
+    if(badge)badge.textContent='UNAVAILABLE';
+  }
+}
+function initLiveWeather(){
+  document.getElementById('liveWeatherRefreshBtn')?.addEventListener('click',refreshLiveWeather);
+  document.getElementById('moveTo')?.addEventListener('change',refreshLiveWeather);
+  document.getElementById('dest')?.addEventListener('change',refreshLiveWeather);
+  refreshLiveWeather();
+}
+
 const LIVE_TRANSIT_SAMPLE={
   Seoul:{stopEn:'City Hall · sample stop',stopKo:'시청 · 샘플 정류장',distance:'220 m',arrivals:[['7016','4 min','3 stops away'],['402','9 min','6 stops away']]},
   Busan:{stopEn:'Gwangalli Beach · sample stop',stopKo:'광안리해수욕장 · 샘플 정류장',distance:'180 m',arrivals:[['41','4 min','3 stops away'],['1001','9 min','6 stops away']]},
@@ -6514,7 +6587,7 @@ function requestLiveTransitLocation(){
   const el=document.getElementById('liveTransitLocation');
   if(!navigator.geolocation){if(el)el.innerHTML=`<b>${lang==='ko'?'이 브라우저에서는 위치 기능을 사용할 수 없습니다':'Geolocation is unavailable in this browser'}</b>`;return;}
   if(el)el.innerHTML=`<b>${lang==='ko'?'현재 위치 확인 중…':'Getting your location…'}</b><span>${lang==='ko'?'브라우저 권한 창을 확인하세요.':'Check the browser permission prompt.'}</span>`;
-  navigator.geolocation.getCurrentPosition(pos=>{liveTransitPosition={lat:pos.coords.latitude,lng:pos.coords.longitude,accuracy:pos.coords.accuracy};try{sessionStorage.setItem('koreaRouteLivePosition',JSON.stringify(liveTransitPosition));}catch(_){}renderLiveTransitLocation();renderLiveTransitBoard();},()=>{if(el)el.innerHTML=`<b>${lang==='ko'?'위치 권한을 사용할 수 없습니다':'Location permission unavailable'}</b><span>${lang==='ko'?'권한을 허용하지 않아도 샘플 이동 흐름은 볼 수 있습니다.':'You can still use the sample transit flow without location access.'}</span>`;},{enableHighAccuracy:false,timeout:8000,maximumAge:60000});
+  navigator.geolocation.getCurrentPosition(pos=>{liveTransitPosition={lat:pos.coords.latitude,lng:pos.coords.longitude,accuracy:pos.coords.accuracy};try{sessionStorage.setItem('koreaRouteLivePosition',JSON.stringify(liveTransitPosition));}catch(_){}renderLiveTransitLocation();renderLiveTransitBoard();refreshLiveWeather();},()=>{if(el)el.innerHTML=`<b>${lang==='ko'?'위치 권한을 사용할 수 없습니다':'Location permission unavailable'}</b><span>${lang==='ko'?'권한을 허용하지 않아도 샘플 이동 흐름은 볼 수 있습니다.':'You can still use the sample transit flow without location access.'}</span>`;},{enableHighAccuracy:false,timeout:8000,maximumAge:60000});
 }
 function startLiveTransitSample(route){
   const el=document.getElementById('liveTransitJourney');if(!el)return;
@@ -6529,6 +6602,8 @@ function initLiveTransitLayer(){
   document.getElementById('liveTransitRefreshBtn')?.addEventListener('click',()=>{renderLiveTransitLocation();renderLiveTransitBoard();});
   document.getElementById('moveTo')?.addEventListener('change',()=>{renderLiveTransitBoard();document.getElementById('liveTransitJourney').innerHTML='';});
 }
+
+document.addEventListener('DOMContentLoaded',()=>{ initLiveWeather(); });
 
 document.addEventListener('DOMContentLoaded',()=>{
   setTimeout(ensureVisitorFilterUI,250);
