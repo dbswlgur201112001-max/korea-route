@@ -231,13 +231,10 @@ export default async function handler(req, res) {
   const departureName = korailQueryStationName(departureDisplayName);
   const arrivalName = korailQueryStationName(arrivalDisplayName);
 
-  const query = new URLSearchParams();
-  query.set('serviceKey', apiKey);
-  query.set('returnType', 'JSON');
-
   const debugMode = req.query?.debug || '';
-  const pageSize = 10000;
-  const maxPages = 10;
+  const FAST_PAGE_SIZE = 1000;
+  const FAST_MAX_PAGES = 2;
+  const FETCH_TIMEOUT_MS = 4500;
 
   function diagnosticQueryFor(q) {
     return Array.from(q.entries())
@@ -245,12 +242,31 @@ export default async function handler(req, res) {
       .join('&');
   }
 
-  async function fetchRailPage(pageNo) {
-    const pageQuery = new URLSearchParams(query);
-    pageQuery.set('pageNo', String(pageNo));
-    pageQuery.set('numOfRows', String(pageSize));
-    const pageUrl = `${apiUrl}${apiUrl.includes('?') ? '&' : '?'}${pageQuery.toString()}`;
-    const upstream = await fetch(pageUrl, { headers: { Accept: 'application/json' } });
+  async function fetchWithTimeout(url, timeoutMs = FETCH_TIMEOUT_MS) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      return await fetch(url, {
+        headers: { Accept: 'application/json' },
+        signal: controller.signal
+      });
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  async function fetchRailQuery(extraEntries = {}, pageNo = 1, numOfRows = FAST_PAGE_SIZE) {
+    const q = new URLSearchParams();
+    q.set('serviceKey', apiKey);
+    q.set('returnType', 'JSON');
+    q.set('pageNo', String(pageNo));
+    q.set('numOfRows', String(numOfRows));
+    for(const [key,value] of Object.entries(extraEntries)){
+      if(value !== undefined && value !== null && value !== '') q.set(key, String(value));
+    }
+
+    const url = `${apiUrl}${apiUrl.includes('?') ? '&' : '?'}${q.toString()}`;
+    const upstream = await fetchWithTimeout(url);
     const bodyText = await upstream.text();
     let raw;
     try {
@@ -259,118 +275,76 @@ export default async function handler(req, res) {
       const error = new Error('The rail API returned a non-JSON response.');
       error.code = 'RAIL_UPSTREAM_NON_JSON';
       error.status = upstream.status;
-      error.diagnosticQuery = diagnosticQueryFor(pageQuery);
+      error.diagnosticQuery = diagnosticQueryFor(q);
       throw error;
     }
-    if (!upstream.ok) {
+
+    if(!upstream.ok){
       const error = new Error('The rail API returned an upstream error.');
       error.code = 'RAIL_UPSTREAM_ERROR';
       error.status = upstream.status;
       error.details = raw;
-      error.diagnosticQuery = diagnosticQueryFor(pageQuery);
+      error.diagnosticQuery = diagnosticQueryFor(q);
       throw error;
     }
+
     return {
       raw,
       normalized: normalizeItems(raw),
-      diagnosticQuery: diagnosticQueryFor(pageQuery)
+      diagnosticQuery: diagnosticQueryFor(q)
     };
   }
 
   try {
-    const firstPage = await fetchRailPage(1);
-    const providerCount = providerTotalCount(firstPage.raw) || firstPage.normalized.length;
-    const effectivePageSize = providerPageSize(
-      firstPage.raw,
-      firstPage.normalized.length || pageSize
-    );
-    const totalPages = Math.max(1, Math.ceil(providerCount / effectivePageSize));
-    const pagesToScan = Math.min(totalPages, maxPages);
+    // Fast-path 1: exact date only. This is intentionally small and cheap.
+    // The provider previously behaved inconsistently with combined station/date
+    // cond filters, so we test the date alone first and filter stations locally.
+    let strategy = 'date-eq';
+    let pages = [];
+    let diagnostics = [];
+    let fetchedCount = 0;
+    let filteredTrains = [];
 
-    let scannedPages = 1;
-    let fetchedCount = firstPage.normalized.length;
-    let filteredTrains = filterNormalizedTrains(
-      firstPage.normalized,
-      departureName,
-      arrivalName,
-      runYmd
-    );
-
-    let matchDiagnostics = scanMatchDiagnostics(
-      firstPage.normalized,
-      departureName,
-      arrivalName,
-      runYmd
-    );
-
-    const diagnosticQueries = [firstPage.diagnosticQuery];
-    const runDateCounts = {};
-    const countRunDates = (trains) => {
-      for(const train of (Array.isArray(trains) ? trains : [])){
-        const day = trainRunDate(train);
-        if(day) runDateCounts[day] = (runDateCounts[day] || 0) + 1;
-      }
+    const dateOnly = {
+      'cond[run_ymd::EQ]': runYmd
     };
-    countRunDates(firstPage.normalized);
 
-    const rawSamples = [];
-    const pushRawSamples = (raw) => {
-      for(const item of rawItems(raw)){
-        if(rawSamples.length >= 5) break;
-        rawSamples.push(item);
+    for(let pageNo = 1; pageNo <= FAST_MAX_PAGES; pageNo += 1){
+      const page = await fetchRailQuery(dateOnly, pageNo, FAST_PAGE_SIZE);
+      pages.push(page);
+      diagnostics.push(page.diagnosticQuery);
+      fetchedCount += page.normalized.length;
+
+      const matches = filterNormalizedTrains(
+        page.normalized,
+        departureName,
+        arrivalName,
+        runYmd
+      );
+      if(matches.length){
+        filteredTrains = matches;
+        break;
       }
-    };
-    pushRawSamples(firstPage.raw);
 
-    if(debugMode !== 'all' && filteredTrains.length === 0){
-      for(let pageNo = 2; pageNo <= pagesToScan; pageNo += 1){
-        const page = await fetchRailPage(pageNo);
-        scannedPages += 1;
-        fetchedCount += page.normalized.length;
-        diagnosticQueries.push(page.diagnosticQuery);
-        countRunDates(page.normalized);
-        pushRawSamples(page.raw);
-        const matches = filterNormalizedTrains(
-          page.normalized,
-          departureName,
-          arrivalName,
-          runYmd
-        );
-        const pageDiagnostics = scanMatchDiagnostics(
-          page.normalized,
-          departureName,
-          arrivalName,
-          runYmd
-        );
-
-        matchDiagnostics.dateCount += pageDiagnostics.dateCount;
-        matchDiagnostics.routeCount += pageDiagnostics.routeCount;
-        matchDiagnostics.matchedCount += pageDiagnostics.matchedCount;
-        matchDiagnostics.sawTargetDate = matchDiagnostics.sawTargetDate || pageDiagnostics.sawTargetDate;
-        matchDiagnostics.sawAfterTargetDate = matchDiagnostics.sawAfterTargetDate || pageDiagnostics.sawAfterTargetDate;
-        if(matchDiagnostics.dateSamples.length < 5){
-          matchDiagnostics.dateSamples.push(
-            ...pageDiagnostics.dateSamples.slice(0, 5 - matchDiagnostics.dateSamples.length)
-          );
-        }
-        if(matchDiagnostics.routeSamples.length < 5){
-          matchDiagnostics.routeSamples.push(
-            ...pageDiagnostics.routeSamples.slice(0, 5 - matchDiagnostics.routeSamples.length)
-          );
-        }
-
-        if(matches.length){
-          filteredTrains = matches;
-          break;
-        }
-
-        // Provider data appears ordered by run date. Once the target date has
-        // been seen and later dates are reached, continuing through every page
-        // is unnecessary for this city/date lookup.
-        if(matchDiagnostics.sawTargetDate && pageDiagnostics.sawAfterTargetDate) break;
-        if(page.normalized.length < effectivePageSize) break;
-      }
+      if(page.normalized.length < FAST_PAGE_SIZE) break;
     }
+
+    // Fast-path 2: one broad page only, then local filtering.
+    // Never scan tens of thousands of rows during a normal user search.
+    if(filteredTrains.length === 0){
+      strategy = 'broad-single-page';
+      const broad = await fetchRailQuery({}, 1, FAST_PAGE_SIZE);
+      diagnostics.push(broad.diagnosticQuery);
+      fetchedCount += broad.normalized.length;
+      filteredTrains = filterNormalizedTrains(
+        broad.normalized,
+        departureName,
+        arrivalName,
+        runYmd
+      );
+    }
+
+    const providerCount = pages[0] ? providerTotalCount(pages[0].raw) : null;
 
     return res.status(200).json({
       configured: true,
@@ -388,25 +362,16 @@ export default async function handler(req, res) {
         runYmd,
         debugMode
       },
-      diagnosticQuery: diagnosticQueries[diagnosticQueries.length - 1],
-      diagnosticQueries,
+      strategy,
+      fastPageSize: FAST_PAGE_SIZE,
+      fastMaxPages: FAST_MAX_PAGES,
+      fetchTimeoutMs: FETCH_TIMEOUT_MS,
+      diagnosticQuery: diagnostics[diagnostics.length - 1] || null,
+      diagnosticQueries: diagnostics,
       providerCount,
-      requestedPageSize: pageSize,
-      effectivePageSize,
-      maxPages,
-      totalPages,
-      scannedPages,
       fetchedCount,
       matchedCount: filteredTrains.length,
-      targetDateCount: matchDiagnostics.dateCount,
-      targetRouteCount: matchDiagnostics.routeCount,
-      matchDiagnostics: debugMode === 'matchdiag' ? matchDiagnostics : undefined,
-      rawSamples: debugMode === 'rawsample' ? rawSamples : undefined,
-      rawSampleKeys: debugMode === 'rawsample'
-        ? Array.from(new Set(rawSamples.flatMap((item) => Object.keys(item || {})))).sort()
-        : undefined,
-      runDateCounts: debugMode === 'rawsample' ? runDateCounts : undefined,
-      trains: debugMode === 'all' ? firstPage.normalized : filteredTrains
+      trains: filteredTrains
     });
   } catch (error) {
     return res.status(502).json({
