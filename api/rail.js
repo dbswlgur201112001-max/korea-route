@@ -233,7 +233,7 @@ export default async function handler(req, res) {
 
   const debugMode = req.query?.debug || '';
   const PAGE_SIZE = 1000;
-  const MAX_PAGES = 3;
+  const MAX_BINARY_STEPS = 8;
   const FETCH_TIMEOUT_MS = 4500;
 
   function diagnosticQueryFor(q) {
@@ -287,59 +287,118 @@ export default async function handler(req, res) {
     }
 
     return {
+      pageNo,
       raw,
       normalized: normalizeItems(raw),
       diagnosticQuery: diagnosticQueryFor(q)
     };
   }
 
+  function pageDateRange(trains) {
+    const days = (Array.isArray(trains) ? trains : [])
+      .map(trainRunDate)
+      .filter(Boolean)
+      .sort();
+    return {
+      min: days[0] || null,
+      max: days[days.length - 1] || null
+    };
+  }
+
   try {
-    let providerCount = null;
-    let fetchedCount = 0;
-    let scannedPages = 0;
-    let filteredTrains = [];
-    let targetDateCount = 0;
-    let sawTargetDate = false;
-    let sawAfterTargetDate = false;
-    const diagnosticQueries = [];
+    const first = await fetchBroadPage(1);
+    const providerCount = providerTotalCount(first.raw) || first.normalized.length;
+    const totalPages = Math.max(1, Math.ceil(providerCount / PAGE_SIZE));
 
-    for(let pageNo = 1; pageNo <= MAX_PAGES; pageNo += 1){
-      const page = await fetchBroadPage(pageNo);
+    let fetchedCount = first.normalized.length;
+    let scannedPages = 1;
+    const diagnosticQueries = [first.diagnosticQuery];
+    const pageRanges = [{ pageNo: 1, ...pageDateRange(first.normalized) }];
+
+    let targetPages = [];
+    const firstRange = pageRanges[0];
+
+    if(firstRange.min && firstRange.max && runYmd >= firstRange.min && runYmd <= firstRange.max){
+      targetPages = [first];
+    }else if(totalPages > 1){
+      const last = await fetchBroadPage(totalPages);
+      fetchedCount += last.normalized.length;
       scannedPages += 1;
-      fetchedCount += page.normalized.length;
-      diagnosticQueries.push(page.diagnosticQuery);
+      diagnosticQueries.push(last.diagnosticQuery);
 
-      if(providerCount === null){
-        providerCount = providerTotalCount(page.raw);
-      }
+      const lastRange = { pageNo: totalPages, ...pageDateRange(last.normalized) };
+      pageRanges.push(lastRange);
 
-      const matches = filterNormalizedTrains(
-        page.normalized,
-        departureName,
-        arrivalName,
-        runYmd
-      );
+      const ascending =
+        firstRange.min && lastRange.min
+          ? firstRange.min <= lastRange.min
+          : true;
 
-      if(matches.length){
-        filteredTrains.push(...matches);
-      }
+      let low = 1;
+      let high = totalPages;
+      let steps = 0;
 
-      for(const train of page.normalized){
-        const day = trainRunDate(train);
-        if(day === runYmd){
-          sawTargetDate = true;
-          targetDateCount += 1;
-        }else if(sawTargetDate && day && day > runYmd){
-          sawAfterTargetDate = true;
+      while(low <= high && steps < MAX_BINARY_STEPS){
+        const mid = Math.floor((low + high) / 2);
+
+        let page;
+        if(mid === 1) page = first;
+        else if(mid === totalPages) page = last;
+        else {
+          page = await fetchBroadPage(mid);
+          fetchedCount += page.normalized.length;
+          scannedPages += 1;
+          diagnosticQueries.push(page.diagnosticQuery);
+        }
+
+        const range = pageDateRange(page.normalized);
+        pageRanges.push({ pageNo: mid, ...range });
+        steps += 1;
+
+        if(range.min && range.max && runYmd >= range.min && runYmd <= range.max){
+          targetPages = [page];
+
+          // Date rows can straddle a page boundary. Check immediate neighbors only.
+          for(const neighborNo of [mid - 1, mid + 1]){
+            if(neighborNo < 1 || neighborNo > totalPages) continue;
+            const neighbor = await fetchBroadPage(neighborNo);
+            fetchedCount += neighbor.normalized.length;
+            scannedPages += 1;
+            diagnosticQueries.push(neighbor.diagnosticQuery);
+
+            const neighborRange = pageDateRange(neighbor.normalized);
+            pageRanges.push({ pageNo: neighborNo, ...neighborRange });
+
+            if(neighborRange.min && neighborRange.max &&
+               runYmd >= neighborRange.min && runYmd <= neighborRange.max){
+              targetPages.push(neighbor);
+            }
+          }
+          break;
+        }
+
+        if(!range.min || !range.max) break;
+
+        if(ascending){
+          if(runYmd < range.min) high = mid - 1;
+          else low = mid + 1;
+        }else{
+          if(runYmd > range.max) high = mid - 1;
+          else low = mid + 1;
         }
       }
-
-      // Once the requested date has been fully traversed, stop.
-      if(sawTargetDate && sawAfterTargetDate) break;
-
-      // If the page is short, there are no more rows.
-      if(page.normalized.length < PAGE_SIZE) break;
     }
+
+    const targetDateRows = targetPages.flatMap(p =>
+      p.normalized.filter(train => trainRunDate(train) === runYmd)
+    );
+
+    const filteredTrains = filterNormalizedTrains(
+      targetDateRows,
+      departureName,
+      arrivalName,
+      runYmd
+    );
 
     return res.status(200).json({
       configured: true,
@@ -357,17 +416,20 @@ export default async function handler(req, res) {
         runYmd,
         debugMode
       },
-      strategy: 'broad-date-window',
+      strategy: 'date-page-binary-search',
       pageSize: PAGE_SIZE,
-      maxPages: MAX_PAGES,
+      maxBinarySteps: MAX_BINARY_STEPS,
       fetchTimeoutMs: FETCH_TIMEOUT_MS,
       providerCount,
+      totalPages,
       scannedPages,
       fetchedCount,
-      targetDateCount,
+      targetDateCount: targetDateRows.length,
       matchedCount: filteredTrains.length,
+      targetPageNumbers: targetPages.map(p => p.pageNo),
+      pageRanges: debugMode === 'pagediag' ? pageRanges : undefined,
       diagnosticQuery: diagnosticQueries[diagnosticQueries.length - 1] || null,
-      diagnosticQueries,
+      diagnosticQueries: debugMode === 'pagediag' ? diagnosticQueries : undefined,
       trains: filteredTrains
     });
   } catch (error) {
