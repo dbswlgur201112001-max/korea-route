@@ -1,10 +1,43 @@
-const CACHE='korea-route-0830-rail-fast-date-window';
-const ASSETS=['./','./index.html','./manifest.json','./icon-192.png','./icon-512.png'];
-self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)));self.skipWaiting();});
-self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim();});
-self.addEventListener('fetch',e=>{
-  const u=new URL(e.request.url);
-  if(u.pathname.startsWith('/api/')) return;
-  if(u.hostname.includes('tile.openstreetmap.org')||u.hostname.includes('unpkg.com')) return;
-  e.respondWith(fetch(e.request).catch(()=>caches.match(e.request).then(r=>r||caches.match('./index.html'))));
+const CACHE='korea-route-public-beta-v35-0830';
+const ASSETS=['/','/index.html','/manifest.json','/icon-192.png','/icon-512.png'];
+
+self.addEventListener('install',event=>{
+  event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)));
+  self.skipWaiting();
+});
+
+self.addEventListener('activate',event=>{
+  event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))));
+  self.clients.claim();
+});
+
+self.addEventListener('fetch',event=>{
+  const request=event.request;
+  if(request.method!=='GET') return;
+  const url=new URL(request.url);
+
+  // Serverless APIs must always stay network-only.
+  if(url.origin===self.location.origin && url.pathname.startsWith('/api/')) return;
+
+  // External map/library resources keep their normal network behavior.
+  if(url.origin!==self.location.origin) return;
+
+  if(request.mode==='navigate'){
+    event.respondWith(
+      fetch(request)
+        .then(response=>{
+          if(response.ok){
+            const copy=response.clone();
+            caches.open(CACHE).then(cache=>cache.put('/index.html',copy)).catch(()=>{});
+          }
+          return response;
+        })
+        .catch(()=>caches.match('/index.html'))
+    );
+    return;
+  }
+
+  event.respondWith(
+    fetch(request).catch(()=>caches.match(request))
+  );
 });
