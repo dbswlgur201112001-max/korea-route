@@ -461,6 +461,7 @@ background-size:32px 32px,32px 32px,100% 100%}
 .wallet-btn.primary{background:#0b2345;color:#fff}
 .wallet-btn.secondary{background:#edf3fa;color:#315b88}
 .wallet-note{font-size:7px;line-height:1.45;color:#8592a2;margin-top:9px}
+.tax-refund-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}.tax-refund-field{border:1px solid #dce4ee;background:#fbfdff;border-radius:14px;padding:10px}.tax-refund-field label{display:block;font-size:8px;font-weight:950;color:#65768c;margin-bottom:6px}.tax-refund-field input[type=number]{width:100%;border:1px solid #dce4ee;border-radius:10px;padding:10px;font-size:12px;background:#fff;color:#10233f}.tax-refund-checks{display:grid;gap:7px;margin:10px 0}.tax-refund-check{display:flex;gap:9px;align-items:flex-start;padding:10px;border:1px solid #e1e7ef;border-radius:13px;background:#fbfdff}.tax-refund-check input{margin-top:2px}.tax-refund-check b{display:block;font-size:10px;color:#203653}.tax-refund-check span{display:block;font-size:8px;line-height:1.45;color:#77879a;margin-top:2px}.tax-refund-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.tax-refund-actions button{border:1px solid #dce4ee;background:#f8fbff;color:#203653;border-radius:13px;padding:11px 9px;font-size:10px;font-weight:950}.tax-refund-actions button.primary{grid-column:1/-1;background:#10233f;border-color:#10233f;color:#fff}.tax-refund-result{display:none;margin-top:12px;border-radius:15px;padding:12px;background:#eef5ff;color:#244464}.tax-refund-result.show{display:block}.tax-refund-result.good{background:#eefaf3;color:#176a46}.tax-refund-result.warn{background:#fff7e8;color:#795b15}.tax-refund-result h4{font-size:12px;margin:0 0 6px}.tax-refund-result p{font-size:9px;line-height:1.55;margin:5px 0}.tax-refund-facts{display:grid;gap:7px;margin-top:10px}.tax-refund-fact{padding:10px;border-radius:13px;background:#f5f8fc}.tax-refund-fact b{display:block;font-size:10px;color:#203653}.tax-refund-fact span{display:block;font-size:8px;line-height:1.5;color:#6f8095;margin-top:3px}.tax-refund-source{margin-top:11px;font-size:8px;line-height:1.5;color:#7b899a}.tax-refund-phrase{margin-top:10px;padding:13px;border-radius:14px;background:#10233f;color:#fff;text-align:center}.tax-refund-phrase b{display:block;font-size:22px;line-height:1.3}.tax-refund-phrase span{display:block;font-size:9px;opacity:.72;margin-top:5px}@media(max-width:420px){.tax-refund-grid{grid-template-columns:1fr}}
 .fx-card{border:1px solid #dce6f2;border-radius:15px;padding:12px;margin:12px 0 10px;background:#f8fbff}.fx-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.fx-head h3{margin:0;font-size:11px;color:#17365b}.fx-head p{margin:4px 0 0;font-size:7px;line-height:1.45;color:#718197}.fx-badge{font-size:7px;font-weight:900;border-radius:999px;padding:5px 7px;background:#e7f3ec;color:#2f6c4b;white-space:nowrap}.fx-controls{display:grid;grid-template-columns:1fr .8fr;gap:7px;margin-top:10px}.fx-controls input,.fx-controls select{width:100%;border:1px solid #dfe7ef;border-radius:11px;padding:10px;font-size:10px;background:#fff}.fx-result{margin-top:9px;border-radius:12px;padding:11px;background:#fff;border:1px solid #e4ebf3}.fx-result strong{display:block;font-size:18px;color:#10233f}.fx-result span{display:block;margin-top:4px;font-size:7px;line-height:1.45;color:#7b8798}.fx-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.fx-mini{border:0;border-radius:10px;padding:8px 10px;font-size:8px;font-weight:900;background:#edf3fa;color:#315b88}.fx-mini.primary{background:#0b2345;color:#fff}
 
 
@@ -537,7 +538,8 @@ background-size:32px 32px,32px 32px,100% 100%}
 @media(max-width:520px){.airport-option-grid{grid-template-columns:1fr 1fr}.airport-option-head{align-items:flex-start}}
 
 
-.taxi-show-btn{margin-top:8px;border:1px solid rgba(11,35,69,.18);background:#fff;color:#0b2345;border-radius:999px;padding:7px 10px;font-size:10px;font-weight:900;cursor:pointer}
+.taxi-show-btn,.uber-ride-btn{margin-top:8px;border:1px solid rgba(11,35,69,.18);background:#fff;color:#0b2345;border-radius:999px;padding:7px 10px;font-size:10px;font-weight:900;cursor:pointer}
+.uber-ride-btn{background:#0b2345;color:#fff}
 .taxi-layer{position:fixed;inset:0;z-index:9999;background:rgba(4,12,26,.62);display:none;align-items:flex-end;justify-content:center;padding:14px}
 .taxi-layer.show{display:flex}
 .taxi-card{width:min(560px,100%);background:#fff;color:#10233f;border-radius:24px;padding:18px;box-shadow:0 30px 80px rgba(0,0,0,.28)}
@@ -553,6 +555,14 @@ background-size:32px 32px,32px 32px,100% 100%}
 .taxi-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
 .taxi-actions button{border:0;border-radius:13px;padding:12px;background:#0b2345;color:#fff;font-weight:900;cursor:pointer}
 .taxi-note{font-size:10px;color:#7a8799;line-height:1.5;margin-top:12px}
+.destination-card-label{margin-top:14px;font-size:10px;font-weight:950;letter-spacing:.08em;color:#6c7b91}
+.destination-info-grid{display:grid;gap:8px;margin-top:4px}
+.destination-info-grid>div{display:grid;gap:4px;padding:11px 12px;border-radius:14px;background:#f5f8fc}
+.destination-info-grid span{font-size:10px;color:#6c7b91;font-weight:850}
+.destination-info-grid b{font-size:12px;line-height:1.45;overflow-wrap:anywhere}
+.destination-card-actions{grid-template-columns:1fr 1fr 1fr}
+.destination-card-actions .uber-ride-btn{margin-top:0}
+@media(max-width:430px){.destination-card-actions{grid-template-columns:1fr 1fr}.destination-card-actions .uber-ride-btn{grid-column:1/-1}.saved-place-actions{flex-wrap:wrap;justify-content:flex-end}}
 @media(min-width:700px){.taxi-layer{align-items:center}.taxi-card{padding:22px}}
 
 
@@ -583,7 +593,8 @@ background-size:32px 32px,32px 32px,100% 100%}
 .phrase-sheet-layer{position:fixed;inset:0;z-index:10000;background:rgba(4,12,26,.62);display:none;align-items:flex-end;justify-content:center;padding:12px}.phrase-sheet-layer.show{display:flex}
 .phrase-sheet{width:min(560px,100%);max-height:88vh;overflow:auto;background:#fff;color:#10233f;border-radius:24px;padding:18px}.phrase-sheet-head{display:flex;justify-content:space-between;align-items:flex-start}.phrase-sheet-head span{font-size:10px;font-weight:950;letter-spacing:.12em;color:#6c7b91}.phrase-sheet-head h3{margin:3px 0 12px}.phrase-sheet-head button{border:0;background:#eef2f7;width:34px;height:34px;border-radius:50%;font-size:22px}
 .phrase-list{display:grid;gap:8px}.phrase-card{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;text-align:left;border:1px solid #e4e9f0;background:#fff;border-radius:15px;padding:12px;color:#10233f}.phrase-card.selected{outline:2px solid rgba(212,175,55,.55)}.phrase-icon{font-size:22px}.phrase-card b{display:block;font-size:17px}.phrase-card small{display:block;color:#6c7b91;margin-top:3px}.phrase-card em{font-size:10px;font-style:normal;font-weight:900}.phrase-disclaimer{font-size:10px;color:#78869a;line-height:1.5;margin:12px 2px 0}.phrase-focus{padding:8px 2px 2px;text-align:center}.phrase-focus-badge{display:inline-flex;align-items:center;gap:5px;border-radius:999px;background:#eef3f8;color:#52647a;font-size:10px;font-weight:950;padding:6px 9px}.phrase-focus-icon{font-size:34px;margin:14px 0 4px}.phrase-focus-ko{font-size:clamp(30px,9vw,48px);font-weight:950;line-height:1.22;letter-spacing:-.03em;color:#0e213c;word-break:keep-all}.phrase-focus-en{margin:12px auto 0;max-width:420px;font-size:14px;line-height:1.45;color:#66768b;font-weight:800}.phrase-focus-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px}.phrase-focus-actions button{border:1px solid #dce4ee;background:#f8fbff;color:#203653;border-radius:14px;padding:12px 10px;font-size:12px;font-weight:950}.phrase-focus-actions button.primary{grid-column:1/-1;background:#10233f;border-color:#10233f;color:#fff}.phrase-focus-note{margin:12px 2px 0;font-size:10px;line-height:1.5;color:#7e8b9d}
-.translation-launch-row{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:8px;margin-top:11px}.translation-launch-row button{border:1px solid #dce4ee;border-radius:13px;padding:11px 10px;background:#fff;color:#203653;font-size:10px;font-weight:950;cursor:pointer}.translation-launch-row button.primary{background:#10233f;border-color:#10233f;color:#fff}.translate-sheet{display:grid;gap:11px}.translate-direction{display:grid;grid-template-columns:1fr auto 1fr;gap:7px;align-items:center}.translate-direction button{border:1px solid #dce4ee;background:#f8fbff;color:#203653;border-radius:12px;padding:10px 8px;font-size:10px;font-weight:950}.translate-direction .swap{width:42px;height:38px;padding:0;border-radius:50%;font-size:16px}.translate-box{border:1px solid #e1e7ef;border-radius:15px;padding:11px;background:#fbfdff}.translate-box label{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:9px;font-weight:950;color:#65768c;margin-bottom:7px}.translate-box textarea{width:100%;min-height:104px;resize:vertical;border:0;outline:0;background:transparent;color:#10233f;font:800 15px/1.45 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}.translate-count{font-size:8px;color:#8a97a8}.translate-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.translate-actions button{border:1px solid #dce4ee;background:#f8fbff;color:#203653;border-radius:13px;padding:11px 9px;font-size:10px;font-weight:950}.translate-actions button.primary{grid-column:1/-1;background:#2f6fed;border-color:#2f6fed;color:#fff}.translate-status{padding:9px 10px;border-radius:12px;background:#f4f7fb;color:#65768c;font-size:9px;font-weight:800;line-height:1.45}.translate-status.ok{background:#eefaf3;color:#20724e}.translate-status.warn{background:#fff7e8;color:#8a5a10}.translate-result{display:none;border-radius:18px;padding:16px;background:#0f2342;color:#fff;text-align:center}.translate-result.show{display:block}.translate-result .label{font-size:9px;font-weight:950;letter-spacing:.1em;opacity:.66}.translate-result .big{font-size:clamp(25px,8vw,42px);font-weight:950;line-height:1.25;word-break:keep-all;margin:10px 0}.translate-result .small{font-size:11px;line-height:1.45;opacity:.76;word-break:break-word}.translate-result-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:13px}.translate-result-actions button{border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.1);color:#fff;border-radius:12px;padding:10px 8px;font-size:9px;font-weight:950}.translate-fallback{display:none;padding:11px;border:1px dashed #dfc98d;border-radius:14px;background:#fffaf0}.translate-fallback.show{display:block}.translate-fallback p{margin:0 0 8px;font-size:9px;line-height:1.45;color:#795c16;font-weight:800}.translate-fallback button{width:100%;border:0;border-radius:12px;padding:10px;background:#fff0bd;color:#6d4d00;font-size:10px;font-weight:950}.translate-privacy{font-size:8px;line-height:1.45;color:#7b899a;margin:0 2px}.translate-privacy b{color:#53657c}
+.translation-launch-row{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:8px;margin-top:11px}.translation-launch-row button{border:1px solid #dce4ee;border-radius:13px;padding:11px 10px;background:#fff;color:#203653;font-size:10px;font-weight:950;cursor:pointer}.translation-launch-row button.primary{background:#10233f;border-color:#10233f;color:#fff}
+.food-order-launch{width:100%;margin-top:8px;border:1px solid rgba(212,175,55,.42);border-radius:13px;padding:11px 10px;background:rgba(212,175,55,.08);color:inherit;font-size:10px;font-weight:950;cursor:pointer}.offline-phrase-launch{width:100%;margin-top:8px;border:1px solid #cfdbea;border-radius:13px;padding:11px 10px;background:#f5f9ff;color:#203653;font-size:10px;font-weight:950;cursor:pointer}.food-order-tabs,.offline-phrase-tabs{display:flex;gap:7px;overflow-x:auto;padding-bottom:3px;margin:2px 0 10px;scrollbar-width:none}.food-order-tabs button,.offline-phrase-tabs button{white-space:nowrap;border:1px solid #dce4ee;background:#f8fbff;color:#203653;border-radius:999px;padding:8px 10px;font-size:9px;font-weight:950}.food-order-tabs button.active,.offline-phrase-tabs button.active{background:#10233f;border-color:#10233f;color:#fff}.offline-phrase-summary{margin:0 1px 10px;padding:9px 10px;border-radius:12px;background:#eef5ff;color:#52657c;font-size:9px;line-height:1.45;font-weight:800}.food-order-note{margin:11px 1px 0;padding:10px;border-radius:12px;background:#fff7e8;color:#795b15;font-size:9px;line-height:1.5;font-weight:800}.food-order-focus-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px}.food-order-focus-actions button{border:1px solid #dce4ee;background:#f8fbff;color:#203653;border-radius:14px;padding:12px 10px;font-size:11px;font-weight:950}.food-order-focus-actions button.primary{grid-column:1/-1;background:#10233f;border-color:#10233f;color:#fff}.translate-sheet{display:grid;gap:11px}.translate-direction{display:grid;grid-template-columns:1fr auto 1fr;gap:7px;align-items:center}.translate-direction button{border:1px solid #dce4ee;background:#f8fbff;color:#203653;border-radius:12px;padding:10px 8px;font-size:10px;font-weight:950}.translate-direction .swap{width:42px;height:38px;padding:0;border-radius:50%;font-size:16px}.translate-box{border:1px solid #e1e7ef;border-radius:15px;padding:11px;background:#fbfdff}.translate-box label{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:9px;font-weight:950;color:#65768c;margin-bottom:7px}.translate-box textarea{width:100%;min-height:104px;resize:vertical;border:0;outline:0;background:transparent;color:#10233f;font:800 15px/1.45 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}.translate-count{font-size:8px;color:#8a97a8}.translate-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.translate-actions button{border:1px solid #dce4ee;background:#f8fbff;color:#203653;border-radius:13px;padding:11px 9px;font-size:10px;font-weight:950}.translate-actions button.primary{grid-column:1/-1;background:#2f6fed;border-color:#2f6fed;color:#fff}.translate-status{padding:9px 10px;border-radius:12px;background:#f4f7fb;color:#65768c;font-size:9px;font-weight:800;line-height:1.45}.translate-status.ok{background:#eefaf3;color:#20724e}.translate-status.warn{background:#fff7e8;color:#8a5a10}.translate-result{display:none;border-radius:18px;padding:16px;background:#0f2342;color:#fff;text-align:center}.translate-result.show{display:block}.translate-result .label{font-size:9px;font-weight:950;letter-spacing:.1em;opacity:.66}.translate-result .big{font-size:clamp(25px,8vw,42px);font-weight:950;line-height:1.25;word-break:keep-all;margin:10px 0}.translate-result .small{font-size:11px;line-height:1.45;opacity:.76;word-break:break-word}.translate-result-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:13px}.translate-result-actions button{border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.1);color:#fff;border-radius:12px;padding:10px 8px;font-size:9px;font-weight:950}.translate-fallback{display:none;padding:11px;border:1px dashed #dfc98d;border-radius:14px;background:#fffaf0}.translate-fallback.show{display:block}.translate-fallback p{margin:0 0 8px;font-size:9px;line-height:1.45;color:#795c16;font-weight:800}.translate-fallback button{width:100%;border:0;border-radius:12px;padding:10px;background:#fff0bd;color:#6d4d00;font-size:10px;font-weight:950}.translate-privacy{font-size:8px;line-height:1.45;color:#7b899a;margin:0 2px}.translate-privacy b{color:#53657c}
 @media(min-width:700px){.phrase-sheet-layer{align-items:center}}
 
 
@@ -653,7 +664,7 @@ background-size:32px 32px,32px 32px,100% 100%}
 .city-map-health{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:7px;padding:8px 10px;border:1px solid var(--line);border-radius:13px;background:#f8fbff;font-size:9px;font-weight:850;color:var(--muted)}
 .city-map-health-left{display:flex;align-items:center;gap:6px;min-width:0}.city-map-health-dot{width:8px;height:8px;border-radius:50%;background:#9aa8b8;flex:0 0 auto}.city-map-health.ready .city-map-health-dot{background:#1f9d61}.city-map-health.loading .city-map-health-dot{background:#e0a426}.city-map-health.error .city-map-health-dot{background:#d84a4a}.city-map-health button{border:0;border-radius:999px;background:#eaf1fb;color:#0b2345;padding:7px 9px;font-size:9px;font-weight:900;white-space:nowrap}.city-map-primary .map-expand-btn{background:#edf2fb;color:#0b2345}.city-map-focus .city-map-health{position:sticky;bottom:0;z-index:4;background:rgba(248,251,255,.96)}
 .city-map-search{margin:0 0 10px;position:relative}.city-map-searchbox{display:grid;grid-template-columns:34px minmax(0,1fr) 64px;gap:6px;align-items:center;border:1px solid rgba(47,111,237,.22);border-radius:16px;padding:7px 7px 7px 10px;background:#fff;box-shadow:0 8px 22px rgba(15,44,84,.06)}.city-map-searchico{font-size:15px;display:grid;place-items:center}.city-map-searchbox input{min-width:0;border:0;outline:0;background:transparent;color:var(--ink);font-size:11px;font-weight:850;padding:8px 2px}.city-map-searchbox button{border:0;border-radius:12px;background:#0b2345;color:#fff;font-size:9px;font-weight:950;padding:10px 8px;cursor:pointer}.city-map-search-hint{font-size:8px;color:var(--muted);font-weight:800;margin:5px 3px 0}.city-map-search-results{display:none;margin-top:7px;border:1px solid var(--line);border-radius:15px;background:#fff;overflow:hidden;box-shadow:0 12px 28px rgba(11,35,69,.12)}.city-map-search-results.show{display:block}.city-map-search-result{width:100%;display:flex;align-items:center;gap:9px;border:0;border-bottom:1px solid #edf1f6;background:#fff;padding:10px 11px;text-align:left;cursor:pointer}.city-map-search-result:last-child{border-bottom:0}.city-map-search-result .ico{width:28px;height:28px;border-radius:10px;background:#eef4ff;display:grid;place-items:center;font-size:14px;flex:0 0 auto}.city-map-search-result .txt{min-width:0;flex:1}.city-map-search-result b{display:block;font-size:10px;color:#0b2345;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.city-map-search-result small{display:block;margin-top:2px;font-size:8px;color:var(--muted);font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.city-map-search-meta{display:flex;align-items:center;gap:5px;margin-top:4px;min-width:0}.city-map-search-cat{display:inline-flex;align-items:center;max-width:92px;border-radius:999px;padding:3px 7px;background:#f1f5fb;color:#42526a;font-size:7px;font-weight:950;line-height:1;white-space:nowrap}.city-map-search-source{font-size:7px;color:var(--muted);font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.city-map-search-empty{padding:11px;font-size:9px;color:var(--muted);font-weight:850}.city-map-focus .city-map-search{position:sticky;top:94px;z-index:5;background:rgba(255,255,255,.97);padding-bottom:2px}
-.city-map-nearby{margin:8px 0 4px;padding:9px;border:1px solid #e3eaf4;border-radius:15px;background:#f8fbff}.city-map-nearby-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px}.city-map-nearby-head b{font-size:9px;color:#0b2345}.city-map-nearby-head small{font-size:7px;color:var(--muted);font-weight:800}.city-map-nearby-row{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.city-map-nearby-row::-webkit-scrollbar{display:none}.city-map-nearby-btn{flex:0 0 auto;border:1px solid #dfe7f2;background:#fff;border-radius:12px;padding:8px 10px;font-size:8px;font-weight:950;color:#33445d;cursor:pointer}.city-map-nearby-btn:active{transform:scale(.98)}
+.city-map-nearby{margin:8px 0 4px;padding:9px;border:1px solid #e3eaf4;border-radius:15px;background:#f8fbff}.city-map-nearby-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px}.city-map-nearby-head b{font-size:9px;color:#0b2345}.city-map-nearby-head small{font-size:7px;color:var(--muted);font-weight:800}.city-map-nearby-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}.city-map-nearby-btn{min-width:0;border:1px solid #dfe7f2;background:#fff;border-radius:12px;padding:9px 5px;font-size:8px;font-weight:950;color:#33445d;cursor:pointer;white-space:normal;line-height:1.25}.city-map-nearby-btn span{display:block;margin-top:2px;overflow-wrap:anywhere}.city-map-nearby-btn:active{transform:scale(.98)}.city-map-nearby-more{margin-top:7px;border-top:1px solid #e6edf6;padding-top:6px}.city-map-nearby-more summary{cursor:pointer;list-style:none;font-size:8px;font-weight:950;color:#68788d;padding:4px 2px}.city-map-nearby-more summary::-webkit-details-marker{display:none}.city-map-nearby-more summary::after{content:' ▾';font-size:8px}.city-map-nearby-more[open] summary::after{content:' ▴'}.city-map-nearby-more .city-map-nearby-row{margin-top:5px}@media(max-width:380px){.city-map-nearby-btn{font-size:7px;padding:8px 3px}}
 .city-map-station-essentials{margin-top:9px;padding:9px;border:1px solid #dfe7f2;border-radius:14px;background:#fbfdff}.city-map-station-essentials-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px}.city-map-station-essentials-head b{font-size:8px;color:#0b2345}.city-map-station-essentials-head small{font-size:7px;color:var(--muted);font-weight:800}.city-map-station-essentials-row{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.city-map-station-essentials-row::-webkit-scrollbar{display:none}.city-map-station-essentials-row button{flex:0 0 auto;border:1px solid #dfe7f2;background:#fff;border-radius:11px;padding:8px 9px;font-size:8px;font-weight:950;color:#33445d;cursor:pointer}.city-map-station-info{margin-top:8px;padding:9px;border:1px solid #dce8f7;border-radius:14px;background:#f7fbff}.city-map-station-info-head{display:flex;align-items:center;justify-content:space-between;gap:8px}.city-map-station-info-head b{font-size:8px;color:#0b2345}.city-map-station-info-head button{border:0;background:#0b6cff;color:#fff;border-radius:10px;padding:7px 9px;font-size:7px;font-weight:950;cursor:pointer}.city-map-station-info-note{font-size:7px;color:var(--muted);font-weight:750;line-height:1.45;margin-top:5px}.city-map-station-info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:8px}.city-map-station-info-chip{padding:8px;border:1px solid #e2e9f2;border-radius:11px;background:#fff;display:flex;align-items:center;justify-content:space-between;gap:7px}.city-map-station-info-chip span{font-size:7px;color:#516176;font-weight:850}.city-map-station-info-chip b{font-size:8px;color:#10233f}.city-map-station-info-exits{margin-top:7px;padding:7px 8px;border-radius:10px;background:#fff;border:1px dashed #d9e4f2;font-size:7px;color:#465970;font-weight:800;line-height:1.5}
 .city-map-station-pack{margin-top:9px;padding:10px;border:1px solid rgba(47,111,237,.20);border-radius:15px;background:linear-gradient(180deg,#f8fbff,#fff)}.city-map-station-pack-btn{width:100%;border:0;border-radius:13px;padding:11px 12px;background:#0b6cff;color:#fff;text-align:left;font-size:10px;font-weight:950;cursor:pointer;box-shadow:0 8px 18px rgba(11,108,255,.18)}.city-map-station-pack-btn small{display:block;margin-top:3px;font-size:7px;line-height:1.35;font-weight:800;opacity:.82}.city-map-station-pack-btn:disabled{opacity:.7;cursor:default}.city-map-station-pack-body{margin-top:8px;font-size:8px;color:#53657d;font-weight:800;line-height:1.45}.city-map-station-pack-body.loading{padding:8px;border-radius:11px;background:#f1f5fb}.city-map-station-pack-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.city-map-station-pack-chip{display:flex;align-items:center;justify-content:space-between;gap:7px;padding:8px 9px;border:1px solid #e1e9f4;border-radius:11px;background:#fff}.city-map-station-pack-chip span{font-size:7px;color:#5c6d83}.city-map-station-pack-chip b{font-size:9px;color:#0b2345}.city-map-station-pack-around{margin-top:7px;padding:8px 9px;border-radius:11px;background:#eef5ff;color:#29466f;font-size:7px;font-weight:900;line-height:1.55}.city-map-station-pack-near{margin-top:7px;display:grid;gap:5px}.city-map-station-pack-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;align-items:center;padding:7px 8px;border:1px solid #e5ebf4;border-radius:11px;background:#fff}.city-map-station-pack-item .main{min-width:0;border:0;background:transparent;text-align:left;padding:0;cursor:pointer}.city-map-station-pack-item .main b{display:block;font-size:8px;color:#0b2345;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.city-map-station-pack-item .main small{display:block;margin-top:2px;font-size:7px;color:#7b8da6;font-weight:800}.city-map-station-pack-item .walk{border:0;border-radius:9px;padding:7px 8px;background:#2f6fed;color:#fff;font-size:7px;font-weight:950;white-space:nowrap;cursor:pointer}.city-map-station-pack-note{margin-top:7px;font-size:7px;color:#7a899c;font-weight:750;line-height:1.45}
 .city-map-station-access{margin-top:8px;padding:9px;border:1px solid #dce8f7;border-radius:13px;background:#fff}.city-map-station-access-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px}.city-map-station-access-head b{font-size:8px;color:#0b2345}.city-map-station-access-head small{font-size:7px;color:#7a899c;font-weight:800}.city-map-station-access-list{display:grid;gap:6px}.city-map-station-access-item{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:8px;align-items:center;padding:8px;border:1px solid #e5ebf4;border-radius:11px;background:#fbfdff}.city-map-station-access-item .ico{width:30px;height:30px;border-radius:10px;background:#eef4ff;display:grid;place-items:center;font-size:15px}.city-map-station-access-item .txt{min-width:0}.city-map-station-access-item .txt b{display:block;font-size:8px;color:#0b2345;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.city-map-station-access-item .txt small{display:block;margin-top:2px;font-size:7px;color:#7b8da6;font-weight:800}.city-map-station-access-item button{border:0;border-radius:9px;padding:8px 9px;background:#11a068;color:#fff;font-size:7px;font-weight:950;white-space:nowrap;cursor:pointer}.city-map-station-access-note{margin-top:6px;font-size:7px;color:#7a899c;font-weight:750;line-height:1.4}
@@ -668,7 +679,7 @@ background-size:32px 32px,32px 32px,100% 100%}
 
 .poi-save-btn{border:1px solid rgba(127,127,127,.22);background:transparent;color:inherit;border-radius:999px;padding:7px 9px;font-size:9px;font-weight:900;cursor:pointer}
 .poi-save-btn.saved{background:rgba(212,175,55,.16);border-color:rgba(212,175,55,.55)}
-@media(max-width:420px){.poi-item{grid-template-columns:24px minmax(0,1fr);column-gap:8px;padding:10px 9px}.poi-num{width:24px;height:24px}.poi-action-row{gap:6px}.taxi-show-btn,.poi-map-btn,.poi-save-btn,.poi-directions-from-me{font-size:9px;padding:7px 9px}.visitor-score,.visitor-tag{font-size:10px}}
+@media(max-width:420px){.poi-item{grid-template-columns:24px minmax(0,1fr);column-gap:8px;padding:10px 9px}.poi-num{width:24px;height:24px}.poi-action-row{gap:6px}.taxi-show-btn,.uber-ride-btn,.poi-map-btn,.poi-save-btn,.poi-directions-from-me{font-size:9px;padding:7px 9px}.visitor-score,.visitor-tag{font-size:10px}}
 .mytrip-saved-places{margin:16px 0;padding:16px;border:1px solid rgba(127,127,127,.2);border-radius:18px;background:rgba(127,127,127,.03)}
 .saved-places-head h3{margin:3px 0 12px}.saved-places-list{display:grid;gap:8px}
 .saved-place-row{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:11px;border:1px solid rgba(127,127,127,.16);border-radius:13px}
@@ -992,6 +1003,56 @@ button:disabled{opacity:.55;cursor:not-allowed}
 .beta-release-card button{flex:0 0 auto;min-height:44px;border:0;border-radius:12px;padding:0 13px;background:#0b2345;color:#fff;font-weight:800}
 .release-sample-note{margin-top:9px;font-size:11px;line-height:1.5;color:var(--muted)}
 @media(max-width:520px){.beta-release-card{align-items:stretch;flex-direction:column}.beta-release-card button{width:100%}}
+
+
+/* V46 Check & Ride camera assistant */
+.checkride-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.checkride-grid label{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:900;color:var(--muted)}
+.checkride-grid input,.checkride-grid select{width:100%;min-width:0;border:1px solid var(--line);border-radius:13px;background:#fff;padding:12px 11px;font:inherit;color:var(--ink)}
+.checkride-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.checkride-actions .mini-action,.checkride-actions .screen-link{width:auto;flex:1 1 145px;margin:0}
+.checkride-file{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.checkride-upload{display:flex;align-items:center;justify-content:center;min-height:44px;border:1px solid var(--line);border-radius:14px;background:#fff;padding:10px 12px;font-weight:900;cursor:pointer;flex:1 1 145px;text-align:center}
+.checkride-preview{display:none;margin-top:12px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#eef3f8}
+.checkride-preview.active{display:block}
+.checkride-preview img{display:block;width:100%;max-height:320px;object-fit:contain;background:#111}
+.checkride-meta{padding:9px 11px;font-size:11px;color:var(--muted);font-weight:800}
+.checkride-result{margin-top:12px;border:1px solid var(--line);border-radius:16px;padding:13px;background:#f8fbff}
+.checkride-result b{display:block;font-size:15px;margin-bottom:5px}
+.checkride-result span{display:block;font-size:12px;line-height:1.55;color:var(--muted)}
+.checkride-result .cr-badge{display:inline-flex;width:auto;margin:0 6px 7px 0;padding:6px 9px;border-radius:999px;font-size:11px;font-weight:950;color:#fff;background:#667085}
+.checkride-result.match .cr-badge{background:#11875d}.checkride-result.possible .cr-badge{background:#b7791f}.checkride-result.mismatch .cr-badge{background:#c2413b}.checkride-result.unclear .cr-badge{background:#667085}
+.checkride-evidence{margin-top:9px;padding-top:9px;border-top:1px dashed var(--line)}
+.checkride-note{margin-top:10px;font-size:11px;line-height:1.55;color:var(--muted)}
+@media(max-width:420px){.checkride-grid{grid-template-columns:1fr}.checkride-actions>*{flex-basis:100%}}
+
+
+/* V50 · full recommended-route handoff */
+.v50-route-detail{margin:12px 0 18px;background:#fff;border:1.5px solid #79d2c6;border-radius:22px;padding:16px;box-shadow:0 12px 30px rgba(19,47,88,.08);scroll-margin-top:16px}
+.v50-route-detail[hidden]{display:none!important}
+.v50-detail-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:12px}
+.v50-detail-head h3{margin:2px 0 3px;font-size:18px;letter-spacing:-.35px}.v50-detail-head p{margin:0;color:var(--muted);font-size:10px;line-height:1.45}.v50-detail-pill{font-size:8px;font-weight:950;padding:7px 9px;border-radius:999px;background:#e7faf6;color:#087b6d;white-space:nowrap}
+.v50-journey-line{display:flex;align-items:center;gap:7px;overflow:auto;margin:10px 0 14px;padding:9px 10px;background:#f7f9fc;border-radius:14px;font-size:10px;font-weight:900;scrollbar-width:none}.v50-journey-line::-webkit-scrollbar{display:none}.v50-journey-line .city{white-space:nowrap}.v50-journey-line .arr{color:#8a99ac}
+.v50-step{position:relative;border:1px solid var(--line);border-radius:17px;padding:13px 12px 13px 48px;margin:9px 0;background:#fbfcfe}.v50-step-num{position:absolute;left:12px;top:12px;width:26px;height:26px;border-radius:9px;background:#0b2345;color:#fff;display:grid;place-items:center;font-size:10px;font-weight:950}.v50-step .kicker{color:#56708e;font-size:8px;letter-spacing:.05em}.v50-step b{display:block;font-size:13px;margin:3px 0 4px}.v50-step p{margin:0;color:var(--muted);font-size:10px;line-height:1.48}.v50-leg-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.v50-leg-meta span{font-size:8px;font-weight:850;background:#eef3f9;border-radius:999px;padding:5px 7px;color:#53657d}
+.v50-step-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}.v50-step-actions button,.v50-detail-bottom button{min-height:44px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:9px;font-weight:900;padding:9px}.v50-step-actions button.primary{background:#0b2345;color:#fff;border-color:#0b2345}.v50-detail-note{margin-top:11px;border-radius:14px;padding:10px 11px;background:#fff7e8;color:#70531a;font-size:9px;line-height:1.5;font-weight:750}.v50-detail-bottom{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:10px}.v50-detail-bottom .primary{background:#2f6fed;color:#fff;border-color:#2f6fed}.v50-route-go{width:100%;min-height:44px;border:0;border-radius:13px;background:#0b2345;color:#fff;font-size:10px;font-weight:950;margin-top:11px}.v50-route-sub{font-size:8px;color:var(--muted);margin-top:6px;line-height:1.4}.v50-saved-next{margin-top:8px;padding:9px 10px;border-radius:12px;background:#eef8ff;font-size:9px;color:#31536f;line-height:1.45}.v50-saved-next button{margin-top:7px;border:1px solid #bdd9ed;background:#fff;border-radius:10px;min-height:40px;padding:7px 10px;font-weight:900;color:#173957}
+@media(max-width:360px){.v50-step-actions{grid-template-columns:1fr}.v50-detail-bottom{grid-template-columns:1fr}.v50-main-book-row{grid-template-columns:1fr}}
+
+
+/* V51 · saved offline journey card */
+.v51-journey-card{border:1px solid var(--line);border-radius:18px;background:#fbfcfe;padding:13px;margin-top:10px}.v51-journey-card.empty{color:var(--muted);font-size:11px;line-height:1.55}.v51-journey-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.v51-journey-head h4{margin:2px 0 3px;font-size:15px}.v51-journey-head p{margin:0;color:var(--muted);font-size:9px;line-height:1.4}.v51-offline-pill{flex:0 0 auto;border-radius:999px;background:#e7faf6;color:#087b6d;padding:6px 8px;font-size:8px;font-weight:950}.v51-step-list{display:grid;gap:7px;margin-top:11px}.v51-check{display:grid;grid-template-columns:24px 1fr;gap:8px;align-items:flex-start;border:1px solid rgba(127,127,127,.14);border-radius:13px;padding:9px;background:#fff}.v51-check input{width:20px;height:20px;margin:0;accent-color:#0b2345}.v51-check.done{opacity:.62}.v51-check b{display:block;font-size:10px}.v51-check span{display:block;margin-top:2px;color:var(--muted);font-size:8px;line-height:1.4}.v51-journey-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}.v51-journey-actions button{flex:1 1 135px;min-height:44px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:9px;font-weight:900}.v51-journey-actions .primary{background:#0b2345;color:#fff;border-color:#0b2345}.v51-journey-note{margin-top:9px;padding:9px 10px;border-radius:12px;background:#fff7e8;color:#70531a;font-size:8px;line-height:1.5}.v51-progress{margin-top:9px;height:6px;border-radius:999px;background:#e8edf3;overflow:hidden}.v51-progress i{display:block;height:100%;background:#0b2345}.v51-save-feedback{font-size:8px;color:#087b6d;font-weight:900;margin-top:6px}
+/* V54 · Leave-by Helper — user-entered ticket time, no invented schedule */
+.v54-leave-panel{position:fixed;inset:0;z-index:1400;background:rgba(7,18,33,.62);display:flex;align-items:flex-end;justify-content:center;padding:14px}.v54-leave-sheet{width:min(620px,100%);max-height:88dvh;overflow:auto;background:var(--bg,#fff);color:var(--ink);border-radius:22px 22px 16px 16px;padding:17px;box-shadow:0 -18px 55px rgba(0,0,0,.22)}.v54-leave-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.v54-leave-head h3{margin:3px 0 3px;font-size:18px}.v54-leave-head p{margin:0;color:var(--muted);font-size:9px;line-height:1.45}.v54-close{min-width:44px;min-height:44px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);font-weight:950}.v54-form{display:grid;gap:10px;margin-top:14px}.v54-field{display:grid;gap:5px}.v54-field label{font-size:9px;font-weight:950}.v54-field input,.v54-field select{width:100%;min-height:46px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);padding:0 11px;font-size:12px}.v54-two{display:grid;grid-template-columns:1fr 1fr;gap:9px}.v54-buffer-chips{display:flex;gap:6px;flex-wrap:wrap}.v54-buffer-chips button{min-height:38px;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:7px 11px;font-size:9px;font-weight:900}.v54-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:3px}.v54-actions button{flex:1 1 145px;min-height:46px;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;font-size:10px;font-weight:950}.v54-actions .primary{background:#0b2345;border-color:#0b2345;color:#fff}.v54-result{margin-top:13px;border:1px solid #cfe0f2;background:#f6faff;border-radius:16px;padding:12px}.v54-result[hidden]{display:none}.v54-leave-time{font-size:26px;font-weight:1000;letter-spacing:-.5px;color:#0b2345}.v54-timeline{display:grid;gap:6px;margin-top:10px}.v54-line{display:grid;grid-template-columns:58px 1fr;gap:8px;align-items:start;padding-top:7px;border-top:1px solid rgba(127,127,127,.12)}.v54-line:first-child{border-top:0;padding-top:0}.v54-line b{font-size:9px}.v54-line span{font-size:9px;line-height:1.4}.v54-note{margin-top:10px;padding:9px 10px;border-radius:12px;background:#fff7e8;color:#70531a;font-size:8px;line-height:1.5}.v54-saved{margin-top:7px;font-size:8px;color:#087b6d;font-weight:900}.v54-mini{margin-top:9px;padding:10px 11px;border-radius:13px;background:#eef6ff;border:1px solid #d7e6f7;display:flex;justify-content:space-between;gap:10px;align-items:center}.v54-mini b{font-size:10px}.v54-mini span{display:block;margin-top:2px;font-size:8px;color:var(--muted);line-height:1.4}.v54-mini strong{font-size:14px;color:#0b2345;white-space:nowrap}@media(max-width:420px){.v54-two{grid-template-columns:1fr}.v54-leave-sheet{padding:14px}.v54-leave-panel{padding:8px}}
+
+/* V52 · missed connection recovery */
+.v52-recovery{margin-top:10px;padding:11px;border:1px solid #f2d6aa;border-radius:15px;background:#fffaf1}.v52-recovery h4{margin:0 0 5px;font-size:13px}.v52-recovery p{margin:0;color:#66563d;font-size:9px;line-height:1.55}.v52-recovery-route{margin-top:9px;padding:9px 10px;border-radius:12px;background:#fff;border:1px solid rgba(127,127,127,.14)}.v52-recovery-route b{display:block;font-size:10px}.v52-recovery-route span{display:block;margin-top:3px;color:var(--muted);font-size:8px;line-height:1.45}.v52-recovery-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.v52-recovery-actions button{flex:1 1 135px;min-height:44px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:9px;font-weight:900}.v52-recovery-actions .primary{background:#0b2345;color:#fff;border-color:#0b2345}.v52-recovery-note{margin-top:8px;font-size:8px;line-height:1.5;color:#7b5a24}
+.v53-stop-card{padding:12px;border:1px solid #dbe6f3;border-radius:16px;background:linear-gradient(180deg,#fff,#f8fbff)}.v53-stop-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:8px}.v53-stop-card label{display:block;font-size:8px;font-weight:950;color:#596b82}.v53-stop-card select{width:100%;min-height:44px;margin-top:5px;border:1px solid #dfe6ef;border-radius:12px;background:#fff;color:#10233f;padding:0 10px;font-size:9px;font-weight:900}.v53-stop-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.v53-stop-actions button{flex:1 1 130px;min-height:44px;border:1px solid #dfe6ef;border-radius:12px;background:#fff;color:#243a58;font-size:9px;font-weight:950}.v53-stop-actions button.primary{background:#0b2345;color:#fff;border-color:#0b2345}.v53-stop-status{margin-top:10px;padding:11px;border-radius:13px;background:#f3f7fc;border:1px solid #e4ebf4}.v53-stop-status strong{display:block;font-size:12px;color:#10233f}.v53-stop-status span{display:block;margin-top:4px;font-size:8px;line-height:1.5;color:#67768a;font-weight:800}.v53-stop-meter{height:7px;margin-top:9px;border-radius:999px;background:#e6edf6;overflow:hidden}.v53-stop-meter i{display:block;height:100%;width:0;background:currentColor;border-radius:999px;transition:width .25s ease}.v53-stop-status.approach{color:#2a77c8;background:#f4f9ff}.v53-stop-status.near{color:#c78512;background:#fffaf0}.v53-stop-status.very-near{color:#13895a;background:#f1fff8}.v53-stop-status.wait{color:#7c8796}.v53-stop-note{margin-top:9px;font-size:7.5px;line-height:1.55;color:#7b8798;font-weight:800}.v53-stop-pill{display:inline-flex;align-items:center;gap:5px;padding:5px 8px;border-radius:999px;background:#eaf3ff;color:#245b97;font-size:7px;font-weight:950;margin-bottom:7px}@media(max-width:420px){.v53-stop-grid{grid-template-columns:1fr}.v53-stop-actions button{flex-basis:100%}}
+
+
+
+/* V55 · Global Search + Emergency Find */
+.global-search{margin:14px 0 12px;padding:14px;border:1px solid #dfe8f3;border-radius:20px;background:linear-gradient(180deg,#fff,#f8fbff);box-shadow:0 10px 28px rgba(22,37,52,.07)}
+.global-search-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:10px}.global-search-head b{display:block;font-size:16px;color:#10233f}.global-search-head span{display:block;margin-top:3px;font-size:10px;line-height:1.45;color:#738093}.global-search-badge{flex:none;padding:5px 8px;border-radius:999px;background:#10233f;color:#fff!important;font-size:8px!important;font-weight:950;letter-spacing:.07em;margin:0!important}.global-search-field{display:grid;grid-template-columns:34px 1fr 42px;align-items:center;border:2px solid #cddbec;border-radius:16px;background:#fff;min-height:54px;overflow:hidden;transition:border-color .18s,box-shadow .18s}.global-search-field:focus-within{border-color:#2f6fed;box-shadow:0 0 0 3px rgba(47,111,237,.10)}.global-search-field .search-ico{text-align:center;font-size:18px}.global-search-field input{width:100%;height:50px;border:0;outline:0;background:transparent;color:#10233f;font-size:13px;font-weight:850;min-width:0}.global-search-field input::placeholder{color:#8c99aa;font-weight:700}.global-search-clear{width:42px;height:50px;border:0;background:transparent;color:#8290a3;font-size:18px;font-weight:900}.global-search-suggest{display:flex;gap:6px;overflow-x:auto;padding:9px 1px 1px;scrollbar-width:none}.global-search-suggest button{flex:none;min-height:34px;border:1px solid #dde6f0;border-radius:999px;background:#fff;color:#42556b;padding:6px 9px;font-size:8px;font-weight:900}.global-search-fast{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:10px}.global-search-fast button{min-height:55px;border:1px solid #e1e8f0;border-radius:14px;background:#fff;color:#203653;padding:8px 5px;font-size:9px;font-weight:950;line-height:1.25}.global-search-fast button span{display:block;font-size:19px;margin-bottom:3px}.global-search-fast button.emergency{background:#fff3f1;border-color:#f1d2cd;color:#8b3328}.global-search-results{margin-top:10px;border-top:1px solid #e7edf4;padding-top:9px}.global-search-results[hidden]{display:none}.global-search-results-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:7px}.global-search-results-head b{font-size:9px;color:#66778b}.global-search-results-head span{font-size:8px;color:#8b98a8}.global-search-result-list{display:grid;gap:6px}.global-search-result{width:100%;border:1px solid #e2e9f1;border-radius:13px;background:#fff;color:#10233f;padding:10px;display:grid;grid-template-columns:32px 1fr auto;gap:9px;align-items:center;text-align:left;min-height:54px}.global-search-result .icon{font-size:19px;text-align:center}.global-search-result b{display:block;font-size:10px;line-height:1.25}.global-search-result small{display:block;margin-top:3px;color:#758499;font-size:8px;line-height:1.35}.global-search-result em{font-style:normal;border-radius:999px;background:#eef4fb;color:#5d7189;padding:4px 6px;font-size:7px;font-weight:950;white-space:nowrap}.global-search-empty{padding:12px 10px;border-radius:13px;background:#f4f7fb;color:#66778b;font-size:9px;line-height:1.5}.v55-emergency-backdrop{position:fixed;inset:0;z-index:1700;background:rgba(7,18,33,.64);display:flex;align-items:flex-end;justify-content:center;padding:10px}.v55-emergency-sheet{width:min(620px,100%);max-height:86dvh;overflow:auto;background:#fff;border-radius:22px 22px 16px 16px;padding:16px;color:#10233f;box-shadow:0 -18px 50px rgba(0,0,0,.24)}.v55-emergency-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.v55-emergency-head span{font-size:8px;font-weight:950;letter-spacing:.09em;color:#a13d33}.v55-emergency-head h3{margin:4px 0 2px;font-size:18px}.v55-emergency-head p{margin:0;color:#758499;font-size:9px;line-height:1.45}.v55-emergency-close{min-width:44px;min-height:44px;border:1px solid #dfe6ee;border-radius:12px;background:#fff;color:#10233f;font-size:18px}.v55-emergency-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:13px}.v55-emergency-grid button{min-height:64px;border:1px solid #e1e8f0;border-radius:15px;background:#f9fbfd;color:#203653;text-align:left;padding:10px;font-size:10px;font-weight:950}.v55-emergency-grid button strong{display:block;font-size:18px;margin-bottom:3px}.v55-emergency-grid button.primary{grid-column:1/-1;background:#982f27;border-color:#982f27;color:#fff}.v55-emergency-note{margin-top:10px;padding:9px 10px;border-radius:12px;background:#fff7e8;color:#70531a;font-size:8px;line-height:1.5}@media(max-width:420px){.global-search{padding:12px}.global-search-fast{gap:5px}.global-search-fast button{font-size:8px;padding:7px 3px}.v55-emergency-grid{grid-template-columns:1fr 1fr}}
+
 </style>
 
 <link rel="preconnect" href="https://unpkg.com" crossorigin>
@@ -1034,6 +1095,15 @@ button:disabled{opacity:.55;cursor:not-allowed}
   <p id="cityWalkRecoveryText" data-en="A walk guide from this browser session can be continued. Location tracking will restart only after you tap Continue." data-ko="이 브라우저 세션의 도보 안내를 이어갈 수 있습니다. 계속하기를 눌러야 위치 추적이 다시 시작됩니다.">A walk guide from this browser session can be continued. Location tracking will restart only after you tap Continue.</p>
   <div class="city-walk-recovery-actions"><button type="button" class="primary" onclick="resumeRecoveredCityWalk()" data-en="🚶 Continue walk" data-ko="🚶 도보 안내 계속">🚶 Continue walk</button><button type="button" class="soft" onclick="dismissRecoveredCityWalk()" data-en="Dismiss" data-ko="닫기">Dismiss</button></div>
 </div>
+
+<div class="global-search" id="globalSearchBox">
+  <div class="global-search-head"><div><b data-en="Find anything fast" data-ko="필요한 기능을 바로 찾기">Find anything fast</b><span data-en="Search tools, nearby essentials, cities, saved places, journeys and offline phrases." data-ko="기능·주변시설·도시·저장 장소·이동경로·오프라인 문장을 한 번에 검색하세요.">Search tools, nearby essentials, cities, saved places, journeys and offline phrases.</span></div><span class="global-search-badge">3-SEC FIND</span></div>
+  <div class="global-search-field"><span class="search-ico">🔎</span><input id="globalSearchInput" type="search" autocomplete="off" enterkeyhint="search" maxlength="80" aria-label="Search Korea Route" data-placeholder-en="KTX · restroom · translate · tax refund..." data-placeholder-ko="KTX · 화장실 · 번역 · 환급 · 짐보관..."><button class="global-search-clear" type="button" onclick="clearGlobalSearch()" aria-label="Clear search">×</button></div>
+  <div class="global-search-suggest" id="globalSearchSuggest"><button type="button" onclick="setGlobalSearchQuery('KTX')">🚆 KTX</button><button type="button" onclick="setGlobalSearchQuery(lang==='ko'?'편의점':'convenience')">🏪 <span data-en="Convenience" data-ko="편의점">Convenience</span></button><button type="button" onclick="setGlobalSearchQuery(lang==='ko'?'화장실':'restroom')">🚻 <span data-en="Restroom" data-ko="화장실">Restroom</span></button><button type="button" onclick="setGlobalSearchQuery(lang==='ko'?'짐보관':'luggage')">🧳 <span data-en="Luggage" data-ko="짐보관">Luggage</span></button></div>
+  <div class="global-search-fast"><button type="button" onclick="runGlobalSearchAction('move')"><span>🚆</span><span data-en="Move" data-ko="이동">Move</span></button><button type="button" onclick="showGlobalSearchPreset('nearby')"><span>🏪</span><span data-en="Nearby" data-ko="주변">Nearby</span></button><button type="button" onclick="runGlobalSearchAction('translation')"><span>💬</span><span data-en="Translate" data-ko="번역">Translate</span></button><button type="button" class="emergency" onclick="openV55EmergencyFind()"><span>🆘</span><span data-en="Urgent" data-ko="긴급">Urgent</span></button></div>
+  <div class="global-search-results" id="globalSearchResults" hidden aria-live="polite"><div class="global-search-results-head"><b id="globalSearchResultsLabel">SEARCH RESULTS</b><span id="globalSearchResultsCount"></span></div><div class="global-search-result-list" id="globalSearchResultList"></div></div>
+</div>
+
 <div class="quick-start" id="quickStart">
   <div class="quick-start-head"><div><b data-en="What do you need right now?" data-ko="지금 무엇이 필요한가요?">What do you need right now?</b><span data-en="Choose one. You can open every tool later." data-ko="하나만 고르세요. 모든 기능은 아래에서 언제든 열 수 있어요.">Choose one. You can open every tool later.</span></div><span class="quick-start-badge">EASY START</span></div>
   <div class="quick-start-grid">
@@ -1137,7 +1207,7 @@ button:disabled{opacity:.55;cursor:not-allowed}
   <div class="card tip"><div class="ico">💳</div><div><b data-en="Made for international travelers" data-ko="외국인 여행자를 위해 만들었어요">Made for international travelers</b><p data-en="We highlight simpler booking options, local transport tips, and services that are easier to use without a Korean phone number." data-ko="한국 전화번호가 없어도 비교적 쉽게 이용할 수 있는 예약 방법, 현지 교통 팁과 서비스를 안내합니다.">We highlight simpler booking options, local transport tips, and services that are easier to use without a Korean phone number.</p></div></div>
 
   <div class="beta-release-card" id="betaReleaseCard">
-    <div><b data-en="Public Beta · V41" data-ko="공개 베타 · V41">Public Beta · V41</b><span data-en="Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report." data-ko="친구들과 테스트 중 문제가 보이면 화면과 재현 순서를 함께 보내주세요. 신고 문구에 위치정보는 자동으로 넣지 않습니다.">Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.</span></div>
+    <div><b data-en="Public Beta · V55" data-ko="공개 베타 · V55">Public Beta · V55</b><span data-en="Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report." data-ko="친구들과 테스트 중 문제가 보이면 화면과 재현 순서를 함께 보내주세요. 신고 문구에 위치정보는 자동으로 넣지 않습니다.">Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.</span></div>
     <button type="button" onclick="shareBetaIssue()" data-en="Report a problem" data-ko="문제 제보">Report a problem</button>
   </div>
 </section>
@@ -1218,11 +1288,11 @@ button:disabled{opacity:.55;cursor:not-allowed}
   <div class="section-head"><h2 data-en="Recommended options" data-ko="추천 이동 방법">Recommended options</h2><span data-en="DEMO DATA" data-ko="샘플 데이터">DEMO DATA</span></div>
 
   <div class="option best">
-    <div class="option-top"><div><h3 data-en="KTX + Local Transit" data-ko="KTX + 대중교통">KTX + Local Transit</h3><div class="meta"><span>⚡ <i data-en="Fast" data-ko="빠름">Fast</i></span><span>🧳 <i data-en="Easy luggage" data-ko="짐 이동 편리">Easy luggage</i></span><span>🌍 <i data-en="Visitor friendly" data-ko="외국인 이용 편리">Visitor friendly</i></span></div></div><div class="tag" data-en="BEST CHOICE" data-ko="최우선 추천">BEST CHOICE</div></div>
+    <div class="option-top"><div><h3 id="v50BestOptionTitle">KTX + Local Transit</h3><div class="meta"><span>⚡ <i data-en="Fast" data-ko="빠름">Fast</i></span><span>🧳 <i data-en="Easy luggage" data-ko="짐 이동 편리">Easy luggage</i></span><span>🌍 <i data-en="Visitor friendly" data-ko="외국인 이용 편리">Visitor friendly</i></span></div></div><div class="tag" data-en="BEST CHOICE" data-ko="최우선 추천">BEST CHOICE</div></div>
     <div class="option-price"><b id="bestPrice">₩121,000 / person</b><span data-en="estimated transport" data-ko="예상 교통비">estimated transport</span></div>
-    <div class="book-row">
-      <button class="book" onclick="demoBook()" data-en="Check booking options" data-ko="예약 방법 확인">Check booking options</button>
-      <button class="ghost" onclick="alertLang()" data-en="Details" data-ko="상세">Details</button>
+    <div class="book-row v50-main-book-row">
+      <button class="book" type="button" onclick="v50OpenRouteDetail(v50CurrentBestMode)" data-en="🚆 Use this route" data-ko="🚆 이 방법으로 가기">🚆 Use this route</button>
+      <button class="ghost" type="button" onclick="demoBook()" data-en="Booking info" data-ko="예약 정보">Booking info</button>
     </div>
   </div>
 
@@ -1234,6 +1304,7 @@ button:disabled{opacity:.55;cursor:not-allowed}
     <button class="reco-tab" data-priority="easy" data-en="Visitor friendly" data-ko="외국인 편의">Visitor friendly</button>
   </div>
   <div id="v11RouteOptions"></div>
+  <section id="v50RouteDetail" class="v50-route-detail" hidden aria-live="polite"></section>
 
   <div class="section-head"><h2 data-en="Trip snapshot" data-ko="여행 한눈에 보기">Trip snapshot</h2><span data-en="ESTIMATE" data-ko="예상치">ESTIMATE</span></div>
   <div class="v11-grid">
@@ -1349,13 +1420,22 @@ button:disabled{opacity:.55;cursor:not-allowed}
       </div>
       <div class="city-map-search-count" id="cityMapSearchCount"></div>
       <div class="city-map-nearby" id="cityMapNearbyQuick">
-        <div class="city-map-nearby-head"><b data-en="Nearby now" data-ko="지금 주변 추천">Nearby now</b><small data-en="Tap only when needed" data-ko="필요할 때만 조회">Tap only when needed</small></div>
+        <div class="city-map-nearby-head"><b data-en="Traveler quick search" data-ko="여행자 빠른 검색">Traveler quick search</b><small data-en="Food · convenience · cafe · shopping" data-ko="음식점 · 편의점 · 카페 · 쇼핑">Food · convenience · cafe · shopping</small></div>
         <div class="city-map-nearby-row">
-          <button type="button" class="city-map-nearby-btn" onclick="showCityMapNearby('station')">🚉 <span data-en="Nearest transit" data-ko="가까운 역">Nearest transit</span></button>
-          <button type="button" class="city-map-nearby-btn" onclick="showCityMapNearby('toilets')">🚻 <span data-en="Restroom" data-ko="화장실">Restroom</span></button>
+          <button type="button" class="city-map-nearby-btn" onclick="showCityMapNearby('food')">🍜 <span data-en="Food" data-ko="음식점">Food</span></button>
           <button type="button" class="city-map-nearby-btn" onclick="showCityMapNearby('convenience')">🏪 <span data-en="Convenience" data-ko="편의점">Convenience</span></button>
-          <button type="button" class="city-map-nearby-btn" onclick="showCityMapNearby('sights')">🏯 <span data-en="Attractions" data-ko="관광지">Attractions</span></button>
+          <button type="button" class="city-map-nearby-btn" onclick="showCityMapNearby('cafe')">☕ <span data-en="Cafe" data-ko="카페">Cafe</span></button>
+          <button type="button" class="city-map-nearby-btn" onclick="showCityMapNearby('shopping')">🛍️ <span data-en="Shopping" data-ko="쇼핑">Shopping</span></button>
         </div>
+        <details class="city-map-nearby-more">
+          <summary data-en="More essentials" data-ko="필수시설 더보기">More essentials</summary>
+          <div class="city-map-nearby-row">
+            <button type="button" class="city-map-nearby-btn" onclick="showCityMapNearby('toilets')">🚻 <span data-en="Restroom" data-ko="화장실">Restroom</span></button>
+            <button type="button" class="city-map-nearby-btn" onclick="showCityMapNearby('pharmacy')">💊 <span data-en="Pharmacy" data-ko="약국">Pharmacy</span></button>
+            <button type="button" class="city-map-nearby-btn" onclick="showCityMapNearby('atm')">🏧 <span data-en="ATM" data-ko="ATM">ATM</span></button>
+            <button type="button" class="city-map-nearby-btn" onclick="showCityMapNearby('luggage')">🧳 <span data-en="Luggage" data-ko="짐보관">Luggage</span></button>
+          </div>
+        </details>
       </div>
       <div class="city-map-search-hint" data-en="Search runs only when you tap Search · OpenStreetMap place data" data-ko="검색 버튼을 누를 때만 조회 · OpenStreetMap 장소 정보">Search runs only when you tap Search · OpenStreetMap place data</div>
       <div class="city-map-search-results" id="cityMapSearchResults" aria-live="polite"></div>
@@ -1386,6 +1466,7 @@ button:disabled{opacity:.55;cursor:not-allowed}
         <div class="city-trip-trouble-row">
           <button type="button" class="city-trip-trouble-btn" onclick="openCityTripTrouble('lost')">🧭 <span data-en="I feel lost" data-ko="길을 잃은 것 같음">I feel lost</span><small data-en="Recheck GPS + real route" data-ko="GPS 재확인 + 실제 경로">Recheck GPS + real route</small></button>
           <button type="button" class="city-trip-trouble-btn" onclick="openCityTripTrouble('last')">🌙 <span data-en="Worried about last train" data-ko="막차가 걱정됨">Worried about last train</span><small data-en="Late mode + official check" data-ko="늦은 도착 모드 + 공식 확인">Late mode + official check</small></button>
+          <button type="button" class="city-trip-trouble-btn" onclick="openCityTripTrouble('missed')">😵 <span data-en="I missed my train/bus" data-ko="기차·버스를 놓침">I missed my train/bus</span><small data-en="Recheck this leg + recover trip" data-ko="현재 구간 재조회 + 이동 복구">Recheck this leg + recover trip</small></button>
           <button type="button" class="city-trip-trouble-btn" onclick="openCityTripTrouble('battery')">🔋 <span data-en="Battery is low" data-ko="배터리 부족">Battery is low</span><small data-en="Reduce optional sensors" data-ko="선택 센서 사용 줄이기">Reduce optional sensors</small></button>
           <button type="button" class="city-trip-trouble-btn" onclick="openCityTripTrouble('rain')">☔ <span data-en="It started raining" data-ko="비가 옴">It started raining</span><small data-en="Rain mode + less walking" data-ko="비 모드 + 야외 도보 줄이기">Rain mode + less walking</small></button>
           <button type="button" class="city-trip-trouble-btn" onclick="openCityTripTrouble('item')">🎒 <span data-en="I lost something" data-ko="물건을 잃어버림">I lost something</span><small data-en="Passport · phone · wallet · other item" data-ko="여권 · 휴대폰 · 지갑 · 기타 분실물">Passport · phone · wallet · other item</small></button>
@@ -1401,6 +1482,7 @@ button:disabled{opacity:.55;cursor:not-allowed}
           <button type="button" class="city-urgent-need-btn" onclick="openCityUrgentNeed('atm')">💳 <span data-en="Need cash" data-ko="현금 필요">Need cash</span><small data-en="Nearest mapped ATM" data-ko="가까운 ATM부터">Nearest mapped ATM</small></button>
           <button type="button" class="city-urgent-need-btn" onclick="openCityUrgentNeed('pharmacy')">💊 <span data-en="Need a pharmacy" data-ko="약국 필요">Need a pharmacy</span><small data-en="Nearest mapped pharmacy" data-ko="가까운 약국부터">Nearest mapped pharmacy</small></button>
           <button type="button" class="city-urgent-need-btn" onclick="openCityUrgentNeed('food')">🍜 <span data-en="I'm hungry" data-ko="배고픔">I'm hungry</span><small data-en="Nearby food places" data-ko="가까운 음식점부터">Nearby food places</small></button>
+          <button type="button" class="city-urgent-need-btn" onclick="openCityUrgentNeed('luggage')">🧳 <span data-en="Need luggage storage" data-ko="짐보관 필요">Need luggage storage</span><small data-en="Lockers + staffed storage" data-ko="코인락커 · 보관소 후보">Lockers + staffed storage</small></button>
         </div>
         <div class="city-urgent-panel" id="cityUrgentPanel" aria-live="polite"></div>
       </div>
@@ -1412,6 +1494,7 @@ button:disabled{opacity:.55;cursor:not-allowed}
         <button type="button" class="city-facility-btn" data-facility="bank" onclick="toggleCityFacility('bank',this)">🏦 <span data-en="Bank" data-ko="은행">Bank</span></button>
         <button type="button" class="city-facility-btn" data-facility="toilets" onclick="toggleCityFacility('toilets',this)">🚻 <span data-en="Toilet" data-ko="화장실">Toilet</span></button>
         <button type="button" class="city-facility-btn" data-facility="pharmacy" onclick="toggleCityFacility('pharmacy',this)">💊 <span data-en="Pharmacy" data-ko="약국">Pharmacy</span></button>
+        <button type="button" class="city-facility-btn" data-facility="luggage" onclick="toggleCityFacility('luggage',this)">🧳 <span data-en="Luggage" data-ko="짐보관">Luggage</span></button>
       </div>
       <div class="city-facility-results" id="cityFacilityResults" aria-live="polite"></div>
       <div class="city-map-status" id="cityMapStatus" data-en="Tap My location for a faster travel map." data-ko="내 위치를 눌러 여행 지도를 빠르게 맞춰보세요.">Tap My location for a faster travel map.</div>
@@ -1459,6 +1542,7 @@ button:disabled{opacity:.55;cursor:not-allowed}
     <button type="button" onclick="document.getElementById('liveMovePlanner')?.scrollIntoView({behavior:'smooth',block:'start'})">🧭 <span data-en="Find route" data-ko="경로 찾기">Find route</span></button>
     <button type="button" onclick="document.getElementById('liveTransitLayer')?.scrollIntoView({behavior:'smooth',block:'start'})">📍 <span data-en="Transit near me" data-ko="내 주변 교통">Transit near me</span></button>
     <button type="button" onclick="document.getElementById('liveWeatherLayer')?.scrollIntoView({behavior:'smooth',block:'start'})">☁️ <span data-en="Weather now" data-ko="현재 날씨">Weather now</span></button>
+    <button type="button" onclick="openCheckRide()">📷 <span data-en="Check train/bus" data-ko="기차·버스 확인">Check train/bus</span></button>
   </div>
   <div class="feature-stack">
 
@@ -1495,6 +1579,37 @@ button:disabled{opacity:.55;cursor:not-allowed}
       <span data-en="Choose cities and search." data-ko="출발지와 목적지를 선택하고 검색하세요.">Choose cities and search.</span>
     </div>
     <div id="moveLiveRoutes" class="live-route-list"></div>
+  </div>
+
+
+  <div class="feature-card" id="checkRideLayer">
+    <div class="feature-top">
+      <div>
+        <h3 data-en="Check & Ride · photo helper" data-ko="체크 & 라이드 · 사진 확인">Check & Ride · photo helper</h3>
+        <p data-en="Photograph a train board, platform sign, bus display, or stop sign. AI reads only what is visible and compares it with the destination or route you enter." data-ko="기차 안내판·승강장 표지·버스 전광판·정류장 표지를 찍으세요. AI가 사진에 보이는 정보만 읽어 입력한 목적지·노선과 비교합니다.">Photograph a train board, platform sign, bus display, or stop sign.</p>
+      </div>
+      <span class="slot-type api">AI PHOTO CHECK</span>
+    </div>
+    <div class="checkride-grid">
+      <label><span data-en="What are you checking?" data-ko="무엇을 확인하나요?">What are you checking?</span>
+        <select id="checkRideMode"><option value="train" data-en="Train" data-ko="기차">Train</option><option value="bus" data-en="Bus" data-ko="버스">Bus</option></select>
+      </label>
+      <label><span data-en="I want to go to" data-ko="내 목적지">I want to go to</span><input id="checkRideTarget" maxlength="120" placeholder="e.g. Suwon / 수원"></label>
+      <label style="grid-column:1/-1"><span data-en="Expected line / route / train no. · optional" data-ko="예상 노선·버스번호·열차번호 · 선택">Expected line / route / train no. · optional</span><input id="checkRideRoute" maxlength="80" placeholder="e.g. Line 1 / Bus 300 / KTX 123"></label>
+    </div>
+    <div class="checkride-actions">
+      <button type="button" class="mini-action" onclick="syncCheckRideFromMove()" data-en="Use current Move destination" data-ko="현재 Move 목적지 사용">Use current Move destination</button>
+      <label class="checkride-upload" for="checkRideFile">📷 <span data-en="Take / choose photo" data-ko="사진 촬영·선택">Take / choose photo</span></label>
+      <input class="checkride-file" id="checkRideFile" type="file" accept="image/jpeg,image/png,image/webp" capture="environment">
+      <button type="button" class="screen-link" id="checkRideAnalyzeBtn" onclick="analyzeCheckRidePhoto()" data-en="Analyze photo" data-ko="사진 확인">Analyze photo</button>
+    </div>
+    <div class="checkride-preview" id="checkRidePreview"><img id="checkRidePreviewImg" alt="Selected transport photo preview"><div class="checkride-meta" id="checkRidePhotoMeta"></div></div>
+    <div class="checkride-result unclear" id="checkRideResult" aria-live="polite">
+      <span class="cr-badge" data-en="NOT CHECKED" data-ko="확인 전">NOT CHECKED</span>
+      <b data-en="Take a clear photo of the transport information." data-ko="교통 정보를 선명하게 찍어주세요.">Take a clear photo of the transport information.</b>
+      <span data-en="Best results: include the destination, line/route number, train number, platform, or departure time in one frame." data-ko="목적지·노선/버스번호·열차번호·승강장·출발시간이 한 화면에 보이면 확인이 더 쉽습니다.">Best results: include the destination, route/train number, platform, or time.</span>
+    </div>
+    <div class="checkride-note" data-en="AI photo check can be wrong. It is not an official boarding confirmation. Confirm the vehicle, destination, platform/stop and departure display before boarding. Your photo is sent to the configured Gemini API only after you tap Analyze; Korea Route does not save it." data-ko="AI 사진 확인은 틀릴 수 있으며 공식 탑승 확인이 아닙니다. 탑승 전 차량·행선지·승강장/정류장·출발 안내를 다시 확인하세요. 사진은 ‘사진 확인’을 누른 뒤에만 설정된 Gemini API로 전송되며 Korea Route에는 저장하지 않습니다.">AI photo check can be wrong. Confirm before boarding.</div>
   </div>
 
   <div class="feature-card" id="liveTransitLayer">
@@ -1610,6 +1725,7 @@ button:disabled{opacity:.55;cursor:not-allowed}
   <div class="v30-quickbar" aria-label="Wallet quick actions">
     <button type="button" onclick="document.getElementById('liveFxCard')?.scrollIntoView({behavior:'smooth',block:'center'})" data-en="💱 Check FX" data-ko="💱 환율 확인">💱 Check FX</button>
     <button type="button" onclick="document.getElementById('walletBudgetSetup')?.scrollIntoView({behavior:'smooth',block:'center'})" data-en="🧾 Plan budget" data-ko="🧾 예산 계산">🧾 Plan budget</button>
+    <button type="button" onclick="openTaxRefundHelper()" data-en="🛍️ Tax refund" data-ko="🛍️ 세금 환급">🛍️ Tax refund</button>
   </div>
   <div class="wallet-panel">
     <b id="walletBudgetSetup" data-en="Budget setup" data-ko="예산 설정">Budget setup</b>
@@ -1723,6 +1839,7 @@ button:disabled{opacity:.55;cursor:not-allowed}
       <button type="button" onclick="document.getElementById('myTripStaySection')?.scrollIntoView({behavior:'smooth',block:'start'})" data-en="🏨 Stay" data-ko="🏨 숙소">🏨 Stay</button>
       <button type="button" onclick="document.getElementById('myTripBudgetSection')?.scrollIntoView({behavior:'smooth',block:'start'})" data-en="💳 Budget" data-ko="💳 예산">💳 Budget</button>
       <button type="button" onclick="document.getElementById('myTripLiveLocationCard')?.scrollIntoView({behavior:'smooth',block:'start'})" data-en="📍 Location" data-ko="📍 위치">📍 Location</button>
+      <button type="button" onclick="document.getElementById('myTripStopAlertSection')?.scrollIntoView({behavior:'smooth',block:'start'})" data-en="🔔 Stop alert" data-ko="🔔 하차 알림">🔔 Stop alert</button>
     </div>
     <div class="mytrip-summary" id="myTripSummary"></div>
 
@@ -1733,6 +1850,11 @@ button:disabled{opacity:.55;cursor:not-allowed}
         <button class="mytrip-btn primary" type="button" onclick="go('planner')" data-en="Open Plan" data-ko="Plan 열기">Open Plan</button>
         <button class="mytrip-btn secondary" type="button" onclick="go('moveHub')" data-en="Open Move" data-ko="Move 열기">Open Move</button>
       </div>
+    </div>
+
+    <div class="mytrip-section" id="myTripJourneySection">
+      <div class="mytrip-row"><h3 data-en="Saved journey" data-ko="저장 이동경로">Saved journey</h3><span class="mytrip-badge">OFFLINE</span></div>
+      <div id="myTripJourneyBody" class="v51-journey-card empty" data-en="No journey saved yet. Open a recommended route and tap Save to My Trip." data-ko="아직 저장한 이동경로가 없습니다. 추천 이동방법을 열고 My Trip에 저장하세요.">No journey saved yet. Open a recommended route and tap Save to My Trip.</div>
     </div>
 
     <div class="mytrip-section" id="myTripStaySection">
@@ -1773,6 +1895,11 @@ button:disabled{opacity:.55;cursor:not-allowed}
       <div id="myTripLiveLocationFeedback" class="live-location-feedback"></div>
       <p class="live-location-privacy" data-en="Location is requested only when you tap the button and is kept in this browser session only. No background tracking." data-ko="버튼을 누를 때만 위치 권한을 요청하며 현재 브라우저 세션에만 보관합니다. 백그라운드 추적은 하지 않습니다.">Location is requested only when you tap the button and is kept in this browser session only. No background tracking.</p>
     </div>
+
+    <div class="mytrip-section" id="myTripStopAlertSection">
+      <div class="mytrip-row"><h3 data-en="Approaching stop alert" data-ko="내릴 곳 접근 알림">Approaching stop alert</h3><span class="mytrip-badge">GPS</span></div>
+      <div id="v53StopAlertCard" class="v53-stop-card"></div>
+    </div>
   </div>
 </section>
 
@@ -1793,6 +1920,165 @@ button:disabled{opacity:.55;cursor:not-allowed}
 
 <script>
 
+
+// V55 Global Search + Emergency Find — local index first; search text is not persisted.
+const GLOBAL_SEARCH_ACTIONS=[
+  {id:'move',icon:'🚆',group:'action',en:'Move · KTX / bus / routes',ko:'이동 · KTX / 버스 / 경로',descEn:'Compare intercity and local movement',descKo:'도시 간·현지 이동 확인',keys:'move ktx train rail korail bus route transit subway 이동 기차 열차 철도 고속버스 버스 경로 지하철 교통'},
+  {id:'checkride',icon:'📷',group:'action',en:'Check & Ride · photo helper',ko:'Check & Ride · 사진으로 탑승 확인',descEn:'Check a train/bus sign from a photo',descKo:'기차·버스 안내판 사진 확인',keys:'check ride camera photo train bus sign platform boarding 사진 카메라 전광판 행선지 탑승 맞나'},
+  {id:'translation',icon:'💬',group:'action',en:'Translation Hub',ko:'번역 허브',descEn:'English ↔ Korean text help',descKo:'영어 ↔ 한국어 텍스트 번역',keys:'translate translation language korean english interpreter 번역 통역 한국어 영어 말 안통해'},
+  {id:'phrases',icon:'📴',group:'action',en:'Offline Phrase Pack',ko:'오프라인 여행 문장팩',descEn:'Built-in Korean travel phrases',descKo:'인터넷 없이 쓰는 한국어 여행 문장',keys:'offline phrase korean say sentence 오프라인 문장 회화 한국어'},
+  {id:'food',icon:'🍽️',group:'action',en:'Food Ordering Helper',ko:'식당 주문 도우미',descEn:'Ordering, spice, diet and allergy phrases',descKo:'주문·맵기·식사 선택·알레르기 문장',keys:'food restaurant order spicy allergy vegetarian pork menu 식당 음식 주문 매워 안맵게 알레르기 돼지고기 포장 계산'},
+  {id:'tax',icon:'🛍️',group:'action',en:'Tax Refund Helper',ko:'세금 환급 도우미',descEn:'Check tourist tax-refund steps',descKo:'외국인 쇼핑 환급 조건 확인',keys:'tax refund taxfree shopping receipt vat 세금 환급 택스리펀드 면세 쇼핑 영수증'},
+  {id:'transitcard',icon:'💳',group:'action',en:'Transit Card Finder',ko:'교통카드 찾기',descEn:'Compare Climate Card, Tmoney / EZL and WOWPASS',descKo:'기후동행카드·티머니/EZL·WOWPASS 비교',keys:'tmoney ezl wowpass climate card transit payment 교통카드 티머니 기후동행카드 충전 결제'},
+  {id:'journey',icon:'🧭',group:'trip',en:'Saved journey',ko:'저장 이동경로',descEn:'Reopen your saved full journey',descKo:'My Trip 저장 이동경로 다시 보기',keys:'saved journey route my trip itinerary 이동경로 저장 경로 여행 일정'},
+  {id:'missed',icon:'😵',group:'urgent',en:'I missed my train / bus',ko:'기차·버스를 놓쳤어요',descEn:'Recheck the unfinished journey leg',descKo:'놓친 이동편 다시 조회',keys:'missed train bus connection late 놓쳤 기차 버스 환승 지각 다음편'},
+  {id:'stopalert',icon:'🔔',group:'trip',en:'Approaching Stop Alert',ko:'내릴 곳 접근 알림',descEn:'GPS distance helper while this app is open',descKo:'앱을 켜둔 동안 GPS 거리로 하차 보조',keys:'stop alert get off arrival gps notification 하차 알림 내릴곳 내릴 곳 도착 지나칠'},
+  {id:'leaveby',icon:'⏰',group:'trip',en:'Leave-by Helper',ko:'출발시간 계산',descEn:'Count backward from your real ticket time',descKo:'실제 티켓 시각에서 출발시간 역산',keys:'leave by departure time buffer ticket 출발시간 몇시 나가야 역산 티켓 여유'},
+  {id:'mytrip',icon:'🧳',group:'trip',en:'My Trip',ko:'내 여행',descEn:'Saved places, journey, stay and checklist',descKo:'저장 장소·이동경로·숙소·체크리스트',keys:'my trip saved itinerary checklist 내여행 저장 일정 체크리스트'},
+  {id:'stay',icon:'🏨',group:'action',en:'Stay',ko:'숙소',descEn:'Stay area and lodging notes',descKo:'숙소 지역과 숙박 메모',keys:'stay hotel lodging hostel accommodation 숙소 호텔 숙박'},
+  {id:'wallet',icon:'💰',group:'action',en:'Trip Wallet',ko:'Trip Wallet',descEn:'Budget, exchange and shopping tools',descKo:'예산·환율·쇼핑 도구',keys:'wallet money budget exchange currency won krw 지갑 돈 예산 환율 원화'},
+  {id:'explore',icon:'📍',group:'action',en:'Explore',ko:'둘러보기',descEn:'Cities, attractions and nearby places',descKo:'도시·관광지·주변 장소 찾기',keys:'explore city attraction place map tourist 관광지 도시 지도 주변 장소'},
+  {id:'convenience',icon:'🏪',group:'nearby',en:'Nearby convenience store',ko:'근처 편의점',descEn:'Open a nearby map search',descKo:'현재 위치 또는 도시 기준 주변 검색',keys:'convenience store cu gs25 seven eleven emart24 nearby 편의점 씨유 지에스 세븐일레븐 이마트24 주변'},
+  {id:'restroom',icon:'🚻',group:'nearby',en:'Nearby restroom',ko:'근처 화장실',descEn:'Open a nearby map search',descKo:'급할 때 가까운 화장실 찾기',keys:'restroom toilet bathroom wc nearby 화장실 공중화장실 주변 급해'},
+  {id:'pharmacy',icon:'💊',group:'nearby',en:'Nearby pharmacy',ko:'근처 약국',descEn:'Open a nearby map search',descKo:'가까운 약국 지도 검색',keys:'pharmacy medicine drugstore nearby 약국 약 의약품 주변'},
+  {id:'atm',icon:'🏧',group:'nearby',en:'Nearby ATM',ko:'근처 ATM',descEn:'Find cash withdrawal nearby',descKo:'가까운 현금 인출기 찾기',keys:'atm cash withdraw bank money nearby 현금 인출 은행 주변'},
+  {id:'luggage',icon:'🧳',group:'nearby',en:'Luggage / locker finder',ko:'짐보관 · 코인락커 찾기',descEn:'Find luggage lockers and storage candidates',descKo:'코인락커·짐보관소 후보 찾기',keys:'luggage locker storage baggage coin locker 짐 짐보관 보관함 코인락커 캐리어'},
+  {id:'emergency',icon:'🆘',group:'urgent',en:'Emergency help · 112 / 119',ko:'긴급 도움 · 112 / 119',descEn:'Police, ambulance and emergency phrases',descKo:'경찰·구급·긴급 한국어 도움',keys:'emergency police ambulance fire 112 119 sos help 긴급 경찰 구급 구급차 소방 도움'},
+  {id:'medical',icon:'🩺',group:'urgent',en:'Medical help',ko:'몸이 아파요 · 의료 도움',descEn:'Emergency card, medical phrase and pharmacy',descKo:'긴급카드·의료 문장·약국 찾기',keys:'sick hospital medical hurt doctor pharmacy ambulance 아파 병원 의료 다쳤 의사 약국 구급차'},
+  {id:'lost',icon:'🎒',group:'urgent',en:'Lost item help',ko:'분실 도움',descEn:'Lost-item phrases and help steps',descKo:'여권·휴대폰·지갑 등 분실 도움',keys:'lost item phone wallet passport bag police 분실 잃어버렸 휴대폰 지갑 여권 가방'},
+  {id:'airport',icon:'✈️',group:'action',en:'Airport tools',ko:'공항 이동 도구',descEn:'Airport transit and arrival helpers in Move',descKo:'공항 이동·도착 도구',keys:'airport incheon gimpo arex flight airport bus 공항 인천공항 김포공항 에이렉스 비행기 공항버스'},
+  {id:'taxi',icon:'🚕',group:'action',en:'Taxi / show destination',ko:'택시 · 목적지 보여주기',descEn:'Use a saved destination card or explore a place',descKo:'저장 장소 목적지 카드 또는 관광지에서 사용',keys:'taxi uber driver destination show address 택시 우버 기사 목적지 주소 보여주기'}
+];
+let globalSearchResultCache=[];
+function globalSearchNormalize(value){return String(value||'').normalize('NFKC').toLowerCase().replace(/[·/,_()\[\]{}:;!?]+/g,' ').replace(/\s+/g,' ').trim();}
+function globalSearchScore(query,text){
+  const q=globalSearchNormalize(query),t=globalSearchNormalize(text); if(!q||!t)return 0;
+  if(t===q)return 100;
+  if(t.startsWith(q))return 80;
+  if(t.includes(q))return 60;
+  const compactQ=q.replace(/\s/g,''),compactT=t.replace(/\s/g,'');
+  if(compactQ&&compactT.includes(compactQ))return 50;
+  const parts=q.split(' ').filter(Boolean); if(parts.length&&parts.every(x=>t.includes(x)))return 40;
+  return 0;
+}
+function globalSearchGroupLabel(group){
+  const labels={action:['Tool','기능'],nearby:['Nearby','주변'],trip:['My Trip','내 여행'],urgent:['Urgent','긴급'],city:['City','도시'],place:['Place','장소'],phrase:['Phrase','문장']};
+  const v=labels[group]||labels.action; return lang==='ko'?v[1]:v[0];
+}
+function globalSearchDynamicResults(query){
+  const out=[];
+  try{
+    savedPlaces().forEach(p=>{
+      const nameEn=p.en||p.ko||'',nameKo=p.ko||p.en||'',score=globalSearchScore(query,`${nameEn} ${nameKo} ${p.city||''} saved place 저장 장소`);
+      if(score)out.push({type:'savedPlace',group:'trip',icon:'⭐',en:nameEn,ko:nameKo,descEn:`Saved place · ${p.city||''}`,descKo:`저장 장소 · ${p.city||''}`,key:p.key,score:score+18});
+    });
+  }catch(_){ }
+  try{
+    const j=v51ReadJourney();
+    if(j){const titleEn=`${v50CityLabel(j.start)} → ${v50CityLabel(j.dest)}`,score=globalSearchScore(query,`${titleEn} saved journey 저장 이동경로`);if(score)out.push({type:'journey',group:'trip',icon:'🧭',en:titleEn,ko:titleEn,descEn:'Saved full journey',descKo:'저장 전체 이동경로',score:score+20});}
+  }catch(_){ }
+  try{
+    Object.entries(cityGuideConfig).forEach(([key,cfg])=>{
+      const score=globalSearchScore(query,`${key} ${cfg.ko||''} city 도시 여행`);
+      if(score)out.push({type:'city',group:'city',icon:cfg.emoji||'📍',en:key,ko:cfg.ko||key,descEn:'Open city guide',descKo:'도시 가이드 열기',city:key,score:score+6});
+      (getSelectedCityPois(key)||[]).forEach((p,index)=>{
+        const ps=globalSearchScore(query,`${p.en||''} ${p.ko||''} ${key} ${cfg.ko||''}`);
+        if(ps)out.push({type:'poi',group:'place',icon:'📍',en:p.en||p.ko||'',ko:p.ko||p.en||'',descEn:`${key} · destination card`,descKo:`${cfg.ko||key} · 목적지 카드`,city:key,index,score:ps+4});
+      });
+    });
+  }catch(_){ }
+  try{
+    (TRAVEL_PHRASES||[]).forEach((p,index)=>{const score=globalSearchScore(query,`${p.en||''} ${p.ko||''}`);if(score)out.push({type:'phrase',group:'phrase',icon:p.icon||'💬',en:p.en||'',ko:p.ko||'',descEn:'Offline Korean phrase',descKo:'오프라인 한국어 문장',index,score:score+2});});
+  }catch(_){ }
+  return out;
+}
+function globalSearchBuildResults(query,groupFilter=''){
+  const q=globalSearchNormalize(query);
+  const staticResults=GLOBAL_SEARCH_ACTIONS.map(a=>{const score=groupFilter?(a.group===groupFilter?70:0):globalSearchScore(q,`${a.en} ${a.ko} ${a.descEn} ${a.descKo} ${a.keys}`);return score?{...a,type:'action',score:score+(a.group==='urgent'?8:a.group==='nearby'?5:0)}:null;}).filter(Boolean);
+  const dynamic=groupFilter?[]:globalSearchDynamicResults(q);
+  const all=[...staticResults,...dynamic];
+  all.sort((a,b)=>b.score-a.score||String(lang==='ko'?a.ko:a.en).localeCompare(String(lang==='ko'?b.ko:b.en)));
+  const seen=new Set(),clean=[];
+  for(const item of all){const sig=`${item.type}:${item.id||item.key||item.city||''}:${item.index??''}:${item.en||''}`;if(seen.has(sig))continue;seen.add(sig);clean.push(item);if(clean.length>=12)break;}
+  return clean;
+}
+function renderGlobalSearchResults(query,groupFilter=''){
+  const box=document.getElementById('globalSearchResults'),list=document.getElementById('globalSearchResultList'),count=document.getElementById('globalSearchResultsCount'),label=document.getElementById('globalSearchResultsLabel');
+  if(!box||!list)return;
+  if(!groupFilter&&!globalSearchNormalize(query)){box.hidden=true;list.innerHTML='';globalSearchResultCache=[];return;}
+  const results=globalSearchBuildResults(query,groupFilter);globalSearchResultCache=results;box.hidden=false;
+  if(label)label.textContent=groupFilter==='nearby'?(lang==='ko'?'주변에서 바로 찾기':'NEARBY QUICK FIND'):(lang==='ko'?'검색 결과':'SEARCH RESULTS');
+  if(count)count.textContent=lang==='ko'?`${results.length}개`:`${results.length} result${results.length===1?'':'s'}`;
+  if(!results.length){list.innerHTML=`<div class="global-search-empty">${lang==='ko'?'검색 결과가 없어요. “이동”, “화장실”, “편의점”, “번역”, “분실”, “환급”처럼 짧게 검색해보세요.':'No match yet. Try a short need such as “move”, “restroom”, “convenience”, “translate”, “lost” or “tax refund”.'}</div>`;return;}
+  list.innerHTML=results.map((r,i)=>`<button type="button" class="global-search-result" onclick="runGlobalSearchResult(${i})"><span class="icon">${escapeHtmlText(r.icon||'🔎')}</span><span><b>${escapeHtmlText(lang==='ko'?(r.ko||r.en):(r.en||r.ko))}</b><small>${escapeHtmlText(lang==='ko'?(r.descKo||r.descEn||''):(r.descEn||r.descKo||''))}</small></span><em>${escapeHtmlText(globalSearchGroupLabel(r.group))}</em></button>`).join('');
+}
+function globalSearchInputChanged(){renderGlobalSearchResults(document.getElementById('globalSearchInput')?.value||'');}
+function setGlobalSearchQuery(value){const input=document.getElementById('globalSearchInput');if(!input)return;input.value=value;input.focus();renderGlobalSearchResults(value);}
+function clearGlobalSearch(){const input=document.getElementById('globalSearchInput');if(input)input.value='';renderGlobalSearchResults('');input?.focus();}
+function showGlobalSearchPreset(group){const input=document.getElementById('globalSearchInput');if(input)input.value='';renderGlobalSearchResults('',group);document.getElementById('globalSearchResults')?.scrollIntoView({behavior:'smooth',block:'nearest'});}
+function globalSearchScroll(id){setTimeout(()=>document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'}),100);}
+function globalSearchOpenLostHelp(){
+  if(cityState?.key){go('city');setTimeout(()=>openCityTripTrouble('item'),120);return;}
+  openPhraseSheet('lost');
+}
+function globalSearchOpenMedical(){
+  openV55EmergencyFind('medical');
+}
+function runGlobalSearchAction(id){
+  clearV55EmergencyFind();
+  switch(id){
+    case 'move': go('moveHub'); break;
+    case 'checkride': openCheckRide(); break;
+    case 'translation': openTranslationHub(); break;
+    case 'phrases': openPhraseSheet('all'); break;
+    case 'food': openRestaurantOrderHelper(); break;
+    case 'tax': go('walletHub');setTimeout(()=>openTaxRefundHelper(),90);break;
+    case 'transitcard': go('moveHub');globalSearchScroll('transitPaymentHelper');break;
+    case 'journey': if(v51ReadJourney())v51OpenSavedJourney();else{go('myTripHub');v11Toast(lang==='ko'?'저장된 이동경로가 없습니다.':'No saved journey yet.');} break;
+    case 'missed': go('myTripHub');setTimeout(()=>{v52OpenRecoveryFromMyTrip();document.getElementById('myTripJourneyBody')?.scrollIntoView({behavior:'smooth',block:'center'});},120);break;
+    case 'stopalert': go('myTripHub');globalSearchScroll('myTripStopAlertSection');break;
+    case 'leaveby': go('myTripHub');setTimeout(()=>v54OpenLeaveBy(),100);break;
+    case 'mytrip': go('myTripHub'); break;
+    case 'stay': go('stayHub'); break;
+    case 'wallet': go('walletHub'); break;
+    case 'explore': go('exploreHub'); break;
+    case 'convenience': openNearbyEssential('convenience'); break;
+    case 'restroom': openNearbyEssential('restroom'); break;
+    case 'pharmacy': openNearbyEssential('pharmacy'); break;
+    case 'atm': openNearbyEssential('atm'); break;
+    case 'luggage': openNearbyEssential('luggage'); break;
+    case 'emergency': openQuickSosEmergency(); break;
+    case 'medical': globalSearchOpenMedical(); break;
+    case 'lost': globalSearchOpenLostHelp(); break;
+    case 'airport': go('moveHub'); break;
+    case 'taxi': go('myTripHub');setTimeout(()=>document.getElementById('myTripSavedPlaces')?.scrollIntoView({behavior:'smooth',block:'center'}),100);break;
+  }
+}
+function runGlobalSearchResult(index){
+  const r=globalSearchResultCache[Number(index)];if(!r)return;
+  if(r.type==='action'){runGlobalSearchAction(r.id);return;}
+  if(r.type==='savedPlace'){openDestinationCardBySavedKey(encodeURIComponent(r.key));return;}
+  if(r.type==='journey'){v51OpenSavedJourney();return;}
+  if(r.type==='city'){openCityFromHub(r.city);return;}
+  if(r.type==='poi'){openCityFromHub(r.city);setTimeout(()=>openDestinationCardByCityIndex(r.city,r.index),140);return;}
+  if(r.type==='phrase'){showTravelPhraseFocus(r.index);return;}
+}
+function clearV55EmergencyFind(){document.getElementById('v55EmergencyFind')?.remove();}
+function openV55EmergencyFind(focus=''){
+  clearV55EmergencyFind();
+  const wrap=document.createElement('div');wrap.id='v55EmergencyFind';wrap.className='v55-emergency-backdrop';
+  wrap.innerHTML=`<div class="v55-emergency-sheet" role="dialog" aria-modal="true"><div class="v55-emergency-head"><div><span>${lang==='ko'?'급할 때 바로':'URGENT FIND'}</span><h3>🆘 ${lang==='ko'?'지금 필요한 도움':'What do you need now?'}</h3><p>${lang==='ko'?'검색하지 않아도 바로 실행할 수 있어요.':'Open the most important help without searching.'}</p></div><button type="button" class="v55-emergency-close" onclick="clearV55EmergencyFind()">×</button></div><div class="v55-emergency-grid"><button type="button" class="primary" onclick="runGlobalSearchAction('emergency')"><strong>🆘</strong>${lang==='ko'?'112 경찰 · 119 구급/소방':'112 Police · 119 Ambulance/Fire'}</button><button type="button" onclick="clearV55EmergencyFind();showTravelPhraseFocus(10)"><strong>🩺</strong>${lang==='ko'?'몸이 아파요':'I feel sick'}</button><button type="button" onclick="clearV55EmergencyFind();openPhraseSheet('lost')"><strong>🎒</strong>${lang==='ko'?'잃어버렸어요':'I lost something'}</button><button type="button" onclick="runGlobalSearchAction('missed')"><strong>😵</strong>${lang==='ko'?'기차·버스를 놓쳤어요':'I missed my ride'}</button><button type="button" onclick="runGlobalSearchAction('restroom')"><strong>🚻</strong>${lang==='ko'?'화장실이 급해요':'Need a restroom'}</button></div><div class="v55-emergency-note">${lang==='ko'?'위급한 상황에서는 앱 검색보다 112·119와 현장 직원의 안내를 우선하세요. 주변시설 결과는 실시간 영업·이용 가능 여부를 보장하지 않습니다.':'In an urgent emergency, prioritize 112/119 and on-site staff over app search. Nearby-place results do not guarantee current opening or availability.'}</div></div>`;
+  wrap.addEventListener('click',e=>{if(e.target===wrap)clearV55EmergencyFind();});document.body.appendChild(wrap);
+}
+function initGlobalSearchV55(){
+  const input=document.getElementById('globalSearchInput');if(!input)return;
+  input.placeholder=lang==='ko'?(input.dataset.placeholderKo||''):(input.dataset.placeholderEn||'');
+  input.addEventListener('input',globalSearchInputChanged);
+  input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();if(globalSearchResultCache.length)runGlobalSearchResult(0);else globalSearchInputChanged();}});
+}
+document.addEventListener('DOMContentLoaded',()=>setTimeout(initGlobalSearchV55,0));
+
+
 function toggleAllTools(){
   const block=document.getElementById('featureArchitecture');
   const btn=document.getElementById('allToolsToggle');
@@ -1806,7 +2092,7 @@ function toggleAllTools(){
 }
 
 let current='home';
-const APP_RELEASE='Korea Route Public Beta V41';
+const APP_RELEASE='Korea Route Public Beta V55';
 
 // V36 safe auto-restore: persist only explicit, non-sensitive trip state and user preferences.
 // Never mirror API keys, current/GPS location, sensor state, or walk-recovery data.
@@ -1826,7 +2112,8 @@ const KOREA_ROUTE_PERSIST_SESSION_KEYS=[
   'koreaRouteVisitedPlaces',
   'koreaRouteFxCurrency',
   'koreaRouteWalkAlerts',
-  'koreaRouteMoveSituation'
+  'koreaRouteMoveSituation',
+  'koreaRouteSavedJourney'
 ];
 const KOREA_ROUTE_PERSIST_EXCLUDED_KEYS=new Set([
   'koreaRouteLivePosition',
@@ -1951,6 +2238,8 @@ function applyLang(){
   refreshActiveScreenState(current,{entry:false});
   if(typeof renderCityWalkAlertsState==='function') renderCityWalkAlertsState();
   if(typeof renderCityWalkRecovery==='function') renderCityWalkRecovery();
+  const gs=document.getElementById('globalSearchInput');
+  if(gs){gs.placeholder=lang==='ko'?(gs.dataset.placeholderKo||''):(gs.dataset.placeholderEn||'');if(gs.value)renderGlobalSearchResults(gs.value);}
 }
 function toggleLang(){lang=lang==='en'?'ko':'en';localStorage.setItem('koreaRouteLang',lang);applyLang()}
 function go(id){
@@ -3136,34 +3425,72 @@ function taxiPhraseForPoi(p){
   };
 }
 
-function taxiCardHtml(p){
+function uberRideRequestUrl(p){
+  if(!p) return '';
+  const lat=Number(p.lat),lng=Number(p.lng);
+  if(!Number.isFinite(lat)||!Number.isFinite(lng)) return 'https://m.uber.com/';
+  const name=String(p.ko||p.en||'Destination').trim();
+  const params=new URLSearchParams();
+  params.set('action','setPickup');
+  params.set('pickup','my_location');
+  params.set('dropoff[latitude]',String(lat));
+  params.set('dropoff[longitude]',String(lng));
+  params.set('dropoff[nickname]',name);
+  params.set('dropoff[formatted_address]',name);
+  return `https://m.uber.com/ul/?${params.toString()}`;
+}
+
+function openUberRideForCityIndex(city,index){
+  const p=getSelectedCityPois(city)?.[Number(index)];
+  if(!p) return;
+  const url=uberRideRequestUrl(p);
+  if(url) window.open(url,'_blank','noopener');
+}
+
+let activeDestinationCardPlace=null;
+
+function destinationAddressForPoi(p){
+  return {
+    ko:String(p?.addressKo||p?.address_ko||p?.addrKo||'').trim(),
+    en:String(p?.addressEn||p?.address||p?.addr||'').trim()
+  };
+}
+
+function destinationCardHtml(p){
   const phrase=taxiPhraseForPoi(p);
-  return `<div class="taxi-card" role="dialog" aria-modal="true" aria-labelledby="taxiCardTitle">
+  const addr=destinationAddressForPoi(p);
+  const hasCoords=Number.isFinite(Number(p?.lat))&&Number.isFinite(Number(p?.lng));
+  const coordText=hasCoords?`${Number(p.lat).toFixed(5)}, ${Number(p.lng).toFixed(5)}`:(lang==='ko'?'좌표 없음':'Coordinates unavailable');
+  const addressText=(lang==='ko'?(addr.ko||addr.en):(addr.en||addr.ko)) || (lang==='ko'?'저장된 도로명 주소 없음 · 지도에서 확인':'Street address not stored · check the map');
+  return `<div class="taxi-card destination-card" role="dialog" aria-modal="true" aria-labelledby="destinationCardTitle">
     <div class="taxi-card-head">
       <div>
-        <span class="taxi-eyebrow">${lang==='ko'?'기사님께 보여주세요':'SHOW TO DRIVER'}</span>
-        <h3 id="taxiCardTitle">${escapeHtmlText(p.ko||p.en)}</h3>
-        <p>${escapeHtmlText(p.en||'')}</p>
+        <span class="taxi-eyebrow">${lang==='ko'?'목적지 카드':'DESTINATION CARD'}</span>
+        <h3 id="destinationCardTitle">${escapeHtmlText(p.ko||p.en||'Destination')}</h3>
+        <p>${escapeHtmlText(p.en||p.ko||'')}</p>
       </div>
       <button type="button" class="taxi-close" onclick="closeTaxiCard()" aria-label="Close">×</button>
     </div>
+    <div class="destination-card-label">${lang==='ko'?'기사·직원에게 보여주세요':'SHOW A DRIVER OR STAFF'}</div>
     <div class="taxi-korean">${escapeHtmlText(phrase.ko)}</div>
     <div class="taxi-english">${escapeHtmlText(phrase.en)}</div>
-    <div class="taxi-coords">
-      <span>${lang==='ko'?'좌표':'Coordinates'}</span>
-      <b>${Number(p.lat).toFixed(5)}, ${Number(p.lng).toFixed(5)}</b>
+    <div class="destination-info-grid">
+      <div><span>${lang==='ko'?'장소명':'Place'}</span><b>${escapeHtmlText(p.ko||p.en||'')}</b></div>
+      <div><span>${lang==='ko'?'주소':'Address'}</span><b>${escapeHtmlText(addressText)}</b></div>
+      <div><span>${lang==='ko'?'좌표':'Coordinates'}</span><b>${escapeHtmlText(coordText)}</b></div>
     </div>
-    <div class="taxi-actions">
-      <button type="button" onclick="copyTaxiText('${encodeURIComponent(phrase.ko)}')">${lang==='ko'?'한국어 문장 복사':'Copy Korean'}</button>
-      <button type="button" onclick="copyTaxiCoords('${Number(p.lat).toFixed(5)}, ${Number(p.lng).toFixed(5)}')">${lang==='ko'?'좌표 복사':'Copy coordinates'}</button>
+    <div class="taxi-actions destination-card-actions">
+      <button type="button" onclick="copyActiveDestinationText()">📋 ${lang==='ko'?'카드 내용 복사':'Copy card text'}</button>
+      <button type="button" onclick="openActiveDestinationGoogleMaps()">🗺️ ${lang==='ko'?'Google 지도':'Google Maps'}</button>
+      <button type="button" class="uber-ride-btn" onclick="openActiveDestinationUber()">🚕 ${lang==='ko'?'Uber에서 열기':'Open Uber'}</button>
     </div>
-    <div class="taxi-note">${lang==='ko'?'장소명과 좌표는 현재 앱의 장소 데이터 기준입니다. 택시 탑승 전 실제 목적지를 한 번 더 확인하세요.':'Place name and coordinates come from the app dataset. Confirm the destination before your ride.'}</div>
+    <div class="taxi-note">${lang==='ko'?'이 카드는 장소명·앱에 저장된 주소·좌표를 보여주는 의사소통 보조 기능입니다. 주소는 원본 데이터에 있을 때만 표시하며 임의로 만들지 않습니다. 실제 입구와 목적지는 현장에서 다시 확인하세요.':'This is a communication aid using the place name, any stored address, and coordinates. Korea Route only shows an address when the source data includes one; it does not invent street addresses. Confirm the actual entrance and destination on site.'}</div>
   </div>`;
 }
 
-function openTaxiCardByCityIndex(city,index){
-  const p=getSelectedCityPois(city)?.[Number(index)];
+function openDestinationCard(p){
   if(!p) return;
+  activeDestinationCardPlace={...p};
   let layer=document.getElementById('taxiCardLayer');
   if(!layer){
     layer=document.createElement('div');
@@ -3172,32 +3499,77 @@ function openTaxiCardByCityIndex(city,index){
     layer.addEventListener('click',e=>{ if(e.target===layer) closeTaxiCard(); });
     document.body.appendChild(layer);
   }
-  layer.innerHTML=taxiCardHtml(p);
+  layer.innerHTML=destinationCardHtml(activeDestinationCardPlace);
   layer.classList.add('show');
+}
+
+function openDestinationCardByCityIndex(city,index){
+  const p=getSelectedCityPois(city)?.[Number(index)];
+  if(p) openDestinationCard(p);
+}
+
+function openDestinationCardBySavedKey(encodedKey){
+  const key=decodeURIComponent(encodedKey||'');
+  const p=savedPlaces().find(item=>item.key===key);
+  if(p) openDestinationCard(p);
+}
+
+function openTaxiCardByCityIndex(city,index){
+  openDestinationCardByCityIndex(city,index);
 }
 
 function closeTaxiCard(){
   document.getElementById('taxiCardLayer')?.classList.remove('show');
 }
 
-async function copyTaxiText(encoded){
-  const text=decodeURIComponent(encoded);
-  try{ await navigator.clipboard.writeText(text); }
-  catch{
+async function copyTextWithFallback(text){
+  try{
+    if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(text);return true;}
+  }catch(_){ }
+  try{
     const ta=document.createElement('textarea');
-    ta.value=text; document.body.appendChild(ta); ta.select();
-    document.execCommand('copy'); ta.remove();
-  }
+    ta.value=text; ta.setAttribute('readonly',''); ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    const ok=document.execCommand('copy'); ta.remove(); return !!ok;
+  }catch(_){return false;}
+}
+
+async function copyActiveDestinationText(){
+  const p=activeDestinationCardPlace;
+  if(!p) return;
+  const phrase=taxiPhraseForPoi(p);
+  const addr=destinationAddressForPoi(p);
+  const lines=[p.ko||p.en||'',p.en&&p.en!==(p.ko||'')?p.en:'',phrase.ko];
+  const address=(lang==='ko'?(addr.ko||addr.en):(addr.en||addr.ko));
+  if(address) lines.push(`${lang==='ko'?'주소':'Address'}: ${address}`);
+  if(Number.isFinite(Number(p.lat))&&Number.isFinite(Number(p.lng))) lines.push(`${lang==='ko'?'좌표':'Coordinates'}: ${Number(p.lat).toFixed(5)}, ${Number(p.lng).toFixed(5)}`);
+  await copyTextWithFallback(lines.filter(Boolean).join('\n'));
+}
+
+function openActiveDestinationGoogleMaps(){
+  const p=activeDestinationCardPlace;
+  if(!p) return;
+  const lat=Number(p.lat),lng=Number(p.lng);
+  const name=String(p.ko||p.en||'Destination').trim();
+  const query=Number.isFinite(lat)&&Number.isFinite(lng)?`${name} ${lat},${lng}`:name;
+  window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`,'_blank','noopener');
+}
+
+function openActiveDestinationUber(){
+  const p=activeDestinationCardPlace;
+  if(!p) return;
+  const url=uberRideRequestUrl(p);
+  if(url) window.open(url,'_blank','noopener');
+}
+
+async function copyTaxiText(encoded){
+  await copyTextWithFallback(decodeURIComponent(encoded));
 }
 
 async function copyTaxiCoords(text){
-  try{ await navigator.clipboard.writeText(text); }
-  catch{
-    const ta=document.createElement('textarea');
-    ta.value=text; document.body.appendChild(ta); ta.select();
-    document.execCommand('copy'); ta.remove();
-  }
+  await copyTextWithFallback(text);
 }
+
 
 
 function renderCityPoiList(city){
@@ -3218,7 +3590,8 @@ function renderCityPoiList(city){
     item.dataset.savedOk='1';
     item.innerHTML=`<div class="poi-num">${i+1}</div><div class="poi-text ff-place-main"><b>${lang==='ko'?p.ko:p.en}</b><span>${lang==='ko'?'추천 방문지':'Recommended stop'}</span>${ffPlaceHtml(p.en)}<div class="poi-action-row">
           ${savedPlaceButtonHtml(city,p,i)}
-          <button type="button" class="taxi-show-btn" onclick="openTaxiCardByCityIndex('${city}',${i})">${lang==='ko'?'택시 기사님께 보여주기':'Show to driver'}</button>
+          <button type="button" class="taxi-show-btn" onclick="openDestinationCardByCityIndex('${city}',${i})">📍 ${lang==='ko'?'목적지 카드':'Destination card'}</button>
+          <button type="button" class="uber-ride-btn" onclick="openUberRideForCityIndex('${city}',${i})">🚕 ${lang==='ko'?'Uber 호출':'Open Uber'}</button>
           <button type="button" class="poi-map-btn" onclick="openDirectionsFromMe('${city}',${i},'walking')">🚶 ${lang==='ko'?'도보 길찾기':'Walk there'}</button>
           <button type="button" class="poi-map-btn" onclick="openExternalMap('${city}',${i},'google')">${lang==='ko'?'Google 지도':'Google Maps'}</button>
           <button type="button" class="poi-map-btn" onclick="openExternalMap('${city}',${i},'osm')">${lang==='ko'?'OSM 열기':'Open OSM'}</button>
@@ -4329,7 +4702,8 @@ function renderSavedPlacesInMyTrip(){
             </div>
           </div>
           <div class="saved-place-actions">
-            <button onclick="window.open('https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.lat+','+p.lng)}','_blank','noopener')">${lang==='ko'?'지도':'Map'}</button>
+            <button onclick="openDestinationCardBySavedKey('${encodeURIComponent(p.key)}')">${lang==='ko'?'카드':'Card'}</button>
+            <button onclick="window.open('https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((p.ko||p.en||'')+' '+p.lat+','+p.lng)}','_blank','noopener')">${lang==='ko'?'지도':'Map'}</button>
             <button onclick="removeSavedPlace(${items.findIndex(x=>x.key===p.key)})">${lang==='ko'?'삭제':'Remove'}</button>
           </div>
         </div>`).join('')}</div>
@@ -5681,10 +6055,16 @@ async function showCityMapNearby(type){
   const map=ensureCityGuideMap(); if(!map) return;
   const center=exploreUserLocation||{lat:map.getCenter().lat,lng:map.getCenter().lng};
   const box=document.getElementById('cityMapSearchResults');
-  if(type==='toilets'||type==='convenience'){
+  if(['toilets','convenience','atm','pharmacy','luggage','food','cafe','shopping'].includes(type)){
     const btn=document.querySelector(`.city-facility-btn[data-facility="${type}"]`);
-    await loadCityFacility(type,btn,{keepActive:false});
-    const items=cityMapLoadedFacilities.slice(0,8).map((f,index)=>{const v=cityFacilityVisual(type);return {kind:'facility',index,name:f.name,sub:facilityDistanceText(f),icon:v.icon,category:{id:'essential',icon:v.icon,en:'Essential',ko:'편의시설',rank:5},rank:5,source:'OpenStreetMap'};});
+    await loadCityFacility(type,btn,{keepActive:true});
+    const items=cityMapLoadedFacilities.slice(0,8).map((f,index)=>{
+      const v=cityFacilityVisual(f.type||type);
+      const cat=(type==='food'||type==='cafe'||type==='shopping')
+        ?{id:type,icon:v.icon,en:v.labelEn,ko:v.labelKo,rank:type==='food'?2:type==='cafe'?3:4}
+        :{id:'essential',icon:v.icon,en:'Essential',ko:'편의시설',rank:5};
+      return {kind:'facility',index,name:f.name,sub:facilityDistanceText(f),icon:v.icon,category:cat,rank:cat.rank,source:'OpenStreetMap'};
+    });
     cityMapRenderSearchResults(items); return;
   }
   if(type==='sights'){
@@ -5748,7 +6128,7 @@ async function searchCityMapPlace(){
 function cityMapStationEssentialsHtml(place){
   const cat=place?.category||cityMapSearchCategory(place||{});
   if(cat?.id!=='station') return '';
-  return `<div class="city-map-station-pack"><button type="button" class="city-map-station-pack-btn" onclick="loadSelectedStationPack(this)">🧭 ${lang==='ko'?'역 한눈에 보기':'Station at a glance'}<small>${lang==='ko'?'출구 · 엘리베이터 · 화장실 · ATM · 편의점을 한 번에 확인':'Check entrances, elevators, restrooms, ATM and convenience in one tap'}</small></button><div class="city-map-station-pack-body" id="cityMapStationPackBody">${lang==='ko'?'필요할 때 한 번만 눌러 주변 500m 정보를 불러옵니다.':'Loads the station area within 500m only when you tap it.'}</div></div><div class="city-map-station-essentials"><div class="city-map-station-essentials-head"><b>${lang==='ko'?'🚉 필요한 것만 바로 찾기':'🚉 Find one thing quickly'}</b><small>${lang==='ko'?'역 기준 500m':'500m from station'}</small></div><div class="city-map-station-essentials-row"><button type="button" onclick="loadSelectedStationFacility('convenience',this)">🏪 ${lang==='ko'?'편의점':'Convenience'}</button><button type="button" onclick="loadSelectedStationFacility('toilets',this)">🚻 ${lang==='ko'?'화장실':'Restroom'}</button><button type="button" onclick="loadSelectedStationFacility('atm',this)">💳 ATM</button><button type="button" onclick="loadSelectedStationFacility('pharmacy',this)">💊 ${lang==='ko'?'약국':'Pharmacy'}</button></div></div>`;
+  return `<div class="city-map-station-pack"><button type="button" class="city-map-station-pack-btn" onclick="loadSelectedStationPack(this)">🧭 ${lang==='ko'?'역 한눈에 보기':'Station at a glance'}<small>${lang==='ko'?'출구 · 엘리베이터 · 화장실 · ATM · 편의점 · 짐보관을 한 번에 확인':'Check entrances, elevators, restrooms, ATM, convenience and luggage storage in one tap'}</small></button><div class="city-map-station-pack-body" id="cityMapStationPackBody">${lang==='ko'?'필요할 때 한 번만 눌러 주변 500m 정보를 불러옵니다.':'Loads the station area within 500m only when you tap it.'}</div></div><div class="city-map-station-essentials"><div class="city-map-station-essentials-head"><b>${lang==='ko'?'🚉 필요한 것만 바로 찾기':'🚉 Find one thing quickly'}</b><small>${lang==='ko'?'역 기준 500m':'500m from station'}</small></div><div class="city-map-station-essentials-row"><button type="button" onclick="loadSelectedStationFacility('convenience',this)">🏪 ${lang==='ko'?'편의점':'Convenience'}</button><button type="button" onclick="loadSelectedStationFacility('toilets',this)">🚻 ${lang==='ko'?'화장실':'Restroom'}</button><button type="button" onclick="loadSelectedStationFacility('atm',this)">💳 ATM</button><button type="button" onclick="loadSelectedStationFacility('pharmacy',this)">💊 ${lang==='ko'?'약국':'Pharmacy'}</button><button type="button" onclick="loadSelectedStationFacility('luggage',this)">🧳 ${lang==='ko'?'짐보관':'Luggage'}</button></div></div>`;
 }
 
 async function loadSelectedStationPack(btn){
@@ -5766,7 +6146,7 @@ async function loadSelectedStationPack(btn){
     const lat=Number(p.lat), lng=Number(p.lng);
     const a250=`around:250,${lat},${lng}`;
     const a500=`around:500,${lat},${lng}`;
-    const q=`[out:json][timeout:12];(nwr[railway=subway_entrance](${a250});nwr[highway=elevator](${a250});nwr[highway=bus_stop](${a250});nwr[public_transport=platform](${a250});nwr[shop=convenience](${a500});nwr[amenity=atm](${a500});nwr[amenity=bank](${a500});nwr[amenity=toilets](${a500});nwr[amenity=pharmacy](${a500}););out center tags 140;`;
+    const q=`[out:json][timeout:12];(nwr[railway=subway_entrance](${a250});nwr[highway=elevator](${a250});nwr[highway=bus_stop](${a250});nwr[public_transport=platform](${a250});nwr[shop=convenience](${a500});nwr[amenity=atm](${a500});nwr[amenity=bank](${a500});nwr[amenity=toilets](${a500});nwr[amenity=pharmacy](${a500});nwr[amenity~"^(luggage_locker|left_luggage)$"](${a500}););out center tags 160;`;
     const cacheKey=cityMapCacheKey('station-pack',[cityMapCenterKey(lat,lng,4)]);
     let data=cityMapCacheGet(cacheKey,600000);
     if(!data){
@@ -5781,7 +6161,7 @@ async function loadSelectedStationPack(btn){
     const raw=Array.isArray(data.elements)?data.elements:[];
     const uniq=[...new Map(raw.map(el=>[`${el.type||'x'}:${el.id||Math.random()}`,el])).values()];
     const items=[];
-    const counts={entrance:0,elevator:0,toiletsNear:0,bus:0,convenience:0,atm:0,bank:0,toilets:0,pharmacy:0};
+    const counts={entrance:0,elevator:0,toiletsNear:0,bus:0,convenience:0,atm:0,bank:0,toilets:0,pharmacy:0,luggage:0};
     const exitRefs=[];
     let wheelchairYes=0;
     uniq.forEach(el=>{
@@ -5833,7 +6213,7 @@ async function loadSelectedStationPack(btn){
     cityMapLoadedFacilities=items.slice(0,30);
     renderCityFacilityResults();
     const nearest=items.filter(x=>x.type!=='bus').slice(0,5);
-    const aroundBits=[`🏪 ${counts.convenience}`,`💳 ${counts.atm+counts.bank}`,`🚻 ${counts.toilets}`,`💊 ${counts.pharmacy}`].join(' · ');
+    const aroundBits=[`🏪 ${counts.convenience}`,`💳 ${counts.atm+counts.bank}`,`🚻 ${counts.toilets}`,`💊 ${counts.pharmacy}`,`🧳 ${counts.luggage}`].join(' · ');
     const nearestHtml=nearest.length?`<div class="city-map-station-pack-near">${nearest.map((f)=>{const v=cityFacilityVisual(f.type);const idx=cityMapLoadedFacilities.findIndex(x=>x===f);return `<div class="city-map-station-pack-item"><button type="button" class="main" onclick="pickCityFacilityResult(${idx})"><b>${v.icon} ${escapeHtmlText(f.name)}</b><small>${escapeHtmlText(facilityDistanceText(f))} · ${lang==='ko'?'역 기준':'from station'}</small></button><button type="button" class="walk" onclick="startFacilityWalkGuideByCoords(${Number(f.lat)},${Number(f.lng)})">🚶 GO</button></div>`}).join('')}</div>`:'';
     cityMapStationAccessPoints=items.filter(x=>x.type==='entrance'||x.type==='elevator').slice(0,10);
     const accessHtml=cityMapStationAccessPoints.length?`<div class="city-map-station-access"><div class="city-map-station-access-head"><b>${lang==='ko'?'🚪 출구·엘리베이터를 목적지로':'🚪 Walk to an exit or elevator'}</b><small>${lang==='ko'?'지도에 등록된 위치':'Mapped positions'}</small></div><div class="city-map-station-access-list">${cityMapStationAccessPoints.map((a,i)=>`<div class="city-map-station-access-item"><div class="ico">${a.type==='elevator'?'🛗':'🚪'}</div><div class="txt"><b>${escapeHtmlText(a.name)}</b><small>${escapeHtmlText(facilityDistanceText(a))} · ${a.wheelchair==='yes'?(lang==='ko'?'♿ 접근성 태그 있음':'♿ wheelchair tag'):(lang==='ko'?'OSM 위치':'OSM position')}</small></div><button type="button" onclick="chooseStationAccessPoint(${i})">${lang==='ko'?'선택':'SELECT'}</button></div>`).join('')}</div><div class="city-map-station-access-note">${lang==='ko'?'출구 번호·엘리베이터 위치는 OpenStreetMap 등록 정보입니다. 실제 역 안내판과 함께 확인하세요.':'Exit and elevator positions come from OpenStreetMap. Verify with station signs.'}</div></div>`:'';
@@ -6184,13 +6564,25 @@ function openCityTripTrouble(type,applied=false){
   }else if(type==='language'){
     title=lang==='ko'?'💬 말이 잘 안 통할 때':'💬 If communication is difficult';
     body=lang==='ko'?'짧은 한국어 문장을 크게 띄워 상대방에게 바로 보여주세요. 자동 통역이나 공식 번역이 아니며, 복잡한 상황은 1330 여행 안내·통역 도움이나 다른 번역 수단을 이용하세요.':'Show a short Korean phrase in large text. This is not automatic or certified interpretation; for a complex situation, use 1330 travel interpretation help or another translation method.';
-    actions=`<button type="button" class="primary" onclick="openTranslationHub()">🌐 ${lang==='ko'?'번역 허브 열기':'Open Translation Hub'}</button><button type="button" onclick="showTravelPhraseFocus(6)">💬 ${lang==='ko'?'한국어를 잘 이해하지 못해요':'I do not understand Korean well'}</button><button type="button" onclick="showTravelPhraseFocus(7)">🐢 ${lang==='ko'?'천천히 말해 주세요':'Please speak slowly'}</button><button type="button" onclick="showTravelPhraseFocus(8)">✍️ ${lang==='ko'?'적어 주세요':'Please write it down'}</button><button type="button" onclick="openPhraseSheet()">🗂️ ${lang==='ko'?'전체 한국어 문장':'All Korean phrases'}</button><button type="button" onclick="openCityLost1330()">☎ ${lang==='ko'?'1330 여행 안내·통역':'1330 Travel Helpline'}</button>`;
+    actions=`<button type="button" class="primary" onclick="openTranslationHub()">🌐 ${lang==='ko'?'번역 허브 열기':'Open Translation Hub'}</button><button type="button" onclick="openRestaurantOrderHelper()">🍽️ ${lang==='ko'?'식당 주문 도우미':'Food Ordering Helper'}</button><button type="button" onclick="showTravelPhraseFocus(6)">💬 ${lang==='ko'?'한국어를 잘 이해하지 못해요':'I do not understand Korean well'}</button><button type="button" onclick="showTravelPhraseFocus(7)">🐢 ${lang==='ko'?'천천히 말해 주세요':'Please speak slowly'}</button><button type="button" onclick="showTravelPhraseFocus(8)">✍️ ${lang==='ko'?'적어 주세요':'Please write it down'}</button><button type="button" onclick="openPhraseSheet()">🗂️ ${lang==='ko'?'전체 한국어 문장':'All Korean phrases'}</button><button type="button" onclick="openCityLost1330()">☎ ${lang==='ko'?'1330 여행 안내·통역':'1330 Travel Helpline'}</button>`;
     note=lang==='ko'?'긴급 상황에서는 112·119 등 현지 긴급 안내를 우선 따르세요.':'In an emergency, follow local emergency guidance such as 112 or 119 first.';
   }else if(type==='medical'){
     title=lang==='ko'?'🩺 몸이 안 좋거나 의료 도움이 필요할 때':'🩺 If you feel sick or need medical help';
     body=lang==='ko'?'Korea Route는 증상을 진단하지 않습니다. 응급상황이거나 구급차가 필요하다고 판단되면 119를 우선 이용하고, 그 외에는 가까운 의료시설·약국이나 1330 통역 도움을 확인하세요.':'Korea Route does not diagnose symptoms. If you believe it is an emergency or need an ambulance, use 119 first. Otherwise, check nearby medical care, a pharmacy, or 1330 interpretation help.';
     actions=`<button type="button" class="primary" onclick="callCityMedical119()">🚑 ${lang==='ko'?'119 응급전화':'Call 119 emergency'}</button><button type="button" onclick="openCityMedicalNearby()">🏥 ${lang==='ko'?'가까운 의료시설':'Nearby medical care'}</button><button type="button" onclick="openCityUrgentNeed('pharmacy');closeCityTripTrouble()">💊 ${lang==='ko'?'가까운 약국':'Nearby pharmacy'}</button><button type="button" onclick="showTravelPhraseFocus(10)">🇰🇷 ${lang==='ko'?'몸이 아파요 · 크게 보기':'Show “I feel sick” in Korean'}</button><button type="button" onclick="openCityLost1330()">☎ ${lang==='ko'?'1330 여행 통역 도움':'1330 interpretation help'}</button>`;
     note=lang==='ko'?'119는 한국의 화재·구급 긴급전화입니다. 지도에 표시되는 의료시설·약국은 OpenStreetMap 장소 정보이며 실제 진료 가능 여부·운영시간·응급실 여부는 현장에서 다시 확인하세요.':'119 is Korea’s fire and ambulance emergency number. Medical facilities and pharmacies shown on the map come from OpenStreetMap; verify current opening, treatment availability and emergency-department status locally.';
+  }else if(type==='missed'){
+    title=lang==='ko'?'😵 기차·버스를 놓쳤을 때':'😵 If you missed your train or bus';
+    const j=v51ReadJourney(),hit=v52NextJourneyLeg(j);
+    if(j&&hit){
+      const seg=hit.seg;
+      body=lang==='ko'?`저장 이동경로의 미완료 구간 ${v50CityLabel(seg.from)} → ${v50CityLabel(seg.to)}를 먼저 다시 확인하세요. Korea Route는 실제 다음 출발편·좌석·재예약 가능 여부를 자동으로 확정하지 않습니다.`:`First recheck the unfinished saved leg ${v50CityLabel(seg.from)} → ${v50CityLabel(seg.to)}. Korea Route does not automatically confirm the next departure, seats or rebooking availability.`;
+      actions=`<button type="button" class="primary" onclick="v52OpenRecoveryMove()">🔎 ${lang==='ko'?'이 구간 다시 조회':'Recheck this leg'}</button><button type="button" onclick="v52OpenRecoveryDepartureHub()">📍 ${lang==='ko'?'출발 거점 확인':'Departure hub map'}</button><button type="button" onclick="v52CopyRecoveryPhrase()">🇰🇷 ${lang==='ko'?'직원에게 보여줄 문장':'Phrase for staff'}</button><button type="button" onclick="v52ApplyLateAndRecheck()">🌙 ${lang==='ko'?'늦어진 일정으로 재조회':'Recheck as late arrival'}</button>`;
+    }else{
+      body=lang==='ko'?'저장된 이동경로가 없으므로 현재 출발지와 목적지를 Move에서 다시 조회하세요. 실제 다음 운행편이나 좌석은 현장/운영사 정보로 최종 확인해야 합니다.':'No saved journey is available, so recheck your current origin and destination in Move. Confirm the actual next service and seats with the operator or station information.';
+      actions=`<button type="button" class="primary" onclick="cityTripTroubleMove()">🔎 ${lang==='ko'?'Move에서 다시 찾기':'Recheck in Move'}</button><button type="button" onclick="v52CopyRecoveryPhrase()">🇰🇷 ${lang==='ko'?'직원에게 보여줄 문장':'Phrase for staff'}</button>`;
+    }
+    note=lang==='ko'?'티켓 변경·환불·재예약 규정은 구매처/운영사 조건이 다를 수 있습니다. 앱이 수수료나 다음 편 탑승을 보장하지 않습니다.':'Change, refund and rebooking rules vary by seller/operator. The app does not guarantee fees or boarding on a later service.';
   }else if(type==='lost'){
     title=lang==='ko'?'🧭 길을 잃은 것 같을 때':'🧭 If you feel lost';
     body=cityWalkGuideTarget
@@ -6232,13 +6624,13 @@ function renderCityUrgentNeed(type,items,{loading=false,error=''}={}){
 }
 
 async function loadCityUrgentNeed(type){
-  const valid=['toilets','atm','pharmacy','food','convenience'];
+  const valid=['toilets','atm','pharmacy','food','convenience','luggage'];
   if(!valid.includes(type)) return;
   if(!exploreUserLocation){renderCityUrgentNeed(type,[],{error:lang==='ko'?'현재 위치 확인이 필요합니다.':'Current location is required.'});return;}
   const seq=++cityUrgentNeedRequestSeq;
   renderCityUrgentNeed(type,[],{loading:true});
   const center=exploreUserLocation;
-  const radius=type==='food'?Math.max(cityFacilityRadius,1500):cityFacilityRadius;
+  const radius=(type==='food'||type==='luggage')?Math.max(cityFacilityRadius,1500):cityFacilityRadius;
   try{
     const q=cityFacilityQuery(type,center.lat,center.lng,radius).replace('out center 45;','out center 60;');
     const cacheKey=cityMapCacheKey('urgent-need',[type,radius,cityMapCenterKey(center.lat,center.lng,4)]);
@@ -6361,7 +6753,10 @@ function cityFacilityVisual(type){
     bank:{icon:'🏦',labelKo:'은행',labelEn:'Bank'},
     toilets:{icon:'🚻',labelKo:'화장실',labelEn:'Toilet'},
     pharmacy:{icon:'💊',labelKo:'약국',labelEn:'Pharmacy'},
+    luggage:{icon:'🧳',labelKo:'짐보관',labelEn:'Luggage storage'},
     food:{icon:'🍜',labelKo:'음식점',labelEn:'Food'},
+    cafe:{icon:'☕',labelKo:'카페',labelEn:'Cafe'},
+    shopping:{icon:'🛍️',labelKo:'쇼핑',labelEn:'Shopping'},
     entrance:{icon:'🚪',labelKo:'역 출입구',labelEn:'Station entrance'},
     elevator:{icon:'🛗',labelKo:'엘리베이터',labelEn:'Elevator'},
     bus:{icon:'🚌',labelKo:'환승 지점',labelEn:'Transfer point'},
@@ -6405,10 +6800,11 @@ function renderCityFacilityGoCard(facility){
   if(cityMapSearchLayer){cityMapSearchLayer.remove();cityMapSearchLayer=null;}
   cityMapSelectedIndex=-1;
   const v=cityFacilityVisual(facility.type);
+  const isBrowsePlace=['food','cafe','shopping'].includes(facility.type);
   const fromLabel=exploreUserLocation?(lang==='ko'?'내 현재 위치':'My current location'):(lang==='ko'?'내 위치 확인 필요':'Location needed');
   const name=facility.name||(lang==='ko'?v.labelKo:v.labelEn);
   card.innerHTML=`<div class="city-map-dest-top">
-    <div class="city-map-dest-title"><span>${v.icon} ${lang==='ko'?'선택한 편의시설':'Selected essential'}</span><b>${escapeHtmlText(name)}</b></div>
+    <div class="city-map-dest-title"><span>${v.icon} ${isBrowsePlace?(lang==='ko'?'선택한 장소':'Selected place'):(lang==='ko'?'선택한 편의시설':'Selected essential')}</span><b>${escapeHtmlText(name)}</b></div>
     <div class="city-map-dest-distance">${escapeHtmlText(facilityDistanceText(facility))}</div>
   </div>
   <div class="city-map-go-flow">
@@ -6419,8 +6815,8 @@ function renderCityFacilityGoCard(facility){
   <button type="button" class="city-map-go-main" onclick="startCityWalkGuide({...cityMapSelectedFacility,kind:'facility'})">🚶 ${lang==='ko'?'앱 안 도보 안내 시작':'Start in-app walk guide'}<small>${lang==='ko'?'거리·방향을 먼저 보고 Google Maps 실제 경로 확인':'See distance and direction first, then verify in Google Maps'}</small></button>
   <div class="city-map-dest-actions">
     <button type="button" class="soft" onclick="copyFacilityDestination()">📋 ${lang==='ko'?'장소명 복사':'Copy place'}</button>
-    <button type="button" class="soft" onclick="openFacilityMapOnly()">🗺️ ${lang==='ko'?'지도에서 보기':'Open map'}</button>
-  </div>`;
+    <button type="button" class="soft" onclick="openFacilityMapOnly()">${facility.type==='luggage'||isBrowsePlace?'🕒':'🗺️'} ${facility.type==='luggage'?(lang==='ko'?'이용 가능 확인':'Check availability'):isBrowsePlace?(lang==='ko'?'영업 확인':'Check if open'):(lang==='ko'?'지도에서 보기':'Open map')}</button>
+  </div>${facility.type==='luggage'?`<div class="city-map-oneglance-note" style="margin:8px 2px 0">${lang==='ko'?'OSM에 등록된 짐보관 후보입니다. 운영시간·빈자리·보관 가능한 크기·요금은 Google Maps와 현장에서 확인하세요.':'Mapped OSM luggage-storage candidate. Verify hours, locker availability, accepted bag size and fees in Google Maps and on site.'}</div>`:isBrowsePlace?`<div class="city-map-oneglance-note" style="margin:8px 2px 0">${lang==='ko'?'OpenStreetMap에 등록된 주변 후보입니다. 인기·평점·실시간 영업정보가 아니므로 Google Maps에서 영업 여부를 확인하세요.':'Nearby OpenStreetMap candidate, not a popularity/rating or live-opening-hours result. Check current opening status in Google Maps.'}</div>`:''}`;
   card.classList.add('show');
   updateCityMapRouteBar();
 }
@@ -6436,7 +6832,8 @@ ${Number(f.lat).toFixed(6)}, ${Number(f.lng).toFixed(6)}`:''}`;
 function openFacilityMapOnly(){
   const f=cityMapSelectedFacility;
   if(!f) return;
-  window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(f.lat+','+f.lng)}`,'_blank','noopener');
+  const q=`${f.name||''} ${Number(f.lat).toFixed(6)},${Number(f.lng).toFixed(6)}`.trim();
+  window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`,'_blank','noopener');
 }
 
 function cityFacilityTypeFromTags(tags={}){
@@ -6445,7 +6842,10 @@ function cityFacilityTypeFromTags(tags={}){
   if(tags.amenity==='bank') return 'bank';
   if(tags.amenity==='toilets') return 'toilets';
   if(tags.amenity==='pharmacy') return 'pharmacy';
-  if(['restaurant','fast_food','food_court','cafe'].includes(tags.amenity)) return 'food';
+  if(tags.amenity==='luggage_locker'||tags.amenity==='left_luggage') return 'luggage';
+  if(['restaurant','fast_food','food_court'].includes(tags.amenity)) return 'food';
+  if(tags.amenity==='cafe'||tags.shop==='bakery') return 'cafe';
+  if(['department_store','mall','clothes','shoes','cosmetics','gift','variety_store','supermarket'].includes(tags.shop)||tags.amenity==='marketplace') return 'shopping';
   if(tags.amenity==='police') return 'police';
   if(['hospital','clinic','doctors'].includes(tags.amenity)||['hospital','clinic','doctor'].includes(tags.healthcare)) return 'medical';
   return 'all';
@@ -6460,7 +6860,10 @@ function cityFacilityQuery(type,lat,lng,radius=cityFacilityRadius){
     bank:`nwr[amenity=bank](${around});`,
     toilets:`nwr[amenity=toilets](${around});`,
     pharmacy:`nwr[amenity=pharmacy](${around});`,
-    food:`nwr[amenity~"^(restaurant|fast_food|food_court|cafe)$"](${around});`,
+    luggage:`nwr[amenity~"^(luggage_locker|left_luggage)$"](${around});`,
+    food:`nwr[amenity~"^(restaurant|fast_food|food_court)$"](${around});`,
+    cafe:`nwr[amenity=cafe](${around});nwr[shop=bakery](${around});`,
+    shopping:`nwr[shop~"^(department_store|mall|clothes|shoes|cosmetics|gift|variety_store|supermarket)$"](${around});nwr[amenity=marketplace](${around});`,
     police:`nwr[amenity=police](${around});`,
     medical:`nwr[amenity~"^(hospital|clinic|doctors)$"](${around});nwr[healthcare~"^(hospital|clinic|doctor)$"](${around});`
   };
@@ -6935,7 +7338,9 @@ function v11RenderOptions(){
         <div><span>${lang==='ko'?'예상 시간':'TIME'}</span><b>${v11FmtMin(c.mins)}</b></div>
         <div><span>${lang==='ko'?'1인 예상':'PER PERSON'}</span><b>${v11FmtWon(c.cost)}</b></div>
         <div><span>${lang==='ko'?'외국인 편의':'VISITOR'}</span><b>${c.p.easy}/100</b></div>
-      </div>`;
+      </div>
+      <button type="button" class="v50-route-go" data-v50-route-mode="${c.mode}">${c.mode==='bus'?'🚌':c.mode==='car'?'🚗':c.mode==='flight'?'✈️':'🚆'} ${lang==='ko'?'이 방법으로 가기':'Use this route'}</button>
+      <div class="v50-route-sub">${lang==='ko'?'출발 거점 → 도시 간 이동 → 도착 후 이동 순서로 확인':'See departure hub → intercity leg → after-arrival steps'}</div>`;
     box.appendChild(d);
   });
   const best=arr[0];
@@ -6945,6 +7350,344 @@ function v11RenderOptions(){
   document.getElementById('v11Difficulty').textContent=best.p.easy>=88?(lang==='ko'?'쉬움':'Easy'):(lang==='ko'?'보통':'Medium');
   return true;
 }
+
+let v50CurrentBestMode='rail';
+function v50CityLabel(city){
+  const meta=cityMeta?.[city];
+  return lang==='ko'?(meta?.ko||city):(city||'');
+}
+function v50ModeLabel(mode){
+  const p=v11TransportProfiles?.[mode];
+  return p?(lang==='ko'?p.ko:p.en):(lang==='ko'?'추천 교통':'Recommended transport');
+}
+function v50HubPoint(city,mode='rail'){
+  const base=typeof ODSAY_MOVE_POINTS!=='undefined'?ODSAY_MOVE_POINTS[city]:null;
+  if(city==='Gyeongju' && mode==='rail') return {x:129.1389,y:35.7982,en:'Singyeongju Station',ko:'신경주역'};
+  return base||{x:null,y:null,en:`${city} transport hub`,ko:`${v50CityLabel(city)} 교통 거점`};
+}
+function v50GoogleDirectionsToHub(city,mode='rail'){
+  const p=v50HubPoint(city,mode);
+  const dest=Number.isFinite(Number(p.y))&&Number.isFinite(Number(p.x))?`${p.y},${p.x}`:`${p.en} ${city} Korea`;
+  window.open(`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(dest)}&travelmode=transit`,'_blank','noopener');
+}
+function v50GoogleSearchHub(city,mode='rail'){
+  const p=v50HubPoint(city,mode);
+  const q=`${p.en} ${city} Korea`;
+  window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`,'_blank','noopener');
+}
+function v50OpenMoveSegment(fromCity,toCity,autoSearch=true){
+  go('moveHub');
+  const from=document.getElementById('moveFrom'),to=document.getElementById('moveTo');
+  if(from) from.value=fromCity;
+  if(to) to.value=toCity;
+  cancelMoveLiveRequest();
+  setTimeout(()=>{
+    document.getElementById('liveMovePlanner')?.scrollIntoView({behavior:'smooth',block:'start'});
+    if(autoSearch && typeof searchLiveMoveRoute==='function') searchLiveMoveRoute();
+  },120);
+}
+function v50FirstSavedStop(city){
+  try{
+    const items=savedPlaces().filter(p=>p.city===city);
+    if(!items.length) return null;
+    const plan=savedPlacePlan();
+    return [...items].sort((a,b)=>{
+      const pa=plan[a.key]||{},pb=plan[b.key]||{};
+      return (Number(pa.day)||99)-(Number(pb.day)||99)||(Number(pa.order)||99)-(Number(pb.order)||99);
+    })[0]||null;
+  }catch(_){return null;}
+}
+function v50OpenSavedStop(encodedKey){
+  if(!encodedKey) return;
+  openDestinationCardBySavedKey(encodedKey);
+}
+function v50OpenRouteDetail(mode='rail'){
+  const host=document.getElementById('v50RouteDetail');
+  if(!host) return;
+  const start=document.getElementById('start')?.value||'Seoul';
+  const dest=document.getElementById('dest')?.value||'Busan';
+  if(start===dest){alert(lang==='ko'?'출발지와 목적지를 다르게 선택해주세요.':'Choose a different destination.');return;}
+  const route=getRoute(start,dest);
+  const dep=v50HubPoint(route[0],mode);
+  const arr=v50HubPoint(route[route.length-1],mode);
+  let stepNo=1;
+  const steps=[];
+  steps.push(`<div class="v50-step"><span class="v50-step-num">${stepNo++}</span><span class="kicker">${lang==='ko'?'먼저 출발 거점으로':'GET TO THE DEPARTURE HUB'}</span><b>${escapeHtmlText(lang==='ko'?dep.ko:dep.en)}</b><p>${lang==='ko'?'현재 위치에서 이 거점까지의 실제 지하철·버스·도보 경로는 Google Maps에서 확인하세요. 선택한 실제 티켓의 출발역·터미널이 다르면 티켓 정보를 우선하세요.':'Use Google Maps for the actual subway, bus or walking route from your current position. If your ticket uses a different station or terminal, follow the ticket.'}</p><div class="v50-step-actions"><button type="button" class="primary" onclick="v50GoogleDirectionsToHub('${route[0]}','${mode}')">🗺️ ${lang==='ko'?'현재 위치 → 거점':'Current location → hub'}</button><button type="button" onclick="openMoveDepartureMap('${route[0]}')">🇰🇷 ${lang==='ko'?'거점 이름 확인':'Show hub'}</button></div></div>`);
+  for(let i=0;i<route.length-1;i++){
+    const a=route[i],b=route[i+1],d=legData(a,b);
+    const ap=v50HubPoint(a,mode),bp=v50HubPoint(b,mode);
+    const modeText=lang==='ko'?(d.modeKo||v50ModeLabel(mode)):(d.mode||v50ModeLabel(mode));
+    steps.push(`<div class="v50-step"><span class="v50-step-num">${stepNo++}</span><span class="kicker">${lang==='ko'?'도시 간 이동':'INTERCITY LEG'}</span><b>${escapeHtmlText(v50CityLabel(a))} → ${escapeHtmlText(v50CityLabel(b))} · ${escapeHtmlText(modeText)}</b><p>${escapeHtmlText(lang==='ko'?`${ap.ko}에서 ${bp.ko} 방향 이동을 확인하세요. 아래 예상 시간·요금은 계획용 샘플이며 실제 운행편은 Move에서 조회합니다.`:`Check the trip from ${ap.en} toward ${bp.en}. Time and fare below are planning samples; use Move for connected route/schedule data.`)}</p><div class="v50-leg-meta"><span>⏱ ${escapeHtmlText(d.time)}</span><span>💳 ${escapeHtmlText(d.cost)}</span><span>${lang==='ko'?'예약·운행 확인 필요':'Verify schedule/booking'}</span></div><div class="v50-step-actions"><button type="button" class="primary" onclick="v50OpenMoveSegment('${a}','${b}',true)">🔎 ${lang==='ko'?'실제 경로 데이터 확인':'Check connected route data'}</button><button type="button" onclick="v50GoogleSearchHub('${b}','${mode}')">📍 ${lang==='ko'?'도착 거점 지도':'Arrival hub map'}</button></div></div>`);
+  }
+  const saved=v50FirstSavedStop(dest);
+  const savedHtml=saved?`<div class="v50-saved-next">${lang==='ko'?'My Trip 첫 저장 장소':'First saved My Trip stop'}: <b>${escapeHtmlText(lang==='ko'?(saved.ko||saved.en):(saved.en||saved.ko))}</b><br>${lang==='ko'?'도착 후 이 장소의 목적지 카드를 열어 기사·직원에게 보여줄 수 있어요.':'After arrival, open its destination card to show a driver or staff member.'}<br><button type="button" onclick="v50OpenSavedStop('${escapeHtmlText(encodeURIComponent(saved.key))}')">📍 ${lang==='ko'?'목적지 카드 열기':'Open destination card'}</button></div>`:'';
+  steps.push(`<div class="v50-step"><span class="v50-step-num">${stepNo++}</span><span class="kicker">${lang==='ko'?'도착 후':'AFTER ARRIVAL'}</span><b>${escapeHtmlText(lang==='ko'?arr.ko:arr.en)} → ${escapeHtmlText(v50CityLabel(dest))}</b><p>${lang==='ko'?'역·터미널에 도착하면 최종 관광지·숙소까지의 현지 이동을 이어서 확인하세요. 정확한 최종 목적지가 있으면 My Trip 저장 장소를 우선 사용하세요.':'After reaching the station or terminal, continue with local transit to your hotel or attraction. Prefer your saved My Trip destination when available.'}</p><div class="v50-step-actions"><button type="button" class="primary" onclick="openCityFromHub('${dest}')">🗺️ ${lang==='ko'?'목적지 도시 가이드':'Destination city guide'}</button><button type="button" onclick="openMoveArrivalMap('${dest}')">📍 ${lang==='ko'?'도착 거점 보기':'Open arrival hub'}</button></div>${savedHtml}</div>`);
+  const routeLine=route.map(c=>`<span class="city">${escapeHtmlText(v50CityLabel(c))}</span>`).join('<span class="arr">→</span>');
+  host.innerHTML=`<div class="v50-detail-head"><div><span class="v50-detail-pill">${lang==='ko'?'전체 이동 순서':'FULL JOURNEY'}</span><h3>${escapeHtmlText(v50ModeLabel(mode))}</h3><p>${escapeHtmlText(v50CityLabel(start))} → ${escapeHtmlText(v50CityLabel(dest))}</p></div><button type="button" class="ghost" style="min-height:40px" onclick="v50CloseRouteDetail()">×</button></div><div class="v50-journey-line">${routeLine}</div>${steps.join('')}<div class="v50-detail-note">⚠️ ${lang==='ko'?'이 화면은 이동 순서를 연결해 주는 가이드입니다. 샘플 예상값을 실제 운행시간·좌석·예약 가능 여부로 보지 마세요. Move에서 연결된 경로/운행계획을 조회하고, 출발 전 티켓·운영사·현장 전광판을 최종 확인하세요.':'This connects the journey steps. Do not treat sample estimates as live schedules, seats or booking availability. Check connected route/schedule data in Move and confirm your ticket, operator and station display before boarding.'}</div><div class="v50-detail-bottom"><button type="button" class="primary" onclick="v51SaveJourney('${mode}')">💾 ${lang==='ko'?'My Trip에 이동경로 저장':'Save journey to My Trip'}</button><button type="button" onclick="v50OpenMoveSegment('${start}','${dest}',true)">🔎 ${lang==='ko'?'Move 확인':'Check Move'}</button></div><div id="v51SaveFeedback" class="v51-save-feedback"></div>`;
+  host.hidden=false;
+  requestAnimationFrame(()=>host.scrollIntoView({behavior:'smooth',block:'start'}));
+}
+function v50CloseRouteDetail(){const host=document.getElementById('v50RouteDetail');if(host){host.hidden=true;host.innerHTML='';}}
+
+function v51SafeMode(mode){return ['rail','bus','car','flight'].includes(mode)?mode:'rail';}
+function v51ReadJourney(){
+  try{
+    const data=JSON.parse(sessionStorage.getItem('koreaRouteSavedJourney')||'null');
+    return data&&typeof data==='object'?data:null;
+  }catch(_){return null;}
+}
+function v51JourneyStepIds(journey){
+  if(!journey) return [];
+  return ['departure',...(journey.segments||[]).map((_,i)=>`leg${i}`),'arrival'];
+}
+function v51BuildJourney(mode='rail'){
+  mode=v51SafeMode(mode);
+  const start=document.getElementById('start')?.value||'Seoul';
+  const dest=document.getElementById('dest')?.value||'Busan';
+  if(start===dest) return null;
+  const route=getRoute(start,dest);
+  const segments=[];
+  for(let i=0;i<route.length-1;i++){
+    const from=route[i],to=route[i+1],d=legData(from,to),a=v50HubPoint(from,mode),b=v50HubPoint(to,mode);
+    segments.push({
+      from,to,time:String(d.time||''),cost:String(d.cost||''),
+      modeEn:String(d.mode||v50ModeLabel(mode)),modeKo:String(d.modeKo||v50ModeLabel(mode)),
+      fromHub:{en:String(a.en||''),ko:String(a.ko||''),x:Number.isFinite(Number(a.x))?Number(a.x):null,y:Number.isFinite(Number(a.y))?Number(a.y):null},
+      toHub:{en:String(b.en||''),ko:String(b.ko||''),x:Number.isFinite(Number(b.x))?Number(b.x):null,y:Number.isFinite(Number(b.y))?Number(b.y):null}
+    });
+  }
+  const dep=v50HubPoint(start,mode),arr=v50HubPoint(dest,mode);
+  return {
+    version:1,start,dest,mode,route:[...route],segments,
+    departureHub:{en:String(dep.en||''),ko:String(dep.ko||''),x:Number.isFinite(Number(dep.x))?Number(dep.x):null,y:Number.isFinite(Number(dep.y))?Number(dep.y):null},
+    arrivalHub:{en:String(arr.en||''),ko:String(arr.ko||''),x:Number.isFinite(Number(arr.x))?Number(arr.x):null,y:Number.isFinite(Number(arr.y))?Number(arr.y):null},
+    savedAt:new Date().toISOString(),checks:{}
+  };
+}
+function v51SaveJourney(mode='rail'){
+  const next=v51BuildJourney(mode);
+  if(!next){alert(lang==='ko'?'출발지와 목적지를 다르게 선택해주세요.':'Choose a different destination.');return;}
+  const prev=v51ReadJourney();
+  if(prev?.start===next.start&&prev?.dest===next.dest&&prev?.mode===next.mode&&prev?.checks){next.checks={...prev.checks};}
+  sessionStorage.setItem('koreaRouteSavedJourney',JSON.stringify(next));
+  try{koreaRoutePersistSessionState();}catch(_){}
+  renderMyTripJourneyCard();
+  renderOfflineTripSnapshot?.();
+  refreshAssistantContext?.();
+  const fb=document.getElementById('v51SaveFeedback');
+  if(fb){fb.textContent=lang==='ko'?'✓ My Trip에 저장했습니다. 오프라인에서도 경로 순서를 다시 볼 수 있어요.':'✓ Saved to My Trip. You can reopen the journey steps offline.';}
+  v11Toast(lang==='ko'?'이동경로 저장 완료':'Journey saved');
+}
+function v51ToggleJourneyStep(id,checked){
+  const j=v51ReadJourney(); if(!j) return;
+  const valid=new Set(v51JourneyStepIds(j)); if(!valid.has(id)) return;
+  j.checks=j.checks&&typeof j.checks==='object'?j.checks:{};
+  j.checks[id]=!!checked; j.updatedAt=new Date().toISOString();
+  sessionStorage.setItem('koreaRouteSavedJourney',JSON.stringify(j));
+  try{koreaRoutePersistSessionState();}catch(_){}
+  renderMyTripJourneyCard(); renderOfflineTripSnapshot?.(); refreshAssistantContext?.();
+}
+function v51ClearJourney(){
+  sessionStorage.removeItem('koreaRouteSavedJourney');
+  try{koreaRoutePersistSessionState();}catch(_){}
+  renderMyTripJourneyCard(); renderOfflineTripSnapshot?.(); refreshAssistantContext?.();
+}
+function v51OpenSavedJourney(){
+  const j=v51ReadJourney(); if(!j) return;
+  const start=document.getElementById('start'),dest=document.getElementById('dest');
+  if(start) start.value=j.start; if(dest) dest.value=j.dest;
+  go('result');
+  setTimeout(()=>{
+    try{calculate();}catch(_){}
+    setTimeout(()=>v50OpenRouteDetail(v51SafeMode(j.mode)),80);
+  },80);
+}
+function v51OpenSavedJourneyMove(){
+  const j=v51ReadJourney(); if(!j) return;
+  v50OpenMoveSegment(j.start,j.dest,true);
+}
+function v51JourneyDateText(value){
+  if(!value) return '';
+  const d=new Date(value); if(Number.isNaN(d.getTime())) return '';
+  try{return new Intl.DateTimeFormat(lang==='ko'?'ko-KR':'en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}).format(d);}catch(_){return d.toLocaleString();}
+}
+function renderMyTripJourneyCard(){
+  const body=document.getElementById('myTripJourneyBody'); if(!body) return;
+  const j=v51ReadJourney();
+  if(!j){
+    body.className='v51-journey-card empty';
+    body.textContent=lang==='ko'?'아직 저장한 이동경로가 없습니다. 추천 이동방법에서 “My Trip에 이동경로 저장”을 눌러주세요.':'No journey saved yet. Open a recommended route and tap “Save journey to My Trip.”';
+    return;
+  }
+  const checks=j.checks&&typeof j.checks==='object'?j.checks:{};
+  const ids=v51JourneyStepIds(j),done=ids.filter(id=>checks[id]).length,pct=ids.length?Math.round(done/ids.length*100):0;
+  const steps=[];
+  const depName=lang==='ko'?(j.departureHub?.ko||j.departureHub?.en):(j.departureHub?.en||j.departureHub?.ko);
+  steps.push({id:'departure',title:lang==='ko'?'출발 거점 확인':'Departure hub',desc:depName||j.start});
+  (j.segments||[]).forEach((seg,i)=>steps.push({id:`leg${i}`,title:`${v50CityLabel(seg.from)} → ${v50CityLabel(seg.to)}`,desc:`${lang==='ko'?(seg.modeKo||seg.modeEn):(seg.modeEn||seg.modeKo)} · ${seg.time||''} · ${seg.cost||''}`}));
+  const arrName=lang==='ko'?(j.arrivalHub?.ko||j.arrivalHub?.en):(j.arrivalHub?.en||j.arrivalHub?.ko);
+  steps.push({id:'arrival',title:lang==='ko'?'도착 거점 확인':'Arrival hub',desc:arrName||j.dest});
+  body.className='v51-journey-card';
+  body.innerHTML=`<div class="v51-journey-head"><div><span class="move-kicker">${lang==='ko'?'저장 이동경로':'SAVED JOURNEY'}</span><h4>${escapeHtmlText(v50CityLabel(j.start))} → ${escapeHtmlText(v50CityLabel(j.dest))}</h4><p>${escapeHtmlText(v50ModeLabel(v51SafeMode(j.mode)))} · ${escapeHtmlText(v51JourneyDateText(j.savedAt))}</p></div><span class="v51-offline-pill">${lang==='ko'?'오프라인 보기':'OFFLINE'}</span></div><div class="v51-progress"><i style="width:${pct}%"></i></div>${typeof v54SavedSummaryHtml==='function'?v54SavedSummaryHtml(j):''}<div class="v51-step-list">${steps.map(step=>`<label class="v51-check ${checks[step.id]?'done':''}"><input type="checkbox" ${checks[step.id]?'checked':''} onchange="v51ToggleJourneyStep('${step.id}',this.checked)"><span><b>${escapeHtmlText(step.title)}</b><span>${escapeHtmlText(step.desc)}</span></span></label>`).join('')}</div><div class="v51-journey-actions"><button type="button" class="primary" onclick="v51OpenSavedJourney()">🧭 ${lang==='ko'?'전체 이동 다시 보기':'Reopen full journey'}</button><button type="button" onclick="v54OpenLeaveBy()">⏰ ${lang==='ko'?'출발시간 계산':'Leave-by helper'}</button><button type="button" onclick="v52OpenRecoveryFromMyTrip()">😵 ${lang==='ko'?'기차·버스를 놓쳤어요':'I missed this ride'}</button><button type="button" onclick="v53OpenFromJourney()">🔔 ${lang==='ko'?'도착 거점 알림':'Arrival alert'}</button><button type="button" onclick="v51OpenSavedJourneyMove()">🔎 ${lang==='ko'?'실제 경로 재확인':'Recheck route data'}</button><button type="button" onclick="v51ClearJourney()">🗑️ ${lang==='ko'?'저장 경로 삭제':'Clear journey'}</button></div><div class="v51-journey-note">⚠️ ${lang==='ko'?'저장되는 것은 이동 순서와 계획용 샘플값입니다. 실제 출발시각·좌석·예약·운행 변경은 온라인으로 다시 확인하세요. 체크 표시는 사용자가 직접 누르는 여행 메모입니다.':'This saves the journey order and planning sample values only. Recheck actual departure times, seats, booking and service changes online. Checkmarks are manual travel notes.'}</div>`;
+}
+
+
+// V54 Leave-by Helper — calculate only from a departure time entered from the user's actual ticket/operator.
+function v54KstMs(value){
+  const m=String(value||'').match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/);
+  if(!m) return NaN;
+  const y=Number(m[1]),mo=Number(m[2]),d=Number(m[3]),h=Number(m[4]),mi=Number(m[5]);
+  return Date.UTC(y,mo-1,d,h-9,mi,0,0);
+}
+function v54FormatKst(ms,{date=false}={}){
+  if(!Number.isFinite(ms)) return '—';
+  try{
+    return new Intl.DateTimeFormat(lang==='ko'?'ko-KR':'en-US',{timeZone:'Asia/Seoul',...(date?{month:'short',day:'numeric'}:{}),hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date(ms));
+  }catch(_){return new Date(ms).toISOString().slice(11,16);}
+}
+function v54EscapeAttr(v){return escapeHtmlText(String(v??'')).replace(/"/g,'&quot;');}
+function v54DefaultLegIndex(j){
+  if(!j?.segments?.length) return 0;
+  const hit=typeof v52NextJourneyLeg==='function'?v52NextJourneyLeg(j):null;
+  return Math.max(0,Math.min(j.segments.length-1,Number(hit?.index)||0));
+}
+function v54SavedConfig(j){
+  const raw=j?.leaveBy&&typeof j.leaveBy==='object'?j.leaveBy:{};
+  return {
+    legIndex:Number.isInteger(Number(raw.legIndex))?Number(raw.legIndex):v54DefaultLegIndex(j),
+    departureLocal:/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(String(raw.departureLocal||''))?String(raw.departureLocal):'',
+    travelMinutes:Number.isFinite(Number(raw.travelMinutes))?String(Math.max(0,Math.min(600,Number(raw.travelMinutes)))):'',
+    bufferMinutes:Number.isFinite(Number(raw.bufferMinutes))?String(Math.max(0,Math.min(600,Number(raw.bufferMinutes)))):''
+  };
+}
+function v54SavedSummaryHtml(j){
+  const cfg=v54SavedConfig(j);
+  const dep=v54KstMs(cfg.departureLocal),travel=Number(cfg.travelMinutes),buffer=Number(cfg.bufferMinutes);
+  if(!cfg.departureLocal||cfg.travelMinutes===''||cfg.bufferMinutes===''||!Number.isFinite(dep)||!Number.isFinite(travel)||!Number.isFinite(buffer)) return '';
+  const leave=dep-(travel+buffer)*60000;
+  return `<div class="v54-mini"><div><b>⏰ ${lang==='ko'?'저장 출발 계획':'Saved leave plan'}</b><span>${lang==='ko'?'티켓 시각 기준 · 필요하면 다시 계산':'Based on your ticket time · recalculate if plans change'}</span></div><strong>${escapeHtmlText(v54FormatKst(leave,{date:true}))}</strong></div>`;
+}
+function v54CloseLeaveBy(){document.getElementById('v54LeavePanel')?.remove();}
+function v54SetBuffer(minutes){const el=document.getElementById('v54Buffer');if(el){el.value=String(minutes);v54Calculate(false);}}
+function v54CurrentLeg(){
+  const j=v51ReadJourney(); if(!j?.segments?.length) return null;
+  const idx=Math.max(0,Math.min(j.segments.length-1,Number(document.getElementById('v54Leg')?.value)||0));
+  return {j,idx,seg:j.segments[idx]};
+}
+function v54OpenHubDirections(){
+  const hit=v54CurrentLeg(); if(!hit) return;
+  v50GoogleDirectionsToHub(hit.seg.from,v51SafeMode(hit.j.mode));
+}
+function v54RecheckLeg(){
+  const hit=v54CurrentLeg(); if(!hit) return;
+  v54CloseLeaveBy();
+  v50OpenMoveSegment(hit.seg.from,hit.seg.to,true);
+}
+function v54SaveConfig(config){
+  const j=v51ReadJourney(); if(!j) return;
+  j.leaveBy={...config,updatedAt:new Date().toISOString()};
+  sessionStorage.setItem('koreaRouteSavedJourney',JSON.stringify(j));
+  try{koreaRoutePersistSessionState();}catch(_){ }
+  renderOfflineTripSnapshot?.(); refreshAssistantContext?.();
+}
+function v54Calculate(save=true){
+  const hit=v54CurrentLeg(),result=document.getElementById('v54Result');
+  if(!hit||!result) return;
+  const departureLocal=document.getElementById('v54Departure')?.value||'';
+  const travelRaw=document.getElementById('v54Travel')?.value??'';
+  const bufferRaw=document.getElementById('v54Buffer')?.value??'';
+  const travelMinutes=Number(travelRaw);
+  const bufferMinutes=Number(bufferRaw);
+  const depMs=v54KstMs(departureLocal);
+  const valid=departureLocal!==''&&travelRaw!==''&&bufferRaw!==''&&Number.isFinite(depMs)&&Number.isFinite(travelMinutes)&&travelMinutes>=0&&travelMinutes<=600&&Number.isFinite(bufferMinutes)&&bufferMinutes>=0&&bufferMinutes<=600;
+  if(!valid){
+    result.hidden=true;
+    if(save) v11Toast(lang==='ko'?'티켓 출발시각·이동시간·여유시간을 입력하세요.':'Enter ticket departure, travel time and buffer.');
+    return;
+  }
+  const leaveMs=depMs-(travelMinutes+bufferMinutes)*60000;
+  const hubMs=depMs-bufferMinutes*60000;
+  const depName=lang==='ko'?(hit.seg.fromHub?.ko||hit.seg.fromHub?.en):(hit.seg.fromHub?.en||hit.seg.fromHub?.ko);
+  const mode=lang==='ko'?(hit.seg.modeKo||hit.seg.modeEn):(hit.seg.modeEn||hit.seg.modeKo);
+  result.hidden=false;
+  result.innerHTML=`<div class="move-kicker">${lang==='ko'?'늦지 않으려면':'LEAVE BY'}</div><div class="v54-leave-time">${escapeHtmlText(v54FormatKst(leaveMs,{date:true}))}</div><div class="v54-timeline"><div class="v54-line"><b>${lang==='ko'?'출발':'Leave'}</b><span>${escapeHtmlText(v54FormatKst(leaveMs))} · ${lang==='ko'?`거점까지 ${travelMinutes}분 입력값`:`${travelMinutes} min to hub (your input)`}</span></div><div class="v54-line"><b>${lang==='ko'?'거점 도착':'At hub'}</b><span>${escapeHtmlText(v54FormatKst(hubMs))} · ${lang==='ko'?`출발 전 ${bufferMinutes}분 여유`:`${bufferMinutes} min before departure`}</span></div><div class="v54-line"><b>${lang==='ko'?'티켓 출발':'Ticket'}</b><span>${escapeHtmlText(v54FormatKst(depMs,{date:true}))} · ${escapeHtmlText(depName||hit.seg.from)} → ${escapeHtmlText(v50CityLabel(hit.seg.to))}</span></div><div class="v54-line"><b>${lang==='ko'?'본구간':'Main leg'}</b><span>${escapeHtmlText(mode||'')} · ${escapeHtmlText(hit.seg.time||'')}${hit.seg.time?` · ${lang==='ko'?'샘플 소요시간':'sample duration'}`:''}</span></div></div><div class="v54-note">⚠️ ${lang==='ko'?'출발시각은 티켓·운영사에서 확인한 실제 시각을 직접 입력해야 합니다. 거점까지 이동시간도 Google Maps 등에서 확인해 입력하세요. 여유시간은 운영사 규정이 아니라 사용자가 정하는 계획용 버퍼이며, 항공·특수열차·혼잡 시간에는 별도 체크인/탑승 마감 규정을 반드시 확인하세요.':'Enter the actual departure time from your ticket/operator. Enter the trip-to-hub time after checking a map. Buffer minutes are your planning choice, not an operator rule; flights, special services and busy periods may have separate check-in/boarding cutoffs.'}</div><div id="v54Saved" class="v54-saved"></div>${leaveMs<Date.now()?`<div class="v54-note">⏱️ ${lang==='ko'?'계산된 출발시각이 이미 지났습니다. 실제 다음 운행편을 다시 확인하세요.':'The calculated leave time has already passed. Recheck the actual next service.'}</div>`:''}`;
+  const config={legIndex:hit.idx,departureLocal,travelMinutes,bufferMinutes};
+  if(save){v54SaveConfig(config);const saved=document.getElementById('v54Saved');if(saved)saved.textContent=lang==='ko'?'✓ 이 계산값을 저장 이동경로에 저장했습니다.':'✓ Saved with this journey.';}
+}
+async function v54CopyPlan(){
+  const hit=v54CurrentLeg(); if(!hit) return;
+  const departureLocal=document.getElementById('v54Departure')?.value||'';
+  const travelRaw=document.getElementById('v54Travel')?.value??'',bufferRaw=document.getElementById('v54Buffer')?.value??'';
+  const travel=Number(travelRaw),buffer=Number(bufferRaw),dep=v54KstMs(departureLocal);
+  if(!departureLocal||travelRaw===''||bufferRaw===''||!Number.isFinite(dep)||!Number.isFinite(travel)||!Number.isFinite(buffer)){v11Toast(lang==='ko'?'먼저 계산해주세요.':'Calculate first.');return;}
+  const leave=dep-(travel+buffer)*60000,hub=dep-buffer*60000;
+  const text=lang==='ko'?`Korea Route 출발 계획\n${v50CityLabel(hit.seg.from)} → ${v50CityLabel(hit.seg.to)}\n출발하기: ${v54FormatKst(leave,{date:true})}\n거점 도착 목표: ${v54FormatKst(hub,{date:true})}\n티켓 출발: ${v54FormatKst(dep,{date:true})}\n※ 실제 운행·탑승 마감은 티켓/운영사에서 최종 확인`:`Korea Route leave-by plan\n${v50CityLabel(hit.seg.from)} → ${v50CityLabel(hit.seg.to)}\nLeave: ${v54FormatKst(leave,{date:true})}\nReach hub: ${v54FormatKst(hub,{date:true})}\nTicket departure: ${v54FormatKst(dep,{date:true})}\n※ Confirm actual service and boarding cutoff with your ticket/operator.`;
+  try{await navigator.clipboard.writeText(text);v11Toast(lang==='ko'?'출발 계획 복사 완료':'Leave-by plan copied');}catch(_){prompt(lang==='ko'?'이 내용을 복사하세요.':'Copy this plan:',text);}
+}
+function v54OpenLeaveBy(){
+  const j=v51ReadJourney();
+  if(!j?.segments?.length){v11Toast(lang==='ko'?'먼저 이동경로를 My Trip에 저장하세요.':'Save a journey to My Trip first.');return;}
+  v54CloseLeaveBy();
+  const cfg=v54SavedConfig(j),idx=Math.max(0,Math.min(j.segments.length-1,cfg.legIndex));
+  const legOptions=j.segments.map((seg,i)=>`<option value="${i}" ${i===idx?'selected':''}>${escapeHtmlText(v50CityLabel(seg.from))} → ${escapeHtmlText(v50CityLabel(seg.to))}</option>`).join('');
+  const panel=document.createElement('div');
+  panel.id='v54LeavePanel';panel.className='v54-leave-panel';panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');
+  panel.innerHTML=`<div class="v54-leave-sheet"><div class="v54-leave-head"><div><span class="move-kicker">${lang==='ko'?'출발시간 역산':'LEAVE-BY HELPER'}</span><h3>⏰ ${lang==='ko'?'몇 시에 출발해야 할까?':'When should I leave?'}</h3><p>${lang==='ko'?'티켓의 실제 출발시각을 기준으로 거꾸로 계산합니다.':'Counts backward from the real departure time on your ticket.'}</p></div><button type="button" class="v54-close" onclick="v54CloseLeaveBy()" aria-label="Close">×</button></div><div class="v54-form"><div class="v54-field"><label>${lang==='ko'?'계산할 도시 간 구간':'Intercity leg'}</label><select id="v54Leg" onchange="v54Calculate(false)">${legOptions}</select></div><div class="v54-field"><label>${lang==='ko'?'티켓·운영사에 표시된 실제 출발시각 (한국시간)':'Actual departure on ticket/operator (Korea time)'}</label><input id="v54Departure" type="datetime-local" value="${v54EscapeAttr(cfg.departureLocal)}" onchange="v54Calculate(false)"></div><div class="v54-two"><div class="v54-field"><label>${lang==='ko'?'현재 출발점 → 역/터미널 이동시간 (분)':'Current start → hub travel (min)'}</label><input id="v54Travel" type="number" inputmode="numeric" min="0" max="600" step="1" value="${v54EscapeAttr(cfg.travelMinutes)}" placeholder="30"></div><div class="v54-field"><label>${lang==='ko'?'내가 확보할 여유시간 (분)':'My extra buffer (min)'}</label><input id="v54Buffer" type="number" inputmode="numeric" min="0" max="600" step="1" value="${v54EscapeAttr(cfg.bufferMinutes)}" placeholder="20"></div></div><div class="v54-buffer-chips"><button type="button" onclick="v54SetBuffer(15)">+15m</button><button type="button" onclick="v54SetBuffer(30)">+30m</button><button type="button" onclick="v54SetBuffer(60)">+60m</button></div><div class="v54-actions"><button type="button" onclick="v54OpenHubDirections()">🗺️ ${lang==='ko'?'거점까지 시간 확인':'Check time to hub'}</button><button type="button" class="primary" onclick="v54Calculate(true)">⏰ ${lang==='ko'?'출발시간 계산':'Calculate leave time'}</button><button type="button" onclick="v54CopyPlan()">📋 ${lang==='ko'?'계획 복사':'Copy plan'}</button><button type="button" onclick="v54RecheckLeg()">🔎 ${lang==='ko'?'실제 경로 재확인':'Recheck route data'}</button></div></div><div id="v54Result" class="v54-result" hidden></div></div>`;
+  panel.addEventListener('click',e=>{if(e.target===panel)v54CloseLeaveBy();});
+  document.body.appendChild(panel);
+  if(cfg.departureLocal&&cfg.travelMinutes!==''&&cfg.bufferMinutes!=='') v54Calculate(false);
+}
+
+function v52NextJourneyLeg(j){
+  if(!j||!Array.isArray(j.segments)||!j.segments.length) return null;
+  const checks=j.checks&&typeof j.checks==='object'?j.checks:{};
+  for(let i=0;i<j.segments.length;i++){
+    if(!checks[`leg${i}`]) return {index:i,seg:j.segments[i]};
+  }
+  return {index:j.segments.length-1,seg:j.segments[j.segments.length-1]};
+}
+function v52RecoveryPhrase(){return lang==='ko'?'이 기차(버스)를 놓쳤어요. 다음에 탈 수 있는 편을 알려주세요.':'I missed this train/bus. Please tell me the next service I can take.';}
+async function v52CopyRecoveryPhrase(){
+  const text='이 기차(버스)를 놓쳤어요. 다음에 탈 수 있는 편을 알려주세요.';
+  try{await navigator.clipboard.writeText(text);v11Toast(lang==='ko'?'한국어 문장 복사 완료':'Korean phrase copied');}catch(_){prompt(lang==='ko'?'이 문장을 복사하세요.':'Copy this phrase:',text);}
+}
+function v52OpenRecoveryMove(){
+  const j=v51ReadJourney(),hit=v52NextJourneyLeg(j); if(!j||!hit) return;
+  closeCityTripTrouble?.();
+  v50OpenMoveSegment(hit.seg.from,hit.seg.to,true);
+}
+function v52OpenRecoveryDepartureHub(){
+  const j=v51ReadJourney(),hit=v52NextJourneyLeg(j); if(!j||!hit) return;
+  v50GoogleSearchHub(hit.seg.from,v51SafeMode(j.mode));
+}
+function v52OpenRecoveryArrivalHub(){
+  const j=v51ReadJourney(),hit=v52NextJourneyLeg(j); if(!j||!hit) return;
+  v50GoogleSearchHub(hit.seg.to,v51SafeMode(j.mode));
+}
+function v52ApplyLateAndRecheck(){
+  try{applyKoreaLateArrivalMode();}catch(_){}
+  v52OpenRecoveryMove();
+}
+function v52RecoveryHtml(compact=false){
+  const j=v51ReadJourney();
+  if(!j){
+    return `<div class="v52-recovery"><h4>😵 ${lang==='ko'?'놓친 이동편 복구':'Missed connection recovery'}</h4><p>${lang==='ko'?'저장된 이동경로가 없습니다. Move에서 현재 출발지와 목적지를 다시 조회하세요. 실제 다음 운행편이나 좌석을 앱이 추정하지 않습니다.':'No saved journey is available. Recheck your current origin and destination in Move. The app does not guess the next service or seat availability.'}</p><div class="v52-recovery-actions"><button type="button" class="primary" onclick="cityTripTroubleMove()">🔎 ${lang==='ko'?'Move에서 다시 찾기':'Recheck in Move'}</button><button type="button" onclick="v52CopyRecoveryPhrase()">🇰🇷 ${lang==='ko'?'직원에게 보여줄 문장':'Phrase for staff'}</button></div></div>`;
+  }
+  const hit=v52NextJourneyLeg(j);
+  if(!hit) return '';
+  const seg=hit.seg;
+  const mode=lang==='ko'?(seg.modeKo||seg.modeEn):(seg.modeEn||seg.modeKo);
+  const from=lang==='ko'?(seg.fromHub?.ko||seg.fromHub?.en||v50CityLabel(seg.from)):(seg.fromHub?.en||seg.fromHub?.ko||v50CityLabel(seg.from));
+  const to=lang==='ko'?(seg.toHub?.ko||seg.toHub?.en||v50CityLabel(seg.to)):(seg.toHub?.en||seg.toHub?.ko||v50CityLabel(seg.to));
+  return `<div class="v52-recovery"><h4>😵 ${lang==='ko'?'놓친 이동편 복구':'Missed connection recovery'}</h4><p>${lang==='ko'?'저장된 이동경로에서 아직 완료하지 않은 첫 도시 간 구간을 기준으로 보여줍니다. 실제 다음 출발편·좌석·운행 여부는 반드시 다시 조회하세요.':'This uses the first unfinished intercity leg in your saved journey. Recheck the actual next departure, seats and service status.'}</p><div class="v52-recovery-route"><b>${escapeHtmlText(v50CityLabel(seg.from))} → ${escapeHtmlText(v50CityLabel(seg.to))} · ${escapeHtmlText(mode||'')}</b><span>${escapeHtmlText(from)} → ${escapeHtmlText(to)}</span></div><div class="v52-recovery-actions"><button type="button" class="primary" onclick="v52OpenRecoveryMove()">🔎 ${lang==='ko'?'이 구간 다시 조회':'Recheck this leg'}</button><button type="button" onclick="v52OpenRecoveryDepartureHub()">📍 ${lang==='ko'?'현재 출발 거점 확인':'Departure hub map'}</button><button type="button" onclick="v52OpenRecoveryArrivalHub()">➡️ ${lang==='ko'?'도착 거점 확인':'Arrival hub map'}</button><button type="button" onclick="v52CopyRecoveryPhrase()">🇰🇷 ${lang==='ko'?'직원에게 보여줄 문장':'Show staff phrase'}</button><button type="button" onclick="v52ApplyLateAndRecheck()">🌙 ${lang==='ko'?'늦어진 일정으로 다시 확인':'Recheck as late arrival'}</button></div><div class="v52-recovery-note">⚠️ ${lang==='ko'?'Korea Route는 “다음 편”을 자동 확정하지 않습니다. 티켓 변경·환불·재예약 규정은 구매처 또는 운영사 안내를 따르세요.':'Korea Route does not automatically confirm a “next service.” Follow your ticket seller or operator for changes, refunds and rebooking rules.'}</div></div>`;
+}
+function v52OpenRecoveryFromMyTrip(){
+  const host=document.getElementById('myTripJourneyBody'); if(!host) return;
+  let old=host.querySelector('.v52-recovery'); if(old){old.remove();return;}
+  host.insertAdjacentHTML('beforeend',v52RecoveryHtml(true));
+  host.querySelector('.v52-recovery')?.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
 function v11RenderItinerary(){
   const host=document.getElementById('v11Itinerary'); if(!host) return;
   const startCity=document.getElementById('start').value;
@@ -7094,6 +7837,7 @@ function v11Refresh(){
 }
 
 document.addEventListener('click',e=>{
+  const routeGo=e.target.closest('[data-v50-route-mode]'); if(routeGo){v50OpenRouteDetail(routeGo.dataset.v50RouteMode||'rail');return;}
   const dayBtn=e.target.closest('[data-v38-day]'); if(dayBtn){v38ChooseDay(dayBtn.dataset.v38Day);return;}
   const moveBtn=e.target.closest('[data-v38-move]'); if(moveBtn){v38MovePlace(moveBtn.dataset.v38Key,Number(moveBtn.dataset.v38Move));return;}
   const removeBtn=e.target.closest('[data-v38-remove]'); if(removeBtn){v38RemovePlace(removeBtn.dataset.v38Key);return;}
@@ -7117,6 +7861,7 @@ function plannerCitiesDiffer({notify=false}={}){
 }
 
 function calculate(){
+  v50CloseRouteDetail();
   const travelers=Math.max(1,parseInt(document.getElementById('travelers').value||1));
   const start=document.getElementById('start').value;
   const dest=document.getElementById('dest').value;
@@ -7144,6 +7889,9 @@ function calculate(){
   };
   candidates=candidates.sort((a,b)=>score(b)-score(a));
   const best=candidates[0];
+  v50CurrentBestMode=best?.mode||'rail';
+  const bestTitle=document.getElementById('v50BestOptionTitle');
+  if(bestTitle) bestTitle.textContent=v50ModeLabel(v50CurrentBestMode);
   const bus=candidates.find(c=>c.mode==='bus')||candidates[1]||best;
   const car=candidates.find(c=>c.mode==='car')||candidates[candidates.length-1]||best;
 
@@ -7783,9 +8531,11 @@ function clearMyTripPart(part){
 function initMyTripHub(){
   refreshMyTrip();
   renderSavedPlacesInMyTrip();
+  renderMyTripJourneyCard();
   renderMyTripChecklist();
   renderMyTripEmergencyCard();
   renderMyTripLiveLocation();
+  v53RenderStopAlert();
 }
 
 function assistantReadJSON(key){
@@ -8112,6 +8862,80 @@ function initLiveFx(){
   if(currency&&!currency.dataset.fxBound){currency.dataset.fxBound='1';currency.addEventListener('change',()=>{liveFxRate=null;refreshLiveFx();});}
   if(amount&&!amount.dataset.fxBound){amount.dataset.fxBound='1';amount.addEventListener('input',renderLiveFxConversion);}
   refreshLiveFx();
+}
+
+const TAX_REFUND_OFFICIAL_URL='https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=489&vcontsId=140736';
+function openTaxRefundOfficial(){
+  window.open(TAX_REFUND_OFFICIAL_URL,'_blank','noopener');
+}
+function taxRefundWon(v){
+  const n=Number(v||0);
+  return Number.isFinite(n)?`₩${Math.max(0,Math.round(n)).toLocaleString()}`:'—';
+}
+function openTaxRefundHelper(){
+  let layer=document.getElementById('phraseSheetLayer');
+  if(!layer){layer=document.createElement('div');layer.id='phraseSheetLayer';layer.className='phrase-sheet-layer';document.body.appendChild(layer);}
+  layer.innerHTML=`<div class="phrase-sheet">
+    <div class="phrase-sheet-head"><div><span>${lang==='ko'?'외국인 쇼핑 환급 체크':'TAX REFUND HELPER'}</span><h3>${lang==='ko'?'결제 전·출국 전 필요한 조건을 확인하세요':'Check the basics before paying and before departure'}</h3></div><button type="button" onclick="closePhraseSheet()">×</button></div>
+    <div class="tax-refund-phrase"><b>택스 리펀드 받을 수 있나요?</b><span>Can I get a tax refund?</span></div>
+    <div class="tax-refund-grid">
+      <div class="tax-refund-field"><label>${lang==='ko'?'이번 결제금액 (원)':'This purchase (KRW)'}</label><input id="taxRefundAmount" type="number" min="0" step="1000" inputmode="numeric" placeholder="15000"></div>
+      <div class="tax-refund-field"><label>${lang==='ko'?'이번 여행 즉시환급 구매 누계 (선택)':'Trip immediate-refund spending (optional)'}</label><input id="taxRefundTripTotal" type="number" min="0" step="1000" inputmode="numeric" placeholder="5000000"></div>
+    </div>
+    <div class="tax-refund-checks">
+      ${taxRefundCheckHtml('taxRefundStore',lang==='ko'?'Tax Refund / Tax Free 표시 매장':'Store shows Tax Refund / Tax Free',lang==='ko'?'매장 입구·계산대 또는 환급 영수증 표시를 확인':'Check the sign at the store/counter or the refund receipt')}
+      ${taxRefundCheckHtml('taxRefundPassport',lang==='ko'?'여권을 제시할 수 있음':'Passport available',lang==='ko'?'즉시환급은 결제 시 여권 제시가 필요':'Immediate refund requires presenting a passport at purchase')}
+      ${taxRefundCheckHtml('taxRefundUnused',lang==='ko'?'새 상품이며 사용·개봉하지 않음':'New, unopened and unused goods',lang==='ko'?'사용·개봉한 물품은 일반 환급 대상에서 제외될 수 있음':'Opened or used goods can be ineligible')}
+      ${taxRefundCheckHtml('taxRefundDeparture',lang==='ko'?'구매 후 3개월 안에 한국 출국':'Depart Korea within 3 months',lang==='ko'?'환급 기본 요건 중 하나':'One of the basic refund requirements')}
+      ${taxRefundCheckHtml('taxRefundVisitor',lang==='ko'?'한국 체류 6개월 미만 외국인 방문객':'Foreign visitor staying in Korea under 6 months',lang==='ko'?'일반 외국인 관광객 기준':'General foreign-visitor eligibility')}
+    </div>
+    <div class="tax-refund-actions"><button type="button" class="primary" onclick="evaluateTaxRefund()">✓ ${lang==='ko'?'환급 조건 확인':'Check refund conditions'}</button><button type="button" onclick="copyTextWithFallback('택스 리펀드 받을 수 있나요?')">📋 ${lang==='ko'?'한국어 복사':'Copy Korean'}</button><button type="button" onclick="openTaxRefundOfficial()">↗ ${lang==='ko'?'공식 환급 안내':'Official guide'}</button></div>
+    <div id="taxRefundResult" class="tax-refund-result"></div>
+    <div class="tax-refund-facts">
+      <div class="tax-refund-fact"><b>${lang==='ko'?'일반 환급 기본금액':'General refund minimum'}</b><span>${lang==='ko'?'공식 관광안내 기준 영수증당 ₩15,000 이상. 인증 환급 매장이어야 하며 물품·체류 자격 등 다른 조건도 충족해야 합니다.':'Official tourism guidance: at least ₩15,000 per receipt, at a participating refund store, with other goods and visitor requirements met.'}</span></div>
+      <div class="tax-refund-fact"><b>${lang==='ko'?'매장 즉시환급':'Immediate refund at participating stores'}</b><span>${lang==='ko'?'1회 결제 ₩15,000 이상 ~ ₩1,000,000 미만, 여행 중 즉시환급 구매 누계 ₩5,000,000 이하가 현재 공식 안내 기준입니다.':'Current official guidance: ₩15,000 or more but less than ₩1,000,000 in one payment, and no more than ₩5,000,000 in total immediate-refund purchases during the trip.'}</span></div>
+      <div class="tax-refund-fact"><b>${lang==='ko'?'도심·공항 환급':'Downtown / airport refund'}</b><span>${lang==='ko'?'도심 환급은 영수증 1장당 ₩6,000,000 이하 안내가 있으며, 공항·항만은 절차가 다를 수 있습니다. 출국 공항 현장 안내를 다시 확인하세요.':'Downtown refund guidance uses a ₩6,000,000 per-receipt limit. Airport/port procedures can differ, so recheck the departure-terminal instructions.'}</span></div>
+    </div>
+    <div class="tax-refund-source">${lang==='ko'?'공식 기준 확인: VISITKOREA 및 관세청 자료 · 2026-08-31 확인. Korea Route는 실제 환급 승인·환급액·매장 참여 여부를 보장하지 않습니다. 여권번호나 카드번호는 이 화면에 입력하지 마세요.':'Checked against VISITKOREA and Korea Customs Service information on 2026-08-31. Korea Route does not guarantee approval, refund amount, or store participation. Do not enter passport or card numbers here.'}</div>
+  </div>`;
+  layer.classList.add('show');
+}
+function taxRefundCheckHtml(id,title,note){
+  return `<label class="tax-refund-check" for="${id}"><input id="${id}" type="checkbox"><span><b>${title}</b><span>${note}</span></span></label>`;
+}
+function evaluateTaxRefund(){
+  const amount=Math.max(0,Number(document.getElementById('taxRefundAmount')?.value||0));
+  const tripTotal=Math.max(0,Number(document.getElementById('taxRefundTripTotal')?.value||0));
+  const checked=id=>!!document.getElementById(id)?.checked;
+  const store=checked('taxRefundStore'), passport=checked('taxRefundPassport'), unused=checked('taxRefundUnused'), departure=checked('taxRefundDeparture'), visitor=checked('taxRefundVisitor');
+  const result=document.getElementById('taxRefundResult'); if(!result) return;
+  const missing=[];
+  if(!store) missing.push(lang==='ko'?'환급 참여 매장 표시':'participating-store mark');
+  if(!passport) missing.push(lang==='ko'?'여권 제시':'passport');
+  if(!unused) missing.push(lang==='ko'?'미사용·미개봉 물품':'new/unused goods');
+  if(!departure) missing.push(lang==='ko'?'3개월 내 출국':'departure within 3 months');
+  if(!visitor) missing.push(lang==='ko'?'방문객 체류 조건':'visitor stay condition');
+  let cls='warn', title='', lines=[];
+  if(amount<15000){
+    title=lang==='ko'?'현재 입력금액은 일반 환급 최소금액보다 낮아요':'This amount is below the general refund minimum';
+    lines.push(lang==='ko'?`${taxRefundWon(amount)} 입력 · 공식 관광안내의 일반 최소금액은 영수증당 ₩15,000입니다.`:`Entered ${taxRefundWon(amount)} · official tourism guidance uses a ₩15,000 minimum per receipt.`);
+  }else if(missing.length){
+    title=lang==='ko'?'금액은 기준 이상이지만 확인할 조건이 남아 있어요':'The amount meets the minimum, but checks remain';
+    lines.push((lang==='ko'?'다시 확인: ':'Recheck: ')+missing.join(' · '));
+  }else{
+    cls='good';
+    title=lang==='ko'?'기본 환급 조건에는 맞을 가능성이 높아요':'The basic refund conditions look likely to fit';
+    lines.push(lang==='ko'?'최종 가능 여부와 환급액은 매장 환급 사업자 또는 출국지에서 확인하세요.':'Confirm final eligibility and the refund amount with the store/refund operator or at departure.');
+  }
+  if(amount>=15000 && amount<1000000){
+    if(tripTotal>5000000) lines.push(lang==='ko'?'입력한 여행 누계가 ₩5,000,000을 넘어서 매장 즉시환급 한도는 다시 확인해야 합니다.':'The entered trip total exceeds ₩5,000,000, so immediate-refund eligibility needs rechecking.');
+    else if(tripTotal>0) lines.push(lang==='ko'?`즉시환급 금액 구간에는 들어갑니다. 입력 누계 ${taxRefundWon(tripTotal)} 기준으로도 ₩5,000,000 이하입니다. 매장 참여 여부를 확인하세요.`:`The purchase is within the immediate-refund amount band. The entered trip total ${taxRefundWon(tripTotal)} is also within ₩5,000,000. Confirm store participation.`);
+    else lines.push(lang==='ko'?'즉시환급 금액 구간에는 들어갑니다. 여행 중 즉시환급 구매 누계가 ₩5,000,000 이하인지도 확인하세요.':'The purchase is within the immediate-refund amount band. Also check that your trip total for immediate refunds is no more than ₩5,000,000.');
+  }else if(amount>=1000000){
+    lines.push(lang==='ko'?'₩1,000,000 이상 결제는 현재 매장 즉시환급 금액 범위를 벗어납니다. 인증 매장이라면 일반/출국 환급 가능성은 별도로 확인하세요.':'A purchase of ₩1,000,000 or more is outside the current immediate-refund payment band. At a participating store, check regular/departure refund options separately.');
+  }
+  result.className=`tax-refund-result show ${cls}`;
+  result.innerHTML=`<h4>${title}</h4>${lines.map(x=>`<p>${x}</p>`).join('')}`;
 }
 
 function renderTripWallet(){
@@ -8468,21 +9292,77 @@ function applyMoveSituationHighlights(){
   if(helper) helper.dataset.mode=mode;
 }
 
+const OFFLINE_PHRASE_CATEGORIES={
+  all:{icon:'📴',en:'All',ko:'전체'},
+  transit:{icon:'🚆',en:'Transport',ko:'교통'},
+  food:{icon:'🍽️',en:'Food',ko:'식당'},
+  stay:{icon:'🏨',en:'Stay',ko:'숙소'},
+  shopping:{icon:'🛍️',en:'Shopping',ko:'쇼핑'},
+  lost:{icon:'🎒',en:'Lost / help',ko:'분실·도움'},
+  medical:{icon:'🩺',en:'Medical',ko:'의료'}
+};
 const TRAVEL_PHRASES=[
-  {icon:'📍',en:'Please take me here.',ko:'여기로 가주세요.'},
-  {icon:'🚇',en:'Where is the subway station?',ko:'지하철역이 어디예요?'},
-  {icon:'🚌',en:'Does this bus go to this place?',ko:'이 버스가 이곳으로 가나요?'},
-  {icon:'💳',en:'Can I pay with this card?',ko:'이 카드로 결제할 수 있나요?'},
-  {icon:'🧳',en:'Can I leave my luggage here?',ko:'짐을 여기에 맡길 수 있나요?'},
-  {icon:'🚻',en:'Where is the restroom?',ko:'화장실이 어디예요?'},
-  {icon:'💬',en:'I do not understand Korean well.',ko:'한국어를 잘 이해하지 못해요.'},
-  {icon:'🐢',en:'Please speak slowly.',ko:'천천히 말씀해 주세요.'},
-  {icon:'✍️',en:'Please write it down.',ko:'적어 주세요.'},
-  {icon:'🌐',en:'Please use a translation app.',ko:'번역 앱을 사용해 주세요.'},
-  {icon:'🩺',en:'I feel sick. I would like to go to a hospital.',ko:'몸이 아파요. 병원에 가고 싶어요.'},
-  {icon:'🚑',en:'This is an emergency. Please call 119.',ko:'응급상황이에요. 119를 불러 주세요.'},
-  {icon:'💊',en:'Where is the nearest pharmacy?',ko:'가장 가까운 약국이 어디예요?'}
+  {cat:'transit',icon:'📍',en:'Please take me here.',ko:'여기로 가주세요.'},
+  {cat:'transit',icon:'🚇',en:'Where is the subway station?',ko:'지하철역이 어디예요?'},
+  {cat:'transit',icon:'🚌',en:'Does this bus go to this place?',ko:'이 버스가 이곳으로 가나요?'},
+  {cat:'shopping',icon:'💳',en:'Can I pay with this card?',ko:'이 카드로 결제할 수 있나요?'},
+  {cat:'transit',icon:'🧳',en:'Can I leave my luggage here?',ko:'짐을 여기에 맡길 수 있나요?'},
+  {cat:'lost',icon:'🚻',en:'Where is the restroom?',ko:'화장실이 어디예요?'},
+  {cat:'lost',icon:'💬',en:'I do not understand Korean well.',ko:'한국어를 잘 이해하지 못해요.'},
+  {cat:'lost',icon:'🐢',en:'Please speak slowly.',ko:'천천히 말씀해 주세요.'},
+  {cat:'lost',icon:'✍️',en:'Please write it down.',ko:'적어 주세요.'},
+  {cat:'lost',icon:'🌐',en:'Please use a translation app.',ko:'번역 앱을 사용해 주세요.'},
+  {cat:'medical',icon:'🩺',en:'I feel sick. I would like to go to a hospital.',ko:'몸이 아파요. 병원에 가고 싶어요.'},
+  {cat:'medical',icon:'🚑',en:'This is an emergency. Please call 119.',ko:'응급상황이에요. 119를 불러 주세요.'},
+  {cat:'medical',icon:'💊',en:'Where is the nearest pharmacy?',ko:'가장 가까운 약국이 어디예요?'},
+  {cat:'transit',icon:'🎫',en:'Where can I buy a ticket?',ko:'표는 어디에서 살 수 있나요?'},
+  {cat:'transit',icon:'🔁',en:'Where do I transfer?',ko:'어디에서 갈아타나요?'},
+  {cat:'transit',icon:'🚪',en:'Which exit should I use?',ko:'몇 번 출구로 나가야 하나요?'},
+  {cat:'transit',icon:'⏰',en:'What time is the last train?',ko:'막차가 몇 시예요?'},
+  {cat:'food',icon:'👉',en:'This one, please.',ko:'이것 주세요.'},
+  {cat:'food',icon:'🥡',en:'Please pack this to go.',ko:'포장해 주세요.'},
+  {cat:'food',icon:'🌶️',en:'Please make it not spicy.',ko:'안 맵게 해 주세요.'},
+  {cat:'food',icon:'🧾',en:'Check, please.',ko:'계산해 주세요.'},
+  {cat:'stay',icon:'🏨',en:'I have a reservation.',ko:'예약했어요.'},
+  {cat:'stay',icon:'🛎️',en:'Can I check in now?',ko:'지금 체크인할 수 있나요?'},
+  {cat:'stay',icon:'🧳',en:'Can you keep my luggage after checkout?',ko:'체크아웃 후에 짐을 맡길 수 있나요?'},
+  {cat:'stay',icon:'📶',en:'What is the Wi-Fi password?',ko:'와이파이 비밀번호가 뭐예요?'},
+  {cat:'shopping',icon:'💵',en:'How much is this?',ko:'이거 얼마예요?'},
+  {cat:'shopping',icon:'🧾',en:'Can I get a receipt?',ko:'영수증 받을 수 있나요?'},
+  {cat:'shopping',icon:'🛍️',en:'Can I get a tax refund?',ko:'택스 리펀드 받을 수 있나요?'},
+  {cat:'shopping',icon:'↩️',en:'Can I return or exchange this?',ko:'교환이나 환불이 가능한가요?'},
+  {cat:'lost',icon:'🎒',en:'I lost my bag. Please help me.',ko:'가방을 잃어버렸어요. 도와주세요.'},
+  {cat:'lost',icon:'📱',en:'I lost my phone. Please help me.',ko:'휴대폰을 잃어버렸어요. 도와주세요.'},
+  {cat:'lost',icon:'👛',en:'I lost my wallet and cards.',ko:'지갑과 카드를 잃어버렸어요.'},
+  {cat:'lost',icon:'👮',en:'Where is the nearest police station?',ko:'가장 가까운 경찰관서가 어디예요?'},
+  {cat:'medical',icon:'🤕',en:'I am hurt. Please help me.',ko:'다쳤어요. 도와주세요.'},
+  {cat:'medical',icon:'💊',en:'I need medicine for this symptom.',ko:'이 증상에 필요한 약이 있어요?'},
+  {cat:'medical',icon:'⚠️',en:'I have an allergy. Please check.',ko:'알레르기가 있어요. 확인해 주세요.'}
 ];
+let offlinePhraseCategory='all';
+
+const RESTAURANT_ORDER_CATEGORIES={
+  basic:{icon:'🍽️',en:'Order',ko:'주문'},
+  spice:{icon:'🌶️',en:'Spice',ko:'매운맛'},
+  diet:{icon:'🥬',en:'Food choices',ko:'식사 선택'},
+  allergy:{icon:'⚠️',en:'Allergy',ko:'알레르기'}
+};
+const RESTAURANT_ORDER_PHRASES=[
+  {cat:'basic',icon:'👉',en:'This one, please.',ko:'이것 주세요.'},
+  {cat:'basic',icon:'💧',en:'Water, please.',ko:'물 주세요.'},
+  {cat:'basic',icon:'🥡',en:'Please pack this to go.',ko:'포장해 주세요.'},
+  {cat:'basic',icon:'🧾',en:'Check, please.',ko:'계산해 주세요.'},
+  {cat:'spice',icon:'🌶️',en:'Please make it not spicy.',ko:'안 맵게 해 주세요.'},
+  {cat:'spice',icon:'🌶️',en:'Please make it less spicy.',ko:'덜 맵게 해 주세요.'},
+  {cat:'spice',icon:'❓',en:'Is this spicy?',ko:'이 음식은 매워요?'},
+  {cat:'diet',icon:'🐷',en:'I do not eat pork.',ko:'돼지고기를 먹지 않아요.'},
+  {cat:'diet',icon:'🥬',en:'I do not eat meat.',ko:'고기를 먹지 않아요.'},
+  {cat:'diet',icon:'🐟',en:'I do not eat seafood.',ko:'해산물을 먹지 않아요.'},
+  {cat:'allergy',icon:'⚠️',en:'I have a food allergy. Please check the ingredients.',ko:'음식 알레르기가 있어요. 재료를 확인해 주세요.'},
+  {cat:'allergy',icon:'🥜',en:'I have a peanut allergy.',ko:'땅콩 알레르기가 있어요.'},
+  {cat:'allergy',icon:'🥜',en:'Does this contain peanuts?',ko:'이 음식에 땅콩이 들어가나요?'}
+];
+let restaurantOrderCategory='basic';
 
 function languageHelperHtml(){
   return `<section class="language-helper">
@@ -8495,11 +9375,52 @@ function languageHelperHtml(){
       <button type="button" class="primary" onclick="openTranslationHub()">🌐 ${lang==='ko'?'번역 허브':'Translation Hub'}</button>
       <button type="button" onclick="openCityLost1330()">☎ ${lang==='ko'?'1330 통역 도움':'1330 Help'}</button>
     </div>
+    <button type="button" class="food-order-launch" onclick="openRestaurantOrderHelper()">🍽️ ${lang==='ko'?'식당 주문 도우미':'Food Ordering Helper'} · ${lang==='ko'?'주문·매운맛·알레르기':'order · spice · allergy'}</button>
+    <button type="button" class="offline-phrase-launch" onclick="openPhraseSheet('all')">📴 ${lang==='ko'?'오프라인 여행 문장팩':'Offline Phrase Pack'} · ${lang==='ko'?'교통·숙소·쇼핑·분실·의료':'transport · stay · shopping · help'}</button>
     <div class="phrase-quick-row">
       ${TRAVEL_PHRASES.slice(0,4).map((p,i)=>`<button type="button" onclick="openPhraseSheet(${i})"><span>${p.icon}</span>${lang==='ko'?p.ko:p.en}</button>`).join('')}
     </div>
     <p class="language-helper-note">${lang==='ko'?'번역 허브는 기기 내 번역 기능이 지원되면 앱 안에서 번역합니다. 미지원 기기에서는 사용자가 직접 외부 번역 서비스를 열 수 있습니다. 기본 여행 문장은 오프라인에서도 바로 보여줄 수 있습니다.':'Translation Hub uses on-device translation when the browser supports it. Otherwise, you can choose to open an external translation service. Quick travel phrases remain available offline.'}</p>
   </section>`;
+}
+
+function openRestaurantOrderHelper(category=restaurantOrderCategory){
+  restaurantOrderCategory=RESTAURANT_ORDER_CATEGORIES[category]?category:'basic';
+  const layer=ensurePhraseSheetLayer();
+  const visible=RESTAURANT_ORDER_PHRASES.map((p,i)=>({...p,index:i})).filter(p=>p.cat===restaurantOrderCategory);
+  layer.innerHTML=`<div class="phrase-sheet">
+    <div class="phrase-sheet-head"><div><span>${lang==='ko'?'식당에서 바로 보여주기':'FOOD ORDERING HELPER'}</span><h3>${lang==='ko'?'필요한 문장을 골라 크게 보여주세요':'Choose a phrase and show it to staff'}</h3></div><button type="button" onclick="closePhraseSheet()">×</button></div>
+    <div class="food-order-tabs">${Object.entries(RESTAURANT_ORDER_CATEGORIES).map(([id,c])=>`<button type="button" class="${id===restaurantOrderCategory?'active':''}" onclick="openRestaurantOrderHelper('${id}')">${c.icon} ${lang==='ko'?c.ko:c.en}</button>`).join('')}</div>
+    <div class="phrase-list">${visible.map(p=>`<button type="button" class="phrase-card" onclick="showRestaurantOrderPhrase(${p.index})"><span class="phrase-icon">${p.icon}</span><div><b>${escapeHtmlText(p.ko)}</b><small>${escapeHtmlText(p.en)}</small></div><em>${lang==='ko'?'크게 보기':'Show'}</em></button>`).join('')}</div>
+    <div class="food-order-note">${lang==='ko'?'알레르기·식이 제한 문장은 의사소통 보조용입니다. 심한 알레르기가 있거나 재료 확인이 중요하면 직원에게 성분과 조리 과정을 다시 확인하세요. Korea Route는 교차접촉이나 재료 안전을 보장하지 않습니다.':'Allergy and dietary phrases are communication aids only. If an allergy is severe or ingredients matter, confirm ingredients and preparation with staff. Korea Route cannot guarantee ingredients or cross-contact safety.'}</div>
+    <div class="translate-actions" style="margin-top:10px"><button type="button" class="primary" onclick="openRestaurantCustomTranslation()">🌐 ${lang==='ko'?'내 요청 직접 번역':'Translate my own request'}</button><button type="button" onclick="openPhraseSheet()">💬 ${lang==='ko'?'기본 여행 문장':'Quick phrases'}</button></div>
+  </div>`;
+}
+
+function showRestaurantOrderPhrase(i){
+  const p=RESTAURANT_ORDER_PHRASES[Number(i)];
+  if(!p)return;
+  restaurantOrderCategory=p.cat;
+  const layer=ensurePhraseSheetLayer();
+  layer.innerHTML=`<div class="phrase-sheet">
+    <div class="phrase-sheet-head"><div><span>${lang==='ko'?'직원에게 보여주기':'SHOW RESTAURANT STAFF'}</span><h3>${lang==='ko'?'이 화면을 그대로 보여주세요':'Show this screen'}</h3></div><button type="button" onclick="closePhraseSheet()">×</button></div>
+    <div class="phrase-focus"><div class="phrase-focus-badge">${p.icon} ${lang==='ko'?'식당 도움 문장':'Restaurant phrase'}</div><div class="phrase-focus-icon">${p.icon}</div><div class="phrase-focus-ko">${escapeHtmlText(p.ko)}</div><div class="phrase-focus-en">${escapeHtmlText(p.en)}</div><div class="food-order-focus-actions"><button type="button" class="primary" onclick="copyRestaurantOrderPhrase(${Number(i)})">📋 ${lang==='ko'?'한국어 문장 복사':'Copy Korean phrase'}</button><button type="button" onclick="openRestaurantOrderHelper('${p.cat}')">← ${lang==='ko'?'다른 문장':'Other phrases'}</button><button type="button" onclick="openRestaurantCustomTranslation(${Number(i)})">🌐 ${lang==='ko'?'문장 수정·번역':'Edit / translate'}</button></div><div class="phrase-focus-note">${p.cat==='allergy'?(lang==='ko'?'알레르기 정보는 반드시 직원에게 다시 확인하세요. 이 문장은 안전을 보장하는 번역이나 의료 안내가 아닙니다.':'Always reconfirm allergy information with staff. This phrase is not a safety guarantee or medical advice.'):(lang==='ko'?'짧은 주문 의사소통 보조 문장입니다. 필요한 내용이 다르면 문장 수정·번역을 이용하세요.':'A short ordering aid. Use Edit / translate if your request is different.')}</div></div>
+  </div>`;
+}
+
+async function copyRestaurantOrderPhrase(i){
+  const text=RESTAURANT_ORDER_PHRASES[Number(i)]?.ko||'';
+  if(!text)return;
+  let ok=false;
+  try{await navigator.clipboard.writeText(text);ok=true;}catch{try{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();ok=true;}catch(_){}}
+  setCityMapStatus(ok?(lang==='ko'?'식당용 한국어 문장을 복사했습니다.':'Restaurant phrase copied.'):(lang==='ko'?'복사하지 못했습니다. 화면을 직접 보여주세요.':'Could not copy. Show the screen directly.'));
+}
+
+function openRestaurantCustomTranslation(i){
+  const p=Number.isInteger(Number(i))&&i!==''&&i!==null&&i!==undefined?RESTAURANT_ORDER_PHRASES[Number(i)]:null;
+  translationHubState.source='en';
+  translationHubState.target='ko';
+  openTranslationHub(p?.en||'');
 }
 
 function mountLanguageHelper(){
@@ -8679,14 +9600,19 @@ function ensurePhraseSheetLayer(){
 
 function openPhraseSheet(selected){
   if(Number.isInteger(Number(selected))&&selected!==''&&selected!==null&&selected!==undefined){showTravelPhraseFocus(Number(selected));return;}
+  const requested=typeof selected==='string'&&OFFLINE_PHRASE_CATEGORIES[selected]?selected:offlinePhraseCategory;
+  offlinePhraseCategory=OFFLINE_PHRASE_CATEGORIES[requested]?requested:'all';
   const layer=ensurePhraseSheetLayer();
+  const visible=TRAVEL_PHRASES.map((p,i)=>({...p,index:i})).filter(p=>offlinePhraseCategory==='all'||p.cat===offlinePhraseCategory);
   layer.innerHTML=`<div class="phrase-sheet">
-    <div class="phrase-sheet-head"><div><span>${lang==='ko'?'오프라인 기본 문장':'QUICK KOREAN'}</span><h3>${lang==='ko'?'문장을 눌러 크게 보여주세요':'Tap a phrase to show it large'}</h3></div>
+    <div class="phrase-sheet-head"><div><span>${lang==='ko'?'오프라인 여행 문장팩':'OFFLINE PHRASE PACK'}</span><h3>${lang==='ko'?'인터넷 없이 문장을 눌러 크게 보여주세요':'Tap a phrase and show it without internet'}</h3></div>
     <button type="button" onclick="closePhraseSheet()">×</button></div>
-    <div class="phrase-list">${TRAVEL_PHRASES.map((p,i)=>`<button type="button" class="phrase-card" onclick="showTravelPhraseFocus(${i})">
+    <div class="offline-phrase-tabs">${Object.entries(OFFLINE_PHRASE_CATEGORIES).map(([id,c])=>`<button type="button" class="${id===offlinePhraseCategory?'active':''}" onclick="openPhraseSheet('${id}')">${c.icon} ${lang==='ko'?c.ko:c.en}</button>`).join('')}</div>
+    <div class="offline-phrase-summary">${lang==='ko'?`기본 문장 ${TRAVEL_PHRASES.length}개가 앱에 포함되어 있어 오프라인에서도 열 수 있습니다. 필요한 문장을 눌러 현지인에게 보여주세요.`:`${TRAVEL_PHRASES.length} built-in phrases stay available offline. Tap one and show the Korean text to a local.`}</div>
+    <div class="phrase-list">${visible.map(p=>`<button type="button" class="phrase-card" onclick="showTravelPhraseFocus(${p.index})">
       <span class="phrase-icon">${p.icon}</span><div><b>${escapeHtmlText(p.ko)}</b><small>${escapeHtmlText(p.en)}</small></div><em>${lang==='ko'?'크게 보기':'Show'}</em>
     </button>`).join('')}</div>
-    <p class="phrase-disclaimer">${lang==='ko'?'짧은 의사소통 보조 문장입니다. 자동 통역이나 공식 번역이 아닙니다. 긴급 상황에서는 현지 직원·경찰·의료진의 안내를 따르세요.':'Short communication aids only, not automatic or certified interpretation. In an emergency, follow instructions from local staff, police, or medical professionals.'}</p>
+    <p class="phrase-disclaimer">${lang==='ko'?'짧은 의사소통 보조 문장입니다. 자동 통역이나 공식 번역이 아닙니다. 의료·긴급 상황에서는 현지 직원·경찰·의료진의 안내를 따르세요.':'Short communication aids only, not automatic or certified interpretation. In medical or emergency situations, follow instructions from local staff, police, or medical professionals.'}</p>
   </div>`;
 }
 
@@ -8696,7 +9622,7 @@ function showTravelPhraseFocus(i){
   const layer=ensurePhraseSheetLayer();
   layer.innerHTML=`<div class="phrase-sheet">
     <div class="phrase-sheet-head"><div><span>${lang==='ko'?'현지인에게 보여주기':'SHOW A LOCAL'}</span><h3>${lang==='ko'?'이 화면을 그대로 보여주세요':'Show this screen'}</h3></div><button type="button" onclick="closePhraseSheet()">×</button></div>
-    <div class="phrase-focus"><div class="phrase-focus-badge">${p.icon} ${lang==='ko'?'한국어 도움 문장':'Korean help phrase'}</div><div class="phrase-focus-icon">${p.icon}</div><div class="phrase-focus-ko">${escapeHtmlText(p.ko)}</div><div class="phrase-focus-en">${escapeHtmlText(p.en)}</div><div class="phrase-focus-actions"><button type="button" class="primary" onclick="copyTravelPhrase(${Number(i)})">📋 ${lang==='ko'?'한국어 문장 복사':'Copy Korean phrase'}</button><button type="button" onclick="openPhraseSheet()">← ${lang==='ko'?'다른 문장':'All phrases'}</button><button type="button" onclick="openCityLost1330()">☎ ${lang==='ko'?'1330 여행 안내':'1330 Travel Helpline'}</button></div><div class="phrase-focus-note">${lang==='ko'?'짧은 의사소통 보조용입니다. 상대방이 이해하지 못하면 1330 여행 안내·통역 도움이나 다른 번역 수단을 이용하세요.':'This is a short communication aid. If the other person still cannot understand, use 1330 travel interpretation help or another translation method.'}</div></div>
+    <div class="phrase-focus"><div class="phrase-focus-badge">${p.icon} ${lang==='ko'?'한국어 도움 문장':'Korean help phrase'}</div><div class="phrase-focus-icon">${p.icon}</div><div class="phrase-focus-ko">${escapeHtmlText(p.ko)}</div><div class="phrase-focus-en">${escapeHtmlText(p.en)}</div><div class="phrase-focus-actions"><button type="button" class="primary" onclick="copyTravelPhrase(${Number(i)})">📋 ${lang==='ko'?'한국어 문장 복사':'Copy Korean phrase'}</button><button type="button" onclick="openPhraseSheet('${p.cat||'all'}')">← ${lang==='ko'?'같은 종류 문장':'Same category'}</button><button type="button" onclick="openCityLost1330()">☎ ${lang==='ko'?'1330 여행 안내':'1330 Travel Helpline'}</button></div><div class="phrase-focus-note">${lang==='ko'?'짧은 의사소통 보조용입니다. 상대방이 이해하지 못하면 1330 여행 안내·통역 도움이나 다른 번역 수단을 이용하세요.':'This is a short communication aid. If the other person still cannot understand, use 1330 travel interpretation help or another translation method.'}</div></div>
   </div>`;
 }
 
@@ -10182,7 +11108,264 @@ function initLiveTransitLayer(){
   document.getElementById('moveTo')?.addEventListener('change',()=>{renderLiveTransitBoard();document.getElementById('liveTransitJourney').innerHTML='';});
 }
 
+
+
+// V53 Approaching Stop Alert — foreground-only GPS helper, never a live stop feed.
+let v53StopAlertWatchId=null;
+let v53StopAlertWakeLock=null;
+let v53StopAlertActive=false;
+let v53StopAlertPaused=false;
+let v53StopAlertTarget=null;
+let v53StopAlertToken='';
+let v53StopAlertStage='idle';
+let v53StopAlertLastNotice='';
+let v53StopAlertLastFix=null;
+
+function v53SavedTargetOptions(){
+  const out=[];
+  try{
+    const j=v51ReadJourney();
+    if(j?.dest){
+      const mode=v51SafeMode(j.mode),p=v50HubPoint(j.dest,mode);
+      const lat=Number(p?.y),lng=Number(p?.x);
+      if(Number.isFinite(lat)&&Number.isFinite(lng)) out.push({token:`hub:${j.dest}:${mode}`,lat,lng,en:p.en||`${j.dest} arrival hub`,ko:p.ko||`${v50CityLabel(j.dest)} 도착 거점`,kind:'hub'});
+    }
+  }catch(_){ }
+  savedPlaces().forEach(p=>{
+    const lat=Number(p.lat),lng=Number(p.lng);
+    if(!Number.isFinite(lat)||!Number.isFinite(lng)) return;
+    out.push({token:`saved:${encodeURIComponent(p.key)}`,lat,lng,en:p.en||p.ko||'Saved place',ko:p.ko||p.en||'저장 장소',kind:'saved'});
+  });
+  return out;
+}
+function v53TargetByToken(token){return v53SavedTargetOptions().find(x=>x.token===token)||null;}
+function v53StopTiming(){
+  const mode=document.getElementById('v53StopTiming')?.value||'standard';
+  return mode==='early'?{approach:3,near:1,veryNear:.25}:{approach:1.5,near:.5,veryNear:.2};
+}
+function v53DistanceText(km){
+  if(!Number.isFinite(km)) return '—';
+  return km<1?`${Math.max(0,Math.round(km*1000))} m`:`${km.toFixed(km<10?1:0)} km`;
+}
+function v53StageForDistance(km){
+  const t=v53StopTiming();
+  if(km<=t.veryNear) return 'very-near';
+  if(km<=t.near) return 'near';
+  if(km<=t.approach) return 'approach';
+  return 'tracking';
+}
+function v53StageLabel(stage){
+  const labels={
+    idle:{en:'Ready when you are',ko:'알림을 시작할 준비가 됐어요'},
+    tracking:{en:'Tracking distance',ko:'목적지까지 거리를 확인 중'},
+    approach:{en:'Approaching destination',ko:'목적지에 접근 중'},
+    near:{en:'Get ready to exit',ko:'내릴 준비를 하세요'},
+    'very-near':{en:'Very near destination',ko:'목적지가 매우 가까워요'},
+    wait:{en:'Waiting for a better GPS fix',ko:'더 정확한 GPS 위치를 기다리는 중'},
+    paused:{en:'Paused',ko:'일시정지됨'},
+    error:{en:'Location unavailable',ko:'위치를 사용할 수 없음'}
+  };
+  const x=labels[stage]||labels.idle;return lang==='ko'?x.ko:x.en;
+}
+function v53NotifyStage(stage){
+  if(!['approach','near','very-near'].includes(stage)||v53StopAlertLastNotice===stage) return;
+  v53StopAlertLastNotice=stage;
+  try{
+    if(navigator.vibrate){
+      if(stage==='approach') navigator.vibrate([180]);
+      else if(stage==='near') navigator.vibrate([220,120,220]);
+      else navigator.vibrate([300,120,300,120,300]);
+    }
+  }catch(_){ }
+}
+async function v53RequestWakeLock(){
+  try{
+    if('wakeLock' in navigator && document.visibilityState==='visible') v53StopAlertWakeLock=await navigator.wakeLock.request('screen');
+  }catch(_){v53StopAlertWakeLock=null;}
+}
+function v53ReleaseWakeLock(){try{v53StopAlertWakeLock?.release?.();}catch(_){ }v53StopAlertWakeLock=null;}
+function v53ClearWatch(){
+  if(v53StopAlertWatchId!==null&&navigator.geolocation){try{navigator.geolocation.clearWatch(v53StopAlertWatchId);}catch(_){ }}
+  v53StopAlertWatchId=null;
+}
+function v53ProgressPct(km){
+  const t=v53StopTiming(); if(!Number.isFinite(km)) return 0;
+  const cap=Math.max(t.approach*2,3); return Math.max(3,Math.min(100,Math.round((1-Math.min(km,cap)/cap)*100)));
+}
+function v53RenderStopAlert(){
+  const host=document.getElementById('v53StopAlertCard'); if(!host) return;
+  const options=v53SavedTargetOptions();
+  const currentSelect=document.getElementById('v53StopTarget')?.value||v53StopAlertToken||options[0]?.token||'';
+  const timing=document.getElementById('v53StopTiming')?.value||'standard';
+  let stage=v53StopAlertPaused?'paused':v53StopAlertStage;
+  const fix=v53StopAlertLastFix;
+  const acc=Number(fix?.accuracy);
+  const km=Number(fix?.km);
+  const name=v53StopAlertTarget?(lang==='ko'?(v53StopAlertTarget.ko||v53StopAlertTarget.en):(v53StopAlertTarget.en||v53StopAlertTarget.ko)):'';
+  const statusDetail=fix&&Number.isFinite(km)
+    ?`${name?escapeHtmlText(name)+' · ':''}${v53DistanceText(km)}${Number.isFinite(acc)?` · GPS ±${Math.round(acc)} m`:''}`
+    :(options.length?(lang==='ko'?'저장 장소 또는 저장 이동경로의 도착 거점을 선택하세요.':'Choose a saved place or the arrival hub from your saved journey.'):(lang==='ko'?'먼저 장소를 My Trip에 저장하거나 이동경로를 저장하세요.':'Save a place or journey first to create an alert target.'));
+  const opts=options.map(o=>`<option value="${escapeHtmlText(o.token)}" ${o.token===currentSelect?'selected':''}>${escapeHtmlText((o.kind==='hub'?'🚉 ':'📍 ')+(lang==='ko'?o.ko:o.en))}</option>`).join('');
+  host.innerHTML=`<span class="v53-stop-pill">🔔 ${lang==='ko'?'전경 GPS 보조 알림':'FOREGROUND GPS HELPER'}</span><div class="v53-stop-grid"><label>${lang==='ko'?'내릴 곳 / 목적지':'Stop / destination'}<select id="v53StopTarget" ${v53StopAlertActive?'disabled':''}>${opts||`<option value="">${lang==='ko'?'저장된 목적지가 없습니다':'No saved target'}</option>`}</select></label><label>${lang==='ko'?'알림 시점':'Alert timing'}<select id="v53StopTiming" ${v53StopAlertActive?'disabled':''}><option value="standard" ${timing==='standard'?'selected':''}>${lang==='ko'?'기본 · 약 1.5km / 500m':'Standard · ~1.5km / 500m'}</option><option value="early" ${timing==='early'?'selected':''}>${lang==='ko'?'일찍 · 약 3km / 1km':'Early · ~3km / 1km'}</option></select></label></div><div class="v53-stop-actions">${v53StopAlertActive?`<button type="button" class="primary" onclick="v53StopAlert(false)">■ ${lang==='ko'?'알림 종료':'Stop alert'}</button>`:`<button type="button" class="primary" onclick="v53StartStopAlert()">▶ ${v53StopAlertPaused?(lang==='ko'?'알림 재개':'Resume alert'):(lang==='ko'?'접근 알림 시작':'Start approaching alert')}</button>`}<button type="button" onclick="v53OpenTargetMap()">🗺️ ${lang==='ko'?'목적지 지도':'Destination map'}</button></div><div class="v53-stop-status ${escapeHtmlText(stage||'idle')}"><strong>${escapeHtmlText(v53StageLabel(stage||'idle'))}</strong><span>${statusDetail}</span><div class="v53-stop-meter"><i style="width:${v53ProgressPct(km)}%"></i></div></div><div class="v53-stop-note">⚠️ ${lang==='ko'?'실시간 정류장/열차 위치 알림이 아닙니다. 앱을 화면에 켜둔 동안 GPS와 목적지 좌표의 직선거리만 비교합니다. GPS 정확도가 나쁘면 알림을 보류하며, 실제 하차 정류장·역은 차량 안내방송·전광판에서 최종 확인하세요. 다른 앱으로 전환하거나 화면이 숨겨지면 위치 추적을 자동 중지합니다.':'This is not a live stop or vehicle feed. While Korea Route stays visible, it compares browser GPS with the destination by straight-line distance only. Alerts wait when GPS accuracy is poor. Confirm the actual stop/station with onboard announcements or displays. Tracking stops automatically if the page becomes hidden.'}</div>`;
+}
+function v53StopAlertLocation(pos){
+  if(!v53StopAlertTarget) return;
+  const lat=Number(pos.coords.latitude),lng=Number(pos.coords.longitude),accuracy=Number(pos.coords.accuracy);
+  const km=haversineKm(lat,lng,v53StopAlertTarget.lat,v53StopAlertTarget.lng);
+  liveTransitPosition={lat,lng,accuracy};
+  try{sessionStorage.setItem('koreaRouteLivePosition',JSON.stringify(liveTransitPosition));}catch(_){ }
+  v53StopAlertLastFix={lat,lng,accuracy,km,at:Date.now()};
+  if(!Number.isFinite(km)){v53StopAlertStage='wait';v53RenderStopAlert();return;}
+  if(Number.isFinite(accuracy)&&accuracy>150){v53StopAlertStage='wait';v53RenderStopAlert();return;}
+  const stage=v53StageForDistance(km);v53StopAlertStage=stage;v53NotifyStage(stage);v53RenderStopAlert();
+  renderMyTripLiveLocation();
+}
+function v53StopAlertError(){v53StopAlertStage='error';v53ClearWatch();v53StopAlertActive=false;v53ReleaseWakeLock();v53RenderStopAlert();}
+async function v53StartStopAlert(){
+  if(!navigator.geolocation){v53StopAlertStage='error';v53RenderStopAlert();return;}
+  const token=document.getElementById('v53StopTarget')?.value||v53StopAlertToken;
+  const target=v53TargetByToken(token);
+  if(!target){v53StopAlertStage='error';v53RenderStopAlert();return;}
+  v53StopAlertToken=token;v53StopAlertTarget=target;v53StopAlertPaused=false;v53StopAlertActive=true;v53StopAlertStage='tracking';v53StopAlertLastNotice='';v53StopAlertLastFix=null;
+  await v53RequestWakeLock();
+  v53ClearWatch();
+  v53StopAlertWatchId=navigator.geolocation.watchPosition(v53StopAlertLocation,v53StopAlertError,{enableHighAccuracy:true,timeout:15000,maximumAge:10000});
+  v53RenderStopAlert();
+}
+function v53StopAlert(hiddenPause=false){
+  v53ClearWatch();v53ReleaseWakeLock();v53StopAlertActive=false;
+  if(hiddenPause){v53StopAlertPaused=true;v53StopAlertStage='paused';}
+  else{v53StopAlertPaused=false;v53StopAlertStage='idle';v53StopAlertTarget=null;v53StopAlertLastFix=null;v53StopAlertLastNotice='';}
+  v53RenderStopAlert();
+}
+function v53OpenTargetMap(){
+  const token=document.getElementById('v53StopTarget')?.value||v53StopAlertToken;
+  const target=v53StopAlertTarget||v53TargetByToken(token); if(!target) return;
+  const q=`${target.lat},${target.lng}`;window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`,'_blank','noopener');
+}
+function v53OpenFromJourney(){
+  const j=v51ReadJourney();if(!j?.dest){return;}
+  const mode=v51SafeMode(j.mode),token=`hub:${j.dest}:${mode}`;v53StopAlertToken=token;
+  go('myTripHub');setTimeout(()=>{v53RenderStopAlert();const sel=document.getElementById('v53StopTarget');if(sel&&[...sel.options].some(o=>o.value===token))sel.value=token;document.getElementById('myTripStopAlertSection')?.scrollIntoView({behavior:'smooth',block:'start'});},100);
+}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&v53StopAlertActive)v53StopAlert(true);});
+window.addEventListener('pagehide',()=>{if(v53StopAlertActive){v53ClearWatch();v53ReleaseWakeLock();}});
+
+// V46 Check & Ride — image stays in memory only and is sent only on explicit Analyze.
+let checkRideImageDataUrl='';
+let checkRideOriginalName='';
+function openCheckRide(){
+  go('moveHub');
+  setTimeout(()=>{syncCheckRideFromMove(false);document.getElementById('checkRideLayer')?.scrollIntoView({behavior:'smooth',block:'start'});},80);
+}
+function syncCheckRideFromMove(showMessage=true){
+  const select=document.getElementById('moveTo');
+  const target=document.getElementById('checkRideTarget');
+  if(!target) return;
+  const value=select?.value || '';
+  if(value) target.value=value;
+  if(showMessage){
+    const box=document.getElementById('checkRideResult');
+    if(box) box.innerHTML=`<span class="cr-badge">${lang==='ko'?'목적지 연결':'TARGET SYNCED'}</span><b>${escapeHtmlText(value || (lang==='ko'?'Move 목적지를 먼저 선택하세요.':'Choose a Move destination first.'))}</b>`;
+  }
+}
+function checkRideSetBusy(busy){
+  const btn=document.getElementById('checkRideAnalyzeBtn');
+  if(!btn) return;
+  btn.disabled=!!busy;
+  btn.textContent=busy?(lang==='ko'?'사진 확인 중…':'Checking photo…'):(lang==='ko'?'사진 확인':'Analyze photo');
+}
+function readImageElement(file){
+  return new Promise((resolve,reject)=>{
+    const url=URL.createObjectURL(file);
+    const img=new Image();
+    img.onload=()=>{URL.revokeObjectURL(url);resolve(img)};
+    img.onerror=()=>{URL.revokeObjectURL(url);reject(new Error('IMAGE_DECODE_FAILED'))};
+    img.src=url;
+  });
+}
+async function compressCheckRideImage(file,maxSide=1600,quality=.78){
+  const img=await readImageElement(file);
+  const scale=Math.min(1,maxSide/Math.max(img.naturalWidth||img.width,img.naturalHeight||img.height));
+  const w=Math.max(1,Math.round((img.naturalWidth||img.width)*scale));
+  const h=Math.max(1,Math.round((img.naturalHeight||img.height)*scale));
+  const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
+  const ctx=canvas.getContext('2d',{alpha:false});ctx.drawImage(img,0,0,w,h);
+  let data=canvas.toDataURL('image/jpeg',quality);
+  if(data.length>2800000){
+    const scale2=Math.min(1,1200/Math.max(w,h));
+    const c2=document.createElement('canvas');c2.width=Math.max(1,Math.round(w*scale2));c2.height=Math.max(1,Math.round(h*scale2));
+    c2.getContext('2d',{alpha:false}).drawImage(canvas,0,0,c2.width,c2.height);
+    data=c2.toDataURL('image/jpeg',.68);
+  }
+  if(data.length>3000000) throw new Error('IMAGE_TOO_LARGE');
+  return {data,w,h,bytes:Math.round((data.length-data.indexOf(',')-1)*.75)};
+}
+async function handleCheckRideFile(file){
+  const result=document.getElementById('checkRideResult');
+  if(!file) return;
+  if(!/^image\/(jpeg|png|webp)$/i.test(file.type||'')){
+    if(result) result.innerHTML=`<span class="cr-badge">${lang==='ko'?'파일 오류':'FILE ERROR'}</span><b>${lang==='ko'?'JPG, PNG 또는 WebP 사진을 선택하세요.':'Choose a JPG, PNG, or WebP image.'}</b>`;
+    return;
+  }
+  if(file.size>12*1024*1024){
+    if(result) result.innerHTML=`<span class="cr-badge">${lang==='ko'?'사진이 큼':'PHOTO TOO LARGE'}</span><b>${lang==='ko'?'12MB 이하 사진을 선택하세요.':'Choose a photo under 12 MB.'}</b>`;
+    return;
+  }
+  try{
+    checkRideSetBusy(true);
+    const packed=await compressCheckRideImage(file);
+    checkRideImageDataUrl=packed.data;checkRideOriginalName=file.name||'transport-photo.jpg';
+    const preview=document.getElementById('checkRidePreview');const img=document.getElementById('checkRidePreviewImg');const meta=document.getElementById('checkRidePhotoMeta');
+    if(img) img.src=packed.data;if(preview) preview.classList.add('active');
+    if(meta) meta.textContent=`${packed.w}×${packed.h} · ~${Math.max(1,Math.round(packed.bytes/1024))} KB`;
+    if(result){result.className='checkride-result unclear';result.innerHTML=`<span class="cr-badge">${lang==='ko'?'사진 준비됨':'PHOTO READY'}</span><b>${escapeHtmlText(checkRideOriginalName)}</b><span>${lang==='ko'?'목적지와 노선을 확인한 뒤 ‘사진 확인’을 누르세요.':'Check the target/route, then tap Analyze photo.'}</span>`;}
+  }catch(err){
+    checkRideImageDataUrl='';
+    if(result){result.className='checkride-result unclear';result.innerHTML=`<span class="cr-badge">${lang==='ko'?'사진 오류':'PHOTO ERROR'}</span><b>${lang==='ko'?'사진을 처리하지 못했습니다. 다른 사진을 선택하세요.':'Could not process this photo. Try another image.'}</b>`;}
+  }finally{checkRideSetBusy(false)}
+}
+function checkRideStatusCopy(status){
+  const map={MATCH:{en:'LIKELY MATCH',ko:'일치 가능성 높음'},POSSIBLE:{en:'POSSIBLE',ko:'가능성 있음'},MISMATCH:{en:'LIKELY MISMATCH',ko:'불일치 가능성'},UNCLEAR:{en:'UNCLEAR',ko:'판단 어려움'}};
+  return map[status]||map.UNCLEAR;
+}
+function renderCheckRideResult(data){
+  const box=document.getElementById('checkRideResult');if(!box) return;
+  const status=['MATCH','POSSIBLE','MISMATCH','UNCLEAR'].includes(data?.status)?data.status:'UNCLEAR';
+  const copy=checkRideStatusCopy(status);
+  box.className=`checkride-result ${status.toLowerCase()}`;
+  const observed=[data?.vehicleType,data?.seenDestination,data?.routeOrLine,data?.platformOrStop,data?.departureTime].filter(Boolean).map(escapeHtmlText).join(' · ');
+  const evidence=Array.isArray(data?.evidence)?data.evidence.filter(Boolean).slice(0,5):[];
+  box.innerHTML=`<span class="cr-badge">${lang==='ko'?copy.ko:copy.en}</span><b>${escapeHtmlText(data?.summary || (lang==='ko'?'사진에서 확인 가능한 정보를 검토했습니다.':'Reviewed the visible transport information.'))}</b>${observed?`<span>${observed}</span>`:''}${evidence.length?`<div class="checkride-evidence"><span><b>${lang==='ko'?'사진에서 읽은 근거':'Visible evidence'}</b>${evidence.map(v=>`• ${escapeHtmlText(v)}`).join('<br>')}</span></div>`:''}<div class="checkride-evidence"><span><b>${lang==='ko'?'다음 행동':'Next step'}</b>${escapeHtmlText(data?.advice || (lang==='ko'?'탑승 전 현장 안내를 다시 확인하세요.':'Confirm the live sign before boarding.'))}</span></div>`;
+}
+async function analyzeCheckRidePhoto(){
+  const box=document.getElementById('checkRideResult');
+  const target=(document.getElementById('checkRideTarget')?.value||'').trim();
+  const expectedRoute=(document.getElementById('checkRideRoute')?.value||'').trim();
+  const mode=document.getElementById('checkRideMode')?.value||'train';
+  if(!checkRideImageDataUrl){
+    if(box){box.className='checkride-result unclear';box.innerHTML=`<span class="cr-badge">${lang==='ko'?'사진 필요':'PHOTO NEEDED'}</span><b>${lang==='ko'?'먼저 안내판이나 차량 사진을 촬영·선택하세요.':'Take or choose a transport photo first.'}</b>`;}return;
+  }
+  if(!target && !expectedRoute){
+    if(box){box.className='checkride-result unclear';box.innerHTML=`<span class="cr-badge">${lang==='ko'?'비교 기준 필요':'TARGET NEEDED'}</span><b>${lang==='ko'?'목적지 또는 노선/열차번호를 하나 이상 입력하세요.':'Enter a destination or route/train number.'}</b>`;}return;
+  }
+  checkRideSetBusy(true);
+  const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),22000);
+  try{
+    const res=await fetch('/api/check-ride',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({imageDataUrl:checkRideImageDataUrl,mode,expectedTarget:target,expectedRoute,language:lang}),signal:controller.signal});
+    const payload=await res.json().catch(()=>({}));
+    if(!res.ok){
+      const msg=payload?.error==='AI_NOT_CONFIGURED'?(lang==='ko'?'AI 사진 확인이 아직 서버에 연결되지 않았습니다. Gemini API 설정 후 사용할 수 있습니다.':'AI photo check is not configured on the server yet. Add the Gemini API setting to enable it.'):(payload?.error==='RATE_LIMITED'?(lang==='ko'?'사진 확인 요청이 잠시 많습니다. 잠시 후 다시 시도하세요.':'Too many photo checks right now. Try again shortly.'):(lang==='ko'?'사진 확인에 실패했습니다. 잠시 후 다시 시도하세요.':'Photo check failed. Try again shortly.'));
+      throw Object.assign(new Error(msg),{userMessage:msg});
+    }
+    renderCheckRideResult(payload);
+  }catch(err){
+    if(box){box.className='checkride-result unclear';box.innerHTML=`<span class="cr-badge">${lang==='ko'?'확인 실패':'CHECK FAILED'}</span><b>${escapeHtmlText(err?.name==='AbortError'?(lang==='ko'?'응답 시간이 길어 취소했습니다. 다시 시도하세요.':'The check timed out. Try again.'):(err?.userMessage||err?.message||'Error'))}</b><span>${lang==='ko'?'현장 안내판과 차량 행선지를 직접 확인해 주세요.':'Please confirm the live sign and vehicle destination directly.'}</span>`;}
+  }finally{clearTimeout(timer);checkRideSetBusy(false)}
+}
+
 document.addEventListener('DOMContentLoaded',()=>{ renderTravelPulse(); initLiveWeather(); initKoreaTimeAssistant(); });
+document.addEventListener('DOMContentLoaded',()=>{const f=document.getElementById('checkRideFile');if(f) f.addEventListener('change',()=>handleCheckRideFile(f.files?.[0]));setTimeout(()=>syncCheckRideFromMove(false),360);});
 
 document.addEventListener('DOMContentLoaded',()=>{
   setTimeout(ensureVisitorFilterUI,250);
@@ -10233,7 +11416,7 @@ document.addEventListener('DOMContentLoaded',()=>setTimeout(cityMapSourceBadge,5
 window.addEventListener('online',()=>setTimeout(cityMapSourceBadge,300));
 window.addEventListener('offline',()=>setTimeout(cityMapSourceBadge,100));
 
-document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{renderSavedPlacesInMyTrip();renderUnifiedItinerarySummary();renderMyTripChecklist();renderMyTripEmergencyCard();renderMyTripLiveLocation();},550));
+document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{renderSavedPlacesInMyTrip();renderUnifiedItinerarySummary();renderMyTripChecklist();renderMyTripEmergencyCard();renderMyTripLiveLocation();v53RenderStopAlert();},550));
 document.addEventListener('click',e=>{
   if(e.target?.closest?.('#visitorFilterBar')) setTimeout(applyExploreCategoryFilter,0);
 });
