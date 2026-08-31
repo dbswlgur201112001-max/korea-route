@@ -1102,8 +1102,17 @@ button:disabled{opacity:.55;cursor:not-allowed}
 /* V65 · vector basemap replacement */
 #cityGuideMap .maplibregl-map,#cityGuideMap .maplibregl-canvas-container,#cityGuideMap .maplibregl-canvas{width:100%!important;height:100%!important;max-width:none!important;max-height:none!important}
 #cityGuideMap .maplibregl-canvas{display:block!important}
+#cityGuideMap .leaflet-marker-pane{z-index:700!important}
+#cityGuideMap .leaflet-popup-pane{z-index:750!important}
 #cityGuideMap .maplibregl-ctrl-bottom-left,#cityGuideMap .maplibregl-ctrl-bottom-right{font-size:9px}
 #cityGuideMap .maplibregl-ctrl-attrib{background:rgba(255,255,255,.88)!important}
+/* V66 · keep the user's GPS position unmistakably visible above the vector basemap */
+.city-user-location-icon{background:transparent!important;border:0!important}
+.city-user-location-pin{position:relative;width:28px;height:28px;display:block;pointer-events:auto}
+.city-user-location-pin::before{content:"";position:absolute;inset:0;border-radius:50%;background:rgba(47,111,237,.18);animation:cityUserPulse 1.8s ease-out infinite}
+.city-user-location-pin::after{content:"";position:absolute;left:7px;top:7px;width:14px;height:14px;border-radius:50%;background:#2f6fed;border:3px solid #fff;box-sizing:border-box;box-shadow:0 1px 5px rgba(6,31,68,.48)}
+@keyframes cityUserPulse{0%{transform:scale(.65);opacity:.9}70%,100%{transform:scale(1.45);opacity:0}}
+@media (prefers-reduced-motion:reduce){.city-user-location-pin::before{animation:none;transform:scale(1.05);opacity:.35}}
 
 
 /* V64 · My Trip readability + progressive disclosure */
@@ -1231,153 +1240,153 @@ button:disabled{opacity:.55;cursor:not-allowed}
 
 <section class="screen active" id="home">
   <div class="top">
-    <div class="brand"><div class="logo">KR</div><div data-en="Korea Route" data-ko="코리아 루트">Korea Route</div></div>
+    <div class="brand"><div class="logo">KR</div><div data-i18n="home.brand">Korea Route</div></div>
     <button class="pill" id="langBtn" onclick="toggleLang()">EN / 한국어</button>
   </div>
 
   <div class="hero">
-    <div class="kicker" data-en="Travel Korea smarter" data-ko="더 똑똑한 한국 여행">Travel Korea smarter</div>
-    <h1 data-en="Your Korea trip,<br>made simple." data-ko="복잡한 한국 여행을<br>간단하게.">Your Korea trip,<br>made simple.</h1>
-    <p data-en="Plan your trip, get around, find nearby essentials, and get help when you need it." data-ko="여행 계획부터 이동·주변 필수시설·긴급 도움까지 필요한 순간 바로 찾아보세요.">Plan your trip, get around, find nearby essentials, and get help when you need it.</p>
+    <div class="kicker" data-i18n="home.hero.kicker">Travel Korea smarter</div>
+    <h1 data-i18n="home.hero.title">Your Korea trip,<br>made simple.</h1>
+    <p data-i18n="home.hero.subtitle">Plan your trip, get around, find nearby essentials, and get help when you need it.</p>
     <div class="quick">
-      <div><b data-en="KTX · Bus" data-ko="KTX · 버스">KTX · Bus</b><span data-en="compare routes" data-ko="경로 비교">compare routes</span></div>
-      <div><b data-en="20 Cities" data-ko="20개 도시">20 Cities</b><span data-en="starter guide" data-ko="기본 가이드">starter guide</span></div>
-      <div><b data-en="Compare costs" data-ko="비용 비교">Compare costs</b><span data-en="compare choices" data-ko="선택지 비교">compare choices</span></div>
+      <div><b data-i18n="home.hero.quick.transit.title">KTX · Bus</b><span data-i18n="home.hero.quick.transit.subtitle">compare routes</span></div>
+      <div><b data-i18n="home.hero.quick.cities.title">20 Cities</b><span data-i18n="home.hero.quick.cities.subtitle">starter guide</span></div>
+      <div><b data-i18n="home.hero.quick.cost.title">Compare costs</b><span data-i18n="home.hero.quick.cost.subtitle">compare choices</span></div>
     </div>
   </div>
 
   <div class="install-box" id="installBox">
-  <div><b data-en="Install Korea Route" data-ko="Korea Route 앱 설치">Install Korea Route</b><span data-en="Add it to your home screen like an app." data-ko="홈 화면에 앱처럼 추가할 수 있어요.">Add it to your home screen like an app.</span></div>
-  <button class="install-btn" id="installBtn" data-en="INSTALL" data-ko="설치">INSTALL</button>
+  <div><b data-i18n="home.install.title">Install Korea Route</b><span data-i18n="home.install.subtitle">Add it to your home screen like an app.</span></div>
+  <button class="install-btn" id="installBtn" data-i18n="home.install.button.install">INSTALL</button>
 </div>
 
 
 <div class="city-walk-recovery" id="cityWalkRecovery" aria-live="polite">
-  <div class="city-walk-recovery-head"><div><span data-en="WALK GUIDE SAVED" data-ko="도보 안내 저장됨">WALK GUIDE SAVED</span><b id="cityWalkRecoveryTitle">Destination</b></div><span id="cityWalkRecoveryState" class="quick-start-badge">READY</span></div>
-  <p id="cityWalkRecoveryText" data-en="A walk guide from this browser session can be continued. Location tracking will restart only after you tap Continue." data-ko="이 브라우저 세션의 도보 안내를 이어갈 수 있습니다. 계속하기를 눌러야 위치 추적이 다시 시작됩니다.">A walk guide from this browser session can be continued. Location tracking will restart only after you tap Continue.</p>
-  <div class="city-walk-recovery-actions"><button type="button" class="primary" onclick="resumeRecoveredCityWalk()" data-en="🚶 Continue walk" data-ko="🚶 도보 안내 계속">🚶 Continue walk</button><button type="button" class="soft" onclick="dismissRecoveredCityWalk()" data-en="Dismiss" data-ko="닫기">Dismiss</button></div>
+  <div class="city-walk-recovery-head"><div><span data-i18n="home.walkRecovery.badge">WALK GUIDE SAVED</span><b id="cityWalkRecoveryTitle">Destination</b></div><span id="cityWalkRecoveryState" class="quick-start-badge">READY</span></div>
+  <p id="cityWalkRecoveryText" data-i18n="home.walkRecovery.text.default">A walk guide from this browser session can be continued. Location tracking will restart only after you tap Continue.</p>
+  <div class="city-walk-recovery-actions"><button type="button" class="primary" onclick="resumeRecoveredCityWalk()" data-i18n="home.walkRecovery.continue">🚶 Continue walk</button><button type="button" class="soft" onclick="dismissRecoveredCityWalk()" data-i18n="home.walkRecovery.dismiss">Dismiss</button></div>
 </div>
 
 <div class="global-search" id="globalSearchBox">
-  <div class="global-search-head"><div><b data-en="Find anything fast" data-ko="필요한 기능을 바로 찾기">Find anything fast</b><span data-en="Search tools, nearby essentials, cities, saved places, journeys and offline phrases." data-ko="기능·주변시설·도시·저장 장소·이동경로·오프라인 문장을 한 번에 검색하세요.">Search tools, nearby essentials, cities, saved places, journeys and offline phrases.</span></div><span class="global-search-badge">3-SEC FIND</span></div>
-  <div class="global-search-field"><span class="search-ico">🔎</span><input id="globalSearchInput" type="search" autocomplete="off" enterkeyhint="search" maxlength="80" aria-label="Search Korea Route" data-placeholder-en="KTX · restroom · translate · tax refund..." data-placeholder-ko="KTX · 화장실 · 번역 · 환급 · 짐보관..."><button class="global-search-clear" type="button" onclick="clearGlobalSearch()" aria-label="Clear search">×</button></div>
-  <div class="global-search-suggest" id="globalSearchSuggest" style="display:none"><button type="button" onclick="runGlobalSearchQuickAction('move')">🚆 KTX</button><button type="button" onclick="runGlobalSearchQuickAction('convenience')">🏪 <span data-en="Convenience" data-ko="편의점">Convenience</span></button><button type="button" onclick="runGlobalSearchQuickAction('restroom')">🚻 <span data-en="Restroom" data-ko="화장실">Restroom</span></button><button type="button" onclick="runGlobalSearchQuickAction('luggage')">🧳 <span data-en="Luggage" data-ko="짐보관">Luggage</span></button></div>
-  <div class="global-search-fast"><button type="button" onclick="v60OpenRouteTab()"><span>🚆</span><span data-en="Move" data-ko="이동">Move</span></button><button type="button" onclick="v60OpenMapTab()"><span>🗺️</span><span data-en="Nearby" data-ko="주변">Nearby</span></button><button type="button" onclick="runGlobalSearchAction('translation')"><span>💬</span><span data-en="Translate" data-ko="번역">Translate</span></button><button type="button" class="emergency" onclick="openV55EmergencyFind()"><span>🆘</span><span data-en="Urgent" data-ko="긴급">Urgent</span></button></div>
+  <div class="global-search-head"><div><b data-i18n="home.search.title">Find anything fast</b><span data-i18n="home.search.subtitle">Search tools, nearby essentials, cities, saved places, journeys and offline phrases.</span></div><span class="global-search-badge">3-SEC FIND</span></div>
+  <div class="global-search-field"><span class="search-ico">🔎</span><input id="globalSearchInput" type="search" autocomplete="off" enterkeyhint="search" maxlength="80" aria-label="Search Korea Route" data-i18n-placeholder="home.search.placeholder"><button class="global-search-clear" type="button" onclick="clearGlobalSearch()" aria-label="Clear search">×</button></div>
+  <div class="global-search-suggest" id="globalSearchSuggest" style="display:none"><button type="button" onclick="runGlobalSearchQuickAction('move')">🚆 KTX</button><button type="button" onclick="runGlobalSearchQuickAction('convenience')">🏪 <span data-i18n="home.search.quick.convenience">Convenience</span></button><button type="button" onclick="runGlobalSearchQuickAction('restroom')">🚻 <span data-i18n="home.search.quick.restroom">Restroom</span></button><button type="button" onclick="runGlobalSearchQuickAction('luggage')">🧳 <span data-i18n="home.search.quick.luggage">Luggage</span></button></div>
+  <div class="global-search-fast"><button type="button" onclick="v60OpenRouteTab()"><span>🚆</span><span data-i18n="home.search.fast.move">Move</span></button><button type="button" onclick="v60OpenMapTab()"><span>🗺️</span><span data-i18n="home.search.fast.nearby">Nearby</span></button><button type="button" onclick="runGlobalSearchAction('translation')"><span>💬</span><span data-i18n="home.search.fast.translate">Translate</span></button><button type="button" class="emergency" onclick="openV55EmergencyFind()"><span>🆘</span><span data-i18n="home.search.fast.urgent">Urgent</span></button></div>
   <div class="global-search-results" id="globalSearchResults" hidden aria-live="polite"><div class="global-search-results-head"><b id="globalSearchResultsLabel">SEARCH RESULTS</b><span id="globalSearchResultsCount"></span></div><div class="global-search-result-list" id="globalSearchResultList"></div></div>
 </div>
 
 
 <div class="v60-home-shortcuts" id="v60HomeShortcuts">
-  <button type="button" class="primary" onclick="go('planner')"><span>🗓️</span><b data-en="Plan trip" data-ko="여행 계획">Plan trip</b></button>
-  <button type="button" onclick="v60OpenTripOverview()"><span>🧳</span><b data-en="My Trip" data-ko="내 여행">My Trip</b></button>
-  <button type="button" onclick="go('helperHub')"><span>☰</span><b data-en="All tools" data-ko="전체 도구">All tools</b></button>
+  <button type="button" class="primary" onclick="go('planner')"><span>🗓️</span><b data-i18n="home.shortcuts.plan">Plan trip</b></button>
+  <button type="button" onclick="v60OpenTripOverview()"><span>🧳</span><b data-i18n="home.shortcuts.myTrip">My Trip</b></button>
+  <button type="button" onclick="go('helperHub')"><span>☰</span><b data-i18n="home.shortcuts.tools">All tools</b></button>
 </div>
 
 <div class="quick-start" id="quickStart">
-  <div class="quick-start-head"><div><b data-en="What do you need right now?" data-ko="지금 무엇이 필요한가요?">What do you need right now?</b><span data-en="Choose one. You can open every tool later." data-ko="하나만 고르세요. 모든 기능은 아래에서 언제든 열 수 있어요.">Choose one. You can open every tool later.</span></div><span class="quick-start-badge">EASY START</span></div>
+  <div class="quick-start-head"><div><b data-i18n="home.quickStart.title">What do you need right now?</b><span data-i18n="home.quickStart.subtitle">Choose one. You can open every tool later.</span></div><span class="quick-start-badge">EASY START</span></div>
   <div class="quick-start-grid">
-    <button class="quick-start-btn primary" type="button" onclick="go('planner')"><span class="qs-ico">🗺️</span><b data-en="Start my trip" data-ko="여행 계획 시작">Start my trip</b><small data-en="Build a route · choose cities · plan days" data-ko="경로 만들기 · 도시 선택 · 일정 계획">Build a route · choose cities · plan days</small><span class="qs-go">›</span></button>
-    <button class="quick-start-btn" type="button" onclick="go('moveHub')"><span class="qs-ico">🚆</span><b data-en="I'm traveling now" data-ko="지금 이동 중이에요">I'm traveling now</b><small data-en="Transit · routes · walking" data-ko="교통 · 경로 · 도보">Transit · routes · walking</small><span class="qs-go">›</span></button>
-    <button class="quick-start-btn" type="button" onclick="document.getElementById('quickSos')?.scrollIntoView({behavior:'smooth',block:'center'})"><span class="qs-ico">🆘</span><b data-en="I need help now" data-ko="지금 도움이 필요해요">I need help now</b><small data-en="Emergency · location · Korean · pharmacy" data-ko="긴급 · 위치 · 한국어 · 약국">Emergency · location · Korean · pharmacy</small><span class="qs-go">›</span></button>
+    <button class="quick-start-btn primary" type="button" onclick="go('planner')"><span class="qs-ico">🗺️</span><b data-i18n="home.quickStart.plan.title">Start my trip</b><small data-i18n="home.quickStart.plan.subtitle">Build a route · choose cities · plan days</small><span class="qs-go">›</span></button>
+    <button class="quick-start-btn" type="button" onclick="go('moveHub')"><span class="qs-ico">🚆</span><b data-i18n="home.quickStart.move.title">I'm traveling now</b><small data-i18n="home.quickStart.move.subtitle">Transit · routes · walking</small><span class="qs-go">›</span></button>
+    <button class="quick-start-btn" type="button" onclick="document.getElementById('quickSos')?.scrollIntoView({behavior:'smooth',block:'center'})"><span class="qs-ico">🆘</span><b data-i18n="home.quickStart.help.title">I need help now</b><small data-i18n="home.quickStart.help.subtitle">Emergency · location · Korean · pharmacy</small><span class="qs-go">›</span></button>
   </div>
   <div class="quick-start-shortcuts">
-    <button type="button" onclick="go('exploreHub')" data-en="📍 Explore nearby" data-ko="📍 주변 둘러보기">📍 Explore nearby</button>
-    <button type="button" onclick="go('myTripHub')" data-en="🧳 Open My Trip" data-ko="🧳 내 여행 열기">🧳 Open My Trip</button>
+    <button type="button" onclick="go('exploreHub')" data-i18n="home.quickStart.explore">📍 Explore nearby</button>
+    <button type="button" onclick="go('myTripHub')" data-i18n="home.quickStart.myTrip">🧳 Open My Trip</button>
   </div>
-  <div class="quick-start-note" data-en="Korea Route keeps the 7 core menus. This start panel only simplifies your first choice." data-ko="7개 핵심 메뉴는 그대로 유지됩니다. 이 시작 화면은 첫 선택만 간단하게 보여줍니다.">Korea Route keeps the 7 core menus. This start panel only simplifies your first choice.</div>
-  <button class="all-tools-toggle" id="allToolsToggle" type="button" onclick="toggleAllTools()" data-en="Show all 7 tools" data-ko="7개 전체 기능 보기">Show all 7 tools</button>
+  <div class="quick-start-note" data-i18n="home.quickStart.note">Korea Route keeps the 7 core menus. This start panel only simplifies your first choice.</div>
+  <button class="all-tools-toggle" id="allToolsToggle" type="button" onclick="toggleAllTools()" data-i18n="home.tools.show">Show all 7 tools</button>
 </div>
 
 <div class="travel-pulse" id="travelPulse">
-  <div class="travel-pulse-head"><div><b data-en="Travel Pulse · Right now" data-ko="Travel Pulse · 지금">Travel Pulse · Right now</b><span data-en="A quick snapshot for your next move in Korea." data-ko="한국 여행 중 지금 필요한 상태를 한눈에 확인하세요.">A quick snapshot for your next move in Korea.</span></div><span class="travel-pulse-live">TRIP NOW</span></div>
+  <div class="travel-pulse-head"><div><b data-i18n="home.pulse.title">Travel Pulse · Right now</b><span data-i18n="home.pulse.subtitle">A quick snapshot for your next move in Korea.</span></div><span class="travel-pulse-live">TRIP NOW</span></div>
   <div class="travel-pulse-grid" id="travelPulseGrid"></div>
-  <div class="travel-pulse-actions"><button type="button" onclick="go('moveHub')" data-en="Open Move" data-ko="이동 열기">Open Move</button><button type="button" class="secondary" onclick="go('myTripHub')" data-en="Open My Trip" data-ko="내 여행 열기">Open My Trip</button></div>
+  <div class="travel-pulse-actions"><button type="button" onclick="go('moveHub')" data-i18n="home.pulse.openMove">Open Move</button><button type="button" class="secondary" onclick="go('myTripHub')" data-i18n="home.pulse.openMyTrip">Open My Trip</button></div>
 </div>
 
 <div class="quick-sos" id="quickSos">
-  <div class="quick-sos-head"><div><b data-en="Need help right now?" data-ko="지금 도움이 필요한가요?">Need help right now?</b><span data-en="Fast access to emergency, location and Korean help." data-ko="긴급전화·현재 위치·한국어 도움을 빠르게 여세요.">Fast access to emergency, location and Korean help.</span></div><span class="quick-sos-badge">SOS · HELP</span></div>
+  <div class="quick-sos-head"><div><b data-i18n="home.sos.title">Need help right now?</b><span data-i18n="home.sos.subtitle">Fast access to emergency, location and Korean help.</span></div><span class="quick-sos-badge">SOS · HELP</span></div>
   <div class="quick-sos-grid">
-    <button type="button" onclick="openQuickSosEmergency()">🆘 <span data-en="Emergency" data-ko="긴급 도움">Emergency</span></button>
-    <button type="button" onclick="go('myTripHub');setTimeout(()=>{document.getElementById('myTripLiveLocationCard')?.scrollIntoView({behavior:'smooth',block:'center'});},80)">📍 <span data-en="My location" data-ko="내 위치">My location</span></button>
-    <button type="button" onclick="go('moveHub');setTimeout(openPhraseSheet,180)">💬 <span data-en="Korean phrases" data-ko="한국어 문장">Korean phrases</span></button>
-    <button type="button" onclick="openNearbyEssential('pharmacy')">💊 <span data-en="Nearby pharmacy" data-ko="근처 약국">Nearby pharmacy</span></button>
+    <button type="button" onclick="openQuickSosEmergency()">🆘 <span data-i18n="home.sos.emergency">Emergency</span></button>
+    <button type="button" onclick="go('myTripHub');setTimeout(()=>{document.getElementById('myTripLiveLocationCard')?.scrollIntoView({behavior:'smooth',block:'center'});},80)">📍 <span data-i18n="home.sos.location">My location</span></button>
+    <button type="button" onclick="go('moveHub');setTimeout(openPhraseSheet,180)">💬 <span data-i18n="home.sos.phrases">Korean phrases</span></button>
+    <button type="button" onclick="openNearbyEssential('pharmacy')">💊 <span data-i18n="home.sos.pharmacy">Nearby pharmacy</span></button>
   </div>
-  <div class="quick-sos-note" data-en="Emergency calls use Korea's official numbers: Police 112 · Fire/Ambulance 119. Pharmacy results open in an external map; verify availability there." data-ko="긴급전화는 대한민국 공식 번호 경찰 112 · 화재/구급 119를 사용합니다. 약국은 외부 지도에서 실제 이용 가능 여부를 확인하세요.">Emergency calls use Korea's official numbers: Police 112 · Fire/Ambulance 119. Pharmacy results open in an external map; verify availability there.</div>
+  <div class="quick-sos-note" data-i18n="home.sos.note">Emergency calls use Korea's official numbers: Police 112 · Fire/Ambulance 119. Pharmacy results open in an external map; verify availability there.</div>
 </div>
 
 <div class="nearby-essentials" id="nearbyEssentials">
-  <div class="nearby-essentials-head"><div><b data-en="Nearby Essentials" data-ko="근처 필수시설">Nearby Essentials</b><span data-en="One tap to search around you. Results open in an external map; verify hours and availability there." data-ko="여행 중 급할 때 한 번에 검색하세요. 외부 지도에서 영업시간·이용 가능 여부를 다시 확인합니다.">One tap to search around you. Results open in an external map; verify hours and availability there.</span></div><span class="nearby-essentials-badge">TRIP TOOLS</span></div>
+  <div class="nearby-essentials-head"><div><b data-i18n="home.essentials.title">Nearby Essentials</b><span data-i18n="home.essentials.subtitle">One tap to search around you. Results open in an external map; verify hours and availability there.</span></div><span class="nearby-essentials-badge">TRIP TOOLS</span></div>
   <div class="nearby-essentials-grid">
-    <button class="nearby-essential-btn" type="button" onclick="openNearbyEssential('restroom')">🚻 <span data-en="Restroom" data-ko="화장실">Restroom</span></button>
-    <button class="nearby-essential-btn" type="button" onclick="openNearbyEssential('convenience')">🏪 <span data-en="Convenience" data-ko="편의점">Convenience</span></button>
-    <button class="nearby-essential-btn" type="button" onclick="openNearbyEssential('pharmacy')">💊 <span data-en="Pharmacy" data-ko="약국">Pharmacy</span></button>
-    <button class="nearby-essential-btn" type="button" onclick="openNearbyEssential('atm')">🏧 <span data-en="ATM" data-ko="ATM">ATM</span></button>
-    <button class="nearby-essential-btn" type="button" onclick="openNearbyEssential('luggage')">🧳 <span data-en="Luggage" data-ko="짐보관">Luggage</span></button>
-    <button class="nearby-essential-btn" type="button" onclick="openNearbyEssential('tourist')">ℹ️ <span data-en="Tourist info" data-ko="관광안내">Tourist info</span></button>
+    <button class="nearby-essential-btn" type="button" onclick="openNearbyEssential('restroom')">🚻 <span data-i18n="home.essentials.restroom">Restroom</span></button>
+    <button class="nearby-essential-btn" type="button" onclick="openNearbyEssential('convenience')">🏪 <span data-i18n="home.essentials.convenience">Convenience</span></button>
+    <button class="nearby-essential-btn" type="button" onclick="openNearbyEssential('pharmacy')">💊 <span data-i18n="home.essentials.pharmacy">Pharmacy</span></button>
+    <button class="nearby-essential-btn" type="button" onclick="openNearbyEssential('atm')">🏧 <span data-i18n="home.essentials.atm">ATM</span></button>
+    <button class="nearby-essential-btn" type="button" onclick="openNearbyEssential('luggage')">🧳 <span data-i18n="home.essentials.luggage">Luggage</span></button>
+    <button class="nearby-essential-btn" type="button" onclick="openNearbyEssential('tourist')">ℹ️ <span data-i18n="home.essentials.tourist">Tourist info</span></button>
   </div>
-  <div class="nearby-essentials-foot"><div class="nearby-essentials-status" id="nearbyEssentialsStatus"></div><button class="nearby-location-btn" type="button" onclick="requestNearbyEssentialsLocation()" data-en="Use my location" data-ko="내 위치 사용">Use my location</button></div>
+  <div class="nearby-essentials-foot"><div class="nearby-essentials-status" id="nearbyEssentialsStatus"></div><button class="nearby-location-btn" type="button" onclick="requestNearbyEssentialsLocation()" data-i18n="home.essentials.useLocation">Use my location</button></div>
 </div>
 
 
 <div class="arch-section beginner-collapsed" id="featureArchitecture">
   <div class="arch-title">
-    <h2 data-en="Everything for your Korea trip" data-ko="한국 여행의 모든 기능">Everything for your Korea trip</h2>
-    <span data-en="7 CORE MENUS" data-ko="7개 핵심 메뉴">7 CORE MENUS</span>
+    <h2 data-i18n="home.architecture.title">Everything for your Korea trip</h2>
+    <span data-i18n="home.architecture.badge">7 CORE MENUS</span>
   </div>
   <div class="module-grid">
     <button class="module-card wide" type="button" onclick="go('planner')">
       <div class="module-icon">🗺️</div>
-      <b data-en="1. Plan" data-ko="1. 여행 계획">1. Plan</b>
-      <p data-en="Build an itinerary, compare stops, budget, and travel style." data-ko="일정, 경유지 비교, 예산과 여행 스타일을 한 번에 정리합니다.">Build an itinerary, compare stops, budget, and travel style.</p>
-      <span class="module-ready" data-en="CORE TOOLS READY" data-ko="핵심 도구 준비">CORE TOOLS READY</span>
+      <b data-i18n="home.architecture.plan.title">1. Plan</b>
+      <p data-i18n="home.architecture.plan.desc">Build an itinerary, compare stops, budget, and travel style.</p>
+      <span class="module-ready" data-i18n="home.architecture.plan.ready">CORE TOOLS READY</span>
     </button>
     <button class="module-card" type="button" onclick="go('moveHub')">
-      <div class="module-icon">🚆</div><b data-en="2. Move" data-ko="2. 이동">2. Move</b>
-      <p data-en="Compare route data, rail plans, nearby transit tools, and walking handoff." data-ko="경로 데이터, 철도 운행계획, 주변 교통과 도보 연결을 확인합니다.">Compare route data, rail plans, nearby transit tools, and walking handoff.</p>
+      <div class="module-icon">🚆</div><b data-i18n="home.architecture.move.title">2. Move</b>
+      <p data-i18n="home.architecture.move.desc">Compare route data, rail plans, nearby transit tools, and walking handoff.</p>
     </button>
     <button class="module-card" type="button" onclick="go('exploreHub')">
-      <div class="module-icon">📍</div><b data-en="3. Explore" data-ko="3. 둘러보기">3. Explore</b>
-      <p data-en="Attractions, food, cafés, nearby essentials, and saved places." data-ko="관광지, 맛집, 카페, 주변 필수시설과 저장 장소를 확인합니다.">Attractions, food, cafés, nearby essentials, and saved places.</p>
+      <div class="module-icon">📍</div><b data-i18n="home.architecture.explore.title">3. Explore</b>
+      <p data-i18n="home.architecture.explore.desc">Attractions, food, cafés, nearby essentials, and saved places.</p>
     </button>
     <button class="module-card" type="button" onclick="go('stayHub')">
-      <div class="module-icon">🏨</div><b data-en="4. Stay" data-ko="4. 숙소">4. Stay</b>
-      <p data-en="Compare practical stay areas and save a base for your route." data-ko="여행하기 편한 숙소 권역을 비교하고 동선 기준점으로 저장합니다.">Compare practical stay areas and save a base for your route.</p>
+      <div class="module-icon">🏨</div><b data-i18n="home.architecture.stay.title">4. Stay</b>
+      <p data-i18n="home.architecture.stay.desc">Compare practical stay areas and save a base for your route.</p>
     </button>
     <button class="module-card" type="button" onclick="go('walletHub')">
-      <div class="module-icon">💳</div><b data-en="5. Trip Wallet" data-ko="5. 여행 지갑">5. Trip Wallet</b>
-      <p data-en="Check KRW reference rates and keep a simple trip budget." data-ko="원화 기준환율을 확인하고 여행 예산을 간단히 관리합니다.">Check KRW reference rates and keep a simple trip budget.</p>
+      <div class="module-icon">💳</div><b data-i18n="home.architecture.wallet.title">5. Trip Wallet</b>
+      <p data-i18n="home.architecture.wallet.desc">Check KRW reference rates and keep a simple trip budget.</p>
     </button>
     <button class="module-card" type="button" onclick="go('assistantHub')">
-      <div class="module-icon">✨</div><b data-en="6. Trip Assistant" data-ko="6. 여행 도우미">6. Trip Assistant</b>
-      <p data-en="Quick guidance from saved trip context and connected travel tools." data-ko="저장된 여행정보와 연결된 도구를 바탕으로 다음 행동을 빠르게 안내합니다.">Quick guidance from saved trip context and connected travel tools.</p>
+      <div class="module-icon">✨</div><b data-i18n="home.architecture.assistant.title">6. Trip Assistant</b>
+      <p data-i18n="home.architecture.assistant.desc">Quick guidance from saved trip context and connected travel tools.</p>
     </button>
     <button class="module-card" type="button" onclick="go('myTripHub')">
-      <div class="module-icon">🧳</div><b data-en="7. My Trip" data-ko="7. 내 여행">7. My Trip</b>
-      <p data-en="Your plan, stay, budget, saved places and travel tools in one place." data-ko="일정, 숙소, 예산, 저장 장소와 여행 도구를 한곳에서 확인합니다.">Your plan, stay, budget, saved places and travel tools in one place.</p>
+      <div class="module-icon">🧳</div><b data-i18n="home.architecture.myTrip.title">7. My Trip</b>
+      <p data-i18n="home.architecture.myTrip.desc">Your plan, stay, budget, saved places and travel tools in one place.</p>
     </button>
   </div>
 </div>
 
-<div class="section-head"><h2 data-en="Popular route example" data-ko="인기 여행 루트 예시">Popular route example</h2><span data-en="SAMPLE ESTIMATE" data-ko="예시 견적">SAMPLE ESTIMATE</span></div>
+<div class="section-head"><h2 data-i18n="home.routeExample.title">Popular route example</h2><span data-i18n="home.routeExample.badge">SAMPLE ESTIMATE</span></div>
   <div class="card">
     <div class="route-title">
-      <div><h3 data-en="Classic Korea Route" data-ko="한국 대표 여행 루트">Classic Korea Route</h3><div class="sub" data-en="Seoul to Busan with cultural stops" data-ko="서울에서 부산까지 문화도시를 거치는 코스">Seoul to Busan with cultural stops</div></div>
-      <div class="badge" data-en="EXAMPLE" data-ko="예시">EXAMPLE</div>
+      <div><h3 data-i18n="home.routeExample.card.title">Classic Korea Route</h3><div class="sub" data-i18n="home.routeExample.card.subtitle">Seoul to Busan with cultural stops</div></div>
+      <div class="badge" data-i18n="home.routeExample.card.badge">EXAMPLE</div>
     </div>
     <div class="cities-line"><span class="city-chip">Seoul</span><span class="arrow">›</span><span class="city-chip">Suwon</span><span class="arrow">›</span><span class="city-chip">Gyeongju</span><span class="arrow">›</span><span class="city-chip">Busan</span></div>
-    <div class="compare"><div class="price"><span data-en="SAMPLE · INDIVIDUAL" data-ko="예시 · 개별 승차권">SAMPLE · INDIVIDUAL</span><b>₩154,000</b></div><div class="price best"><span data-en="SAMPLE · COMBINATION" data-ko="예시 · 조합">SAMPLE · COMBINATION</span><b>₩121,000</b></div></div>
-    <div class="save" data-en="Illustrative difference · ₩33,000 per traveler" data-ko="1인당 예시 차액 · ₩33,000">Illustrative difference · ₩33,000 per traveler</div>
-    <div class="release-sample-note" data-en="Planning example only. These are not current live fares. Verify current fares and booking conditions before travel." data-ko="여행 계획용 예시입니다. 현재 실시간 요금이 아니므로 출발 전 실제 요금과 예약 조건을 확인하세요.">Planning example only. These are not current live fares. Verify current fares and booking conditions before travel.</div>
+    <div class="compare"><div class="price"><span data-i18n="home.routeExample.individual">SAMPLE · INDIVIDUAL</span><b>₩154,000</b></div><div class="price best"><span data-i18n="home.routeExample.combination">SAMPLE · COMBINATION</span><b>₩121,000</b></div></div>
+    <div class="save" data-i18n="home.routeExample.difference">Illustrative difference · ₩33,000 per traveler</div>
+    <div class="release-sample-note" data-i18n="home.routeExample.note">Planning example only. These are not current live fares. Verify current fares and booking conditions before travel.</div>
   </div>
 
   
 
-  <div class="section-head"><h2 data-en="Visitor friendly" data-ko="외국인 여행자 안내">Visitor friendly</h2><span data-en="TRAVEL TIP" data-ko="여행 팁">TRAVEL TIP</span></div>
-  <div class="card tip"><div class="ico">💳</div><div><b data-en="Made for international travelers" data-ko="외국인 여행자를 위해 만들었어요">Made for international travelers</b><p data-en="We highlight simpler booking options, local transport tips, and services that are easier to use without a Korean phone number." data-ko="한국 전화번호가 없어도 비교적 쉽게 이용할 수 있는 예약 방법, 현지 교통 팁과 서비스를 안내합니다.">We highlight simpler booking options, local transport tips, and services that are easier to use without a Korean phone number.</p></div></div>
+  <div class="section-head"><h2 data-i18n="home.visitor.title">Visitor friendly</h2><span data-i18n="home.visitor.badge">TRAVEL TIP</span></div>
+  <div class="card tip"><div class="ico">💳</div><div><b data-i18n="home.visitor.card.title">Made for international travelers</b><p data-i18n="home.visitor.card.desc">We highlight simpler booking options, local transport tips, and services that are easier to use without a Korean phone number.</p></div></div>
 
   <div class="beta-release-card" id="betaReleaseCard">
-    <div><b data-en="Public Beta · V65" data-ko="공개 베타 · V65">Public Beta · V65</b><span data-en="Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report." data-ko="친구들과 테스트 중 문제가 보이면 화면과 재현 순서를 함께 보내주세요. 신고 문구에 위치정보는 자동으로 넣지 않습니다.">Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.</span></div>
-    <button type="button" onclick="shareBetaIssue()" data-en="Report a problem" data-ko="문제 제보">Report a problem</button>
+    <div><b data-i18n="home.beta.title">Public Beta · V67</b><span data-i18n="home.beta.subtitle">Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.</span></div>
+    <button type="button" onclick="shareBetaIssue()" data-i18n="home.beta.report">Report a problem</button>
   </div>
 </section>
 
@@ -2152,6 +2161,284 @@ button:disabled{opacity:.55;cursor:not-allowed}
 
 
 <script>
+const TRANSLATIONS = {
+  "ko": {
+    "home.brand": "코리아 루트",
+    "home.hero.kicker": "더 똑똑한 한국 여행",
+    "home.hero.title": "복잡한 한국 여행을<br>간단하게.",
+    "home.hero.subtitle": "여행 계획부터 이동·주변 필수시설·긴급 도움까지 필요한 순간 바로 찾아보세요.",
+    "home.hero.quick.transit.title": "KTX · 버스",
+    "home.hero.quick.transit.subtitle": "경로 비교",
+    "home.hero.quick.cities.title": "20개 도시",
+    "home.hero.quick.cities.subtitle": "기본 가이드",
+    "home.hero.quick.cost.title": "비용 비교",
+    "home.hero.quick.cost.subtitle": "선택지 비교",
+    "home.install.title": "Korea Route 앱 설치",
+    "home.install.subtitle": "홈 화면에 앱처럼 추가할 수 있어요.",
+    "home.install.button.install": "설치",
+    "home.walkRecovery.badge": "도보 안내 저장됨",
+    "home.walkRecovery.text.default": "이 브라우저 세션의 도보 안내를 이어갈 수 있습니다. 계속하기를 눌러야 위치 추적이 다시 시작됩니다.",
+    "home.walkRecovery.continue": "🚶 도보 안내 계속",
+    "home.walkRecovery.dismiss": "닫기",
+    "home.search.title": "필요한 기능을 바로 찾기",
+    "home.search.subtitle": "기능·주변시설·도시·저장 장소·이동경로·오프라인 문장을 한 번에 검색하세요.",
+    "home.search.quick.convenience": "편의점",
+    "home.search.quick.restroom": "화장실",
+    "home.search.quick.luggage": "짐보관",
+    "home.search.fast.move": "이동",
+    "home.search.fast.nearby": "주변",
+    "home.search.fast.translate": "번역",
+    "home.search.fast.urgent": "긴급",
+    "home.shortcuts.plan": "여행 계획",
+    "home.shortcuts.myTrip": "내 여행",
+    "home.shortcuts.tools": "전체 도구",
+    "home.quickStart.title": "지금 무엇이 필요한가요?",
+    "home.quickStart.subtitle": "하나만 고르세요. 모든 기능은 아래에서 언제든 열 수 있어요.",
+    "home.quickStart.plan.title": "여행 계획 시작",
+    "home.quickStart.plan.subtitle": "경로 만들기 · 도시 선택 · 일정 계획",
+    "home.quickStart.move.title": "지금 이동 중이에요",
+    "home.quickStart.move.subtitle": "교통 · 경로 · 도보",
+    "home.quickStart.help.title": "지금 도움이 필요해요",
+    "home.quickStart.help.subtitle": "긴급 · 위치 · 한국어 · 약국",
+    "home.quickStart.explore": "📍 주변 둘러보기",
+    "home.quickStart.myTrip": "🧳 내 여행 열기",
+    "home.quickStart.note": "7개 핵심 메뉴는 그대로 유지됩니다. 이 시작 화면은 첫 선택만 간단하게 보여줍니다.",
+    "home.tools.show": "7개 전체 기능 보기",
+    "home.pulse.title": "Travel Pulse · 지금",
+    "home.pulse.subtitle": "한국 여행 중 지금 필요한 상태를 한눈에 확인하세요.",
+    "home.pulse.openMove": "이동 열기",
+    "home.pulse.openMyTrip": "내 여행 열기",
+    "home.sos.title": "지금 도움이 필요한가요?",
+    "home.sos.subtitle": "긴급전화·현재 위치·한국어 도움을 빠르게 여세요.",
+    "home.sos.emergency": "긴급 도움",
+    "home.sos.location": "내 위치",
+    "home.sos.phrases": "한국어 문장",
+    "home.sos.pharmacy": "근처 약국",
+    "home.sos.note": "긴급전화는 대한민국 공식 번호 경찰 112 · 화재/구급 119를 사용합니다. 약국은 외부 지도에서 실제 이용 가능 여부를 확인하세요.",
+    "home.essentials.title": "근처 필수시설",
+    "home.essentials.subtitle": "여행 중 급할 때 한 번에 검색하세요. 외부 지도에서 영업시간·이용 가능 여부를 다시 확인합니다.",
+    "home.essentials.restroom": "화장실",
+    "home.essentials.convenience": "편의점",
+    "home.essentials.pharmacy": "약국",
+    "home.essentials.atm": "ATM",
+    "home.essentials.luggage": "짐보관",
+    "home.essentials.tourist": "관광안내",
+    "home.essentials.useLocation": "내 위치 사용",
+    "home.architecture.title": "한국 여행의 모든 기능",
+    "home.architecture.badge": "7개 핵심 메뉴",
+    "home.architecture.plan.title": "1. 여행 계획",
+    "home.architecture.plan.desc": "일정, 경유지 비교, 예산과 여행 스타일을 한 번에 정리합니다.",
+    "home.architecture.plan.ready": "핵심 도구 준비",
+    "home.architecture.move.title": "2. 이동",
+    "home.architecture.move.desc": "경로 데이터, 철도 운행계획, 주변 교통과 도보 연결을 확인합니다.",
+    "home.architecture.explore.title": "3. 둘러보기",
+    "home.architecture.explore.desc": "관광지, 맛집, 카페, 주변 필수시설과 저장 장소를 확인합니다.",
+    "home.architecture.stay.title": "4. 숙소",
+    "home.architecture.stay.desc": "여행하기 편한 숙소 권역을 비교하고 동선 기준점으로 저장합니다.",
+    "home.architecture.wallet.title": "5. 여행 지갑",
+    "home.architecture.wallet.desc": "원화 기준환율을 확인하고 여행 예산을 간단히 관리합니다.",
+    "home.architecture.assistant.title": "6. 여행 도우미",
+    "home.architecture.assistant.desc": "저장된 여행정보와 연결된 도구를 바탕으로 다음 행동을 빠르게 안내합니다.",
+    "home.architecture.myTrip.title": "7. 내 여행",
+    "home.architecture.myTrip.desc": "일정, 숙소, 예산, 저장 장소와 여행 도구를 한곳에서 확인합니다.",
+    "home.routeExample.title": "인기 여행 루트 예시",
+    "home.routeExample.badge": "예시 견적",
+    "home.routeExample.card.title": "한국 대표 여행 루트",
+    "home.routeExample.card.subtitle": "서울에서 부산까지 문화도시를 거치는 코스",
+    "home.routeExample.card.badge": "예시",
+    "home.routeExample.individual": "예시 · 개별 승차권",
+    "home.routeExample.combination": "예시 · 조합",
+    "home.routeExample.difference": "1인당 예시 차액 · ₩33,000",
+    "home.routeExample.note": "여행 계획용 예시입니다. 현재 실시간 요금이 아니므로 출발 전 실제 요금과 예약 조건을 확인하세요.",
+    "home.visitor.title": "외국인 여행자 안내",
+    "home.visitor.badge": "여행 팁",
+    "home.visitor.card.title": "외국인 여행자를 위해 만들었어요",
+    "home.visitor.card.desc": "한국 전화번호가 없어도 비교적 쉽게 이용할 수 있는 예약 방법, 현지 교통 팁과 서비스를 안내합니다.",
+    "home.beta.title": "공개 베타 · V67",
+    "home.beta.subtitle": "친구들과 테스트 중 문제가 보이면 화면과 재현 순서를 함께 보내주세요. 신고 문구에 위치정보는 자동으로 넣지 않습니다.",
+    "home.beta.report": "문제 제보",
+    "home.search.placeholder": "KTX · 화장실 · 번역 · 환급 · 짐보관...",
+    "home.search.group.tool": "기능",
+    "home.search.group.nearby": "주변",
+    "home.search.group.myTrip": "내 여행",
+    "home.search.group.urgent": "긴급",
+    "home.search.group.city": "도시",
+    "home.search.group.place": "장소",
+    "home.search.group.phrase": "문장",
+    "home.search.results.nearbyTitle": "주변에서 바로 찾기",
+    "home.search.results.title": "검색 결과",
+    "home.search.results.countOne": "{count}개",
+    "home.search.results.countMany": "{count}개",
+    "home.search.results.empty": "검색 결과가 없어요. “이동”, “화장실”, “편의점”, “번역”, “분실”, “환급”처럼 짧게 검색해보세요.",
+    "home.tools.hide": "7개 전체 기능 접기",
+    "home.walkRecovery.previousDestination": "이전 목적지",
+    "home.walkRecovery.paused": "일시정지",
+    "home.walkRecovery.ready": "복구 가능",
+    "home.walkRecovery.text.resume": "이 세션의 목적지만 저장되어 있습니다. 계속하기를 눌러야 GPS 위치 추적이 다시 시작됩니다. 위치 기록은 저장하지 않습니다.",
+    "home.install.button.howTo": "설치 방법",
+    "home.install.iosHelp": "iPhone/iPad: Safari의 공유 버튼을 누른 뒤 “홈 화면에 추가”를 선택하세요.",
+    "home.essentials.status.location": "현재 위치 기준으로 검색합니다. 위치는 세션에만 보관됩니다.",
+    "home.essentials.status.city": "{city} 도시 기준 검색 · 더 정확하게 보려면 내 위치 사용",
+    "home.essentials.status.unavailable": "이 브라우저에서는 위치 기능을 사용할 수 없습니다.",
+    "home.essentials.status.loading": "현재 위치 확인 중…",
+    "home.essentials.status.denied": "위치를 사용할 수 없습니다. 도시 기준 검색은 계속 사용할 수 있습니다.",
+    "home.pulse.position.ready": "현재 위치 연결됨",
+    "home.pulse.position.city": "도시 기준",
+    "home.pulse.weather.loading": "불러오는 중",
+    "home.pulse.weather.unavailable": "현재 이용 불가",
+    "home.pulse.offline.notSaved": "미저장",
+    "home.pulse.offline.current": "최신 복사본",
+    "home.pulse.offline.changed": "업데이트 필요",
+    "home.pulse.label.koreaTime": "한국 시간",
+    "home.pulse.label.weather": "현재 날씨",
+    "home.pulse.label.moveMode": "이동 모드",
+    "home.pulse.label.tripStatus": "여행 상태",
+    "home.pulse.mode.normal": "일반",
+    "home.pulse.mode.rain": "비",
+    "home.pulse.mode.luggage": "짐",
+    "home.pulse.mode.late": "늦은 도착",
+    "home.pulse.mode.accessible": "접근성"
+  },
+  "en": {
+    "home.brand": "Korea Route",
+    "home.hero.kicker": "Travel Korea smarter",
+    "home.hero.title": "Your Korea trip,<br>made simple.",
+    "home.hero.subtitle": "Plan your trip, get around, find nearby essentials, and get help when you need it.",
+    "home.hero.quick.transit.title": "KTX · Bus",
+    "home.hero.quick.transit.subtitle": "compare routes",
+    "home.hero.quick.cities.title": "20 Cities",
+    "home.hero.quick.cities.subtitle": "starter guide",
+    "home.hero.quick.cost.title": "Compare costs",
+    "home.hero.quick.cost.subtitle": "compare choices",
+    "home.install.title": "Install Korea Route",
+    "home.install.subtitle": "Add it to your home screen like an app.",
+    "home.install.button.install": "INSTALL",
+    "home.walkRecovery.badge": "WALK GUIDE SAVED",
+    "home.walkRecovery.text.default": "A walk guide from this browser session can be continued. Location tracking will restart only after you tap Continue.",
+    "home.walkRecovery.continue": "🚶 Continue walk",
+    "home.walkRecovery.dismiss": "Dismiss",
+    "home.search.title": "Find anything fast",
+    "home.search.subtitle": "Search tools, nearby essentials, cities, saved places, journeys and offline phrases.",
+    "home.search.quick.convenience": "Convenience",
+    "home.search.quick.restroom": "Restroom",
+    "home.search.quick.luggage": "Luggage",
+    "home.search.fast.move": "Move",
+    "home.search.fast.nearby": "Nearby",
+    "home.search.fast.translate": "Translate",
+    "home.search.fast.urgent": "Urgent",
+    "home.shortcuts.plan": "Plan trip",
+    "home.shortcuts.myTrip": "My Trip",
+    "home.shortcuts.tools": "All tools",
+    "home.quickStart.title": "What do you need right now?",
+    "home.quickStart.subtitle": "Choose one. You can open every tool later.",
+    "home.quickStart.plan.title": "Start my trip",
+    "home.quickStart.plan.subtitle": "Build a route · choose cities · plan days",
+    "home.quickStart.move.title": "I'm traveling now",
+    "home.quickStart.move.subtitle": "Transit · routes · walking",
+    "home.quickStart.help.title": "I need help now",
+    "home.quickStart.help.subtitle": "Emergency · location · Korean · pharmacy",
+    "home.quickStart.explore": "📍 Explore nearby",
+    "home.quickStart.myTrip": "🧳 Open My Trip",
+    "home.quickStart.note": "Korea Route keeps the 7 core menus. This start panel only simplifies your first choice.",
+    "home.tools.show": "Show all 7 tools",
+    "home.pulse.title": "Travel Pulse · Right now",
+    "home.pulse.subtitle": "A quick snapshot for your next move in Korea.",
+    "home.pulse.openMove": "Open Move",
+    "home.pulse.openMyTrip": "Open My Trip",
+    "home.sos.title": "Need help right now?",
+    "home.sos.subtitle": "Fast access to emergency, location and Korean help.",
+    "home.sos.emergency": "Emergency",
+    "home.sos.location": "My location",
+    "home.sos.phrases": "Korean phrases",
+    "home.sos.pharmacy": "Nearby pharmacy",
+    "home.sos.note": "Emergency calls use Korea's official numbers: Police 112 · Fire/Ambulance 119. Pharmacy results open in an external map; verify availability there.",
+    "home.essentials.title": "Nearby Essentials",
+    "home.essentials.subtitle": "One tap to search around you. Results open in an external map; verify hours and availability there.",
+    "home.essentials.restroom": "Restroom",
+    "home.essentials.convenience": "Convenience",
+    "home.essentials.pharmacy": "Pharmacy",
+    "home.essentials.atm": "ATM",
+    "home.essentials.luggage": "Luggage",
+    "home.essentials.tourist": "Tourist info",
+    "home.essentials.useLocation": "Use my location",
+    "home.architecture.title": "Everything for your Korea trip",
+    "home.architecture.badge": "7 CORE MENUS",
+    "home.architecture.plan.title": "1. Plan",
+    "home.architecture.plan.desc": "Build an itinerary, compare stops, budget, and travel style.",
+    "home.architecture.plan.ready": "CORE TOOLS READY",
+    "home.architecture.move.title": "2. Move",
+    "home.architecture.move.desc": "Compare route data, rail plans, nearby transit tools, and walking handoff.",
+    "home.architecture.explore.title": "3. Explore",
+    "home.architecture.explore.desc": "Attractions, food, cafés, nearby essentials, and saved places.",
+    "home.architecture.stay.title": "4. Stay",
+    "home.architecture.stay.desc": "Compare practical stay areas and save a base for your route.",
+    "home.architecture.wallet.title": "5. Trip Wallet",
+    "home.architecture.wallet.desc": "Check KRW reference rates and keep a simple trip budget.",
+    "home.architecture.assistant.title": "6. Trip Assistant",
+    "home.architecture.assistant.desc": "Quick guidance from saved trip context and connected travel tools.",
+    "home.architecture.myTrip.title": "7. My Trip",
+    "home.architecture.myTrip.desc": "Your plan, stay, budget, saved places and travel tools in one place.",
+    "home.routeExample.title": "Popular route example",
+    "home.routeExample.badge": "SAMPLE ESTIMATE",
+    "home.routeExample.card.title": "Classic Korea Route",
+    "home.routeExample.card.subtitle": "Seoul to Busan with cultural stops",
+    "home.routeExample.card.badge": "EXAMPLE",
+    "home.routeExample.individual": "SAMPLE · INDIVIDUAL",
+    "home.routeExample.combination": "SAMPLE · COMBINATION",
+    "home.routeExample.difference": "Illustrative difference · ₩33,000 per traveler",
+    "home.routeExample.note": "Planning example only. These are not current live fares. Verify current fares and booking conditions before travel.",
+    "home.visitor.title": "Visitor friendly",
+    "home.visitor.badge": "TRAVEL TIP",
+    "home.visitor.card.title": "Made for international travelers",
+    "home.visitor.card.desc": "We highlight simpler booking options, local transport tips, and services that are easier to use without a Korean phone number.",
+    "home.beta.title": "Public Beta · V67",
+    "home.beta.subtitle": "Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.",
+    "home.beta.report": "Report a problem",
+    "home.search.placeholder": "KTX · restroom · translate · tax refund...",
+    "home.search.group.tool": "Tool",
+    "home.search.group.nearby": "Nearby",
+    "home.search.group.myTrip": "My Trip",
+    "home.search.group.urgent": "Urgent",
+    "home.search.group.city": "City",
+    "home.search.group.place": "Place",
+    "home.search.group.phrase": "Phrase",
+    "home.search.results.nearbyTitle": "NEARBY QUICK FIND",
+    "home.search.results.title": "SEARCH RESULTS",
+    "home.search.results.countOne": "{count} result",
+    "home.search.results.countMany": "{count} results",
+    "home.search.results.empty": "No match yet. Try a short need such as “move”, “restroom”, “convenience”, “translate”, “lost” or “tax refund”.",
+    "home.tools.hide": "Hide all 7 tools",
+    "home.walkRecovery.previousDestination": "Previous destination",
+    "home.walkRecovery.paused": "PAUSED",
+    "home.walkRecovery.ready": "READY",
+    "home.walkRecovery.text.resume": "Only the destination is saved for this session. GPS tracking restarts only after you tap Continue. Location history is not stored.",
+    "home.install.button.howTo": "HOW TO INSTALL",
+    "home.install.iosHelp": "iPhone/iPad: In Safari, tap Share, then choose “Add to Home Screen”.",
+    "home.essentials.status.location": "Searches around your current location. Location is kept for this session only.",
+    "home.essentials.status.city": "{city} city search · use your location for better nearby results",
+    "home.essentials.status.unavailable": "Geolocation is unavailable in this browser.",
+    "home.essentials.status.loading": "Getting your current location…",
+    "home.essentials.status.denied": "Location is unavailable. City-based search still works.",
+    "home.pulse.position.ready": "Location ready",
+    "home.pulse.position.city": "City based",
+    "home.pulse.weather.loading": "Loading",
+    "home.pulse.weather.unavailable": "Unavailable",
+    "home.pulse.offline.notSaved": "Not saved",
+    "home.pulse.offline.current": "Up to date",
+    "home.pulse.offline.changed": "Update needed",
+    "home.pulse.label.koreaTime": "Korea time",
+    "home.pulse.label.weather": "Weather now",
+    "home.pulse.label.moveMode": "Move mode",
+    "home.pulse.label.tripStatus": "Trip status",
+    "home.pulse.mode.normal": "Normal",
+    "home.pulse.mode.rain": "Rain",
+    "home.pulse.mode.luggage": "Luggage",
+    "home.pulse.mode.late": "Late arrival",
+    "home.pulse.mode.accessible": "Accessible"
+  }
+};
+function t(key){ return TRANSLATIONS[lang]?.[key] || TRANSLATIONS.en?.[key] || key; }
+
 
 
 // V56 English Subway Map Hub — official external pages; no map image is copied into Korea Route.
@@ -2220,8 +2507,8 @@ function globalSearchScore(query,text){
   return 0;
 }
 function globalSearchGroupLabel(group){
-  const labels={action:['Tool','기능'],nearby:['Nearby','주변'],trip:['My Trip','내 여행'],urgent:['Urgent','긴급'],city:['City','도시'],place:['Place','장소'],phrase:['Phrase','문장']};
-  const v=labels[group]||labels.action; return lang==='ko'?v[1]:v[0];
+  const keys={action:'home.search.group.tool',nearby:'home.search.group.nearby',trip:'home.search.group.myTrip',urgent:'home.search.group.urgent',city:'home.search.group.city',place:'home.search.group.place',phrase:'home.search.group.phrase'};
+  return t(keys[group]||keys.action);
 }
 function globalSearchDynamicResults(query){
   const out=[];
@@ -2265,9 +2552,9 @@ function renderGlobalSearchResults(query,groupFilter=''){
   if(!box||!list)return;
   if(!groupFilter&&!globalSearchNormalize(query)){box.hidden=true;list.innerHTML='';globalSearchResultCache=[];return;}
   const results=globalSearchBuildResults(query,groupFilter);globalSearchResultCache=results;box.hidden=false;
-  if(label)label.textContent=groupFilter==='nearby'?(lang==='ko'?'주변에서 바로 찾기':'NEARBY QUICK FIND'):(lang==='ko'?'검색 결과':'SEARCH RESULTS');
-  if(count)count.textContent=lang==='ko'?`${results.length}개`:`${results.length} result${results.length===1?'':'s'}`;
-  if(!results.length){list.innerHTML=`<div class="global-search-empty">${lang==='ko'?'검색 결과가 없어요. “이동”, “화장실”, “편의점”, “번역”, “분실”, “환급”처럼 짧게 검색해보세요.':'No match yet. Try a short need such as “move”, “restroom”, “convenience”, “translate”, “lost” or “tax refund”.'}</div>`;return;}
+  if(label)label.textContent=groupFilter==='nearby'?t('home.search.results.nearbyTitle'):t('home.search.results.title');
+  if(count)count.textContent=t(results.length===1?'home.search.results.countOne':'home.search.results.countMany').replace('{count}',results.length);
+  if(!results.length){list.innerHTML=`<div class="global-search-empty">${escapeHtmlText(t('home.search.results.empty'))}</div>`;return;}
   list.innerHTML=results.map((r,i)=>`<button type="button" class="global-search-result" onclick="runGlobalSearchResult(${i})"><span class="icon">${escapeHtmlText(r.icon||'🔎')}</span><span><b>${escapeHtmlText(lang==='ko'?(r.ko||r.en):(r.en||r.ko))}</b><small>${escapeHtmlText(lang==='ko'?(r.descKo||r.descEn||''):(r.descEn||r.descKo||''))}</small></span><em>${escapeHtmlText(globalSearchGroupLabel(r.group))}</em></button>`).join('');
 }
 function globalSearchInputChanged(){renderGlobalSearchResults(document.getElementById('globalSearchInput')?.value||'');}
@@ -2338,7 +2625,7 @@ function openV55EmergencyFind(focus=''){
 }
 function initGlobalSearchV55(){
   const input=document.getElementById('globalSearchInput');if(!input)return;
-  input.placeholder=lang==='ko'?(input.dataset.placeholderKo||''):(input.dataset.placeholderEn||'');
+  input.placeholder=t('home.search.placeholder');
   input.addEventListener('input',globalSearchInputChanged);
   input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();if(globalSearchResultCache.length)runGlobalSearchResult(0);else globalSearchInputChanged();}});
 }
@@ -2351,14 +2638,14 @@ function toggleAllTools(){
   if(!block||!btn) return;
   const opening=block.classList.contains('beginner-collapsed');
   block.classList.toggle('beginner-collapsed',!opening);
-  btn.dataset.en=opening?'Hide all 7 tools':'Show all 7 tools';
-  btn.dataset.ko=opening?'7개 전체 기능 접기':'7개 전체 기능 보기';
-  btn.textContent=(lang==='ko'?btn.dataset.ko:btn.dataset.en);
+  const key=opening?'home.tools.hide':'home.tools.show';
+  btn.dataset.i18n=key;
+  btn.textContent=t(key);
   if(opening) setTimeout(()=>block.scrollIntoView({behavior:'smooth',block:'start'}),30);
 }
 
 let current='home';
-const APP_RELEASE='Korea Route Public Beta V65';
+const APP_RELEASE='Korea Route Public Beta V67';
 
 // V36 safe auto-restore: persist only explicit, non-sensitive trip state and user preferences.
 // Never mirror API keys, current/GPS location, sensor state, or walk-recovery data.
@@ -2495,6 +2782,12 @@ function applyLang(){
   document.querySelectorAll('[data-en][data-ko]').forEach(el=>{
     el.innerHTML=el.getAttribute(lang==='ko'?'data-ko':'data-en');
   });
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    el.innerHTML=t(el.dataset.i18n);
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+    el.setAttribute('placeholder',t(el.dataset.i18nPlaceholder));
+  });
   const langBtn=document.getElementById('langBtn');
   if(langBtn) langBtn.textContent=lang==='ko'?'한국어 / EN':'EN / 한국어';
   if(cityState){ renderCity(); setTimeout(()=>{try{renderCityGuideMap(cityState.key||cityState.en)}catch(e){}},120); }
@@ -2505,7 +2798,7 @@ function applyLang(){
   if(typeof renderCityWalkAlertsState==='function') renderCityWalkAlertsState();
   if(typeof renderCityWalkRecovery==='function') renderCityWalkRecovery();
   const gs=document.getElementById('globalSearchInput');
-  if(gs){gs.placeholder=lang==='ko'?(gs.dataset.placeholderKo||''):(gs.dataset.placeholderEn||'');if(gs.value)renderGlobalSearchResults(gs.value);}
+  if(gs){gs.placeholder=t('home.search.placeholder');if(gs.value)renderGlobalSearchResults(gs.value);}
   if(typeof v60MountMapCitySwitch==='function'&&document.getElementById('v60CitySwitch'))v60MountMapCitySwitch();
 }
 function toggleLang(){lang=lang==='en'?'ko':'en';localStorage.setItem('koreaRouteLang',lang);applyLang()}
@@ -5278,9 +5571,9 @@ function renderCityWalkRecovery(){
   const title=document.getElementById('cityWalkRecoveryTitle');
   const state=document.getElementById('cityWalkRecoveryState');
   const text=document.getElementById('cityWalkRecoveryText');
-  if(title) title.textContent=data.target?.name||(lang==='ko'?'이전 목적지':'Previous destination');
-  if(state) state.textContent=data.paused?(lang==='ko'?'일시정지':'PAUSED'):(lang==='ko'?'복구 가능':'READY');
-  if(text) text.textContent=lang==='ko'?'이 세션의 목적지만 저장되어 있습니다. 계속하기를 눌러야 GPS 위치 추적이 다시 시작됩니다. 위치 기록은 저장하지 않습니다.':'Only the destination is saved for this session. GPS tracking restarts only after you tap Continue. Location history is not stored.';
+  if(title) title.textContent=data.target?.name||t('home.walkRecovery.previousDestination');
+  if(state) state.textContent=data.paused?t('home.walkRecovery.paused'):t('home.walkRecovery.ready');
+  if(text) text.textContent=t('home.walkRecovery.text.resume');
 }
 function dismissRecoveredCityWalk(){clearCityWalkSession();setCityMapStatus(lang==='ko'?'저장된 도보 안내를 닫았습니다.':'Saved walk guide dismissed.');}
 function resumeRecoveredCityWalk(){
@@ -5299,18 +5592,21 @@ function applyCityUserPosition(lat,lng,accuracy,{recenter=true}={}){
   exploreUserLocation={lat,lng};
   const safeAccuracy=Math.max(10,Number(accuracy)||30);
   if(!cityUserLayer){
-    cityUserAccuracyCircle=L.circle([lat,lng],{radius:safeAccuracy,weight:1,color:'#2f6fed',fillColor:'#2f6fed',fillOpacity:.08});
-    cityUserDot=L.circleMarker([lat,lng],{radius:8,weight:4,color:'#fff',fillColor:'#2f6fed',fillOpacity:1})
+    cityUserAccuracyCircle=L.circle([lat,lng],{radius:safeAccuracy,weight:1,color:'#2f6fed',fillColor:'#2f6fed',fillOpacity:.10,interactive:false});
+    const userIcon=L.divIcon({className:'city-user-location-icon',html:'<span class="city-user-location-pin" aria-hidden="true"></span>',iconSize:[28,28],iconAnchor:[14,14],popupAnchor:[0,-15]});
+    cityUserDot=L.marker([lat,lng],{icon:userIcon,keyboard:true,title:lang==='ko'?'내 위치':'My location',alt:lang==='ko'?'내 위치':'My location',zIndexOffset:10000})
       .bindPopup(`<b>${lang==='ko'?'내 위치':'My location'}</b><br><small>GPS</small>`);
     cityUserLayer=L.layerGroup([cityUserAccuracyCircle,cityUserDot]).addTo(map);
+    try{cityUserAccuracyCircle.bringToFront?.();cityUserDot.setZIndexOffset?.(10000);}catch(e){}
   }else{
     try{cityUserAccuracyCircle?.setLatLng([lat,lng]);cityUserAccuracyCircle?.setRadius(safeAccuracy);}catch(e){}
-    try{cityUserDot?.setLatLng([lat,lng]);cityUserDot?.setPopupContent(`<b>${lang==='ko'?'내 위치':'My location'}</b><br><small>±${Math.round(safeAccuracy)}m</small>`);}catch(e){}
+    try{cityUserDot?.setLatLng([lat,lng]);cityUserDot?.setPopupContent(`<b>${lang==='ko'?'내 위치':'My location'}</b><br><small>±${Math.round(safeAccuracy)}m</small>`);cityUserDot?.setZIndexOffset?.(10000);}catch(e){}
   }
   if(recenter){
     if(map.getZoom()<16) map.setView([lat,lng],16,{animate:false});
     else map.panTo([lat,lng],{animate:false,noMoveStart:true});
   }
+  try{cityUserAccuracyCircle?.bringToFront?.();cityUserDot?.setZIndexOffset?.(10000);}catch(e){}
   document.getElementById('cityMapLocateBtn')?.classList.add('active');
   setCityMapStatus(lang==='ko'?`현재 위치 확인 · 정확도 약 ${Math.round(safeAccuracy)}m`:`Location ready · about ±${Math.round(safeAccuracy)}m accuracy`);
   const currentCity=document.getElementById('city')?.dataset.currentCity||'';
@@ -11224,12 +11520,11 @@ function isIosInstallDevice(){
   const ua=navigator.userAgent||'';
   return /iPad|iPhone|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints>1);
 }
-function setInstallButtonCopy(en,ko){
+function setInstallButtonCopy(key){
   const btn=document.getElementById('installBtn');
   if(!btn) return;
-  btn.dataset.en=en;
-  btn.dataset.ko=ko;
-  btn.textContent=lang==='ko'?ko:en;
+  btn.dataset.i18n=key;
+  btn.textContent=t(key);
 }
 function refreshInstallBox(){
   const box=document.getElementById('installBox');
@@ -11239,12 +11534,12 @@ function refreshInstallBox(){
     return;
   }
   if(deferredInstallPrompt){
-    setInstallButtonCopy('INSTALL','설치');
+    setInstallButtonCopy('home.install.button.install');
     box.classList.add('show');
     return;
   }
   if(isIosInstallDevice()){
-    setInstallButtonCopy('HOW TO INSTALL','설치 방법');
+    setInstallButtonCopy('home.install.button.howTo');
     box.classList.add('show');
   }
 }
@@ -11262,7 +11557,7 @@ document.getElementById('installBtn')?.addEventListener('click',async()=>{
     return;
   }
   if(isIosInstallDevice()){
-    alert(lang==='ko'?'iPhone/iPad: Safari의 공유 버튼을 누른 뒤 “홈 화면에 추가”를 선택하세요.':'iPhone/iPad: In Safari, tap Share, then choose “Add to Home Screen”.');
+    alert(t('home.install.iosHelp'));
   }
 });
 window.addEventListener('appinstalled',()=>document.getElementById('installBox')?.classList.remove('show'));
@@ -11305,10 +11600,10 @@ function nearbyEssentialsCity(){
 function renderNearbyEssentialsStatus(){
   const el=document.getElementById('nearbyEssentialsStatus'); if(!el)return;
   if(typeof liveTransitPosition!=='undefined'&&liveTransitPosition){
-    el.textContent=lang==='ko'?'현재 위치 기준으로 검색합니다. 위치는 세션에만 보관됩니다.':'Searches around your current location. Location is kept for this session only.';
+    el.textContent=t('home.essentials.status.location');
   }else{
     const city=nearbyEssentialsCity(); const label=lang==='ko'?(cityMeta?.[city]?.ko||city):city;
-    el.textContent=(lang==='ko'?`${label} 도시 기준 검색 · 더 정확하게 보려면 내 위치 사용`:`${label} city search · use your location for better nearby results`);
+    el.textContent=t('home.essentials.status.city').replace('{city}',label);
   }
 }
 function nearbyEssentialMapUrl(kind){
@@ -11336,13 +11631,13 @@ function openQuickSosEmergency(){
 
 function requestNearbyEssentialsLocation(){
   const el=document.getElementById('nearbyEssentialsStatus');
-  if(!navigator.geolocation){if(el)el.textContent=lang==='ko'?'이 브라우저에서는 위치 기능을 사용할 수 없습니다.':'Geolocation is unavailable in this browser.';return;}
-  if(el)el.textContent=lang==='ko'?'현재 위치 확인 중…':'Getting your current location…';
+  if(!navigator.geolocation){if(el)el.textContent=t('home.essentials.status.unavailable');return;}
+  if(el)el.textContent=t('home.essentials.status.loading');
   navigator.geolocation.getCurrentPosition(pos=>{
     liveTransitPosition={lat:pos.coords.latitude,lng:pos.coords.longitude,accuracy:pos.coords.accuracy};
     try{sessionStorage.setItem('koreaRouteLivePosition',JSON.stringify(liveTransitPosition));}catch(_){}
     renderLiveTransitLocation?.(); renderLiveTransitBoard?.(); renderMyTripLiveLocation?.(); renderTravelPulse?.(); renderNearbyEssentialsStatus(); refreshLiveWeather?.();
-  },()=>{if(el)el.textContent=lang==='ko'?'위치를 사용할 수 없습니다. 도시 기준 검색은 계속 사용할 수 있습니다.':'Location is unavailable. City-based search still works.';},{enableHighAccuracy:false,timeout:8000,maximumAge:60000});
+  },()=>{if(el)el.textContent=t('home.essentials.status.denied');},{enableHighAccuracy:false,timeout:8000,maximumAge:60000});
 }
 
 let latestLiveWeatherState={status:'loading'};
@@ -11350,14 +11645,15 @@ function renderTravelPulse(){
   const grid=document.getElementById('travelPulseGrid'); if(!grid)return;
   const k=koreaTimeParts();
   const move=currentMoveSituation?.()||'normal';
-  const moveLabel={normal:['Normal','일반'],rain:['Rain','비'],luggage:['Luggage','짐'],late:['Late arrival','늦은 도착'],accessible:['Accessible','접근성']}[move]||[move,move];
-  const pos=(typeof liveTransitPosition!=='undefined'&&liveTransitPosition)?(lang==='ko'?'현재 위치 연결됨':'Location ready'):(lang==='ko'?'도시 기준':'City based');
-  let weather=lang==='ko'?'불러오는 중':'Loading';
+  const moveKey={normal:'home.pulse.mode.normal',rain:'home.pulse.mode.rain',luggage:'home.pulse.mode.luggage',late:'home.pulse.mode.late',accessible:'home.pulse.mode.accessible'}[move];
+  const moveLabel=moveKey?t(moveKey):move;
+  const pos=(typeof liveTransitPosition!=='undefined'&&liveTransitPosition)?t('home.pulse.position.ready'):t('home.pulse.position.city');
+  let weather=t('home.pulse.weather.loading');
   if(latestLiveWeatherState.status==='ready') weather=`${latestLiveWeatherState.temp}°C · ${weatherDescription(latestLiveWeatherState.code)}`;
-  else if(latestLiveWeatherState.status==='unavailable') weather=lang==='ko'?'현재 이용 불가':'Unavailable';
-  let offline=lang==='ko'?'미저장':'Not saved';
-  try{const f=typeof assistantOfflineSnapshotStatus==='function'?assistantOfflineSnapshotStatus():null; if(f?.state==='current')offline=lang==='ko'?'최신 복사본':'Up to date'; else if(f?.state==='changed')offline=lang==='ko'?'업데이트 필요':'Update needed';}catch(_){}
-  grid.innerHTML=`<div class="travel-pulse-item"><small>${lang==='ko'?'한국 시간':'Korea time'}</small><strong>${k.time} KST</strong></div><div class="travel-pulse-item"><small>${lang==='ko'?'현재 날씨':'Weather now'}</small><strong>${weather}</strong></div><div class="travel-pulse-item"><small>${lang==='ko'?'이동 모드':'Move mode'}</small><strong>${lang==='ko'?moveLabel[1]:moveLabel[0]}</strong></div><div class="travel-pulse-item"><small>${lang==='ko'?'여행 상태':'Trip status'}</small><strong>${pos} · ${offline}</strong></div>`;
+  else if(latestLiveWeatherState.status==='unavailable') weather=t('home.pulse.weather.unavailable');
+  let offline=t('home.pulse.offline.notSaved');
+  try{const f=typeof assistantOfflineSnapshotStatus==='function'?assistantOfflineSnapshotStatus():null; if(f?.state==='current')offline=t('home.pulse.offline.current'); else if(f?.state==='changed')offline=t('home.pulse.offline.changed');}catch(_){}
+  grid.innerHTML=`<div class="travel-pulse-item"><small>${t('home.pulse.label.koreaTime')}</small><strong>${k.time} KST</strong></div><div class="travel-pulse-item"><small>${t('home.pulse.label.weather')}</small><strong>${weather}</strong></div><div class="travel-pulse-item"><small>${t('home.pulse.label.moveMode')}</small><strong>${moveLabel}</strong></div><div class="travel-pulse-item"><small>${t('home.pulse.label.tripStatus')}</small><strong>${pos} · ${offline}</strong></div>`;
 }
 function koreaTimeParts(){
   const now=new Date();
