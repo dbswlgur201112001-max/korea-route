@@ -2356,6 +2356,113 @@ body.dark #walletHub .v83-wallet-field>span{color:#b9c6d7}
 }
 </style>
 
+
+<style id="v109-map-location-float">
+.city-map-live-wrap{position:relative;min-width:0}
+.city-map-locate-float{display:none;align-items:center;justify-content:center;gap:7px;min-height:48px;padding:0 15px;border:1px solid rgba(11,35,69,.12);border-radius:15px;background:rgba(255,255,255,.96);color:#0b2345;font-size:13px;font-weight:950;box-shadow:0 8px 24px rgba(11,35,69,.22);cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.city-map-locate-float .pin{font-size:17px;line-height:1}
+#city.v60-map-mode .city-map-live-wrap{order:-6;width:100%;position:relative}
+#city.v60-map-mode .city-map-live-wrap #cityGuideMap{width:100%!important}
+#city.v60-map-mode .city-map-locate-float{display:inline-flex;position:absolute;right:12px;bottom:12px;z-index:900}
+.city-map-focus .city-map-locate-float{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:1705}
+@media(max-width:420px){
+  #city.v60-map-mode .city-map-locate-float{right:10px;bottom:10px;min-height:50px;padding:0 14px;font-size:13px}
+}
+</style>
+
+<style id="v111-ios-field-stability">
+/* V111 · iOS/field stability */
+.v53-stop-actions button.active{background:#0b2345;color:#fff;border-color:#0b2345}
+@media(max-width:420px){.move-arrival-actions{grid-template-columns:1fr}.move-arrival-actions button{min-height:46px}}
+</style>
+
+<style id="v112-rail-plan-fix">
+/* V112 · rail operation-plan recovery + reservation UI intentionally omitted */
+.rail-actions{grid-template-columns:1fr}
+</style>
+
+<style id="v113-late-night-rescue">
+.v113-late-backdrop{position:fixed;inset:0;z-index:12050;background:rgba(7,18,32,.72);display:flex;align-items:flex-end;justify-content:center;padding:12px}
+.v113-late-sheet{width:min(620px,100%);max-height:90vh;overflow:auto;background:#f7f9fc;border-radius:24px 24px 18px 18px;padding:18px;box-shadow:0 -18px 60px rgba(0,0,0,.24);color:#17365b}
+.v113-late-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.v113-late-head small{font-size:11px;font-weight:950;letter-spacing:.08em;color:#7c8998}.v113-late-head h3{font-size:23px;line-height:1.2;margin:4px 0}.v113-late-head p{font-size:13px;line-height:1.5;color:#66768a;margin:0}.v113-late-close{border:0;background:#e9eef5;border-radius:999px;width:38px;height:38px;font-size:24px;color:#294766;flex:0 0 auto}
+.v113-stay-card{margin-top:14px;padding:15px;border:1px solid #dce6f1;border-radius:18px;background:#fff}.v113-stay-card.primary{border-color:#b9cce3;background:#fafdff}.v113-stay-label{font-size:11px;font-weight:950;color:#708198}.v113-stay-card h4{font-size:18px;margin:5px 0 2px;color:#17365b}.v113-stay-card p{font-size:13px;line-height:1.5;color:#566b83;margin:3px 0;word-break:break-word}.v113-stay-card .empty{color:#7f8b99}
+.v113-primary-actions,.v113-help-grid,.v113-nearby-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:11px}.v113-primary-actions button,.v113-help-grid button,.v113-nearby-grid button{min-height:50px;border:1px solid #dce5ee;border-radius:13px;background:#fff;color:#24496e;padding:10px 8px;font-size:12px;font-weight:950;line-height:1.3}.v113-primary-actions button.primary{background:#0b2a54;color:#fff;border-color:#0b2a54}.v113-primary-actions button:disabled{opacity:.45}.v113-nearby-grid button{background:#f8fbff}.v113-help-grid button.helpline{background:#153c68;color:#fff;border-color:#153c68}
+.v113-section{margin-top:15px}.v113-section h4{font-size:15px;margin:0 0 3px}.v113-section>p{font-size:11px;color:#72808f;line-height:1.45;margin:0}.v113-location{margin-top:10px;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px;border-radius:12px;background:#edf3f9;font-size:11px;color:#5e7084}.v113-location button{border:0;border-radius:10px;background:#fff;color:#315b88;padding:8px 10px;font-size:11px;font-weight:900;white-space:nowrap}.v113-note{margin-top:14px;padding:12px;border-radius:13px;background:#fff4df;color:#76541b;font-size:11px;line-height:1.55}.v113-offline{display:block;margin-top:9px;font-size:10px;color:#7c8998;font-weight:800}
+@media(max-width:420px){.v113-late-backdrop{padding:0}.v113-late-sheet{border-radius:22px 22px 0 0;padding:16px;max-height:92vh}.v113-primary-actions,.v113-help-grid,.v113-nearby-grid{grid-template-columns:1fr 1fr}.v113-primary-actions button,.v113-help-grid button,.v113-nearby-grid button{font-size:12px;min-height:52px}}
+</style>
+
+<style id="v114-share-my-route">
+.v114-share-backdrop{position:fixed;inset:0;z-index:12060;background:rgba(7,18,32,.72);display:flex;align-items:flex-end;justify-content:center;padding:12px}
+.v114-share-sheet{width:min(620px,100%);max-height:90vh;overflow:auto;background:#f7f9fc;border-radius:24px 24px 18px 18px;padding:18px;box-shadow:0 -18px 60px rgba(0,0,0,.24);color:#17365b}
+.v114-share-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.v114-share-head small{font-size:11px;font-weight:950;letter-spacing:.08em;color:#7c8998}.v114-share-head h3{font-size:23px;line-height:1.2;margin:4px 0}.v114-share-head p{font-size:13px;line-height:1.5;color:#66768a;margin:0}.v114-share-close{border:0;background:#e9eef5;border-radius:999px;width:38px;height:38px;font-size:24px;color:#294766;flex:0 0 auto}
+.v114-route-card{margin-top:14px;padding:15px;border:1px solid #dce6f1;border-radius:18px;background:#fff}.v114-route-card .eyebrow{font-size:11px;font-weight:950;color:#718299}.v114-route-card h4{font-size:20px;line-height:1.3;margin:6px 0;color:#17365b}.v114-route-card p{font-size:12px;line-height:1.55;color:#5f7186;margin:5px 0}.v114-next{margin-top:10px;padding:11px;border-radius:13px;background:#eef4fa}.v114-next b{display:block;font-size:13px}.v114-next span{display:block;margin-top:3px;font-size:11px;line-height:1.45;color:#66788c}
+.v114-options{display:grid;gap:9px;margin-top:14px}.v114-option{display:flex;align-items:flex-start;gap:10px;padding:11px 12px;border:1px solid #dce5ee;border-radius:13px;background:#fff}.v114-option input{width:20px;height:20px;margin:1px 0 0;accent-color:#0b2a54}.v114-option b{display:block;font-size:12px}.v114-option span{display:block;margin-top:2px;font-size:10px;line-height:1.45;color:#738296}.v114-option.disabled{opacity:.5}
+.v114-preview{margin-top:14px;padding:13px;border-radius:14px;background:#0f2949;color:#fff;white-space:pre-wrap;word-break:break-word;font-size:12px;line-height:1.6;max-height:240px;overflow:auto}.v114-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}.v114-actions button{min-height:50px;border:1px solid #dce5ee;border-radius:13px;background:#fff;color:#24496e;padding:10px 8px;font-size:12px;font-weight:950;line-height:1.3}.v114-actions button.primary{background:#0b2a54;color:#fff;border-color:#0b2a54}.v114-actions button:disabled{opacity:.45}.v114-privacy{margin-top:13px;padding:11px 12px;border-radius:13px;background:#fff4df;color:#76541b;font-size:11px;line-height:1.55}.v114-offline{display:block;margin-top:8px;font-size:10px;color:#7c8998;font-weight:800}
+@media(max-width:420px){.v114-share-backdrop{padding:0}.v114-share-sheet{border-radius:22px 22px 0 0;padding:16px;max-height:92vh}.v114-actions{grid-template-columns:1fr 1fr}.v114-actions button{min-height:52px}}
+</style>
+
+<style id="v115-food-safety-card">
+.food-safety-launch{width:100%;margin-top:8px;border:1px solid #bad9c5;border-radius:13px;padding:12px;background:#effaf3;color:#1e6642;font-size:13px;font-weight:950;line-height:1.35;cursor:pointer}
+.v115-safety-intro{padding:12px 13px;border-radius:14px;background:#eef7f1;color:#315e49;font-size:12px;line-height:1.55;margin-bottom:12px}.v115-safety-intro b{color:#174d34}
+.v115-safety-section{margin-top:13px}.v115-safety-section h4{font-size:14px;line-height:1.3;margin:0 0 8px;color:#193b5a}.v115-safety-section p{font-size:11px;line-height:1.5;color:#708094;margin:0 0 8px}
+.v115-safety-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.v115-safety-chip{min-height:48px;border:1px solid #dbe4ec;border-radius:13px;background:#fff;color:#254768;padding:9px 10px;font-size:12px;font-weight:900;line-height:1.3;text-align:left}.v115-safety-chip.active{background:#133b2c;color:#fff;border-color:#133b2c;box-shadow:0 0 0 2px rgba(19,59,44,.08)}
+.v115-safety-actions{display:grid;grid-template-columns:2fr 1fr;gap:8px;margin-top:14px}.v115-safety-actions button{min-height:50px;border:1px solid #dce5ee;border-radius:13px;background:#fff;color:#24496e;padding:10px;font-size:12px;font-weight:950}.v115-safety-actions button.primary{background:#0d5035;border-color:#0d5035;color:#fff}.v115-safety-actions button:disabled{opacity:.45}
+.v115-card{padding:18px;border-radius:20px;background:#0e2b22;color:#fff;text-align:center}.v115-card .badge{display:inline-flex;align-items:center;gap:5px;padding:6px 9px;border-radius:999px;background:rgba(255,255,255,.12);font-size:10px;font-weight:950;letter-spacing:.05em}.v115-card .ko{margin:17px 0 12px;font-size:clamp(24px,7.2vw,38px);line-height:1.35;font-weight:950;word-break:keep-all}.v115-card .en{font-size:12px;line-height:1.55;color:rgba(255,255,255,.78);white-space:pre-line}.v115-card-warning{margin-top:12px;padding:11px 12px;border-radius:13px;background:#fff4df;color:#73541a;font-size:11px;line-height:1.55}.v115-card-warning.danger{background:#fff0f0;color:#8b2d2d}.v115-card-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}.v115-card-actions button,.v115-card-actions a{min-height:48px;border:1px solid #dce5ee;border-radius:13px;background:#fff;color:#24496e;padding:10px 8px;font-size:12px;font-weight:950;line-height:1.3;text-decoration:none;display:flex;align-items:center;justify-content:center}.v115-card-actions .primary{background:#0d5035;border-color:#0d5035;color:#fff}.v115-card-actions .danger{background:#9c2f2f;border-color:#9c2f2f;color:#fff}
+.v115-privacy{margin-top:11px;font-size:10px;line-height:1.5;color:#7b8998;font-weight:800}
+@media(max-width:420px){.v115-safety-grid{grid-template-columns:1fr 1fr}.v115-safety-actions{grid-template-columns:1fr}.v115-card-actions{grid-template-columns:1fr 1fr}.v115-safety-chip{min-height:50px;font-size:12px}}
+</style>
+
+
+<style id="v116-city-transit">
+.city-map-quickgo{padding:0 9px;white-space:nowrap;font-size:11px}
+.city-map-routebar.walking .city-map-quickgo{background:#0b2345}
+.city-transit-panel{display:none;margin:0 0 12px;padding:14px;border:1px solid #dbe5f4;border-radius:18px;background:#fff;box-shadow:0 12px 28px rgba(12,43,82,.08)}
+.city-transit-panel.show{display:block}
+.city-transit-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.city-transit-head small{display:block;font-size:10px;font-weight:900;letter-spacing:.07em;color:#2f6fed}
+.city-transit-head h3{margin:4px 0 0;font-size:17px;line-height:1.25;color:#0b2345}
+.city-transit-close{border:0;background:#eef3fa;width:38px;height:38px;border-radius:12px;font-size:21px;font-weight:800;color:#0b2345}
+.city-transit-route{display:grid;grid-template-columns:minmax(0,1fr) 28px minmax(0,1.2fr);align-items:center;gap:7px;margin-top:11px;padding:10px 11px;border-radius:14px;background:#f5f8fc}
+.city-transit-route span{display:block;font-size:9px;font-weight:900;color:#72829a}
+.city-transit-route b{display:block;margin-top:2px;font-size:12px;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.city-transit-arrow{text-align:center;font-weight:950;color:#8295b0}
+.city-transit-status{margin-top:10px;padding:10px 11px;border-radius:13px;background:#f8fafc;font-size:12px;line-height:1.5;color:#526176;font-weight:750}
+.city-transit-status.loading{background:#f2f7ff;color:#2458a6}
+.city-transit-status.success{background:#f0faf5;color:#176a46}
+.city-transit-status.warn{background:#fff8e8;color:#795815}
+.city-transit-routes{display:grid;gap:8px;margin-top:9px}
+.city-transit-card{border:1px solid #e1e7f0;border-radius:15px;padding:11px;background:#fff}
+.city-transit-card.best{border-color:#a9c7ff;background:#f7faff}
+.city-transit-card-top{display:flex;justify-content:space-between;gap:9px;align-items:flex-start}
+.city-transit-card-top b{font-size:14px;line-height:1.35;color:#0b2345}
+.city-transit-card-top em{font-style:normal;border-radius:999px;background:#e9f1ff;color:#2458a6;padding:4px 7px;font-size:9px;font-weight:900}
+.city-transit-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.city-transit-meta span{border-radius:999px;background:#f1f4f8;padding:4px 7px;font-size:10px;font-weight:850;color:#48586c}
+.city-transit-steps{margin-top:7px;font-size:11px;line-height:1.55;color:#66758a;font-weight:750}
+.city-transit-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}
+.city-transit-actions button{min-height:44px;border:0;border-radius:13px;background:#eef3fa;color:#0b2345;font-size:11px;font-weight:900;padding:9px}
+.city-transit-actions button.primary{background:#0b2345;color:#fff}
+.city-transit-actions button.naver{background:#e8f8ee;color:#087a39}
+.city-transit-note{margin-top:9px;font-size:10px;line-height:1.55;color:#6e7d91;font-weight:750}
+@media(max-width:420px){
+  .city-map-routebar{grid-template-columns:minmax(0,1fr) 24px minmax(0,1fr)!important}
+  .city-map-routebar .city-map-quickgo{grid-column:1/-1;min-height:46px;font-size:12px}
+  .city-transit-actions{grid-template-columns:1fr}
+}
+</style>
+
+
+<style id="v117-traveler-tips">
+.v117-tips-backdrop{position:fixed;inset:0;z-index:12080;background:rgba(7,18,32,.74);display:flex;align-items:flex-end;justify-content:center;padding:12px}
+.v117-tips-sheet{width:min(640px,100%);max-height:92vh;overflow:auto;background:#f7f9fc;border-radius:24px 24px 18px 18px;padding:18px;box-shadow:0 -18px 60px rgba(0,0,0,.28);color:#17365b}
+.v117-tips-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.v117-tips-head small{font-size:11px;font-weight:950;letter-spacing:.08em;color:#7c8998}.v117-tips-head h3{font-size:23px;line-height:1.2;margin:4px 0}.v117-tips-head p{font-size:13px;line-height:1.5;color:#66768a;margin:0}.v117-tips-close{border:0;background:#e9eef5;border-radius:999px;width:38px;height:38px;font-size:24px;color:#294766;flex:0 0 auto}
+.v117-tips-grid{display:grid;gap:10px;margin-top:15px}.v117-tip{display:grid;grid-template-columns:42px 1fr;gap:11px;padding:13px;border:1px solid #dfe7f0;border-radius:17px;background:#fff}.v117-tip .ico{width:42px;height:42px;border-radius:13px;background:#eef4fb;display:grid;place-items:center;font-size:22px}.v117-tip b{display:block;font-size:14px;line-height:1.3;color:#17365b}.v117-tip p{font-size:12px;line-height:1.5;color:#5f7084;margin:4px 0 0}.v117-tip button,.v117-tip a{display:inline-flex;margin-top:8px;border:1px solid #d8e2ed;border-radius:10px;background:#f6f9fc;color:#17365b;padding:8px 10px;font-size:11px;font-weight:900;text-decoration:none;min-height:38px;align-items:center}
+.v117-tip.important{border-color:#c6dcf5;background:#f6faff}.v117-tip.emergency{border-color:#f0d4d4;background:#fff9f9}
+.v117-tips-pref{display:flex;align-items:flex-start;gap:9px;margin:14px 2px 0;padding:11px 12px;border-radius:13px;background:#eef2f6;color:#52667c;font-size:11px;line-height:1.4}.v117-tips-pref input{width:18px;height:18px;flex:none;margin-top:1px}
+.v117-tips-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.v117-tips-actions button{border:1px solid #d7e1ec;border-radius:13px;background:#fff;color:#17365b;min-height:48px;font-size:12px;font-weight:950}.v117-tips-actions button.primary{background:#0b2a54;color:#fff;border-color:#0b2a54}
+.v117-tips-foot{display:block;margin-top:11px;font-size:10px;line-height:1.45;color:#738398}
+@media(max-width:420px){.v117-tips-backdrop{padding:0}.v117-tips-sheet{border-radius:22px 22px 0 0;padding:16px;max-height:94vh}.v117-tips-actions{grid-template-columns:1fr}.v117-tip{grid-template-columns:38px 1fr}.v117-tip .ico{width:38px;height:38px}.v117-tip b{font-size:13px}.v117-tip p{font-size:11px}}
+</style>
 </head>
 <body>
 <div class="app">
@@ -2677,8 +2784,8 @@ body.dark #walletHub .v83-wallet-field>span{color:#b9c6d7}
 
   <div class="city-map-wrap">
     <div class="city-map-head">
-      <b data-en="City map & recommended route" data-ko="도시 지도 & 추천 동선">City map & recommended route</b>
-      <span data-en="SAMPLE ROUTE" data-ko="샘플 동선">SAMPLE ROUTE</span>
+      <b data-en="City map & transport" data-ko="도시 지도 & 이동">City map & transport</b>
+      <span data-en="LIVE ROUTE" data-ko="이동 경로">LIVE ROUTE</span>
     </div>
     <div class="city-map-mode"><span class="city-map-chip" data-en="Always available" data-ko="항상 표시">Always available</span><span class="city-map-chip" data-en="Recommended walking flow" data-ko="추천 이동 동선">Recommended walking flow</span></div>
     <div class="city-map-routebar" id="cityMapRouteBar">
@@ -2687,7 +2794,8 @@ body.dark #walletHub .v83-wallet-field>span{color:#b9c6d7}
       <button type="button" class="city-map-routepoint" onclick="cityMapPromptDestination()"><span data-en="TO" data-ko="도착">TO</span><b id="cityMapToLabel" data-en="Tap a place" data-ko="장소를 눌러 선택">Tap a place</b></button>
       <button type="button" class="city-map-quickgo" id="cityMapQuickGo" onclick="cityMapQuickGo()" disabled>GO</button>
     </div>
-    <div class="city-map-oneglance-note" id="cityMapOneGlanceNote" data-en="Pick a place on the map. GO starts the in-app walking guide first." data-ko="지도에서 장소를 고르면 GO로 앱 안 도보 안내를 먼저 시작합니다.">Pick a place on the map. GO starts the in-app walking guide first.</div>
+    <div class="city-map-oneglance-note" id="cityMapOneGlanceNote" data-en="Pick a destination to compare public transit, maps and walking help." data-ko="목적지를 선택하면 대중교통·지도·도보 안내를 비교해 볼 수 있습니다.">Pick a destination to compare public transit, maps and walking help.</div>
+    <div class="city-transit-panel" id="cityTransitPanel" aria-live="polite"></div>
     <div class="city-walk-guide" id="cityWalkGuide" aria-live="polite">
       <div class="city-walk-guide-head"><span data-en="LIVE WALK GUIDE" data-ko="실시간 도보 안내">LIVE WALK GUIDE</span><div class="city-walk-guide-head-actions"><button type="button" id="cityWalkPauseBtn" onclick="toggleCityWalkPause()" data-en="Pause" data-ko="일시정지">Pause</button><button type="button" onclick="stopCityWalkGuide()" data-en="End" data-ko="종료">End</button></div></div>
       <b class="city-walk-guide-title" id="cityWalkGuideTitle">Destination</b>
@@ -2804,7 +2912,12 @@ body.dark #walletHub .v83-wallet-field>span{color:#b9c6d7}
       </div>
     </div>
 <div id="citySchematic" class="city-schematic"></div>
-<div id="cityGuideMap" class="city-map" style="display:none"></div>
+<div class="city-map-live-wrap">
+  <div id="cityGuideMap" class="city-map" style="display:none"></div>
+  <button type="button" class="city-map-locate-float" id="cityMapLocateFloatBtn" onclick="locateCityMapUser()" aria-label="Find my location">
+    <span class="pin">📍</span><span data-en="My location" data-ko="내 위치 찾기">My location</span>
+  </button>
+</div>
     <div id="cityMapDestCard" class="city-map-dest-card" aria-live="polite"></div>
     <div id="cityPoiList" class="poi-list"></div>
 
@@ -3185,6 +3298,7 @@ body.dark #walletHub .v83-wallet-field>span{color:#b9c6d7}
     <div class="mytrip-section" id="myTripJourneySection">
       <div class="mytrip-row"><h3 data-en="Saved journey" data-ko="저장 이동경로">Saved journey</h3><span class="mytrip-badge">OFFLINE</span></div>
       <div id="myTripJourneyBody" class="v51-journey-card empty" data-en="No journey saved yet. Open a recommended route and tap Save to My Trip." data-ko="아직 저장한 이동경로가 없습니다. 추천 이동방법을 열고 My Trip에 저장하세요.">No journey saved yet. Open a recommended route and tap Save to My Trip.</div>
+      <div class="mytrip-actions"><button class="mytrip-btn secondary" type="button" onclick="v114OpenShareRoute()" data-en="📤 Share My Route" data-ko="📤 내 이동경로 공유">📤 Share My Route</button></div>
     </div>
 
     <div class="mytrip-section" id="myTripStaySection">
@@ -3251,6 +3365,7 @@ body.dark #walletHub .v83-wallet-field>span{color:#b9c6d7}
     <button type="button" onclick="openSubwayMapHub()"><span class="ico">🚇</span><span data-en="Subway map" data-ko="지하철 노선도">Subway map</span></button>
     <button type="button" onclick="openCheckRide()"><span class="ico">📷</span><span data-en="Check & Ride" data-ko="체크 & 라이드">Check & Ride</span></button>
     <button type="button" onclick="v105OpenCanIMakeIt()"><span class="ico">🚦</span><span data-en="Can I Make It?" data-ko="지금 출발해도 될까?">Can I Make It?</span></button>
+    <button type="button" onclick="v114OpenShareRoute()"><span class="ico">📤</span><span data-en="Share My Route" data-ko="내 이동경로 공유">Share My Route</span></button>
     <button type="button" onclick="v60OpenTripDetail('myTripStopAlertSection')"><span class="ico">🔔</span><span data-en="Stop alert" data-ko="하차 알림">Stop alert</span></button>
   </div></div>
   <div class="v60-helper-card" data-v69-tool-group="nearby"><h2 class="v60-group-title" data-en="Nearby" data-ko="주변에서 찾기">Nearby</h2><div class="v60-icon-grid">
@@ -3263,6 +3378,7 @@ body.dark #walletHub .v83-wallet-field>span{color:#b9c6d7}
     <button type="button" onclick="openTranslationHub()"><span class="ico">💬</span><span data-en="Translate" data-ko="번역">Translate</span></button>
     <button type="button" onclick="openPhraseSheet('all')"><span class="ico">📴</span><span data-en="Offline phrases" data-ko="오프라인 문장">Offline phrases</span></button>
     <button type="button" onclick="openRestaurantOrderHelper()"><span class="ico">🍽️</span><span data-en="Order food" data-ko="식당 주문">Order food</span></button>
+    <button type="button" onclick="v115OpenFoodSafetyCard()"><span class="ico">🥗</span><span data-en="Food Safety Card" data-ko="음식 안전 카드">Food Safety Card</span></button>
     <button type="button" onclick="openPhraseSheet('shopping')"><span class="ico">🛍️</span><span data-en="Shopping phrases" data-ko="쇼핑 문장">Shopping phrases</span></button>
   </div></div>
   <div class="v60-helper-card" data-v69-tool-group="money"><h2 class="v60-group-title" data-en="Money & trip admin" data-ko="돈 · 여행 관리">Money & trip admin</h2><div class="v60-icon-grid">
@@ -3277,7 +3393,9 @@ body.dark #walletHub .v83-wallet-field>span{color:#b9c6d7}
     <button type="button" onclick="globalSearchOpenMedical()"><span class="ico">🩺</span><span data-en="Medical" data-ko="의료">Medical</span></button>
     <button type="button" onclick="globalSearchOpenLostHelp()"><span class="ico">🎒</span><span data-en="Lost item" data-ko="분실">Lost item</span></button>
     <button type="button" onclick="v60OpenTripDetail('myTripJourneySection');setTimeout(v52OpenRecoveryFromMyTrip,120)"><span class="ico">😵</span><span data-en="Missed ride" data-ko="놓친 이동편">Missed ride</span></button>
+    <button type="button" onclick="v113OpenLateNightRescue()"><span class="ico">🌙</span><span data-en="Late Night Rescue" data-ko="심야 귀가">Late Night Rescue</span></button>
     <button type="button" onclick="v107OpenStaffHelper()"><span class="ico">🪪</span><span data-en="Show Staff" data-ko="직원에게 보여주기">Show Staff</span></button>
+    <button type="button" onclick="v117OpenTravelerTips(false)"><span class="ico">💡</span><span data-en="Korea travel tips" data-ko="한국 여행 필수 팁">Korea travel tips</span></button>
   </div></div>
 </section>
 
@@ -3649,9 +3767,11 @@ const GLOBAL_SEARCH_ACTIONS=[
   {id:'translation',icon:'💬',group:'action',en:'Translation Hub',ko:'번역 허브',descEn:'English ↔ Korean text help',descKo:'영어 ↔ 한국어 텍스트 번역',keys:'translate translation language korean english interpreter 번역 통역 한국어 영어 말 안통해'},
   {id:'phrases',icon:'📴',group:'action',en:'Offline Phrase Pack',ko:'오프라인 여행 문장팩',descEn:'Built-in Korean travel phrases',descKo:'인터넷 없이 쓰는 한국어 여행 문장',keys:'offline phrase korean say sentence 오프라인 문장 회화 한국어'},
   {id:'food',icon:'🍽️',group:'action',en:'Food Ordering Helper',ko:'식당 주문 도우미',descEn:'Ordering, spice, diet and allergy phrases',descKo:'주문·맵기·식사 선택·알레르기 문장',keys:'food restaurant order spicy allergy vegetarian pork menu 식당 음식 주문 매워 안맵게 알레르기 돼지고기 포장 계산'},
+  {id:'foodsafety',icon:'🥗',group:'action',en:'Food Safety Card',ko:'음식 안전 카드',descEn:'Vegan, halal, allergy and ingredient-request card for restaurant staff',descKo:'비건·할랄·알레르기·제외 재료를 직원에게 크게 보여주는 카드',keys:'food safety vegan vegetarian halal allergy peanut nuts dairy egg wheat gluten soy sesame fish shellfish pork cilantro restaurant 비건 채식 할랄 알레르기 땅콩 견과류 유제품 우유 달걀 계란 밀 글루텐 대두 참깨 생선 갑각류 조개 돼지고기 고수 식당'},
   {id:'tax',icon:'🛍️',group:'action',en:'Tax Refund Helper',ko:'세금 환급 도우미',descEn:'Check tourist tax-refund steps',descKo:'외국인 쇼핑 환급 조건 확인',keys:'tax refund taxfree shopping receipt vat 세금 환급 택스리펀드 면세 쇼핑 영수증'},
   {id:'transitcard',icon:'💳',group:'action',en:'Transit Card Finder',ko:'교통카드 찾기',descEn:'Compare Climate Card, Tmoney / EZL and WOWPASS',descKo:'기후동행카드·티머니/EZL·WOWPASS 비교',keys:'tmoney ezl wowpass climate card transit payment 교통카드 티머니 기후동행카드 충전 결제'},
   {id:'journey',icon:'🧭',group:'trip',en:'Saved journey',ko:'저장 이동경로',descEn:'Reopen your saved full journey',descKo:'My Trip 저장 이동경로 다시 보기',keys:'saved journey route my trip itinerary 이동경로 저장 경로 여행 일정'},
+  {id:'shareroute',icon:'📤',group:'trip',en:'Share My Route',ko:'내 이동경로 공유',descEn:'Share your saved route without automatically sending GPS',descKo:'GPS를 자동 전송하지 않고 저장 이동경로 공유',keys:'share my route journey family friend itinerary route copy share 이동경로 공유 가족 일행 경로 보내기 복사'},
   {id:'missed',icon:'😵',group:'urgent',en:'I missed my train / bus',ko:'기차·버스를 놓쳤어요',descEn:'Recheck the unfinished journey leg',descKo:'놓친 이동편 다시 조회',keys:'missed train bus connection late 놓쳤 기차 버스 환승 지각 다음편'},
   {id:'stopalert',icon:'🔔',group:'trip',en:'Approaching Stop Alert',ko:'내릴 곳 접근 알림',descEn:'GPS distance helper while this app is open',descKo:'앱을 켜둔 동안 GPS 거리로 하차 보조',keys:'stop alert get off arrival gps notification 하차 알림 내릴곳 내릴 곳 도착 지나칠'},
   {id:'leaveby',icon:'⏰',group:'trip',en:'Leave-by Helper',ko:'출발시간 계산',descEn:'Count backward from your real ticket time',descKo:'실제 티켓 시각에서 출발시간 역산',keys:'leave by departure time buffer ticket 출발시간 몇시 나가야 역산 티켓 여유'},
@@ -3660,6 +3780,7 @@ const GLOBAL_SEARCH_ACTIONS=[
   {id:'stay',icon:'🏨',group:'action',en:'Stay',ko:'숙소',descEn:'Stay area and lodging notes',descKo:'숙소 지역과 숙박 메모',keys:'stay hotel lodging hostel accommodation 숙소 호텔 숙박'},
   {id:'staycard',icon:'🏠',group:'trip',en:'My Address Card',ko:'내 숙소 주소 카드',descEn:'Offline Korean hotel address for taxi and maps',descKo:'택시·지도용 실제 숙소 한국어 주소 오프라인 카드',keys:'my address card hotel address taxi driver lodging korean address offline 숙소 주소 호텔 주소 택시 기사 보여주기 오프라인'},
   {id:'showstaff',icon:'🪪',group:'urgent',en:'Show Staff',ko:'직원에게 보여주기',descEn:'Large Korean help cards for stations, terminals and airports',descKo:'역·터미널·공항 직원에게 보여주는 큰 한국어 도움 카드',keys:'show staff station staff help platform gate ticket missed transfer korean card 직원 보여주기 역무원 직원 승강장 게이트 표 티켓 환승 놓쳤어요'},
+  {id:'latenight',icon:'🌙',group:'urgent',en:'Late Night Rescue',ko:'심야 귀가 도우미',descEn:'Get back to your saved stay and find nearby help at night',descKo:'늦은 밤 저장 숙소로 돌아가기·주변 도움 찾기',keys:'late night rescue last train hotel taxi uber convenience police hospital 1330 night 심야 귀가 막차 숙소 택시 우버 편의점 경찰 병원 야간'},
   {id:'wallet',icon:'💰',group:'action',en:'Trip Wallet',ko:'Trip Wallet',descEn:'Budget, exchange and shopping tools',descKo:'예산·환율·쇼핑 도구',keys:'wallet money budget exchange currency won krw 지갑 돈 예산 환율 원화'},
   {id:'explore',icon:'📍',group:'action',en:'Explore',ko:'둘러보기',descEn:'Cities, attractions and nearby places',descKo:'도시·관광지·주변 장소 찾기',keys:'explore city attraction place map tourist 관광지 도시 지도 주변 장소'},
   {id:'convenience',icon:'🏪',group:'nearby',en:'Nearby convenience store',ko:'근처 편의점',descEn:'Open a nearby map search',descKo:'현재 위치 또는 도시 기준 주변 검색',keys:'convenience store cu gs25 seven eleven emart24 nearby 편의점 씨유 지에스 세븐일레븐 이마트24 주변'},
@@ -3765,9 +3886,11 @@ function runGlobalSearchAction(id){
     case 'translation': openTranslationHub(); break;
     case 'phrases': openPhraseSheet('all'); break;
     case 'food': openRestaurantOrderHelper(); break;
+    case 'foodsafety': v115OpenFoodSafetyCard(); break;
     case 'tax': go('walletHub');setTimeout(()=>openTaxRefundHelper(),90);break;
     case 'transitcard': go('moveHub');globalSearchScroll('transitPaymentHelper');break;
     case 'journey': if(v51ReadJourney())v51OpenSavedJourney();else{go('myTripHub');v11Toast(lang==='ko'?'저장된 이동경로가 없습니다.':'No saved journey yet.');} break;
+    case 'shareroute': v114OpenShareRoute(); break;
     case 'missed': go('myTripHub');setTimeout(()=>{v52OpenRecoveryFromMyTrip();document.getElementById('myTripJourneyBody')?.scrollIntoView({behavior:'smooth',block:'center'});},120);break;
     case 'stopalert': go('myTripHub');globalSearchScroll('myTripStopAlertSection');break;
     case 'leaveby': go('myTripHub');setTimeout(()=>v54OpenLeaveBy(),100);break;
@@ -3776,6 +3899,7 @@ function runGlobalSearchAction(id){
     case 'stay': go('stayHub'); break;
     case 'staycard': v106OpenAddressCard(); break;
     case 'showstaff': v107OpenStaffHelper(); break;
+    case 'latenight': v113OpenLateNightRescue(); break;
     case 'wallet': go('walletHub'); break;
     case 'explore': go('exploreHub'); break;
     case 'convenience': openNearbyEssential('convenience'); break;
@@ -3829,7 +3953,7 @@ function toggleAllTools(){
 }
 
 let current='home';
-const APP_RELEASE='Korea Route Public Beta V108';
+const APP_RELEASE='Korea Route Public Beta V117';
 
 // V36 safe auto-restore: persist only explicit, non-sensitive trip state and user preferences.
 // Never mirror API keys, current/GPS location, sensor state, or walk-recovery data.
@@ -6728,6 +6852,7 @@ let cityWalkGuideLastBearing=null;
 let cityWalkWakeLock=null;
 let cityWalkWakeRequested=false;
 let cityWalkCompassEventMode='';
+let cityWalkCompassFallbackTimer=null;
 let cityWalkAlertPrefs={vibrate:false,voice:false};
 let cityWalkAlertLastArrival='far';
 let cityWalkAlertSpokenAt={};
@@ -6999,6 +7124,7 @@ function updateCityWalkDirectionVisual(bearing=cityWalkGuideLastBearing){
 function cityWalkSetCompassHeading(value){
   const h=((Number(value)%360)+360)%360;
   if(!Number.isFinite(h)) return;
+  if(cityWalkCompassFallbackTimer){clearTimeout(cityWalkCompassFallbackTimer);cityWalkCompassFallbackTimer=null;}
   cityWalkCompassHeading=h;
   renderCityWalkCompassState();
   updateCityWalkDirectionVisual();
@@ -7016,6 +7142,7 @@ function cityWalkOrientationGeneric(e){
 function stopCityWalkCompass({silent=true}={}){
   window.removeEventListener('deviceorientationabsolute',cityWalkOrientationAbsolute,true);
   window.removeEventListener('deviceorientation',cityWalkOrientationGeneric,true);
+  if(cityWalkCompassFallbackTimer){clearTimeout(cityWalkCompassFallbackTimer);cityWalkCompassFallbackTimer=null;}
   cityWalkCompassActive=false; cityWalkCompassHeading=null; cityWalkCompassEventMode='';
   renderCityWalkCompassState();
   updateCityWalkDirectionVisual();
@@ -7042,7 +7169,14 @@ async function toggleCityWalkCompass(){
     }
     renderCityWalkCompassState();
     setCityMapStatus(lang==='ko'?'나침반 센서를 켰습니다. 화살표가 휴대폰 방향 기준으로 바뀝니다. 센서 오차에 주의하세요.':'Compass sensor enabled. The arrow now uses phone heading when available; sensor error is possible.');
-    setTimeout(()=>{if(cityWalkCompassActive&&!Number.isFinite(cityWalkCompassHeading)) renderCityWalkCompassState();},1800);
+    if(cityWalkCompassFallbackTimer) clearTimeout(cityWalkCompassFallbackTimer);
+    cityWalkCompassFallbackTimer=setTimeout(()=>{
+      cityWalkCompassFallbackTimer=null;
+      if(cityWalkCompassActive&&!Number.isFinite(cityWalkCompassHeading)){
+        stopCityWalkCompass({silent:true});
+        setCityMapStatus(lang==='ko'?'나침반 센서 신호를 받지 못했습니다. 오류 없이 북쪽 기준 안내로 전환했습니다.':'No compass heading arrived. Switched safely to north-based direction.');
+      }
+    },2200);
   }catch(e){
     stopCityWalkCompass({silent:true});
     setCityMapStatus(lang==='ko'?'나침반 권한을 사용할 수 없습니다. 북쪽 기준 안내를 계속 사용합니다.':'Compass permission is unavailable. Continuing with north-based direction.');
@@ -7767,7 +7901,7 @@ function updateCityMapRouteBar(){
   if(to) to.textContent=selectedName||(lang==='ko'?'장소를 눌러 선택':'Tap a place');
   if(go){
     go.disabled=!(poi||facility||searchPlace||cityWalkGuideTarget);
-    go.textContent=cityWalkGuideTarget?(lang==='ko'?'안내중':'LIVE'):'GO';
+    go.textContent=lang==='ko'?'교통편 보기':'Transit options';
   }
 }
 
@@ -8158,39 +8292,6 @@ function chooseStationAccessPoint(index){
   setCityMapStatus(lang==='ko'?'선택한 출구/엘리베이터를 도보 목적지로 설정했습니다. GO를 누르면 앱 안 안내가 시작됩니다.':'Selected station access point set as the walking destination. Tap GO to start the in-app guide.');
 }
 
-async function loadSelectedStationInfo(btn){
-  const p=cityMapSelectedSearchPlace;
-  const cat=p?.category||cityMapSearchCategory(p||{});
-  const body=document.getElementById('cityMapStationInfoBody');
-  if(!p||cat?.id!=='station'||!body) return;
-  const old=btn?.textContent||'';
-  if(btn){btn.disabled=true;btn.textContent=lang==='ko'?'확인 중…':'Checking…';}
-  body.textContent=lang==='ko'?'역 주변 250m의 지도 시설정보를 확인하는 중…':'Checking mapped facilities within 250m…';
-  try{
-    const around=`around:250,${Number(p.lat)},${Number(p.lng)}`;
-    const q=`[out:json][timeout:12];(nwr[railway=subway_entrance](${around});nwr[highway=elevator](${around});nwr[amenity=toilets](${around});nwr[highway=bus_stop](${around});nwr[public_transport=platform](${around}););out center tags 100;`;
-    const cacheKey=cityMapCacheKey('station-info',[cityMapCenterKey(p.lat,p.lng,4)]);
-    let data=cityMapCacheGet(cacheKey,600000);
-    if(!data){
-      const r=await fetch('https://overpass-api.de/api/interpreter?data='+encodeURIComponent(q),{cache:'no-store'});
-      if(!r.ok) throw new Error('station-info');
-      data=cityMapCacheSet(cacheKey,await r.json());
-    }
-    const els=Array.isArray(data.elements)?data.elements:[];
-    const entrances=els.filter(x=>x.tags?.railway==='subway_entrance');
-    const elevators=els.filter(x=>x.tags?.highway==='elevator');
-    const toilets=els.filter(x=>x.tags?.amenity==='toilets');
-    const transfer=els.filter(x=>x.tags?.highway==='bus_stop'||x.tags?.public_transport==='platform');
-    const exitRefs=[...new Set(entrances.map(x=>String(x.tags?.ref||x.tags?.name||'').trim()).filter(Boolean))].slice(0,6);
-    const wheelchairYes=[...entrances,...elevators,...toilets].filter(x=>String(x.tags?.wheelchair||'').toLowerCase()==='yes').length;
-    body.innerHTML=`<div class="city-map-station-info-grid"><div class="city-map-station-info-chip"><span>${lang==='ko'?'🚪 지도 출입구':'🚪 Mapped entrances'}</span><b>${entrances.length}</b></div><div class="city-map-station-info-chip"><span>${lang==='ko'?'🛗 엘리베이터':'🛗 Elevators'}</span><b>${elevators.length}</b></div><div class="city-map-station-info-chip"><span>${lang==='ko'?'🚻 화장실':'🚻 Restrooms'}</span><b>${toilets.length}</b></div><div class="city-map-station-info-chip"><span>${lang==='ko'?'🚌 환승 정류장':'🚌 Transfer stops'}</span><b>${transfer.length}</b></div></div>${exitRefs.length?`<div class="city-map-station-info-exits">${lang==='ko'?'표시된 출구/출입구':'Mapped exit / entrance labels'} · ${exitRefs.map(escapeHtmlText).join(' · ')}</div>`:''}<div class="city-map-station-info-note">${lang==='ko'?`OpenStreetMap 기준 · 접근성(wheelchair=yes) 표시 ${wheelchairYes}곳 · 누락될 수 있으므로 현장 안내판을 함께 확인하세요.`:`OpenStreetMap · ${wheelchairYes} nearby feature(s) tagged wheelchair=yes · mapped counts can be incomplete, so check station signs too.`}</div>`;
-    setCityMapStatus(lang==='ko'?'역 주변 지도 시설정보를 확인했습니다.':'Mapped station-area info checked.');
-  }catch(e){
-    body.textContent=lang==='ko'?'역 시설정보를 불러오지 못했습니다. 현장 안내판 또는 공식 교통기관 정보를 확인하세요.':'Could not load mapped station info. Check station signs or the official transit operator.';
-    setCityMapStatus(lang==='ko'?'역 이용정보를 불러오지 못했습니다.':'Could not load station-use info.');
-  }finally{if(btn){btn.disabled=false;btn.textContent=old;}}
-}
-
 async function loadSelectedStationFacility(type,btn){
   const p=cityMapSelectedSearchPlace;
   const cat=p?.category||cityMapSearchCategory(p||{});
@@ -8240,9 +8341,143 @@ function cityMapPromptDestination(){
   setCityMapStatus(lang==='ko'?'지도에서 가고 싶은 장소 마커를 한 번 눌러주세요.':'Tap the place marker you want to visit.');
 }
 
+let cityTransitAbortController=null;
+
+function cityMapCurrentTarget(){
+  const city=document.getElementById('city')?.dataset.currentCity||'';
+  if(cityMapSelectedSearchPlace) return {...cityMapSelectedSearchPlace};
+  if(cityMapSelectedFacility) return {...cityMapSelectedFacility};
+  if(cityMapSelectedIndex>=0){
+    const p=getSelectedCityPois(city)?.[cityMapSelectedIndex];
+    if(p) return {lat:Number(p.lat),lng:Number(p.lng),name:lang==='ko'?(p.ko||p.en):(p.en||p.ko),ko:p.ko||'',en:p.en||''};
+  }
+  if(cityWalkGuideTarget) return {...cityWalkGuideTarget};
+  return null;
+}
+function cityTransitTargetName(t){
+  return String(t?.name||(lang==='ko'?(t?.ko||t?.en):(t?.en||t?.ko))||'').trim() || (lang==='ko'?'선택한 목적지':'Selected destination');
+}
+function closeCityTransitPanel(){
+  if(cityTransitAbortController){try{cityTransitAbortController.abort();}catch(e){} cityTransitAbortController=null;}
+  const panel=document.getElementById('cityTransitPanel');
+  if(panel){panel.classList.remove('show');panel.innerHTML='';}
+}
+function cityTransitGoogleUrl(target,mode='transit'){
+  if(!target) return '';
+  const dest=`${Number(target.lat)},${Number(target.lng)}`;
+  const origin=exploreUserLocation?`&origin=${encodeURIComponent(`${Number(exploreUserLocation.lat)},${Number(exploreUserLocation.lng)}`)}`:'';
+  return `https://www.google.com/maps/dir/?api=1${origin}&destination=${encodeURIComponent(dest)}&travelmode=${encodeURIComponent(mode)}`;
+}
+function openCityTransitGoogle(mode='transit'){
+  const t=cityMapCurrentTarget(); if(!t) return;
+  const url=cityTransitGoogleUrl(t,mode); if(url) window.open(url,'_blank','noopener');
+}
+function openCityTransitNaver(){
+  const t=cityMapCurrentTarget(); if(!t) return;
+  const opts=exploreUserLocation?{originLat:exploreUserLocation.lat,originLng:exploreUserLocation.lng,originName:lang==='ko'?'현재 위치':'Current location',mode:'transit'}:{mode:'transit'};
+  const url=naverMapDirectionsUrl(cityTransitTargetName(t),t.lat,t.lng,opts);
+  if(url) window.open(url,'_blank','noopener');
+}
+function openCityTransitWalk(){
+  const t=cityMapCurrentTarget(); if(!t) return;
+  startCityWalkGuide({...t,kind:t.kind||'transit-choice'});
+  document.getElementById('cityWalkGuide')?.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function cityTransitExternalHtml(target){
+  const dist=exploreUserLocation?haversineKm(exploreUserLocation.lat,exploreUserLocation.lng,Number(target.lat),Number(target.lng)):null;
+  const walkHint=Number.isFinite(dist)?(dist<1?`${Math.max(1,Math.round(dist*12))}${lang==='ko'?'분 내외 직선거리 기준':' min rough straight-line estimate'}`:`${dist.toFixed(dist<10?1:0)}km ${lang==='ko'?'직선거리':'straight-line'}`):'';
+  return `<div class="city-transit-actions">
+    <button type="button" class="primary" onclick="openCityTransitGoogle('transit')">🚇 ${lang==='ko'?'Google 대중교통':'Google transit'}</button>
+    <button type="button" class="naver" onclick="openCityTransitNaver()">🟢 ${lang==='ko'?'네이버 대중교통':'Naver transit'}</button>
+    <button type="button" onclick="openCityTransitWalk()">🚶 ${lang==='ko'?'앱 안 도보 안내':'In-app walk guide'}</button>
+    <button type="button" onclick="openCityTransitGoogle('driving')">🚕 ${lang==='ko'?'차량 경로 보기':'Driving route'}</button>
+  </div>${walkHint?`<div class="city-transit-note">${lang==='ko'?'참고':'Note'} · ${escapeHtmlText(walkHint)}</div>`:''}`;
+}
+function renderCityTransitRoutes(routes,target){
+  const panel=document.getElementById('cityTransitPanel'); if(!panel) return;
+  const routeBox=panel.querySelector('#cityTransitRoutes');
+  const status=panel.querySelector('#cityTransitStatus');
+  if(!routeBox||!status) return;
+  if(!routes?.length){
+    status.className='city-transit-status warn';
+    status.textContent=lang==='ko'
+      ?'앱 안에서 대중교통 상세 경로를 불러오지 못했습니다. 아래 Google/네이버 대중교통 경로에서 실시간 운행을 확인하세요.'
+      :'In-app transit details are unavailable. Use Google or Naver transit below to verify current service.';
+    routeBox.innerHTML=cityTransitExternalHtml(target);
+    return;
+  }
+  const chosen=recommendedOdsayRoute(routes);
+  status.className='city-transit-status success';
+  status.textContent=lang==='ko'
+    ?`대중교통 경로 ${Math.min(routes.length,3)}개를 찾았습니다. 실제 도착정보·운행변경은 지도와 현장 안내를 최종 확인하세요.`
+    :`Found ${Math.min(routes.length,3)} transit options. Verify live arrivals and service changes in maps and on-site signs.`;
+  const ordered=[...routes].sort((a,b)=>{
+    if(a.id===chosen?.id) return -1;
+    if(b.id===chosen?.id) return 1;
+    return a.totalTime-b.totalTime;
+  }).slice(0,3);
+  routeBox.innerHTML=ordered.map(r=>`<div class="city-transit-card ${r.id===chosen?.id?'best':''}">
+    <div class="city-transit-card-top"><b>${escapeHtmlText(odsayTypeLabel(r.type))} · ${r.totalTime}${lang==='ko'?'분':' min'}</b>${r.id===chosen?.id?`<em>${lang==='ko'?'추천':'Recommended'}</em>`:''}</div>
+    <div class="city-transit-meta"><span>${lang==='ko'?'환승':'Transfers'} ${r.transferCount}</span><span>${lang==='ko'?'도보':'Walk'} ${r.totalWalk}m</span><span>${formatOdsayFare(r.fare)}</span></div>
+    <div class="city-transit-steps">${escapeHtmlText(r.steps||'-')}</div>
+  </div>`).join('') + cityTransitExternalHtml(target);
+}
+async function ensureCityTransitLocation(){
+  if(exploreUserLocation) return exploreUserLocation;
+  if(!navigator.geolocation) return null;
+  return await new Promise(resolve=>{
+    navigator.geolocation.getCurrentPosition(pos=>{
+      applyCityUserPosition(pos.coords.latitude,pos.coords.longitude,pos.coords.accuracy,{recenter:false});
+      resolve(exploreUserLocation);
+    },()=>resolve(null),{enableHighAccuracy:true,timeout:9000,maximumAge:30000});
+  });
+}
+async function openCityTransitOptions(){
+  const target=cityMapCurrentTarget();
+  if(!target){cityMapPromptDestination();return;}
+  const panel=document.getElementById('cityTransitPanel'); if(!panel) return;
+  const name=cityTransitTargetName(target);
+  panel.innerHTML=`<div class="city-transit-head"><div><small>${lang==='ko'?'교통편':'TRANSPORT OPTIONS'}</small><h3>${escapeHtmlText(name)} ${lang==='ko'?'가는 방법':'how to get there'}</h3></div><button type="button" class="city-transit-close" onclick="closeCityTransitPanel()" aria-label="Close">×</button></div>
+    <div class="city-transit-route"><div><span>${lang==='ko'?'출발':'FROM'}</span><b>${lang==='ko'?'현재 위치':'Current location'}</b></div><div class="city-transit-arrow">→</div><div><span>${lang==='ko'?'도착':'TO'}</span><b>${escapeHtmlText(name)}</b></div></div>
+    <div class="city-transit-status loading" id="cityTransitStatus">${lang==='ko'?'현재 위치와 대중교통 경로를 확인하는 중…':'Checking your location and transit options…'}</div>
+    <div class="city-transit-routes" id="cityTransitRoutes"></div>
+    <div class="city-transit-note">${lang==='ko'?'Korea Route는 길찾기 결과를 보조 정보로 제공합니다. 실시간 도착·막차·공사·운행변경은 지도 앱과 현장 안내를 최종 확인하세요.':'Korea Route provides route guidance as an aid. Verify live arrivals, last service, construction and service changes in map apps and on-site signs.'}</div>`;
+  panel.classList.add('show');
+  panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+  const pos=await ensureCityTransitLocation();
+  if(!panel.classList.contains('show')) return;
+  if(!pos){
+    const status=panel.querySelector('#cityTransitStatus'), routeBox=panel.querySelector('#cityTransitRoutes');
+    if(status){status.className='city-transit-status warn';status.textContent=lang==='ko'?'현재 위치 권한이 없어 앱 안 경로 계산은 생략합니다. 지도 앱에서 현재 위치 기준 대중교통 경로를 열 수 있습니다.':'Location permission is unavailable, so in-app routing is skipped. Map apps can still route from your current location.';}
+    if(routeBox) routeBox.innerHTML=cityTransitExternalHtml(target);
+    return;
+  }
+  if(!ODSAY_WEB_KEY || location.hostname!=='korea-route.vercel.app'){
+    const status=panel.querySelector('#cityTransitStatus'), routeBox=panel.querySelector('#cityTransitRoutes');
+    if(status){status.className='city-transit-status warn';status.textContent=lang==='ko'?'앱 내 상세 대중교통 데이터가 연결되지 않은 환경입니다. Google/네이버 대중교통 경로로 바로 확인하세요.':'Detailed in-app transit data is not connected in this environment. Open Google or Naver transit below.';}
+    if(routeBox) routeBox.innerHTML=cityTransitExternalHtml(target);
+    return;
+  }
+  try{
+    if(cityTransitAbortController){try{cityTransitAbortController.abort();}catch(e){}}
+    cityTransitAbortController=new AbortController();
+    const q=new URLSearchParams({
+      SX:String(pos.lng),SY:String(pos.lat),EX:String(target.lng),EY:String(target.lat),
+      OPT:'0',SearchType:'0',SearchPathType:'0',lang:lang==='ko'?'0':'1',apiKey:ODSAY_WEB_KEY
+    });
+    const res=await fetch('https://api.odsay.com/v1/api/searchPubTransPathT?'+q.toString(),{signal:cityTransitAbortController.signal});
+    const data=await res.json();
+    if(!res.ok||data.error) throw new Error(data?.error?.[0]?.message||`HTTP ${res.status}`);
+    renderCityTransitRoutes(normalizeOdsayMove(data),target);
+  }catch(err){
+    if(err?.name==='AbortError') return;
+    renderCityTransitRoutes([],target);
+  }finally{
+    cityTransitAbortController=null;
+  }
+}
 function cityMapQuickGo(){
-  if(cityWalkGuideTarget){fitCityWalkGuide();return;}
-  startSelectedCityWalkGuide();
+  openCityTransitOptions();
 }
 
 function cityMapDistanceText(poi){
@@ -9725,6 +9960,72 @@ function v106DeleteAddressCard(){
 }
 
 
+
+// V113 Late Night Rescue — one-screen recovery for late-night travel.
+// No live last-train claim: route/service availability must be rechecked in official/current map services.
+function v113CloseLateNightRescue(){document.getElementById('v113LateNightPanel')?.remove();}
+function v113CurrentPositionReady(){return typeof liveTransitPosition!=='undefined'&&liveTransitPosition&&Number.isFinite(Number(liveTransitPosition.lat))&&Number.isFinite(Number(liveTransitPosition.lng));}
+function v113StayGoogleUrl(){
+  const stay=v106ReadAddressCard?.();if(!stay?.address)return '';
+  const params=new URLSearchParams({api:'1',destination:stay.address,travelmode:'driving'});
+  if(v113CurrentPositionReady())params.set('origin',`${liveTransitPosition.lat},${liveTransitPosition.lng}`);
+  return `https://www.google.com/maps/dir/?${params.toString()}`;
+}
+function v113StayNaverUrl(){const stay=v106ReadAddressCard?.();return stay?.address?`https://map.naver.com/p/search/${encodeURIComponent(stay.address)}`:'';}
+function v113OpenStayMap(provider){
+  const url=provider==='naver'?v113StayNaverUrl():v113StayGoogleUrl();
+  if(!url){v11Toast(lang==='ko'?'먼저 내 숙소 주소 카드를 저장하세요.':'Save My Address Card first.');v106OpenAddressCard();return;}
+  window.open(url,'_blank','noopener');
+}
+async function v113OpenUberWithStay(){
+  const stay=v106ReadAddressCard?.();if(!stay?.address){v11Toast(lang==='ko'?'먼저 내 숙소 주소 카드를 저장하세요.':'Save My Address Card first.');v106OpenAddressCard();return;}
+  await copyTextWithFallback(stay.address);
+  v11Toast(lang==='ko'?'숙소 주소를 복사했습니다. Uber에 붙여넣으세요.':'Stay address copied. Paste it into Uber.');
+  window.open('https://m.uber.com/','_blank','noopener');
+}
+function v113ShowDriverStay(){
+  if(!v106ReadAddressCard?.()){v11Toast(lang==='ko'?'먼저 내 숙소 주소 카드를 저장하세요.':'Save My Address Card first.');v106OpenAddressCard();return;}
+  v113CloseLateNightRescue();v106OpenAddressCard(false);setTimeout(()=>v106ShowDriverCard(),40);
+}
+function v113NearbyMapUrl(kind,provider){
+  const defs={convenience:{en:'convenience store',ko:'편의점'},police:{en:'police station',ko:'경찰서'},hospital:{en:'hospital emergency room',ko:'응급실 병원'}};
+  const item=defs[kind]||defs.convenience;const q=lang==='ko'?item.ko:item.en;
+  const has=v113CurrentPositionReady();
+  if(provider==='naver'){
+    if(has)return `https://map.naver.com/p/search/${encodeURIComponent(item.ko)}?c=${encodeURIComponent(liveTransitPosition.lng+','+liveTransitPosition.lat+',15,0,0,0,dh')}`;
+    const city=nearbyEssentialsCity?.()||'Seoul';const cityLabel=cityMeta?.[city]?.ko||cityMeta?.[city]?.en||city;
+    return `https://map.naver.com/p/search/${encodeURIComponent(item.ko+' '+cityLabel)}`;
+  }
+  if(has)return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}&center=${encodeURIComponent(liveTransitPosition.lat+','+liveTransitPosition.lng)}`;
+  const city=nearbyEssentialsCity?.()||'Seoul';const cityLabel=cityMeta?.[city]?.en||city;
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q+' near '+cityLabel+', Korea')}`;
+}
+function v113OpenNearby(kind){
+  const label={convenience:['편의점','Convenience store'],police:['경찰서','Police station'],hospital:['병원·응급실','Hospital / ER']}[kind]||['주변시설','Nearby'];
+  const wrap=document.createElement('div');wrap.id='v113MapChoice';wrap.className='v76-map-choice-backdrop';
+  wrap.innerHTML=`<div class="v76-map-choice-sheet" role="dialog" aria-modal="true"><div class="v76-map-choice-head"><div><span>${lang==='ko'?'지도 선택':'CHOOSE A MAP'}</span><h3>📍 ${escapeHtmlText(lang==='ko'?label[0]:label[1])}</h3></div><button type="button" class="v76-map-choice-close" onclick="document.getElementById('v113MapChoice')?.remove()">×</button></div><div class="v76-map-choice-context">${v113CurrentPositionReady()?(lang==='ko'?'📍 현재 위치 기준':'📍 Using current location'):(lang==='ko'?'📍 현재 위치가 없으면 선택 도시 기준':'📍 Falls back to selected city')}</div><div class="v76-map-choice-note">${lang==='ko'?'지도 결과의 실제 영업·운영 여부를 반드시 다시 확인하세요. 위급한 상황은 112 또는 119를 우선하세요.':'Check current opening/service status in the map result. For an emergency, prioritize 112 or 119.'}</div><div class="v76-map-choice-actions"><button type="button" class="google" onclick="window.open(v113NearbyMapUrl('${kind}','google'),'_blank','noopener');document.getElementById('v113MapChoice')?.remove()">🗺️ Google Maps</button><button type="button" class="naver" onclick="window.open(v113NearbyMapUrl('${kind}','naver'),'_blank','noopener');document.getElementById('v113MapChoice')?.remove()">🟢 ${lang==='ko'?'네이버지도':'Naver Map'}</button></div></div>`;
+  wrap.addEventListener('click',e=>{if(e.target===wrap)wrap.remove();});document.body.appendChild(wrap);
+}
+function v113UseCurrentLocation(){
+  const status=document.getElementById('v113LocationStatus');const btn=document.getElementById('v113LocationBtn');
+  if(!navigator.geolocation){if(status)status.textContent=lang==='ko'?'이 기기에서는 위치를 사용할 수 없습니다.':'Location is unavailable on this device.';return;}
+  if(btn){btn.disabled=true;btn.textContent=lang==='ko'?'확인 중…':'Locating…';}
+  navigator.geolocation.getCurrentPosition(pos=>{
+    liveTransitPosition={lat:pos.coords.latitude,lng:pos.coords.longitude,accuracy:pos.coords.accuracy};
+    try{sessionStorage.setItem('koreaRouteLivePosition',JSON.stringify(liveTransitPosition));}catch(_){ }
+    v113OpenLateNightRescue();
+  },()=>{if(status)status.textContent=lang==='ko'?'위치 권한을 확인하고 다시 시도하세요.':'Check location permission and retry.';if(btn){btn.disabled=false;btn.textContent=lang==='ko'?'현재 위치 사용':'Use my location';}},{enableHighAccuracy:false,timeout:9000,maximumAge:60000});
+}
+function v113OpenRouteCheck(){v113CloseLateNightRescue();if(typeof v60OpenRouteTab==='function')v60OpenRouteTab();else go('moveHub');v11Toast(lang==='ko'?'막차 여부는 현재 경로·공식 운행정보에서 최종 확인하세요.':'Confirm last-service availability with current route and official service information.');}
+function v113OpenLateNightRescue(){
+  v113CloseLateNightRescue();
+  const stay=v106ReadAddressCard?.();const hasPos=v113CurrentPositionReady();
+  const panel=document.createElement('div');panel.id='v113LateNightPanel';panel.className='v113-late-backdrop';panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');
+  const stayHtml=stay?`<div class="v113-stay-card primary"><span class="v113-stay-label">${lang==='ko'?'저장된 숙소':'SAVED STAY'}</span><h4>🏠 ${escapeHtmlText(stay.name|| (lang==='ko'?'내 숙소':'My stay'))}</h4><p>${escapeHtmlText(stay.address)}</p>${stay.phone?`<p>☎ ${escapeHtmlText(stay.phone)}</p>`:''}<div class="v113-primary-actions"><button type="button" class="primary" onclick="v113OpenStayMap('google')">🗺️ ${lang==='ko'?'숙소로 길찾기':'Route to stay'}</button><button type="button" onclick="v113OpenStayMap('naver')">🟢 ${lang==='ko'?'네이버지도':'Naver Map'}</button><button type="button" onclick="v113ShowDriverStay()">🚕 ${lang==='ko'?'택시 기사님께 보여주기':'Show taxi driver'}</button><button type="button" onclick="v113OpenUberWithStay()">🚘 ${lang==='ko'?'주소 복사 + Uber':'Copy address + Uber'}</button></div></div>`:`<div class="v113-stay-card"><span class="v113-stay-label">${lang==='ko'?'숙소 주소가 아직 없음':'NO SAVED STAY'}</span><h4>🏠 ${lang==='ko'?'내 숙소 주소를 먼저 저장하세요.':'Save your real stay address first.'}</h4><p class="empty">${lang==='ko'?'예약한 숙소의 실제 한국어 주소를 저장하면 심야에 바로 지도·택시 카드로 연결합니다.':'Save the exact Korean address from your booking so you can reopen maps and a taxi card quickly at night.'}</p><div class="v113-primary-actions"><button type="button" class="primary" onclick="v113CloseLateNightRescue();v106OpenAddressCard(true)">＋ ${lang==='ko'?'숙소 주소 저장':'Save stay address'}</button><button type="button" onclick="v113OpenRouteCheck()">🚆 ${lang==='ko'?'현재 이동 다시 확인':'Recheck route'}</button></div></div>`;
+  panel.innerHTML=`<div class="v113-late-sheet"><div class="v113-late-head"><div><small>V113 · LATE NIGHT RESCUE</small><h3>🌙 ${lang==='ko'?'심야 귀가 도우미':'Late Night Rescue'}</h3><p>${lang==='ko'?'늦은 밤 이동이 막혔을 때 숙소·지도·택시·주변 도움을 한 화면에서 엽니다.':'When late-night travel gets difficult, reopen your stay, maps, taxi help and nearby support from one screen.'}</p></div><button type="button" class="v113-late-close" onclick="v113CloseLateNightRescue()" aria-label="Close">×</button></div>${stayHtml}<div class="v113-location"><span id="v113LocationStatus">${hasPos?(lang==='ko'?`📍 현재 위치 사용 가능 · GPS ±${Math.round(Number(liveTransitPosition.accuracy)||0)}m`:`📍 Current location ready · GPS ±${Math.round(Number(liveTransitPosition.accuracy)||0)}m`):(lang==='ko'?'현재 위치를 허용하면 주변 검색이 더 정확해집니다.':'Allow current location for more relevant nearby searches.')}</span><button type="button" id="v113LocationBtn" onclick="v113UseCurrentLocation()">${hasPos?(lang==='ko'?'위치 새로고침':'Refresh location'):(lang==='ko'?'현재 위치 사용':'Use my location')}</button></div><div class="v113-section"><h4>📍 ${lang==='ko'?'주변에서 바로 찾기':'Find nearby now'}</h4><p>${lang==='ko'?'실시간 영업 여부를 보장하지 않으므로 지도에서 최종 확인하세요.':'Map results do not guarantee current opening or service status.'}</p><div class="v113-nearby-grid"><button type="button" onclick="v113OpenNearby('convenience')">🏪 ${lang==='ko'?'편의점':'Convenience'}</button><button type="button" onclick="v113OpenNearby('police')">👮 ${lang==='ko'?'경찰서':'Police station'}</button><button type="button" onclick="v113OpenNearby('hospital')">🏥 ${lang==='ko'?'병원·응급실':'Hospital / ER'}</button><button type="button" onclick="v113OpenRouteCheck()">🚆 ${lang==='ko'?'막차·현재 경로 재확인':'Recheck route / last service'}</button></div></div><div class="v113-section"><h4>☎️ ${lang==='ko'?'도움 요청':'Ask for help'}</h4><div class="v113-help-grid"><button type="button" class="helpline" onclick="location.href='tel:1330'">☎ 1330<br>${lang==='ko'?'여행안내 · 통역':'Travel helpline'}</button><button type="button" onclick="v113CloseLateNightRescue();v107OpenStaffHelper()">🪪 ${lang==='ko'?'직원에게 보여주기':'Show Staff'}</button><button type="button" onclick="location.href='tel:112'">👮 112<br>${lang==='ko'?'경찰':'Police'}</button><button type="button" onclick="location.href='tel:119'">🚑 119<br>${lang==='ko'?'구급 · 소방':'Ambulance / Fire'}</button></div></div><div class="v113-note">⚠️ ${lang==='ko'?'Korea Route는 이 화면에서 실시간 막차 운행, 좌석, 택시 도착 또는 주변시설의 영업 여부를 보장하지 않습니다. 위험하거나 위급하면 이동을 계속하기보다 112·119 또는 현장 직원에게 도움을 요청하세요.':'Korea Route does not guarantee live last-service operation, seats, taxi arrival, or nearby-place opening from this screen. If you are in danger or an emergency, prioritize 112/119 or on-site staff.'}</div><span class="v113-offline">📴 ${lang==='ko'?'저장된 숙소 주소와 기본 도움번호는 앱에 남아 있지만 지도·Uber·현재 운행 확인은 인터넷이 필요합니다.':'Your saved stay address and basic help numbers remain available, but maps, Uber and current service checks need internet.'}</span></div>`;
+  panel.addEventListener('click',e=>{if(e.target===panel)v113CloseLateNightRescue();});document.body.appendChild(panel);
+}
+
 // V107 Show Staff — built-in Korean cards for station/terminal/airport staff.
 // Uses only saved journey context. It never fabricates platform, gate, seat or schedule information.
 const V107_STAFF_PHRASES={
@@ -10299,7 +10600,7 @@ function renderRailLiveCards(fromCity,toCity,payload){
   const first=sorted[0];
   const firstService=escapeHtmlText(first.service||first.trainType||'Train');
   summary.className='data-slot';
-  summary.innerHTML=`<b>${lang==='ko'?'철도 운행 데이터':'Rail schedule data'}</b><span>${firstService} · ${escapeHtmlText(formatRailTime(first.departureTime))} → ${escapeHtmlText(formatRailTime(first.arrivalTime))}${first.fare?` · ${escapeHtmlText(formatRailFare(first.fare))}`:''}</span>`;
+  summary.innerHTML=`<b>${lang==='ko'?'철도 운행계획':'Rail operating plan'}</b><span>${firstService} · ${escapeHtmlText(formatRailTime(first.departureTime))} → ${escapeHtmlText(formatRailTime(first.arrivalTime))}${payload?.fallbackUsed?` · ${lang==='ko'?'날짜 전체조회 복구':'date fallback'}`:''}</span>`;
 
   list.innerHTML=sorted.slice(0,6).map((t,i)=>{
     const service=String(t.service||t.trainType||'Train');
@@ -10313,7 +10614,7 @@ function renderRailLiveCards(fromCity,toCity,payload){
       <div class="rail-head">
         <div>
           <div class="rail-title">${serviceHtml}${trainNoHtml}</div>
-          <div class="rail-sub">${sourceHtml} · ${lang==='ko'?'운행 데이터':'schedule data'}</div>
+          <div class="rail-sub">${sourceHtml} · ${lang==='ko'?'운행계획':'operation plan'}</div>
         </div>
         <span class="rail-badge">${i===0?(lang==='ko'?'가장 빠름':'FASTEST'):(lang==='ko'?'대안':'OPTION')}</span>
       </div>
@@ -10330,13 +10631,12 @@ function renderRailLiveCards(fromCity,toCity,payload){
       <div class="rail-slot">
         <span>${lang==='ko'?'운행계획 API':'Schedule API'}</span>
         <span>${t.fare?(lang==='ko'?'요금 제공':'Fare available'):(lang==='ko'?'요금 미제공':'Fare unavailable')}</span>
-        <span>${lang==='ko'?'좌석 API 별도 필요':'Seat API needed'}</span>
+        <span>${lang==='ko'?'좌석·예약 미제공':'Seats/booking not provided'}</span>
       </div>
       <div class="rail-actions">
-        <button type="button" class="rail-btn primary" data-rail-action="booking" data-service="${serviceHtml}" data-from="${escapeHtmlText(fromCity)}" data-to="${escapeHtmlText(toCity)}">${lang==='ko'?'예매 안내':'Booking info'}</button>
-        <button type="button" class="rail-btn secondary" data-rail-action="detail" data-service="${serviceHtml}">${lang==='ko'?'상세 보기':'View details'}</button>
+        <button type="button" class="rail-btn secondary" data-rail-action="detail" data-service="${serviceHtml}">${lang==='ko'?'운행계획 상세':'Schedule details'}</button>
       </div>
-      <div class="rail-note">${lang==='ko'?'운행 데이터는 연결된 공공 API 기준입니다. 잔여석·실시간 판매 상태는 별도 예매 API가 필요합니다.':'Schedule data comes from the connected public API. Seat inventory and live sale status require a separate booking API.'}</div>
+      <div class="rail-note">${lang==='ko'?'한국철도공사 공공데이터의 운행계획 정보입니다. 실제 당일 운행·좌석·판매 여부는 KORAIL 공식 채널에서 최종 확인하세요.':'This is KORAIL public operation-plan data. Confirm same-day operation, seats, and sales through an official KORAIL channel.'}</div>
     </div>
   `}).join('');
   return true;
@@ -10456,7 +10756,7 @@ function renderRailConnectedEmptySummary(fromCity,toCity,status){
   if(!summary) return;
   const q=status.query||{};
   summary.className='data-slot';
-  summary.innerHTML=`<b>${lang==='ko'?'철도 API 연결됨 · 조회 결과 0건':'Rail API connected · 0 results'}</b><span>${q.departureStation||fromCity} → ${q.arrivalStation||toCity} · ${q.runYmd||railTripDate()} · ${lang==='ko'?'해당 조건의 운행계획이 없어 아래에는 샘플 경로를 표시합니다.':'No schedule rows matched these conditions; sample routes are shown below.'}</span>`;
+  summary.innerHTML=`<b>${lang==='ko'?'철도 운행계획 · 조회 결과 0건':'Rail operating plan · 0 results'}</b><span>${q.departureStation||fromCity} → ${q.arrivalStation||toCity} · ${q.runYmd||railTripDate()} · ${lang==='ko'?'날짜 전체조회까지 확인했지만 해당 구간의 운행계획을 찾지 못했습니다. 아래에는 샘플 경로를 표시합니다.':'The date-wide fallback also found no matching operation plan for this route. Sample routes are shown below.'}</span>`;
 }
 
 async function tryRailLiveThenFallback(fromCity,toCity,isCurrent=()=>true){
@@ -10585,8 +10885,7 @@ function renderRailCards(fromCity,toCity){
         <span>${lang==='ko'?'좌석 미제공':'Seats unavailable'}</span>
       </div>
       <div class="rail-actions">
-        <button type="button" class="rail-btn primary" data-rail-action="booking" data-service="${serviceHtml}" data-from="${escapeHtmlText(fromCity)}" data-to="${escapeHtmlText(toCity)}">${lang==='ko'?'예매 안내':'Booking info'}</button>
-        <button type="button" class="rail-btn secondary" data-rail-action="detail" data-service="${serviceHtml}">${lang==='ko'?'상세 보기':'View details'}</button>
+        <button type="button" class="rail-btn secondary" data-rail-action="detail" data-service="${serviceHtml}">${lang==='ko'?'운행계획 상세':'Schedule details'}</button>
       </div>
       <div class="rail-note">${lang==='ko'?'이 카드는 해당 날짜의 실제 시간표·요금·좌석 정보가 아닌 샘플 참고값입니다. 출발 전 공식 철도 정보를 확인하세요.':'This card is a sample reference, not the actual schedule, fare or seat status for the selected date. Verify official rail information before travel.'}</div>
     </div>
@@ -11776,6 +12075,7 @@ function languageHelperHtml(){
       <button type="button" onclick="openCityLost1330()">☎ ${lang==='ko'?'1330 통역 도움':'1330 Help'}</button>
     </div>
     <button type="button" class="food-order-launch" onclick="openRestaurantOrderHelper()">🍽️ ${lang==='ko'?'식당 주문 도우미':'Food Ordering Helper'} · ${lang==='ko'?'주문·매운맛·알레르기':'order · spice · allergy'}</button>
+    <button type="button" class="food-safety-launch" onclick="v115OpenFoodSafetyCard()">🥗 ${lang==='ko'?'음식 안전 카드':'Food Safety Card'} · ${lang==='ko'?'비건·할랄·알레르기':'vegan · halal · allergy'}</button>
     <button type="button" class="offline-phrase-launch" onclick="openPhraseSheet('all')">📴 ${lang==='ko'?'오프라인 여행 문장팩':'Offline Phrase Pack'} · ${lang==='ko'?'교통·숙소·쇼핑·분실·의료':'transport · stay · shopping · help'}</button>
     <div class="phrase-quick-row">
       ${TRAVEL_PHRASES.slice(0,4).map((p,i)=>`<button type="button" onclick="openPhraseSheet(${i})"><span>${p.icon}</span>${lang==='ko'?p.ko:p.en}</button>`).join('')}
@@ -11847,6 +12147,88 @@ function mountLanguageHelper(){
     host.parentNode.insertBefore(wrap,host.nextSibling);
   }
   wrap.innerHTML=languageHelperHtml();
+}
+
+
+
+// V115 Food Safety Card — user-selected restaurant communication aid. Selections stay in memory only.
+const V115_FOOD_DIET={
+  vegan:{icon:'🌱',en:'Vegan',ko:'비건',cardEn:'I am vegan. I do not eat food containing meat, fish, seafood, eggs or dairy.',cardKo:'저는 비건입니다. 고기, 생선, 해산물, 달걀, 유제품이 들어간 음식은 먹지 않습니다.'},
+  vegetarian:{icon:'🥬',en:'Vegetarian',ko:'채식',cardEn:'I am vegetarian. I do not eat meat, fish or seafood.',cardKo:'저는 채식주의자입니다. 고기, 생선, 해산물은 먹지 않습니다.'},
+  halal:{icon:'☪️',en:'Halal needed',ko:'할랄 필요',cardEn:'I need halal food. Please check whether this dish is halal and tell me about the ingredients and preparation. I cannot eat food containing pork or alcohol.',cardKo:'할랄 식사가 필요합니다. 이 음식이 할랄인지 확인하고 재료와 조리 방법을 알려 주세요. 돼지고기나 알코올이 들어간 음식은 먹을 수 없습니다.'},
+  noPork:{icon:'🐷',en:'No pork',ko:'돼지고기 제외',cardEn:'I do not eat pork or food containing pork fat.',cardKo:'돼지고기와 돼지기름이 들어간 음식은 먹지 않습니다.'},
+  noCilantro:{icon:'🌿',en:'No cilantro',ko:'고수 제외',cardEn:'Please leave out cilantro.',cardKo:'고수를 빼 주세요.'}
+};
+const V115_FOOD_ALLERGIES={
+  peanut:{icon:'🥜',en:'Peanut',ko:'땅콩'},
+  treeNuts:{icon:'🌰',en:'Tree nuts',ko:'견과류'},
+  milk:{icon:'🥛',en:'Milk / dairy',ko:'우유·유제품'},
+  egg:{icon:'🥚',en:'Egg',ko:'달걀'},
+  wheat:{icon:'🌾',en:'Wheat / gluten',ko:'밀·글루텐'},
+  soy:{icon:'🫘',en:'Soy',ko:'대두'},
+  sesame:{icon:'🫘',en:'Sesame',ko:'참깨'},
+  fish:{icon:'🐟',en:'Fish',ko:'생선'},
+  shellfish:{icon:'🦐',en:'Shellfish',ko:'갑각류·조개류'}
+};
+const v115FoodSafetyState={diet:new Set(),allergy:new Set()};
+function v115FoodSafetySelectedCount(){return v115FoodSafetyState.diet.size+v115FoodSafetyState.allergy.size;}
+function v115ToggleFoodSafety(group,key){
+  const source=group==='allergy'?V115_FOOD_ALLERGIES:V115_FOOD_DIET;if(!source[key])return;
+  const set=group==='allergy'?v115FoodSafetyState.allergy:v115FoodSafetyState.diet;
+  if(set.has(key))set.delete(key);else{
+    if(group==='diet'&&key==='vegan')set.delete('vegetarian');
+    if(group==='diet'&&key==='vegetarian')set.delete('vegan');
+    set.add(key);
+  }
+  v115OpenFoodSafetyCard();
+}
+function v115FoodSafetyCardText(){
+  const ko=[],en=[];
+  for(const key of v115FoodSafetyState.diet){const o=V115_FOOD_DIET[key];if(o){ko.push(o.cardKo);en.push(o.cardEn);}}
+  if(v115FoodSafetyState.allergy.size){
+    const koItems=[...v115FoodSafetyState.allergy].map(k=>V115_FOOD_ALLERGIES[k]?.ko).filter(Boolean);
+    const enItems=[...v115FoodSafetyState.allergy].map(k=>V115_FOOD_ALLERGIES[k]?.en).filter(Boolean);
+    ko.push(`저는 ${koItems.join(', ')} 알레르기가 있습니다. 이 재료가 들어간 음식은 먹을 수 없습니다.`);
+    ko.push('같은 조리도구, 조리대 또는 튀김기름을 함께 사용하는지도 확인해 주세요.');
+    ko.push('이 재료를 사용하지 않은 메뉴가 있는지 알려 주세요.');
+    en.push(`I have an allergy to: ${enItems.join(', ')}. I cannot eat food containing these ingredients.`);
+    en.push('Please also check whether the same utensils, preparation surface or frying oil are shared.');
+    en.push('Please tell me if there is a menu item that does not use these ingredients.');
+  }
+  return {ko:ko.join('\n\n'),en:en.join('\n\n')};
+}
+function v115OpenFoodSafetyCard(){
+  const layer=ensurePhraseSheetLayer();
+  const dietary=Object.entries(V115_FOOD_DIET).map(([key,o])=>`<button type="button" class="v115-safety-chip ${v115FoodSafetyState.diet.has(key)?'active':''}" onclick="v115ToggleFoodSafety('diet','${key}')">${o.icon} ${escapeHtmlText(lang==='ko'?o.ko:o.en)}</button>`).join('');
+  const allergens=Object.entries(V115_FOOD_ALLERGIES).map(([key,o])=>`<button type="button" class="v115-safety-chip ${v115FoodSafetyState.allergy.has(key)?'active':''}" onclick="v115ToggleFoodSafety('allergy','${key}')">${o.icon} ${escapeHtmlText(lang==='ko'?o.ko:o.en)}</button>`).join('');
+  const count=v115FoodSafetySelectedCount();
+  layer.innerHTML=`<div class="phrase-sheet">
+    <div class="phrase-sheet-head"><div><span>V115 · FOOD SAFETY CARD</span><h3>🥗 ${lang==='ko'?'음식 안전 요청을 골라주세요':'Choose your food-safety requests'}</h3></div><button type="button" onclick="closePhraseSheet()">×</button></div>
+    <div class="v115-safety-intro"><b>${lang==='ko'?'직원에게 보여주는 의사소통 카드':'A communication card for restaurant staff'}</b><br>${lang==='ko'?'아래 항목을 고른 뒤 한 장의 큰 한국어 카드로 보여줄 수 있습니다. 선택 내용은 저장하지 않습니다.':'Select what applies, then show one large Korean card. Your selections are not saved.'}</div>
+    <div class="v115-safety-section"><h4>${lang==='ko'?'식사 방식 · 제외 요청':'Diet / ingredient requests'}</h4><div class="v115-safety-grid">${dietary}</div></div>
+    <div class="v115-safety-section"><h4>${lang==='ko'?'알레르기 재료':'Allergy ingredients'}</h4><p>${lang==='ko'?'해당되는 항목만 선택하세요. 알레르기를 선택하면 공유 조리도구·조리대·튀김기름도 확인하는 문장이 자동 포함됩니다.':'Choose only what applies. If you select an allergy, the card automatically asks about shared utensils, surfaces and frying oil.'}</p><div class="v115-safety-grid">${allergens}</div></div>
+    <div class="v115-safety-actions"><button type="button" class="primary" ${count?'':'disabled'} onclick="v115ShowFoodSafetyCard()">🪪 ${lang==='ko'?`큰 카드 보기 (${count})`:`Show large card (${count})`}</button><button type="button" onclick="v115ResetFoodSafety()">↺ ${lang==='ko'?'선택 초기화':'Reset'}</button></div>
+    <div class="food-order-note">⚠️ ${lang==='ko'?'이 카드는 번역·의사소통 보조입니다. 식당의 할랄 인증, 재료, 조리과정 또는 교차접촉 안전을 보장하지 않습니다. 심한 알레르기가 있다면 주문 전 직원에게 다시 확인하세요.':'This card is a translation/communication aid. It cannot guarantee halal certification, ingredients, preparation or cross-contact safety. If an allergy is severe, reconfirm with staff before ordering.'}</div>
+    <div class="v115-privacy">🔒 ${lang==='ko'?'개인정보: 선택한 식이·알레르기 항목은 localStorage에 저장하지 않고 현재 페이지 메모리에만 유지합니다.':'Privacy: selected diet/allergy items are not saved to localStorage and remain only in current page memory.'}</div>
+  </div>`;
+}
+function v115ResetFoodSafety(){v115FoodSafetyState.diet.clear();v115FoodSafetyState.allergy.clear();v115OpenFoodSafetyCard();}
+function v115ShowFoodSafetyCard(){
+  const text=v115FoodSafetyCardText();if(!text.ko){v11Toast(lang==='ko'?'먼저 요청 항목을 선택하세요.':'Choose at least one request first.');return;}
+  const layer=ensurePhraseSheetLayer();
+  const allergy=!!v115FoodSafetyState.allergy.size;
+  layer.innerHTML=`<div class="phrase-sheet">
+    <div class="phrase-sheet-head"><div><span>${lang==='ko'?'직원에게 그대로 보여주세요':'SHOW RESTAURANT STAFF'}</span><h3>🥗 ${lang==='ko'?'음식 안전 카드':'Food Safety Card'}</h3></div><button type="button" onclick="closePhraseSheet()">×</button></div>
+    <div class="v115-card"><div class="badge">🥗 KOREA ROUTE · FOOD CARD</div><div class="ko">${escapeHtmlText(text.ko).replace(/\n/g,'<br>')}</div><div class="en">${escapeHtmlText(text.en)}</div></div>
+    <div class="v115-card-warning">⚠️ ${lang==='ko'?'이 문장을 보여준 뒤에도 직원의 답변을 직접 확인하세요. Korea Route는 재료·인증·교차접촉 안전을 확인하거나 보장할 수 없습니다.':'After showing the card, confirm the staff response directly. Korea Route cannot verify or guarantee ingredients, certification or cross-contact safety.'}</div>
+    ${allergy?`<div class="v115-card-warning danger">🚑 ${lang==='ko'?'심한 알레르기 반응처럼 긴급한 상황이면 식당 카드보다 119 등 현지 응급 도움을 우선 이용하세요.':'For a severe allergic reaction or other emergency, prioritize local emergency help such as 119 rather than relying on this card.'}</div>`:''}
+    <div class="v115-card-actions"><button type="button" id="v115FoodCopyBtn" class="primary" onclick="v115CopyFoodSafetyKorean()">📋 ${lang==='ko'?'한국어 복사':'Copy Korean'}</button><button type="button" onclick="v115OpenFoodSafetyCard()">← ${lang==='ko'?'선택 수정':'Edit selections'}</button>${allergy?`<a class="danger" href="tel:119">☎ 119</a>`:''}<button type="button" onclick="openRestaurantOrderHelper()">🍽️ ${lang==='ko'?'주문 문장':'Order phrases'}</button></div>
+  </div>`;
+}
+async function v115CopyFoodSafetyKorean(){
+  const text=v115FoodSafetyCardText().ko;if(!text)return;let ok=false;
+  try{await navigator.clipboard.writeText(text);ok=true;}catch{try{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();ok=true;}catch(_){}}
+  const btn=document.getElementById('v115FoodCopyBtn');if(btn){btn.textContent=ok?(lang==='ko'?'✓ 복사됨':'✓ Copied'):(lang==='ko'?'⚠ 복사 실패':'⚠ Copy failed');setTimeout(()=>{if(btn)btn.textContent=`📋 ${lang==='ko'?'한국어 복사':'Copy Korean'}`},1200);}else if(typeof v11Toast==='function')v11Toast(ok?(lang==='ko'?'복사됨':'Copied'):(lang==='ko'?'복사 실패':'Copy failed'));
 }
 
 const translationHubState={source:'en',target:'ko',translators:new Map(),lastResult:''};
@@ -12680,6 +13062,15 @@ function openMoveDepartureMap(city){
   const q=encodeURIComponent(`${point.en} ${city} Korea`);
   window.open(`https://www.google.com/maps/search/?api=1&query=${q}`,'_blank','noopener');
 }
+function openNaverMapSearchByName(name){
+  const q=encodeURIComponent(String(name||'').trim());
+  if(!q) return;
+  window.open(`https://map.naver.com/p/search/${q}`,'_blank','noopener');
+}
+function openMoveDepartureNaverMap(city){
+  const point=moveDeparturePoint(city);
+  if(point) openNaverMapSearchByName(point.ko||point.en);
+}
 
 function renderMoveDepartureHandoff(city){
   const point=moveDeparturePoint(city);
@@ -12704,6 +13095,7 @@ function renderMoveDepartureHandoff(city){
     <div class="move-arrival-phrase"><span>${lang==='ko'?'택시 기사에게 보여주기':'Show to driver'}</span><b>${phrase}</b></div>
     <div class="move-arrival-actions">
       <button type="button" onclick="openMoveDepartureMap('${city}')">${lang==='ko'?'Google 지도에서 열기':'Open in Google Maps'}</button>
+      <button type="button" class="naver-map-btn" onclick="openMoveDepartureNaverMap('${city}')">${lang==='ko'?'네이버지도에서 열기':'Open in Naver Map'}</button>
       <button type="button" onclick="copyMoveDeparturePhrase('${city}')">${lang==='ko'?'한국어 문구 복사':'Copy Korean phrase'}</button>
       <span id="moveDepartureCopyFeedback" class="move-arrival-feedback" aria-live="polite"></span>
     </div>
@@ -12762,6 +13154,10 @@ function openMoveArrivalMap(city){
   const q=encodeURIComponent(`${point.en} ${city} Korea`);
   window.open(`https://www.google.com/maps/search/?api=1&query=${q}`,'_blank','noopener');
 }
+function openMoveArrivalNaverMap(city){
+  const point=moveArrivalPoint(city);
+  if(point) openNaverMapSearchByName(point.ko||point.en);
+}
 
 function renderMoveArrivalHandoff(city){
   const point=moveArrivalPoint(city);
@@ -12786,6 +13182,7 @@ function renderMoveArrivalHandoff(city){
     <div class="move-arrival-phrase"><span>${lang==='ko'?'택시 기사에게 보여주기':'Show to driver'}</span><b>${phrase}</b></div>
     <div class="move-arrival-actions">
       <button type="button" onclick="openMoveArrivalMap('${city}')">${lang==='ko'?'Google 지도에서 열기':'Open in Google Maps'}</button>
+      <button type="button" class="naver-map-btn" onclick="openMoveArrivalNaverMap('${city}')">${lang==='ko'?'네이버지도에서 열기':'Open in Naver Map'}</button>
       <button type="button" onclick="copyMoveArrivalPhrase('${city}')">${lang==='ko'?'한국어 문구 복사':'Copy Korean phrase'}</button>
       <span id="moveArrivalCopyFeedback" class="move-arrival-feedback" aria-live="polite"></span>
     </div>
@@ -13597,6 +13994,8 @@ let v53StopAlertToken='';
 let v53StopAlertStage='idle';
 let v53StopAlertLastNotice='';
 let v53StopAlertLastFix=null;
+let v53StopAlertKeepAwake=false;
+try{v53StopAlertKeepAwake=sessionStorage.getItem('koreaRouteStopAlertKeepAwake')==='1';}catch(_){ }
 
 function v53SavedTargetOptions(){
   const out=[];
@@ -13673,6 +14072,16 @@ async function v53RequestWakeLock(){
   }catch(_){v53StopAlertWakeLock=null;}
 }
 function v53ReleaseWakeLock(){try{v53StopAlertWakeLock?.release?.();}catch(_){ }v53StopAlertWakeLock=null;}
+async function v53ToggleKeepAwake(){
+  if(!('wakeLock' in navigator)){v53StopAlertKeepAwake=false;v53RenderStopAlert();return;}
+  v53StopAlertKeepAwake=!v53StopAlertKeepAwake;
+  try{sessionStorage.setItem('koreaRouteStopAlertKeepAwake',v53StopAlertKeepAwake?'1':'0');}catch(_){ }
+  if(v53StopAlertActive){
+    if(v53StopAlertKeepAwake) await v53RequestWakeLock();
+    else v53ReleaseWakeLock();
+  }
+  v53RenderStopAlert();
+}
 function v53ClearWatch(){
   if(v53StopAlertWatchId!==null&&navigator.geolocation){try{navigator.geolocation.clearWatch(v53StopAlertWatchId);}catch(_){ }}
   v53StopAlertWatchId=null;
@@ -13696,7 +14105,7 @@ function v53RenderStopAlert(){
     :(options.length?(lang==='ko'?'저장 장소 또는 저장 이동경로의 도착 거점을 선택하세요.':'Choose a saved place or the arrival hub from your saved journey.'):(lang==='ko'?'먼저 장소를 My Trip에 저장하거나 이동경로를 저장하세요.':'Save a place or journey first to create an alert target.'));
   const opts=options.map(o=>`<option value="${escapeHtmlText(o.token)}" ${o.token===currentSelect?'selected':''}>${escapeHtmlText(((o.kind==='hub'||o.kind==='move')?'🚉 ':'📍 ')+(lang==='ko'?o.ko:o.en))}</option>`).join('');
   const hasTarget=!!(currentSelect&&v53TargetByToken(currentSelect));
-  host.innerHTML=`<span class="v53-stop-pill">🔔 ${lang==='ko'?'전경 GPS 보조 알림':'FOREGROUND GPS HELPER'}</span><div class="v53-stop-grid"><label>${lang==='ko'?'내릴 곳 / 목적지':'Stop / destination'}<select id="v53StopTarget" ${v53StopAlertActive?'disabled':''}>${opts||`<option value="">${lang==='ko'?'목적지를 먼저 선택하거나 저장하세요':'Choose or save a destination first'}</option>`}</select></label><label>${lang==='ko'?'알림 시점':'Alert timing'}<select id="v53StopTiming" ${v53StopAlertActive?'disabled':''}><option value="standard" ${timing==='standard'?'selected':''}>${lang==='ko'?'기본 · 약 1.5km / 500m':'Standard · ~1.5km / 500m'}</option><option value="early" ${timing==='early'?'selected':''}>${lang==='ko'?'일찍 · 약 3km / 1km':'Early · ~3km / 1km'}</option></select></label></div><div class="v53-stop-actions">${v53StopAlertActive?`<button type="button" class="primary" onclick="v53StopAlert(false)">■ ${lang==='ko'?'알림 종료':'Stop alert'}</button>`:`<button type="button" class="primary" onclick="v53StartStopAlert()" ${hasTarget?'':'disabled'}>▶ ${v53StopAlertPaused?(lang==='ko'?'알림 재개':'Resume alert'):(lang==='ko'?'접근 알림 시작':'Start approaching alert')}</button>`}<button type="button" onclick="v53OpenTargetMap()" ${hasTarget?'':'disabled'}>🗺️ ${hasTarget?'Google Maps':(lang==='ko'?'목적지 먼저 선택':'Choose destination first')}</button><button type="button" onclick="v53OpenTargetNaverMap()" ${hasTarget?'':'disabled'}>🟢 ${hasTarget?(lang==='ko'?'네이버지도':'Naver Map'):(lang==='ko'?'목적지 먼저 선택':'Choose destination first')}</button></div><div class="v53-stop-status ${escapeHtmlText(stage||'idle')}"><strong>${escapeHtmlText(v53StageLabel(stage||'idle'))}</strong><span>${statusDetail}</span><div class="v53-stop-meter"><i style="width:${v53ProgressPct(km)}%"></i></div></div><div class="v53-stop-note">⚠️ ${lang==='ko'?'실시간 정류장/열차 위치 알림이 아닙니다. 앱을 화면에 켜둔 동안 GPS와 목적지 좌표의 직선거리만 비교합니다. GPS 정확도가 나쁘면 알림을 보류하며, 실제 하차 정류장·역은 차량 안내방송·전광판에서 최종 확인하세요. 다른 앱으로 전환하거나 화면이 숨겨지면 위치 추적을 자동 중지합니다.':'This is not a live stop or vehicle feed. While Korea Route stays visible, it compares browser GPS with the destination by straight-line distance only. Alerts wait when GPS accuracy is poor. Confirm the actual stop/station with onboard announcements or displays. Tracking stops automatically if the page becomes hidden.'}</div>`;
+  host.innerHTML=`<span class="v53-stop-pill">🔔 ${lang==='ko'?'전경 GPS 보조 알림':'FOREGROUND GPS HELPER'}</span><div class="v53-stop-grid"><label>${lang==='ko'?'내릴 곳 / 목적지':'Stop / destination'}<select id="v53StopTarget" ${v53StopAlertActive?'disabled':''}>${opts||`<option value="">${lang==='ko'?'목적지를 먼저 선택하거나 저장하세요':'Choose or save a destination first'}</option>`}</select></label><label>${lang==='ko'?'알림 시점':'Alert timing'}<select id="v53StopTiming" ${v53StopAlertActive?'disabled':''}><option value="standard" ${timing==='standard'?'selected':''}>${lang==='ko'?'기본 · 약 1.5km / 500m':'Standard · ~1.5km / 500m'}</option><option value="early" ${timing==='early'?'selected':''}>${lang==='ko'?'일찍 · 약 3km / 1km':'Early · ~3km / 1km'}</option></select></label></div><div class="v53-stop-actions">${v53StopAlertActive?`<button type="button" class="primary" onclick="v53StopAlert(false)">■ ${lang==='ko'?'알림 종료':'Stop alert'}</button>`:`<button type="button" class="primary" onclick="v53StartStopAlert()" ${hasTarget?'':'disabled'}>▶ ${v53StopAlertPaused?(lang==='ko'?'알림 재개':'Resume alert'):(lang==='ko'?'접근 알림 시작':'Start approaching alert')}</button>`}<button type="button" onclick="v53OpenTargetMap()" ${hasTarget?'':'disabled'}>🗺️ ${hasTarget?'Google Maps':(lang==='ko'?'목적지 먼저 선택':'Choose destination first')}</button><button type="button" onclick="v53OpenTargetNaverMap()" ${hasTarget?'':'disabled'}>🟢 ${hasTarget?(lang==='ko'?'네이버지도':'Naver Map'):(lang==='ko'?'목적지 먼저 선택':'Choose destination first')}</button><button type="button" class="${v53StopAlertKeepAwake?'active':''}" onclick="v53ToggleKeepAwake()" ${'wakeLock' in navigator?'':'disabled'}>🔆 ${'wakeLock' in navigator?(v53StopAlertKeepAwake?(lang==='ko'?'화면 켜둠':'Keep awake on'):(lang==='ko'?'화면 켜두기':'Keep awake')):(lang==='ko'?'화면 켜두기 미지원':'Wake lock unavailable')}</button></div><div class="v53-stop-status ${escapeHtmlText(stage||'idle')}"><strong>${escapeHtmlText(v53StageLabel(stage||'idle'))}</strong><span>${statusDetail}</span><div class="v53-stop-meter"><i style="width:${v53ProgressPct(km)}%"></i></div></div><div class="v53-stop-note">⚠️ ${lang==='ko'?'실시간 정류장/열차 위치 알림이 아닙니다. 앱을 화면에 켜둔 동안 GPS와 목적지 좌표의 직선거리만 비교합니다. GPS 정확도가 나쁘면 알림을 보류하며, 실제 하차 정류장·역은 차량 안내방송·전광판에서 최종 확인하세요. 다른 앱으로 전환하거나 화면이 숨겨지면 위치 추적을 자동 중지합니다.':'This is not a live stop or vehicle feed. While Korea Route stays visible, it compares browser GPS with the destination by straight-line distance only. Alerts wait when GPS accuracy is poor. Confirm the actual stop/station with onboard announcements or displays. Tracking stops automatically if the page becomes hidden.'}</div>`;
 }
 function v53StopAlertLocation(pos){
   if(!v53StopAlertTarget) return;
@@ -13717,7 +14126,8 @@ async function v53StartStopAlert(){
   const target=v53TargetByToken(token);
   if(!target){v53StopAlertStage='error';v53RenderStopAlert();return;}
   v53StopAlertToken=token;v53StopAlertTarget=target;v53StopAlertPaused=false;v53StopAlertActive=true;v53StopAlertStage='tracking';v53StopAlertLastNotice='';v53StopAlertLastFix=null;
-  await v53RequestWakeLock();
+  if(v53StopAlertKeepAwake) await v53RequestWakeLock();
+  else v53ReleaseWakeLock();
   v53ClearWatch();
   v53StopAlertWatchId=navigator.geolocation.watchPosition(v53StopAlertLocation,v53StopAlertError,{enableHighAccuracy:true,timeout:15000,maximumAge:10000});
   v53RenderStopAlert();
@@ -14032,6 +14442,123 @@ function v69SelectToolGroup(group,btn){
 }
 document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>v69SelectToolGroup('move'),180));
 
+// V114 Share My Route — share saved journey context without automatically including GPS.
+function v114CloseShareRoute(){document.getElementById('v114ShareRoutePanel')?.remove();}
+function v114JourneyContext(){
+  const j=typeof v51ReadJourney==='function'?v51ReadJourney():null;
+  if(!j||!Array.isArray(j.segments)||!j.segments.length)return null;
+  const hit=typeof v52NextJourneyLeg==='function'?v52NextJourneyLeg(j):{index:0,seg:j.segments[0]};
+  return {journey:j,next:hit?.seg||j.segments[0]};
+}
+function v114ModeText(seg){return String((lang==='ko'?(seg?.modeKo||seg?.modeEn):(seg?.modeEn||seg?.modeKo))||'').trim();}
+function v114HubText(hub){return String((lang==='ko'?(hub?.ko||hub?.en):(hub?.en||hub?.ko))||'').trim();}
+function v114BuildShareText(){
+  const ctx=v114JourneyContext();if(!ctx)return '';
+  const j=ctx.journey,seg=ctx.next;
+  const includeStay=!!document.getElementById('v114IncludeStay')?.checked;
+  const includeHelp=document.getElementById('v114IncludeHelp')?.checked!==false;
+  const lines=[];
+  lines.push(lang==='ko'?'Korea Route · 내 이동경로':'Korea Route · My Route');
+  lines.push(`${v50CityLabel(j.start)} → ${v50CityLabel(j.dest)}`);
+  lines.push('');
+  lines.push(lang==='ko'?'[다음 이동 구간]':'[Next journey leg]');
+  lines.push(`${v50CityLabel(seg.from)} → ${v50CityLabel(seg.to)}${v114ModeText(seg)?` · ${v114ModeText(seg)}`:''}`);
+  const fromHub=v114HubText(seg.fromHub),toHub=v114HubText(seg.toHub);
+  if(fromHub||toHub)lines.push(`${fromHub||v50CityLabel(seg.from)} → ${toHub||v50CityLabel(seg.to)}`);
+  if(seg.time)lines.push(`${lang==='ko'?'계획용 예상시간':'Planning estimate'}: ${String(seg.time)}`);
+  if(Array.isArray(j.route)&&j.route.length>1){lines.push('');lines.push(`${lang==='ko'?'전체 이동':'Full journey'}: ${j.route.map(v50CityLabel).join(' → ')}`);}
+  const stay=typeof v106ReadAddressCard==='function'?v106ReadAddressCard():null;
+  if(includeStay&&stay?.address){
+    lines.push('');lines.push(lang==='ko'?'[저장 숙소]':'[Saved stay]');
+    if(stay.name)lines.push(stay.name);
+    lines.push(stay.address);
+    if(stay.phone)lines.push(`☎ ${stay.phone}`);
+  }
+  if(includeHelp){
+    lines.push('');lines.push(lang==='ko'?'한국 도움번호: 여행안내 1330 · 경찰 112 · 구급/소방 119':'Korea help: Travel 1330 · Police 112 · Ambulance/Fire 119');
+  }
+  lines.push('');
+  lines.push(lang==='ko'?'※ 저장된 여행계획 공유본입니다. 실시간 운행·좌석·예약 정보가 아니며 GPS 위치는 포함하지 않았습니다.':'※ This is a shared copy of the saved travel plan. It is not live schedule, seat or booking data, and GPS location is not included.');
+  return lines.join('\n');
+}
+function v114RefreshSharePreview(){const el=document.getElementById('v114SharePreview');if(el)el.textContent=v114BuildShareText();}
+async function v114CopyShareRoute(){
+  const text=v114BuildShareText();if(!text)return;
+  try{await navigator.clipboard.writeText(text);v11Toast(lang==='ko'?'이동경로 복사 완료':'Route copied');}
+  catch(_){prompt(lang==='ko'?'이 내용을 복사하세요.':'Copy this route:',text);}
+}
+async function v114NativeShareRoute(){
+  const text=v114BuildShareText();if(!text)return;
+  if(!navigator.share){await v114CopyShareRoute();v11Toast(lang==='ko'?'공유 기능이 없어 복사했습니다.':'Share sheet unavailable, so the route was copied.');return;}
+  try{await navigator.share({title:lang==='ko'?'Korea Route · 내 이동경로':'Korea Route · My Route',text});}
+  catch(e){if(e?.name!=='AbortError')v11Toast(lang==='ko'?'공유 창을 열지 못했습니다.':'Unable to open the share sheet.');}
+}
+function v114OpenSavedJourneyFromShare(){v114CloseShareRoute();if(v51ReadJourney())v51OpenSavedJourney();else v60OpenRouteTab();}
+function v114OpenShareRoute(){
+  v114CloseShareRoute();
+  const ctx=v114JourneyContext();
+  const stay=typeof v106ReadAddressCard==='function'?v106ReadAddressCard():null;
+  const panel=document.createElement('div');panel.id='v114ShareRoutePanel';panel.className='v114-share-backdrop';panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');
+  if(!ctx){
+    panel.innerHTML=`<div class="v114-share-sheet"><div class="v114-share-head"><div><small>V114 · SHARE MY ROUTE</small><h3>📤 ${lang==='ko'?'내 이동경로 공유':'Share My Route'}</h3><p>${lang==='ko'?'공유할 저장 이동경로가 아직 없습니다. Route에서 이동방법을 열고 My Trip에 먼저 저장하세요.':'There is no saved journey to share yet. Open a route and save the journey to My Trip first.'}</p></div><button type="button" class="v114-share-close" onclick="v114CloseShareRoute()" aria-label="Close">×</button></div><div class="v114-route-card"><span class="eyebrow">NO SAVED JOURNEY</span><h4>${lang==='ko'?'이동경로를 먼저 저장하세요.':'Save a journey first.'}</h4><p>${lang==='ko'?'실시간 GPS를 자동 공유하는 기능이 아니라, 사용자가 저장한 여행 이동계획을 가족·일행에게 보내는 기능입니다.':'This does not automatically share live GPS. It sends the travel route that you explicitly saved.'}</p></div><div class="v114-actions"><button type="button" class="primary" onclick="v114CloseShareRoute();v60OpenRouteTab()">🧭 ${lang==='ko'?'Route 열기':'Open Route'}</button><button type="button" onclick="v114CloseShareRoute()">${lang==='ko'?'닫기':'Close'}</button></div></div>`;
+    panel.addEventListener('click',e=>{if(e.target===panel)v114CloseShareRoute();});document.body.appendChild(panel);return;
+  }
+  const j=ctx.journey,seg=ctx.next;
+  const nextLabel=`${v50CityLabel(seg.from)} → ${v50CityLabel(seg.to)}`;
+  const stayOption=stay?.address
+    ?`<label class="v114-option"><input id="v114IncludeStay" type="checkbox" onchange="v114RefreshSharePreview()"><span><b>🏠 ${lang==='ko'?'숙소 주소도 포함':'Include saved stay address'}</b><span>${lang==='ko'?'기본값은 꺼짐입니다. 공유할 사람에게 숙소 주소를 보내도 될 때만 직접 켜세요.':'Off by default. Turn this on only when you want the recipient to receive your stay address.'}</span></span></label>`
+    :`<div class="v114-option disabled"><span>🏠</span><span><b>${lang==='ko'?'저장된 숙소 주소 없음':'No saved stay address'}</b><span>${lang==='ko'?'My Address Card에 실제 숙소 주소를 저장하면 선택적으로 포함할 수 있습니다.':'Save the exact stay in My Address Card to optionally include it.'}</span></span></div>`;
+  panel.innerHTML=`<div class="v114-share-sheet"><div class="v114-share-head"><div><small>V114 · SHARE MY ROUTE</small><h3>📤 ${lang==='ko'?'내 이동경로 공유':'Share My Route'}</h3><p>${lang==='ko'?'가족·친구·일행에게 저장한 이동계획을 보냅니다. 현재 GPS 좌표는 자동으로 넣지 않습니다.':'Send your saved journey to family, friends or your group. Current GPS coordinates are never added automatically.'}</p></div><button type="button" class="v114-share-close" onclick="v114CloseShareRoute()" aria-label="Close">×</button></div><div class="v114-route-card"><span class="eyebrow">SAVED JOURNEY</span><h4>${escapeHtmlText(v50CityLabel(j.start))} → ${escapeHtmlText(v50CityLabel(j.dest))}</h4><p>${lang==='ko'?'저장된 Journey 기준으로 공유합니다.':'Built from your saved Journey.'}</p><div class="v114-next"><b>${lang==='ko'?'다음 구간':'Next leg'} · ${escapeHtmlText(nextLabel)}</b><span>${escapeHtmlText(v114ModeText(seg)|| (lang==='ko'?'이동수단 확인':'Check transport mode'))}${seg.time?` · ${lang==='ko'?'계획용 ': 'Planning '}${escapeHtmlText(String(seg.time))}`:''}</span></div></div><div class="v114-options">${stayOption}<label class="v114-option"><input id="v114IncludeHelp" type="checkbox" checked onchange="v114RefreshSharePreview()"><span><b>☎️ ${lang==='ko'?'한국 도움번호 포함':'Include Korea help numbers'}</b><span>1330 · 112 · 119</span></span></label></div><div id="v114SharePreview" class="v114-preview"></div><div class="v114-actions"><button type="button" class="primary" onclick="v114NativeShareRoute()">📤 ${lang==='ko'?'공유하기':'Share'}</button><button type="button" onclick="v114CopyShareRoute()">📋 ${lang==='ko'?'텍스트 복사':'Copy text'}</button><button type="button" onclick="v114OpenSavedJourneyFromShare()">🧭 ${lang==='ko'?'이동경로 다시 보기':'Reopen journey'}</button><button type="button" onclick="v114CloseShareRoute()">${lang==='ko'?'닫기':'Close'}</button></div><div class="v114-privacy">🔒 ${lang==='ko'?'개인정보 보호: 현재 GPS 좌표는 이 공유문에 자동 포함되지 않습니다. 숙소 주소도 기본적으로 제외되며, 체크박스를 사용자가 직접 켠 경우에만 들어갑니다.':'Privacy: current GPS coordinates are not automatically included. Your saved stay address is also excluded by default and is added only if you explicitly turn on the checkbox.'}</div><span class="v114-offline">📴 ${lang==='ko'?'저장된 Journey와 주소카드는 오프라인에서도 읽을 수 있어 텍스트 복사는 가능합니다. 기기 공유 시트 동작은 휴대폰·브라우저에 따라 다릅니다.':'Saved Journey/address data can be read offline for text copying. The device share sheet depends on your phone and browser.'}</span></div>`;
+  panel.addEventListener('click',e=>{if(e.target===panel)v114CloseShareRoute();});document.body.appendChild(panel);v114RefreshSharePreview();
+}
+
+
+// V117 · Foreign Traveler Tips
+const V117_TIPS_DISMISS_KEY='koreaRouteTravelerTipsDismissedV117';
+const V117_TIPS_SESSION_KEY='koreaRouteTravelerTipsSessionSeenV117';
+function v117CloseTravelerTips(){
+  const panel=document.getElementById('v117TravelerTipsPanel');
+  if(!panel)return;
+  const dontShow=!!document.getElementById('v117TipsDontShow')?.checked;
+  try{sessionStorage.setItem(V117_TIPS_SESSION_KEY,'1')}catch(_){ }
+  if(dontShow){try{localStorage.setItem(V117_TIPS_DISMISS_KEY,'1')}catch(_){ }}
+  panel.remove();
+}
+function v117TipsGo(action){
+  v117CloseTravelerTips();
+  if(action==='transit'){
+    if(typeof v60OpenRouteTab==='function'){v60OpenRouteTab();setTimeout(()=>{try{mountTransitPaymentHelper((document.getElementById('origin')?.value||'Seoul').trim()||'Seoul')}catch(_){ }},180)}
+  }else if(action==='food'&&typeof v115OpenFoodSafetyCard==='function')v115OpenFoodSafetyCard();
+  else if(action==='staff'&&typeof v107OpenStaffHelper==='function')v107OpenStaffHelper();
+  else if(action==='late'&&typeof v113OpenLateNightRescue==='function')v113OpenLateNightRescue();
+}
+function v117OpenTravelerTips(auto=false){
+  document.getElementById('v117TravelerTipsPanel')?.remove();
+  const panel=document.createElement('div');panel.id='v117TravelerTipsPanel';panel.className='v117-tips-backdrop';panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');panel.setAttribute('aria-label',lang==='ko'?'한국 여행 필수 팁':'Korea travel essentials');
+  const ko=lang==='ko';
+  panel.innerHTML=`<div class="v117-tips-sheet"><div class="v117-tips-head"><div><small>V117 · FIRST-TRIP ESSENTIALS</small><h3>💡 ${ko?'한국 여행 필수 팁':'Korea travel essentials'}</h3><p>${ko?'처음 한국을 여행할 때 실제로 자주 막히는 부분만 짧게 모았습니다.':'Six practical things that commonly trip up first-time visitors in Korea.'}</p></div><button type="button" class="v117-tips-close" onclick="v117CloseTravelerTips()" aria-label="Close">×</button></div>
+  <div class="v117-tips-grid">
+    <div class="v117-tip important"><span class="ico">🚇</span><div><b>${ko?'교통카드 충전용 소액 원화를 준비하세요':'Keep some KRW cash for transit-card top-ups'}</b><p>${ko?'Tmoney/EZL 등 충전 방식은 장소·기기에 따라 다릅니다. 일부 지하철 충전기에서는 해외카드가 안 될 수 있으니 소액 현금을 백업으로 준비하세요.':'Tmoney/EZL top-up methods vary by machine and location. Some subway machines may not accept foreign cards, so keep a small KRW cash backup.'}</p><button type="button" onclick="v117TipsGo('transit')">${ko?'교통카드 가이드 열기':'Open transit-card guide'} →</button></div></div>
+    <div class="v117-tip important"><span class="ico">☎️</span><div><b>1330 · ${ko?'여행 안내·통역 도움':'Travel information & language help'}</b><p>${ko?'여행 중 언어 때문에 막히면 1330 관광안내전화의 여행정보·언어 지원을 활용할 수 있습니다. 이용 가능 언어·시간은 연결 시 확인하세요.':'If language becomes a barrier, the 1330 travel helpline can provide travel information and language support. Confirm current languages/hours when connecting.'}</p><a href="tel:1330">☎ 1330 ${ko?'전화':'Call'}</a></div></div>
+    <div class="v117-tip"><span class="ico">🗺️</span><div><b>${ko?'한국 주소는 지도 앱 두 개로 교차 확인':'Use both Korean map handoffs when useful'}</b><p>${ko?'장소 상세과 Live Walk Guide에서 Google Maps와 Naver Map을 열 수 있습니다. 숙소는 My Address Card에 정확한 한국어 주소를 저장해 두면 택시·직원에게 보여주기 쉽습니다.':'Place details and Live Walk Guide can hand off to Google Maps or Naver Map. Save the exact Korean stay address in My Address Card for taxi/staff use.'}</p><button type="button" onclick="v117TipsGo('staff')">${ko?'직원에게 보여주기':'Show Staff'} →</button></div></div>
+    <div class="v117-tip"><span class="ico">🚕</span><div><b>${ko?'택시에서는 목적지 주소를 크게 보여주세요':'Show the destination clearly in taxis'}</b><p>${ko?'앱·결제 방식은 상황에 따라 달라질 수 있습니다. 호출이 어렵거나 늦은 밤이면 숙소 주소 카드와 지도 핸드오프를 함께 사용하세요.':'Taxi apps and payment methods can vary. If pickup is difficult or it is late, combine your saved stay card with map handoff.'}</p><button type="button" onclick="v117TipsGo('late')">${ko?'심야 귀가 도우미':'Late Night Rescue'} →</button></div></div>
+    <div class="v117-tip"><span class="ico">🥗</span><div><b>${ko?'알레르기·비건·할랄 요청은 한국어 카드로':'Show food restrictions in Korean'}</b><p>${ko?'식당에서는 Food Safety Card로 필요한 제외 항목을 크게 보여주세요. 알레르기는 교차접촉 여부도 직원에게 반드시 확인하세요.':'Use Food Safety Card to show restrictions clearly. For allergies, also ask staff about cross-contact.'}</p><button type="button" onclick="v117TipsGo('food')">${ko?'음식 안전 카드':'Food Safety Card'} →</button></div></div>
+    <div class="v117-tip emergency"><span class="ico">🆘</span><div><b>${ko?'긴급번호: 경찰 112 · 구급/소방 119':'Emergency: Police 112 · Ambulance/Fire 119'}</b><p>${ko?'위험하거나 의료 응급상황이면 앱 안내보다 112·119 또는 현장 직원의 도움을 우선하세요.':'In danger or a medical emergency, prioritize 112/119 or on-site staff over app guidance.'}</p><div><a href="tel:112">☎ 112</a> <a href="tel:119">☎ 119</a></div></div></div>
+  </div>
+  <label class="v117-tips-pref"><input id="v117TipsDontShow" type="checkbox" ${auto?'checked':''}><span><b>${ko?'다음 실행부터 자동으로 다시 보지 않기':'Do not show automatically next time'}</b><br>${ko?'도구 → 한국 여행 필수 팁에서 언제든 다시 열 수 있습니다.':'You can always reopen this from Tools → Korea travel tips.'}</span></label>
+  <div class="v117-tips-actions"><button type="button" class="primary" onclick="v117CloseTravelerTips()">${ko?'확인했어요':'Got it'}</button><button type="button" onclick="v117TipsGo('transit')">🚇 ${ko?'교통 준비 확인':'Check transit setup'}</button></div>
+  <span class="v117-tips-foot">${ko?'팁은 편의를 위한 요약입니다. 결제·운영·지원 조건은 장소와 시점에 따라 달라질 수 있으니 실제 이용 직전에 공식 안내를 확인하세요.':'These are practical summaries. Payment, service and support conditions can vary by location and date; recheck official information before use.'}</span></div>`;
+  panel.addEventListener('click',e=>{if(e.target===panel)v117CloseTravelerTips();});
+  document.body.appendChild(panel);
+}
+function v117InitTravelerTips(){
+  let dismissed=false,seen=false;
+  try{dismissed=localStorage.getItem(V117_TIPS_DISMISS_KEY)==='1'}catch(_){ }
+  try{seen=sessionStorage.getItem(V117_TIPS_SESSION_KEY)==='1'}catch(_){ }
+  if(!dismissed&&!seen){try{sessionStorage.setItem(V117_TIPS_SESSION_KEY,'1')}catch(_){ }setTimeout(()=>v117OpenTravelerTips(true),900)}
+}
+document.addEventListener('DOMContentLoaded',v117InitTravelerTips);
+
 // V61 · Android / browser Back Guard
 // Web pages cannot force-close a browser or PWA process. Instead, Korea Route keeps
 // one same-document history guard entry: overlays/details close first, Home asks for
@@ -14060,6 +14587,14 @@ function v61BackToast(){
   if(typeof v11Toast==='function') v11Toast(text);
 }
 function v61CloseTopLayer(){
+  const travelerTips=document.getElementById('v117TravelerTipsPanel');
+  if(travelerTips){v117CloseTravelerTips();return true;}
+  const shareRoute=document.getElementById('v114ShareRoutePanel');
+  if(shareRoute){v114CloseShareRoute();return true;}
+  const lateMap=document.getElementById('v113MapChoice');
+  if(lateMap){lateMap.remove();return true;}
+  const lateNight=document.getElementById('v113LateNightPanel');
+  if(lateNight){v113CloseLateNightRescue();return true;}
   const nearbyChoice=document.getElementById('v76NearbyMapChoice');
   if(nearbyChoice){clearNearbyMapChoice();return true;}
   const subway=document.getElementById('v56SubwayOverlay');
