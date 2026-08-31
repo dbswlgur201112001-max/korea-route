@@ -1,4 +1,4 @@
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'POST 요청만 허용됩니다' });
   }
@@ -41,7 +41,7 @@ export default async function handler(req, res) {
     console.error('서버 에러:', err);
     return res.status(500).json({ error: '서버 내부 오류' });
   }
-}
+};
 
 function buildPrompt(message, context) {
   return `
