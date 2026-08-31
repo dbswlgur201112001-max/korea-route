@@ -1,8 +1,13 @@
-const CACHE='korea-route-public-beta-v129-0831';
-const ASSETS=['/','/index.html','/manifest.json','/icon-192.png','/icon-512.png'];
+const CACHE='korea-route-public-beta-v133-0901';
+const CORE=['/','/index.html'];
+const OPTIONAL=['/manifest.json','/icon-192.png','/icon-512.png'];
 
 self.addEventListener('install',event=>{
-  event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)));
+  event.waitUntil((async()=>{
+    const cache=await caches.open(CACHE);
+    await Promise.allSettled(CORE.map(url=>cache.add(new Request(url,{cache:'reload'}))));
+    await Promise.allSettled(OPTIONAL.map(url=>cache.add(new Request(url,{cache:'reload'}))));
+  })());
   self.skipWaiting();
 });
 
@@ -15,16 +20,11 @@ self.addEventListener('fetch',event=>{
   const request=event.request;
   if(request.method!=='GET') return;
   const url=new URL(request.url);
-
-  // Serverless APIs must always stay network-only.
   if(url.origin===self.location.origin && url.pathname.startsWith('/api/')) return;
-
-  // External map/library resources keep their normal network behavior.
   if(url.origin!==self.location.origin) return;
-
   if(request.mode==='navigate'){
     event.respondWith(
-      fetch(request)
+      fetch(request,{cache:'no-store'})
         .then(response=>{
           if(response.ok){
             const copy=response.clone();
@@ -36,8 +36,5 @@ self.addEventListener('fetch',event=>{
     );
     return;
   }
-
-  event.respondWith(
-    fetch(request).catch(()=>caches.match(request))
-  );
+  event.respondWith(fetch(request,{cache:'no-store'}).catch(()=>caches.match(request)));
 });

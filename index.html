@@ -2917,6 +2917,49 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
 @media(max-width:420px){.city-map-fullscreen-exit{right:12px!important;top:calc(10px + env(safe-area-inset-top,0px))!important}.city-map-live-wrap.city-map-fullscreen .city-map-locate-float{right:12px!important}}
 </style>
 
+
+<style id="v130-location-overlay-fix">
+/* V130 · device-confirmed GPS dot fix. Render the current position as a DOM overlay above every map layer. */
+#cityGuideMap .kr-user-location-dom{position:absolute!important;width:36px!important;height:36px!important;z-index:2147483000!important;pointer-events:none!important;transform:translate(-50%,-50%)!important;display:none}
+#cityGuideMap .kr-user-location-dom-pulse{position:absolute;inset:1px;border-radius:50%;background:rgba(47,111,237,.23);box-shadow:0 0 0 1px rgba(47,111,237,.18);animation:krUserDomPulse 1.8s ease-out infinite}
+#cityGuideMap .kr-user-location-dom-core{position:absolute;left:9px;top:9px;width:18px;height:18px;border-radius:50%;background:#2f6fed;border:4px solid #fff;box-sizing:border-box;box-shadow:0 2px 11px rgba(8,31,67,.58)}
+@keyframes krUserDomPulse{0%{transform:scale(.68);opacity:.95}70%{transform:scale(1.28);opacity:.18}100%{transform:scale(1.4);opacity:0}}
+@media (prefers-reduced-motion:reduce){#cityGuideMap .kr-user-location-dom-pulse{animation:none;transform:scale(1.08);opacity:.38}}
+</style>
+
+<style id="v131-stability-fixes">
+/* V131 · bug-only stability pass. */
+/* Keep the map Search action on one line on Android large-font layouts. */
+#city.v60-map-mode .city-map-searchbox{grid-template-columns:38px minmax(0,1fr) 104px!important}
+#city.v60-map-mode .city-map-searchbox button{white-space:nowrap!important;word-break:keep-all!important;overflow:hidden!important;text-overflow:ellipsis!important;font-size:16px!important}
+/* Locale-safe overlays for native date/time controls (native picker remains tappable but its Korean text never leaks into EN UI). */
+.v131-local-control{position:relative;width:100%;min-height:58px;border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}
+.v131-local-display{min-height:58px;display:flex;align-items:center;padding:0 42px 0 14px;color:var(--ink);font-size:18px;line-height:1.3;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.v131-local-display:after{content:"▾";position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#52677d;font-size:17px}
+.v131-local-control>input[type="date"],.v131-local-control>input[type="time"]{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;min-height:58px!important;opacity:0!important;z-index:3!important;cursor:pointer!important}
+/* Current-location dot must always win over Leaflet/MapLibre panes. */
+#cityGuideMap{isolation:isolate!important}
+#cityGuideMap .kr-user-location-dom{z-index:2147483646!important;opacity:1!important;visibility:visible!important}
+#cityGuideMap .kr-user-location-dom.v131-ready{display:block!important}
+@media(max-width:420px){
+  #city.v60-map-mode .city-map-searchbox{grid-template-columns:34px minmax(0,1fr) 96px!important}
+  #city.v60-map-mode .city-map-searchbox button{font-size:15px!important;padding-left:8px!important;padding-right:8px!important}
+  .v131-local-display{font-size:16px}
+}
+</style>
+
+
+<style id="v132-safety-css">
+/* V132 · permission/render/math safety pass */
+#cityMapStatus .v132-location-fallback{display:grid;gap:10px;width:100%;padding:12px 14px;border:1px solid #dbe5f2;border-radius:16px;background:#f7faff;box-sizing:border-box}
+#cityMapStatus .v132-location-fallback strong{font-size:var(--fs-body,18px);line-height:1.35;color:#0b2345}
+#cityMapStatus .v132-location-fallback span{font-size:var(--fs-caption,16px);line-height:1.55;color:#5d6f87;font-weight:750}
+#cityMapStatus .v132-location-fallback-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+#cityMapStatus .v132-location-fallback-actions button{min-height:48px;border:1px solid #d7e2ef;border-radius:14px;background:#fff;color:#0b2345;font-size:var(--fs-chip,17px);font-weight:900;padding:9px 10px}
+#cityMapStatus .v132-location-fallback-actions button.primary{background:#0b2b55;color:#fff;border-color:#0b2b55}
+@media(max-width:420px){#cityMapStatus .v132-location-fallback-actions{grid-template-columns:1fr}}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -3274,7 +3317,7 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
         <div class="city-walk-metric"><span data-en="DIRECTION" data-ko="방향">DIRECTION</span><b><i class="city-walk-direction-arrow" id="cityWalkGuideArrow">↑</i><span id="cityWalkGuideDirection">—</span></b></div>
       </div>
       <div class="city-walk-note" id="cityWalkGuideNote" data-en="GPS shows straight-line distance and destination direction. Before compass mode is enabled, the arrow is north-based. Use Google Maps or Naver Map for streets, crossings and the verified walking route." data-ko="GPS로 직선거리와 목적지 방향을 표시합니다. 나침반을 켜기 전 화살표는 북쪽 기준이며, 골목·횡단보도·실제 보행경로는 Google Maps 또는 네이버지도에서 확인하세요.">Live GPS shows straight-line distance and destination direction. Use Google Maps or Naver Map for streets, crossings and the verified walking route.</div>
-      <div class="city-walk-signal" id="cityWalkSignal"><div><b id="cityWalkSignalTitle">GPS</b><span id="cityWalkSignalText"></span></div><button type="button" onclick="refreshCityWalkLocation()"><span data-en="Recheck" data-ko="위치 재확인">Recheck</span></button></div><div class="city-walk-compass" id="cityWalkCompass"><div><b id="cityWalkCompassTitle">Compass off</b><span id="cityWalkCompassText">Arrow is north-based.</span></div><button type="button" id="cityWalkCompassBtn" onclick="toggleCityWalkCompass()"><span data-en="Use compass" data-ko="나침반 사용">Use compass</span></button></div><div class="city-walk-awake" id="cityWalkAwake"><div><b id="cityWalkAwakeTitle">Screen sleep allowed</b><span id="cityWalkAwakeText">Keep-awake is off.</span></div><button type="button" id="cityWalkAwakeBtn" onclick="toggleCityWalkAwake()"><span data-en="Keep awake" data-ko="화면 켜두기">Keep awake</span></button></div><div class="city-walk-alerts" id="cityWalkAlerts"><div><b id="cityWalkAlertsTitle">Walk alerts</b><span id="cityWalkAlertsText">Optional alerts for important changes only.</span></div><div class="city-walk-alert-actions"><button type="button" id="cityWalkVibrateBtn" onclick="toggleCityWalkAlert('vibrate')">📳 <span data-en="Vibrate" data-ko="진동">Vibrate</span></button><button type="button" id="cityWalkVoiceBtn" onclick="toggleCityWalkAlert('voice')">🔊 <span data-en="Voice" data-ko="음성">Voice</span></button></div></div><div class="city-walk-follow" id="cityWalkFollow"><div><b id="cityWalkFollowTitle">Map follow off</b><span id="cityWalkFollowText">Map stays where you move it.</span></div><button type="button" id="cityWalkFollowBtn" onclick="toggleCityWalkMapFollow()"><span data-en="Follow me" data-ko="내 위치 따라가기">Follow me</span></button></div><div class="city-walk-perf" id="cityWalkPerf"><div><b id="cityWalkPerfTitle">Performance guard</b><span id="cityWalkPerfText">GPS/map updates are automatically throttled to reduce phone load.</span></div><em id="cityWalkPerfBadge">AUTO</em></div><div class="city-walk-freshness wait" id="cityWalkFreshness"><div><b id="cityWalkFreshnessTitle">Location update</b><span id="cityWalkFreshnessText">Waiting for a fresh GPS fix.</span></div><div class="city-walk-freshness-actions"><button type="button" onclick="refreshCityWalkLocation()"><span data-en="Recheck" data-ko="재확인">Recheck</span></button><em id="cityWalkFreshnessBadge">WAIT</em></div></div><div class="city-walk-arrival" id="cityWalkArrival"><strong id="cityWalkArrivalTitle"></strong><span id="cityWalkArrivalText"></span></div>
+      <div class="city-walk-signal" id="cityWalkSignal"><div><b id="cityWalkSignalTitle">GPS</b><span id="cityWalkSignalText"></span></div><button type="button" onclick="refreshCityWalkLocation()"><span data-en="Recheck" data-ko="위치 재확인">Recheck</span></button></div><div class="city-walk-compass" id="cityWalkCompass"><div><b id="cityWalkCompassTitle">Compass off</b><span id="cityWalkCompassText">Arrow is north-based.</span></div><button type="button" id="cityWalkCompassBtn" onclick="toggleCityWalkCompass(event)"><span data-en="Use compass" data-ko="나침반 사용">Use compass</span></button></div><div class="city-walk-awake" id="cityWalkAwake"><div><b id="cityWalkAwakeTitle">Screen sleep allowed</b><span id="cityWalkAwakeText">Keep-awake is off.</span></div><button type="button" id="cityWalkAwakeBtn" onclick="toggleCityWalkAwake()"><span data-en="Keep awake" data-ko="화면 켜두기">Keep awake</span></button></div><div class="city-walk-alerts" id="cityWalkAlerts"><div><b id="cityWalkAlertsTitle">Walk alerts</b><span id="cityWalkAlertsText">Optional alerts for important changes only.</span></div><div class="city-walk-alert-actions"><button type="button" id="cityWalkVibrateBtn" onclick="toggleCityWalkAlert('vibrate')">📳 <span data-en="Vibrate" data-ko="진동">Vibrate</span></button><button type="button" id="cityWalkVoiceBtn" onclick="toggleCityWalkAlert('voice')">🔊 <span data-en="Voice" data-ko="음성">Voice</span></button></div></div><div class="city-walk-follow" id="cityWalkFollow"><div><b id="cityWalkFollowTitle">Map follow off</b><span id="cityWalkFollowText">Map stays where you move it.</span></div><button type="button" id="cityWalkFollowBtn" onclick="toggleCityWalkMapFollow()"><span data-en="Follow me" data-ko="내 위치 따라가기">Follow me</span></button></div><div class="city-walk-perf" id="cityWalkPerf"><div><b id="cityWalkPerfTitle">Performance guard</b><span id="cityWalkPerfText">GPS/map updates are automatically throttled to reduce phone load.</span></div><em id="cityWalkPerfBadge">AUTO</em></div><div class="city-walk-freshness wait" id="cityWalkFreshness"><div><b id="cityWalkFreshnessTitle">Location update</b><span id="cityWalkFreshnessText">Waiting for a fresh GPS fix.</span></div><div class="city-walk-freshness-actions"><button type="button" onclick="refreshCityWalkLocation()"><span data-en="Recheck" data-ko="재확인">Recheck</span></button><em id="cityWalkFreshnessBadge">WAIT</em></div></div><div class="city-walk-arrival" id="cityWalkArrival"><strong id="cityWalkArrivalTitle"></strong><span id="cityWalkArrivalText"></span></div>
       <div class="city-walk-offroute" id="cityWalkOffroute"><strong id="cityWalkOffrouteTitle"></strong><span id="cityWalkOffrouteText"></span><div class="city-walk-offroute-actions"><button type="button" class="primary" onclick="openCityWalkGoogleMaps()">🗺️ <span data-en="Google Maps" data-ko="Google 지도">Google Maps</span></button><button type="button" onclick="openCityWalkNaverMap()">🟢 <span data-en="Naver Map" data-ko="네이버지도">Naver Map</span></button><button type="button" onclick="fitCityWalkGuide()">◎ <span data-en="Refocus map" data-ko="지도 다시 보기">Refocus map</span></button></div></div>
       <div class="city-walk-next" id="cityWalkNext"></div>
       <div class="city-walk-localhelp" id="cityWalkLocalHelp"><div class="city-walk-localhelp-label" data-en="SHOW A LOCAL" data-ko="현지인에게 보여주기">SHOW A LOCAL</div><b class="city-walk-localhelp-name" id="cityWalkLocalHelpName">목적지</b><div class="city-walk-localhelp-phrase" id="cityWalkLocalHelpPhrase">이곳으로 가 주세요.</div><div class="city-walk-localhelp-note" id="cityWalkLocalHelpNote">Korean text is a simple communication aid. Confirm the actual entrance or destination on site.</div><div class="city-walk-localhelp-actions"><button type="button" class="primary" onclick="copyCityWalkLocalHelp()">📋 <span data-en="Copy Korean" data-ko="한국어 복사">Copy Korean</span></button><button type="button" onclick="toggleCityWalkLocalHelp(false)">✕ <span data-en="Close" data-ko="닫기">Close</span></button></div></div>
@@ -3694,7 +3737,7 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
 
     <div class="v108-ai-compose">
       <label for="assistantQuestion" data-en="Ask Korea Route AI" data-ko="Korea Route AI에게 질문">Ask Korea Route AI</label>
-      <textarea id="assistantQuestion" maxlength="600" placeholder="Ask about your Korea trip / 한국 여행 질문" aria-label="Korea Route AI question"></textarea>
+      <textarea id="assistantQuestion" maxlength="600" placeholder="Ask about your Korea trip" aria-label="Korea Route AI question"></textarea>
       <div class="v108-ai-compose-actions">
         <button id="assistantAskBtn" class="primary" type="button" onclick="v108AskAssistant()" data-en="✨ Ask AI" data-ko="✨ AI에게 묻기">✨ Ask AI</button>
         <button class="secondary" type="button" onclick="v108ClearAssistant()" data-en="Clear" data-ko="지우기">Clear</button>
@@ -4953,13 +4996,18 @@ function exploreRadiusOk(el){
 let exploreNearMeActive=false;
 
 function haversineKm(lat1,lng1,lat2,lng2){
+  lat1=Number(lat1); lng1=Number(lng1); lat2=Number(lat2); lng2=Number(lng2);
+  if(![lat1,lng1,lat2,lng2].every(Number.isFinite)) return NaN;
+  if(Math.abs(lat1)>90||Math.abs(lat2)>90||Math.abs(lng1)>180||Math.abs(lng2)>180) return NaN;
   const R=6371;
   const toRad=v=>v*Math.PI/180;
   const dLat=toRad(lat2-lat1);
   const dLng=toRad(lng2-lng1);
   const a=Math.sin(dLat/2)**2+
     Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLng/2)**2;
-  return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+  const safeA=Math.min(1,Math.max(0,a));
+  const km=R*2*Math.atan2(Math.sqrt(safeA),Math.sqrt(1-safeA));
+  return Number.isFinite(km)?km:NaN;
 }
 
 function formatPoiDistance(km){
@@ -5760,6 +5808,10 @@ function ensureCityGuideMap(){
       bounceAtZoomLimits:false,preferCanvas:true
     }).setView([37.2636,127.0286],12);
     if(typeof maplibregl==='undefined'||typeof L.maplibreGL!=='function'){
+      // V131: do not leave a half-created Leaflet instance behind. A later retry must be able to rebuild the map.
+      try{cityGuideMap.remove();}catch(e){}
+      cityGuideMap=null; cityGuideTileLayer=null; cityGuideLayer=null;
+      cityUserLayer=null; cityUserAccuracyCircle=null; cityUserDot=null;
       const el=document.getElementById('cityGuideMap');
       if(el) el.innerHTML='<div style="height:100%;display:grid;place-items:center;padding:20px;text-align:center;font-weight:900;color:#6c7b91">Vector map library could not load.<br><small style="font-weight:700">Check the network and reload the map.</small></div>';
       setCityMapHealth('error',lang==='ko'?'벡터 지도 라이브러리를 불러오지 못했습니다.':'Vector map library could not load.');
@@ -7417,6 +7469,42 @@ function resumeRecoveredCityWalk(){
 }
 
 
+
+let cityUserDomMarker=null;
+let cityUserDomLatLng=null;
+let cityUserDomEventsBound=false;
+function ensureCityUserDomMarker(){
+  const container=document.getElementById('cityGuideMap');
+  if(!container) return null;
+  if(!cityUserDomMarker||!container.contains(cityUserDomMarker)){
+    cityUserDomMarker=document.createElement('div');
+    cityUserDomMarker.id='krCityUserLocationDom';
+    cityUserDomMarker.className='kr-user-location-dom';
+    cityUserDomMarker.setAttribute('aria-hidden','true');
+    cityUserDomMarker.innerHTML='<span class="kr-user-location-dom-pulse"></span><span class="kr-user-location-dom-core"></span>';
+    container.appendChild(cityUserDomMarker);
+  }
+  return cityUserDomMarker;
+}
+function updateCityUserDomMarker(){
+  if(!cityGuideMap||!cityUserDomLatLng) return;
+  const marker=ensureCityUserDomMarker();
+  if(!marker) return;
+  try{
+    const point=cityGuideMap.latLngToContainerPoint([Number(cityUserDomLatLng.lat),Number(cityUserDomLatLng.lng)]);
+    if(!Number.isFinite(point?.x)||!Number.isFinite(point?.y)) return;
+    marker.style.left=`${Math.round(point.x)}px`;
+    marker.style.top=`${Math.round(point.y)}px`;
+    marker.style.display='block';
+  }catch(e){}
+}
+function bindCityUserDomMarkerEvents(){
+  if(!cityGuideMap||cityUserDomEventsBound) return;
+  cityUserDomEventsBound=true;
+  cityGuideMap.on('move zoom viewreset resize',updateCityUserDomMarker);
+  cityGuideMap.on('moveend zoomend',updateCityUserDomMarker);
+}
+
 function applyCityUserPosition(lat,lng,accuracy,{recenter=true}={}){
   const map=ensureCityGuideMap();
   if(!map) return;
@@ -7427,6 +7515,8 @@ function applyCityUserPosition(lat,lng,accuracy,{recenter=true}={}){
   }
   exploreUserLocation={lat,lng};
   const safeAccuracy=Math.max(10,Number(accuracy)||30);
+  cityUserDomLatLng={lat,lng};
+  bindCityUserDomMarkerEvents();
 
   let userPane=map.getPane?.('cityUserPane');
   if(!userPane&&map.createPane) userPane=map.createPane('cityUserPane');
@@ -7461,6 +7551,10 @@ function applyCityUserPosition(lat,lng,accuracy,{recenter=true}={}){
     map.setView([lat,lng],targetZoom,{animate:false});
     scheduleCityMapInvalidate();
   }
+  updateCityUserDomMarker();
+  requestAnimationFrame(updateCityUserDomMarker);
+  setTimeout(updateCityUserDomMarker,120);
+  setTimeout(updateCityUserDomMarker,360);
 
   document.getElementById('cityMapLocateBtn')?.classList.add('active');
   document.getElementById('cityMapLocateFloatBtn')?.classList.add('active');
@@ -8232,6 +8326,15 @@ function updateCityWalkGuide(position=exploreUserLocation){
   }
   const fromLat=Number(position.lat),fromLng=Number(position.lng),toLat=Number(target.lat),toLng=Number(target.lng);
   const km=haversineKm(fromLat,fromLng,toLat,toLng);
+  if(!Number.isFinite(km)){
+    const d=document.getElementById('cityWalkGuideDistance'); if(d) d.textContent='—';
+    const e=document.getElementById('cityWalkGuideEta'); if(e) e.textContent='—';
+    const dir=document.getElementById('cityWalkGuideDirection'); if(dir) dir.textContent='—';
+    setCityWalkSignalState(null);
+    setCityWalkArrivalState(Infinity,null);
+    setCityMapStatus(lang==='ko'?'현재 위치 또는 목적지 좌표를 확인할 수 없습니다. 위치를 다시 확인해 주세요.':'Distance is unavailable because the current location or destination coordinates are missing. Recheck location.');
+    return;
+  }
   const accuracy=Number(position.accuracy);
   cityWalkGuideLastAccuracy=Number.isFinite(accuracy)?accuracy:null;
   cityWalkGuideLastFixAt=Date.now();
@@ -15571,7 +15674,7 @@ if(typeof applyLang==='function'){
 }
 setTimeout(initTravelerFilterMap,600);
 </script>
-\n<script id="v126-confirmed-bug-repair-js">
+<script id="v126-confirmed-bug-repair-js">
 // V126: high-priority repairs confirmed from the user's phone screenshots.
 function v126CreateTrip(){
   if(typeof plannerCitiesDiffer==='function'&&!plannerCitiesDiffer({notify:true})) return;
@@ -15655,6 +15758,375 @@ if(typeof applyLang==='function'){
 ['start','dest'].forEach(id=>document.getElementById(id)?.addEventListener('change',()=>setTimeout(v126SyncScenicVisibility,0)));
 document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{v126SyncScenicVisibility();v126LocalizeOpenDateTimes();},120));
 setTimeout(v126SyncScenicVisibility,0);
-</script>\n<!-- V127: trip result map unified with OpenFreeMap vector base -->
+</script>
+<!-- V127: trip result map unified with OpenFreeMap vector base -->
+
+<script id="v131-stability-fixes-js">
+// V131 · bug-only stability pass. No /api changes.
+
+// 1) Never leave Big map's body scroll lock behind when navigating to another tab/screen.
+(function(){
+  const originalGo=go;
+  go=function(id){
+    if(id!=='city'){
+      const live=document.querySelector('#city .city-map-live-wrap.city-map-fullscreen');
+      if(live){
+        live.classList.remove('city-map-fullscreen');
+        const exit=live.querySelector('.city-map-fullscreen-exit');
+        if(exit) exit.style.display='none';
+      }
+      document.body.style.overflow='';
+    }
+    return originalGo.apply(this,arguments);
+  };
+})();
+
+// 2) Make the GPS DOM dot robust even if the map object is rebuilt.
+let v131LocationBoundMap=null;
+bindCityUserDomMarkerEvents=function(){
+  if(!cityGuideMap||v131LocationBoundMap===cityGuideMap) return;
+  v131LocationBoundMap=cityGuideMap;
+  cityGuideMap.on('move zoom viewreset resize moveend zoomend',updateCityUserDomMarker);
+};
+function v131ShowLocationDotImmediately(centered=false){
+  const marker=ensureCityUserDomMarker();
+  if(!marker) return;
+  marker.classList.add('v131-ready');
+  marker.style.display='block';
+  marker.style.visibility='visible';
+  marker.style.opacity='1';
+  if(centered){marker.style.left='50%';marker.style.top='50%';}
+  requestAnimationFrame(updateCityUserDomMarker);
+  setTimeout(updateCityUserDomMarker,80);
+  setTimeout(updateCityUserDomMarker,240);
+  setTimeout(updateCityUserDomMarker,600);
+}
+const v131OriginalApplyCityUserPosition=applyCityUserPosition;
+applyCityUserPosition=function(lat,lng,accuracy,opts={}){
+  const recenter=opts?.recenter!==false;
+  const out=v131OriginalApplyCityUserPosition.apply(this,arguments);
+  if(Number.isFinite(Number(lat))&&Number.isFinite(Number(lng))){
+    cityUserDomLatLng={lat:Number(lat),lng:Number(lng)};
+    bindCityUserDomMarkerEvents();
+    v131ShowLocationDotImmediately(recenter);
+  }
+  return out;
+};
+
+// 3) Traveler filters follow the map center after the traveler manually drags the map.
+// Clicking My location / Follow me switches the center back to the live GPS position.
+let v131TravelerCenterMode='location';
+const v131OriginalEnsureCityGuideMap=ensureCityGuideMap;
+ensureCityGuideMap=function(){
+  const map=v131OriginalEnsureCityGuideMap.apply(this,arguments);
+  if(map&&!map._v131TravelerCenterBound){
+    map._v131TravelerCenterBound=true;
+    map.on('dragstart',()=>{v131TravelerCenterMode='map';});
+  }
+  return map;
+};
+travelerFilterCenter=function(){
+  const map=ensureCityGuideMap();
+  if(v131TravelerCenterMode==='map'&&map){
+    const c=map.getCenter();
+    return {lat:Number(c.lat),lng:Number(c.lng),name:lang==='ko'?'지도 중심':'Map center'};
+  }
+  if(exploreUserLocation) return {lat:Number(exploreUserLocation.lat),lng:Number(exploreUserLocation.lng),name:lang==='ko'?'내 위치':'My location'};
+  if(map){const c=map.getCenter();return {lat:Number(c.lat),lng:Number(c.lng),name:lang==='ko'?'지도 중심':'Map center'};}
+  return null;
+};
+const v131OriginalLocateCityMapUser=locateCityMapUser;
+locateCityMapUser=function(){v131TravelerCenterMode='location';return v131OriginalLocateCityMapUser.apply(this,arguments);};
+const v131OriginalToggleCityMapFollow=toggleCityMapFollow;
+toggleCityMapFollow=function(){v131TravelerCenterMode='location';return v131OriginalToggleCityMapFollow.apply(this,arguments);};
+
+// 4) Locale-safe Trip Planner date/time. Native Android controls can display Korean even while the app is EN.
+function v131DateText(value){
+  const m=String(value||'').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if(!m) return lang==='ko'?'날짜 선택':'Choose date';
+  const y=Number(m[1]),mo=Number(m[2]),d=Number(m[3]);
+  if(lang==='ko') return `${y}. ${String(mo).padStart(2,'0')}. ${String(d).padStart(2,'0')}.`;
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${months[Math.max(0,Math.min(11,mo-1))]} ${d}, ${y}`;
+}
+function v131TimeText(value){
+  const m=String(value||'').match(/^(\d{2}):(\d{2})/);
+  if(!m) return lang==='ko'?'시간 선택':'Choose time';
+  const h=Number(m[1]),min=m[2],h12=((h+11)%12)+1;
+  if(lang==='ko') return `${h<12?'오전':'오후'} ${h12}:${min}`;
+  return `${h12}:${min} ${h<12?'AM':'PM'}`;
+}
+function v131WrapPlannerControl(input,kind){
+  if(!input||input.dataset.v131Localized==='1') return;
+  input.dataset.v131Localized='1';
+  const parent=input.parentNode;if(!parent)return;
+  const wrap=document.createElement('div');wrap.className='v131-local-control';
+  const display=document.createElement('div');display.className='v131-local-display';display.setAttribute('aria-hidden','true');
+  parent.insertBefore(wrap,input);wrap.appendChild(display);wrap.appendChild(input);
+  const sync=()=>{display.textContent=kind==='date'?v131DateText(input.value):v131TimeText(input.value);};
+  input.addEventListener('input',sync);input.addEventListener('change',sync);sync();
+}
+function v131InitPlannerDateTime(){
+  const date=document.getElementById('tripDate'),time=document.getElementById('tripTime');
+  const today=typeof todayLocalYmd==='function'?todayLocalYmd():new Date().toISOString().slice(0,10);
+  if(date){
+    date.min=today;
+    if(!date.value||date.value<today) date.value=today;
+    v131WrapPlannerControl(date,'date');
+  }
+  if(time) v131WrapPlannerControl(time,'time');
+  document.querySelectorAll('.v131-local-control').forEach(w=>{
+    const i=w.querySelector('input');const d=w.querySelector('.v131-local-display');
+    if(i&&d)d.textContent=i.type==='date'?v131DateText(i.value):v131TimeText(i.value);
+  });
+  try{updateRoutePreview();}catch(e){}
+}
+const v131OriginalApplyLang=applyLang;
+applyLang=function(){const out=v131OriginalApplyLang.apply(this,arguments);setTimeout(v131InitPlannerDateTime,0);return out;};
+document.addEventListener('DOMContentLoaded',()=>setTimeout(v131InitPlannerDateTime,80));
+setTimeout(v131InitPlannerDateTime,0);
+
+// 5) English-first destination cards. Keep Korean as secondary local-use text instead of making it the EN title.
+if(typeof destinationCardHtml==='function'){
+  const v131OriginalDestinationCardHtml=destinationCardHtml;
+  destinationCardHtml=function(p){
+    let html=v131OriginalDestinationCardHtml.apply(this,arguments);
+    if(lang!=='ko'&&p){
+      const oldTitle=escapeHtmlText(p.ko||p.en||'Destination');
+      const enTitle=escapeHtmlText(p.en||p.ko||'Destination');
+      if(oldTitle!==enTitle) html=html.replace(`<h3 id="destinationCardTitle">${oldTitle}</h3>`,`<h3 id="destinationCardTitle">${enTitle}</h3>`);
+    }
+    return html;
+  };
+}
+</script>
+
+
+<script id="v132-safety-fixes-js">
+// V132 · requested safety checklist. No /api changes.
+
+// A) iOS Safari compass permission: requestPermission is called synchronously
+// from the trusted Use compass button click, before any async boundary.
+toggleCityWalkCompass=async function(event){
+  if(cityWalkCompassActive){stopCityWalkCompass({silent:false});return;}
+  const DOE=window.DeviceOrientationEvent;
+  if(typeof DOE==='undefined'){
+    setCityMapStatus(lang==='ko'?'이 브라우저에서는 휴대폰 방향 센서를 사용할 수 없습니다.':'This browser does not expose the phone direction sensor.');
+    return;
+  }
+  try{
+    if(typeof DOE.requestPermission==='function'){
+      if(!event||event.isTrusted!==true){
+        setCityMapStatus(lang==='ko'?'iPhone에서는 나침반 버튼을 직접 눌러 센서 권한을 허용해야 합니다.':'On iPhone, tap Use compass directly to grant motion/orientation permission.');
+        return;
+      }
+      // IMPORTANT: direct call while still inside the trusted click gesture.
+      const permissionPromise=DOE.requestPermission();
+      const result=await permissionPromise;
+      if(result!=='granted') throw new Error('permission-denied');
+    }
+    cityWalkCompassActive=true; cityWalkCompassHeading=null;
+    if('ondeviceorientationabsolute' in window){
+      cityWalkCompassEventMode='absolute';
+      window.addEventListener('deviceorientationabsolute',cityWalkOrientationAbsolute,true);
+    }else{
+      cityWalkCompassEventMode='generic';
+      window.addEventListener('deviceorientation',cityWalkOrientationGeneric,true);
+    }
+    renderCityWalkCompassState();
+    setCityMapStatus(lang==='ko'?'나침반 센서를 켰습니다. 센서 오차에 주의하세요.':'Compass sensor enabled. Phone sensor error is possible.');
+    if(cityWalkCompassFallbackTimer) clearTimeout(cityWalkCompassFallbackTimer);
+    cityWalkCompassFallbackTimer=setTimeout(()=>{
+      cityWalkCompassFallbackTimer=null;
+      if(cityWalkCompassActive&&!Number.isFinite(cityWalkCompassHeading)){
+        stopCityWalkCompass({silent:true});
+        setCityMapStatus(lang==='ko'?'나침반 신호를 받지 못해 북쪽 기준 안내로 전환했습니다.':'No compass heading arrived. Switched safely to north-based direction.');
+      }
+    },2200);
+  }catch(_){
+    stopCityWalkCompass({silent:true});
+    setCityMapStatus(lang==='ko'?'나침반 권한을 사용할 수 없습니다. 북쪽 기준 안내를 계속 사용합니다.':'Compass permission is unavailable. Continuing with north-based direction.');
+  }
+};
+
+// B) Map rendering: invalidate Leaflet after tab/city/layout changes.
+function v132InvalidateCityMap(){
+  const host=document.getElementById('cityGuideMap');
+  if(!host) return;
+  const repair=()=>{
+    try{
+      const map=ensureCityGuideMap();
+      if(!map) return;
+      map.invalidateSize({pan:false,animate:false});
+      if(typeof updateCityUserDomMarker==='function') updateCityUserDomMarker();
+      try{cityGuideTileLayer?.redraw?.();}catch(_){ }
+    }catch(_){ }
+  };
+  requestAnimationFrame(repair);
+  [60,180,420,800].forEach(ms=>setTimeout(repair,ms));
+}
+(function(){
+  const previousGo=go;
+  go=function(id){
+    const out=previousGo.apply(this,arguments);
+    if(id==='city') v132InvalidateCityMap();
+    return out;
+  };
+})();
+if(typeof openCityFromHub==='function'){
+  const v132OpenCityFromHub=openCityFromHub;
+  openCityFromHub=function(){const out=v132OpenCityFromHub.apply(this,arguments);v132InvalidateCityMap();return out;};
+}
+if(typeof v60OpenMapTab==='function'){
+  const v132OpenMapTab=v60OpenMapTab;
+  v60OpenMapTab=function(){const out=v132OpenMapTab.apply(this,arguments);v132InvalidateCityMap();return out;};
+}
+if(typeof v60ChangeMapCity==='function'){
+  const v132ChangeMapCity=v60ChangeMapCity;
+  v60ChangeMapCity=function(){const out=v132ChangeMapCity.apply(this,arguments);v132InvalidateCityMap();return out;};
+}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&current==='city')v132InvalidateCityMap();});
+window.addEventListener('orientationchange',()=>setTimeout(v132InvalidateCityMap,120),{passive:true});
+
+// C) Clear GPS-denied/unavailable fallback UI with Retry + continue without GPS.
+function v132GeoMessage(err){
+  const code=Number(err?.code)||0;
+  if(lang==='ko'){
+    if(code===1) return ['위치 권한이 거부되었습니다.','브라우저의 사이트 설정에서 위치 권한을 허용한 뒤 다시 시도하거나, 위치 없이 도시 지도를 사용할 수 있습니다.'];
+    if(code===2) return ['GPS 위치를 받을 수 없습니다.','기기의 위치 서비스를 켜고 다시 시도하거나, 위치 없이 도시 중심 지도를 사용할 수 있습니다.'];
+    if(code===3) return ['위치 확인 시간이 초과되었습니다.','실내나 신호가 약한 곳일 수 있습니다. 다시 시도하거나 위치 없이 계속하세요.'];
+    return ['현재 위치를 사용할 수 없습니다.','위치 권한/위치 서비스를 확인하거나 위치 없이 계속하세요.'];
+  }
+  if(code===1) return ['Location permission denied.','Allow location for this site in browser settings, then retry, or continue with the city map without GPS.'];
+  if(code===2) return ['GPS location unavailable.','Turn on device Location Services and retry, or continue with the city-center map without GPS.'];
+  if(code===3) return ['Location request timed out.','GPS signal may be weak. Retry, or continue without GPS.'];
+  return ['Current location unavailable.','Check location permission/services, or continue without GPS.'];
+}
+function v132ShowLocationFallback(err){
+  const el=document.getElementById('cityMapStatus');
+  if(!el) return;
+  const [title,detail]=v132GeoMessage(err);
+  el.innerHTML=`<div class="v132-location-fallback"><strong>${title}</strong><span>${detail}</span><div class="v132-location-fallback-actions"><button type="button" class="primary" data-v132-retry>${lang==='ko'?'위치 다시 시도':'Retry location'}</button><button type="button" data-v132-without>${lang==='ko'?'위치 없이 계속':'Continue without location'}</button></div></div>`;
+  el.querySelector('[data-v132-retry]')?.addEventListener('click',()=>locateCityMapUser(),{once:true});
+  el.querySelector('[data-v132-without]')?.addEventListener('click',()=>continueCityMapWithoutLocation(),{once:true});
+}
+showCityMapLocationFallback=function(){v132ShowLocationFallback({code:0});};
+locateCityMapUser=function(){
+  v131TravelerCenterMode='location';
+  const map=ensureCityGuideMap();
+  if(!map){
+    setCityMapStatus(lang==='ko'?'지도를 불러오지 못했습니다. 네트워크 연결 후 다시 시도해주세요.':'Map is unavailable. Check your connection and try again.');
+    return;
+  }
+  if(!navigator.geolocation){v132ShowLocationFallback({code:0});return;}
+  setCityMapStatus(lang==='ko'?'정확한 현재 위치를 찾는 중…':'Finding your precise location…');
+  navigator.geolocation.getCurrentPosition(pos=>{
+    const lat=Number(pos.coords.latitude),lng=Number(pos.coords.longitude);
+    if(!Number.isFinite(lat)||!Number.isFinite(lng)){v132ShowLocationFallback({code:2});return;}
+    applyCityUserPosition(lat,lng,pos.coords.accuracy,{recenter:true});
+    const currentCity=document.getElementById('city')?.dataset.currentCity||'';
+    renderCityPoiList(currentCity);
+    v132InvalidateCityMap();
+  },err=>v132ShowLocationFallback(err),{enableHighAccuracy:true,timeout:12000,maximumAge:15000});
+};
+
+// Follow-me GPS errors should end tracking and expose the same recovery actions.
+const v132StopFollow=stopCityMapFollow;
+toggleCityMapFollow=function(){
+  v131TravelerCenterMode='location';
+  if(cityMapFollowActive){v132StopFollow();setCityMapStatus(lang==='ko'?'내 위치 따라가기를 껐습니다.':'Follow me turned off.');return;}
+  if(!navigator.geolocation){v132ShowLocationFallback({code:0});return;}
+  cityMapFollowActive=true;
+  document.getElementById('cityMapFollowBtn')?.classList.add('active');
+  setCityMapStatus(lang==='ko'?'이동 중 현재 위치를 따라가는 중…':'Following your location…');
+  cityMapWatchId=navigator.geolocation.watchPosition(pos=>{
+    const next={lat:Number(pos.coords.latitude),lng:Number(pos.coords.longitude)};
+    if(!Number.isFinite(next.lat)||!Number.isFinite(next.lng)) return;
+    const now=Date.now();
+    let moved=Infinity;
+    if(cityMapLastFollowCenter){const d=haversineKm(cityMapLastFollowCenter.lat,cityMapLastFollowCenter.lng,next.lat,next.lng);moved=Number.isFinite(d)?d*1000:Infinity;}
+    const shouldPan=!cityMapLastFollowCenter||moved>=12||(now-cityMapLastFollowPanAt)>=1400;
+    applyCityUserPosition(next.lat,next.lng,pos.coords.accuracy,{recenter:shouldPan});
+    if(shouldPan){cityMapLastFollowCenter=next;cityMapLastFollowPanAt=now;}
+    setCityMapStatus(lang==='ko'?`내 위치 따라가는 중 · 정확도 약 ${Math.round(pos.coords.accuracy||30)}m`:`Following you · about ±${Math.round(pos.coords.accuracy||30)}m accuracy`);
+  },err=>{v132StopFollow();v132ShowLocationFallback(err);},{enableHighAccuracy:true,timeout:12000,maximumAge:5000});
+};
+
+// D) Extra rendering + math sanity check after startup.
+document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{if(current==='city')v132InvalidateCityMap();},180));
+</script>
+
+
+<script id="v133-location-lifecycle-language-fixes-js">
+// V133 · location lifecycle + stale marker + EN-first leak fixes. No /api changes.
+
+// 1) Stop continuous GPS follow whenever the map screen is left or the app is hidden.
+//    Do not auto-resume on return: user must explicitly tap Follow me again.
+let v133FollowPausedByLifecycle=false;
+(function(){
+  const previousGo=go;
+  go=function(id){
+    if(id!=='city' && typeof stopCityMapFollow==='function' && cityMapFollowActive){
+      try{stopCityMapFollow();}catch(_){ }
+      v133FollowPausedByLifecycle=true;
+    }
+    return previousGo.apply(this,arguments);
+  };
+})();
+function v133StopFollowForLifecycle(){
+  if(typeof stopCityMapFollow==='function' && cityMapFollowActive){
+    try{stopCityMapFollow();}catch(_){ }
+    v133FollowPausedByLifecycle=true;
+  }
+}
+document.addEventListener('visibilitychange',()=>{
+  if(document.hidden){
+    v133StopFollowForLifecycle();
+    return;
+  }
+  if(v133FollowPausedByLifecycle && current==='city'){
+    v133FollowPausedByLifecycle=false;
+    setCityMapStatus(lang==='ko'
+      ?'배터리와 개인정보 보호를 위해 위치 따라가기가 일시중지되었습니다. 필요하면 Follow me를 다시 눌러주세요.'
+      :'Follow me was paused to protect battery and privacy. Tap Follow me again if you want live tracking.');
+  }
+});
+window.addEventListener('pagehide',v133StopFollowForLifecycle);
+
+// 2) "Continue without location" must remove every stale GPS visual.
+function v133ClearCityUserLocationVisuals(){
+  try{if(cityUserLayer && cityGuideMap) cityGuideMap.removeLayer(cityUserLayer);}catch(_){ }
+  cityUserLayer=null;
+  cityUserAccuracyCircle=null;
+  cityUserDot=null;
+  cityUserDomLatLng=null;
+  if(cityUserDomMarker){
+    try{cityUserDomMarker.remove();}catch(_){ }
+    cityUserDomMarker=null;
+  }
+  document.getElementById('cityMapLocateBtn')?.classList.remove('active');
+  document.getElementById('cityMapLocateFloatBtn')?.classList.remove('active');
+}
+const v133OriginalContinueWithoutLocation=continueCityMapWithoutLocation;
+continueCityMapWithoutLocation=function(){
+  v133ClearCityUserLocationVisuals();
+  return v133OriginalContinueWithoutLocation.apply(this,arguments);
+};
+
+// 3) EN mode must never display the old bilingual AI placeholder.
+function v133SyncAssistantLanguage(){
+  const q=document.getElementById('assistantQuestion');
+  if(q) q.placeholder=lang==='ko'?'한국 여행 질문을 입력하세요':'Ask about your Korea trip';
+}
+const v133PreviousApplyLang=applyLang;
+applyLang=function(){
+  const out=v133PreviousApplyLang.apply(this,arguments);
+  v133SyncAssistantLanguage();
+  return out;
+};
+document.addEventListener('DOMContentLoaded',v133SyncAssistantLanguage);
+setTimeout(v133SyncAssistantLanguage,0);
+</script>
+
 </body>
 </html>
