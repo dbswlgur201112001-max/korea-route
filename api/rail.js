@@ -189,20 +189,37 @@ export default async function handler(req, res) {
   const debugMode = req.query?.debug || '';
 
   const PAGE_SIZE = 1000;
+  const MAX_FALLBACK_PAGES = 3;
   const FETCH_TIMEOUT_MS = 4500;
+
+  function addCommonQuery(q, pageNo = 1) {
+    q.set('serviceKey', apiKey);
+    q.set('returnType', 'JSON');
+    // This cond[...] style API uses the data.go.kr standard page/perPage names.
+    q.set('page', String(pageNo));
+    q.set('perPage', String(PAGE_SIZE));
+  }
+
+  function addOneDayFilter(q) {
+    // Keep an exact one-day range because this provider has previously returned
+    // inconsistent results with a single EQ date condition.
+    q.set('cond[run_ymd::GTE]', runYmd);
+    q.set('cond[run_ymd::LTE]', runYmd);
+  }
 
   function buildFilteredQuery(pageNo = 1) {
     const q = new URLSearchParams();
-    q.set('serviceKey', apiKey);
-    q.set('returnType', 'JSON');
-    q.set('pageNo', String(pageNo));
-    q.set('numOfRows', String(PAGE_SIZE));
+    addCommonQuery(q, pageNo);
     q.set('cond[dptre_stn_nm::EQ]', departureName);
     q.set('cond[arvl_stn_nm::EQ]', arrivalName);
-    // EQ previously produced inconsistent zero-row results on this provider.
-    // Use an exact one-day range instead, while still filtering upstream.
-    q.set('cond[run_ymd::GTE]', runYmd);
-    q.set('cond[run_ymd::LTE]', runYmd);
+    addOneDayFilter(q);
+    return q;
+  }
+
+  function buildDateOnlyQuery(pageNo = 1) {
+    const q = new URLSearchParams();
+    addCommonQuery(q, pageNo);
+    addOneDayFilter(q);
     return q;
   }
 
@@ -225,8 +242,7 @@ export default async function handler(req, res) {
     }
   }
 
-  async function fetchFilteredPage(pageNo = 1) {
-    const q = buildFilteredQuery(pageNo);
+  async function fetchPage(q) {
     const url = `${apiUrl}${apiUrl.includes('?') ? '&' : '?'}${q.toString()}`;
     const upstream = await fetchWithTimeout(url);
     const bodyText = await upstream.text();
@@ -258,25 +274,32 @@ export default async function handler(req, res) {
     };
   }
 
-  try {
-    // One server-filtered request replaces the old broad page-search strategy.
-    const first = await fetchFilteredPage(1);
-    const providerCount = providerTotalCount(first.raw) ?? first.normalized.length;
+  async function fetchFilteredPage(pageNo = 1) {
+    return fetchPage(buildFilteredQuery(pageNo));
+  }
 
-    // Keep a local verification pass so malformed/ignored upstream filters can never
-    // leak unrelated routes/dates into the UI. With route+date cond filters, normal
-    // result sets should comfortably fit in one 1000-row page.
-    const filteredTrains = filterNormalizedTrains(
-      first.normalized,
-      departureName,
-      arrivalName,
-      runYmd
-    );
+  async function fetchDateOnlyPage(pageNo = 1) {
+    return fetchPage(buildDateOnlyQuery(pageNo));
+  }
 
-    return res.status(200).json({
+  function successPayload({
+    strategy,
+    trains,
+    providerCount,
+    fetchedCount,
+    diagnosticQuery,
+    fallbackUsed = false,
+    primaryProviderCount = null,
+    primaryFetchedCount = null,
+    fallbackPagesFetched = 0,
+    primaryErrorCode = null
+  }) {
+    return {
       configured: true,
       source: 'KORAIL_OPEN_API',
-      sourceLabel: 'KORAIL Open API',
+      sourceLabel: 'KORAIL Open API · operation plan',
+      dataKind: 'OPERATION_PLAN',
+      reservationConnected: false,
       route: {
         from,
         to,
@@ -290,22 +313,99 @@ export default async function handler(req, res) {
         runYmd,
         debugMode
       },
-      strategy: 'server-cond-filter',
+      strategy,
+      fallbackUsed,
       pageSize: PAGE_SIZE,
       fetchTimeoutMs: FETCH_TIMEOUT_MS,
       providerCount,
-      fetchedCount: first.normalized.length,
-      matchedCount: filteredTrains.length,
-      diagnosticQuery: first.diagnosticQuery,
-      truncated: providerCount > first.normalized.length,
-      trains: filteredTrains
-    });
+      fetchedCount,
+      matchedCount: trains.length,
+      diagnosticQuery,
+      truncated: providerCount > fetchedCount,
+      fallbackPagesFetched,
+      primaryProviderCount,
+      primaryFetchedCount,
+      primaryErrorCode,
+      trains
+    };
+  }
+
+  let primary = null;
+  let primaryError = null;
+
+  try {
+    // Fast path: let the provider filter by route + date.
+    primary = await fetchFilteredPage(1);
+    const primaryProviderCount = providerTotalCount(primary.raw) ?? primary.normalized.length;
+    const primaryMatches = filterNormalizedTrains(
+      primary.normalized,
+      departureName,
+      arrivalName,
+      runYmd
+    );
+
+    if (primaryMatches.length > 0) {
+      return res.status(200).json(successPayload({
+        strategy: 'server-route-date-filter',
+        trains: primaryMatches,
+        providerCount: primaryProviderCount,
+        fetchedCount: primary.normalized.length,
+        diagnosticQuery: primary.diagnosticQuery,
+        primaryProviderCount,
+        primaryFetchedCount: primary.normalized.length
+      }));
+    }
   } catch (error) {
+    primaryError = error;
+  }
+
+  try {
+    // Recovery path: the provider's station-name filter can return zero even when
+    // the requested date has rows. Fetch the date and verify the route locally.
+    const firstFallback = await fetchDateOnlyPage(1);
+    const fallbackProviderCount = providerTotalCount(firstFallback.raw) ?? firstFallback.normalized.length;
+    const allDateRows = [...firstFallback.normalized];
+    const pagesNeeded = Math.max(1, Math.ceil(fallbackProviderCount / PAGE_SIZE));
+    const pagesToFetch = Math.min(MAX_FALLBACK_PAGES, pagesNeeded);
+    let lastDiagnosticQuery = firstFallback.diagnosticQuery;
+
+    for (let pageNo = 2; pageNo <= pagesToFetch; pageNo += 1) {
+      const next = await fetchDateOnlyPage(pageNo);
+      allDateRows.push(...next.normalized);
+      lastDiagnosticQuery = next.diagnosticQuery;
+    }
+
+    const fallbackMatches = filterNormalizedTrains(
+      allDateRows,
+      departureName,
+      arrivalName,
+      runYmd
+    );
+
+    const primaryProviderCount = primary
+      ? (providerTotalCount(primary.raw) ?? primary.normalized.length)
+      : null;
+
+    return res.status(200).json(successPayload({
+      strategy: 'date-only-local-route-filter',
+      trains: fallbackMatches,
+      providerCount: fallbackProviderCount,
+      fetchedCount: allDateRows.length,
+      diagnosticQuery: lastDiagnosticQuery,
+      fallbackUsed: true,
+      primaryProviderCount,
+      primaryFetchedCount: primary?.normalized?.length ?? null,
+      fallbackPagesFetched: pagesToFetch,
+      primaryErrorCode: primaryError?.code || null
+    }));
+  } catch (fallbackError) {
+    const error = fallbackError || primaryError;
     return res.status(502).json({
       error: 'RAIL_FETCH_FAILED',
-      code: error?.code || 'RAIL_FETCH_FAILED',
-      message: error?.message || 'Rail API request failed',
-      diagnosticQuery: error?.diagnosticQuery || null
+      code: error?.code || primaryError?.code || 'RAIL_FETCH_FAILED',
+      message: error?.message || primaryError?.message || 'Rail API request failed',
+      diagnosticQuery: error?.diagnosticQuery || primaryError?.diagnosticQuery || null,
+      primaryErrorCode: primaryError?.code || null
     });
   }
 }
