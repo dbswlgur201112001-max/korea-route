@@ -2487,6 +2487,31 @@ html.v119-tips-open,body.v119-tips-open{overflow:hidden!important;overscroll-beh
 @media(max-width:420px){.v118-home-step{min-height:72px;padding:10px 11px}.v118-home-step .ico{width:40px;height:40px;font-size:21px}.v118-home-step b{font-size:14px}.v118-home-helpbar{grid-template-columns:1fr}#city.v60-map-mode #cityGuideMap{height:58dvh!important;min-height:410px!important}.v118-route-help-grid{grid-template-columns:1fr}}
 </style>
 
+
+<style id="v120-route-focus">
+/* V120 · Route focus: one screen = one job */
+#moveHub .arch-hero,#moveHub .beginner-task-row,#moveHub .v60-route-shortcuts{display:none!important}
+#moveHub #checkRideLayer,#moveHub #liveTransitLayer,#moveHub #liveWeatherLayer,#moveHub #koreaTimeLayer,#moveHub .tool-fold{display:none!important}
+#moveHub #moveVerifyBeforeDeparture,#moveHub #moveRouteReadiness,#moveHub #moveHandoffSummary,#moveHub #moveDepartureHandoff,#moveHub #moveArrivalHandoff,#moveHub #transitPaymentHelper,#moveHub #languageHelper,#moveHub #moveSituationHelper,#moveHub #airportArrivalToolkit{display:none!important}
+#moveHub .feature-stack{gap:10px}
+#moveHub #liveMovePlanner{margin-top:0!important;padding:15px!important}
+#moveHub #moveApiSetup{display:none!important}
+.v120-route-secondary-links{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.v120-route-secondary-links button{min-height:44px;border:1px solid #d8e1ee;border-radius:13px;background:#fff;color:#17345a;font-weight:900;font-size:12px;padding:9px;cursor:pointer}
+.v120-route-secondary-links button.primary{background:#eef5ff;border-color:#b9d0f4;color:#154f9d}
+.v120-route-detail{margin-top:10px;border-top:1px solid #e7edf5;padding-top:10px;display:flex;flex-direction:column;gap:8px}
+.v120-step{display:grid;grid-template-columns:34px minmax(0,1fr);gap:9px;align-items:start;padding:10px;border:1px solid #e2e9f2;border-radius:14px;background:#fbfcfe}
+.v120-step-icon{width:34px;height:34px;border-radius:11px;background:#eef4ff;display:grid;place-items:center;font-size:16px}
+.v120-step.walk .v120-step-icon{background:#f2f6f3}.v120-step.bus .v120-step-icon{background:#fff5e8}
+.v120-step-copy b{display:block;font-size:13px;line-height:1.35;color:#102b4d}.v120-step-copy span{display:block;margin-top:4px;font-size:11px;line-height:1.45;color:#65758a}
+.v120-step-direction{display:inline-block;margin-top:5px!important;padding:4px 7px;border-radius:999px;background:#eef5ff;color:#215da8!important;font-weight:900}
+.v120-alt-route{border:1px solid #e3e9f1;border-radius:14px;background:#fff;margin-top:8px;overflow:hidden}.v120-alt-route summary{cursor:pointer;list-style:none;padding:12px 13px;font-size:12px;font-weight:900;color:#183550;display:flex;justify-content:space-between;gap:8px}.v120-alt-route summary::-webkit-details-marker{display:none}.v120-alt-route .v120-route-detail{padding:0 12px 12px;border-top:0;margin-top:0}
+.v120-external-fallback{border:1px solid #cbdaf0;background:#f6f9ff;border-radius:17px;padding:14px;margin-top:10px}.v120-external-fallback b{display:block;font-size:14px;color:#12345b}.v120-external-fallback p{font-size:11px;line-height:1.5;color:#5e7188;margin:6px 0 10px}.v120-external-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.v120-external-actions button{border:0;border-radius:12px;min-height:44px;padding:9px;font-weight:950;font-size:11px;cursor:pointer}.v120-external-actions .google{background:#0b2345;color:#fff}.v120-external-actions .naver{background:#03c75a;color:#fff}
+#transitCardHub .v120-card-hub-body{padding-bottom:96px}#transitCardHub .payment-helper{margin-top:12px!important}#transitCardHub .payment-helper-grid{grid-template-columns:1fr 1fr}
+.v120-route-note{margin-top:9px;font-size:10px;line-height:1.45;color:#64778d}
+@media(max-width:430px){#transitCardHub .payment-helper-grid{grid-template-columns:1fr}.v120-external-actions,.v120-route-secondary-links{grid-template-columns:1fr 1fr}.v120-step{grid-template-columns:32px minmax(0,1fr);padding:9px}.v120-step-icon{width:32px;height:32px}}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -3008,9 +3033,9 @@ html.v119-tips-open,body.v119-tips-open{overflow:hidden!important;overscroll-beh
     <div class="feature-top">
       <div>
         <h3 data-i18n="route.search.title">Public transport route</h3>
-        <p data-i18n="route.search.subtitle">Search ODsay route data and apply a result to your trip segment.</p>
+        <p data-i18n="route.search.subtitle">See the exact boarding, transfer and getting-off steps when detailed transit data is available.</p>
       </div>
-      <span class="slot-type api">ODsay ROUTE</span>
+      <span class="slot-type api">TRANSIT</span>
     </div>
     <div class="route-live-grid">
       <label><span data-i18n="route.search.from">From</span><select id="moveFrom"></select></label>
@@ -3035,6 +3060,11 @@ html.v119-tips-open,body.v119-tips-open{overflow:hidden!important;overscroll-beh
       <span data-i18n="route.result.empty">Choose cities and search.</span>
     </div>
     <div id="moveLiveRoutes" class="live-route-list"></div>
+    <div class="v120-route-secondary-links">
+      <button type="button" class="primary" onclick="openTransitCardHub()">💳 <span data-en="Transit card guide" data-ko="교통카드 추천">Transit card guide</span></button>
+      <button type="button" onclick="openSubwayMapHub()">🚇 <span data-en="Subway map" data-ko="지하철 노선도">Subway map</span></button>
+    </div>
+    <div class="v120-route-note" data-en="Route first. Payment cards and travel helpers are separated so this screen stays focused on how to get there." data-ko="이 화면은 이동 방법만 보여줍니다. 교통카드·결제·여행 도구는 별도 화면에서 확인하세요.">Route first. Payment cards and travel helpers are separated.</div>
 
     <details class="v118-route-help" id="v118RouteHelp">
       <summary><span data-en="Need help with this route?" data-ko="이동 중 문제가 생겼나요?">Need help with this route?</span></summary>
@@ -3401,6 +3431,13 @@ html.v119-tips-open,body.v119-tips-open{overflow:hidden!important;overscroll-beh
 
 
 
+<section class="screen" id="transitCardHub">
+  <div class="top"><button type="button" class="back" aria-label="Back / 뒤로" onclick="v120CloseTransitCardHub()">‹</button><div class="brand" data-en="Transit Card" data-ko="교통카드">Transit Card</div><button class="pill" onclick="toggleLang()">EN / 한국어</button></div>
+  <div class="v60-screen-intro"><h1 data-en="Which transit card fits my trip?" data-ko="내 여행에는 어떤 교통카드가 맞을까?">Which transit card fits my trip?</h1><p data-en="Compare transit-card choices here, separately from route directions." data-ko="길찾기 화면과 분리해서 Tmoney/EZL · Climate Card · WOWPASS 후보를 비교합니다.">Compare transit-card choices here.</p></div>
+  <div class="v120-card-hub-body"><div id="transitCardStandalone"></div></div>
+</section>
+
+
 <section class="screen" id="helperHub">
   <div class="top"><button type="button" class="back" aria-label="Back / 뒤로" onclick="go('home')">‹</button><div class="brand" data-en="Help" data-ko="도움">Help</div><button class="pill" onclick="toggleLang()">EN / 한국어</button></div>
   <div class="v60-screen-intro"><h1 data-en="What do you need help with?" data-ko="어떤 도움이 필요한가요?">What do you need help with?</h1><p data-en="Start with the urgent action. Open the full toolbox only when you need it." data-ko="지금 필요한 행동부터 선택하세요. 전체 여행 도구는 필요할 때만 여세요.">Start with the urgent action. Open the full toolbox only when you need it.</p></div>
@@ -3444,6 +3481,7 @@ html.v119-tips-open,body.v119-tips-open{overflow:hidden!important;overscroll-beh
   </div></div>
   <div class="v60-helper-card" data-v69-tool-group="money"><h2 class="v60-group-title" data-en="Money & trip admin" data-ko="돈 · 여행 관리">Money & trip admin</h2><div class="v60-icon-grid">
     <button type="button" onclick="go('walletHub')"><span class="ico">💱</span><span data-en="Wallet / FX" data-ko="환율 · 예산">Wallet / FX</span></button>
+    <button type="button" onclick="openTransitCardHub()"><span class="ico">💳</span><span data-en="Transit card" data-ko="교통카드 추천">Transit card</span></button>
     <button type="button" onclick="go('walletHub');setTimeout(openTaxRefundHelper,80)"><span class="ico">🧾</span><span data-en="Tax refund" data-ko="세금 환급">Tax refund</span></button>
     <button type="button" onclick="go('stayHub')"><span class="ico">🏨</span><span data-en="Stay" data-ko="숙소">Stay</span></button>
     <button type="button" onclick="v106OpenAddressCard()"><span class="ico">🏠</span><span data-en="My Address Card" data-ko="내 숙소 주소 카드">My Address Card</span></button>
@@ -3627,8 +3665,8 @@ const TRANSLATIONS = {
     "route.shortcut.subway": "지하철 노선도",
     "route.shortcut.checkRide": "체크 & 라이드",
     "route.shortcut.more": "더보기",
-    "route.search.title": "대중교통 경로",
-    "route.search.subtitle": "ODsay 경로 데이터를 조회해 여행 이동 구간에 반영합니다.",
+    "route.search.title": "대중교통 길찾기",
+    "route.search.subtitle": "상세 데이터가 있으면 어디서 타고·환승하고·내리는지 단계별로 보여줍니다.",
     "route.search.from": "출발",
     "route.search.to": "도착",
     "route.pref.visitor": "외국인 추천",
@@ -3780,8 +3818,8 @@ const TRANSLATIONS = {
     "route.shortcut.subway": "Subway map",
     "route.shortcut.checkRide": "Check & Ride",
     "route.shortcut.more": "More tools",
-    "route.search.title": "Public transport route",
-    "route.search.subtitle": "Search ODsay route data and apply a result to your trip segment.",
+    "route.search.title": "Public transit directions",
+    "route.search.subtitle": "When detailed data is available, see exactly where to board, transfer and get off.",
     "route.search.from": "From",
     "route.search.to": "To",
     "route.pref.visitor": "Visitor Pick",
@@ -3949,7 +3987,7 @@ function runGlobalSearchAction(id){
     case 'food': openRestaurantOrderHelper(); break;
     case 'foodsafety': v115OpenFoodSafetyCard(); break;
     case 'tax': go('walletHub');setTimeout(()=>openTaxRefundHelper(),90);break;
-    case 'transitcard': go('moveHub');globalSearchScroll('transitPaymentHelper');break;
+    case 'transitcard': openTransitCardHub();break;
     case 'journey': if(v51ReadJourney())v51OpenSavedJourney();else{go('myTripHub');v11Toast(lang==='ko'?'저장된 이동경로가 없습니다.':'No saved journey yet.');} break;
     case 'shareroute': v114OpenShareRoute(); break;
     case 'missed': go('myTripHub');setTimeout(()=>{v52OpenRecoveryFromMyTrip();document.getElementById('myTripJourneyBody')?.scrollIntoView({behavior:'smooth',block:'center'});},120);break;
@@ -4014,7 +4052,7 @@ function toggleAllTools(){
 }
 
 let current='home';
-const APP_RELEASE='Korea Route Public Beta V119';
+const APP_RELEASE='Korea Route Public Beta V120';
 
 // V36 safe auto-restore: persist only explicit, non-sensitive trip state and user preferences.
 // Never mirror API keys, current/GPS location, sensor state, or walk-recovery data.
@@ -4127,22 +4165,10 @@ function refreshActiveScreenState(id=current,{entry=false}={}){
       initAssistantHub();
     }else if(id==='myTripHub'){
       initMyTripHub();
+    }else if(id==='transitCardHub'){
+      if(typeof renderTransitCardHub==='function') renderTransitCardHub();
     }else if(id==='moveHub'||id==='move'){
-      if(typeof mountMoveVerifyBeforeDeparture==='function') mountMoveVerifyBeforeDeparture();
       const {fromCity,toCity}=typeof currentMoveSegmentCities==='function'?currentMoveSegmentCities():{fromCity:'',toCity:''};
-      if(fromCity&&toCity){
-        if(typeof mountAirportArrivalToolkit==='function') mountAirportArrivalToolkit(toCity);
-        if(typeof mountMoveHandoffSummary==='function') mountMoveHandoffSummary(fromCity,toCity);
-        if(typeof mountMoveRouteReadiness==='function') mountMoveRouteReadiness(fromCity,toCity);
-        if(typeof mountMoveDepartureHandoff==='function') mountMoveDepartureHandoff(fromCity);
-        if(typeof mountMoveArrivalHandoff==='function') mountMoveArrivalHandoff(toCity);
-        if(typeof mountTransitPaymentHelper==='function') mountTransitPaymentHelper(toCity);
-      }
-      // These sections are generated with lang==='ko' branches. Re-mount them on
-      // every language refresh so already-open Route cards never keep stale text.
-      if(typeof mountMoveSituationHelper==='function') mountMoveSituationHelper();
-      if(typeof mountLanguageHelper==='function') mountLanguageHelper();
-      if(typeof renderLiveTransitBoard==='function') renderLiveTransitBoard();
       if(lastLiveTransitResult?.routes?.length && lastLiveTransitResult.fromCity===fromCity && lastLiveTransitResult.toCity===toCity){
         renderMoveLiveRoutes(lastLiveTransitResult.routes);
       }
@@ -6201,7 +6227,6 @@ function myTripTodayDayNumber(){
 function openMyTripMoveVerify(){
   go('moveHub');
   setTimeout(()=>{
-    mountMoveVerifyBeforeDeparture();
     const card=document.getElementById('moveVerifyBeforeDeparture');
     if(card){
       card.scrollIntoView({behavior:'smooth',block:'center'});
@@ -6506,11 +6531,8 @@ function restoreOfflineTripSnapshot(){
   renderOfflineTripSnapshot();
   const {fromCity,toCity}=currentMoveSegmentCities();
   if(fromCity&&toCity){
-    mountMoveHandoffSummary(fromCity,toCity);
-    mountMoveRouteReadiness(fromCity,toCity);
-    mountMoveVerifyBeforeDeparture();
-    mountTransitPaymentHelper(toCity);
-    mountLanguageHelper();
+        mountMoveVerifyBeforeDeparture();
+      mountLanguageHelper();
   }
 }
 
@@ -10817,7 +10839,7 @@ function renderRailConnectedEmptySummary(fromCity,toCity,status){
   if(!summary) return;
   const q=status.query||{};
   summary.className='data-slot';
-  summary.innerHTML=`<b>${lang==='ko'?'철도 운행계획 · 조회 결과 0건':'Rail operating plan · 0 results'}</b><span>${q.departureStation||fromCity} → ${q.arrivalStation||toCity} · ${q.runYmd||railTripDate()} · ${lang==='ko'?'날짜 전체조회까지 확인했지만 해당 구간의 운행계획을 찾지 못했습니다. 아래에는 샘플 경로를 표시합니다.':'The date-wide fallback also found no matching operation plan for this route. Sample routes are shown below.'}</span>`;
+  summary.innerHTML=`<b>${lang==='ko'?'철도 운행계획 · 조회 결과 0건':'Rail operating plan · 0 results'}</b><span>${q.departureStation||fromCity} → ${q.arrivalStation||toCity} · ${q.runYmd||railTripDate()} · ${lang==='ko'?'날짜 전체조회까지 확인했지만 해당 철도 운행계획을 찾지 못했습니다. 가까운 도시권 이동은 실제 대중교통 경로를 다시 확인하세요.':'The date-wide fallback found no matching rail plan. For local/regional travel, recheck a live public-transit route.'}</span>`;
 }
 
 async function tryRailLiveThenFallback(fromCity,toCity,isCurrent=()=>true){
@@ -12716,15 +12738,11 @@ function transitPaymentHelperHtml(city){
 }
 
 function mountTransitPaymentHelper(city){
-  const host=document.getElementById('moveLiveSummary')||document.getElementById('moveLiveRoutes');
-  if(!host) return;
   document.getElementById('transitPaymentHelper')?.remove();
-  document.getElementById('languageHelper')?.remove();
-  const wrap=document.createElement('div');
-  wrap.id='transitPaymentHelper';
-  wrap.innerHTML=transitPaymentHelperHtml(city);
-  host.parentNode.insertBefore(wrap,host);
-  restoreTransitPaymentPrefs();
+  if(current==='transitCardHub'){
+    window.v120TransitCardCity=city||window.v120TransitCardCity||'Seoul';
+    renderTransitCardHub();
+  }
 }
 
 function saveTransitPaymentPrefs(){
@@ -13319,7 +13337,76 @@ function showFlightDetailPlaceholder(fromCity,toCity){
   }
 }
 
+function currentMoveTransitCities(){
+  return {
+    fromCity:document.getElementById('moveFrom')?.value||document.getElementById('start')?.value||'Seoul',
+    toCity:document.getElementById('moveTo')?.value||document.getElementById('dest')?.value||'Suwon'
+  };
+}
+function openMoveTransitGoogle(){
+  const {fromCity,toCity}=currentMoveTransitCities(),a=ODSAY_MOVE_POINTS[fromCity],b=ODSAY_MOVE_POINTS[toCity];
+  if(!a||!b)return;
+  const url=`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(`${a.y},${a.x}`)}&destination=${encodeURIComponent(`${b.y},${b.x}`)}&travelmode=transit`;
+  window.open(url,'_blank','noopener');
+}
+function openMoveTransitNaver(){
+  const {fromCity,toCity}=currentMoveTransitCities(),a=ODSAY_MOVE_POINTS[fromCity],b=ODSAY_MOVE_POINTS[toCity];
+  if(!a||!b)return;
+  const url=naverMapDirectionsUrl(lang==='ko'?b.ko:b.en,b.y,b.x,{originLat:a.y,originLng:a.x,originName:lang==='ko'?a.ko:a.en,mode:'transit'});
+  if(url)window.open(url,'_blank','noopener');
+}
+function renderTransitExternalFallback(fromCity,toCity,reason=''){
+  const summary=document.getElementById('moveLiveSummary'),list=document.getElementById('moveLiveRoutes');
+  if(!summary||!list)return;
+  const a=odsayMoveLabel(fromCity),b=odsayMoveLabel(toCity);
+  summary.className='data-slot';
+  summary.innerHTML=`<b>${lang==='ko'?'상세 대중교통 경로 확인':'Check detailed transit route'}</b><span>${escapeHtmlText(a)} → ${escapeHtmlText(b)}</span>`;
+  list.innerHTML=`<div class="v120-external-fallback"><b>${lang==='ko'?'어디서 무엇을 타는지 확인이 필요합니다.':'You need the exact boarding route.'}</b><p>${lang==='ko'?'Korea Route가 실제 노선·탑승역·하차역을 확인하지 못한 상태에서는 임의의 전철/버스 경로를 보여주지 않습니다. Google 또는 네이버의 실시간 대중교통 경로를 확인하세요.':'Korea Route will not invent a subway or bus route when exact boarding data is unavailable. Open a live transit route in Google or Naver instead.'}${reason?`<br>${escapeHtmlText(reason)}`:''}</p><div class="v120-external-actions"><button class="google" type="button" onclick="openMoveTransitGoogle()">🗺️ ${lang==='ko'?'Google 대중교통':'Google transit'}</button><button class="naver" type="button" onclick="openMoveTransitNaver()">🟢 ${lang==='ko'?'네이버 대중교통':'Naver transit'}</button></div></div>`;
+}
+function odsayDetailedSteps(subPath=[]){
+  return (Array.isArray(subPath)?subPath:[]).map((s,i)=>{
+    const lane=(Array.isArray(s.lane)?s.lane[0]:null)||{};
+    const type=Number(s.trafficType||0);
+    const line=String(type===1?(lane.name||s.lineName||''):(type===2?(lane.busNo||lane.name||s.lineName||''):'')).trim();
+    const direction=String(s.way||s.wayName||s.direction||lane.way||lane.direction||'').trim();
+    return {index:i,type,line,direction,start:String(s.startName||'').trim(),end:String(s.endName||'').trim(),time:Number(s.sectionTime||0),stations:Number(s.stationCount||0),distance:Number(s.distance||0)};
+  }).filter(x=>x.type===1||x.type===2||x.type===3);
+}
+function renderOdsayDetailedSteps(route){
+  const steps=route?.detailSteps||[];
+  if(!steps.length)return `<div class="v120-route-detail"><div class="v120-step"><div class="v120-step-icon">ℹ️</div><div class="v120-step-copy"><b>${lang==='ko'?'구간 상세 정보가 제공되지 않았습니다.':'Detailed leg data is unavailable.'}</b><span>${lang==='ko'?'Google 또는 네이버 대중교통에서 실제 탑승 위치를 확인하세요.':'Check the exact boarding point in Google or Naver transit.'}</span></div></div></div>`;
+  return `<div class="v120-route-detail">${steps.map((st,idx)=>{
+    if(st.type===3){
+      const detail=[st.time?`${st.time}${lang==='ko'?'분':' min'}`:'',st.distance?`${Math.round(st.distance)}m`:''].filter(Boolean).join(' · ');
+      return `<div class="v120-step walk"><div class="v120-step-icon">🚶</div><div class="v120-step-copy"><b>${lang==='ko'?`${st.start||'현재 위치'}에서 도보 이동`:`Walk from ${st.start||'current location'}`}</b><span>${escapeHtmlText([st.end?`${lang==='ko'?'도착':'to'} ${st.end}`:'',detail].filter(Boolean).join(' · '))}</span></div></div>`;
+    }
+    const isSubway=st.type===1,icon=isSubway?'🚇':'🚌',mode=isSubway?(lang==='ko'?'지하철':'Subway'):(lang==='ko'?'버스':'Bus');
+    const board=st.start?(lang==='ko'?`${st.start}에서 ${st.line||mode} 탑승`:`Board ${st.line||mode} at ${st.start}`):(lang==='ko'?`${st.line||mode} 탑승`:`Board ${st.line||mode}`);
+    const details=[];
+    if(st.end)details.push(lang==='ko'?`${st.end}에서 하차`:`Get off at ${st.end}`);
+    if(st.stations>0)details.push(lang==='ko'?`${st.stations}개 정거장`:`${st.stations} stops`);
+    if(st.time>0)details.push(`${st.time}${lang==='ko'?'분':' min'}`);
+    return `<div class="v120-step ${isSubway?'subway':'bus'}"><div class="v120-step-icon">${icon}</div><div class="v120-step-copy"><b>${escapeHtmlText(board)}</b><span>${escapeHtmlText(details.join(' · '))}</span>${st.direction?`<span class="v120-step-direction">${lang==='ko'?'방면':'Direction'} · ${escapeHtmlText(st.direction)}</span>`:''}</div></div>`;
+  }).join('')}</div>`;
+}
+function openTransitCardHub(city=''){
+  window.v120TransitCardCity=city||document.getElementById('moveTo')?.value||document.getElementById('dest')?.value||'Seoul';
+  window.v120TransitCardReturn=(current&&current!=='transitCardHub')?current:'helperHub';
+  go('transitCardHub');
+}
+function v120CloseTransitCardHub(){
+  const back=window.v120TransitCardReturn;
+  go(back&&document.getElementById(back)?back:'helperHub');
+}
+function renderTransitCardHub(){
+  const host=document.getElementById('transitCardStandalone');if(!host)return;
+  const city=window.v120TransitCardCity||document.getElementById('moveTo')?.value||document.getElementById('dest')?.value||'Seoul';
+  host.innerHTML=transitPaymentHelperHtml(city);
+  restoreTransitPaymentPrefs();
+}
+
 function renderLegDataFallback(fromCity,toCity){
+  if(shouldUseOdsay(fromCity,toCity)){ renderTransitExternalFallback(fromCity,toCity); return; }
   if(renderFlightCards(fromCity,toCity)) return;
   if(renderRailCards(fromCity,toCity)) return;
   const summary=document.getElementById('moveLiveSummary');
@@ -13414,7 +13501,8 @@ function normalizeOdsayMove(data){
       fare:(fareRaw!==null && fareRaw!==undefined && fareRaw!=='' && Number.isFinite(fareNumber) && fareNumber>0)?fareNumber:null,
       transferCount:Number(info.busTransitCount||0)+Number(info.subwayTransitCount||0),
       totalWalk:Number(info.totalWalk||0),
-      steps:odsayStepSummary(p.subPath||[])
+      steps:odsayStepSummary(p.subPath||[]),
+      detailSteps:odsayDetailedSteps(p.subPath||[])
     };
   });
 }
@@ -13428,57 +13516,24 @@ function renderMoveLiveRoutes(routes){
   const list=document.getElementById('moveLiveRoutes'), summary=document.getElementById('moveLiveSummary');
   if(!list||!summary) return;
   if(!routes.length){
-    list.innerHTML='';
-    summary.className='data-slot error';
-    summary.innerHTML=`<b>${lang==='ko'?'경로 없음':'No route found'}</b><span>${lang==='ko'?'ODsay에서 경로를 찾지 못했습니다.':'ODsay returned no route.'}</span>`;
+    renderTransitExternalFallback(document.getElementById('moveFrom')?.value||'Seoul',document.getElementById('moveTo')?.value||'Suwon',lang==='ko'?'ODsay 상세 경로 결과가 없습니다.':'ODsay returned no detailed route.');
     return;
   }
-  const selected=routeForPreference(routes,selectedMovePreference);
+  const selected=routeForPreference(routes,selectedMovePreference)||routes[0];
   const ordered=[...routes].sort((a,b)=>{
-    if(a.id===selected?.id) return -1;
-    if(b.id===selected?.id) return 1;
-    if(selectedMovePreference==='fastest') return a.totalTime-b.totalTime || a.transferCount-b.transferCount;
-    if(selectedMovePreference==='fewest') return a.transferCount-b.transferCount || a.totalTime-b.totalTime;
-    const score=x=>x.totalTime+x.transferCount*7+Math.min((x.totalWalk||0)/500,8);
-    return score(a)-score(b);
+    if(a.id===selected?.id)return -1;if(b.id===selected?.id)return 1;
+    if(selectedMovePreference==='fastest')return a.totalTime-b.totalTime||a.transferCount-b.transferCount;
+    if(selectedMovePreference==='fewest')return a.transferCount-b.transferCount||a.totalTime-b.totalTime;
+    const score=x=>x.totalTime+x.transferCount*7+Math.min((x.totalWalk||0)/500,8);return score(a)-score(b);
   });
-  const prefText=selectedMovePreference==='fastest'
-    ? (lang==='ko'?'가장 빠른 경로':'Fastest route')
-    : selectedMovePreference==='fewest'
-      ? (lang==='ko'?'환승이 적은 경로':'Fewer transfers')
-      : (lang==='ko'?'외국인 추천 경로':'Visitor Pick');
+  const prefText=selectedMovePreference==='fastest'?(lang==='ko'?'가장 빠른 경로':'Fastest route'):selectedMovePreference==='fewest'?(lang==='ko'?'환승이 적은 경로':'Fewer transfers'):(lang==='ko'?'추천 경로':'Recommended route');
   summary.className='data-slot success';
-  summary.innerHTML=`<b>${prefText} ✓</b><span>${lang==='ko'?`${selected.totalTime}분 · 환승 ${selected.transferCount} · ${formatOdsayFare(selected.fare)} · 도보 ${selected.totalWalk}m`:`${selected.totalTime} min · ${selected.transferCount} transfer(s) · ${formatOdsayFare(selected.fare)} · walk ${selected.totalWalk}m`}</span>`;
-  list.innerHTML=ordered.slice(0,4).map(r=>{
-    const roles=routeRoleBadges(r,routes);
-    return `
-    <div class="live-route-card ${r.id===selected.id?'selected recommended':''}" data-live-route-id="${r.id}">
-      <div class="live-route-head">
-        <div class="live-route-title">${escapeHtmlText(odsayTypeLabel(r.type))} · ${escapeHtmlText(r.totalTime)}${lang==='ko'?'분':' min'}</div>
-        ${r.id===selected.id?`<span class="live-route-badge">${lang==='ko'?'선택됨':'SELECTED'}</span>`:''}
-      </div>
-      <div class="route-role">${roles.map(x=>`<span>${x}</span>`).join('')}</div>
-      <div class="ff-meta-line"><span class="ff-score ${ffScoreClass(ffTransitScore(r))}">${lang==='ko'?'외국인 이동 편의':'Visitor Ease'} ${ffTransitScore(r)}</span><span class="ff-sample">${lang==='ko'?'경로 기반 추정':'route estimate'}</span></div>
-      <div class="ff-tags">${ffTransitTags(r)}</div>
-      <div class="live-route-meta">
-        <span>${lang==='ko'?'요금':'Fare'} ${formatOdsayFare(r.fare)}</span>
-        <span>${lang==='ko'?'환승':'Transfers'} ${r.transferCount}</span>
-        <span>${lang==='ko'?'도보':'Walk'} ${r.totalWalk}m</span>
-      </div>
-      <div class="live-route-steps">${escapeHtmlText(r.steps||'-')}</div>
-    </div>`}).join('');
+  summary.innerHTML=`<b>${prefText} ✓</b><span>${lang==='ko'?`${selected.totalTime}분 · 환승 ${selected.transferCount}회 · 도보 ${selected.totalWalk}m · ${formatOdsayFare(selected.fare)}`:`${selected.totalTime} min · ${selected.transferCount} transfer(s) · walk ${selected.totalWalk}m · ${formatOdsayFare(selected.fare)}`}</span>`;
+  const main=`<div class="live-route-card selected recommended"><div class="live-route-head"><div class="live-route-title">${escapeHtmlText(odsayTypeLabel(selected.type))} · ${escapeHtmlText(selected.totalTime)}${lang==='ko'?'분':' min'}</div><span class="live-route-badge">${lang==='ko'?'추천':'RECOMMENDED'}</span></div><div class="live-route-meta"><span>${lang==='ko'?'요금':'Fare'} ${formatOdsayFare(selected.fare)}</span><span>${lang==='ko'?'환승':'Transfers'} ${selected.transferCount}</span><span>${lang==='ko'?'도보':'Walk'} ${selected.totalWalk}m</span></div>${renderOdsayDetailedSteps(selected)}</div>`;
+  const alts=ordered.filter(r=>r.id!==selected.id).slice(0,2).map(r=>`<details class="v120-alt-route"><summary><span>${escapeHtmlText(odsayTypeLabel(r.type))} · ${r.totalTime}${lang==='ko'?'분':' min'} · ${lang==='ko'?'환승':'Transfers'} ${r.transferCount}</span><span>＋</span></summary>${renderOdsayDetailedSteps(r)}</details>`).join('');
+  list.innerHTML=main+alts;
 }
 function applyOdsayToSegment(fromCity,toCity,route){
-  mountAirportArrivalToolkit(toCity);
-  mountMoveDepartureHandoff(fromCity);
-  mountMoveArrivalHandoff(toCity);
-  mountMoveHandoffSummary(fromCity,toCity);
-    mountMoveVerifyBeforeDeparture();
-  mountMoveRouteReadiness(fromCity,toCity);
-  mountMoveSituationHelper();
-  mountTransitPaymentHelper(toCity);
-  mountLanguageHelper();
-
   if(!shouldUseOdsay(fromCity,toCity)) return;
   document.querySelectorAll('.segment-card').forEach(card=>{
     if(card.dataset.segmentFrom===fromCity && card.dataset.segmentTo===toCity){
@@ -13559,9 +13614,7 @@ async function searchLiveMoveRoute(){
         renderRailConnectedEmptySummary(fromCity,toCity,railStatus);
         return;
       }
-      summary.className='data-slot error';
-      summary.innerHTML=`<b>${lang==='ko'?'API 설정 필요':'API setup required'}</b><span>${lang==='ko'?'ODsay Web 키가 없고 철도 API에서도 경로를 찾지 못했습니다. 개발용 API 설정에서 ODsay 키를 입력해주세요.':'No ODsay Web key is set and the rail API did not return a usable route. Enter the ODsay Web key in Developer API setup.'}</span>`;
-      document.getElementById('moveApiSetup')?.setAttribute('open','');
+      renderTransitExternalFallback(fromCity,toCity,lang==='ko'?'현재 앱 내부 상세 대중교통 데이터가 연결되지 않았습니다.':'In-app detailed transit data is not connected for this route.');
       return;
     }
     if(location.hostname!=='korea-route.vercel.app'){
@@ -13589,8 +13642,7 @@ async function searchLiveMoveRoute(){
     if(chosen) applyOdsayToSegment(fromCity,toCity,chosen);
   }catch(err){
     if(err?.name==='AbortError' || !isCurrent()) return;
-    summary.className='data-slot error';
-    summary.innerHTML=`<b>${lang==='ko'?'ODsay 조회 실패':'ODsay request failed'}</b><span>${String(err.message||err)}</span>`;
+    renderTransitExternalFallback(fromCity,toCity,lang==='ko'?'상세 대중교통 조회에 실패했습니다.':'Detailed transit lookup failed.');
   }finally{
     if(isCurrent()){
       if(btn) btn.disabled=false;
@@ -13636,7 +13688,7 @@ document.addEventListener('click',e=>{
 });
 populateMoveSelectors();
 syncMoveFromPlanner();
-if(!ODSAY_WEB_KEY) document.getElementById('moveApiSetup')?.setAttribute('open','');
+
 const odsayInput=document.getElementById('odsayKeyInput');
 if(odsayInput && ODSAY_WEB_KEY) odsayInput.placeholder=lang==='ko'?'이 세션에 키 저장됨':'Key saved for this session';
 
@@ -14408,7 +14460,7 @@ function v60TabForScreen(id){
   if(['city','exploreHub'].includes(id))return 'map';
   if(['moveHub','result'].includes(id))return 'route';
   if(['myTripHub','planner'].includes(id))return 'trip';
-  if(['helperHub','assistantHub','walletHub','stayHub'].includes(id))return 'helper';
+  if(['helperHub','assistantHub','walletHub','stayHub','transitCardHub'].includes(id))return 'helper';
   return '';
 }
 function v60SyncTabbar(id=current){
@@ -14591,7 +14643,7 @@ function v117CloseTravelerTips(){
 function v117TipsGo(action){
   v117CloseTravelerTips();
   if(action==='transit'){
-    if(typeof v60OpenRouteTab==='function'){v60OpenRouteTab();setTimeout(()=>{try{mountTransitPaymentHelper((document.getElementById('origin')?.value||'Seoul').trim()||'Seoul')}catch(_){ }},180)}
+    if(typeof openTransitCardHub==='function')openTransitCardHub();
   }else if(action==='food'&&typeof v115OpenFoodSafetyCard==='function')v115OpenFoodSafetyCard();
   else if(action==='staff'&&typeof v107OpenStaffHelper==='function')v107OpenStaffHelper();
   else if(action==='late'&&typeof v113OpenLateNightRescue==='function')v113OpenLateNightRescue();
@@ -14704,6 +14756,12 @@ function v61HandleBackPop(){
   if(v61BackIsExiting) return;
   if(v61CloseTopLayer()){
     v61BackExitArmedAt=0;
+    v61RearmHistoryGuard();
+    return;
+  }
+  if(current==='transitCardHub'){
+    v61BackExitArmedAt=0;
+    v120CloseTransitCardHub();
     v61RearmHistoryGuard();
     return;
   }
