@@ -2512,7 +2512,346 @@ html.v119-tips-open,body.v119-tips-open{overflow:hidden!important;overscroll-beh
 @media(max-width:430px){#transitCardHub .payment-helper-grid{grid-template-columns:1fr}.v120-external-actions,.v120-route-secondary-links{grid-template-columns:1fr 1fr}.v120-step{grid-template-columns:32px minmax(0,1fr);padding:9px}.v120-step-icon{width:32px;height:32px}}
 </style>
 
-</head>
+
+<style id="v121-mobile-readability">
+/* V121 · Mobile readability: larger type, icons and touch targets without adding new features */
+:root{--v121-touch:50px}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-size:16px;line-height:1.5}
+.screen{padding-left:18px!important;padding-right:18px!important;padding-bottom:132px!important}
+.top{min-height:54px!important;margin-bottom:16px!important}
+.brand{font-size:18px!important;line-height:1.2!important}
+.logo{width:48px!important;height:48px!important;border-radius:16px!important;font-size:17px!important}
+.pill{min-height:48px!important;padding:11px 14px!important;border-radius:15px!important;font-size:15px!important}
+.back{width:48px!important;height:48px!important;border-radius:15px!important;font-size:31px!important;line-height:1!important}
+
+/* Screen headings */
+.v60-screen-intro h1{font-size:28px!important;line-height:1.12!important;letter-spacing:-.7px!important}
+.v60-screen-intro p{font-size:15px!important;line-height:1.58!important;margin-top:7px!important}
+.page-title{font-size:30px!important;line-height:1.12!important}.page-sub{font-size:15px!important;line-height:1.55!important}
+.section-head h2{font-size:21px!important}.section-head span{font-size:12px!important}
+
+/* Common cards */
+.feature-card{padding:17px!important;border-radius:20px!important}
+.feature-card h3,.feature-top h3{font-size:19px!important;line-height:1.3!important;letter-spacing:-.25px!important}
+.feature-card p,.feature-top p{font-size:14px!important;line-height:1.58!important}
+.slot-type,.badge,.mode-badge,.tag{font-size:11px!important;line-height:1.15!important;padding:7px 9px!important}
+.data-slot{padding:13px 14px!important;border-radius:15px!important}.data-slot b{font-size:15px!important;line-height:1.35!important}.data-slot span,.data-slot small{font-size:13px!important;line-height:1.5!important}
+.notice,.demo-banner,.arch-note{font-size:13px!important;line-height:1.55!important}
+
+/* Forms and action buttons */
+label{font-size:14px!important;line-height:1.3!important;margin-top:14px!important}
+select,input,textarea{min-height:54px!important;font-size:17px!important;line-height:1.3!important;padding:13px 14px!important;border-radius:14px!important}
+.screen-link,.primary-btn,.secondary-btn,.cta,.book,.ghost,.mini-action,.mytrip-btn,.v64-primary-action{min-height:50px!important;font-size:15px!important;line-height:1.25!important;padding:12px 14px!important;border-radius:14px!important}
+
+/* Home hierarchy */
+#home>.hero h1{font-size:30px!important}#home>.hero p{font-size:15px!important}
+.v118-home-title b{font-size:21px!important}.v118-home-title span{font-size:13px!important;line-height:1.5!important}
+.v118-home-step{min-height:88px!important;grid-template-columns:56px minmax(0,1fr) 28px!important;gap:12px!important;padding:14px!important;border-radius:20px!important}
+.v118-home-step .ico{width:52px!important;height:52px!important;font-size:29px!important;border-radius:16px!important}
+.v118-home-step b{font-size:18px!important}.v118-home-step small{font-size:13px!important;line-height:1.42!important}.v118-home-step .go{font-size:31px!important}
+.v118-home-helpbar button{min-height:54px!important;font-size:14px!important}
+
+/* Map */
+#city.v60-map-mode .city-map-wrap{padding:10px!important}
+.city-map-searchbox{grid-template-columns:38px minmax(0,1fr) 76px!important;min-height:58px!important;padding:7px 7px 7px 11px!important;border-radius:17px!important}
+.city-map-searchico{font-size:20px!important}.city-map-searchbox input{min-height:42px!important;font-size:16px!important;padding:8px 3px!important}.city-map-searchbox button{min-height:44px!important;font-size:14px!important;padding:9px 10px!important}
+.city-map-search-filter{min-height:38px!important;font-size:12px!important;padding:8px 12px!important}.city-map-search-count,.city-map-search-hint{font-size:11px!important;line-height:1.45!important}
+.city-map-nearby{padding:11px!important}.city-map-nearby-head b{font-size:14px!important}.city-map-nearby-head small{font-size:11px!important}.city-map-nearby-btn{min-height:58px!important;font-size:12px!important;padding:9px 5px!important}.city-map-nearby-more summary{font-size:12px!important;min-height:40px!important;display:flex!important;align-items:center!important}
+.v118-map-more-toggle{min-height:48px!important;font-size:14px!important}
+.city-map-dest-title span{font-size:11px!important}.city-map-dest-title b{font-size:18px!important}.city-map-dest-distance{font-size:13px!important}.city-map-go-flow span{font-size:10px!important}.city-map-go-flow b{font-size:13px!important}.city-map-go-main{min-height:54px!important;font-size:16px!important}.city-map-go-main small{font-size:11px!important}.city-map-dest-actions button{min-height:46px!important;font-size:13px!important}
+
+/* Route */
+#moveHub #liveMovePlanner{padding:18px!important;border-radius:22px!important}
+#moveHub .route-live-grid{gap:12px!important;margin:16px 0!important}
+#moveHub .route-live-grid label{font-size:16px!important;gap:8px!important}
+#moveHub .route-live-grid select{min-height:58px!important;font-size:18px!important;padding:12px!important;border-radius:14px!important}
+#moveHub .move-pref-row{gap:8px!important;margin:14px 0!important}
+#moveHub .move-pref{min-height:48px!important;font-size:14px!important;padding:10px 8px!important}
+#moveHub #moveLiveSearchBtn{min-height:58px!important;font-size:18px!important;border-radius:15px!important}
+.v120-route-secondary-links button{min-height:50px!important;font-size:14px!important;padding:10px!important}
+.v120-route-note{font-size:12.5px!important;line-height:1.55!important}
+.v118-route-help summary{min-height:50px!important;font-size:14px!important;padding:0 14px!important}.v118-route-help-grid button{min-height:62px!important;font-size:13px!important;padding:10px!important}
+.v120-external-fallback{padding:16px!important}.v120-external-fallback b{font-size:17px!important}.v120-external-fallback p{font-size:14px!important;line-height:1.55!important}.v120-external-actions button{min-height:50px!important;font-size:14px!important}
+.v120-step{grid-template-columns:42px minmax(0,1fr)!important;gap:11px!important;padding:12px!important}.v120-step-icon{width:42px!important;height:42px!important;font-size:21px!important}.v120-step-copy b{font-size:16px!important}.v120-step-copy span{font-size:13px!important;line-height:1.5!important}.v120-alt-route summary{font-size:14px!important;padding:14px!important}
+
+/* Trip and Help */
+#myTripHub.v60-overview .v60-trip-grid{gap:9px!important}#myTripHub.v60-overview .v60-trip-grid button{min-height:104px!important;font-size:14px!important;padding:10px 7px!important}#myTripHub.v60-overview .v60-trip-grid button span{font-size:29px!important;margin-bottom:7px!important}#myTripHub.v60-overview .v60-trip-grid button b{font-size:14px!important}
+#myTripHub.v60-overview .v64-trip-more summary{min-height:52px!important;font-size:14px!important}
+.v118-help-primary button{min-height:94px!important;font-size:14px!important;padding:12px!important}.v118-help-primary button span{font-size:31px!important;margin-bottom:8px!important}.v118-help-more{min-height:54px!important;font-size:14px!important}.v118-tools-back{min-height:50px!important;font-size:14px!important}
+#helperHub .v60-group-title{font-size:20px!important}.v60-icon-grid button,#helperHub .v60-icon-grid button{min-height:94px!important;font-size:14px!important;padding:12px 8px!important}.v60-icon-grid button .ico,#helperHub .v60-icon-grid button .ico{font-size:31px!important;margin-bottom:8px!important}
+
+/* Transit/payment cards */
+.payment-helper-head h3{font-size:20px!important}.payment-helper-card{padding:15px!important}.payment-helper-icon{font-size:27px!important}.payment-helper-card b{font-size:16px!important}.payment-helper-card p,.payment-helper-note{font-size:14px!important;line-height:1.55!important}
+
+/* Fixed bottom navigation — intentionally prominent */
+:root{--v60-nav-h:98px!important}
+.v60-tabbar{height:calc(var(--v60-nav-h) + env(safe-area-inset-bottom))!important;padding:7px 7px calc(7px + env(safe-area-inset-bottom))!important;gap:4px!important}
+.v60-tabbar button{min-height:76px!important;padding:8px 2px!important;gap:6px!important;border-radius:18px!important;color:#40536a!important}
+.v60-tabbar button .ico{font-size:34px!important;min-height:36px!important}
+.v60-tabbar button span:last-child{font-size:14.5px!important;line-height:1.15!important;font-weight:950!important}
+.v60-tabbar button.active .ico{font-size:37px!important}.v60-tabbar button.active span:last-child{font-size:15px!important}
+
+@media(max-width:380px){
+  .screen{padding-left:14px!important;padding-right:14px!important}
+  .brand{font-size:17px!important}.pill{font-size:14px!important;padding-left:10px!important;padding-right:10px!important}
+  .v60-screen-intro h1{font-size:26px!important}.v60-screen-intro p{font-size:14px!important}
+  .v118-home-step{grid-template-columns:50px minmax(0,1fr) 24px!important}.v118-home-step .ico{width:46px!important;height:46px!important;font-size:26px!important}.v118-home-step b{font-size:17px!important}
+  .v60-tabbar button .ico{font-size:31px!important}.v60-tabbar button span:last-child{font-size:13.5px!important}.v60-tabbar button.active .ico{font-size:33px!important}
+  #moveHub .move-pref{font-size:13px!important}
+}
+</style>
+
+
+<style id="v122-global-readability-location">
+/* V122 · global mobile readability + current-location marker repair */
+:root{
+  --fs-page-title:28px;
+  --fs-section:22px;
+  --fs-card-title:19px;
+  --fs-body:16px;
+  --fs-control:17px;
+  --fs-chip:15px;
+  --fs-caption:14px;
+  --touch-control:48px;
+  --touch-chip:44px;
+}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-size:var(--fs-body)!important;line-height:1.6!important}
+.screen{font-size:var(--fs-body)!important;line-height:1.6!important}
+.screen *{box-sizing:border-box}
+.screen h1,.page-title,.v60-screen-intro h1{font-size:var(--fs-page-title)!important;line-height:1.22!important;letter-spacing:-.55px!important}
+.screen h2,.section-head h2,.v60-group-title,#helperHub .v60-group-title{font-size:var(--fs-section)!important;line-height:1.3!important}
+.screen h3,.feature-card h3,.feature-top h3,.payment-helper-head h3{font-size:var(--fs-card-title)!important;line-height:1.38!important}
+.screen p,.screen li,.feature-card p,.feature-top p,.payment-helper-card p,.payment-helper-note{font-size:var(--fs-body)!important;line-height:1.6!important}
+.screen small,.screen .caption,.screen .page-sub,.notice,.demo-banner,.arch-note,.map-note{font-size:var(--fs-caption)!important;line-height:1.55!important}
+button,select,textarea,input:not([type="checkbox"]):not([type="radio"]){min-height:var(--touch-control)!important;font-size:var(--fs-control)!important;line-height:1.35!important}
+select,textarea,input:not([type="checkbox"]):not([type="radio"]){padding:12px 14px!important}
+button{padding-top:10px!important;padding-bottom:10px!important}
+label{font-size:var(--fs-body)!important;line-height:1.45!important}
+.feature-card,.data-slot,.visitor-filter-bar,.payment-helper-card,.v120-external-fallback,.v120-step,.city-facility-tools,.poi-item,.v118-help-primary,.v118-route-help,.mytrip-panel{padding:18px!important}
+.feature-card,.visitor-filter-bar,.payment-helper-card,.v120-external-fallback,.poi-item{border-radius:18px!important}
+.visitor-filter-chips,.explore-category-bar,.explore-radius-row,.city-radius-row,.city-facility-row{gap:10px!important}
+.visitor-chip,.explore-category-bar button,.explore-saved-filter-btn,.explore-save-visible-btn,.explore-nearme-tools button,.explore-radius-btn,.city-radius-btn,.city-facility-btn,.city-map-search-filter,.move-pref,.offline-phrase-tabs button{min-height:var(--touch-chip)!important;font-size:var(--fs-chip)!important;line-height:1.3!important;padding:9px 13px!important}
+.visitor-filter-title b{font-size:var(--fs-card-title)!important;line-height:1.35!important}
+.visitor-filter-title span,.visitor-filter-count,.explore-visible-count,.explore-nearme-tools span,.poi-distance,.explore-bulk-save-feedback,.city-map-source-badge,.city-map-status,.city-map-search-count,.city-map-search-hint,.city-map-nearby-head small,.city-facility-title small,.city-facility-result-head small,.city-facility-result .txt small{font-size:var(--fs-caption)!important;line-height:1.5!important}
+.visitor-score,.visitor-tag{font-size:var(--fs-caption)!important;padding:6px 9px!important}
+.poi-text b,.city-facility-result .txt b,.city-facility-title{font-size:var(--fs-card-title)!important;line-height:1.4!important}
+.poi-text span{font-size:var(--fs-caption)!important;line-height:1.55!important}.poi-num{font-size:var(--fs-caption)!important}
+.poi-action-row button,.poi-directions-from-me,.poi-visit-check>button{min-height:var(--touch-chip)!important;font-size:var(--fs-chip)!important;padding:9px 12px!important}
+.poi-visit-check,.poi-visit-check-body label,.poi-visit-check-body small{font-size:var(--fs-caption)!important;line-height:1.5!important}
+.city-map-searchbox{min-height:62px!important}.city-map-searchbox input,.city-map-searchbox button{font-size:var(--fs-control)!important}
+.city-map-nearby-head b{font-size:var(--fs-body)!important}.city-map-nearby-btn{min-height:54px!important;font-size:var(--fs-chip)!important}
+.city-map-primary button,.city-facility-btn{min-height:var(--touch-control)!important;font-size:var(--fs-control)!important}
+.city-map .leaflet-control-attribution,#cityGuideMap .maplibregl-ctrl-attrib,#cityGuideMap .maplibregl-ctrl-bottom-left,#cityGuideMap .maplibregl-ctrl-bottom-right{font-size:var(--fs-caption)!important;line-height:1.35!important}
+#cityGuideMap .leaflet-city-user-pane-pane{z-index:850!important;pointer-events:none!important}
+#cityMapLocateFloatBtn{min-height:54px!important;font-size:var(--fs-control)!important;padding:12px 16px!important}
+#cityMapLocateFloatBtn .pin{font-size:22px!important}
+#cityMapLocateFloatBtn.active{box-shadow:0 0 0 3px rgba(47,111,237,.18),0 9px 22px rgba(22,47,82,.18)!important}
+.location-fallback-inline{font-size:var(--fs-caption)!important;line-height:1.55!important;gap:10px!important}.location-fallback-inline button{min-height:var(--touch-chip)!important;font-size:var(--fs-chip)!important}
+#moveHub .route-live-grid label{font-size:var(--fs-body)!important}#moveHub .route-live-grid select{font-size:var(--fs-control)!important}#moveHub .move-pref{font-size:var(--fs-chip)!important}#moveHub #moveLiveSearchBtn{font-size:var(--fs-control)!important}
+.v120-route-note{font-size:var(--fs-caption)!important;line-height:1.55!important}.v120-step-copy b{font-size:var(--fs-body)!important}.v120-step-copy span{font-size:var(--fs-caption)!important;line-height:1.55!important}
+.v120-external-fallback b{font-size:var(--fs-card-title)!important}.v120-external-fallback p{font-size:var(--fs-body)!important;line-height:1.6!important}.v120-external-actions button,.v120-route-secondary-links button,.v118-route-help-grid button{min-height:var(--touch-control)!important;font-size:var(--fs-chip)!important}
+:root{--v60-nav-h:104px!important}.v60-tabbar{height:calc(var(--v60-nav-h) + env(safe-area-inset-bottom))!important;padding:8px 7px calc(8px + env(safe-area-inset-bottom))!important}.v60-tabbar button{min-height:82px!important;gap:7px!important;padding:8px 3px!important}.v60-tabbar button .ico{font-size:38px!important;min-height:40px!important}.v60-tabbar button span:last-child{font-size:var(--fs-chip)!important;line-height:1.15!important;font-weight:950!important}.v60-tabbar button.active .ico{font-size:40px!important}.v60-tabbar button.active span:last-child{font-size:16px!important}
+.screen,.feature-card,.visitor-filter-bar,.poi-item,.v120-step,.v120-external-fallback{min-width:0!important}.screen p,.screen span,.screen b,.screen small,.screen button{overflow-wrap:anywhere}
+/* Hard readability floor: legacy screens contain many 7–13px rules. Keep visible text at 14px+ without shrinking icons. */
+.screen span:not(.ico):not(.qs-ico):not(.search-ico):not(.pin):not(.go):not(.qs-go):not(.payment-helper-icon):not([class*="icon"]),.screen small,.screen em,.screen code{font-size:var(--fs-caption)!important;line-height:1.5!important}
+.screen b{font-size:var(--fs-body)!important;line-height:1.4!important}
+.screen h1 b,.screen h2 b,.screen h3 b{font-size:inherit!important}
+.v118-home-title b,.visitor-filter-title b,.poi-text b,.city-facility-result .txt b,.city-facility-title,.payment-helper-head h3{font-size:var(--fs-card-title)!important}
+.section-head h2,.v60-group-title,#helperHub .v60-group-title{font-size:var(--fs-section)!important}
+@media(max-width:380px){:root{--fs-page-title:27px;--fs-section:21px;--fs-card-title:18px;--fs-body:16px;--fs-control:16px;--fs-chip:15px;--fs-caption:14px}.screen{padding-left:14px!important;padding-right:14px!important}.v60-tabbar button .ico{font-size:35px!important}.v60-tabbar button.active .ico{font-size:37px!important}}
+</style>
+
+
+<style id="v123-large-text-mobile">
+/* V123 · Large Text Mobile UI
+   Goal: no important traveler-facing copy smaller than 16px on mobile. */
+:root{
+  --fs-page-title:32px!important;
+  --fs-section:24px!important;
+  --fs-card-title:22px!important;
+  --fs-body:18px!important;
+  --fs-control:19px!important;
+  --fs-chip:17px!important;
+  --fs-caption:16px!important;
+  --touch-control:52px!important;
+  --touch-chip:48px!important;
+}
+
+/* Core readable hierarchy */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body,.screen{font-size:var(--fs-body)!important;line-height:1.65!important}
+.screen h1,.page-title,.v60-screen-intro h1{font-size:var(--fs-page-title)!important;line-height:1.18!important;letter-spacing:-.7px!important}
+.screen h2,.section-head h2,.v60-group-title,#helperHub .v60-group-title{font-size:var(--fs-section)!important;line-height:1.28!important}
+.screen h3,.feature-card h3,.feature-top h3,.payment-helper-head h3,.taxi-card-head h3{font-size:var(--fs-card-title)!important;line-height:1.34!important}
+.screen p,.screen li,.screen label,.feature-card p,.feature-top p,.payment-helper-card p,.payment-helper-note,
+.taxi-card p,.phrase-sheet p,.translate-sheet p,.food-order-note,.offline-phrase-summary{font-size:var(--fs-body)!important;line-height:1.65!important}
+.screen small,.screen .caption,.screen .page-sub,.notice,.demo-banner,.arch-note,.map-note,
+.taxi-note,.phrase-disclaimer,.phrase-focus-note,.translate-privacy,.language-helper-note,
+.transit-card-caveat,.transit-card-finder-head small,.city-map-status,.city-map-search-hint,
+.city-map-search-count,.visitor-filter-count,.explore-visible-count,.poi-distance{font-size:var(--fs-caption)!important;line-height:1.6!important}
+
+/* Strong floor for legacy 7–13px rules. Icons are excluded. */
+body span:not(.ico):not(.qs-ico):not(.search-ico):not(.pin):not(.go):not(.qs-go):not(.payment-helper-icon):not(.phrase-icon):not(.phrase-focus-icon):not([class*="icon"]),
+body small,body em,body code{font-size:max(var(--fs-caption),1em)!important;line-height:1.55!important}
+.screen b,.payment-helper-card b,.transit-card-pick b,.phrase-card b,.destination-info-grid b,
+.city-transit-card-top b,.poi-text b,.city-facility-result .txt b{font-size:var(--fs-body)!important;line-height:1.45!important}
+.screen h1 b,.screen h2 b,.screen h3 b{font-size:inherit!important}
+.feature-card h3,.payment-helper-card b,.transit-card-finder-head b,.transit-card-pick b,
+.v118-home-title b,.visitor-filter-title b,.poi-text b,.city-facility-title{font-size:var(--fs-card-title)!important}
+
+/* Controls */
+button,select,textarea,input:not([type="checkbox"]):not([type="radio"]){
+  min-height:var(--touch-control)!important;
+  font-size:var(--fs-control)!important;
+  line-height:1.35!important;
+}
+button{padding-top:12px!important;padding-bottom:12px!important}
+select,textarea,input:not([type="checkbox"]):not([type="radio"]){padding:13px 15px!important}
+button > span:not(.ico):not(.qs-ico):not(.search-ico):not(.pin):not([class*="icon"]){font-size:inherit!important}
+input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!important;flex:0 0 auto!important}
+
+/* Chips / filters */
+.visitor-chip,.explore-category-bar button,.explore-saved-filter-btn,.explore-save-visible-btn,
+.explore-nearme-tools button,.explore-radius-btn,.city-radius-btn,.city-facility-btn,.city-map-search-filter,
+.move-pref,.offline-phrase-tabs button,.food-order-tabs button,.move-situation-chips button,.pill{
+  min-height:var(--touch-chip)!important;
+  font-size:var(--fs-chip)!important;
+  line-height:1.35!important;
+  padding:10px 14px!important;
+}
+
+/* More breathing room */
+.feature-card,.data-slot,.visitor-filter-bar,.payment-helper,.payment-helper-card,.v120-external-fallback,
+.v120-step,.city-facility-tools,.poi-item,.v118-help-primary,.v118-route-help,.mytrip-panel,
+.language-helper,.move-situation{padding:20px!important}
+.visitor-filter-chips,.explore-category-bar,.explore-radius-row,.city-radius-row,.city-facility-row,
+.payment-helper-grid,.transit-card-result,.transit-card-actions,.phrase-list,.move-situation-chips{gap:12px!important}
+
+/* Transit card: long explanations must stay readable; one column on phones */
+.payment-helper-grid{grid-template-columns:1fr!important}
+.payment-helper-card{gap:12px!important;align-items:flex-start!important;padding:18px!important}
+.payment-helper-icon{font-size:28px!important;line-height:1.15!important}
+.payment-helper-card b{font-size:var(--fs-card-title)!important}
+.payment-helper-card p{font-size:var(--fs-body)!important;margin-top:7px!important}
+.payment-checkline{gap:12px!important;margin:16px 0 10px!important}
+.payment-checkline label{font-size:var(--fs-control)!important;min-height:52px!important;padding:12px 14px!important;display:inline-flex!important;align-items:center!important;gap:10px!important}
+.payment-ready{font-size:var(--fs-body)!important;line-height:1.55!important}
+.transit-card-finder{margin-top:20px!important;padding-top:20px!important}
+.transit-card-finder-head b{font-size:var(--fs-card-title)!important}
+.transit-card-finder-head small{font-size:var(--fs-caption)!important;margin-top:7px!important}
+.transit-card-updated{font-size:var(--fs-caption)!important;padding:7px 10px!important}
+.transit-card-controls{grid-template-columns:1fr!important;gap:12px!important;margin-top:14px!important}
+.transit-card-controls label{font-size:var(--fs-body)!important;gap:8px!important}
+.transit-card-controls select{font-size:var(--fs-control)!important;min-height:54px!important}
+.transit-card-pick{padding:18px!important}
+.transit-card-pick b{font-size:var(--fs-card-title)!important}
+.transit-card-pick em{font-size:var(--fs-caption)!important;padding:6px 9px!important}
+.transit-card-pick p,.transit-card-pick ul{font-size:var(--fs-body)!important;line-height:1.65!important}
+.transit-card-actions{grid-template-columns:1fr!important}
+.transit-card-actions button{font-size:var(--fs-control)!important;min-height:54px!important}
+.transit-card-actions button.primary{grid-column:auto!important}
+.transit-card-caveat{font-size:var(--fs-caption)!important;line-height:1.6!important;padding:14px!important}
+
+/* Translation / phrase / taxi legacy tiny text */
+.taxi-eyebrow,.destination-card-label,.destination-info-grid span,.taxi-coords span,
+.phrase-sheet-head span,.phrase-card em,.phrase-focus-badge,.translate-box label,.translate-count,
+.translate-status,.translate-result .label,.translate-result .small,.translate-privacy,
+.food-order-note,.offline-phrase-summary{font-size:var(--fs-caption)!important}
+.taxi-card-head p,.taxi-english,.taxi-coords b,.destination-info-grid b,
+.phrase-focus-en,.phrase-disclaimer,.phrase-focus-note{font-size:var(--fs-body)!important}
+.taxi-show-btn,.uber-ride-btn,.taxi-actions button,.destination-card-actions button,
+.phrase-open-all,.phrase-quick-row button,.phrase-focus-actions button,.translation-launch-row button,
+.food-order-launch,.offline-phrase-launch,.food-order-tabs button,.offline-phrase-tabs button,
+.translate-direction button,.translate-actions button,.translate-result-actions button,.translate-fallback button,
+.food-order-focus-actions button{font-size:var(--fs-control)!important;min-height:var(--touch-control)!important}
+.phrase-card{padding:16px!important;gap:12px!important}.phrase-card b{font-size:var(--fs-card-title)!important}
+.phrase-card small{font-size:var(--fs-caption)!important;line-height:1.55!important}
+.phrase-focus-en{line-height:1.6!important}.translate-box textarea{font-size:var(--fs-control)!important;line-height:1.55!important}
+
+/* Map: labels/status must be comfortably readable */
+.visitor-filter-title span,.city-map-source-badge,.city-map-status,.city-map-search-count,.city-map-search-hint,
+.city-map-nearby-head small,.city-facility-title small,.city-facility-result-head small,.city-facility-result .txt small,
+.poi-text span,.poi-num,.poi-visit-check,.poi-visit-check-body label,.poi-visit-check-body small,
+.location-fallback-inline,.v120-route-note,.v120-step-copy span{font-size:var(--fs-caption)!important;line-height:1.6!important}
+#cityMapLocateFloatBtn{font-size:var(--fs-control)!important;min-height:58px!important;padding:13px 17px!important}
+#cityMapLocateFloatBtn .pin{font-size:26px!important}
+.city-map .leaflet-control-attribution,#cityGuideMap .maplibregl-ctrl-attrib,
+#cityGuideMap .maplibregl-ctrl-bottom-left,#cityGuideMap .maplibregl-ctrl-bottom-right{font-size:var(--fs-caption)!important}
+
+/* Route */
+#moveHub .route-live-grid label,#moveHub .v120-step-copy b{font-size:var(--fs-body)!important}
+#moveHub .route-live-grid select,#moveHub #moveLiveSearchBtn{font-size:var(--fs-control)!important}
+#moveHub .move-pref{font-size:var(--fs-chip)!important}
+.v120-external-fallback b{font-size:var(--fs-card-title)!important}
+.v120-external-fallback p{font-size:var(--fs-body)!important}
+.v120-external-actions button,.v120-route-secondary-links button,.v118-route-help-grid button{
+  min-height:var(--touch-control)!important;font-size:var(--fs-control)!important
+}
+
+/* Bottom navigation */
+:root{--v60-nav-h:112px!important}
+.v60-tabbar{
+  height:calc(var(--v60-nav-h) + env(safe-area-inset-bottom))!important;
+  padding:9px 7px calc(9px + env(safe-area-inset-bottom))!important
+}
+.v60-tabbar button{min-height:88px!important;gap:7px!important;padding:8px 3px!important}
+.v60-tabbar button .ico{font-size:40px!important;min-height:42px!important}
+.v60-tabbar button span:last-child{font-size:var(--fs-chip)!important;line-height:1.15!important;font-weight:950!important}
+.v60-tabbar button.active .ico{font-size:42px!important}
+.v60-tabbar button.active span:last-child{font-size:18px!important}
+
+/* Do not shrink on small phones. Keep readability; allow layout to stack instead. */
+@media(max-width:420px){
+  :root{
+    --fs-page-title:30px!important;
+    --fs-section:23px!important;
+    --fs-card-title:21px!important;
+    --fs-body:18px!important;
+    --fs-control:18px!important;
+    --fs-chip:17px!important;
+    --fs-caption:16px!important;
+  }
+  .screen{padding-left:14px!important;padding-right:14px!important}
+  .payment-helper-grid,.transit-card-controls,.transit-card-actions{grid-template-columns:1fr!important}
+  .taxi-actions,.destination-card-actions,.phrase-focus-actions,.translate-actions,.translate-result-actions,.food-order-focus-actions{grid-template-columns:1fr!important}
+  .destination-card-actions .uber-ride-btn,.phrase-focus-actions button.primary,.translate-actions button.primary,
+  .food-order-focus-actions button.primary{grid-column:auto!important}
+}
+</style>
+
+\n<style id="v124-traveler-filter-map">
+/* V124 Traveler Filter Map — map-first bottom sheet, large mobile text */
+.traveler-filter-sheet{display:none;position:relative;z-index:930;margin:-30px 10px 8px;border:1px solid rgba(11,35,69,.10);border-radius:26px 26px 18px 18px;background:rgba(255,255,255,.98);box-shadow:0 -10px 34px rgba(11,35,69,.16);padding:9px 14px 14px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+#city.v60-map-mode .traveler-filter-sheet{display:block}
+.traveler-sheet-handle{width:54px;height:5px;border-radius:999px;background:#cbd6e4;margin:0 auto 9px}
+.traveler-sheet-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.traveler-sheet-head b{display:block;font-size:22px;line-height:1.25;color:#0b2345}
+.traveler-sheet-head span{display:block;margin-top:3px;font-size:16px;line-height:1.45;color:#60738d;font-weight:750}
+.traveler-sheet-count{flex:0 0 auto;min-width:54px;min-height:44px;padding:7px 10px;border-radius:13px;background:#edf4ff;color:#174985;font-size:16px;font-weight:950;display:grid;place-items:center;text-align:center}
+.traveler-main-scroll,.traveler-sub-scroll{display:flex;gap:9px;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;padding:10px 1px 3px}
+.traveler-main-scroll::-webkit-scrollbar,.traveler-sub-scroll::-webkit-scrollbar{display:none}
+.traveler-main-btn,.traveler-sub-btn{flex:0 0 auto;min-height:50px;border:1px solid #dbe4f0;border-radius:16px;background:#fff;color:#223a57;padding:10px 14px;font-size:17px;line-height:1.25;font-weight:900;cursor:pointer}
+.traveler-main-btn{display:flex;align-items:center;gap:7px}.traveler-main-btn .ico{font-size:21px}
+.traveler-main-btn.active,.traveler-sub-btn.active{background:#0b2345;color:#fff;border-color:#0b2345;box-shadow:0 7px 18px rgba(11,35,69,.18)}
+.traveler-sub-btn{min-height:46px;font-size:16px;padding:9px 13px;border-radius:999px;background:#f7f9fc}
+.traveler-filter-note{margin:9px 2px 0;padding:10px 11px;border-radius:13px;background:#f6f8fb;color:#53677f;font-size:16px;line-height:1.5;font-weight:750}
+.traveler-filter-note strong{color:#0b2345}.traveler-filter-note.warn{background:#fff7e8;color:#79510c}
+.traveler-result-strip{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;padding:10px 1px 2px}.traveler-result-strip::-webkit-scrollbar{display:none}
+.traveler-result-card{flex:0 0 min(78vw,300px);min-height:92px;text-align:left;border:1px solid #dce5f1;border-radius:17px;background:#fff;padding:12px 13px;box-shadow:0 6px 18px rgba(11,35,69,.06);cursor:pointer}
+.traveler-result-card b{display:block;font-size:18px;line-height:1.3;color:#0b2345;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.traveler-result-card span{display:block;margin-top:5px;font-size:16px;line-height:1.4;color:#63758d;font-weight:750}.traveler-result-card .meta{color:#2f6fed;font-weight:900}
+.traveler-filter-loading{padding:13px 3px 2px;font-size:16px;line-height:1.5;color:#62748b;font-weight:800}
+.traveler-filter-empty{padding:12px;border-radius:14px;background:#f6f8fb;font-size:16px;line-height:1.55;color:#586b82;font-weight:750}
+.traveler-filter-empty b{display:block;margin-bottom:4px;font-size:18px;color:#0b2345}
+.traveler-marker{width:38px;height:38px;border-radius:50% 50% 50% 10px;transform:rotate(-45deg);display:grid;place-items:center;background:#fff;border:3px solid #0b2345;box-shadow:0 5px 14px rgba(11,35,69,.25)}
+.traveler-marker span{transform:rotate(45deg);font-size:18px;line-height:1}
+.traveler-marker.active{background:#0b2345}.traveler-marker.active span{filter:drop-shadow(0 0 1px #fff)}
+#city.v60-map-mode #cityGuideMap{height:clamp(470px,66dvh,690px)!important;min-height:470px!important}
+#city.v60-map-mode .city-map-live-wrap{margin-bottom:0!important}
+@media(max-width:420px){.traveler-filter-sheet{margin:-26px 6px 7px;padding:8px 12px 13px}.traveler-sheet-head b{font-size:21px}.traveler-main-btn{font-size:16px;padding:9px 12px}.traveler-result-card{flex-basis:82vw}}
+</style>\n</head>
 <body>
 <div class="app">
 
@@ -2981,6 +3320,16 @@ html.v119-tips-open,body.v119-tips-open{overflow:hidden!important;overscroll-beh
   <button type="button" class="city-map-locate-float" id="cityMapLocateFloatBtn" onclick="locateCityMapUser()" aria-label="Find my location">
     <span class="pin">📍</span><span data-en="My location" data-ko="내 위치 찾기">My location</span>
   </button>
+</div>\n<div class="traveler-filter-sheet" id="travelerFilterSheet" aria-live="polite">
+  <div class="traveler-sheet-handle" aria-hidden="true"></div>
+  <div class="traveler-sheet-head">
+    <div><b id="travelerFilterTitle">Nearby for travelers</b><span id="travelerFilterSubtitle">Choose what matters to you, then narrow the map.</span></div>
+    <div class="traveler-sheet-count" id="travelerFilterCount">—</div>
+  </div>
+  <div class="traveler-main-scroll" id="travelerMainFilters"></div>
+  <div class="traveler-sub-scroll" id="travelerSubFilters"></div>
+  <div class="traveler-filter-note" id="travelerFilterNote"></div>
+  <div class="traveler-result-strip" id="travelerFilterResults"></div>
 </div>
     <div id="cityMapDestCard" class="city-map-dest-card" aria-live="polite"></div>
     <div id="cityPoiList" class="poi-list"></div>
@@ -4052,7 +4401,7 @@ function toggleAllTools(){
 }
 
 let current='home';
-const APP_RELEASE='Korea Route Public Beta V120';
+const APP_RELEASE='Korea Route Public Beta V124';
 
 // V36 safe auto-restore: persist only explicit, non-sensitive trip state and user preferences.
 // Never mirror API keys, current/GPS location, sensor state, or walk-recovery data.
@@ -7001,32 +7350,51 @@ function applyCityUserPosition(lat,lng,accuracy,{recenter=true}={}){
   const map=ensureCityGuideMap();
   if(!map) return;
   lat=Number(lat); lng=Number(lng);
+  if(!Number.isFinite(lat)||!Number.isFinite(lng)){
+    setCityMapStatus(lang==='ko'?'현재 위치 좌표를 확인할 수 없습니다. 다시 시도해주세요.':'Could not read your current coordinates. Please try again.');
+    return;
+  }
   exploreUserLocation={lat,lng};
   const safeAccuracy=Math.max(10,Number(accuracy)||30);
-  if(!cityUserLayer){
-    cityUserAccuracyCircle=L.circle([lat,lng],{radius:safeAccuracy,weight:1,color:'#2f6fed',fillColor:'#2f6fed',fillOpacity:.10,interactive:false});
-    const userIcon=L.divIcon({className:'city-user-location-icon',html:'<span class="city-user-location-pin" aria-hidden="true"></span>',iconSize:[28,28],iconAnchor:[14,14],popupAnchor:[0,-15]});
-    cityUserDot=L.marker([lat,lng],{icon:userIcon,keyboard:true,title:lang==='ko'?'내 위치':'My location',alt:lang==='ko'?'내 위치':'My location',zIndexOffset:10000})
-      .bindPopup(`<b>${lang==='ko'?'내 위치':'My location'}</b><br><small>GPS</small>`);
+
+  let userPane=map.getPane?.('cityUserPane');
+  if(!userPane&&map.createPane) userPane=map.createPane('cityUserPane');
+  if(userPane){
+    userPane.style.zIndex='850';
+    userPane.style.pointerEvents='none';
+  }
+
+  if(!cityUserLayer||!cityUserDot||!cityUserAccuracyCircle){
+    try{if(cityUserLayer) map.removeLayer(cityUserLayer);}catch(e){}
+    cityUserAccuracyCircle=L.circle([lat,lng],{
+      radius:safeAccuracy,pane:'cityUserPane',weight:2,color:'#2f6fed',opacity:.72,
+      fillColor:'#2f6fed',fillOpacity:.11,interactive:false
+    });
+    cityUserDot=L.circleMarker([lat,lng],{
+      pane:'cityUserPane',radius:10,weight:4,color:'#ffffff',opacity:1,
+      fillColor:'#2f6fed',fillOpacity:1,interactive:false
+    });
     cityUserLayer=L.layerGroup([cityUserAccuracyCircle,cityUserDot]).addTo(map);
-    try{cityUserAccuracyCircle.bringToFront?.();cityUserDot.setZIndexOffset?.(10000);}catch(e){}
   }else{
-    try{cityUserAccuracyCircle?.setLatLng([lat,lng]);cityUserAccuracyCircle?.setRadius(safeAccuracy);}catch(e){}
-    try{cityUserDot?.setLatLng([lat,lng]);cityUserDot?.setPopupContent(`<b>${lang==='ko'?'내 위치':'My location'}</b><br><small>±${Math.round(safeAccuracy)}m</small>`);cityUserDot?.setZIndexOffset?.(10000);}catch(e){}
+    try{cityUserAccuracyCircle.setLatLng([lat,lng]);cityUserAccuracyCircle.setRadius(safeAccuracy);}catch(e){}
+    try{cityUserDot.setLatLng([lat,lng]);}catch(e){}
   }
+
+  try{cityUserAccuracyCircle?.bringToFront?.();cityUserDot?.bringToFront?.();}catch(e){}
   if(recenter){
-    if(map.getZoom()<16) map.setView([lat,lng],16,{animate:false});
-    else map.panTo([lat,lng],{animate:false,noMoveStart:true});
+    const targetZoom=Math.max(16,Number(map.getZoom?.())||16);
+    map.setView([lat,lng],targetZoom,{animate:false});
+    scheduleCityMapInvalidate();
   }
-  try{cityUserAccuracyCircle?.bringToFront?.();cityUserDot?.setZIndexOffset?.(10000);}catch(e){}
+
   document.getElementById('cityMapLocateBtn')?.classList.add('active');
-  setCityMapStatus(lang==='ko'?`현재 위치 확인 · 정확도 약 ${Math.round(safeAccuracy)}m`:`Location ready · about ±${Math.round(safeAccuracy)}m accuracy`);
+  document.getElementById('cityMapLocateFloatBtn')?.classList.add('active');
+  setCityMapStatus(lang==='ko'?`현재 위치 확인 · 정확도 약 ±${Math.round(safeAccuracy)}m`:`Location ready · about ±${Math.round(safeAccuracy)}m accuracy`);
   const currentCity=document.getElementById('city')?.dataset.currentCity||'';
   if(cityWalkGuideTarget) updateCityWalkGuide({lat,lng,accuracy:safeAccuracy});
   else if(cityMapSelectedIndex>=0) selectCityMapDestination(currentCity,cityMapSelectedIndex,{pan:false});
   updateCityMapRouteBar();
 }
-
 function stopCityMapFollow(){
   if(cityMapWatchId!==null&&navigator.geolocation){navigator.geolocation.clearWatch(cityMapWatchId);}
   cityMapWatchId=null; cityMapFollowActive=false;
@@ -8664,6 +9032,7 @@ function locateCityMapUser(){
     return;
   }
   if(!navigator.geolocation){
+    setCityMapStatus(lang==='ko'?'이 기기/브라우저에서는 현재 위치를 사용할 수 없습니다.':'Current location is not supported on this device/browser.');
     showCityMapLocationFallback();
     return;
   }
@@ -8672,14 +9041,19 @@ function locateCityMapUser(){
     applyCityUserPosition(pos.coords.latitude,pos.coords.longitude,pos.coords.accuracy,{recenter:true});
     const currentCity=document.getElementById('city')?.dataset.currentCity||'';
     renderCityPoiList(currentCity);
-  },()=>{
-    showCityMapLocationFallback();
-  },{enableHighAccuracy:true,timeout:10000,maximumAge:30000});
+  },err=>{
+    const message=err?.code===1
+      ?(lang==='ko'?'위치 권한이 거부되었습니다. 브라우저/사이트 설정에서 위치 권한을 허용해주세요.':'Location permission was denied. Allow location access in your browser/site settings.')
+      :err?.code===2
+        ?(lang==='ko'?'현재 위치 신호를 받을 수 없습니다. GPS/위치 서비스를 켠 뒤 다시 시도해주세요.':'Your location is currently unavailable. Turn on location services and try again.')
+        :(lang==='ko'?'현재 위치 확인 시간이 초과되었습니다. 잠시 후 다시 시도해주세요.':'Location request timed out. Please try again.');
+    const el=document.getElementById('cityMapStatus');
+    if(el){
+      el.innerHTML=`<div class="location-fallback-inline"><span>${message}</span><button type="button">${lang==='ko'?'위치 없이 계속':'Continue without location'}</button></div>`;
+      el.querySelector('button')?.addEventListener('click',continueCityMapWithoutLocation,{once:true});
+    }else setCityMapStatus(message);
+  },{enableHighAccuracy:true,timeout:12000,maximumAge:15000});
 }
-
-
-
-
 function closeCityTripTrouble(){
   const box=document.getElementById('cityTripTroublePanel');
   if(box){box.classList.remove('show');box.innerHTML='';}
@@ -8987,7 +9361,11 @@ function cityFacilityVisual(type){
     elevator:{icon:'🛗',labelKo:'엘리베이터',labelEn:'Elevator'},
     bus:{icon:'🚌',labelKo:'환승 지점',labelEn:'Transfer point'},
     police:{icon:'👮',labelKo:'경찰관서',labelEn:'Police'},
-    medical:{icon:'🏥',labelKo:'의료시설',labelEn:'Medical care'}
+    medical:{icon:'🏥',labelKo:'의료시설',labelEn:'Medical care'},
+    wellness:{icon:'🌿',labelKo:'웰빙 장소',labelEn:'Wellness'},
+    transport:{icon:'🚇',labelKo:'교통',labelEn:'Transport'},
+    foreigner:{icon:'🌏',labelKo:'외국인 편의',labelEn:'Foreigner-friendly'},
+    attraction:{icon:'🏯',labelKo:'관광지',labelEn:'Attraction'}
   })[type]||{icon:'📍',labelKo:'시설',labelEn:'Place'};
 }
 function cityFacilityDivIcon(type,selected=false){
@@ -9026,7 +9404,7 @@ function renderCityFacilityGoCard(facility){
   if(cityMapSearchLayer){cityMapSearchLayer.remove();cityMapSearchLayer=null;}
   cityMapSelectedIndex=-1;
   const v=cityFacilityVisual(facility.type);
-  const isBrowsePlace=['food','cafe','shopping'].includes(facility.type);
+  const isBrowsePlace=['food','cafe','shopping','wellness','transport','foreigner','attraction'].includes(facility.type);
   const fromLabel=exploreUserLocation?(lang==='ko'?'내 현재 위치':'My current location'):(lang==='ko'?'내 위치 확인 필요':'Location needed');
   const name=facility.name||(lang==='ko'?v.labelKo:v.labelEn);
   card.innerHTML=`<div class="city-map-dest-top">
@@ -14836,5 +15214,260 @@ function v118ToggleMapMore(){
 document.addEventListener('DOMContentLoaded',()=>{document.getElementById('helperHub')?.classList.remove('v118-tools-open');});
 </script>
 
-</body>
+\n<script id="v124-traveler-filter-map-js">
+// V124 Traveler Filter Map. Existing IDs/functions remain intact; this is an additive map layer.
+let travelerFilterLayer=null;
+let travelerFilterItems=[];
+let travelerFilterCategory='food';
+let travelerFilterSub='food_all';
+let travelerFilterRequestSeq=0;
+
+const TRAVELER_FILTERS={
+  food:{icon:'🍽️',en:'Food',ko:'음식',subs:[
+    {id:'food_all',icon:'🍜',en:'Restaurants',ko:'음식점'},
+    {id:'vegan',icon:'🌱',en:'Vegan',ko:'비건'},
+    {id:'vegetarian',icon:'🥬',en:'Vegetarian',ko:'채식'},
+    {id:'halal',icon:'🕌',en:'Halal mapped',ko:'할랄 표시'},
+    {id:'no_pork',icon:'🚫',en:'No pork',ko:'돼지고기 제외',community:true},
+    {id:'allergy',icon:'🥜',en:'Allergy-aware',ko:'알레르기 대응',community:true}
+  ]},
+  wellness:{icon:'🌿',en:'Wellness',ko:'웰빙',subs:[
+    {id:'parks',icon:'🌳',en:'Parks & gardens',ko:'공원·정원'},
+    {id:'spa',icon:'♨️',en:'Spa / sauna',ko:'스파·사우나'},
+    {id:'walking',icon:'🚶',en:'Walking',ko:'산책'},
+    {id:'quiet',icon:'🧘',en:'Quiet places',ko:'조용한 장소',community:true}
+  ]},
+  foreigner:{icon:'🌏',en:'Foreigner-friendly',ko:'외국인 편의',subs:[
+    {id:'english_info',icon:'🇬🇧',en:'English info mapped',ko:'영문 정보 표시'},
+    {id:'card_mapped',icon:'💳',en:'Card payment mapped',ko:'카드결제 표시'},
+    {id:'traveler_confirmed',icon:'✓',en:'Traveler confirmed',ko:'여행자 확인',community:true}
+  ]},
+  transport:{icon:'🚇',en:'Transport',ko:'교통',subs:[
+    {id:'rail',icon:'🚆',en:'Train / subway',ko:'전철·기차'},
+    {id:'bus_stop',icon:'🚌',en:'Bus stops',ko:'버스 정류장'},
+    {id:'taxi',icon:'🚕',en:'Taxi stands',ko:'택시 승강장'},
+    {id:'tmoney_candidate',icon:'💳',en:'T-money top-up candidates',ko:'티머니 충전 후보'}
+  ]},
+  needs:{icon:'🧳',en:'Travel needs',ko:'여행 필수',subs:[
+    {id:'toilets',icon:'🚻',en:'Restroom',ko:'화장실'},
+    {id:'atm',icon:'🏧',en:'ATM',ko:'ATM'},
+    {id:'pharmacy',icon:'💊',en:'Pharmacy',ko:'약국'},
+    {id:'luggage',icon:'🧳',en:'Luggage',ko:'짐보관'},
+    {id:'convenience',icon:'🏪',en:'Convenience',ko:'편의점'}
+  ]},
+  sights:{icon:'🏯',en:'Attractions',ko:'관광지',subs:[
+    {id:'curated_sights',icon:'⭐',en:'Korea Route picks',ko:'Korea Route 추천'},
+    {id:'mapped_sights',icon:'🗺️',en:'Mapped attractions',ko:'지도 관광지'}
+  ]}
+};
+
+function travelerLabel(obj){return lang==='ko'?(obj.ko||obj.en):(obj.en||obj.ko)}
+function travelerCurrentFilter(){return TRAVELER_FILTERS[travelerFilterCategory]?.subs?.find(x=>x.id===travelerFilterSub)||null}
+function travelerFilterCenter(){
+  const map=ensureCityGuideMap();
+  if(exploreUserLocation) return {lat:Number(exploreUserLocation.lat),lng:Number(exploreUserLocation.lng),name:lang==='ko'?'내 위치':'My location'};
+  if(map){const c=map.getCenter();return {lat:Number(c.lat),lng:Number(c.lng),name:lang==='ko'?'지도 중심':'Map center'};}
+  return null;
+}
+function travelerFilterRadius(){return Math.max(1200,Math.min(4000,Number(cityFacilityRadius)||1800))}
+function travelerFilterIcon(item){
+  return L.divIcon({className:'',html:`<div class="traveler-marker"><span>${item.icon||'📍'}</span></div>`,iconSize:[40,40],iconAnchor:[20,38],popupAnchor:[0,-36]});
+}
+function clearTravelerFilterLayer(){
+  travelerFilterRequestSeq++;
+  if(travelerFilterLayer){try{travelerFilterLayer.remove()}catch(e){} travelerFilterLayer=null;}
+  travelerFilterItems=[];
+}
+function travelerFilterResetCompetingLayers(){
+  if(cityFacilityLayer){try{cityFacilityLayer.remove()}catch(e){} cityFacilityLayer=null;}
+  if(cityGuideLayer){try{cityGuideLayer.remove()}catch(e){}}
+  if(cityMapSearchLayer){try{cityMapSearchLayer.remove()}catch(e){} cityMapSearchLayer=null;}
+  activeCityFacility=''; cityMapLoadedFacilities=[]; cityMapSelectedFacility=null; cityMapSelectedSearchPlace=null; cityMapSelectedIndex=-1;
+  const card=document.getElementById('cityMapDestCard'); if(card){card.classList.remove('show');card.innerHTML='';}
+  document.querySelectorAll('.city-facility-btn,.city-map-nearby-btn').forEach(x=>x.classList.remove('active','loading'));
+  updateCityMapRouteBar();
+}
+function travelerFilterCommunityOnly(f){return !!f?.community}
+
+function travelerFilterSheetText(){
+  const title=document.getElementById('travelerFilterTitle'), sub=document.getElementById('travelerFilterSubtitle');
+  if(title) title.textContent=lang==='ko'?'여행자 맞춤 지도':'Nearby for travelers';
+  if(sub) sub.textContent=lang==='ko'?'필요한 조건을 고르면 지도 핀이 단계별로 좁혀집니다.':'Choose what matters to you, then narrow the map.';
+}
+function renderTravelerFilterSheet(){
+  const main=document.getElementById('travelerMainFilters');
+  const subs=document.getElementById('travelerSubFilters');
+  if(!main||!subs) return;
+  travelerFilterSheetText();
+  main.innerHTML=Object.entries(TRAVELER_FILTERS).map(([id,v])=>`<button type="button" class="traveler-main-btn${id===travelerFilterCategory?' active':''}" onclick="selectTravelerMainFilter('${id}')"><span class="ico">${v.icon}</span><span>${escapeHtmlText(travelerLabel(v))}</span></button>`).join('');
+  const cfg=TRAVELER_FILTERS[travelerFilterCategory];
+  if(!cfg) return;
+  if(!cfg.subs.some(x=>x.id===travelerFilterSub)) travelerFilterSub=cfg.subs[0].id;
+  subs.innerHTML=cfg.subs.map(x=>`<button type="button" class="traveler-sub-btn${x.id===travelerFilterSub?' active':''}" onclick="selectTravelerSubFilter('${x.id}')">${x.icon||''} ${escapeHtmlText(travelerLabel(x))}</button>`).join('');
+  updateTravelerFilterNote();
+}
+function updateTravelerFilterNote(extra=''){
+  const note=document.getElementById('travelerFilterNote'); if(!note) return;
+  const f=travelerCurrentFilter();
+  if(travelerFilterCommunityOnly(f)){
+    note.className='traveler-filter-note warn';
+    note.innerHTML=lang==='ko'?`<strong>여행자 확인 데이터가 필요한 필터입니다.</strong> 아직 로그인·Traveler Confirmations DB를 연결하지 않았기 때문에 검증되지 않은 핀을 임의로 표시하지 않습니다.`:`<strong>This filter needs traveler-confirmed data.</strong> Login and Traveler Confirmations are not connected yet, so Korea Route does not guess or show unverified pins.`;
+  }else{
+    note.className='traveler-filter-note';
+    note.innerHTML=(lang==='ko'?`현재 핀은 OpenStreetMap 또는 Korea Route의 기본 장소 데이터를 사용합니다. 비건·할랄·카드 같은 태그는 <strong>현장에서 다시 확인</strong>하세요.`:`Pins currently use OpenStreetMap or Korea Route base place data. For vegan, halal or card tags, <strong>verify on site</strong>.`)+(extra?` ${escapeHtmlText(extra)}`:'');
+  }
+}
+function setTravelerFilterBusy(text=''){
+  const results=document.getElementById('travelerFilterResults'); const count=document.getElementById('travelerFilterCount');
+  if(count) count.textContent='…';
+  if(results) results.innerHTML=`<div class="traveler-filter-loading">${escapeHtmlText(text||(lang==='ko'?'지도 후보를 찾는 중…':'Finding map candidates…'))}</div>`;
+}
+function setTravelerFilterEmpty(title,body){
+  const results=document.getElementById('travelerFilterResults'),count=document.getElementById('travelerFilterCount');
+  if(count) count.textContent='0';
+  if(results) results.innerHTML=`<div class="traveler-filter-empty"><b>${escapeHtmlText(title)}</b>${escapeHtmlText(body)}</div>`;
+}
+function travelerFilterQuery(id,lat,lng,radius){
+  const around=`around:${Math.round(radius)},${lat},${lng}`;
+  const q={
+    food_all:`nwr[amenity~"^(restaurant|fast_food|food_court|cafe)$"](${around});`,
+    vegan:`nwr[amenity~"^(restaurant|fast_food|food_court|cafe)$"]["diet:vegan"~"^(yes|only)$"](${around});`,
+    vegetarian:`nwr[amenity~"^(restaurant|fast_food|food_court|cafe)$"]["diet:vegetarian"~"^(yes|only)$"](${around});`,
+    halal:`nwr[amenity~"^(restaurant|fast_food|food_court|cafe)$"]["diet:halal"~"^(yes|only)$"](${around});`,
+    parks:`nwr[leisure~"^(park|garden|nature_reserve)$"](${around});nwr[boundary=protected_area](${around});`,
+    spa:`nwr[amenity=public_bath](${around});nwr[leisure=sauna](${around});nwr[shop=massage](${around});`,
+    walking:`nwr[route~"^(hiking|walking)$"](${around});nwr[highway~"^(pedestrian|footway)$"][name](${around});`,
+    english_info:`nwr["name:en"][amenity~"^(restaurant|cafe|fast_food)$"](${around});nwr["name:en"][tourism](${around});`,
+    card_mapped:`nwr["payment:credit_cards"="yes"](${around});nwr["payment:visa"="yes"](${around});nwr["payment:mastercard"="yes"](${around});`,
+    rail:`nwr[railway~"^(station|halt)$"](${around});nwr[public_transport=station](${around});`,
+    bus_stop:`nwr[highway=bus_stop](${around});nwr[public_transport=platform][bus=yes](${around});`,
+    taxi:`nwr[amenity=taxi](${around});`,
+    tmoney_candidate:`nwr[shop=convenience](${around});`,
+    toilets:`nwr[amenity=toilets](${around});`,
+    atm:`nwr[amenity=atm](${around});`,
+    pharmacy:`nwr[amenity=pharmacy](${around});`,
+    luggage:`nwr[amenity~"^(luggage_locker|left_luggage)$"](${around});`,
+    convenience:`nwr[shop=convenience](${around});`,
+    mapped_sights:`nwr[tourism~"^(attraction|museum|gallery|viewpoint)$"](${around});nwr[historic](${around});`
+  }[id]||'';
+  return q?`[out:json][timeout:12];(${q});out center 50;`:'';
+}
+function travelerFilterType(id){
+  if(['food_all','vegan','vegetarian','halal'].includes(id)) return 'food';
+  if(['toilets','atm','pharmacy','luggage','convenience'].includes(id)) return id;
+  if(id==='bus_stop') return 'bus';
+  if(id==='rail'||id==='taxi'||id==='tmoney_candidate') return 'transport';
+  if(['parks','spa','walking'].includes(id)) return 'wellness';
+  if(['english_info','card_mapped'].includes(id)) return 'foreigner';
+  if(id==='mapped_sights'||id==='curated_sights') return 'attraction';
+  return 'place';
+}
+function travelerFilterMeta(id){
+  const f=travelerCurrentFilter(); return {icon:f?.icon||'📍',label:travelerLabel(f||{})||id};
+}
+function travelerFilterResultName(tags,id){
+  const fallback=travelerFilterMeta(id).label;
+  if(lang==='ko') return tags?.['name:ko']||tags?.name||tags?.['name:en']||fallback;
+  return tags?.['name:en']||tags?.name||tags?.['name:ko']||fallback;
+}
+function travelerFilterResultHint(tags,id){
+  if(id==='vegan') return lang==='ko'?'OSM 비건 태그':'OSM vegan tag';
+  if(id==='vegetarian') return lang==='ko'?'OSM 채식 태그':'OSM vegetarian tag';
+  if(id==='halal') return lang==='ko'?'OSM 할랄 태그 · 인증 의미 아님':'OSM halal tag · not certification';
+  if(id==='card_mapped') return lang==='ko'?'카드결제 태그 · 해외카드 승인 보장 아님':'Card-payment tag · foreign-card approval not guaranteed';
+  if(id==='english_info') return lang==='ko'?'영문 장소정보 등록':'English place info mapped';
+  if(id==='tmoney_candidate') return lang==='ko'?'편의점 후보 · 충전 가능 여부 확인 필요':'Convenience candidate · verify top-up';
+  return lang==='ko'?'지도 등록 정보':'Mapped place data';
+}
+function renderTravelerFilterResults(items){
+  travelerFilterItems=items||[];
+  const box=document.getElementById('travelerFilterResults'), count=document.getElementById('travelerFilterCount');
+  if(count) count.textContent=String(travelerFilterItems.length);
+  if(!box) return;
+  if(!travelerFilterItems.length){setTravelerFilterEmpty(lang==='ko'?'조건에 맞는 핀이 없습니다.':'No matching pins yet.',lang==='ko'?'검색 범위를 바꾸거나 다른 조건을 선택해 보세요.':'Try another filter or move the map.');return;}
+  box.innerHTML=travelerFilterItems.slice(0,12).map((x,i)=>`<button type="button" class="traveler-result-card" onclick="pickTravelerFilterResult(${i})"><b>${x.icon||'📍'} ${escapeHtmlText(x.name)}</b><span class="meta">${escapeHtmlText(x.distance||'')}</span><span>${escapeHtmlText(x.travelerFilter?travelerFilterResultHint({},x.travelerFilter):(x.curated?(lang==='ko'?'Korea Route 기본 추천 장소':'Korea Route curated place'):(x.hint||'')))}</span></button>`).join('');
+}
+function drawTravelerFilterMarkers(items){
+  const map=ensureCityGuideMap(); if(!map) return;
+  if(travelerFilterLayer){try{travelerFilterLayer.remove()}catch(e){}}
+  const group=L.layerGroup();
+  (items||[]).forEach((item,i)=>{
+    const m=L.marker([item.lat,item.lng],{icon:travelerFilterIcon(item),keyboard:true,title:item.name});
+    m.bindPopup(`<b>${escapeHtmlText(item.icon+' '+item.name)}</b><br><small>${escapeHtmlText(item.hint||'')}</small>`);
+    m.on('click',()=>{pickTravelerFilterResult(i);try{m.openPopup()}catch(e){}});
+    m.addTo(group);
+  });
+  group.addTo(map); travelerFilterLayer=group;
+}
+async function loadTravelerFilter(){
+  const f=travelerCurrentFilter(); if(!f) return;
+  travelerFilterResetCompetingLayers();
+  clearTravelerFilterLayer();
+  if(travelerFilterCommunityOnly(f)){
+    updateTravelerFilterNote();
+    setTravelerFilterEmpty(lang==='ko'?'Traveler Confirmations 연결 전입니다.':'Traveler Confirmations coming next.',lang==='ko'?'이 조건은 사용자 확인 데이터가 생긴 뒤에만 핀을 표시합니다.':'This filter will show pins only after traveler-confirmed data is connected.');
+    return;
+  }
+  if(f.id==='curated_sights'){
+    const city=document.getElementById('city')?.dataset.currentCity||'';
+    const center=travelerFilterCenter();
+    const items=(getSelectedCityPois(city)||[]).map(p=>{const km=center?haversineKm(center.lat,center.lng,p.lat,p.lng):NaN;return {type:'attraction',name:lang==='ko'?(p.ko||p.en):(p.en||p.ko),lat:Number(p.lat),lng:Number(p.lng),km:Number.isFinite(km)?km:undefined,distance:Number.isFinite(km)?(km<1?`${Math.round(km*1000)}m`:`${km.toFixed(1)}km`):'',icon:'⭐',curated:true,hint:lang==='ko'?'Korea Route 기본 추천 장소':'Korea Route curated place'};});
+    drawTravelerFilterMarkers(items); renderTravelerFilterResults(items); updateTravelerFilterNote(); return;
+  }
+  const center=travelerFilterCenter();
+  if(!center){setTravelerFilterEmpty(lang==='ko'?'지도가 준비되지 않았습니다.':'Map not ready.',lang==='ko'?'잠시 후 다시 눌러주세요.':'Try again in a moment.');return;}
+  const radius=travelerFilterRadius(); const q=travelerFilterQuery(f.id,center.lat,center.lng,radius);
+  if(!q){setTravelerFilterEmpty(lang==='ko'?'아직 데이터 연결이 필요합니다.':'Data connection needed.',lang==='ko'?'검증 데이터 없이 결과를 추정하지 않습니다.':'Korea Route does not guess without verified data.');return;}
+  const seq=++travelerFilterRequestSeq;
+  setTravelerFilterBusy(lang==='ko'?`${travelerLabel(f)} 후보를 찾는 중…`:`Finding ${travelerLabel(f)}…`);
+  try{
+    const cacheKey=cityMapCacheKey('traveler-filter',[f.id,Math.round(radius),cityMapCenterKey(center.lat,center.lng,4)]);
+    let data=cityMapCacheGet(cacheKey,180000);
+    if(!data){const r=await fetch('https://overpass-api.de/api/interpreter?data='+encodeURIComponent(q),{cache:'no-store'});if(!r.ok) throw new Error('overpass');data=cityMapCacheSet(cacheKey,await r.json());}
+    if(seq!==travelerFilterRequestSeq) return;
+    const meta=travelerFilterMeta(f.id); const seen=new Set();
+    const items=(data.elements||[]).map(el=>{
+      const lat=Number(el.lat??el.center?.lat),lng=Number(el.lon??el.center?.lon);if(!Number.isFinite(lat)||!Number.isFinite(lng)) return null;
+      const name=travelerFilterResultName(el.tags||{},f.id);const key=`${name}|${lat.toFixed(5)}|${lng.toFixed(5)}`;if(seen.has(key)) return null;seen.add(key);
+      const km=haversineKm(center.lat,center.lng,lat,lng);
+      return {type:travelerFilterType(f.id),name,lat,lng,km:Number.isFinite(km)?km:undefined,distance:Number.isFinite(km)?(km<1?`${Math.max(10,Math.round(km*1000/10)*10)}m`:`${km.toFixed(1)}km`):'',icon:meta.icon,hint:travelerFilterResultHint(el.tags||{},f.id),source:'OpenStreetMap',travelerFilter:f.id};
+    }).filter(Boolean).sort((a,b)=>(a.km??999)-(b.km??999)).slice(0,30);
+    drawTravelerFilterMarkers(items); renderTravelerFilterResults(items); updateTravelerFilterNote(lang==='ko'?`${center.name} 기준 약 ${Math.round(radius/100)/10}km`:`About ${Math.round(radius/100)/10}km from ${center.name}`);
+    setCityMapStatus(lang==='ko'?`${travelerLabel(f)} ${items.length}곳 표시 · 태그는 현장에서 다시 확인하세요.`:`${items.length} ${travelerLabel(f)} pins shown · verify tags on site.`);
+  }catch(e){
+    if(seq!==travelerFilterRequestSeq) return;
+    setTravelerFilterEmpty(lang==='ko'?'지도 데이터를 불러오지 못했습니다.':'Could not load map data.',lang==='ko'?'잠시 후 다시 시도하거나 Google Maps에서 확인하세요.':'Try again shortly or verify in Google Maps.');
+  }
+}
+function selectTravelerMainFilter(id){
+  if(!TRAVELER_FILTERS[id]) return; travelerFilterCategory=id; travelerFilterSub=TRAVELER_FILTERS[id].subs[0].id; renderTravelerFilterSheet(); loadTravelerFilter();
+}
+function selectTravelerSubFilter(id){
+  const cfg=TRAVELER_FILTERS[travelerFilterCategory]; if(!cfg?.subs?.some(x=>x.id===id)) return; travelerFilterSub=id; renderTravelerFilterSheet(); loadTravelerFilter();
+}
+function pickTravelerFilterResult(index){
+  const item=travelerFilterItems?.[Number(index)]; if(!item) return;
+  const map=ensureCityGuideMap(); if(map) map.setView([item.lat,item.lng],Math.max(16,map.getZoom()),{animate:false});
+  cityMapSelectedFacility={...item};
+  renderCityFacilityGoCard({...item});
+  document.getElementById('cityMapDestCard')?.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function initTravelerFilterMap(){
+  const cityScreen=document.getElementById('city');
+  if(!document.getElementById('travelerFilterSheet')||!cityScreen?.classList.contains('v60-map-mode')) return;
+  renderTravelerFilterSheet();
+  const map=ensureCityGuideMap();
+  if(map&&!travelerFilterItems.length) setTimeout(()=>loadTravelerFilter(),220);
+}
+// Keep the new sheet in sync whenever the existing city map is rendered.
+const v124OriginalRenderCityGuideMap=renderCityGuideMap;
+renderCityGuideMap=function(city){const out=v124OriginalRenderCityGuideMap(city);clearTravelerFilterLayer();travelerFilterItems=[];setTimeout(initTravelerFilterMap,260);return out;};
+
+// Language toggle calls applyLang in the existing app; refresh only labels after it finishes.
+if(typeof applyLang==='function'){
+  const v124OriginalApplyLang=applyLang;
+  applyLang=function(){const out=v124OriginalApplyLang.apply(this,arguments);setTimeout(()=>{renderTravelerFilterSheet();if(travelerFilterItems.length){renderTravelerFilterResults(travelerFilterItems);drawTravelerFilterMarkers(travelerFilterItems);}},0);return out;};
+}
+setTimeout(initTravelerFilterMap,600);
+</script>\n</body>
 </html>
