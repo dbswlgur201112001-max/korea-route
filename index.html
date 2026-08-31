@@ -738,8 +738,13 @@ background-size:32px 32px,32px 32px,100% 100%}
 .emergency-show-btn{border:1px solid rgba(127,127,127,.22);background:transparent;color:inherit;border-radius:999px;padding:7px 10px;font-size:9px;font-weight:900}
 .emergency-number-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
 .emergency-number-card{padding:13px;border:1px solid rgba(127,127,127,.15);border-radius:14px;text-align:center}
-.emergency-number-card span{display:block;font-size:8px;opacity:.55;font-weight:900}.emergency-number-card b{font-size:24px;line-height:1.1}
-.emergency-phrase-list{display:grid;gap:7px;margin-top:10px}.emergency-phrase-list button{border:1px solid rgba(127,127,127,.14);background:transparent;color:inherit;border-radius:12px;padding:10px;text-align:left;font-size:10px;font-weight:800}
+.emergency-number-card span{display:block;font-size:12px;opacity:.7;font-weight:900}.emergency-number-card b{font-size:24px;line-height:1.1}
+.emergency-number-card.tourist-help{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:14px;text-align:left;padding:13px 16px}
+.emergency-number-card.tourist-help .emergency-tourist-copy{min-width:0}.emergency-number-card.tourist-help .emergency-tourist-copy span{font-size:12px}.emergency-number-card.tourist-help .emergency-tourist-copy small{display:block;margin-top:3px;font-size:11px;line-height:1.35;opacity:.58;font-weight:750}
+.emergency-number-card.tourist-help .emergency-call-link{font-size:28px;flex:0 0 auto}
+.emergency-phrase-help{font-size:12px;line-height:1.45;opacity:.68;margin:12px 2px 7px}
+.emergency-phrase-list{display:grid;gap:7px;margin-top:0}.emergency-phrase-list button{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid rgba(127,127,127,.14);background:transparent;color:inherit;border-radius:12px;padding:11px 12px;text-align:left;font-size:14px;font-weight:800}
+.emergency-phrase-list .phrase-copy-label{flex:0 0 auto;font-size:12px;opacity:.66;font-weight:900;white-space:nowrap}
 .emergency-stay-line{margin-top:10px;padding:10px;border-radius:12px;background:rgba(127,127,127,.06)}.emergency-stay-line span{display:block;font-size:8px;opacity:.55;font-weight:900}.emergency-stay-line b{display:block;font-size:10px;margin-top:3px}
 .emergency-sheet-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:9999;display:flex;align-items:flex-end;justify-content:center;padding:16px}
 .emergency-sheet{width:min(520px,100%);background:#111;color:#fff;border-radius:22px;padding:22px;position:relative}
@@ -754,6 +759,7 @@ background-size:32px 32px,32px 32px,100% 100%}
 .emergency-call-link:active{transform:scale(.98)}
 .emergency-sheet-call{color:inherit;text-decoration:none}
 .emergency-phrase-list button.copy-success{outline:1px solid currentColor;background:rgba(127,127,127,.08)}
+.emergency-phrase-list button.copy-success .phrase-copy-label{opacity:1}.emergency-phrase-list button:focus-visible{outline:2px solid currentColor;outline-offset:2px}
 
 
 .mytrip-share-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
@@ -1320,6 +1326,161 @@ button:disabled{opacity:.55;cursor:not-allowed}
   #helperHub .v60-icon-grid button .ico{margin:0!important;font-size:23px!important}
 }
 
+
+
+/* V70 · Bottom navigation readability */
+:root{--v60-nav-h:88px}
+.v60-tabbar{
+  padding:8px 6px calc(8px + env(safe-area-inset-bottom))!important;
+  gap:4px!important;
+}
+.v60-tabbar button{
+  min-height:64px!important;
+  padding:7px 2px 6px!important;
+  gap:5px!important;
+  border-radius:17px!important;
+  font-size:13px!important;
+  line-height:1.15!important;
+  font-weight:900!important;
+  color:#465a70!important;
+}
+.v60-tabbar button .ico{
+  font-size:29px!important;
+  line-height:1!important;
+  min-height:31px;
+  display:flex!important;
+  align-items:center;
+  justify-content:center;
+}
+.v60-tabbar button span:last-child{
+  font-size:13px!important;
+  line-height:1.15!important;
+  font-weight:900!important;
+  letter-spacing:-.01em;
+}
+.v60-tabbar button.active{
+  color:#123f78!important;
+  background:#e8f1ff!important;
+}
+.v60-tabbar button.active .ico{font-size:31px!important}
+.v60-tabbar button.active span:last-child{font-size:13.5px!important;font-weight:950!important}
+@media(max-width:370px){
+  .v60-tabbar{padding-left:4px!important;padding-right:4px!important;gap:2px!important}
+  .v60-tabbar button{font-size:12px!important}
+  .v60-tabbar button .ico{font-size:27px!important}
+  .v60-tabbar button span:last-child{font-size:12px!important}
+  .v60-tabbar button.active .ico{font-size:29px!important}
+  .v60-tabbar button.active span:last-child{font-size:12.5px!important}
+}
+
+
+/* V75 · Emergency one-tap calling + mobile readability */
+#myTripEmergencyCard .emergency-show-btn{min-height:40px;padding:9px 12px;font-size:13px}
+#myTripEmergencyCard .emergency-card-head h3{font-size:18px;line-height:1.25}
+#myTripEmergencyCard .emergency-number-card{color:inherit;text-decoration:none;box-sizing:border-box;min-height:96px;transition:transform .12s ease,background .12s ease,border-color .12s ease}
+#myTripEmergencyCard .emergency-call-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;-webkit-tap-highlight-color:rgba(47,111,237,.12)}
+#myTripEmergencyCard .emergency-call-card:active{transform:scale(.985);background:rgba(47,111,237,.06);border-color:rgba(47,111,237,.35)}
+#myTripEmergencyCard .emergency-call-card>span{font-size:13px;line-height:1.3}
+#myTripEmergencyCard .emergency-call-card>b{font-size:28px;line-height:1.05}
+#myTripEmergencyCard .emergency-call-card>small{display:block;margin-top:3px;font-size:12px;line-height:1.25;opacity:.62;font-weight:850}
+#myTripEmergencyCard .emergency-number-card.tourist-help{min-height:86px;flex-direction:row;align-items:center;justify-content:space-between;gap:12px}
+#myTripEmergencyCard .emergency-tourist-copy span{font-size:13px}
+#myTripEmergencyCard .emergency-tourist-copy small{font-size:12px;line-height:1.4}
+#myTripEmergencyCard .emergency-tourist-number{flex:0 0 auto;text-align:right}
+#myTripEmergencyCard .emergency-tourist-number b{display:block;font-size:28px;line-height:1.05}
+#myTripEmergencyCard .emergency-tourist-number small{display:block;margin-top:4px;font-size:12px;line-height:1.2;opacity:.62;font-weight:850;white-space:nowrap}
+#myTripEmergencyCard .emergency-stay-line{padding:12px}
+#myTripEmergencyCard .emergency-stay-line span{font-size:12px}
+#myTripEmergencyCard .emergency-stay-line b{font-size:14px;line-height:1.4}
+#myTripEmergencyCard .trip-check-note{font-size:12px;line-height:1.5}
+@media(max-width:360px){#myTripEmergencyCard .emergency-number-grid{grid-template-columns:1fr}#myTripEmergencyCard .emergency-number-card.tourist-help{grid-column:auto}}
+
+/* V76 · Nearby tools map-provider choice */
+.v76-map-choice-backdrop{position:fixed;inset:0;z-index:10040;background:rgba(0,0,0,.68);display:flex;align-items:flex-end;justify-content:center;padding:16px}
+.v76-map-choice-sheet{width:min(520px,100%);background:#fff;color:#111;border-radius:22px;padding:20px;box-shadow:0 18px 60px rgba(0,0,0,.34)}
+body.dark .v76-map-choice-sheet{background:#171717;color:#fff}
+.v76-map-choice-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.v76-map-choice-head span{display:block;font-size:12px;line-height:1.3;opacity:.58;font-weight:900;letter-spacing:.02em}
+.v76-map-choice-head h3{margin:4px 0 0;font-size:20px;line-height:1.25}
+.v76-map-choice-close{border:0;background:transparent;color:inherit;font-size:28px;line-height:1;padding:0 2px;min-width:38px;min-height:38px}
+.v76-map-choice-context{margin-top:10px;display:inline-flex;align-items:center;min-height:30px;padding:6px 10px;border-radius:999px;background:rgba(11,42,84,.08);font-size:12px;font-weight:900;line-height:1.3}
+body.dark .v76-map-choice-context{background:rgba(255,255,255,.09)}
+.v76-map-choice-note{margin-top:9px;font-size:13px;line-height:1.5;opacity:.72}
+.v76-map-choice-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.v76-map-choice-actions button{min-height:58px;border:1px solid rgba(127,127,127,.22);border-radius:15px;background:rgba(127,127,127,.06);color:inherit;font-size:15px;font-weight:900;padding:12px}
+.v76-map-choice-actions button:active{transform:scale(.985)}
+.v76-map-choice-actions .google{background:#eef5ff;border-color:#cfe0ff;color:#123f78}
+.v76-map-choice-actions .naver{background:#effbf3;border-color:#cfeeda;color:#0b6630}
+body.dark .v76-map-choice-actions .google{background:rgba(72,133,237,.16);color:#dbe9ff}
+body.dark .v76-map-choice-actions .naver{background:rgba(3,199,90,.14);color:#d8ffe8}
+.v79-nearby-use-location{width:100%;margin-top:11px;min-height:46px;border:1px solid rgba(36,99,180,.25);border-radius:13px;background:rgba(36,99,180,.08);color:inherit;font-size:14px;font-weight:900;padding:10px 12px}
+.v79-nearby-use-location:active{transform:scale(.99)}
+.v79-nearby-use-location:disabled{opacity:.72;cursor:default;transform:none}
+.v79-nearby-use-location.ready{background:rgba(26,145,80,.10);border-color:rgba(26,145,80,.28)}
+body.dark .v79-nearby-use-location{background:rgba(92,151,234,.12);border-color:rgba(145,185,241,.24)}
+body.dark .v79-nearby-use-location.ready{background:rgba(46,180,103,.14);border-color:rgba(95,220,147,.26)}
+@media(max-width:350px){.v76-map-choice-actions{grid-template-columns:1fr}}
+
+
+/* V96 · 1330 help consistency + urgent find readability */
+.v55-emergency-head span{font-size:12px;line-height:1.3}
+.v55-emergency-head p{font-size:13px;line-height:1.45}
+.v55-emergency-grid button{min-height:68px;padding:12px;font-size:13px;line-height:1.35}
+.v55-emergency-grid button strong{font-size:21px}
+.v55-emergency-grid button.tourist-help{grid-column:1/-1;background:#eef6ff;border-color:#c9def6;color:#173957}
+.v55-emergency-grid button.tourist-help small{display:block;margin-top:4px;font-size:12px;line-height:1.35;color:#60758d;font-weight:800}
+.v55-emergency-note{font-size:12px;line-height:1.5;padding:11px 12px}
+@media(max-width:360px){.v55-emergency-grid{grid-template-columns:1fr}.v55-emergency-grid button.primary,.v55-emergency-grid button.tourist-help{grid-column:auto}}
+
+/* V97 · Rail/KORAIL result readability: visual sizing/touch targets only; rail query/API logic unchanged */
+.rail-card{padding:16px;border-radius:18px}
+.rail-title{font-size:16px;line-height:1.3}
+.rail-sub{font-size:12px;line-height:1.45;margin-top:4px}
+.rail-badge{font-size:12px;padding:7px 9px}
+.rail-stations{gap:10px;margin-top:13px}
+.rail-station b{font-size:15px;line-height:1.35}
+.rail-station span{font-size:13px;margin-top:3px;font-weight:850}
+.rail-arrow{font-size:18px}
+.rail-info-grid{gap:8px;margin-top:12px}
+.rail-info{padding:11px;border-radius:12px}
+.rail-info span{font-size:12px;line-height:1.35;font-weight:850}
+.rail-info b{font-size:14px;line-height:1.35;margin-top:4px}
+.rail-slot{gap:6px;margin-top:10px}
+.rail-slot span{font-size:12px;padding:6px 8px;font-weight:850}
+.rail-actions{gap:8px;margin-top:12px}
+.rail-btn{min-height:46px;padding:12px 11px;font-size:14px;border-radius:12px}
+.rail-note{margin-top:10px;font-size:12px;line-height:1.55}
+@media(max-width:420px){
+  .rail-info-grid{grid-template-columns:1fr}
+  .rail-actions{grid-template-columns:1fr}
+  .rail-stations{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)}
+}
+
+
+/* V98 · Bus public-API result cards: readable layout/touch sizing only; bus query/API logic unchanged */
+.move-card{border:1px solid #dce6f2;border-radius:18px;background:#fff;padding:16px;margin-top:10px;box-shadow:0 7px 20px rgba(18,45,80,.05)}
+.move-card:first-child{margin-top:0}
+.move-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.move-card-head h3{margin:3px 0 0;font-size:16px;line-height:1.35;color:#18365a;overflow-wrap:anywhere}
+.move-kicker{font-size:12px;line-height:1.3;font-weight:950;letter-spacing:.05em;color:#55708f}
+.move-rank{flex:none;display:inline-flex;align-items:center;justify-content:center;min-width:38px;min-height:32px;padding:6px 9px;border-radius:999px;background:#eef5ff;color:#285f9d;font-size:12px;font-weight:950}
+.move-route-line{margin-top:11px;padding:10px 11px;border-radius:12px;background:#f5f8fc;color:#344f6d;font-size:13px;line-height:1.45;font-weight:850;overflow-wrap:anywhere}
+.move-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.move-metrics>div{padding:11px;border-radius:12px;background:#f8fbff;border:1px solid #e6edf5;min-width:0}
+.move-metrics span{display:block;font-size:12px;line-height:1.3;color:#728196;font-weight:850}
+.move-metrics b{display:block;margin-top:4px;font-size:15px;line-height:1.3;color:#203a5c;overflow-wrap:anywhere}
+.move-note{margin-top:10px;font-size:12px;line-height:1.55;color:#77879a}
+#moveLiveSummary.data-slot b{font-size:14px;line-height:1.35}
+#moveLiveSummary.data-slot span{font-size:12px;line-height:1.45}
+body.dark .move-card{background:#171d25;border-color:#2b394a;box-shadow:none}
+body.dark .move-card-head h3,body.dark .move-metrics b{color:#edf5ff}
+body.dark .move-route-line,body.dark .move-metrics>div{background:#111923;border-color:#2a394b;color:#dce9f8}
+body.dark .move-kicker,body.dark .move-metrics span,body.dark .move-note{color:#aebdce}
+body.dark .move-rank{background:#173255;color:#d9eaff}
+@media(max-width:420px){
+  .move-metrics{grid-template-columns:1fr}
+  .move-card{padding:14px}
+}
 </style>
 
 <link rel="preconnect" href="https://unpkg.com" crossorigin>
@@ -1332,6 +1493,868 @@ button:disabled{opacity:.55;cursor:not-allowed}
 <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.css">
 <script src="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.js"></script>
 <script src="https://unpkg.com/@maplibre/maplibre-gl-leaflet/leaflet-maplibre-gl.js"></script>
+
+<style>
+
+/* V80 Explore readability: keep structure/logic, remove tiny text */
+#exploreHub .arch-hero .eyebrow{font-size:12px!important}
+#exploreHub .arch-hero p{font-size:14px!important;line-height:1.55!important}
+#exploreHub .feature-card h3{font-size:16px!important;line-height:1.35!important}
+#exploreHub .feature-card p{font-size:13px!important;line-height:1.55!important}
+#exploreHub .slot-type{font-size:12px!important;padding:6px 9px!important}
+#exploreHub .explore-city-picker select,
+#exploreHub .explore-city-picker button{font-size:15px!important;min-height:46px!important}
+#exploreHub .tool-fold>summary{font-size:14px!important;min-height:46px!important;padding:12px 4px!important}
+#exploreHub .tool-fold>summary small{font-size:12px!important}
+#exploreHub .city-mini-grid button{font-size:13px!important;min-height:42px!important;padding:10px 6px!important}
+.city-attraction-head span{font-size:12px!important;line-height:1.45!important}
+.city-attraction-item{min-height:52px!important;padding:12px!important}
+.city-attraction-item input{width:20px!important;height:20px!important}
+.city-attraction-item b{font-size:14px!important;line-height:1.35!important}
+.city-attraction-item span{font-size:12px!important;line-height:1.45!important;margin-top:4px!important}
+
+
+/* V81 Trip itinerary readability: keep itinerary behavior, enlarge phone controls */
+.v38-plan-note{font-size:13px!important;line-height:1.55!important;padding:12px 13px!important}
+.v38-day-head b{font-size:14px!important;line-height:1.35!important}
+.v38-day-head button{font-size:12px!important;min-height:40px!important;padding:9px 11px!important}
+.v38-day-sub{font-size:12px!important;line-height:1.45!important;margin-top:4px!important}
+.v38-day-empty{font-size:12px!important;line-height:1.5!important;padding:11px!important}
+.v38-day-item{padding:10px 11px!important;gap:9px!important}
+.v38-day-item .txt b{font-size:13px!important;line-height:1.35!important}
+.v38-day-item .txt small{font-size:12px!important;line-height:1.4!important;margin-top:3px!important}
+.v38-day-item .acts button{font-size:13px!important;min-width:38px!important;min-height:38px!important;padding:7px 9px!important}
+.v38-reco-head h3{font-size:16px!important;line-height:1.35!important}
+.v38-reco-head p{font-size:12px!important;line-height:1.5!important}
+.v38-day-select{font-size:14px!important;min-height:44px!important;padding:9px 10px!important}
+.v38-reco-tab{font-size:13px!important;min-height:44px!important;padding:10px 8px!important}
+.v38-reco-item{padding:11px 12px!important;gap:9px!important}
+.v38-reco-item b{font-size:13px!important;line-height:1.35!important}
+.v38-reco-item small{font-size:12px!important;line-height:1.45!important;margin-top:3px!important}
+.v38-reco-item button{font-size:12px!important;min-height:40px!important;padding:9px 11px!important}
+.v38-reco-status{font-size:12px!important;line-height:1.5!important;padding:11px!important}
+.v38-reco-source{font-size:12px!important;line-height:1.5!important}
+
+
+/* V82 Stay readability: preserve stay logic, enlarge phone controls */
+#stayHub .arch-hero .eyebrow{font-size:12px!important}
+#stayHub .arch-hero p{font-size:14px!important;line-height:1.55!important}
+#stayHub .stay-search-card{padding:16px!important}
+#stayHub .stay-search-row{gap:10px!important;margin-top:12px!important}
+#stayHub .stay-search-row select,
+#stayHub .stay-search-row input{font-size:15px!important;min-height:46px!important;padding:11px 10px!important}
+#stayHub .stay-search-btn{font-size:15px!important;min-height:48px!important;padding:12px 14px!important}
+#stayHub .stay-results{gap:11px!important;margin-top:12px!important}
+#stayHub .stay-card{padding:15px!important}
+#stayHub .stay-card h3{font-size:17px!important;line-height:1.35!important}
+#stayHub .stay-card p{font-size:13px!important;line-height:1.55!important;margin-top:5px!important}
+#stayHub .stay-score{font-size:12px!important;padding:6px 8px!important}
+#stayHub .stay-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important;margin-top:12px!important}
+#stayHub .stay-metric{padding:10px!important}
+#stayHub .stay-metric span{font-size:12px!important;line-height:1.35!important}
+#stayHub .stay-metric b{font-size:14px!important;line-height:1.35!important;margin-top:4px!important}
+#stayHub .stay-tags{gap:6px!important;margin-top:10px!important}
+#stayHub .stay-tags span{font-size:12px!important;line-height:1.35!important;padding:6px 8px!important}
+#stayHub .stay-actions{gap:8px!important;margin-top:12px!important}
+#stayHub .stay-btn{font-size:14px!important;min-height:44px!important;padding:10px 9px!important}
+#stayHub .stay-route-impact{font-size:13px!important;line-height:1.5!important;padding:11px!important;margin-top:11px!important}
+#stayHub .stay-disclaimer{font-size:12px!important;line-height:1.5!important;margin-top:10px!important}
+@media(max-width:360px){
+  #stayHub .stay-search-row{grid-template-columns:1fr!important}
+  #stayHub .stay-grid{grid-template-columns:1fr!important}
+  #stayHub .stay-actions{grid-template-columns:1fr!important}
+}
+
+
+/* V83 Trip Wallet clarity/readability: visible field labels + phone-size text */
+#walletHub .arch-hero .eyebrow{font-size:12px!important}
+#walletHub .arch-hero p{font-size:14px!important;line-height:1.55!important}
+#walletHub .v30-quickbar button{font-size:13px!important;min-height:44px!important}
+#walletHub .wallet-panel{padding:16px!important}
+#walletHub .wallet-panel>b{font-size:15px!important}
+#walletHub .wallet-grid{gap:10px!important;margin-top:12px!important}
+#walletHub .v83-wallet-field{display:grid;gap:5px;min-width:0}
+#walletHub .v83-wallet-field>span{font-size:12px;line-height:1.3;font-weight:900;color:#607086}
+body.dark #walletHub .v83-wallet-field>span{color:#b9c6d7}
+#walletHub .wallet-grid input,#walletHub .wallet-grid select{font-size:15px!important;min-height:46px!important;padding:11px 10px!important}
+#walletHub .stay-search-btn{font-size:15px!important;min-height:48px!important;padding:12px 14px!important}
+#walletHub .fx-card{padding:14px!important;margin:14px 0 12px!important}
+#walletHub .fx-head h3{font-size:16px!important;line-height:1.35!important}
+#walletHub .fx-head p{font-size:12px!important;line-height:1.5!important;margin-top:5px!important}
+#walletHub .fx-badge{font-size:11px!important;padding:6px 8px!important}
+#walletHub .fx-controls{gap:9px!important;margin-top:12px!important}
+#walletHub .fx-controls input,#walletHub .fx-controls select{font-size:15px!important;min-height:46px!important;padding:11px 10px!important}
+#walletHub .fx-result{padding:13px!important;margin-top:10px!important}
+#walletHub .fx-result strong{font-size:21px!important}
+#walletHub .fx-result span{font-size:12px!important;line-height:1.5!important}
+#walletHub .fx-actions{gap:8px!important;margin-top:10px!important}
+#walletHub .fx-mini{font-size:13px!important;min-height:42px!important;padding:9px 11px!important}
+#walletHub .wallet-summary{gap:8px!important;margin-top:12px!important}
+#walletHub .wallet-stat{padding:11px!important}
+#walletHub .wallet-stat span{font-size:12px!important;line-height:1.35!important}
+#walletHub .wallet-stat b{font-size:14px!important;line-height:1.35!important}
+#walletHub .wallet-card{padding:14px!important;margin-top:11px!important}
+#walletHub .wallet-card h3{font-size:16px!important;line-height:1.35!important}
+#walletHub .wallet-badge{font-size:11px!important;padding:6px 8px!important}
+#walletHub .wallet-tags span{font-size:12px!important;padding:6px 8px!important}
+#walletHub .wallet-breakdown span{font-size:12px!important;line-height:1.35!important}
+#walletHub .wallet-breakdown b{font-size:14px!important;line-height:1.35!important}
+#walletHub .wallet-btn{font-size:13px!important;min-height:44px!important;padding:10px 9px!important}
+#walletHub .wallet-note{font-size:12px!important;line-height:1.55!important}
+@media(max-width:360px){
+  #walletHub .wallet-grid{grid-template-columns:1fr!important}
+  #walletHub .wallet-summary{grid-template-columns:1fr!important}
+  #walletHub .wallet-breakdown{grid-template-columns:1fr!important}
+  #walletHub .wallet-actions{grid-template-columns:1fr!important}
+  #walletHub .fx-controls{grid-template-columns:1fr!important}
+}
+</style>
+
+<style id="v84-tax-refund-readability">
+/* V84 Tax Refund Helper readability: phone-size text and touch targets only */
+.tax-refund-field{padding:13px}
+.tax-refund-field label{font-size:12px;line-height:1.3;margin-bottom:7px}
+.tax-refund-field input[type=number]{padding:12px;font-size:14px;min-height:44px}
+.tax-refund-checks{gap:9px;margin:12px 0}
+.tax-refund-check{gap:10px;padding:12px;min-height:48px}
+.tax-refund-check input{width:20px;height:20px;flex:0 0 auto}
+.tax-refund-check b{font-size:13px;line-height:1.35}
+.tax-refund-check span{font-size:12px;line-height:1.5;margin-top:4px}
+.tax-refund-actions{gap:9px;margin-top:12px}
+.tax-refund-actions button{padding:13px 10px;font-size:13px;min-height:46px}
+.tax-refund-result{margin-top:14px;padding:14px}
+.tax-refund-result h4{font-size:16px;line-height:1.35;margin:0 0 7px}
+.tax-refund-result p{font-size:13px;line-height:1.55;margin:6px 0}
+.tax-refund-facts{gap:9px;margin-top:11px}
+.tax-refund-fact{padding:12px}
+.tax-refund-fact b{font-size:13px;line-height:1.35}
+.tax-refund-fact span{font-size:12px;line-height:1.5;margin-top:4px}
+.tax-refund-source{margin-top:12px;font-size:12px;line-height:1.55}
+.tax-refund-phrase{margin-top:12px;padding:15px}
+.tax-refund-phrase b{font-size:22px}
+.tax-refund-phrase span{font-size:12px;line-height:1.45;margin-top:6px}
+@media(max-width:420px){
+  .tax-refund-actions{grid-template-columns:1fr}
+  .tax-refund-actions button.primary{grid-column:auto}
+}
+</style>
+
+<style id="v85-transit-card-readability">
+/* V85 Transit Card / payment helper readability: display and touch targets only */
+.payment-helper{padding:17px}
+.payment-helper-head h3{font-size:18px;line-height:1.3}
+.payment-helper-card{padding:13px;gap:11px}
+.payment-helper-icon{font-size:22px}
+.payment-helper-card b{font-size:14px;line-height:1.35}
+.payment-helper-card p{font-size:12px;line-height:1.55;margin-top:5px}
+.payment-checkline label{font-size:13px;line-height:1.35;padding:10px 12px;min-height:44px;display:inline-flex;align-items:center;gap:7px}
+.payment-checkline input{width:19px;height:19px;flex:0 0 auto}
+.payment-ready{font-size:13px;line-height:1.45;margin-top:8px}
+.payment-helper-note{font-size:12px;line-height:1.55;margin-top:9px}
+.transit-card-finder{margin-top:16px;padding-top:16px}
+.transit-card-finder-head b{font-size:16px;line-height:1.35}
+.transit-card-finder-head small{font-size:12px;line-height:1.5;margin-top:5px}
+.transit-card-updated{font-size:11px;padding:6px 8px}
+.transit-card-controls{gap:10px;margin-top:12px}
+.transit-card-controls label{gap:7px;font-size:12px;line-height:1.35}
+.transit-card-controls select{min-height:46px;padding:10px 12px;font-size:13px}
+.transit-card-result{gap:10px;margin-top:12px}
+.transit-card-pick{padding:13px}
+.transit-card-pick .top{gap:10px;align-items:flex-start}
+.transit-card-pick b{font-size:15px;line-height:1.35}
+.transit-card-pick em{font-size:11px;padding:5px 8px;line-height:1.25}
+.transit-card-pick p{font-size:12px;line-height:1.55;margin-top:7px}
+.transit-card-pick ul{font-size:12px;line-height:1.6;margin-top:7px;padding-left:18px}
+.transit-card-actions{gap:9px;margin-top:12px}
+.transit-card-actions button{font-size:13px;line-height:1.3;min-height:46px;padding:11px 9px}
+.transit-card-caveat{font-size:12px;line-height:1.55;padding:11px 12px;margin-top:11px}
+@media(max-width:380px){
+  .transit-card-finder-head{flex-direction:column;gap:7px}
+  .transit-card-actions{grid-template-columns:1fr}
+  .transit-card-actions button.primary{grid-column:auto}
+}
+</style>
+
+<style id="v86-translation-hub-readability">
+/* V86 Translation Hub readability: visual sizing and touch targets only; no translation/API logic changes */
+.language-helper-note{font-size:12px;line-height:1.55}
+.translation-launch-row{gap:9px}
+.translation-launch-row button{min-height:46px;padding:12px 10px;font-size:13px;line-height:1.3}
+.translate-sheet{gap:13px}
+.translate-direction{gap:9px}
+.translate-direction button{min-height:46px;padding:11px 10px;font-size:13px;line-height:1.3}
+.translate-direction .swap{width:46px;height:46px;min-height:46px;font-size:18px}
+.translate-box{padding:14px;border-radius:16px}
+.translate-box label{font-size:13px;line-height:1.35;margin-bottom:9px}
+.translate-box textarea{min-height:118px;font-size:16px;line-height:1.5}
+.translate-count{font-size:12px;line-height:1.3}
+.translate-actions{gap:9px}
+.translate-actions button{min-height:46px;padding:12px 10px;font-size:13px;line-height:1.3}
+.translate-status{padding:11px 12px;font-size:12px;line-height:1.55}
+.translate-result{padding:17px}
+.translate-result .label{font-size:12px;line-height:1.35}
+.translate-result .small{font-size:13px;line-height:1.5}
+.translate-result-actions{gap:9px;margin-top:14px}
+.translate-result-actions button{min-height:44px;padding:11px 9px;font-size:13px;line-height:1.3}
+.translate-fallback{padding:13px}
+.translate-fallback p{font-size:12px;line-height:1.55;margin-bottom:10px}
+.translate-fallback button{min-height:44px;padding:11px;font-size:13px;line-height:1.3}
+.translate-privacy{font-size:12px;line-height:1.55;margin:2px}
+@media(max-width:380px){
+  .translate-direction{grid-template-columns:1fr auto 1fr}
+  .translate-actions,.translate-result-actions{grid-template-columns:1fr}
+  .translate-actions button.primary{grid-column:auto}
+}
+</style>
+
+
+<style id="v87-phrase-pack-feedback-readability">
+/* V87 phrase helpers: visible copy feedback + phone readability; no translation/Gemini/API changes */
+.offline-phrase-launch{min-height:46px;padding:12px 11px;font-size:13px;line-height:1.35}
+.offline-phrase-tabs{gap:8px;margin-bottom:12px}
+.offline-phrase-tabs button{min-height:42px;padding:9px 12px;font-size:12px;line-height:1.3}
+.offline-phrase-summary{padding:11px 12px;font-size:12px;line-height:1.55}
+.phrase-sheet-head span{font-size:12px;line-height:1.35}
+.phrase-sheet-head h3{font-size:18px;line-height:1.35}
+.phrase-card{min-height:62px;padding:13px;gap:11px}
+.phrase-card b{font-size:17px;line-height:1.35}
+.phrase-card small{font-size:13px;line-height:1.45}
+.phrase-card em{font-size:12px;line-height:1.3}
+.phrase-disclaimer,.phrase-focus-note{font-size:12px;line-height:1.55}
+.phrase-focus-badge{font-size:12px}
+.phrase-focus-actions button,.food-order-focus-actions button{min-height:46px;font-size:13px;line-height:1.3}
+.phrase-focus-actions button.copy-success,.food-order-focus-actions button.copy-success{outline:2px solid rgba(36,130,83,.45);background:#eaf8f0;color:#176a46;border-color:#b9dec9}
+@media(max-width:380px){
+  .phrase-focus-actions,.food-order-focus-actions{grid-template-columns:1fr}
+  .phrase-focus-actions button.primary,.food-order-focus-actions button.primary{grid-column:auto}
+}
+</style>
+
+
+<style id="v88-map-readability">
+/* V88 Map screen readability: visual sizing/touch targets only; map/search logic unchanged */
+.city-map-head span{font-size:12px;line-height:1.45}
+.city-map-source-badge{font-size:12px;line-height:1.4;margin:9px 0 11px}
+.city-map-primary{gap:9px}
+.city-map-primary button,.city-facility-btn{min-height:44px;padding:11px 12px;font-size:13px;line-height:1.3}
+.city-facility-row{gap:8px;padding-bottom:4px}
+.city-facility-btn{padding:10px 13px}
+.city-facility-tools{gap:10px}
+.city-facility-title{font-size:13px;line-height:1.35}
+.city-facility-title small{font-size:12px;line-height:1.4;margin-top:3px}
+.city-radius-row{gap:7px}
+.city-radius-btn{min-height:40px;padding:9px 12px;font-size:12px;line-height:1.25}
+.city-map-status{font-size:12px;line-height:1.45;min-height:18px}
+.city-map-wrap.map-loading .city-map::before{padding:9px 13px;font-size:12px}
+.city-map .leaflet-control-attribution{font-size:10px;line-height:1.25}
+.city-facility-result-head{padding:10px 12px;font-size:12px;line-height:1.35}
+.city-facility-result-head b{font-size:13px}
+.city-facility-result-head small{font-size:11px}
+.city-facility-result{min-height:54px}
+.city-facility-result .txt b{font-size:13px;line-height:1.35}
+.city-facility-result .txt small{font-size:11px;line-height:1.4;margin-top:3px}
+.city-facility-result .go{min-height:38px;padding:8px 10px;font-size:12px}
+.map-note{font-size:12px;line-height:1.5}
+.poi-num{font-size:11px}
+.poi-text b{font-size:13px;line-height:1.35}
+.poi-text span{font-size:12px;line-height:1.45}
+.city-map-chip{font-size:12px;line-height:1.3}
+@media(max-width:380px){
+  .city-map-primary{grid-template-columns:1fr 1fr}
+  .city-facility-tools{align-items:flex-start}
+  .city-radius-row{width:100%;overflow-x:auto;padding-bottom:2px}
+  .city-radius-btn{flex:0 0 auto}
+}
+</style>
+
+
+<style id="v89-walk-guide-readability">
+/* V89 Live Walk Guide readability: visual sizing/touch targets only; GPS/route/arrival logic unchanged */
+.city-walk-guide{padding:16px;border-radius:20px}
+.city-walk-guide-head span{font-size:12px;line-height:1.3;letter-spacing:.07em}
+.city-walk-guide-head button{min-height:40px;padding:9px 12px;font-size:12px;line-height:1.25}
+.city-walk-guide-title{margin-top:7px;font-size:18px;line-height:1.3}
+.city-walk-metrics{gap:8px;margin-top:13px}
+.city-walk-metric{padding:11px 9px}
+.city-walk-metric span{font-size:11px;line-height:1.3}
+.city-walk-metric b{margin-top:4px;font-size:15px;line-height:1.25}
+.city-walk-direction-arrow{font-size:18px}
+.city-walk-note,.city-walk-line-note{font-size:12px;line-height:1.55}
+.city-walk-signal,.city-walk-compass,.city-walk-awake,.city-walk-alerts,.city-walk-follow,.city-walk-perf,.city-walk-freshness{padding:11px 12px;gap:10px}
+.city-walk-signal b,.city-walk-compass b,.city-walk-awake b,.city-walk-alerts b,.city-walk-follow b,.city-walk-perf b,.city-walk-freshness b{font-size:13px;line-height:1.3}
+.city-walk-signal span,.city-walk-compass span,.city-walk-awake span,.city-walk-alerts span,.city-walk-follow span,.city-walk-perf span,.city-walk-freshness span{font-size:12px;line-height:1.45;margin-top:3px}
+.city-walk-signal button,.city-walk-compass button,.city-walk-awake button,.city-walk-follow button,.city-walk-freshness-actions button,.city-walk-alert-actions button{min-height:40px;padding:9px 10px;font-size:12px;line-height:1.25}
+.city-walk-perf em,.city-walk-freshness em{font-size:11px;padding:6px 8px}
+.city-walk-arrival,.city-walk-offroute{padding:12px 13px}
+.city-walk-arrival strong,.city-walk-offroute strong{font-size:15px;line-height:1.3}
+.city-walk-arrival span,.city-walk-offroute span{font-size:12px;line-height:1.5;margin-top:4px}
+.city-walk-offroute-actions button{min-height:42px;padding:9px 10px;font-size:12px;line-height:1.25}
+.city-walk-next{gap:8px;margin-top:10px}
+.city-walk-next button{min-height:42px;padding:10px 9px;font-size:12px;line-height:1.3}
+.city-walk-next button.next-itinerary b,.city-walk-next button.visit-complete b{font-size:13px;line-height:1.3}
+.city-walk-next button.next-itinerary span,.city-walk-next button.visit-complete span,.city-walk-next .city-walk-next-hint{font-size:12px;line-height:1.45}
+.city-walk-localhelp-label{font-size:11px;line-height:1.3}
+.city-walk-localhelp-name{font-size:22px}
+.city-walk-localhelp-phrase{font-size:16px;line-height:1.45;padding:11px}
+.city-walk-localhelp-note{font-size:12px;line-height:1.5}
+.city-walk-localhelp-actions button{min-height:42px;padding:9px 10px;font-size:12px;line-height:1.25}
+.city-walk-actions{gap:8px;margin-top:12px}
+.city-walk-actions button{min-height:44px;padding:10px 10px;font-size:12px;line-height:1.3}
+.city-walk-recovery-head span{font-size:11px;line-height:1.3}
+.city-walk-recovery-head b{font-size:15px;line-height:1.3}
+.city-walk-recovery p{font-size:12px;line-height:1.5}
+.city-walk-recovery-actions button{min-height:42px;padding:10px 9px;font-size:12px;line-height:1.25}
+@media(max-width:380px){
+  .city-walk-guide{padding:14px}
+  .city-walk-metrics{grid-template-columns:1fr 1fr}
+  .city-walk-metric:last-child{grid-column:1/-1}
+  .city-walk-actions,.city-walk-offroute-actions,.city-walk-next,.city-walk-localhelp-actions{grid-template-columns:1fr}
+  .city-walk-actions .walk-fit,.city-walk-actions .walk-local,.city-walk-next button.next-itinerary,.city-walk-next button.visit-complete,.city-walk-next .city-walk-next-hint{grid-column:auto}
+  .city-walk-alerts{grid-template-columns:1fr}
+  .city-walk-alert-actions{justify-content:flex-start}
+}
+</style>
+
+
+<style id="v90-station-readability">
+/* V90 Station detail readability: visual sizing/touch targets only; map/GPS/route data logic unchanged */
+.city-map-station-essentials,.city-map-station-info,.city-map-station-pack,.city-map-station-access{padding:12px;border-radius:16px}
+.city-map-station-essentials-head b,.city-map-station-info-head b,.city-map-station-access-head b{font-size:13px;line-height:1.35}
+.city-map-station-essentials-head small,.city-map-station-access-head small{font-size:11px;line-height:1.35}
+.city-map-station-essentials-row{gap:8px;margin-top:2px}
+.city-map-station-essentials-row button{min-height:42px;padding:10px 12px;font-size:12px;line-height:1.25}
+.city-map-station-info-head button{min-height:40px;padding:9px 11px;font-size:12px;line-height:1.25}
+.city-map-station-info-note,.city-map-station-info-exits{font-size:12px;line-height:1.5}
+.city-map-station-info-grid,.city-map-station-pack-summary{gap:8px}
+.city-map-station-info-chip,.city-map-station-pack-chip{min-height:48px;padding:10px 11px}
+.city-map-station-info-chip span,.city-map-station-pack-chip span{font-size:12px;line-height:1.35}
+.city-map-station-info-chip b,.city-map-station-pack-chip b{font-size:14px;line-height:1.25}
+.city-map-station-pack-btn{min-height:52px;padding:12px 14px;font-size:14px;line-height:1.3}
+.city-map-station-pack-btn small{font-size:12px;line-height:1.45;margin-top:5px}
+.city-map-station-pack-body{font-size:12px;line-height:1.5}
+.city-map-station-pack-body.loading{padding:10px}
+.city-map-station-pack-around,.city-map-station-pack-note,.city-map-station-access-note{font-size:12px;line-height:1.5;padding:10px 11px}
+.city-map-station-pack-near,.city-map-station-access-list{gap:8px}
+.city-map-station-pack-item{padding:10px 11px;gap:9px}
+.city-map-station-pack-item .main b{font-size:13px;line-height:1.35}
+.city-map-station-pack-item .main small{font-size:11px;line-height:1.4;margin-top:3px}
+.city-map-station-pack-item .walk{min-height:40px;padding:9px 11px;font-size:12px}
+.city-map-station-access-item{grid-template-columns:38px minmax(0,1fr) auto;gap:10px;padding:10px}
+.city-map-station-access-item .ico{width:38px;height:38px;font-size:18px}
+.city-map-station-access-item .txt b{font-size:13px;line-height:1.35}
+.city-map-station-access-item .txt small{font-size:11px;line-height:1.4;margin-top:3px}
+.city-map-station-access-item button{min-height:40px;padding:9px 11px;font-size:12px}
+@media(max-width:380px){
+  .city-map-station-info-grid,.city-map-station-pack-summary{grid-template-columns:1fr}
+  .city-map-station-access-item{grid-template-columns:38px minmax(0,1fr)}
+  .city-map-station-access-item button{grid-column:1/-1;width:100%}
+  .city-map-station-pack-item{grid-template-columns:1fr}
+  .city-map-station-pack-item .walk{width:100%}
+}
+</style>
+
+<style id="v91-checkride-readability">
+/* V91 Check & Ride readability: visual sizing/touch targets only; photo analysis/Gemini logic unchanged */
+#checkRideLayer .feature-top h3{font-size:19px;line-height:1.3}
+#checkRideLayer .feature-top p{font-size:13px;line-height:1.55;margin-top:5px}
+#checkRideLayer .slot-type{font-size:12px;line-height:1.2;padding:7px 10px}
+#checkRideLayer .checkride-grid{gap:12px;margin-top:14px}
+#checkRideLayer .checkride-grid label{gap:7px;font-size:13px;line-height:1.35}
+#checkRideLayer .checkride-grid input,#checkRideLayer .checkride-grid select{min-height:46px;padding:12px 12px;font-size:14px;line-height:1.35}
+#checkRideLayer .checkride-actions{gap:9px;margin-top:14px}
+#checkRideLayer .checkride-actions .mini-action,#checkRideLayer .checkride-actions .screen-link,#checkRideLayer .checkride-upload{min-height:46px;padding:11px 12px;font-size:13px;line-height:1.3}
+#checkRideLayer .checkride-meta{padding:10px 12px;font-size:12px;line-height:1.45}
+#checkRideLayer .checkride-result{margin-top:13px;padding:14px}
+#checkRideLayer .checkride-result .cr-badge{padding:7px 10px;font-size:12px;line-height:1.2;margin-bottom:8px}
+#checkRideLayer .checkride-result>b{font-size:16px;line-height:1.4;margin-bottom:6px}
+#checkRideLayer .checkride-result>span,#checkRideLayer .checkride-evidence span{font-size:13px;line-height:1.6}
+#checkRideLayer .checkride-evidence{margin-top:10px;padding-top:10px}
+#checkRideLayer .checkride-evidence b{font-size:13px;line-height:1.4;margin-bottom:4px}
+#checkRideLayer .checkride-note{margin-top:12px;font-size:12px;line-height:1.6}
+@media(max-width:420px){
+  #checkRideLayer .checkride-grid{grid-template-columns:1fr}
+  #checkRideLayer .checkride-actions>*{flex-basis:100%;width:100%}
+}
+</style>
+
+<style id="v92-stop-alert-readability">
+/* V92 Approaching Stop Alert readability: visual sizing/touch targets only; GPS/alert logic unchanged */
+.v53-stop-card{padding:14px;border-radius:17px}
+.v53-stop-grid{gap:10px}
+.v53-stop-card label{font-size:12px;line-height:1.35}
+.v53-stop-card select{min-height:48px;margin-top:7px;padding:0 12px;font-size:14px;line-height:1.3}
+.v53-stop-actions{gap:9px;margin-top:12px}
+.v53-stop-actions button{min-height:48px;padding:10px 12px;font-size:13px;line-height:1.3}
+.v53-stop-status{margin-top:12px;padding:13px}
+.v53-stop-status strong{font-size:15px;line-height:1.35}
+.v53-stop-status span{margin-top:5px;font-size:12px;line-height:1.55}
+.v53-stop-meter{height:9px;margin-top:11px}
+.v53-stop-note{margin-top:11px;font-size:12px;line-height:1.6}
+.v53-stop-pill{gap:6px;padding:7px 10px;font-size:11px;line-height:1.2;margin-bottom:9px}
+@media(max-width:420px){
+  .v53-stop-grid{grid-template-columns:1fr}
+  .v53-stop-actions button{flex-basis:100%;width:100%}
+}
+
+/* V93 · Global Search readability: visual sizing/touch targets only; search logic unchanged */
+#home .global-search-results-head b{font-size:13px!important;line-height:1.35!important}
+#home .global-search-results-head span{font-size:12px!important;line-height:1.35!important}
+#home .global-search-result-list{gap:8px!important}
+#home .global-search-result{min-height:68px!important;padding:12px!important;grid-template-columns:38px minmax(0,1fr) auto!important;gap:10px!important;border-radius:15px!important}
+#home .global-search-result .icon{font-size:23px!important}
+#home .global-search-result b{font-size:14px!important;line-height:1.35!important}
+#home .global-search-result small{font-size:12px!important;line-height:1.45!important;margin-top:4px!important}
+#home .global-search-result em{font-size:11px!important;line-height:1.2!important;padding:5px 7px!important}
+#home .global-search-empty{font-size:13px!important;line-height:1.5!important;padding:13px!important}
+#home .global-search-fast button{min-height:64px!important;padding:9px 6px!important}
+#home .global-search-fast button span:first-child{font-size:23px!important}
+#home .global-search-suggest button{min-height:40px!important;padding:8px 11px!important}
+@media(max-width:420px){
+  #home .global-search-result{grid-template-columns:34px minmax(0,1fr)!important}
+  #home .global-search-result em{grid-column:2!important;justify-self:start!important;margin-top:2px!important}
+  #home .global-search-fast{grid-template-columns:repeat(2,1fr)!important}
+  #home .global-search-fast button{min-height:58px!important}
+}
+
+/* V94 · Missed Connection Recovery readability: visual sizing/touch targets only; recovery logic unchanged */
+.v52-recovery{margin-top:12px;padding:14px;border-radius:17px}
+.v52-recovery h4{margin:0 0 7px;font-size:16px;line-height:1.35}
+.v52-recovery p{font-size:13px;line-height:1.6}
+.v52-recovery-route{margin-top:11px;padding:12px;border-radius:13px}
+.v52-recovery-route b{font-size:14px;line-height:1.4}
+.v52-recovery-route span{margin-top:5px;font-size:12px;line-height:1.5}
+.v52-recovery-actions{gap:9px;margin-top:12px}
+.v52-recovery-actions button{flex:1 1 155px;min-height:48px;padding:10px 12px;font-size:13px;line-height:1.3}
+.v52-recovery-note{margin-top:10px;padding:10px 11px;border-radius:11px;background:rgba(255,255,255,.58);font-size:12px;line-height:1.6}
+@media(max-width:420px){
+  .v52-recovery-actions button{flex-basis:100%;width:100%}
+}
+</style>
+
+<style>
+/* V95 · Leave-by Helper readability: visual sizing/touch targets only; time calculation logic unchanged */
+.v54-leave-head p{font-size:13px;line-height:1.55}
+.v54-field label{font-size:13px;line-height:1.4;margin:0}
+.v54-field input,.v54-field select{min-height:50px;font-size:15px;padding:0 13px}
+.v54-buffer-chips{gap:8px}
+.v54-buffer-chips button{min-height:44px;padding:9px 14px;font-size:13px}
+.v54-actions{gap:9px;margin-top:5px}
+.v54-actions button{min-height:50px;font-size:13px;padding:10px 12px}
+.v54-result{padding:14px}
+.v54-leave-time{font-size:29px;line-height:1.15}
+.v54-timeline{gap:8px;margin-top:12px}
+.v54-line{grid-template-columns:76px 1fr;gap:10px;padding-top:9px}
+.v54-line b{font-size:13px;line-height:1.4}
+.v54-line span{font-size:13px;line-height:1.5}
+.v54-note{padding:11px 12px;font-size:12px;line-height:1.6}
+.v54-saved{font-size:12px;line-height:1.45}
+.v54-mini{padding:12px 13px}
+.v54-mini b{font-size:13px}
+.v54-mini span{font-size:12px;line-height:1.5}
+.v54-mini strong{font-size:16px}
+@media(max-width:420px){
+  .v54-actions button{flex-basis:100%}
+  .v54-line{grid-template-columns:68px 1fr}
+}
+
+
+/* V99 · Full Journey + saved offline journey readability; journey/save/check/recovery logic unchanged */
+.v50-detail-head h3{font-size:20px}
+.v50-detail-head p{font-size:13px;line-height:1.5}
+.v50-detail-pill{font-size:12px;padding:7px 10px}
+.v50-journey-line{font-size:13px;line-height:1.4;padding:11px 12px;min-height:44px}
+.v50-step{padding:14px 13px 14px 54px}
+.v50-step-num{width:30px;height:30px;font-size:13px}
+.v50-step .kicker{font-size:12px;line-height:1.35}
+.v50-step b{font-size:15px;line-height:1.4;margin-top:4px}
+.v50-step p{font-size:13px;line-height:1.55}
+.v50-leg-meta span{font-size:12px;padding:6px 8px;line-height:1.35}
+.v50-step-actions button,.v50-detail-bottom button{min-height:48px;font-size:13px;padding:10px 11px;line-height:1.35}
+.v50-detail-note{font-size:12px;line-height:1.6;padding:11px 12px}
+.v50-route-go{min-height:48px;font-size:14px}
+.v50-route-sub,.v50-saved-next{font-size:12px;line-height:1.55}
+.v50-saved-next button{min-height:44px;font-size:12px}
+.v51-journey-card.empty{font-size:13px;line-height:1.6}
+.v51-journey-head h4{font-size:17px;line-height:1.35}
+.v51-journey-head p{font-size:12px;line-height:1.5}
+.v51-offline-pill{font-size:12px;padding:7px 9px}
+.v51-progress{height:8px}
+.v51-step-list{gap:9px}
+.v51-check{grid-template-columns:30px 1fr;gap:10px;padding:11px;border-radius:14px;min-height:54px}
+.v51-check input{width:24px;height:24px;margin-top:1px}
+.v51-check b{font-size:14px;line-height:1.4}
+.v51-check span{font-size:12px;line-height:1.5;margin-top:3px}
+.v51-journey-actions button{min-height:48px;font-size:13px;line-height:1.35;padding:10px}
+.v51-journey-note{font-size:12px;line-height:1.6;padding:11px 12px}
+.v51-save-feedback{font-size:12px;line-height:1.45;min-height:18px}
+.offline-trip-head h3{font-size:16px}
+.offline-trip-badge{font-size:12px;padding:7px 10px}
+.offline-trip-note,.offline-trip-status,.offline-trip-feedback{font-size:12px;line-height:1.55}
+.offline-trip-actions button{min-height:46px;font-size:12px;padding:9px 11px}
+@media(max-width:420px){
+  .v50-step-actions,.v50-detail-bottom{grid-template-columns:1fr}
+  .v51-journey-head,.offline-trip-head{align-items:flex-start;flex-wrap:wrap}
+  .v51-journey-actions button,.offline-trip-actions button{flex-basis:100%}
+}
+</style>
+
+
+<style id="v100-food-order-readability">
+/* V100 Food Ordering Helper readability; phrase/translation/Gemini logic unchanged */
+.food-order-launch{min-height:48px;padding:12px 12px;font-size:13px;line-height:1.35}
+.food-order-tabs{gap:8px;margin:3px 0 12px;padding-bottom:5px}
+.food-order-tabs button{min-height:42px;padding:9px 12px;font-size:12px;line-height:1.3}
+.food-order-note{margin-top:12px;padding:12px 13px;font-size:12px;line-height:1.6;border-radius:13px}
+.food-order-focus-actions{gap:9px;margin-top:19px}
+.food-order-focus-actions button{min-height:46px;padding:12px 11px;font-size:13px;line-height:1.3}
+@media(max-width:380px){
+  .food-order-focus-actions{grid-template-columns:1fr}
+  .food-order-focus-actions button.primary{grid-column:auto}
+}
+</style>
+
+<style id="v101-subway-hub-readability">
+/* V101 English Subway Map Hub readability; external URLs/city data unchanged */
+.v56-subway-head small{font-size:12px;line-height:1.35}
+.v56-subway-head p{font-size:14px;line-height:1.55}
+.v56-subway-all b{font-size:16px;line-height:1.35}
+.v56-subway-all span{font-size:13px;line-height:1.55;margin:6px 0 11px}
+.v56-subway-all button{min-height:48px;font-size:13px;line-height:1.3;padding:11px 12px}
+.v56-subway-city b{font-size:16px;line-height:1.35}
+.v56-subway-city p{font-size:13px;line-height:1.55;min-height:40px}
+.v56-subway-city button{min-height:48px;font-size:13px;line-height:1.3;padding:11px 10px}
+.v56-subway-note{font-size:12px;line-height:1.6;padding:12px 13px}
+.v56-subway-close{width:46px;height:46px;font-size:26px}
+@media(max-width:430px){
+  .v56-subway-city p{min-height:0}
+  .v56-subway-all button,.v56-subway-city button{min-height:50px}
+}
+</style>
+
+
+<style id="v102-live-transit-readability">
+/* V102 Transit near me readability: UI only, no location/data logic changes */
+#liveTransitLayer .feature-top h3{font-size:19px!important;line-height:1.3!important}
+#liveTransitLayer .feature-top p{font-size:13px!important;line-height:1.55!important}
+#liveTransitLayer .slot-type{font-size:12px!important;padding:6px 8px!important}
+#liveTransitLayer .live-transit-actions{gap:9px!important;margin-top:12px!important}
+#liveTransitLayer .live-transit-actions .screen-link,
+#liveTransitLayer .live-transit-actions .mini-action{font-size:14px!important;min-height:46px!important;padding:11px 13px!important}
+#liveTransitLayer .live-transit-location{gap:6px!important;margin-top:10px!important;padding:13px 14px!important}
+#liveTransitLayer .live-transit-location b{font-size:14px!important;line-height:1.4!important}
+#liveTransitLayer .live-transit-location span{font-size:12px!important;line-height:1.55!important}
+#liveTransitLayer .live-transit-mode-note{margin-top:9px!important;padding:10px 12px!important;font-size:12px!important;line-height:1.55!important}
+#liveTransitLayer .live-transit-board{gap:9px!important;margin-top:12px!important}
+#liveTransitLayer .live-transit-stop{padding:13px!important}
+#liveTransitLayer .live-transit-stop-head{gap:10px!important}
+#liveTransitLayer .live-transit-stop-head b{font-size:15px!important;line-height:1.4!important}
+#liveTransitLayer .live-transit-stop-head span{font-size:12px!important;line-height:1.4!important}
+#liveTransitLayer .live-transit-arrivals{gap:8px!important;margin-top:10px!important}
+#liveTransitLayer .live-transit-arrival{gap:9px!important;padding:10px!important}
+#liveTransitLayer .live-transit-route{font-size:14px!important}
+#liveTransitLayer .live-transit-arrival small{font-size:12px!important;line-height:1.4!important}
+#liveTransitLayer .live-transit-arrival strong{font-size:14px!important}
+#liveTransitLayer .live-transit-arrival button{font-size:13px!important;min-height:42px!important;padding:9px 11px!important}
+#liveTransitLayer .live-transit-journey{margin-top:11px!important}
+#liveTransitLayer .live-transit-journey-card{padding:14px!important}
+#liveTransitLayer .live-transit-journey-card h4{font-size:15px!important;line-height:1.4!important;margin-bottom:9px!important}
+#liveTransitLayer .live-transit-step{gap:9px!important;padding:9px 0!important;font-size:13px!important;line-height:1.5!important}
+#liveTransitLayer .live-transit-step i{width:22px!important;flex:0 0 22px!important}
+#liveTransitLayer .live-transit-journey-note{font-size:12px!important;line-height:1.55!important;margin-top:9px!important}
+@media(max-width:420px){
+  #liveTransitLayer .feature-top{align-items:flex-start!important}
+  #liveTransitLayer .live-transit-actions{display:grid!important;grid-template-columns:1fr!important}
+  #liveTransitLayer .live-transit-actions .screen-link,
+  #liveTransitLayer .live-transit-actions .mini-action{width:100%!important}
+  #liveTransitLayer .live-transit-arrival{grid-template-columns:1fr auto!important}
+  #liveTransitLayer .live-transit-route{grid-column:1/2!important}
+  #liveTransitLayer .live-transit-arrival small{grid-column:1/2!important}
+  #liveTransitLayer .live-transit-arrival strong{grid-column:2/3!important;grid-row:1/3!important;align-self:center!important}
+}
+</style>
+
+<style id="v103-flight-readability">
+/* V103 Flight Finder readability: presentation only */
+.flight-card{padding:15px;border-radius:18px}
+.flight-title{font-size:16px;line-height:1.3}
+.flight-sub{font-size:12px;line-height:1.5;margin-top:4px}
+.flight-badge{font-size:12px;padding:6px 9px}
+.flight-airports{gap:10px;margin-top:14px}
+.flight-airport b{font-size:15px;line-height:1.3}
+.flight-airport span{font-size:12px;line-height:1.4;margin-top:3px}
+.flight-arrow{font-size:18px}
+.flight-info-grid{gap:8px;margin-top:12px}
+.flight-info{padding:10px;border-radius:12px}
+.flight-info span{font-size:12px;line-height:1.35}
+.flight-info b{font-size:14px;line-height:1.35;margin-top:4px}
+.flight-friction{gap:6px;margin-top:10px}
+.flight-friction span{font-size:12px;line-height:1.3;padding:6px 8px}
+.flight-actions{gap:8px;margin-top:12px}
+.flight-btn{min-height:46px;padding:11px 10px;font-size:13px;border-radius:12px}
+.flight-note{margin-top:10px;font-size:12px;line-height:1.55}
+@media(max-width:420px){
+  .flight-info-grid{grid-template-columns:1fr}
+  .flight-actions{grid-template-columns:1fr}
+}
+</style>
+<style id="v104-all-feature-polish">
+/* V104 · all remaining feature-level phone polish. UI/readability only; data/API/Gemini logic unchanged. */
+
+/* AI / trip assistant */
+#assistantHub .arch-hero .eyebrow{font-size:12px!important}
+#assistantHub .arch-hero p{font-size:14px!important;line-height:1.55!important}
+#assistantHub .assistant-panel{padding:16px!important}
+#assistantHub .assistant-context{gap:10px!important;margin-top:12px!important}
+#assistantHub .assistant-context select{min-height:46px!important;padding:10px 12px!important;font-size:15px!important}
+#assistantHub .assistant-quick{gap:8px!important;margin-top:12px!important}
+#assistantHub .assistant-chip{min-height:42px!important;padding:9px 12px!important;font-size:13px!important;line-height:1.3!important}
+#assistantHub .assistant-answer{padding:14px!important;font-size:14px!important;line-height:1.55!important}
+#assistantHub .assistant-answer b{font-size:15px!important;line-height:1.35!important;margin-bottom:6px!important}
+#assistantHub .assistant-grid{gap:10px!important}
+#assistantHub .assistant-card{padding:13px!important}
+#assistantHub .assistant-card h3{font-size:15px!important;line-height:1.35!important}
+#assistantHub .assistant-card p{font-size:12px!important;line-height:1.55!important;margin-top:6px!important}
+#assistantHub .assistant-status{font-size:12px!important;line-height:1.4!important;margin-top:9px!important}
+#assistantHub .assistant-dot{width:9px!important;height:9px!important;flex:0 0 9px!important}
+#assistantHub .assistant-actions{gap:9px!important;margin-top:12px!important}
+#assistantHub .assistant-btn{min-height:46px!important;padding:11px 10px!important;font-size:13px!important;line-height:1.3!important}
+#assistantHub .v30-details>summary{min-height:44px;padding:11px 4px;font-size:13px;line-height:1.35}
+#assistantHub .assistant-next-note{font-size:12px!important;line-height:1.5!important}
+
+/* Taxi / Uber / destination handoff */
+.taxi-show-btn,.uber-ride-btn,.poi-map-btn,.poi-save-btn,.poi-directions-from-me{min-height:42px!important;padding:9px 11px!important;font-size:12px!important;line-height:1.25!important}
+.taxi-card{padding:20px!important}
+.taxi-card-head p{font-size:13px!important;line-height:1.45!important}
+.taxi-eyebrow{font-size:12px!important;line-height:1.3!important}
+.taxi-close{width:44px!important;height:44px!important;min-width:44px!important;font-size:25px!important}
+.taxi-english{font-size:14px!important;line-height:1.5!important}
+.taxi-coords{padding:13px!important}
+.taxi-coords span{font-size:12px!important;line-height:1.35!important}
+.taxi-coords b{font-size:14px!important;line-height:1.35!important}
+.taxi-actions{gap:9px!important}
+.taxi-actions button{min-height:48px!important;padding:11px 10px!important;font-size:13px!important;line-height:1.3!important}
+.taxi-note{font-size:12px!important;line-height:1.6!important}
+.destination-card-label{font-size:12px!important;line-height:1.3!important;margin-top:16px!important}
+.destination-info-grid span{font-size:12px!important;line-height:1.35!important}
+.destination-info-grid b{font-size:14px!important;line-height:1.5!important}
+
+/* POI / saved places / itinerary handoff */
+.poi-action-row{gap:8px!important;flex-wrap:wrap!important}
+.poi-distance{font-size:12px!important;line-height:1.4!important}
+.poi-visit-check{font-size:12px!important;line-height:1.45!important}
+.poi-visit-check>button{min-height:40px!important;padding:8px 10px!important;font-size:12px!important}
+.poi-visit-check-body label{font-size:12px!important;line-height:1.45!important;min-height:38px!important}
+.saved-place-row{padding:13px!important;gap:10px!important}
+.saved-place-row b{font-size:14px!important;line-height:1.35!important}
+.saved-place-row span{font-size:12px!important;line-height:1.45!important;opacity:.72!important}
+.saved-place-actions{gap:8px!important}
+.saved-place-actions button,.saved-day-actions button{min-height:40px!important;padding:8px 10px!important;font-size:12px!important;line-height:1.25!important}
+.saved-empty{font-size:13px!important;line-height:1.55!important}
+.saved-day-title b{font-size:14px!important;line-height:1.35!important}
+.saved-day-title span{font-size:12px!important;line-height:1.35!important;opacity:.7!important}
+.saved-place-plan-controls label{font-size:12px!important;line-height:1.35!important}
+.saved-place-plan-controls select{min-height:44px!important;font-size:14px!important;padding:9px 10px!important}
+.saved-route-note{font-size:12px!important;line-height:1.55!important}
+.unified-itinerary-count{font-size:12px!important}
+.unified-itinerary-card span,.unified-day-chip span{font-size:12px!important;line-height:1.4!important}
+
+/* City essentials / urgent needs / luggage / lost-item recovery */
+.city-essential-dashboard-launch{min-height:58px!important;padding:12px 13px!important}
+.city-essential-dashboard-launch b{font-size:14px!important;line-height:1.35!important}
+.city-essential-dashboard-launch small{font-size:12px!important;line-height:1.45!important;margin-top:4px!important}
+.city-essential-dashboard-launch .go{min-height:38px!important;padding:8px 11px!important;font-size:12px!important}
+.city-essential-dashboard-head{padding:12px 13px!important}
+.city-essential-dashboard-head b{font-size:15px!important;line-height:1.35!important}
+.city-essential-dashboard-head small{font-size:12px!important;line-height:1.45!important}
+.city-essential-dashboard-head button{min-width:40px!important;min-height:40px!important;font-size:14px!important}
+.city-essential-grid{gap:9px!important;padding:11px!important}
+.city-essential-card{padding:11px!important}
+.city-essential-card .dist{font-size:12px!important}
+.city-essential-card b{font-size:13px!important;line-height:1.35!important;margin-top:6px!important}
+.city-essential-card small{font-size:12px!important;line-height:1.4!important;margin-top:3px!important}
+.city-essential-card button{min-height:42px!important;padding:9px!important;font-size:12px!important}
+.city-essential-dashboard-note,.city-essential-loading{font-size:12px!important;line-height:1.55!important;padding:11px 12px!important}
+
+.city-trip-trouble,.city-urgent-needs{padding:13px!important}
+.city-trip-trouble-head b,.city-urgent-needs-head b{font-size:15px!important;line-height:1.35!important}
+.city-trip-trouble-head small,.city-urgent-needs-head small{font-size:12px!important;line-height:1.45!important;margin-top:4px!important}
+.city-trip-trouble-head span,.city-urgent-needs-head span{font-size:11px!important;line-height:1.2!important;padding:6px 8px!important}
+.city-trip-trouble-row,.city-urgent-needs-row,.city-lost-kind-grid{gap:8px!important}
+.city-trip-trouble-btn,.city-urgent-need-btn,.city-lost-kind-grid button{min-height:52px!important;padding:10px 11px!important;font-size:13px!important;line-height:1.35!important}
+.city-trip-trouble-btn small,.city-urgent-need-btn small,.city-lost-kind-grid button small{font-size:12px!important;line-height:1.4!important;margin-top:4px!important}
+.city-trip-trouble-card{padding:13px!important}
+.city-trip-trouble-card strong{font-size:15px!important;line-height:1.35!important}
+.city-trip-trouble-card p{font-size:13px!important;line-height:1.55!important;margin-top:6px!important}
+.city-trip-trouble-actions{gap:8px!important}
+.city-trip-trouble-actions button{min-height:44px!important;padding:9px 10px!important;font-size:12px!important;line-height:1.3!important}
+.city-trip-trouble-note,.city-lost-official{font-size:12px!important;line-height:1.55!important;margin-top:9px!important}
+.city-lost-phrase{padding:11px!important}
+.city-lost-phrase b{font-size:14px!important;line-height:1.45!important}
+.city-lost-phrase span{font-size:12px!important;line-height:1.45!important;margin-top:4px!important}
+.city-urgent-status{font-size:12px!important;line-height:1.55!important}
+.city-urgent-result{min-height:56px!important;padding:10px!important;gap:10px!important}
+.city-urgent-result .txt b{font-size:13px!important;line-height:1.35!important}
+.city-urgent-result .txt small{font-size:12px!important;line-height:1.4!important;margin-top:3px!important}
+.city-urgent-result .go{font-size:12px!important}
+
+/* Map secondary controls/results that were still tiny */
+.city-map-routepoint span{font-size:11px!important;line-height:1.25!important}
+.city-map-routepoint b{font-size:13px!important;line-height:1.3!important}
+.city-map-oneglance-note{font-size:12px!important;line-height:1.45!important;margin-bottom:10px!important}
+.city-map-searchbox input{min-height:46px!important;font-size:14px!important;padding:10px 12px!important}
+.city-map-searchbox button{min-height:44px!important;padding:9px 12px!important;font-size:12px!important}
+.city-map-search-cat,.city-map-search-source,.city-map-search-count{font-size:11px!important;line-height:1.35!important}
+.city-map-search-hint,.city-map-search-empty{font-size:12px!important;line-height:1.55!important}
+.city-map-search-result{min-height:52px!important}
+.city-map-search-result b{font-size:13px!important;line-height:1.35!important}
+.city-map-search-result small{font-size:12px!important;line-height:1.4!important}
+.city-map-search-filter{min-height:38px!important;font-size:11px!important;padding:8px 10px!important}
+.city-map-nearby-head b{font-size:14px!important;line-height:1.35!important}
+.city-map-nearby-head small{font-size:12px!important;line-height:1.4!important}
+.city-map-nearby-btn{min-height:44px!important;padding:9px 10px!important;font-size:12px!important;line-height:1.3!important}
+.city-map-nearby-more summary{min-height:38px!important;padding:8px 4px!important;font-size:12px!important;line-height:1.3!important}
+.city-map-station-pack-body{font-size:12px!important;line-height:1.5!important}
+.city-map-station-pack-chip span{font-size:11px!important;line-height:1.35!important}
+.city-map-station-pack-chip b{font-size:13px!important;line-height:1.35!important}
+
+/* Route arrival / handoff / readiness details */
+#moveHub .move-arrival-note{font-size:12px!important;line-height:1.55!important}
+#moveHub .move-arrival-grid span,#moveHub .move-arrival-phrase span{font-size:12px!important;line-height:1.35!important}
+#moveHub .move-arrival-grid b,#moveHub .move-arrival-phrase b{font-size:14px!important;line-height:1.4!important}
+#moveHub .move-arrival-actions{gap:8px!important}
+#moveHub .move-arrival-actions button{min-height:42px!important;padding:9px 11px!important;font-size:12px!important}
+#moveHub .move-arrival-feedback{font-size:12px!important;line-height:1.4!important}
+#moveHub .move-handoff-route span,#moveHub .move-handoff-stay span{font-size:12px!important;line-height:1.35!important}
+#moveHub .move-handoff-route b,#moveHub .move-handoff-stay b{font-size:14px!important;line-height:1.4!important}
+#moveHub .move-handoff-route small,#moveHub .move-handoff-stay small{font-size:12px!important;line-height:1.45!important}
+#moveHub .move-handoff-checks{font-size:12px!important;line-height:1.5!important;gap:7px!important}
+#moveHub .move-handoff-summary-actions button{min-height:42px!important;padding:9px 11px!important;font-size:12px!important}
+#moveHub .move-handoff-disclaimer{font-size:12px!important;line-height:1.55!important}
+#moveHub .move-verify-kicker{font-size:11px!important}
+#moveHub .move-verify-route{font-size:12px!important;line-height:1.45!important;padding:10px 11px!important}
+#moveHub .move-verify-list{gap:8px!important}
+#moveHub .move-verify-list button{min-height:44px!important;padding:10px 11px!important;font-size:12px!important;line-height:1.4!important}
+#moveHub .move-verify-card>p,#moveHub .move-verify-scope{font-size:12px!important;line-height:1.5!important}
+#moveHub .move-readiness-items span{font-size:12px!important;line-height:1.45!important}
+
+/* Korea time / weather / location status */
+#koreaTimeLayer .feature-top h3,#liveWeatherLayer .feature-top h3{font-size:19px!important;line-height:1.3!important}
+#koreaTimeLayer .feature-top p,#liveWeatherLayer .feature-top p{font-size:13px!important;line-height:1.55!important}
+#koreaTimeLayer .slot-type,#liveWeatherLayer .slot-type{font-size:12px!important;padding:6px 8px!important}
+.korea-time-status span{font-size:12px!important;line-height:1.5!important}
+.korea-time-advice{font-size:12px!important;line-height:1.6!important;padding:12px 13px!important}
+.korea-time-actions button{min-height:42px!important;padding:9px 12px!important;font-size:12px!important}
+.live-weather-metric small{font-size:11px!important;line-height:1.3!important}
+.live-weather-smart-action button{min-height:42px!important;padding:9px 12px!important;font-size:12px!important}
+.live-weather-smart-action span{font-size:12px!important;line-height:1.45!important}
+.live-location-body{font-size:12px!important;line-height:1.5!important;padding:13px!important}
+.live-location-body strong{font-size:14px!important;line-height:1.35!important}
+.live-location-feedback,.live-location-privacy{font-size:12px!important;line-height:1.5!important}
+.location-fallback-inline span{font-size:12px!important;line-height:1.45!important}
+.location-fallback-inline button{min-height:40px!important;padding:8px 11px!important;font-size:12px!important}
+
+/* Airport-transfer toolkit (separate from V103 flight cards) */
+.airport-toolkit-head h3{font-size:18px!important;line-height:1.3!important}
+.prototype-pill,.airport-best{font-size:11px!important;line-height:1.25!important;padding:6px 8px!important}
+.airport-note{font-size:13px!important;line-height:1.55!important}
+.airport-option-card{padding:14px!important}
+.airport-mode{font-size:13px!important;line-height:1.4!important}
+.airport-option-grid span{font-size:12px!important;line-height:1.35!important}
+.airport-option-grid b{font-size:14px!important;line-height:1.35!important}
+.airport-friction{font-size:12px!important;line-height:1.4!important;gap:7px!important}
+
+/* Generic empty / loading / feedback text */
+#odsayTestResult span{font-size:12px!important;line-height:1.55!important}
+.share-toast{font-size:12px!important;line-height:1.4!important}
+
+@media(max-width:420px){
+  #assistantHub .assistant-context,#assistantHub .assistant-grid,#assistantHub .assistant-actions{grid-template-columns:1fr!important}
+  .destination-card-actions,.taxi-actions{grid-template-columns:1fr!important}
+  .destination-card-actions .uber-ride-btn{grid-column:auto!important}
+  .saved-place-row{align-items:flex-start!important;flex-direction:column!important}
+  .saved-place-actions{width:100%!important}
+  .saved-place-actions button{flex:1 1 120px!important}
+  .city-essential-grid,.city-trip-trouble-row,.city-urgent-needs-row,.city-lost-kind-grid,.city-trip-trouble-actions{grid-template-columns:1fr!important}
+  .city-trip-trouble-actions button.primary{grid-column:auto!important}
+  .city-map-routebar{grid-template-columns:minmax(0,1fr) 24px minmax(0,1fr)!important}
+  .city-map-routebar .city-map-quickgo{grid-column:1/-1;min-height:44px}
+  #moveHub .move-arrival-grid{grid-template-columns:1fr!important}
+  #moveHub .move-handoff-route{grid-template-columns:1fr!important}
+  #moveHub .move-handoff-arrow{text-align:center;transform:rotate(90deg)}
+  #moveHub .move-arrival-actions button,#moveHub .move-handoff-summary-actions button{flex:1 1 100%!important}
+  .live-weather-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .airport-option-grid{grid-template-columns:1fr!important}
+}
+</style>
+
+
+<style id="v105-can-i-make-it">
+/* V105 · Can I Make It? — planning status from user-entered ticket time/travel time/buffer. No live-service guarantee. */
+.v105-make-panel{position:fixed;inset:0;z-index:1410;background:rgba(7,18,33,.66);display:flex;align-items:flex-end;justify-content:center;padding:14px}
+.v105-make-sheet{width:min(620px,100%);max-height:90dvh;overflow:auto;background:var(--bg,#fff);color:var(--ink);border-radius:22px 22px 16px 16px;padding:17px;box-shadow:0 -18px 55px rgba(0,0,0,.24)}
+.v105-make-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.v105-make-head h3{margin:4px 0 4px;font-size:21px;line-height:1.25}.v105-make-head p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}.v105-close{min-width:46px;min-height:46px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);font-size:22px;font-weight:950}
+.v105-location{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px;padding:11px 12px;border-radius:13px;background:rgba(127,127,127,.07)}.v105-location div{min-width:0}.v105-location b{display:block;font-size:13px;line-height:1.4}.v105-location span{display:block;margin-top:2px;font-size:12px;line-height:1.45;color:var(--muted);word-break:break-word}.v105-location button{flex:none;min-height:44px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);padding:9px 12px;font-size:13px;font-weight:900}
+.v105-form{display:grid;gap:11px;margin-top:13px}.v105-field{display:grid;gap:6px}.v105-field label{font-size:13px;font-weight:950;line-height:1.4}.v105-field input,.v105-field select{width:100%;min-height:50px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);padding:0 13px;font-size:15px}.v105-two{display:grid;grid-template-columns:1fr 1fr;gap:9px}.v105-chips{display:flex;gap:8px;flex-wrap:wrap}.v105-chips button{min-height:44px;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:9px 14px;font-size:13px;font-weight:900}.v105-actions{display:flex;gap:9px;flex-wrap:wrap}.v105-actions button{flex:1 1 150px;min-height:50px;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:10px 12px;font-size:13px;font-weight:950}.v105-actions .primary{background:#0b2345;border-color:#0b2345;color:#fff}
+.v105-result{margin-top:14px;border:1px solid rgba(127,127,127,.18);border-radius:17px;padding:14px;background:rgba(127,127,127,.04)}.v105-result[hidden]{display:none}.v105-status{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px;border-radius:14px}.v105-status strong{font-size:25px;line-height:1.05;letter-spacing:-.3px}.v105-status span{display:block;margin-top:5px;font-size:12px;line-height:1.45}.v105-status em{font-style:normal;font-size:29px}.v105-status.safe{background:#eaf8f0;color:#12633a}.v105-status.hurry{background:#fff5df;color:#7a5110}.v105-status.late{background:#fff0f0;color:#8c2525}.v105-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.v105-metric{padding:10px;border-radius:12px;background:rgba(127,127,127,.07)}.v105-metric span{display:block;font-size:11px;line-height:1.35;color:var(--muted)}.v105-metric b{display:block;margin-top:3px;font-size:14px;line-height:1.3}.v105-result-note{margin-top:10px;padding:10px 11px;border-radius:12px;background:#fff7e8;color:#70531a;font-size:12px;line-height:1.55}.v105-result-tip{margin-top:8px;font-size:12px;line-height:1.5;color:var(--muted)}
+@media(max-width:420px){.v105-make-panel{padding:8px}.v105-make-sheet{padding:14px}.v105-two,.v105-metrics{grid-template-columns:1fr}.v105-actions button{flex-basis:100%}.v105-location{align-items:stretch;flex-direction:column}.v105-location button{width:100%}}
+</style>
+
+
+<style id="v106-my-address-card">
+/* V106 · My Address Card — exact booked stay details stored locally for offline display. */
+.v106-address-panel{position:fixed;inset:0;z-index:1420;background:rgba(7,18,33,.68);display:flex;align-items:flex-end;justify-content:center;padding:14px}
+.v106-address-sheet{width:min(620px,100%);max-height:91dvh;overflow:auto;background:var(--bg,#fff);color:var(--ink);border-radius:22px 22px 16px 16px;padding:17px;box-shadow:0 -18px 55px rgba(0,0,0,.25)}
+.v106-address-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.v106-address-head h3{margin:4px 0 4px;font-size:21px;line-height:1.25}.v106-address-head p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}.v106-address-close{min-width:46px;min-height:46px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);font-size:22px;font-weight:950}
+.v106-address-card{margin-top:14px;padding:16px;border-radius:18px;background:#0b2345;color:#fff}.v106-address-card .eyebrow{font-size:12px;font-weight:950;letter-spacing:.08em;opacity:.76}.v106-address-card h4{margin:7px 0 0;font-size:20px;line-height:1.35}.v106-address-card .addr{margin-top:12px;font-size:18px;line-height:1.5;font-weight:950;word-break:keep-all}.v106-address-card .phone{margin-top:10px;font-size:14px;line-height:1.4;opacity:.9}.v106-address-card .offline{display:inline-flex;margin-top:12px;padding:6px 9px;border-radius:999px;background:rgba(255,255,255,.14);font-size:12px;font-weight:900}
+.v106-address-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:12px}.v106-address-actions button{min-height:48px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);padding:10px 12px;font-size:13px;font-weight:950}.v106-address-actions .primary{background:#0b2345;border-color:#0b2345;color:#fff}.v106-address-actions .driver{grid-column:1/-1;background:#fff4d8;border-color:#efd392;color:#654711;font-size:14px}
+.v106-address-note{margin-top:11px;padding:10px 11px;border-radius:12px;background:#fff7e8;color:#70531a;font-size:12px;line-height:1.55}
+.v106-address-form{display:grid;gap:11px;margin-top:14px}.v106-address-field{display:grid;gap:6px}.v106-address-field label{font-size:13px;font-weight:950;line-height:1.4}.v106-address-field input,.v106-address-field textarea{width:100%;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);padding:12px 13px;font-size:15px;line-height:1.45}.v106-address-field input{min-height:50px}.v106-address-field textarea{min-height:88px;resize:vertical}.v106-address-form-actions{display:flex;gap:9px;flex-wrap:wrap}.v106-address-form-actions button{flex:1 1 150px;min-height:50px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);padding:10px 12px;font-size:13px;font-weight:950}.v106-address-form-actions .primary{background:#0b2345;border-color:#0b2345;color:#fff}.v106-address-danger{color:#8c2525!important;border-color:#e7bcbc!important;background:#fff8f8!important}
+.v106-driver-sheet{background:#fff;color:#111;text-align:center}.v106-driver-top{display:flex;justify-content:space-between;align-items:center;gap:10px}.v106-driver-top b{font-size:14px}.v106-driver-card{margin-top:16px;border:3px solid #111;border-radius:18px;padding:22px 16px}.v106-driver-card span{display:block;font-size:14px;font-weight:900}.v106-driver-card h3{margin:10px 0 0;font-size:26px;line-height:1.3}.v106-driver-card p{margin:18px 0 0;font-size:24px;line-height:1.45;font-weight:950;word-break:keep-all}.v106-driver-card small{display:block;margin-top:16px;font-size:16px;line-height:1.4}.v106-driver-actions{display:flex;gap:9px;margin-top:14px}.v106-driver-actions button{flex:1;min-height:50px;border:1px solid #ccc;border-radius:12px;background:#fff;color:#111;font-size:14px;font-weight:950}
+.v106-stay-launch{margin-top:12px;padding:13px;border:1px solid #dce5ef;border-radius:14px;background:#f8fbff;display:flex;align-items:center;justify-content:space-between;gap:12px}.v106-stay-launch div{min-width:0}.v106-stay-launch b{display:block;font-size:14px}.v106-stay-launch span{display:block;margin-top:4px;font-size:12px;line-height:1.5;color:var(--muted)}.v106-stay-launch button{flex:none;min-height:44px;border:0;border-radius:12px;background:#0b2345;color:#fff;padding:9px 12px;font-size:13px;font-weight:950}
+@media(max-width:420px){.v106-address-panel{padding:8px}.v106-address-sheet{padding:14px}.v106-address-actions{grid-template-columns:1fr}.v106-address-actions .driver{grid-column:auto}.v106-address-form-actions button,.v106-driver-actions button{flex-basis:100%}.v106-driver-actions{flex-direction:column}.v106-stay-launch{align-items:stretch;flex-direction:column}.v106-stay-launch button{width:100%}}
+</style>
+
+
+<style id="v107-show-staff">
+/* V107 · Show Staff — offline built-in Korean help cards. Uses saved journey context only; never invents gate/platform numbers. */
+.v107-staff-panel{position:fixed;inset:0;z-index:1430;background:rgba(7,18,33,.7);display:flex;align-items:flex-end;justify-content:center;padding:14px}
+.v107-staff-sheet{width:min(640px,100%);max-height:92dvh;overflow:auto;background:var(--bg,#fff);color:var(--ink);border-radius:22px 22px 16px 16px;padding:17px;box-shadow:0 -18px 58px rgba(0,0,0,.27)}
+.v107-staff-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.v107-staff-head h3{margin:4px 0 4px;font-size:21px;line-height:1.25}.v107-staff-head p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}.v107-staff-close{min-width:46px;min-height:46px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);font-size:22px;font-weight:950}
+.v107-context{margin-top:13px;padding:12px;border:1px solid #dce5ef;border-radius:14px;background:#f8fbff}.v107-context .label{display:block;font-size:11px;font-weight:950;letter-spacing:.07em;color:#58718d}.v107-context b{display:block;margin-top:5px;font-size:15px;line-height:1.4}.v107-context span{display:block;margin-top:4px;font-size:12px;line-height:1.5;color:var(--muted)}
+.v107-quick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}.v107-quick button{min-height:58px;border:1px solid var(--line);border-radius:13px;background:#fff;color:var(--ink);padding:10px 11px;text-align:left;font-size:13px;font-weight:950;line-height:1.35}.v107-quick button.active{background:#0b2345;border-color:#0b2345;color:#fff}.v107-quick button small{display:block;margin-top:4px;font-size:11px;line-height:1.35;font-weight:750;opacity:.72}
+.v107-card{margin-top:14px;border:3px solid #111;border-radius:20px;background:#fff;color:#111;padding:20px 16px;text-align:center}.v107-card .eyebrow{display:block;font-size:12px;font-weight:950;letter-spacing:.08em}.v107-card .ko{margin-top:11px;font-size:28px;line-height:1.4;font-weight:950;word-break:keep-all}.v107-card .en{margin-top:13px;font-size:14px;line-height:1.5;color:#4b5563}.v107-card .route{margin-top:15px;padding-top:13px;border-top:1px dashed #bbb;font-size:16px;line-height:1.45;font-weight:900;word-break:keep-all}
+.v107-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:12px}.v107-actions button{min-height:50px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);padding:10px 12px;font-size:13px;font-weight:950}.v107-actions .primary{background:#0b2345;border-color:#0b2345;color:#fff}.v107-actions .focus{grid-column:1/-1;background:#fff4d8;border-color:#efd392;color:#654711}
+.v107-note{margin-top:11px;padding:10px 11px;border-radius:12px;background:#fff7e8;color:#70531a;font-size:12px;line-height:1.55}.v107-offline{display:inline-flex;margin-top:9px;padding:6px 9px;border-radius:999px;background:#eef5ff;color:#294e78;font-size:12px;font-weight:950}
+.v107-staff-panel.focus{padding:0;background:#fff}.v107-staff-panel.focus .v107-staff-sheet{width:100%;max-width:none;min-height:100dvh;max-height:100dvh;border-radius:0;box-shadow:none;display:flex;flex-direction:column;justify-content:center}.v107-staff-panel.focus .v107-staff-head,.v107-staff-panel.focus .v107-context,.v107-staff-panel.focus .v107-quick,.v107-staff-panel.focus .v107-note{display:none}.v107-staff-panel.focus .v107-card{margin:0;border-width:4px;padding:28px 18px}.v107-staff-panel.focus .v107-card .ko{font-size:34px;line-height:1.42}.v107-staff-panel.focus .v107-card .en{font-size:16px}.v107-staff-panel.focus .v107-card .route{font-size:19px}.v107-staff-panel.focus .v107-actions{margin-top:16px}.v107-staff-panel.focus .v107-actions button:not(.focus){display:none}.v107-staff-panel.focus .v107-actions .focus{display:block}
+@media(max-width:420px){.v107-staff-panel{padding:8px}.v107-staff-sheet{padding:14px}.v107-quick,.v107-actions{grid-template-columns:1fr}.v107-actions .focus{grid-column:auto}.v107-card .ko{font-size:25px}.v107-staff-panel.focus .v107-card .ko{font-size:31px}}
+</style>
+
+
+<style id="v108-gemini-trip-assistant">
+/* V108 · live Gemini Trip Assistant frontend. Server /api/gemini is kept separate. */
+#assistantHub .v108-ai-compose{margin-top:12px;padding:13px;border:1px solid #dce6f2;border-radius:15px;background:#fbfdff}
+#assistantHub .v108-ai-compose label{display:block;margin:0 0 7px;font-size:13px;font-weight:900;color:#17365b}
+#assistantHub #assistantQuestion{width:100%;min-height:92px;resize:vertical;border:1px solid #cfdceb;border-radius:12px;background:#fff;color:#17365b;padding:12px 13px;font:inherit;font-size:15px;line-height:1.5;box-sizing:border-box;outline:none}
+#assistantHub #assistantQuestion:focus{border-color:#7898b9;box-shadow:0 0 0 3px rgba(73,116,156,.10)}
+#assistantHub .v108-ai-compose-actions{display:grid;grid-template-columns:1.35fr .65fr;gap:8px;margin-top:9px}
+#assistantHub .v108-ai-compose-actions button{min-height:46px;border-radius:11px;border:1px solid #d3deea;font-size:13px;font-weight:900;padding:10px 12px}
+#assistantHub .v108-ai-compose-actions .primary{background:#0b2345;color:#fff;border-color:#0b2345}
+#assistantHub .v108-ai-compose-actions .secondary{background:#fff;color:#315b88}
+#assistantHub .v108-ai-compose-actions button:disabled{opacity:.55;cursor:wait}
+#assistantHub .v108-ai-status{margin-top:8px;font-size:12px;line-height:1.5;color:#61758c}
+#assistantHub .v108-ai-status.loading{color:#315b88;font-weight:800}
+#assistantHub .v108-ai-status.ok{color:#087b6d;font-weight:800}
+#assistantHub .v108-ai-status.error{color:#a14f36;font-weight:800}
+#assistantHub .v108-ai-answer-text{white-space:pre-wrap;word-break:break-word;font-size:14px;line-height:1.62;color:#263f5b}
+#assistantHub .v108-ai-actions{margin:10px 0 0;padding:10px 12px 10px 28px;border-radius:11px;background:#fff;border:1px solid #e2e9f1}
+#assistantHub .v108-ai-actions li{font-size:13px;line-height:1.5;margin:5px 0;color:#31506f}
+#assistantHub .v108-ai-warning{display:block;margin-top:10px;padding-top:9px;border-top:1px solid rgba(127,127,127,.14);font-size:12px;line-height:1.55;color:#6b7888}
+#assistantHub .v108-ai-live b{color:#087b6d}
+@media(max-width:420px){
+  #assistantHub .v108-ai-compose-actions{grid-template-columns:1fr}
+  #assistantHub .v108-ai-compose-actions button{width:100%}
+}
+</style>
 
 </head>
 <body>
@@ -1410,7 +2433,7 @@ button:disabled{opacity:.55;cursor:not-allowed}
     <button type="button" onclick="go('moveHub');setTimeout(openPhraseSheet,180)">💬 <span data-i18n="home.sos.phrases">Korean phrases</span></button>
     <button type="button" onclick="openNearbyEssential('pharmacy')">💊 <span data-i18n="home.sos.pharmacy">Nearby pharmacy</span></button>
   </div>
-  <div class="quick-sos-note" data-i18n="home.sos.note">Emergency calls use Korea's official numbers: Police 112 · Fire/Ambulance 119. Pharmacy results open in an external map; verify availability there.</div>
+  <div class="quick-sos-note" data-i18n="home.sos.note">Emergency calls: Police 112 · Fire/Ambulance 119. For travel information or interpretation help, call 1330. Pharmacy results open in an external map; verify availability there.</div>
 </div>
 
 <div class="nearby-essentials" id="nearbyEssentials">
@@ -1484,7 +2507,7 @@ button:disabled{opacity:.55;cursor:not-allowed}
   <div class="card tip"><div class="ico">💳</div><div><b data-i18n="home.visitor.card.title">Made for international travelers</b><p data-i18n="home.visitor.card.desc">We highlight simpler booking options, local transport tips, and services that are easier to use without a Korean phone number.</p></div></div>
 
   <div class="beta-release-card" id="betaReleaseCard">
-    <div><b data-i18n="home.beta.title">Public Beta · V69</b><span data-i18n="home.beta.subtitle">Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.</span></div>
+    <div><b data-i18n="home.beta.title">Public Beta · V73</b><span data-i18n="home.beta.subtitle">Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.</span></div>
     <button type="button" onclick="shareBetaIssue()" data-i18n="home.beta.report">Report a problem</button>
   </div>
 </section>
@@ -1813,10 +2836,10 @@ button:disabled{opacity:.55;cursor:not-allowed}
 
 
 <section class="screen arch-screen" id="moveHub">
-  <div class="top"><button type="button" class="back" aria-label="Back / 뒤로" onclick="go('home')">‹</button><div class="brand" data-en="Move" data-ko="이동">Move</div><button class="pill" onclick="toggleLang()">EN / 한국어</button></div>
+  <div class="top"><button type="button" class="back" aria-label="Back / 뒤로" onclick="go('home')">‹</button><div class="brand" data-i18n="route.brand">Move</div><button class="pill" onclick="toggleLang()">EN / 한국어</button></div>
 
-  <div class="v60-screen-intro"><h1 data-en="Where are you going?" data-ko="어디로 가세요?">Where are you going?</h1><p data-en="Choose departure and destination first. Open extra transport tools only when you need them." data-ko="출발지와 목적지만 먼저 고르세요. 필요한 교통 도구는 따로 열 수 있습니다.">Choose departure and destination first.</p></div>
-  <div class="v60-route-shortcuts"><button type="button" onclick="openSubwayMapHub()"><span>🚇</span><b data-en="Subway map" data-ko="지하철 노선도">Subway map</b></button><button type="button" onclick="openCheckRide()"><span>📷</span><b data-en="Check & Ride" data-ko="체크 & 라이드">Check & Ride</b></button><button type="button" onclick="go('helperHub')"><span>•••</span><b data-en="More tools" data-ko="더보기">More tools</b></button></div>
+  <div class="v60-screen-intro"><h1 data-i18n="route.intro.title">Where are you going?</h1><p data-i18n="route.intro.subtitle">Choose departure and destination first. Open extra transport tools only when you need them.</p></div>
+  <div class="v60-route-shortcuts"><button type="button" onclick="openSubwayMapHub()"><span>🚇</span><b data-i18n="route.shortcut.subway">Subway map</b></button><button type="button" onclick="openCheckRide()"><span>📷</span><b data-i18n="route.shortcut.checkRide">Check & Ride</b></button><button type="button" onclick="go('helperHub')"><span>•••</span><b data-i18n="route.shortcut.more">More tools</b></button></div>
   <div class="arch-hero"><div class="eyebrow">MOVE</div><h1 data-en="Move with confidence." data-ko="이동을 빠르게 확인하세요.">Move with confidence.</h1><p data-en="Search route data, check transit near you, and see current weather before you go." data-ko="경로를 찾고, 내 주변 교통과 현재 날씨를 출발 전에 확인하세요.">Search route data, check transit near you, and see current weather before you go.</p><div class="arch-status"><span class="arch-badge">ROUTE</span><span class="arch-badge">NEAR ME</span><span class="arch-badge">WEATHER</span></div></div>
   <div class="beginner-task-row" aria-label="Move quick actions">
     <button type="button" onclick="document.getElementById('liveMovePlanner')?.scrollIntoView({behavior:'smooth',block:'start'})">🧭 <span data-en="Find route" data-ko="경로 찾기">Find route</span></button>
@@ -1832,21 +2855,21 @@ button:disabled{opacity:.55;cursor:not-allowed}
   <div class="feature-card" id="liveMovePlanner" style="margin-bottom:10px">
     <div class="feature-top">
       <div>
-        <h3 data-en="Public transport route" data-ko="대중교통 경로">Public transport route</h3>
-        <p data-en="Search ODsay route data and apply a result to your trip segment." data-ko="ODsay 경로 데이터를 조회해 여행 이동 구간에 반영합니다.">Search ODsay route data and apply a result to your trip segment.</p>
+        <h3 data-i18n="route.search.title">Public transport route</h3>
+        <p data-i18n="route.search.subtitle">Search ODsay route data and apply a result to your trip segment.</p>
       </div>
       <span class="slot-type api">ODsay ROUTE</span>
     </div>
     <div class="route-live-grid">
-      <label><span data-en="From" data-ko="출발">From</span><select id="moveFrom"></select></label>
-      <label><span data-en="To" data-ko="도착">To</span><select id="moveTo"></select></label>
+      <label><span data-i18n="route.search.from">From</span><select id="moveFrom"></select></label>
+      <label><span data-i18n="route.search.to">To</span><select id="moveTo"></select></label>
     </div>
     <div class="move-pref-row" id="movePreference">
-      <button type="button" class="move-pref active" data-pref="visitor" data-en="Visitor Pick" data-ko="외국인 추천">Visitor Pick</button>
-      <button type="button" class="move-pref" data-pref="fastest" data-en="Fastest" data-ko="가장 빠름">Fastest</button>
-      <button type="button" class="move-pref" data-pref="fewest" data-en="Fewer transfers" data-ko="환승 최소">Fewer transfers</button>
+      <button type="button" class="move-pref active" data-pref="visitor" data-i18n="route.pref.visitor">Visitor Pick</button>
+      <button type="button" class="move-pref" data-pref="fastest" data-i18n="route.pref.fastest">Fastest</button>
+      <button type="button" class="move-pref" data-pref="fewest" data-i18n="route.pref.fewest">Fewer transfers</button>
     </div>
-    <button class="screen-link" type="button" id="moveLiveSearchBtn" data-en="Find route" data-ko="경로 찾기">Find route</button>
+    <button class="screen-link" type="button" id="moveLiveSearchBtn" data-i18n="route.search.button">Find route</button>
     <details class="move-dev-setup" id="moveApiSetup">
       <summary data-en="Developer API setup" data-ko="개발용 API 설정">Developer API setup</summary>
       <div class="move-dev-body">
@@ -1856,8 +2879,8 @@ button:disabled{opacity:.55;cursor:not-allowed}
       </div>
     </details>
     <div id="moveLiveSummary" class="data-slot">
-      <b data-en="Route result" data-ko="경로 결과">Route result</b>
-      <span data-en="Choose cities and search." data-ko="출발지와 목적지를 선택하고 검색하세요.">Choose cities and search.</span>
+      <b data-i18n="route.result.title">Route result</b>
+      <span data-i18n="route.result.empty">Choose cities and search.</span>
     </div>
     <div id="moveLiveRoutes" class="live-route-list"></div>
   </div>
@@ -1990,6 +3013,7 @@ button:disabled{opacity:.55;cursor:not-allowed}
     <button class="stay-search-btn" type="button" onclick="renderStayOptions()" data-en="Compare stay areas" data-ko="숙소 지역 비교">Compare stay areas</button>
     <div id="stayResults" class="stay-results"></div>
     <div class="stay-disclaimer" data-en="Sample area guidance only · no live hotel price or room availability." data-ko="샘플 권역 안내입니다 · 실시간 숙박요금이나 객실 가능 여부는 제공하지 않습니다.">Sample area guidance only · no live hotel price or room availability.</div>
+    <div class="v106-stay-launch"><div><b data-en="Booked a real hotel?" data-ko="실제 숙소를 예약했나요?">Booked a real hotel?</b><span data-en="Save its exact Korean address once, then reopen it offline or show it to a taxi driver." data-ko="정확한 한국어 주소를 한 번 저장하면 오프라인에서 다시 보거나 택시기사에게 바로 보여줄 수 있습니다.">Save its exact Korean address once, then reopen it offline or show it to a taxi driver.</span></div><button type="button" onclick="v106OpenAddressCard()">🏠 <span data-en="My Address Card" data-ko="내 주소 카드">My Address Card</span></button></div>
   </div>
 </section>
 
@@ -2011,14 +3035,14 @@ button:disabled{opacity:.55;cursor:not-allowed}
   <div class="wallet-panel">
     <b id="walletBudgetSetup" data-en="Budget setup" data-ko="예산 설정">Budget setup</b>
     <div class="wallet-grid">
-      <select id="walletCity"><option value="Seoul">Seoul</option><option value="Suwon">Suwon</option><option value="Incheon">Incheon</option><option value="Chuncheon">Chuncheon</option><option value="Gangneung">Gangneung</option><option value="Sokcho">Sokcho</option><option value="Daejeon">Daejeon</option><option value="Gongju">Gongju</option><option value="Jeonju">Jeonju</option><option value="Yeosu">Yeosu</option><option value="Suncheon">Suncheon</option><option value="Gyeongju">Gyeongju</option><option value="Andong">Andong</option><option value="Daegu">Daegu</option><option value="Ulsan">Ulsan</option><option value="Pohang">Pohang</option><option value="Busan">Busan</option><option value="Tongyeong">Tongyeong</option><option value="Geoje">Geoje</option><option value="Jeju">Jeju</option></select>
-      <select id="walletStyle">
+      <label class="v83-wallet-field"><span data-en="City" data-ko="도시">City</span><select id="walletCity"><option value="Seoul">Seoul</option><option value="Suwon">Suwon</option><option value="Incheon">Incheon</option><option value="Chuncheon">Chuncheon</option><option value="Gangneung">Gangneung</option><option value="Sokcho">Sokcho</option><option value="Daejeon">Daejeon</option><option value="Gongju">Gongju</option><option value="Jeonju">Jeonju</option><option value="Yeosu">Yeosu</option><option value="Suncheon">Suncheon</option><option value="Gyeongju">Gyeongju</option><option value="Andong">Andong</option><option value="Daegu">Daegu</option><option value="Ulsan">Ulsan</option><option value="Pohang">Pohang</option><option value="Busan">Busan</option><option value="Tongyeong">Tongyeong</option><option value="Geoje">Geoje</option><option value="Jeju">Jeju</option></select></label>
+      <label class="v83-wallet-field"><span data-en="Travel style" data-ko="여행 스타일">Travel style</span><select id="walletStyle">
         <option value="budget">Budget</option>
         <option value="balanced" selected>Balanced</option>
         <option value="comfort">Comfort</option>
-      </select>
-      <input id="walletDays" type="number" min="1" max="30" value="3" aria-label="Trip days">
-      <input id="walletPeople" type="number" min="1" max="10" value="1" aria-label="People">
+      </select></label>
+      <label class="v83-wallet-field"><span data-en="Days" data-ko="여행 일수">Days</span><input id="walletDays" type="number" min="1" max="30" value="3" aria-label="Trip days"></label>
+      <label class="v83-wallet-field"><span data-en="Travelers" data-ko="인원">Travelers</span><input id="walletPeople" type="number" min="1" max="10" value="1" aria-label="People"></label>
     </div>
     <button class="stay-search-btn" type="button" onclick="renderTripWallet()" data-en="Build wallet estimate" data-ko="여행 지갑 계산">Build wallet estimate</button>
     <div class="fx-card" id="liveFxCard">
@@ -2043,7 +3067,7 @@ button:disabled{opacity:.55;cursor:not-allowed}
     <p data-en="This built-in helper uses your saved route, stay and budget to point you to existing Korea Route tools." data-ko="저장된 이동경로·숙소·예산을 바탕으로 지금 쓸 수 있는 Korea Route 기능을 안내합니다.">This built-in helper uses your saved route, stay and budget to point you to existing Korea Route tools.</p>
   </div>
 
-  <div class="v30-context-note"><b data-en="Built-in helper" data-ko="기본 여행 도우미">Built-in helper</b><span data-en="Not live AI chat. It uses saved trip context and existing app tools." data-ko="실시간 AI 채팅이 아닙니다. 저장된 여행정보와 기존 앱 기능을 활용합니다.">Not live AI chat. It uses saved trip context and existing app tools.</span></div>
+  <div class="v30-context-note v108-ai-live"><b data-en="Gemini AI connected" data-ko="Gemini AI 연결됨">Gemini AI connected</b><span data-en="Ask a Korea travel question. Saved trip context can be included, but exact GPS coordinates, hotel phone numbers and document data are not sent automatically." data-ko="한국 여행 질문을 입력하세요. 저장된 여행정보는 참고할 수 있지만 GPS 좌표·숙소 전화번호·문서 정보는 자동 전송하지 않습니다.">Ask a Korea travel question. Saved trip context can be included, but exact GPS coordinates, hotel phone numbers and document data are not sent automatically.</span></div>
   <div class="assistant-panel">
     <b data-en="Travel context" data-ko="여행 상황">Travel context</b>
     <div class="assistant-context">
@@ -2057,18 +3081,28 @@ button:disabled{opacity:.55;cursor:not-allowed}
       </select>
     </div>
 
+    <div class="v108-ai-compose">
+      <label for="assistantQuestion" data-en="Ask Korea Route AI" data-ko="Korea Route AI에게 질문">Ask Korea Route AI</label>
+      <textarea id="assistantQuestion" maxlength="600" placeholder="Ask about your Korea trip / 한국 여행 질문" aria-label="Korea Route AI question"></textarea>
+      <div class="v108-ai-compose-actions">
+        <button id="assistantAskBtn" class="primary" type="button" onclick="v108AskAssistant()" data-en="✨ Ask AI" data-ko="✨ AI에게 묻기">✨ Ask AI</button>
+        <button class="secondary" type="button" onclick="v108ClearAssistant()" data-en="Clear" data-ko="지우기">Clear</button>
+      </div>
+      <div id="assistantAiStatus" class="v108-ai-status" data-en="Uses the configured /api/gemini server connection. Ctrl/Cmd + Enter also sends." data-ko="설정된 /api/gemini 서버 연결을 사용합니다. Ctrl/Cmd + Enter로도 전송할 수 있습니다.">Uses the configured /api/gemini server connection. Ctrl/Cmd + Enter also sends.</div>
+    </div>
+
     <div class="assistant-quick">
-      <button class="assistant-chip assistant-chip-primary" type="button" onclick="assistantQuick('now')" data-en="What should I do now?" data-ko="지금 뭘 하면 돼?">What should I do now?</button>
-      <button class="assistant-chip" type="button" onclick="assistantQuick('route')" data-en="What is the easiest route?" data-ko="가장 쉬운 이동은?">What is the easiest route?</button>
-      <button class="assistant-chip" type="button" onclick="assistantQuick('payment')" data-en="Will my card work?" data-ko="해외카드 쓸 수 있어?">Will my card work?</button>
-      <button class="assistant-chip" type="button" onclick="assistantQuick('stay')" data-en="Is my stay well located?" data-ko="숙소 위치 괜찮아?">Is my stay well located?</button>
-      <button class="assistant-chip" type="button" onclick="assistantQuick('budget')" data-en="Am I over budget?" data-ko="예산 초과야?">Am I over budget?</button>
-      <button class="assistant-chip" type="button" onclick="assistantQuick('rain')" data-en="Rain-safe alternative" data-ko="비 올 때 대안">Rain-safe alternative</button>
+      <button class="assistant-chip assistant-chip-primary" type="button" onclick="v108AskQuick('now')" data-en="What should I do now?" data-ko="지금 뭘 하면 돼?">What should I do now?</button>
+      <button class="assistant-chip" type="button" onclick="v108AskQuick('route')" data-en="What is the easiest route?" data-ko="가장 쉬운 이동은?">What is the easiest route?</button>
+      <button class="assistant-chip" type="button" onclick="v108AskQuick('payment')" data-en="Will my card work?" data-ko="해외카드 쓸 수 있어?">Will my card work?</button>
+      <button class="assistant-chip" type="button" onclick="v108AskQuick('stay')" data-en="Is my stay well located?" data-ko="숙소 위치 괜찮아?">Is my stay well located?</button>
+      <button class="assistant-chip" type="button" onclick="v108AskQuick('budget')" data-en="Am I over budget?" data-ko="예산 초과야?">Am I over budget?</button>
+      <button class="assistant-chip" type="button" onclick="v108AskQuick('rain')" data-en="Rain-safe alternative" data-ko="비 올 때 대안">Rain-safe alternative</button>
     </div>
 
     <div id="assistantAnswer" class="assistant-answer">
-      <b data-en="Ready" data-ko="준비됨">Ready</b>
-      <span data-en="Choose a question above. The assistant will use saved trip context where available." data-ko="위 질문을 선택하세요. 저장된 여행 정보가 있으면 함께 활용합니다.">Choose a question above. The assistant will use saved trip context where available.</span>
+      <b data-en="AI ready" data-ko="AI 준비됨">AI ready</b>
+      <span data-en="Type a question or choose a quick question. Korea Route will send the message with limited saved trip context to /api/gemini." data-ko="질문을 입력하거나 빠른 질문을 선택하세요. Korea Route가 제한된 저장 여행정보와 함께 /api/gemini로 전송합니다.">Type a question or choose a quick question. Korea Route will send the message with limited saved trip context to /api/gemini.</span>
     </div>
 
     <details class="v30-details">
@@ -2158,6 +3192,7 @@ button:disabled{opacity:.55;cursor:not-allowed}
       <div id="myTripStayBody" class="mytrip-empty" data-en="No stay area saved." data-ko="저장된 숙소 권역이 없습니다.">No stay area saved.</div>
       <div class="mytrip-actions">
         <button class="mytrip-btn secondary" type="button" onclick="go('stayHub')" data-en="Manage stay" data-ko="숙소 관리">Manage stay</button>
+        <button class="mytrip-btn secondary" type="button" onclick="v106OpenAddressCard()" data-en="🏠 My address card" data-ko="🏠 내 숙소 주소 카드">🏠 My address card</button>
         <button class="mytrip-btn secondary" type="button" onclick="clearMyTripPart('stay')" data-en="Clear stay" data-ko="숙소 삭제">Clear stay</button>
       </div>
     </div>
@@ -2215,6 +3250,7 @@ button:disabled{opacity:.55;cursor:not-allowed}
     <button type="button" onclick="v60OpenRouteTab()"><span class="ico">🚆</span><span data-en="Route" data-ko="경로">Route</span></button>
     <button type="button" onclick="openSubwayMapHub()"><span class="ico">🚇</span><span data-en="Subway map" data-ko="지하철 노선도">Subway map</span></button>
     <button type="button" onclick="openCheckRide()"><span class="ico">📷</span><span data-en="Check & Ride" data-ko="체크 & 라이드">Check & Ride</span></button>
+    <button type="button" onclick="v105OpenCanIMakeIt()"><span class="ico">🚦</span><span data-en="Can I Make It?" data-ko="지금 출발해도 될까?">Can I Make It?</span></button>
     <button type="button" onclick="v60OpenTripDetail('myTripStopAlertSection')"><span class="ico">🔔</span><span data-en="Stop alert" data-ko="하차 알림">Stop alert</span></button>
   </div></div>
   <div class="v60-helper-card" data-v69-tool-group="nearby"><h2 class="v60-group-title" data-en="Nearby" data-ko="주변에서 찾기">Nearby</h2><div class="v60-icon-grid">
@@ -2233,6 +3269,7 @@ button:disabled{opacity:.55;cursor:not-allowed}
     <button type="button" onclick="go('walletHub')"><span class="ico">💱</span><span data-en="Wallet / FX" data-ko="환율 · 예산">Wallet / FX</span></button>
     <button type="button" onclick="go('walletHub');setTimeout(openTaxRefundHelper,80)"><span class="ico">🧾</span><span data-en="Tax refund" data-ko="세금 환급">Tax refund</span></button>
     <button type="button" onclick="go('stayHub')"><span class="ico">🏨</span><span data-en="Stay" data-ko="숙소">Stay</span></button>
+    <button type="button" onclick="v106OpenAddressCard()"><span class="ico">🏠</span><span data-en="My Address Card" data-ko="내 숙소 주소 카드">My Address Card</span></button>
     <button type="button" onclick="go('planner')"><span class="ico">🗓️</span><span data-en="Plan trip" data-ko="여행 계획">Plan trip</span></button>
   </div></div>
   <div class="v60-helper-card" data-v69-tool-group="help"><h2 class="v60-group-title" data-en="Help now" data-ko="지금 도움">Help now</h2><div class="v60-icon-grid">
@@ -2240,6 +3277,7 @@ button:disabled{opacity:.55;cursor:not-allowed}
     <button type="button" onclick="globalSearchOpenMedical()"><span class="ico">🩺</span><span data-en="Medical" data-ko="의료">Medical</span></button>
     <button type="button" onclick="globalSearchOpenLostHelp()"><span class="ico">🎒</span><span data-en="Lost item" data-ko="분실">Lost item</span></button>
     <button type="button" onclick="v60OpenTripDetail('myTripJourneySection');setTimeout(v52OpenRecoveryFromMyTrip,120)"><span class="ico">😵</span><span data-en="Missed ride" data-ko="놓친 이동편">Missed ride</span></button>
+    <button type="button" onclick="v107OpenStaffHelper()"><span class="ico">🪪</span><span data-en="Show Staff" data-ko="직원에게 보여주기">Show Staff</span></button>
   </div></div>
 </section>
 
@@ -2320,7 +3358,7 @@ const TRANSLATIONS = {
     "home.sos.location": "내 위치",
     "home.sos.phrases": "한국어 문장",
     "home.sos.pharmacy": "근처 약국",
-    "home.sos.note": "긴급전화는 대한민국 공식 번호 경찰 112 · 화재/구급 119를 사용합니다. 약국은 외부 지도에서 실제 이용 가능 여부를 확인하세요.",
+    "home.sos.note": "긴급전화는 경찰 112 · 화재/구급 119를 이용하세요. 여행정보·통역 도움은 1330을 이용할 수 있습니다. 약국은 외부 지도에서 실제 이용 가능 여부를 확인하세요.",
     "home.essentials.title": "근처 필수시설",
     "home.essentials.subtitle": "여행 중 급할 때 한 번에 검색하세요. 외부 지도에서 영업시간·이용 가능 여부를 다시 확인합니다.",
     "home.essentials.restroom": "화장실",
@@ -2360,7 +3398,7 @@ const TRANSLATIONS = {
     "home.visitor.badge": "여행 팁",
     "home.visitor.card.title": "외국인 여행자를 위해 만들었어요",
     "home.visitor.card.desc": "한국 전화번호가 없어도 비교적 쉽게 이용할 수 있는 예약 방법, 현지 교통 팁과 서비스를 안내합니다.",
-    "home.beta.title": "공개 베타 · V69",
+    "home.beta.title": "공개 베타 · V73",
     "home.beta.subtitle": "친구들과 테스트 중 문제가 보이면 화면과 재현 순서를 함께 보내주세요. 신고 문구에 위치정보는 자동으로 넣지 않습니다.",
     "home.beta.report": "문제 제보",
     "home.search.placeholder": "KTX · 화장실 · 번역 · 환급 · 짐보관...",
@@ -2403,7 +3441,23 @@ const TRANSLATIONS = {
     "home.pulse.mode.rain": "비",
     "home.pulse.mode.luggage": "짐",
     "home.pulse.mode.late": "늦은 도착",
-    "home.pulse.mode.accessible": "접근성"
+    "home.pulse.mode.accessible": "접근성",
+    "route.brand": "이동",
+    "route.intro.title": "어디로 가세요?",
+    "route.intro.subtitle": "출발지와 목적지만 먼저 고르세요. 필요한 교통 도구는 따로 열 수 있습니다.",
+    "route.shortcut.subway": "지하철 노선도",
+    "route.shortcut.checkRide": "체크 & 라이드",
+    "route.shortcut.more": "더보기",
+    "route.search.title": "대중교통 경로",
+    "route.search.subtitle": "ODsay 경로 데이터를 조회해 여행 이동 구간에 반영합니다.",
+    "route.search.from": "출발",
+    "route.search.to": "도착",
+    "route.pref.visitor": "외국인 추천",
+    "route.pref.fastest": "가장 빠름",
+    "route.pref.fewest": "환승 최소",
+    "route.search.button": "경로 찾기",
+    "route.result.title": "경로 결과",
+    "route.result.empty": "출발지와 목적지를 선택하고 검색하세요."
   },
   "en": {
     "home.brand": "Korea Route",
@@ -2457,7 +3511,7 @@ const TRANSLATIONS = {
     "home.sos.location": "My location",
     "home.sos.phrases": "Korean phrases",
     "home.sos.pharmacy": "Nearby pharmacy",
-    "home.sos.note": "Emergency calls use Korea's official numbers: Police 112 · Fire/Ambulance 119. Pharmacy results open in an external map; verify availability there.",
+    "home.sos.note": "Emergency calls: Police 112 · Fire/Ambulance 119. For travel information or interpretation help, call 1330. Pharmacy results open in an external map; verify availability there.",
     "home.essentials.title": "Nearby Essentials",
     "home.essentials.subtitle": "One tap to search around you. Results open in an external map; verify hours and availability there.",
     "home.essentials.restroom": "Restroom",
@@ -2497,7 +3551,7 @@ const TRANSLATIONS = {
     "home.visitor.badge": "TRAVEL TIP",
     "home.visitor.card.title": "Made for international travelers",
     "home.visitor.card.desc": "We highlight simpler booking options, local transport tips, and services that are easier to use without a Korean phone number.",
-    "home.beta.title": "Public Beta · V69",
+    "home.beta.title": "Public Beta · V73",
     "home.beta.subtitle": "Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.",
     "home.beta.report": "Report a problem",
     "home.search.placeholder": "KTX · restroom · translate · tax refund...",
@@ -2540,7 +3594,23 @@ const TRANSLATIONS = {
     "home.pulse.mode.rain": "Rain",
     "home.pulse.mode.luggage": "Luggage",
     "home.pulse.mode.late": "Late arrival",
-    "home.pulse.mode.accessible": "Accessible"
+    "home.pulse.mode.accessible": "Accessible",
+    "route.brand": "Move",
+    "route.intro.title": "Where are you going?",
+    "route.intro.subtitle": "Choose departure and destination first. Open extra transport tools only when you need them.",
+    "route.shortcut.subway": "Subway map",
+    "route.shortcut.checkRide": "Check & Ride",
+    "route.shortcut.more": "More tools",
+    "route.search.title": "Public transport route",
+    "route.search.subtitle": "Search ODsay route data and apply a result to your trip segment.",
+    "route.search.from": "From",
+    "route.search.to": "To",
+    "route.pref.visitor": "Visitor Pick",
+    "route.pref.fastest": "Fastest",
+    "route.pref.fewest": "Fewer transfers",
+    "route.search.button": "Find route",
+    "route.result.title": "Route result",
+    "route.result.empty": "Choose cities and search."
   }
 };
 function t(key){ return TRANSLATIONS[lang]?.[key] || TRANSLATIONS.en?.[key] || key; }
@@ -2585,8 +3655,11 @@ const GLOBAL_SEARCH_ACTIONS=[
   {id:'missed',icon:'😵',group:'urgent',en:'I missed my train / bus',ko:'기차·버스를 놓쳤어요',descEn:'Recheck the unfinished journey leg',descKo:'놓친 이동편 다시 조회',keys:'missed train bus connection late 놓쳤 기차 버스 환승 지각 다음편'},
   {id:'stopalert',icon:'🔔',group:'trip',en:'Approaching Stop Alert',ko:'내릴 곳 접근 알림',descEn:'GPS distance helper while this app is open',descKo:'앱을 켜둔 동안 GPS 거리로 하차 보조',keys:'stop alert get off arrival gps notification 하차 알림 내릴곳 내릴 곳 도착 지나칠'},
   {id:'leaveby',icon:'⏰',group:'trip',en:'Leave-by Helper',ko:'출발시간 계산',descEn:'Count backward from your real ticket time',descKo:'실제 티켓 시각에서 출발시간 역산',keys:'leave by departure time buffer ticket 출발시간 몇시 나가야 역산 티켓 여유'},
+  {id:'makeit',icon:'🚦',group:'trip',en:'Can I Make It?',ko:'지금 출발해도 될까?',descEn:'SAFE / HURRY / TOO LATE from your ticket time',descKo:'티켓 시각·이동시간·여유시간으로 지금 출발 판단',keys:'can i make it safe hurry too late catch train bus flight make departure 지금 출발 탈수 있나 탈 수 있나 늦었나 서둘러 가능 티켓'},
   {id:'mytrip',icon:'🧳',group:'trip',en:'My Trip',ko:'내 여행',descEn:'Saved places, journey, stay and checklist',descKo:'저장 장소·이동경로·숙소·체크리스트',keys:'my trip saved itinerary checklist 내여행 저장 일정 체크리스트'},
   {id:'stay',icon:'🏨',group:'action',en:'Stay',ko:'숙소',descEn:'Stay area and lodging notes',descKo:'숙소 지역과 숙박 메모',keys:'stay hotel lodging hostel accommodation 숙소 호텔 숙박'},
+  {id:'staycard',icon:'🏠',group:'trip',en:'My Address Card',ko:'내 숙소 주소 카드',descEn:'Offline Korean hotel address for taxi and maps',descKo:'택시·지도용 실제 숙소 한국어 주소 오프라인 카드',keys:'my address card hotel address taxi driver lodging korean address offline 숙소 주소 호텔 주소 택시 기사 보여주기 오프라인'},
+  {id:'showstaff',icon:'🪪',group:'urgent',en:'Show Staff',ko:'직원에게 보여주기',descEn:'Large Korean help cards for stations, terminals and airports',descKo:'역·터미널·공항 직원에게 보여주는 큰 한국어 도움 카드',keys:'show staff station staff help platform gate ticket missed transfer korean card 직원 보여주기 역무원 직원 승강장 게이트 표 티켓 환승 놓쳤어요'},
   {id:'wallet',icon:'💰',group:'action',en:'Trip Wallet',ko:'Trip Wallet',descEn:'Budget, exchange and shopping tools',descKo:'예산·환율·쇼핑 도구',keys:'wallet money budget exchange currency won krw 지갑 돈 예산 환율 원화'},
   {id:'explore',icon:'📍',group:'action',en:'Explore',ko:'둘러보기',descEn:'Cities, attractions and nearby places',descKo:'도시·관광지·주변 장소 찾기',keys:'explore city attraction place map tourist 관광지 도시 지도 주변 장소'},
   {id:'convenience',icon:'🏪',group:'nearby',en:'Nearby convenience store',ko:'근처 편의점',descEn:'Open a nearby map search',descKo:'현재 위치 또는 도시 기준 주변 검색',keys:'convenience store cu gs25 seven eleven emart24 nearby 편의점 씨유 지에스 세븐일레븐 이마트24 주변'},
@@ -2595,6 +3668,7 @@ const GLOBAL_SEARCH_ACTIONS=[
   {id:'atm',icon:'🏧',group:'nearby',en:'Nearby ATM',ko:'근처 ATM',descEn:'Find cash withdrawal nearby',descKo:'가까운 현금 인출기 찾기',keys:'atm cash withdraw bank money nearby 현금 인출 은행 주변'},
   {id:'luggage',icon:'🧳',group:'nearby',en:'Luggage / locker finder',ko:'짐보관 · 코인락커 찾기',descEn:'Find luggage lockers and storage candidates',descKo:'코인락커·짐보관소 후보 찾기',keys:'luggage locker storage baggage coin locker 짐 짐보관 보관함 코인락커 캐리어'},
   {id:'emergency',icon:'🆘',group:'urgent',en:'Emergency help · 112 / 119',ko:'긴급 도움 · 112 / 119',descEn:'Police, ambulance and emergency phrases',descKo:'경찰·구급·긴급 한국어 도움',keys:'emergency police ambulance fire 112 119 sos help 긴급 경찰 구급 구급차 소방 도움'},
+  {id:'touristhelp',icon:'☎️',group:'urgent',en:'Korea Travel Helpline · 1330',ko:'외국인 여행안내 · 1330',descEn:'Travel information and interpretation help',descKo:'여행정보·통역 도움',keys:'1330 korea travel helpline tourist tourism interpretation interpreter help 여행 안내 관광 통역 외국인 문의'},
   {id:'medical',icon:'🩺',group:'urgent',en:'Medical help',ko:'몸이 아파요 · 의료 도움',descEn:'Emergency card, medical phrase and pharmacy',descKo:'긴급카드·의료 문장·약국 찾기',keys:'sick hospital medical hurt doctor pharmacy ambulance 아파 병원 의료 다쳤 의사 약국 구급차'},
   {id:'lost',icon:'🎒',group:'urgent',en:'Lost item help',ko:'분실 도움',descEn:'Lost-item phrases and help steps',descKo:'여권·휴대폰·지갑 등 분실 도움',keys:'lost item phone wallet passport bag police 분실 잃어버렸 휴대폰 지갑 여권 가방'},
   {id:'airport',icon:'✈️',group:'action',en:'Airport tools',ko:'공항 이동 도구',descEn:'Airport transit and arrival helpers in Move',descKo:'공항 이동·도착 도구',keys:'airport incheon gimpo arex flight airport bus 공항 인천공항 김포공항 에이렉스 비행기 공항버스'},
@@ -2697,8 +3771,11 @@ function runGlobalSearchAction(id){
     case 'missed': go('myTripHub');setTimeout(()=>{v52OpenRecoveryFromMyTrip();document.getElementById('myTripJourneyBody')?.scrollIntoView({behavior:'smooth',block:'center'});},120);break;
     case 'stopalert': go('myTripHub');globalSearchScroll('myTripStopAlertSection');break;
     case 'leaveby': go('myTripHub');setTimeout(()=>v54OpenLeaveBy(),100);break;
+    case 'makeit': v105OpenCanIMakeIt();break;
     case 'mytrip': go('myTripHub'); break;
     case 'stay': go('stayHub'); break;
+    case 'staycard': v106OpenAddressCard(); break;
+    case 'showstaff': v107OpenStaffHelper(); break;
     case 'wallet': go('walletHub'); break;
     case 'explore': go('exploreHub'); break;
     case 'convenience': openNearbyEssential('convenience'); break;
@@ -2707,6 +3784,7 @@ function runGlobalSearchAction(id){
     case 'atm': openNearbyEssential('atm'); break;
     case 'luggage': openNearbyEssential('luggage'); break;
     case 'emergency': openQuickSosEmergency(); break;
+    case 'touristhelp': window.location.href='tel:1330'; break;
     case 'medical': globalSearchOpenMedical(); break;
     case 'lost': globalSearchOpenLostHelp(); break;
     case 'airport': go('moveHub'); break;
@@ -2726,7 +3804,7 @@ function clearV55EmergencyFind(){document.getElementById('v55EmergencyFind')?.re
 function openV55EmergencyFind(focus=''){
   clearV55EmergencyFind();
   const wrap=document.createElement('div');wrap.id='v55EmergencyFind';wrap.className='v55-emergency-backdrop';
-  wrap.innerHTML=`<div class="v55-emergency-sheet" role="dialog" aria-modal="true"><div class="v55-emergency-head"><div><span>${lang==='ko'?'급할 때 바로':'URGENT FIND'}</span><h3>🆘 ${lang==='ko'?'지금 필요한 도움':'What do you need now?'}</h3><p>${lang==='ko'?'검색하지 않아도 바로 실행할 수 있어요.':'Open the most important help without searching.'}</p></div><button type="button" class="v55-emergency-close" onclick="clearV55EmergencyFind()">×</button></div><div class="v55-emergency-grid"><button type="button" class="primary" onclick="runGlobalSearchAction('emergency')"><strong>🆘</strong>${lang==='ko'?'112 경찰 · 119 구급/소방':'112 Police · 119 Ambulance/Fire'}</button><button type="button" onclick="clearV55EmergencyFind();showTravelPhraseFocus(10)"><strong>🩺</strong>${lang==='ko'?'몸이 아파요':'I feel sick'}</button><button type="button" onclick="clearV55EmergencyFind();openPhraseSheet('lost')"><strong>🎒</strong>${lang==='ko'?'잃어버렸어요':'I lost something'}</button><button type="button" onclick="runGlobalSearchAction('missed')"><strong>😵</strong>${lang==='ko'?'기차·버스를 놓쳤어요':'I missed my ride'}</button><button type="button" onclick="runGlobalSearchAction('restroom')"><strong>🚻</strong>${lang==='ko'?'화장실이 급해요':'Need a restroom'}</button></div><div class="v55-emergency-note">${lang==='ko'?'위급한 상황에서는 앱 검색보다 112·119와 현장 직원의 안내를 우선하세요. 주변시설 결과는 실시간 영업·이용 가능 여부를 보장하지 않습니다.':'In an urgent emergency, prioritize 112/119 and on-site staff over app search. Nearby-place results do not guarantee current opening or availability.'}</div></div>`;
+  wrap.innerHTML=`<div class="v55-emergency-sheet" role="dialog" aria-modal="true"><div class="v55-emergency-head"><div><span>${lang==='ko'?'급할 때 바로':'URGENT FIND'}</span><h3>🆘 ${lang==='ko'?'지금 필요한 도움':'What do you need now?'}</h3><p>${lang==='ko'?'검색하지 않아도 바로 실행할 수 있어요.':'Open the most important help without searching.'}</p></div><button type="button" class="v55-emergency-close" onclick="clearV55EmergencyFind()">×</button></div><div class="v55-emergency-grid"><button type="button" class="primary" onclick="runGlobalSearchAction('emergency')"><strong>🆘</strong>${lang==='ko'?'112 경찰 · 119 구급/소방':'112 Police · 119 Ambulance/Fire'}</button><button type="button" class="tourist-help" onclick="runGlobalSearchAction('touristhelp')"><strong>☎️ 1330</strong>${lang==='ko'?'외국인 여행안내 · 통역 도움':'Korea Travel Helpline · interpretation help'}<small>${lang==='ko'?'탭하여 1330 전화':'Tap to call 1330'}</small></button><button type="button" onclick="clearV55EmergencyFind();showTravelPhraseFocus(10)"><strong>🩺</strong>${lang==='ko'?'몸이 아파요':'I feel sick'}</button><button type="button" onclick="clearV55EmergencyFind();openPhraseSheet('lost')"><strong>🎒</strong>${lang==='ko'?'잃어버렸어요':'I lost something'}</button><button type="button" onclick="runGlobalSearchAction('missed')"><strong>😵</strong>${lang==='ko'?'기차·버스를 놓쳤어요':'I missed my ride'}</button><button type="button" onclick="runGlobalSearchAction('restroom')"><strong>🚻</strong>${lang==='ko'?'화장실이 급해요':'Need a restroom'}</button></div><div class="v55-emergency-note">${lang==='ko'?'위급한 상황은 112·119와 현장 직원의 안내를 우선하세요. 여행정보·통역 도움은 1330을 이용할 수 있습니다. 주변시설 결과는 실시간 영업·이용 가능 여부를 보장하지 않습니다.':'For urgent emergencies, prioritize 112/119 and on-site staff. For travel information or interpretation help, use 1330. Nearby-place results do not guarantee current opening or availability.'}</div></div>`;
   wrap.addEventListener('click',e=>{if(e.target===wrap)clearV55EmergencyFind();});document.body.appendChild(wrap);
 }
 function initGlobalSearchV55(){
@@ -2751,7 +3829,7 @@ function toggleAllTools(){
 }
 
 let current='home';
-const APP_RELEASE='Korea Route Public Beta V69';
+const APP_RELEASE='Korea Route Public Beta V108';
 
 // V36 safe auto-restore: persist only explicit, non-sensitive trip state and user preferences.
 // Never mirror API keys, current/GPS location, sensor state, or walk-recovery data.
@@ -2865,16 +3943,20 @@ function refreshActiveScreenState(id=current,{entry=false}={}){
     }else if(id==='myTripHub'){
       initMyTripHub();
     }else if(id==='moveHub'||id==='move'){
-      if(typeof renderMoveSituationState==='function') renderMoveSituationState();
       if(typeof mountMoveVerifyBeforeDeparture==='function') mountMoveVerifyBeforeDeparture();
-      if(typeof mountLanguageHelper==='function') mountLanguageHelper();
       const {fromCity,toCity}=typeof currentMoveSegmentCities==='function'?currentMoveSegmentCities():{fromCity:'',toCity:''};
       if(fromCity&&toCity){
+        if(typeof mountAirportArrivalToolkit==='function') mountAirportArrivalToolkit(toCity);
         if(typeof mountMoveHandoffSummary==='function') mountMoveHandoffSummary(fromCity,toCity);
         if(typeof mountMoveRouteReadiness==='function') mountMoveRouteReadiness(fromCity,toCity);
         if(typeof mountMoveDepartureHandoff==='function') mountMoveDepartureHandoff(fromCity);
         if(typeof mountMoveArrivalHandoff==='function') mountMoveArrivalHandoff(toCity);
+        if(typeof mountTransitPaymentHelper==='function') mountTransitPaymentHelper(toCity);
       }
+      // These sections are generated with lang==='ko' branches. Re-mount them on
+      // every language refresh so already-open Route cards never keep stale text.
+      if(typeof mountMoveSituationHelper==='function') mountMoveSituationHelper();
+      if(typeof mountLanguageHelper==='function') mountLanguageHelper();
       if(typeof renderLiveTransitBoard==='function') renderLiveTransitBoard();
       if(lastLiveTransitResult?.routes?.length && lastLiveTransitResult.fromCity===fromCity && lastLiveTransitResult.toCity===toCity){
         renderMoveLiveRoutes(lastLiveTransitResult.routes);
@@ -2905,6 +3987,7 @@ function applyLang(){
   if(typeof renderCityWalkRecovery==='function') renderCityWalkRecovery();
   const gs=document.getElementById('globalSearchInput');
   if(gs){gs.placeholder=t('home.search.placeholder');if(gs.value)renderGlobalSearchResults(gs.value);}
+  if(typeof refreshMoveSelectorLanguage==='function') refreshMoveSelectorLanguage();
   if(typeof v60MountMapCitySwitch==='function'&&document.getElementById('v60CitySwitch'))v60MountMapCitySwitch();
 }
 function toggleLang(){lang=lang==='en'?'ko':'en';localStorage.setItem('koreaRouteLang',lang);applyLang()}
@@ -4732,20 +5815,30 @@ function myTripEmergencyCardHtml(){
     </div>
 
     <div class="emergency-number-grid">
-      <div class="emergency-number-card">
+      <a class="emergency-number-card emergency-call-card" href="tel:112" aria-label="${lang==='ko'?'경찰 112 전화':'Call Police 112'}">
         <span>${lang==='ko'?'경찰':'Police'}</span>
-        <a class="emergency-call-link" href="tel:112">112</a>
-      </div>
-      <div class="emergency-number-card">
+        <b>112</b>
+        <small>☎ ${lang==='ko'?'탭하여 전화':'Tap to call'}</small>
+      </a>
+      <a class="emergency-number-card emergency-call-card" href="tel:119" aria-label="${lang==='ko'?'구급 소방 119 전화':'Call Ambulance or Fire 119'}">
         <span>${lang==='ko'?'구급·소방':'Ambulance / Fire'}</span>
-        <a class="emergency-call-link" href="tel:119">119</a>
-      </div>
+        <b>119</b>
+        <small>☎ ${lang==='ko'?'탭하여 전화':'Tap to call'}</small>
+      </a>
+      <a class="emergency-number-card tourist-help emergency-call-card" href="tel:1330" aria-label="${lang==='ko'?'외국인 여행객 대표 문의 1330 전화':'Call Korea Travel Helpline 1330'}">
+        <div class="emergency-tourist-copy">
+          <span>${lang==='ko'?'외국인 여행객 대표 문의':'Travel help & interpretation'}</span>
+          <small>${lang==='ko'?'한국관광공사 여행 안내·통역':'Korea Tourism Organization Travel Helpline'}</small>
+        </div>
+        <div class="emergency-tourist-number"><b>1330</b><small>☎ ${lang==='ko'?'탭하여 전화':'Tap to call'}</small></div>
+      </a>
     </div>
 
+    <p class="emergency-phrase-help">${lang==='ko'?'아래 문장을 누르면 한국어가 복사됩니다. 상대방에게 보여주거나 번역기에 붙여넣으세요.':'Tap a phrase to copy the Korean text. Show it to someone nearby or paste it into a translator.'}</p>
     <div class="emergency-phrase-list">
-      <button type="button" id="emergencyPhraseHelp" onclick="copyEmergencyPhrase('도와주세요.','emergencyPhraseHelp')">${lang==='ko'?'도와주세요.':'도와주세요. · Please help me.'}</button>
-      <button type="button" id="emergencyPhrasePolice" onclick="copyEmergencyPhrase('경찰을 불러주세요.','emergencyPhrasePolice')">${lang==='ko'?'경찰을 불러주세요.':'경찰을 불러주세요. · Please call the police.'}</button>
-      <button type="button" id="emergencyPhraseAmbulance" onclick="copyEmergencyPhrase('구급차를 불러주세요.','emergencyPhraseAmbulance')">${lang==='ko'?'구급차를 불러주세요.':'구급차를 불러주세요. · Please call an ambulance.'}</button>
+      <button type="button" id="emergencyPhraseHelp" onclick="copyEmergencyPhrase('도와주세요.','emergencyPhraseHelp')"><span>${lang==='ko'?'도와주세요.':'도와주세요. · Please help me.'}</span><span class="phrase-copy-label">📋 ${lang==='ko'?'복사':'Copy'}</span></button>
+      <button type="button" id="emergencyPhrasePolice" onclick="copyEmergencyPhrase('경찰을 불러주세요.','emergencyPhrasePolice')"><span>${lang==='ko'?'경찰을 불러주세요.':'경찰을 불러주세요. · Please call the police.'}</span><span class="phrase-copy-label">📋 ${lang==='ko'?'복사':'Copy'}</span></button>
+      <button type="button" id="emergencyPhraseAmbulance" onclick="copyEmergencyPhrase('구급차를 불러주세요.','emergencyPhraseAmbulance')"><span>${lang==='ko'?'구급차를 불러주세요.':'구급차를 불러주세요. · Please call an ambulance.'}</span><span class="phrase-copy-label">📋 ${lang==='ko'?'복사':'Copy'}</span></button>
     </div>
 
     <div class="emergency-stay-line">
@@ -4794,6 +5887,7 @@ function openMyTripEmergencySheet(){
       <span class="move-kicker">${lang==='ko'?'비상 도움 카드':'EMERGENCY HELP CARD'}</span>
       <div class="emergency-sheet-number"><a class="emergency-sheet-call" href="tel:112">112</a> <small>${lang==='ko'?'경찰':'Police'}</small></div>
       <div class="emergency-sheet-number"><a class="emergency-sheet-call" href="tel:119">119</a> <small>${lang==='ko'?'구급·소방':'Ambulance / Fire'}</small></div>
+      <div class="emergency-sheet-number"><a class="emergency-sheet-call" href="tel:1330">1330</a> <small>${lang==='ko'?'여행 안내·통역':'Travel Helpline'}</small></div>
       <div class="emergency-sheet-phrases">
         <b>도와주세요.</b><span>Please help me.</span>
         <b>경찰을 불러주세요.</b><span>Please call the police.</span>
@@ -4827,12 +5921,16 @@ function execCommandCopy(text){
 function emergencyCopyFeedback(buttonId,ok){
   const btn=document.getElementById(buttonId);
   if(!btn) return;
-  const original=btn.dataset.originalLabel||btn.textContent;
-  if(!btn.dataset.originalLabel) btn.dataset.originalLabel=original;
-  btn.textContent=ok?(lang==='ko'?'복사됨':'Copied'):(lang==='ko'?'복사 실패':'Copy failed');
+  const label=btn.querySelector('.phrase-copy-label');
+  if(!label){
+    if(typeof v11Toast==='function') v11Toast(ok?(lang==='ko'?'복사됨':'Copied'):(lang==='ko'?'복사 실패':'Copy failed'));
+    return;
+  }
+  clearTimeout(btn._copyFeedbackTimer);
+  label.textContent=ok?(lang==='ko'?'✓ 복사됨':'✓ Copied'):(lang==='ko'?'⚠ 복사 실패':'⚠ Copy failed');
   btn.classList.toggle('copy-success',!!ok);
-  setTimeout(()=>{
-    btn.textContent=btn.dataset.originalLabel||original;
+  btn._copyFeedbackTimer=setTimeout(()=>{
+    label.textContent=`📋 ${lang==='ko'?'복사':'Copy'}`;
     btn.classList.remove('copy-success');
   },1200);
 }
@@ -8347,7 +9445,7 @@ function renderMyTripJourneyCard(){
   const arrName=lang==='ko'?(j.arrivalHub?.ko||j.arrivalHub?.en):(j.arrivalHub?.en||j.arrivalHub?.ko);
   steps.push({id:'arrival',title:lang==='ko'?'도착 거점 확인':'Arrival hub',desc:arrName||j.dest});
   body.className='v51-journey-card';
-  body.innerHTML=`<div class="v51-journey-head"><div><span class="move-kicker">${lang==='ko'?'저장 이동경로':'SAVED JOURNEY'}</span><h4>${escapeHtmlText(v50CityLabel(j.start))} → ${escapeHtmlText(v50CityLabel(j.dest))}</h4><p>${escapeHtmlText(v50ModeLabel(v51SafeMode(j.mode)))} · ${escapeHtmlText(v51JourneyDateText(j.savedAt))}</p></div><span class="v51-offline-pill">${lang==='ko'?'오프라인 보기':'OFFLINE'}</span></div><div class="v51-progress"><i style="width:${pct}%"></i></div>${typeof v54SavedSummaryHtml==='function'?v54SavedSummaryHtml(j):''}<div class="v51-step-list">${steps.map(step=>`<label class="v51-check ${checks[step.id]?'done':''}"><input type="checkbox" ${checks[step.id]?'checked':''} onchange="v51ToggleJourneyStep('${step.id}',this.checked)"><span><b>${escapeHtmlText(step.title)}</b><span>${escapeHtmlText(step.desc)}</span></span></label>`).join('')}</div><div class="v51-journey-actions"><button type="button" class="primary" onclick="v51OpenSavedJourney()">🧭 ${lang==='ko'?'전체 이동 다시 보기':'Reopen full journey'}</button><button type="button" onclick="v54OpenLeaveBy()">⏰ ${lang==='ko'?'출발시간 계산':'Leave-by helper'}</button><button type="button" onclick="v52OpenRecoveryFromMyTrip()">😵 ${lang==='ko'?'기차·버스를 놓쳤어요':'I missed this ride'}</button><button type="button" onclick="v53OpenFromJourney()">🔔 ${lang==='ko'?'도착 거점 알림':'Arrival alert'}</button><button type="button" onclick="v51OpenSavedJourneyMove()">🔎 ${lang==='ko'?'실제 경로 재확인':'Recheck route data'}</button><button type="button" onclick="v51ClearJourney()">🗑️ ${lang==='ko'?'저장 경로 삭제':'Clear journey'}</button></div><div class="v51-journey-note">⚠️ ${lang==='ko'?'저장되는 것은 이동 순서와 계획용 샘플값입니다. 실제 출발시각·좌석·예약·운행 변경은 온라인으로 다시 확인하세요. 체크 표시는 사용자가 직접 누르는 여행 메모입니다.':'This saves the journey order and planning sample values only. Recheck actual departure times, seats, booking and service changes online. Checkmarks are manual travel notes.'}</div>`;
+  body.innerHTML=`<div class="v51-journey-head"><div><span class="move-kicker">${lang==='ko'?'저장 이동경로':'SAVED JOURNEY'}</span><h4>${escapeHtmlText(v50CityLabel(j.start))} → ${escapeHtmlText(v50CityLabel(j.dest))}</h4><p>${escapeHtmlText(v50ModeLabel(v51SafeMode(j.mode)))} · ${escapeHtmlText(v51JourneyDateText(j.savedAt))}</p></div><span class="v51-offline-pill">${lang==='ko'?'오프라인 보기':'OFFLINE'}</span></div><div class="v51-progress"><i style="width:${pct}%"></i></div>${typeof v54SavedSummaryHtml==='function'?v54SavedSummaryHtml(j):''}<div class="v51-step-list">${steps.map(step=>`<label class="v51-check ${checks[step.id]?'done':''}"><input type="checkbox" ${checks[step.id]?'checked':''} onchange="v51ToggleJourneyStep('${step.id}',this.checked)"><span><b>${escapeHtmlText(step.title)}</b><span>${escapeHtmlText(step.desc)}</span></span></label>`).join('')}</div><div class="v51-journey-actions"><button type="button" class="primary" onclick="v51OpenSavedJourney()">🧭 ${lang==='ko'?'전체 이동 다시 보기':'Reopen full journey'}</button><button type="button" onclick="v105OpenCanIMakeIt()">🚦 ${lang==='ko'?'지금 탈 수 있나?':'Can I Make It?'}</button><button type="button" onclick="v107OpenStaffHelper()">🪪 ${lang==='ko'?'직원에게 보여주기':'Show Staff'}</button><button type="button" onclick="v54OpenLeaveBy()">⏰ ${lang==='ko'?'출발시간 계산':'Leave-by helper'}</button><button type="button" onclick="v52OpenRecoveryFromMyTrip()">😵 ${lang==='ko'?'기차·버스를 놓쳤어요':'I missed this ride'}</button><button type="button" onclick="v53OpenFromJourney()">🔔 ${lang==='ko'?'도착 거점 알림':'Arrival alert'}</button><button type="button" onclick="v51OpenSavedJourneyMove()">🔎 ${lang==='ko'?'실제 경로 재확인':'Recheck route data'}</button><button type="button" onclick="v51ClearJourney()">🗑️ ${lang==='ko'?'저장 경로 삭제':'Clear journey'}</button></div><div class="v51-journey-note">⚠️ ${lang==='ko'?'저장되는 것은 이동 순서와 계획용 샘플값입니다. 실제 출발시각·좌석·예약·운행 변경은 온라인으로 다시 확인하세요. 체크 표시는 사용자가 직접 누르는 여행 메모입니다.':'This saves the journey order and planning sample values only. Recheck actual departure times, seats, booking and service changes online. Checkmarks are manual travel notes.'}</div>`;
 }
 
 
@@ -8455,6 +9553,279 @@ function v54OpenLeaveBy(){
   panel.addEventListener('click',e=>{if(e.target===panel)v54CloseLeaveBy();});
   document.body.appendChild(panel);
   if(cfg.departureLocal&&cfg.travelMinutes!==''&&cfg.bufferMinutes!=='') v54Calculate(false);
+}
+
+
+// V105 Can I Make It? — compares Korea-time ticket departure with user-entered travel + buffer.
+// It is planning guidance only: no live traffic/service/boarding guarantee is inferred.
+let v105RefreshTimer=null;
+function v105CloseCanIMakeIt(){
+  document.getElementById('v105MakePanel')?.remove();
+  if(v105RefreshTimer){clearInterval(v105RefreshTimer);v105RefreshTimer=null;}
+}
+function v105ReadDraft(){
+  try{return JSON.parse(sessionStorage.getItem('koreaRouteCanIMakeIt')||'{}')||{};}catch(_){return {};}
+}
+function v105SaveDraft(d){try{sessionStorage.setItem('koreaRouteCanIMakeIt',JSON.stringify(d||{}));}catch(_){}}
+function v105CurrentJourneyLeg(){
+  const j=typeof v51ReadJourney==='function'?v51ReadJourney():null;
+  if(!j?.segments?.length)return null;
+  const el=document.getElementById('v105Leg');
+  const idx=Math.max(0,Math.min(j.segments.length-1,Number(el?.value)||0));
+  return {j,idx,seg:j.segments[idx]};
+}
+function v105LocationText(){
+  if(typeof liveTransitPosition!=='undefined'&&liveTransitPosition&&Number.isFinite(liveTransitPosition.lat)&&Number.isFinite(liveTransitPosition.lng)){
+    const acc=Number.isFinite(liveTransitPosition.accuracy)?` · ±${Math.round(liveTransitPosition.accuracy)} m`:'';
+    return `${liveTransitPosition.lat.toFixed(5)}, ${liveTransitPosition.lng.toFixed(5)}${acc}`;
+  }
+  return lang==='ko'?'아직 위치를 사용하지 않았습니다.':'Location not used yet.';
+}
+function v105RenderLocation(){
+  const el=document.getElementById('v105LocationText');if(el)el.textContent=v105LocationText();
+}
+function v105UseLocation(){
+  if(!navigator.geolocation){v11Toast(lang==='ko'?'이 브라우저에서는 위치 기능을 사용할 수 없습니다.':'Geolocation is unavailable in this browser.');return;}
+  const btn=document.getElementById('v105LocationBtn');if(btn){btn.disabled=true;btn.textContent=lang==='ko'?'확인 중…':'Locating…';}
+  navigator.geolocation.getCurrentPosition(pos=>{
+    liveTransitPosition={lat:pos.coords.latitude,lng:pos.coords.longitude,accuracy:pos.coords.accuracy};
+    try{sessionStorage.setItem('koreaRouteLivePosition',JSON.stringify(liveTransitPosition));}catch(_){ }
+    try{renderLiveTransitLocation?.();renderMyTripLiveLocation?.();renderTravelPulse?.();}catch(_){ }
+    v105RenderLocation();
+    if(btn){btn.disabled=false;btn.textContent=lang==='ko'?'위치 새로고침':'Refresh location';}
+    v11Toast(lang==='ko'?'현재 위치를 확인했습니다.':'Current location ready.');
+  },()=>{
+    if(btn){btn.disabled=false;btn.textContent=lang==='ko'?'현재 위치 사용':'Use my location';}
+    v11Toast(lang==='ko'?'위치 권한을 사용할 수 없습니다.':'Location permission unavailable.');
+  },{enableHighAccuracy:false,timeout:8000,maximumAge:60000});
+}
+function v105SetBuffer(n){const el=document.getElementById('v105Buffer');if(el){el.value=String(n);v105Evaluate(false);}}
+function v105OpenDirections(){
+  const hit=v105CurrentJourneyLeg();
+  if(!hit){v11Toast(lang==='ko'?'저장된 이동경로가 없어요. 지도에서 거점까지 시간을 확인한 뒤 이동시간을 직접 입력하세요.':'No saved journey. Check the trip to your hub in a map, then enter the travel minutes.');return;}
+  const p=v50HubPoint(hit.seg.from,v51SafeMode(hit.j.mode));
+  const dest=Number.isFinite(Number(p.y))&&Number.isFinite(Number(p.x))?`${p.y},${p.x}`:`${p.en} ${hit.seg.from} Korea`;
+  const origin=(typeof liveTransitPosition!=='undefined'&&liveTransitPosition&&Number.isFinite(liveTransitPosition.lat)&&Number.isFinite(liveTransitPosition.lng))?`&origin=${encodeURIComponent(liveTransitPosition.lat+','+liveTransitPosition.lng)}`:'';
+  window.open(`https://www.google.com/maps/dir/?api=1${origin}&destination=${encodeURIComponent(dest)}&travelmode=transit`,'_blank','noopener');
+}
+function v105SelectedLabel(){
+  const hit=v105CurrentJourneyLeg();
+  return hit?`${v50CityLabel(hit.seg.from)} → ${v50CityLabel(hit.seg.to)}`:(lang==='ko'?'수동 입력':'Manual');
+}
+function v105Evaluate(showToast=true){
+  const result=document.getElementById('v105Result');if(!result)return;
+  const departureLocal=document.getElementById('v105Departure')?.value||'';
+  const travelRaw=document.getElementById('v105Travel')?.value??'';
+  const bufferRaw=document.getElementById('v105Buffer')?.value??'';
+  const travel=Number(travelRaw),buffer=Number(bufferRaw),dep=typeof v54KstMs==='function'?v54KstMs(departureLocal):NaN;
+  const valid=departureLocal!==''&&travelRaw!==''&&bufferRaw!==''&&Number.isFinite(dep)&&Number.isFinite(travel)&&travel>=0&&travel<=600&&Number.isFinite(buffer)&&buffer>=0&&buffer<=600;
+  if(!valid){result.hidden=true;if(showToast)v11Toast(lang==='ko'?'티켓 출발시각·이동시간·여유시간을 입력하세요.':'Enter ticket departure, travel time and buffer.');return;}
+  const now=Date.now(),leaveBy=dep-(travel+buffer)*60000;
+  const spare=Math.floor((leaveBy-now)/60000),untilDep=Math.floor((dep-now)/60000);
+  let cls='late',label='TOO LATE',icon='⛔',detail='';
+  if(dep<=now){
+    detail=lang==='ko'?'입력한 출발시각이 이미 지났습니다. 실제 다음 편을 확인하세요.':'The entered departure time has passed. Check the actual next service.';
+  }else if(spare>=15){
+    cls='safe';label='SAFE';icon='✅';detail=lang==='ko'?`계획상 여유가 약 ${spare}분 남아 있습니다.`:`About ${spare} min of spare time remains in your plan.`;
+  }else if(spare>=0){
+    cls='hurry';label='HURRY';icon='⚠️';detail=lang==='ko'?(spare===0?'계획상 지금 바로 출발해야 합니다.':`계획상 추가 여유가 약 ${spare}분뿐입니다. 지금 출발하세요.`):(spare===0?'Your plan says leave now.':`Only about ${spare} min of spare time remains. Leave now.`);
+  }else{
+    detail=lang==='ko'?`계획한 출발시각을 약 ${Math.abs(spare)}분 지났습니다. 탑승 불가능을 뜻하는 것은 아니니 실제 이동시간과 운영사 마감 규정을 즉시 확인하세요.`:`Your planned leave-by time passed about ${Math.abs(spare)} min ago. This does not prove boarding is impossible—check the real trip time and operator cutoff now.`;
+  }
+  const nowText=v54FormatKst(now,{date:true}),leaveText=v54FormatKst(leaveBy,{date:true}),depText=v54FormatKst(dep,{date:true});
+  result.hidden=false;
+  result.innerHTML=`<div class="v105-status ${cls}"><div><strong>${label}</strong><span>${escapeHtmlText(detail)}</span></div><em>${icon}</em></div><div class="v105-metrics"><div class="v105-metric"><span>${lang==='ko'?'지금 (한국시간)':'Now · Korea time'}</span><b>${escapeHtmlText(nowText)}</b></div><div class="v105-metric"><span>${lang==='ko'?'계획상 출발 마감':'Leave by'}</span><b>${escapeHtmlText(leaveText)}</b></div><div class="v105-metric"><span>${lang==='ko'?'티켓 출발':'Ticket departure'}</span><b>${escapeHtmlText(depText)}</b></div></div><div class="v105-result-tip"><b>${escapeHtmlText(v105SelectedLabel())}</b> · ${lang==='ko'?`거점 이동 ${travel}분 + 내 여유 ${buffer}분 · 티켓까지 약 ${Math.max(0,untilDep)}분`:`${travel} min to hub + ${buffer} min buffer · about ${Math.max(0,untilDep)} min to ticket time`}</div><div class="v105-result-note">⚠️ ${lang==='ko'?'이 판단은 사용자가 입력한 이동시간과 여유시간만 계산합니다. 실시간 교통, 체크인·탑승 마감, 보안검색, 좌석·운행 변경을 확인하는 기능이 아니며 SAFE도 탑승을 보장하지 않습니다.':'This status only calculates the travel minutes and buffer you entered. It does not check live traffic, check-in/boarding cutoffs, security, seats or service changes, and SAFE is not a boarding guarantee.'}</div>`;
+  v105SaveDraft({departureLocal,travelMinutes:travel,bufferMinutes:buffer,legIndex:v105CurrentJourneyLeg()?.idx||0});
+}
+function v105OpenCanIMakeIt(){
+  v105CloseCanIMakeIt();
+  const j=typeof v51ReadJourney==='function'?v51ReadJourney():null;
+  const draft=v105ReadDraft();
+  const saved=(j?.leaveBy&&typeof j.leaveBy==='object')?j.leaveBy:{};
+  const departureLocal=String(draft.departureLocal||saved.departureLocal||'');
+  const travelMinutes=draft.travelMinutes??saved.travelMinutes??'';
+  const bufferMinutes=draft.bufferMinutes??saved.bufferMinutes??20;
+  const idx=Math.max(0,Math.min((j?.segments?.length||1)-1,Number(draft.legIndex??saved.legIndex??0)||0));
+  const legField=j?.segments?.length?`<div class="v105-field"><label>${lang==='ko'?'저장 이동경로 구간':'Saved journey leg'}</label><select id="v105Leg" onchange="v105Evaluate(false)">${j.segments.map((seg,i)=>`<option value="${i}" ${i===idx?'selected':''}>${escapeHtmlText(v50CityLabel(seg.from))} → ${escapeHtmlText(v50CityLabel(seg.to))}</option>`).join('')}</select></div>`:`<div class="v105-result-tip">${lang==='ko'?'저장된 이동경로가 없어도 사용할 수 있습니다. 티켓 시각과 지도에서 확인한 이동시간을 직접 입력하세요.':'You can use this without a saved journey. Enter your ticket time and the travel minutes you checked in a map.'}</div>`;
+  const panel=document.createElement('div');panel.id='v105MakePanel';panel.className='v105-make-panel';panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');
+  panel.innerHTML=`<div class="v105-make-sheet"><div class="v105-make-head"><div><span class="move-kicker">V105 · CAN I MAKE IT?</span><h3>🚦 ${lang==='ko'?'지금 출발해서 탈 수 있을까?':'Can I Make It?'}</h3><p>${lang==='ko'?'실제 티켓 시각과 내가 확인한 이동시간으로 지금 상태를 빠르게 계산합니다.':'Quickly compare your real ticket time with the travel time you checked.'}</p></div><button type="button" class="v105-close" onclick="v105CloseCanIMakeIt()" aria-label="Close">×</button></div><div class="v105-location"><div><b>${lang==='ko'?'현재 위치':'Current location'}</b><span id="v105LocationText">${escapeHtmlText(v105LocationText())}</span></div><button type="button" id="v105LocationBtn" onclick="v105UseLocation()">◎ ${lang==='ko'?'현재 위치 사용':'Use my location'}</button></div><div class="v105-form">${legField}<div class="v105-field"><label>${lang==='ko'?'티켓·운영사에 표시된 실제 출발시각 (한국시간)':'Actual departure on ticket/operator (Korea time)'}</label><input id="v105Departure" type="datetime-local" value="${v54EscapeAttr(departureLocal)}" onchange="v105Evaluate(false)"></div><div class="v105-two"><div class="v105-field"><label>${lang==='ko'?'현재 위치 → 역/터미널/공항 이동시간 (분)':'Current location → hub travel (min)'}</label><input id="v105Travel" type="number" inputmode="numeric" min="0" max="600" step="1" value="${v54EscapeAttr(travelMinutes)}" placeholder="30" oninput="v105Evaluate(false)"></div><div class="v105-field"><label>${lang==='ko'?'내가 확보할 여유시간 (분)':'My extra buffer (min)'}</label><input id="v105Buffer" type="number" inputmode="numeric" min="0" max="600" step="1" value="${v54EscapeAttr(bufferMinutes)}" placeholder="20" oninput="v105Evaluate(false)"></div></div><div class="v105-chips"><button type="button" onclick="v105SetBuffer(15)">15m</button><button type="button" onclick="v105SetBuffer(30)">30m</button><button type="button" onclick="v105SetBuffer(60)">60m</button></div><div class="v105-actions"><button type="button" onclick="v105OpenDirections()">🗺️ ${lang==='ko'?'거점까지 시간 확인':'Check trip to hub'}</button><button type="button" class="primary" onclick="v105Evaluate(true)">🚦 ${lang==='ko'?'지금 상태 확인':'Check now'}</button><button type="button" onclick="v105CloseCanIMakeIt();setTimeout(v54OpenLeaveBy,80)">⏰ ${lang==='ko'?'출발시간 자세히 계산':'Open Leave-by Helper'}</button></div></div><div id="v105Result" class="v105-result" hidden></div></div>`;
+  panel.addEventListener('click',e=>{if(e.target===panel)v105CloseCanIMakeIt();});
+  document.body.appendChild(panel);
+  if(departureLocal&&travelMinutes!==''&&bufferMinutes!=='')v105Evaluate(false);
+  v105RefreshTimer=setInterval(()=>{if(document.getElementById('v105MakePanel'))v105Evaluate(false);else if(v105RefreshTimer){clearInterval(v105RefreshTimer);v105RefreshTimer=null;}},30000);
+}
+
+
+// V106 My Address Card — exact booked stay details saved locally for offline display.
+const V106_STAY_ADDRESS_KEY='koreaRouteStayAddressV106';
+function v106ReadAddressCard(){
+  try{
+    const raw=JSON.parse(localStorage.getItem(V106_STAY_ADDRESS_KEY)||'null');
+    if(!raw||typeof raw!=='object')return null;
+    const name=String(raw.name||'').trim(),address=String(raw.address||'').trim(),phone=String(raw.phone||'').trim();
+    if(!address)return null;
+    return {name,address,phone,savedAt:Number(raw.savedAt)||0};
+  }catch(_){return null;}
+}
+function v106CloseAddressCard(){document.getElementById('v106AddressPanel')?.remove();}
+function v106AddressAttr(v){return String(v||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function v106AddressEditorHtml(saved){
+  const name=saved?.name||'',address=saved?.address||'',phone=saved?.phone||'';
+  return `<div class="v106-address-head"><div><span class="move-kicker">V106 · MY ADDRESS CARD</span><h3>🏠 ${lang==='ko'?'내 숙소 주소 카드':'My Address Card'}</h3><p>${lang==='ko'?'예약처에서 확인한 실제 숙소의 한국어 주소를 저장하세요. 이 정보는 이 기기의 브라우저에만 저장됩니다.':'Save the exact Korean address from your booking. This stays only in this browser on this device.'}</p></div><button type="button" class="v106-address-close" onclick="v106CloseAddressCard()" aria-label="Close">×</button></div><div class="v106-address-form"><div class="v106-address-field"><label>${lang==='ko'?'숙소 이름':'Hotel / stay name'}</label><input id="v106StayName" maxlength="100" value="${v106AddressAttr(name)}" placeholder="${lang==='ko'?'예: 호텔 이름':'e.g. hotel name'}"></div><div class="v106-address-field"><label>${lang==='ko'?'정확한 한국어 주소 *':'Exact Korean address *'}</label><textarea id="v106StayAddress" maxlength="300" placeholder="${lang==='ko'?'예약 확인서의 한국어 주소를 그대로 붙여넣으세요.':'Paste the Korean address exactly as shown by your booking.'}">${escapeHtmlText(address)}</textarea></div><div class="v106-address-field"><label>${lang==='ko'?'숙소 전화번호 (선택)':'Hotel phone (optional)'}</label><input id="v106StayPhone" inputmode="tel" maxlength="40" value="${v106AddressAttr(phone)}" placeholder="02-1234-5678"></div><div class="v106-address-form-actions"><button type="button" class="primary" onclick="v106SaveAddressCard()">💾 ${lang==='ko'?'주소 카드 저장':'Save address card'}</button>${saved?`<button type="button" onclick="v106OpenAddressCard(false)">← ${lang==='ko'?'저장 카드 보기':'View saved card'}</button><button type="button" class="v106-address-danger" onclick="v106DeleteAddressCard()">🗑️ ${lang==='ko'?'삭제':'Delete'}</button>`:''}</div></div><div class="v106-address-note">⚠️ ${lang==='ko'?'Korea Route가 주소의 정확성을 확인하거나 수정하지 않습니다. 예약 확인서·숙소 공식 안내의 한국어 주소를 그대로 저장하세요.':'Korea Route does not verify or correct this address. Save the Korean address exactly from your booking or the property’s official information.'}</div>`;
+}
+function v106SavedAddressHtml(saved){
+  const safeName=escapeHtmlText(saved.name||(lang==='ko'?'내 숙소':'My stay'));
+  const safeAddress=escapeHtmlText(saved.address),safePhone=escapeHtmlText(saved.phone||'');
+  return `<div class="v106-address-head"><div><span class="move-kicker">V106 · MY ADDRESS CARD</span><h3>🏠 ${lang==='ko'?'내 숙소 주소 카드':'My Address Card'}</h3><p>${lang==='ko'?'저장된 카드는 인터넷 없이도 다시 열 수 있습니다. 지도 검색은 온라인 연결이 필요합니다.':'The saved card itself can reopen offline. Map searches require an internet connection.'}</p></div><button type="button" class="v106-address-close" onclick="v106CloseAddressCard()" aria-label="Close">×</button></div><div class="v106-address-card"><span class="eyebrow">MY STAY · KOREAN ADDRESS</span><h4>${safeName}</h4><div class="addr">${safeAddress}</div>${saved.phone?`<div class="phone">☎ ${safePhone}</div>`:''}<span class="offline">📴 ${lang==='ko'?'이 카드 오프라인 보기 가능':'CARD AVAILABLE OFFLINE'}</span></div><div class="v106-address-actions"><button type="button" onclick="v106CopyAddress(false)">📋 ${lang==='ko'?'주소 복사':'Copy address'}</button><button type="button" onclick="v106CopyAddress(true)">📝 ${lang==='ko'?'전체 정보 복사':'Copy all'}</button>${saved.phone?`<button type="button" onclick="v106CallStay()">☎️ ${lang==='ko'?'숙소 전화':'Call stay'}</button>`:''}<button type="button" onclick="v106OpenAddressMap('google')">🗺️ Google Maps</button><button type="button" onclick="v106OpenAddressMap('naver')">🧭 Naver Map</button><button type="button" onclick="v106OpenAddressCard(true)">✏️ ${lang==='ko'?'카드 수정':'Edit card'}</button><button type="button" class="driver" onclick="v106ShowDriverCard()">🚕 ${lang==='ko'?'택시기사에게 크게 보여주기':'Show large card to taxi driver'}</button></div><div class="v106-address-note">⚠️ ${lang==='ko'?'지도·전화는 외부 앱/서비스로 넘어갑니다. 출발 전 숙소 이름·주소·전화번호가 예약 확인서와 같은지 확인하세요.':'Maps and calls open external apps/services. Before traveling, confirm the name, address and phone match your booking.'}</div>`;
+}
+function v106OpenAddressCard(edit=false){
+  v106CloseAddressCard();
+  const saved=v106ReadAddressCard();
+  const panel=document.createElement('div');panel.id='v106AddressPanel';panel.className='v106-address-panel';panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');
+  panel.innerHTML=`<div class="v106-address-sheet">${(edit||!saved)?v106AddressEditorHtml(saved):v106SavedAddressHtml(saved)}</div>`;
+  panel.addEventListener('click',e=>{if(e.target===panel)v106CloseAddressCard();});
+  document.body.appendChild(panel);
+}
+function v106SaveAddressCard(){
+  const name=String(document.getElementById('v106StayName')?.value||'').trim();
+  const address=String(document.getElementById('v106StayAddress')?.value||'').trim();
+  const phone=String(document.getElementById('v106StayPhone')?.value||'').trim();
+  if(!address){v11Toast(lang==='ko'?'한국어 주소를 입력하세요.':'Enter the Korean address.');document.getElementById('v106StayAddress')?.focus();return;}
+  try{localStorage.setItem(V106_STAY_ADDRESS_KEY,JSON.stringify({name,address,phone,savedAt:Date.now()}));}
+  catch(_){v11Toast(lang==='ko'?'이 브라우저에 저장하지 못했습니다.':'Could not save in this browser.');return;}
+  v11Toast(lang==='ko'?'숙소 주소 카드 저장 완료':'Address card saved');
+  v106OpenAddressCard(false);
+}
+async function v106CopyAddress(all=false){
+  const s=v106ReadAddressCard();if(!s)return;
+  const text=all?[s.name,s.address,s.phone].filter(Boolean).join('\n'):s.address;
+  try{await navigator.clipboard.writeText(text);v11Toast(lang==='ko'?(all?'숙소 정보 복사 완료':'주소 복사 완료'):(all?'Stay details copied':'Address copied'));}
+  catch(_){prompt(lang==='ko'?'이 내용을 복사하세요.':'Copy this:',text);}
+}
+function v106CallStay(){
+  const s=v106ReadAddressCard();if(!s?.phone){v11Toast(lang==='ko'?'저장된 전화번호가 없습니다.':'No phone number saved.');return;}
+  const tel=s.phone.replace(/[^0-9+]/g,'');if(!tel){v11Toast(lang==='ko'?'전화번호를 다시 확인하세요.':'Check the saved phone number.');return;}
+  window.location.href=`tel:${tel}`;
+}
+function v106OpenAddressMap(provider){
+  const s=v106ReadAddressCard();if(!s?.address)return;
+  const q=encodeURIComponent(s.address);
+  const url=provider==='naver'?`https://map.naver.com/p/search/${q}`:`https://www.google.com/maps/search/?api=1&query=${q}`;
+  window.open(url,'_blank','noopener');
+}
+function v106ShowDriverCard(){
+  const s=v106ReadAddressCard();if(!s)return;
+  const sheet=document.querySelector('#v106AddressPanel .v106-address-sheet');if(!sheet)return;
+  sheet.classList.add('v106-driver-sheet');
+  sheet.innerHTML=`<div class="v106-driver-top"><b>🚕 ${lang==='ko'?'기사님께 보여주세요':'Show this to the driver'}</b><button type="button" class="v106-address-close" onclick="v106CloseAddressCard()" aria-label="Close">×</button></div><div class="v106-driver-card"><span>여기로 가주세요</span><h3>${escapeHtmlText(s.name||'숙소')}</h3><p>${escapeHtmlText(s.address)}</p>${s.phone?`<small>☎ ${escapeHtmlText(s.phone)}</small>`:''}</div><div class="v106-driver-actions"><button type="button" onclick="v106OpenAddressCard(false)">← ${lang==='ko'?'일반 카드':'Back to card'}</button><button type="button" onclick="v106CopyAddress(false)">📋 ${lang==='ko'?'주소 복사':'Copy address'}</button></div>`;
+}
+function v106DeleteAddressCard(){
+  if(!confirm(lang==='ko'?'저장한 숙소 주소 카드를 삭제할까요?':'Delete the saved address card?'))return;
+  localStorage.removeItem(V106_STAY_ADDRESS_KEY);v11Toast(lang==='ko'?'숙소 주소 카드 삭제 완료':'Address card deleted');v106OpenAddressCard(true);
+}
+
+
+// V107 Show Staff — built-in Korean cards for station/terminal/airport staff.
+// Uses only saved journey context. It never fabricates platform, gate, seat or schedule information.
+const V107_STAFF_PHRASES={
+  board:{
+    ko:'이 표는 어디에서 타면 되나요?',
+    en:'Where do I board with this ticket?'
+  },
+  correct:{
+    ko:'제가 지금 있는 승강장(탑승구)이 맞나요?',
+    en:'Am I at the correct platform / boarding gate?'
+  },
+  destination:{
+    ko:'이 교통편이 제가 가려는 곳으로 가나요?',
+    en:'Does this service go toward my destination?'
+  },
+  missed:{
+    ko:'이 기차(버스)를 놓쳤어요. 다음에 어떻게 해야 하나요?',
+    en:'I missed this train / bus. What should I do next?'
+  },
+  transfer:{
+    ko:'환승하려면 어디로 가야 하나요?',
+    en:'Where should I go to transfer?'
+  },
+  help:{
+    ko:'도와주세요. 이 목적지까지 가고 싶어요.',
+    en:'Please help me. I want to get to this destination.'
+  }
+};
+let v107StaffPhrase='board';
+function v107CloseStaffHelper(){document.getElementById('v107StaffPanel')?.remove();}
+function v107StaffJourneyContext(){
+  try{
+    const j=v51ReadJourney?.();
+    if(!j) return null;
+    const hit=v52NextJourneyLeg?.(j);
+    if(!hit?.seg) return null;
+    const seg=hit.seg,mode=v51SafeMode?.(j.mode)||j.mode||'rail';
+    const fromKo=seg.fromHub?.ko||seg.fromHub?.en||v50CityLabel?.(seg.from)||seg.from||'';
+    const toKo=seg.toHub?.ko||seg.toHub?.en||v50CityLabel?.(seg.to)||seg.to||'';
+    const fromEn=seg.fromHub?.en||seg.fromHub?.ko||v50CityLabel?.(seg.from)||seg.from||'';
+    const toEn=seg.toHub?.en||seg.toHub?.ko||v50CityLabel?.(seg.to)||seg.to||'';
+    return {mode,fromKo,toKo,fromEn,toEn,index:hit.index};
+  }catch(_){return null;}
+}
+function v107TransportWords(mode){
+  if(mode==='flight') return {subject:'이 비행기가',object:'이 비행기를',placeSubject:'제가 지금 있는 탑승구가',enService:'flight',enPlace:'boarding gate'};
+  if(mode==='bus') return {subject:'이 버스가',object:'이 버스를',placeSubject:'제가 지금 있는 승차장이',enService:'bus',enPlace:'boarding bay'};
+  if(mode==='rail') return {subject:'이 열차가',object:'이 열차를',placeSubject:'제가 지금 있는 승강장이',enService:'train',enPlace:'platform'};
+  return {subject:'이 교통편이',object:'이 교통편을',placeSubject:'제가 지금 있는 타는 곳이',enService:'service',enPlace:'boarding point'};
+}
+function v107PhraseData(id=v107StaffPhrase){
+  const ctx=v107StaffJourneyContext(),words=v107TransportWords(ctx?.mode);
+  let base=V107_STAFF_PHRASES[id]||V107_STAFF_PHRASES.board;
+  let ko=base.ko,en=base.en;
+  if(id==='correct'){
+    ko=`${words.placeSubject} 맞나요?`;
+    en=`Am I at the correct ${words.enPlace}?`;
+  }else if(id==='destination'&&ctx?.toKo){
+    ko=`${words.subject} ${ctx.toKo} 방향으로 가나요?`;
+    en=`Does this ${words.enService} go toward ${ctx.toEn}?`;
+  }else if(id==='missed'){
+    ko=`${words.object} 놓쳤어요. 다음에 어떻게 해야 하나요?`;
+    en=`I missed this ${words.enService}. What should I do next?`;
+  }else if(id==='help'&&ctx?.toKo){
+    ko=`도와주세요. ${ctx.toKo}까지 가고 싶어요.`;
+    en=`Please help me. I want to get to ${ctx.toEn}.`;
+  }
+  return {id,ko,en,ctx};
+}
+function v107RouteText(ctx){
+  if(!ctx) return '';
+  return lang==='ko'?`${ctx.fromKo} → ${ctx.toKo}`:`${ctx.fromEn} → ${ctx.toEn}`;
+}
+function v107StaffCardHtml(data){
+  const route=data.ctx?`<div class="route">🧭 ${escapeHtmlText(v107RouteText(data.ctx))}</div>`:'';
+  return `<span class="eyebrow">SHOW THIS TO STAFF</span><div class="ko">${escapeHtmlText(data.ko)}</div><div class="en">${escapeHtmlText(data.en)}</div>${route}`;
+}
+function v107RenderStaffHelper(){
+  const panel=document.getElementById('v107StaffPanel'); if(!panel) return;
+  const data=v107PhraseData(v107StaffPhrase),ctx=data.ctx;
+  const contextHtml=ctx
+    ?`<div class="v107-context"><span class="label">${lang==='ko'?'저장된 다음 이동 구간':'NEXT SAVED JOURNEY LEG'}</span><b>${escapeHtmlText(v107RouteText(ctx))}</b><span>${lang==='ko'?'저장된 Journey의 미완료 구간을 참고용으로만 표시합니다. 실제 승강장·게이트·시간은 직원과 현장 안내로 확인하세요.':'Uses the first unfinished saved Journey leg only as context. Confirm the real platform, gate and time with staff and on-site signs.'}</span></div>`
+    :`<div class="v107-context"><span class="label">${lang==='ko'?'저장된 이동 구간 없음':'NO SAVED JOURNEY LEG'}</span><b>${lang==='ko'?'기본 도움 문장을 바로 보여줄 수 있어요.':'You can still show the built-in help phrases.'}</b><span>${lang==='ko'?'Route에서 Journey를 저장하면 출발·도착 거점도 함께 표시됩니다.':'Save a Journey in Route to also show the planned origin and destination hubs.'}</span></div>`;
+  panel.innerHTML=`<div class="v107-staff-sheet" role="dialog" aria-modal="true" aria-label="Show Staff"><div class="v107-staff-head"><div><span class="move-kicker">V107 · SHOW STAFF</span><h3>🪪 ${lang==='ko'?'직원에게 보여주기':'Show Staff'}</h3><p>${lang==='ko'?'역·터미널·공항에서 말이 안 통할 때 큰 한국어 문장을 바로 보여주세요.':'Show a large Korean help card at a station, terminal or airport.'}</p></div><button type="button" class="v107-staff-close" onclick="v107CloseStaffHelper()" aria-label="Close">×</button></div>${contextHtml}<div class="v107-quick"><button type="button" class="${v107StaffPhrase==='board'?'active':''}" onclick="v107SelectStaffPhrase('board')">🎫 ${lang==='ko'?'어디서 타나요?':'Where do I board?'}<small>${lang==='ko'?'표를 보여주며 묻기':'Ask while showing your ticket'}</small></button><button type="button" class="${v107StaffPhrase==='correct'?'active':''}" onclick="v107SelectStaffPhrase('correct')">📍 ${lang==='ko'?'여기가 맞나요?':'Is this the right place?'}<small>${lang==='ko'?'승강장·탑승구 확인':'Check platform / gate'}</small></button><button type="button" class="${v107StaffPhrase==='destination'?'active':''}" onclick="v107SelectStaffPhrase('destination')">➡️ ${lang==='ko'?'이쪽으로 가나요?':'Does this go there?'}<small>${lang==='ko'?'저장 목적지 방향 확인':'Check saved destination direction'}</small></button><button type="button" class="${v107StaffPhrase==='missed'?'active':''}" onclick="v107SelectStaffPhrase('missed')">😵 ${lang==='ko'?'놓쳤어요':'I missed it'}<small>${lang==='ko'?'다음에 어떻게 할지 묻기':'Ask what to do next'}</small></button><button type="button" class="${v107StaffPhrase==='transfer'?'active':''}" onclick="v107SelectStaffPhrase('transfer')">🔁 ${lang==='ko'?'환승 어디로?':'Where to transfer?'}<small>${lang==='ko'?'환승 방향 묻기':'Ask for transfer direction'}</small></button><button type="button" class="${v107StaffPhrase==='help'?'active':''}" onclick="v107SelectStaffPhrase('help')">🙋 ${lang==='ko'?'도와주세요':'Please help'}<small>${lang==='ko'?'목적지까지 도움 요청':'Ask for destination help'}</small></button></div><div id="v107StaffCard" class="v107-card">${v107StaffCardHtml(data)}</div><div class="v107-actions"><button type="button" onclick="v107CopyStaff(false)">📋 ${lang==='ko'?'한국어 복사':'Copy Korean'}</button><button type="button" onclick="v107CopyStaff(true)">📝 ${lang==='ko'?'전체 내용 복사':'Copy all'}</button><button type="button" class="focus" onclick="v107ToggleStaffFocus()">📱 ${lang==='ko'?'직원에게 크게 보여주기':'Show full-screen to staff'}</button></div><span class="v107-offline">📴 ${lang==='ko'?'기본 문장은 오프라인 사용 가능':'BUILT-IN PHRASES WORK OFFLINE'}</span><div class="v107-note">⚠️ ${lang==='ko'?'이 도구는 승강장·게이트·출발시간·좌석을 추정하지 않습니다. 티켓과 현장 전광판을 함께 보여주고 직원의 안내를 최종 확인하세요.':'This tool does not guess platforms, gates, departure times or seats. Show your ticket and on-site display too, and follow staff instructions.'}</div></div>`;
+  panel.onclick=e=>{if(e.target===panel)v107CloseStaffHelper();};
+}
+function v107OpenStaffHelper(initial='board'){
+  v107CloseStaffHelper();
+  if(V107_STAFF_PHRASES[initial])v107StaffPhrase=initial;
+  const panel=document.createElement('div');panel.id='v107StaffPanel';panel.className='v107-staff-panel';document.body.appendChild(panel);v107RenderStaffHelper();
+}
+function v107SelectStaffPhrase(id){if(!V107_STAFF_PHRASES[id])return;v107StaffPhrase=id;const panel=document.getElementById('v107StaffPanel');const wasFocus=panel?.classList.contains('focus');v107RenderStaffHelper();if(wasFocus)document.getElementById('v107StaffPanel')?.classList.add('focus');}
+async function v107CopyStaff(all=false){
+  const d=v107PhraseData(v107StaffPhrase),route=d.ctx?v107RouteText(d.ctx):'';
+  const text=all?[d.ko,d.en,route].filter(Boolean).join('\n'):d.ko;
+  try{await navigator.clipboard.writeText(text);v11Toast(lang==='ko'?'직원용 문장 복사 완료':'Staff phrase copied');}catch(_){prompt(lang==='ko'?'이 문장을 복사하세요.':'Copy this text:',text);}
+}
+function v107ToggleStaffFocus(){
+  const panel=document.getElementById('v107StaffPanel');if(!panel)return;
+  const next=!panel.classList.contains('focus');panel.classList.toggle('focus',next);
+  const btn=panel.querySelector('.v107-actions .focus');if(btn)btn.textContent=next?(lang==='ko'?'← 일반 화면으로':'← Back to normal view'):(lang==='ko'?'📱 직원에게 크게 보여주기':'📱 Show full-screen to staff');
 }
 
 function v52NextJourneyLeg(j){
@@ -9032,8 +10403,10 @@ function renderBusLiveCards(data,fromCity,toCity){
       const dep=formatBusTime(it.departureTime||it.depTime);
       const arr=formatBusTime(it.arrivalTime||it.arrTime);
       const fare=formatBusFare(it.fare);
-      const carrier=it.carrier||it.company||(lang==='ko'?'사업자 정보 없음':'Carrier unavailable');
-      const terminal=`${it.departureTerminal||fromCity} → ${it.arrivalTerminal||toCity}`;
+      const carrier=escapeHtmlText(it.carrier||it.company||(lang==='ko'?'사업자 정보 없음':'Carrier unavailable'));
+      const departureTerminal=escapeHtmlText(it.departureTerminal||fromCity);
+      const arrivalTerminal=escapeHtmlText(it.arrivalTerminal||toCity);
+      const terminal=`${departureTerminal} → ${arrivalTerminal}`;
       return `<div class="move-card">
         <div class="move-card-head">
           <div><div class="move-kicker">${lang==='ko'?'버스':'BUS'}</div><h3>${carrier}</h3></div>
@@ -9357,6 +10730,211 @@ function initMyTripHub(){
   v53RenderStopAlert();
 }
 
+
+// V108 · live Gemini Trip Assistant frontend.
+// Request contract confirmed from the working production test: {message, context} -> {answer, actions}.
+// The separately maintained /api/gemini server function is intentionally not bundled here.
+let v108AssistantBusy=false;
+let v108AssistantController=null;
+let v108AssistantRequestId=0;
+
+function v108AssistantSetStatus(kind,text){
+  const el=document.getElementById('assistantAiStatus');
+  if(!el) return;
+  el.className='v108-ai-status'+(kind?' '+kind:'');
+  el.textContent=text;
+}
+
+function v108AssistantQuestionFor(type){
+  const city=assistantSelectedCity();
+  const cityLabel=assistantCityLabel(city);
+  const q={
+    now:{ko:`${cityLabel} 여행 중입니다. 저장된 여행정보를 참고해서 지금 해야 할 일 3가지를 짧고 구체적으로 알려주세요.`,en:`I am traveling in ${cityLabel}. Using my saved trip context, tell me the next 3 useful actions, briefly and concretely.`},
+    route:{ko:`${cityLabel}에서 이동할 때 가장 쉬운 방법을 판단하는 기준과, 제 저장 이동정보가 있으면 그 구간을 쉽게 이동하는 방법을 알려주세요.`,en:`For travel in ${cityLabel}, explain the easiest transport approach and use my saved route context if available.`},
+    payment:{ko:'한국 여행 중 해외카드·교통카드·현금 사용에서 주의할 점을 제 여행정보 기준으로 알려주세요. 확실하지 않은 서비스별 결제 가능 여부는 단정하지 마세요.',en:'For my Korea trip, explain foreign-card, transit-card and cash payment friction. Do not claim merchant-specific acceptance unless it is actually known.'},
+    stay:{ko:'저장된 숙소 정보와 이동정보를 참고해서 숙소를 동선 기준점으로 어떻게 활용하면 좋은지 알려주세요.',en:'Using my saved stay and route context, explain how to use my accommodation as a practical daily route base.'},
+    budget:{ko:'저장된 여행 예산이 있으면 일정·인원 기준으로 예산을 어떻게 점검하면 좋을지 알려주세요. 실시간 가격이 없으면 추정값을 사실처럼 말하지 마세요.',en:'If a saved trip budget is available, explain how to check it against my days and party size. Do not present non-live prices as facts.'},
+    rain:{ko:`${cityLabel}에서 비가 올 때 야외 도보를 줄이는 여행 대안을 알려주세요. 실제 현재 날씨를 모르면 비가 온다고 단정하지 마세요.`,en:`Give me a rain-friendly travel alternative in ${cityLabel} that reduces outdoor walking. If current weather is not provided, do not claim that it is raining.`}
+  }[type];
+  return q?(lang==='ko'?q.ko:q.en):'';
+}
+
+function v108AssistantContext(){
+  const city=assistantSelectedCity();
+  const situation=document.getElementById('assistantSituation')?.value||'normal';
+  const stay=assistantReadJSON('koreaRouteStayArea');
+  const wallet=assistantReadJSON('koreaRouteWallet');
+  const from=document.getElementById('start')?.value||document.getElementById('origin')?.value||document.getElementById('from')?.value||'';
+  const to=document.getElementById('dest')?.value||document.getElementById('to')?.value||'';
+  let nextJourney=null;
+  try{
+    const j=typeof v51ReadJourney==='function'?v51ReadJourney():null;
+    const hit=j&&typeof v52NextJourneyLeg==='function'?v52NextJourneyLeg(j):null;
+    if(hit?.seg){
+      nextJourney={
+        from:hit.seg.from||'',
+        to:hit.seg.to||'',
+        mode:hit.seg.mode||j?.mode||'',
+        index:Number.isFinite(hit.index)?hit.index:null
+      };
+    }
+  }catch(e){}
+  return {
+    app:'Korea Route',
+    feature:'trip_assistant',
+    language:lang==='ko'?'ko':'en',
+    city,
+    situation,
+    route:(from||to)?{from,to}:null,
+    stay:stay?{id:stay.id||'',nameKo:stay.nameKo||'',nameEn:stay.nameEn||''}:null,
+    wallet:wallet?{city:wallet.city||'',style:wallet.style||'',days:Number(wallet.days)||null,people:Number(wallet.people)||null,total:Number(wallet.total)||null}:null,
+    savedPlacesCount:assistantSavedPlacesCount(),
+    nextJourney,
+    privacyNote:'No exact GPS coordinates, hotel phone numbers, passport/card/document data are included automatically.',
+    accuracyNote:'Do not invent live schedules, fares, seats, booking availability, platform/gate numbers, opening hours, or current weather when not present in context. Tell the traveler what must be rechecked with official/live sources.'
+  };
+}
+
+function v108AssistantActionText(action){
+  if(typeof action==='string') return action.trim();
+  if(!action||typeof action!=='object') return '';
+  return String(action.label||action.title||action.text||action.action||'').trim();
+}
+
+function v108RenderAiAnswer(answerText,actions){
+  const host=document.getElementById('assistantAnswer');
+  if(!host) return;
+  host.innerHTML='';
+  const title=document.createElement('b');
+  title.textContent=lang==='ko'?'Gemini 답변':'Gemini answer';
+  const body=document.createElement('div');
+  body.className='v108-ai-answer-text';
+  body.textContent=String(answerText||'').trim();
+  host.append(title,body);
+  const safeActions=Array.isArray(actions)?actions.map(v108AssistantActionText).filter(Boolean).slice(0,4):[];
+  if(safeActions.length){
+    const list=document.createElement('ul');
+    list.className='v108-ai-actions';
+    safeActions.forEach(text=>{const li=document.createElement('li');li.textContent=text;list.appendChild(li);});
+    host.appendChild(list);
+  }
+  const warn=document.createElement('small');
+  warn.className='v108-ai-warning';
+  warn.textContent=lang==='ko'
+    ?'AI 답변은 틀릴 수 있습니다. 실제 열차·버스·항공편, 요금, 좌석, 예약, 영업시간, 승강장/게이트와 긴급정보는 공식·실시간 정보로 다시 확인하세요.'
+    :'AI can be wrong. Recheck actual train/bus/flight service, fares, seats, booking, opening hours, platform/gate and emergency information with official or live sources.';
+  host.appendChild(warn);
+}
+
+async function v108AskAssistant(messageOverride='',quickType=''){
+  const input=document.getElementById('assistantQuestion');
+  const message=String(messageOverride||input?.value||'').trim();
+  if(!message){
+    v108AssistantSetStatus('error',lang==='ko'?'질문을 먼저 입력하세요.':'Type a question first.');
+    input?.focus();
+    return;
+  }
+  if(v108AssistantBusy && v108AssistantController){
+    try{v108AssistantController.abort();}catch(e){}
+  }
+  const controller=new AbortController();
+  const requestId=++v108AssistantRequestId;
+  v108AssistantController=controller;
+  v108AssistantBusy=true;
+  const btn=document.getElementById('assistantAskBtn');
+  if(btn){btn.disabled=true;btn.textContent=lang==='ko'?'생각 중…':'Thinking…';}
+  const host=document.getElementById('assistantAnswer');
+  if(host){
+    host.innerHTML='';
+    const b=document.createElement('b');b.textContent=lang==='ko'?'Gemini에게 묻는 중…':'Asking Gemini…';
+    const span=document.createElement('div');span.className='v108-ai-answer-text';span.textContent=lang==='ko'?'저장된 여행정보에서 필요한 항목만 함께 보내고 있습니다.':'Sending only the relevant saved trip context.';
+    host.append(b,span);
+  }
+  v108AssistantSetStatus('loading',lang==='ko'?'AI 응답을 기다리는 중입니다…':'Waiting for the AI response…');
+  const timer=setTimeout(()=>{try{controller.abort();}catch(e){}},25000);
+  try{
+    const response=await fetch('/api/gemini',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({message,context:v108AssistantContext()}),
+      signal:controller.signal,
+      cache:'no-store'
+    });
+    let payload={};
+    try{payload=await response.json();}catch(e){}
+    if(!response.ok){
+      const detail=String(payload?.message||payload?.error||`HTTP ${response.status}`);
+      throw new Error(detail);
+    }
+    const answerText=typeof payload?.answer==='string'?payload.answer:(typeof payload?.text==='string'?payload.text:'');
+    if(!answerText.trim()) throw new Error('EMPTY_AI_ANSWER');
+    v108RenderAiAnswer(answerText,payload?.actions);
+    v108AssistantSetStatus('ok',lang==='ko'?'✓ Gemini 응답을 받았습니다.':'✓ Gemini response received.');
+    lastAssistantQuickType=quickType||'';
+  }catch(err){
+    const aborted=err?.name==='AbortError';
+    if(quickType){
+      assistantQuick(quickType);
+      const fallback=document.getElementById('assistantAnswer');
+      if(fallback){
+        const note=document.createElement('small');
+        note.className='v108-ai-warning';
+        note.textContent=lang==='ko'?'Gemini 연결에 실패해 앱에 내장된 기본 안내를 대신 표시했습니다.':'Gemini was unavailable, so Korea Route showed its built-in fallback guidance instead.';
+        fallback.appendChild(note);
+      }
+    }else if(host){
+      host.innerHTML='';
+      const b=document.createElement('b');b.textContent=lang==='ko'?'AI 연결을 확인해주세요':'Check the AI connection';
+      const d=document.createElement('div');d.className='v108-ai-answer-text';d.textContent=aborted?(lang==='ko'?'응답 시간이 길어 요청을 중단했습니다. 잠시 후 다시 시도하세요.':'The request timed out. Try again shortly.'):(lang==='ko'?'Gemini 응답을 받지 못했습니다. 서버 연결 상태를 확인한 뒤 다시 시도하세요.':'No Gemini response was received. Check the server connection and try again.');
+      host.append(b,d);
+    }
+    v108AssistantSetStatus('error',aborted?(lang==='ko'?'요청 시간이 초과되었습니다.':'Request timed out.'):(lang==='ko'?`AI 호출 실패 · ${String(err?.message||'unknown').slice(0,120)}`:`AI request failed · ${String(err?.message||'unknown').slice(0,120)}`));
+  }finally{
+    clearTimeout(timer);
+    if(requestId===v108AssistantRequestId){
+      v108AssistantBusy=false;
+      if(v108AssistantController===controller) v108AssistantController=null;
+      if(btn){btn.disabled=false;btn.textContent=lang==='ko'?'✨ AI에게 묻기':'✨ Ask AI';}
+    }
+  }
+}
+
+function v108AskQuick(type){
+  const message=v108AssistantQuestionFor(type);
+  const input=document.getElementById('assistantQuestion');
+  if(input) input.value=message;
+  v108AskAssistant(message,type);
+}
+
+function v108ClearAssistant(){
+  if(v108AssistantController){try{v108AssistantController.abort();}catch(e){}}
+  v108AssistantRequestId++;
+  v108AssistantController=null;
+  v108AssistantBusy=false;
+  const btn=document.getElementById('assistantAskBtn');
+  if(btn){btn.disabled=false;btn.textContent=lang==='ko'?'✨ AI에게 묻기':'✨ Ask AI';}
+  const input=document.getElementById('assistantQuestion');
+  if(input) input.value='';
+  const host=document.getElementById('assistantAnswer');
+  if(host){
+    host.innerHTML=`<b>${lang==='ko'?'AI 준비됨':'AI ready'}</b><span>${lang==='ko'?'질문을 입력하거나 빠른 질문을 선택하세요.':'Type a question or choose a quick question.'}</span>`;
+  }
+  v108AssistantSetStatus('',lang==='ko'?'설정된 /api/gemini 서버 연결을 사용합니다.':'Uses the configured /api/gemini server connection.');
+  lastAssistantQuickType='';
+}
+
+function v108BindAssistantInput(){
+  const input=document.getElementById('assistantQuestion');
+  if(!input||input.dataset.v108Bound) return;
+  input.dataset.v108Bound='1';
+  input.addEventListener('keydown',event=>{
+    if(event.key==='Enter'&&(event.ctrlKey||event.metaKey)){
+      event.preventDefault();
+      v108AskAssistant();
+    }
+  });
+}
+
 function assistantReadJSON(key){
   try{return JSON.parse(sessionStorage.getItem(key)||'null');}catch{return null;}
 }
@@ -9580,7 +11158,10 @@ function assistantQuick(type){
 }
 function initAssistantHub(){
   refreshAssistantContext();
-  if(lastAssistantQuickType) assistantQuick(lastAssistantQuickType);
+  v108BindAssistantInput();
+  const input=document.getElementById('assistantQuestion');
+  if(input) input.placeholder=lang==='ko'?'한국 여행에 대해 물어보세요':'Ask about your Korea trip';
+  if(lastAssistantQuickType && !document.querySelector('#assistantAnswer .v108-ai-answer-text')) assistantQuick(lastAssistantQuickType);
 }
 
 const WALLET_CITY_BASE={
@@ -10223,8 +11804,23 @@ function showRestaurantOrderPhrase(i){
   const layer=ensurePhraseSheetLayer();
   layer.innerHTML=`<div class="phrase-sheet">
     <div class="phrase-sheet-head"><div><span>${lang==='ko'?'직원에게 보여주기':'SHOW RESTAURANT STAFF'}</span><h3>${lang==='ko'?'이 화면을 그대로 보여주세요':'Show this screen'}</h3></div><button type="button" onclick="closePhraseSheet()">×</button></div>
-    <div class="phrase-focus"><div class="phrase-focus-badge">${p.icon} ${lang==='ko'?'식당 도움 문장':'Restaurant phrase'}</div><div class="phrase-focus-icon">${p.icon}</div><div class="phrase-focus-ko">${escapeHtmlText(p.ko)}</div><div class="phrase-focus-en">${escapeHtmlText(p.en)}</div><div class="food-order-focus-actions"><button type="button" class="primary" onclick="copyRestaurantOrderPhrase(${Number(i)})">📋 ${lang==='ko'?'한국어 문장 복사':'Copy Korean phrase'}</button><button type="button" onclick="openRestaurantOrderHelper('${p.cat}')">← ${lang==='ko'?'다른 문장':'Other phrases'}</button><button type="button" onclick="openRestaurantCustomTranslation(${Number(i)})">🌐 ${lang==='ko'?'문장 수정·번역':'Edit / translate'}</button></div><div class="phrase-focus-note">${p.cat==='allergy'?(lang==='ko'?'알레르기 정보는 반드시 직원에게 다시 확인하세요. 이 문장은 안전을 보장하는 번역이나 의료 안내가 아닙니다.':'Always reconfirm allergy information with staff. This phrase is not a safety guarantee or medical advice.'):(lang==='ko'?'짧은 주문 의사소통 보조 문장입니다. 필요한 내용이 다르면 문장 수정·번역을 이용하세요.':'A short ordering aid. Use Edit / translate if your request is different.')}</div></div>
+    <div class="phrase-focus"><div class="phrase-focus-badge">${p.icon} ${lang==='ko'?'식당 도움 문장':'Restaurant phrase'}</div><div class="phrase-focus-icon">${p.icon}</div><div class="phrase-focus-ko">${escapeHtmlText(p.ko)}</div><div class="phrase-focus-en">${escapeHtmlText(p.en)}</div><div class="food-order-focus-actions"><button type="button" id="restaurantPhraseCopyBtn" class="primary" onclick="copyRestaurantOrderPhrase(${Number(i)})">📋 ${lang==='ko'?'한국어 문장 복사':'Copy Korean phrase'}</button><button type="button" onclick="openRestaurantOrderHelper('${p.cat}')">← ${lang==='ko'?'다른 문장':'Other phrases'}</button><button type="button" onclick="openRestaurantCustomTranslation(${Number(i)})">🌐 ${lang==='ko'?'문장 수정·번역':'Edit / translate'}</button></div><div class="phrase-focus-note">${p.cat==='allergy'?(lang==='ko'?'알레르기 정보는 반드시 직원에게 다시 확인하세요. 이 문장은 안전을 보장하는 번역이나 의료 안내가 아닙니다.':'Always reconfirm allergy information with staff. This phrase is not a safety guarantee or medical advice.'):(lang==='ko'?'짧은 주문 의사소통 보조 문장입니다. 필요한 내용이 다르면 문장 수정·번역을 이용하세요.':'A short ordering aid. Use Edit / translate if your request is different.')}</div></div>
   </div>`;
+}
+
+function phraseCopyButtonFeedback(buttonId,ok){
+  const btn=document.getElementById(buttonId);
+  if(!btn){
+    if(typeof v11Toast==='function') v11Toast(ok?(lang==='ko'?'복사됨':'Copied'):(lang==='ko'?'복사 실패':'Copy failed'));
+    return;
+  }
+  clearTimeout(btn._phraseCopyFeedbackTimer);
+  btn.textContent=ok?(lang==='ko'?'✓ 복사됨':'✓ Copied'):(lang==='ko'?'⚠ 복사 실패':'⚠ Copy failed');
+  btn.classList.toggle('copy-success',!!ok);
+  btn._phraseCopyFeedbackTimer=setTimeout(()=>{
+    btn.textContent=`📋 ${lang==='ko'?'한국어 문장 복사':'Copy Korean phrase'}`;
+    btn.classList.remove('copy-success');
+  },1200);
 }
 
 async function copyRestaurantOrderPhrase(i){
@@ -10232,7 +11828,7 @@ async function copyRestaurantOrderPhrase(i){
   if(!text)return;
   let ok=false;
   try{await navigator.clipboard.writeText(text);ok=true;}catch{try{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();ok=true;}catch(_){}}
-  setCityMapStatus(ok?(lang==='ko'?'식당용 한국어 문장을 복사했습니다.':'Restaurant phrase copied.'):(lang==='ko'?'복사하지 못했습니다. 화면을 직접 보여주세요.':'Could not copy. Show the screen directly.'));
+  phraseCopyButtonFeedback('restaurantPhraseCopyBtn',ok);
 }
 
 function openRestaurantCustomTranslation(i){
@@ -10441,7 +12037,7 @@ function showTravelPhraseFocus(i){
   const layer=ensurePhraseSheetLayer();
   layer.innerHTML=`<div class="phrase-sheet">
     <div class="phrase-sheet-head"><div><span>${lang==='ko'?'현지인에게 보여주기':'SHOW A LOCAL'}</span><h3>${lang==='ko'?'이 화면을 그대로 보여주세요':'Show this screen'}</h3></div><button type="button" onclick="closePhraseSheet()">×</button></div>
-    <div class="phrase-focus"><div class="phrase-focus-badge">${p.icon} ${lang==='ko'?'한국어 도움 문장':'Korean help phrase'}</div><div class="phrase-focus-icon">${p.icon}</div><div class="phrase-focus-ko">${escapeHtmlText(p.ko)}</div><div class="phrase-focus-en">${escapeHtmlText(p.en)}</div><div class="phrase-focus-actions"><button type="button" class="primary" onclick="copyTravelPhrase(${Number(i)})">📋 ${lang==='ko'?'한국어 문장 복사':'Copy Korean phrase'}</button><button type="button" onclick="openPhraseSheet('${p.cat||'all'}')">← ${lang==='ko'?'같은 종류 문장':'Same category'}</button><button type="button" onclick="openCityLost1330()">☎ ${lang==='ko'?'1330 여행 안내':'1330 Travel Helpline'}</button></div><div class="phrase-focus-note">${lang==='ko'?'짧은 의사소통 보조용입니다. 상대방이 이해하지 못하면 1330 여행 안내·통역 도움이나 다른 번역 수단을 이용하세요.':'This is a short communication aid. If the other person still cannot understand, use 1330 travel interpretation help or another translation method.'}</div></div>
+    <div class="phrase-focus"><div class="phrase-focus-badge">${p.icon} ${lang==='ko'?'한국어 도움 문장':'Korean help phrase'}</div><div class="phrase-focus-icon">${p.icon}</div><div class="phrase-focus-ko">${escapeHtmlText(p.ko)}</div><div class="phrase-focus-en">${escapeHtmlText(p.en)}</div><div class="phrase-focus-actions"><button type="button" id="travelPhraseCopyBtn" class="primary" onclick="copyTravelPhrase(${Number(i)})">📋 ${lang==='ko'?'한국어 문장 복사':'Copy Korean phrase'}</button><button type="button" onclick="openPhraseSheet('${p.cat||'all'}')">← ${lang==='ko'?'같은 종류 문장':'Same category'}</button><button type="button" onclick="openCityLost1330()">☎ ${lang==='ko'?'1330 여행 안내':'1330 Travel Helpline'}</button></div><div class="phrase-focus-note">${lang==='ko'?'짧은 의사소통 보조용입니다. 상대방이 이해하지 못하면 1330 여행 안내·통역 도움이나 다른 번역 수단을 이용하세요.':'This is a short communication aid. If the other person still cannot understand, use 1330 travel interpretation help or another translation method.'}</div></div>
   </div>`;
 }
 
@@ -10454,7 +12050,7 @@ async function copyTravelPhrase(i){
   try{await navigator.clipboard.writeText(text);ok=true;}catch{
     try{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();ok=true;}catch(_){ }
   }
-  setCityMapStatus(ok?(lang==='ko'?'한국어 문장을 복사했습니다.':'Korean phrase copied.'):(lang==='ko'?'복사하지 못했습니다. 화면을 직접 보여주세요.':'Could not copy. Show the screen directly.'));
+  phraseCopyButtonFeedback('travelPhraseCopyBtn',ok);
 }
 
 const TRANSIT_PAYMENT_GUIDE={
@@ -11297,6 +12893,15 @@ function odsayMoveLabel(city){
   const p=ODSAY_MOVE_POINTS[city];
   return p ? (lang==='ko'?p.ko:p.en) : city;
 }
+function refreshMoveSelectorLanguage(){
+  ['moveFrom','moveTo'].forEach(id=>{
+    const select=document.getElementById(id);
+    if(!select) return;
+    Array.from(select.options).forEach(option=>{
+      if(ODSAY_MOVE_POINTS[option.value]) option.textContent=odsayMoveLabel(option.value);
+    });
+  });
+}
 function populateMoveSelectors(){
   const from=document.getElementById('moveFrom'), to=document.getElementById('moveTo');
   if(!from||!to) return;
@@ -11721,8 +13326,61 @@ function nearbyEssentialMapUrl(kind){
   const city=nearbyEssentialsCity(); const cityLabel=cityMeta?.[city]?.en||city;
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q+' near '+cityLabel+', Korea')}`;
 }
+function clearNearbyMapChoice(){document.getElementById('v76NearbyMapChoice')?.remove();}
+function nearbyEssentialNaverUrl(kind){
+  const item=NEARBY_ESSENTIAL_QUERIES[kind]; if(!item)return '';
+  const hasLive=typeof liveTransitPosition!=='undefined'&&liveTransitPosition&&Number.isFinite(liveTransitPosition.lat)&&Number.isFinite(liveTransitPosition.lng);
+  if(hasLive){
+    const q=item.ko||item.en;
+    return `https://map.naver.com/p/search/${encodeURIComponent(q)}?c=${encodeURIComponent(liveTransitPosition.lng+','+liveTransitPosition.lat+',15,0,0,0,dh')}`;
+  }
+  const city=nearbyEssentialsCity();
+  const cityLabel=cityMeta?.[city]?.ko||cityMeta?.[city]?.en||city||'';
+  const q=[item.ko||item.en,cityLabel].filter(Boolean).join(' ');
+  return `https://map.naver.com/p/search/${encodeURIComponent(q)}`;
+}
+function nearbyEssentialSearchContext(){
+  const hasLive=typeof liveTransitPosition!=='undefined'&&liveTransitPosition&&Number.isFinite(liveTransitPosition.lat)&&Number.isFinite(liveTransitPosition.lng);
+  if(hasLive) return lang==='ko'?'📍 현재 위치 기준':'📍 Using current location';
+  const city=nearbyEssentialsCity();
+  const label=lang==='ko'?(cityMeta?.[city]?.ko||city):(cityMeta?.[city]?.en||city);
+  return lang==='ko'?`📍 ${label} 기준`:`📍 Around ${label}`;
+}
+function openNearbyEssentialProvider(kind,provider){
+  const url=provider==='naver'?nearbyEssentialNaverUrl(kind):nearbyEssentialMapUrl(kind);
+  clearNearbyMapChoice();
+  if(url)window.open(url,'_blank','noopener');
+}
+function requestNearbyMapChoiceLocation(kind){
+  const btn=document.getElementById('v79NearbyUseLocation');
+  const context=document.getElementById('v79NearbyContext');
+  if(!navigator.geolocation){
+    if(btn){btn.disabled=false;btn.textContent=lang==='ko'?'⚠ 이 기기에서는 위치를 사용할 수 없습니다.':'⚠ Location is unavailable on this device.';}
+    return;
+  }
+  if(btn){btn.disabled=true;btn.textContent=lang==='ko'?'◎ 현재 위치 확인 중…':'◎ Getting current location…';}
+  navigator.geolocation.getCurrentPosition(pos=>{
+    liveTransitPosition={lat:pos.coords.latitude,lng:pos.coords.longitude,accuracy:pos.coords.accuracy};
+    try{sessionStorage.setItem('koreaRouteLivePosition',JSON.stringify(liveTransitPosition));}catch(_){}
+    renderLiveTransitLocation?.(); renderLiveTransitBoard?.(); renderMyTripLiveLocation?.(); renderTravelPulse?.(); renderNearbyEssentialsStatus(); refreshLiveWeather?.();
+    if(context)context.textContent=nearbyEssentialSearchContext();
+    if(btn){btn.disabled=true;btn.classList.add('ready');btn.textContent=lang==='ko'?'✓ 현재 위치 기준으로 검색합니다':'✓ Using your current location';}
+  },()=>{
+    if(context)context.textContent=nearbyEssentialSearchContext();
+    if(btn){btn.disabled=false;btn.classList.remove('ready');btn.textContent=lang==='ko'?'⚠ 위치 권한 확인 후 다시 시도':'⚠ Check location permission and retry';}
+  },{enableHighAccuracy:false,timeout:8000,maximumAge:60000});
+}
 function openNearbyEssential(kind){
-  const url=nearbyEssentialMapUrl(kind); if(url)window.open(url,'_blank','noopener');
+  const item=NEARBY_ESSENTIAL_QUERIES[kind]; if(!item)return;
+  clearNearbyMapChoice();
+  const label=lang==='ko'?(item.ko||item.en):(item.en||item.ko);
+  const hasLive=typeof liveTransitPosition!=='undefined'&&liveTransitPosition&&Number.isFinite(liveTransitPosition.lat)&&Number.isFinite(liveTransitPosition.lng);
+  const useLocationButton=hasLive?'':`<button type="button" id="v79NearbyUseLocation" class="v79-nearby-use-location" onclick="requestNearbyMapChoiceLocation('${kind}')">◎ ${lang==='ko'?'현재 위치 사용':'Use my current location'}</button>`;
+  const wrap=document.createElement('div');
+  wrap.id='v76NearbyMapChoice'; wrap.className='v76-map-choice-backdrop';
+  wrap.innerHTML=`<div class="v76-map-choice-sheet" role="dialog" aria-modal="true" aria-label="${escapeHtmlText(label)}"><div class="v76-map-choice-head"><div><span>${lang==='ko'?'주변시설 지도 선택':'CHOOSE A MAP'}</span><h3>📍 ${escapeHtmlText(label)}</h3></div><button type="button" class="v76-map-choice-close" onclick="clearNearbyMapChoice()" aria-label="Close">×</button></div><div class="v76-map-choice-context" id="v79NearbyContext">${nearbyEssentialSearchContext()}</div>${useLocationButton}<div class="v76-map-choice-note">${lang==='ko'?'검색할 지도를 고르세요. 실제 영업·이용 가능 여부는 지도에서 다시 확인하세요.':'Choose a map to search nearby. Check current opening and availability in the map service.'}</div><div class="v76-map-choice-actions"><button type="button" class="google" onclick="openNearbyEssentialProvider('${kind}','google')">🗺️ Google Maps</button><button type="button" class="naver" onclick="openNearbyEssentialProvider('${kind}','naver')">🟢 ${lang==='ko'?'네이버지도':'Naver Map'}</button></div></div>`;
+  wrap.addEventListener('click',e=>{if(e.target===wrap)clearNearbyMapChoice();});
+  document.body.appendChild(wrap);
 }
 
 function openQuickSosEmergency(){
@@ -12402,10 +14060,18 @@ function v61BackToast(){
   if(typeof v11Toast==='function') v11Toast(text);
 }
 function v61CloseTopLayer(){
+  const nearbyChoice=document.getElementById('v76NearbyMapChoice');
+  if(nearbyChoice){clearNearbyMapChoice();return true;}
   const subway=document.getElementById('v56SubwayOverlay');
   if(subway){closeSubwayMapHub();return true;}
   const urgent=document.getElementById('v55EmergencyFind');
   if(urgent){clearV55EmergencyFind();return true;}
+  const staffCard=document.getElementById('v107StaffPanel');
+  if(staffCard){if(staffCard.classList.contains('focus')){v107ToggleStaffFocus();return true;}if(typeof v107CloseStaffHelper==='function')v107CloseStaffHelper();else staffCard.remove();return true;}
+  const addressCard=document.getElementById('v106AddressPanel');
+  if(addressCard){if(typeof v106CloseAddressCard==='function')v106CloseAddressCard();else addressCard.remove();return true;}
+  const makeit=document.getElementById('v105MakePanel');
+  if(makeit){if(typeof v105CloseCanIMakeIt==='function')v105CloseCanIMakeIt();else makeit.remove();return true;}
   const leave=document.getElementById('v54LeavePanel');
   if(leave){if(typeof v54CloseLeaveBy==='function')v54CloseLeaveBy();else leave.remove();return true;}
   const phrase=document.getElementById('phraseSheetLayer');

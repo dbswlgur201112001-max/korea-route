@@ -1,4 +1,4 @@
-const CACHE='korea-route-public-beta-v69-0831';
+const CACHE='korea-route-public-beta-v108-0831';
 const ASSETS=['/','/index.html','/manifest.json','/icon-192.png','/icon-512.png'];
 
 self.addEventListener('install',event=>{
