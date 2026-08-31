@@ -3124,7 +3124,7 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
   <div class="card tip"><div class="ico">💳</div><div><b data-i18n="home.visitor.card.title">Made for international travelers</b><p data-i18n="home.visitor.card.desc">We highlight simpler booking options, local transport tips, and services that are easier to use without a Korean phone number.</p></div></div>
 
   <div class="beta-release-card" id="betaReleaseCard">
-    <div><b data-i18n="home.beta.title">Public Beta · V73</b><span data-i18n="home.beta.subtitle">Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.</span></div>
+    <div><b data-i18n="home.beta.title">Public Beta · V134</b><span data-i18n="home.beta.subtitle">Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.</span></div>
     <button type="button" onclick="shareBetaIssue()" data-i18n="home.beta.report">Report a problem</button>
   </div>
 </section>
@@ -4076,7 +4076,7 @@ const TRANSLATIONS = {
     "home.visitor.badge": "여행 팁",
     "home.visitor.card.title": "외국인 여행자를 위해 만들었어요",
     "home.visitor.card.desc": "한국 전화번호가 없어도 비교적 쉽게 이용할 수 있는 예약 방법, 현지 교통 팁과 서비스를 안내합니다.",
-    "home.beta.title": "공개 베타 · V73",
+    "home.beta.title": "공개 베타 · V134",
     "home.beta.subtitle": "친구들과 테스트 중 문제가 보이면 화면과 재현 순서를 함께 보내주세요. 신고 문구에 위치정보는 자동으로 넣지 않습니다.",
     "home.beta.report": "문제 제보",
     "home.search.placeholder": "KTX · 화장실 · 번역 · 환급 · 짐보관...",
@@ -4229,7 +4229,7 @@ const TRANSLATIONS = {
     "home.visitor.badge": "TRAVEL TIP",
     "home.visitor.card.title": "Made for international travelers",
     "home.visitor.card.desc": "We highlight simpler booking options, local transport tips, and services that are easier to use without a Korean phone number.",
-    "home.beta.title": "Public Beta · V73",
+    "home.beta.title": "Public Beta · V134",
     "home.beta.subtitle": "Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.",
     "home.beta.report": "Report a problem",
     "home.search.placeholder": "KTX · restroom · translate · tax refund...",
@@ -4513,7 +4513,7 @@ function toggleAllTools(){
 }
 
 let current='home';
-const APP_RELEASE='Korea Route Public Beta V128';
+const APP_RELEASE='Korea Route Public Beta V134';
 
 // V36 safe auto-restore: persist only explicit, non-sensitive trip state and user preferences.
 // Never mirror API keys, current/GPS location, sensor state, or walk-recovery data.
@@ -16126,6 +16126,76 @@ applyLang=function(){
 };
 document.addEventListener('DOMContentLoaded',v133SyncAssistantLanguage);
 setTimeout(v133SyncAssistantLanguage,0);
+</script>
+
+
+<script id="v134-map-state-language-version-fixes-js">
+// V134 · bug-only pass: map center state, language refresh, follow lifecycle notice.
+
+// 1) The map city selector must refresh option labels whenever EN/KO changes.
+const v134OriginalMountMapCitySwitch = v60MountMapCitySwitch;
+v60MountMapCitySwitch = function(){
+  const out = v134OriginalMountMapCitySwitch.apply(this, arguments);
+  const sel = document.getElementById('v60MapCitySelect');
+  if(sel){
+    Array.from(sel.options).forEach(opt=>{
+      const key = opt.value;
+      const cfg = cityGuideConfig[key];
+      opt.textContent = lang==='ko' ? (cfg?.ko || key) : key;
+    });
+    const preferred = cityState?.key || v60PreferredCity();
+    if(preferred && Array.from(sel.options).some(o=>o.value===preferred)) sel.value=preferred;
+  }
+  const box=document.getElementById('v60CitySwitch');
+  const btn=box?.querySelector('button');
+  if(btn) btn.textContent=lang==='ko'?'열기':'Open';
+  return out;
+};
+
+// 2) Changing city or pressing Reset means traveler filters should use the visible map,
+//    not a stale GPS coordinate from the previously viewed city.
+const v134OriginalOpenCityFromHub = openCityFromHub;
+openCityFromHub = function(city){
+  const previousCity = cityState?.key || '';
+  if(previousCity && previousCity!==city && typeof stopCityMapFollow==='function' && cityMapFollowActive){
+    try{stopCityMapFollow();}catch(_){ }
+  }
+  if(previousCity!==city) v131TravelerCenterMode='map';
+  const out=v134OriginalOpenCityFromHub.apply(this,arguments);
+  setTimeout(()=>{try{v60MountMapCitySwitch();}catch(_){ }},160);
+  return out;
+};
+const v134OriginalResetCityMapView = resetCityMapView;
+resetCityMapView = function(){
+  v131TravelerCenterMode='map';
+  return v134OriginalResetCityMapView.apply(this,arguments);
+};
+
+// 3) If Follow me was stopped because the traveler left the Map tab, make that explicit
+//    when they return instead of silently leaving them unsure whether tracking is active.
+const v134PreviousGo = go;
+go = function(id){
+  const needsPausedNotice = id==='city' && v133FollowPausedByLifecycle===true;
+  const out = v134PreviousGo.apply(this,arguments);
+  if(needsPausedNotice){
+    v133FollowPausedByLifecycle=false;
+    setTimeout(()=>{
+      if(current!=='city') return;
+      setCityMapStatus(lang==='ko'
+        ?'다른 화면으로 이동하면서 Follow me가 중지되었습니다. 필요하면 Follow me를 다시 눌러주세요.'
+        :'Follow me stopped when you left the Map tab. Tap Follow me again if you want live tracking.');
+    },360);
+  }
+  return out;
+};
+
+// Re-sync the city selector after a language change even when it already exists.
+const v134PreviousApplyLang = applyLang;
+applyLang = function(){
+  const out=v134PreviousApplyLang.apply(this,arguments);
+  setTimeout(()=>{if(document.getElementById('v60CitySwitch')) v60MountMapCitySwitch();},0);
+  return out;
+};
 </script>
 
 </body>
