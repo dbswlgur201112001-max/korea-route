@@ -3124,7 +3124,7 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
   <div class="card tip"><div class="ico">💳</div><div><b data-i18n="home.visitor.card.title">Made for international travelers</b><p data-i18n="home.visitor.card.desc">We highlight simpler booking options, local transport tips, and services that are easier to use without a Korean phone number.</p></div></div>
 
   <div class="beta-release-card" id="betaReleaseCard">
-    <div><b data-i18n="home.beta.title">Public Beta · V139</b><span data-i18n="home.beta.subtitle">Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.</span></div>
+    <div><b data-i18n="home.beta.title">Public Beta · V140</b><span data-i18n="home.beta.subtitle">Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.</span></div>
     <button type="button" onclick="shareBetaIssue()" data-i18n="home.beta.report">Report a problem</button>
   </div>
 </section>
@@ -3188,6 +3188,8 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
       <div><div style="font-size:9px;color:var(--muted);font-weight:900" data-en="EST. ARRIVAL" data-ko="예상 도착">EST. ARRIVAL</div><div id="sumArrival" style="font-size:14px;font-weight:950;margin-top:4px">—</div></div>
     </div>
   </div>
+
+  <div id="v140ResultEvents"></div>
 
   <div class="section-head"><h2 data-en="Your route" data-ko="여행 경로">Your route</h2><span id="stopCount">2 STOPS</span></div>
   <div class="route-map">
@@ -3285,6 +3287,8 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
   <div class="top"><button type="button" class="back" aria-label="Back / 뒤로" onclick="go('home')">‹</button><div class="brand" data-en="City Guide" data-ko="도시 가이드">City Guide</div><div style="width:40px"></div></div>
   <div class="city-hero"><div class="emoji" id="cityEmoji">🏯</div><h2 id="cityName">Suwon</h2><p id="cityDesc">Fortress city</p></div>
   <div class="info-row"><div class="info"><span data-en="BEST LOCAL MOVE" data-ko="추천 현지 교통">BEST LOCAL MOVE</span><b id="cityMove">Subway + local bus</b></div><div class="info"><span data-en="DAILY TRANSPORT" data-ko="하루 교통비">DAILY TRANSPORT</span><b id="cityCost">₩10,000–20,000/day</b></div></div>
+  <div id="v140CityEvents"></div>
+
   <div class="section-head"><h2 data-en="Quick guide" data-ko="빠른 여행 가이드">Quick guide</h2><span data-en="FIRST VISIT" data-ko="첫 방문">FIRST VISIT</span></div>
   <div class="card">
     <div class="tip"><div class="ico">🚆</div><div><b data-en="How to get there" data-ko="가는 방법">How to get there</b><p data-en="See the simplest airport or intercity connection first, then cheaper alternatives." data-ko="공항 또는 다른 도시에서 오는 가장 쉬운 방법을 먼저 보여주고, 그 다음 저렴한 대안을 안내합니다.">See the simplest airport or intercity connection first, then cheaper alternatives.</p></div></div>
@@ -3827,6 +3831,7 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
       <button type="button" onclick="document.getElementById('myTripStopAlertSection')?.scrollIntoView({behavior:'smooth',block:'start'})" data-en="🔔 Stop alert" data-ko="🔔 하차 알림">🔔 Stop alert</button>
     </div>
     <div class="mytrip-summary" id="myTripSummary"></div>
+    <div id="v140MyTripEvents"></div>
 
     <div class="mytrip-section" id="myTripPlanSection">
       <div class="mytrip-row"><h3 data-en="Plan & movement" data-ko="일정 & 이동">Plan & movement</h3><span class="mytrip-badge" id="myTripRouteBadge">PLAN</span></div>
@@ -4076,7 +4081,7 @@ const TRANSLATIONS = {
     "home.visitor.badge": "여행 팁",
     "home.visitor.card.title": "외국인 여행자를 위해 만들었어요",
     "home.visitor.card.desc": "한국 전화번호가 없어도 비교적 쉽게 이용할 수 있는 예약 방법, 현지 교통 팁과 서비스를 안내합니다.",
-    "home.beta.title": "공개 베타 · V139",
+    "home.beta.title": "공개 베타 · V140",
     "home.beta.subtitle": "친구들과 테스트 중 문제가 보이면 화면과 재현 순서를 함께 보내주세요. 신고 문구에 위치정보는 자동으로 넣지 않습니다.",
     "home.beta.report": "문제 제보",
     "home.search.placeholder": "KTX · 화장실 · 번역 · 환급 · 짐보관...",
@@ -4229,7 +4234,7 @@ const TRANSLATIONS = {
     "home.visitor.badge": "TRAVEL TIP",
     "home.visitor.card.title": "Made for international travelers",
     "home.visitor.card.desc": "We highlight simpler booking options, local transport tips, and services that are easier to use without a Korean phone number.",
-    "home.beta.title": "Public Beta · V139",
+    "home.beta.title": "Public Beta · V140",
     "home.beta.subtitle": "Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.",
     "home.beta.report": "Report a problem",
     "home.search.placeholder": "KTX · restroom · translate · tax refund...",
@@ -4513,7 +4518,7 @@ function toggleAllTools(){
 }
 
 let current='home';
-const APP_RELEASE='Korea Route Public Beta V139';
+const APP_RELEASE='Korea Route Public Beta V140';
 
 // V36 safe auto-restore: persist only explicit, non-sensitive trip state and user preferences.
 // Never mirror API keys, current/GPS location, sensor state, or walk-recovery data.
@@ -16337,7 +16342,106 @@ applyLang=function(){
 </script>
 
 <script id="v139-map-center-race-fixes-js">
-// V139 · bug-only pass: nearby searches respect visible-map vs GPS mode; stale quick-search responses are invalidated on filter/city changes. No /api changes.
+// V140 · bug-only pass: nearby searches respect visible-map vs GPS mode; stale quick-search responses are invalidated on filter/city changes. No /api changes.
+</script>
+
+
+<style id="v140-local-events-css">
+.v140-events{margin:14px 0;padding:14px;border:1px solid #dfe7ef;border-radius:18px;background:linear-gradient(180deg,#fff,#f8fbff);box-shadow:0 8px 22px rgba(20,54,94,.06)}
+.v140-events-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.v140-events-head>div{min-width:0}.v140-events-kicker{display:block;font-size:8px;font-weight:950;letter-spacing:.08em;color:#2f6fed;text-transform:uppercase}.v140-events-title{display:block;margin-top:3px;font-size:16px;line-height:1.25;color:#10233f}.v140-events-sub{display:block;margin-top:4px;font-size:9px;line-height:1.45;color:#6e7d90;font-weight:750}
+.v140-events-badge{flex:0 0 auto;border-radius:999px;background:#eaf3ff;color:#285f9d;padding:6px 8px;font-size:8px;font-weight:950}
+.v140-events-list{display:grid;gap:8px;margin-top:11px}.v140-event{border:1px solid #e6ebf2;border-radius:14px;padding:11px;background:#fff}.v140-event.when{border-color:#bcd3ff;background:#f8fbff}.v140-event-top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}.v140-event-top b{font-size:11px;line-height:1.35;color:#17365b}.v140-event-date{flex:0 0 auto;font-size:8px;font-weight:950;color:#2f6fed;background:#edf4ff;border-radius:999px;padding:5px 7px}.v140-event-place{margin-top:5px;font-size:9px;color:#66778d;font-weight:800}.v140-event-note{margin-top:5px;font-size:8px;line-height:1.45;color:#8190a1;font-weight:700}
+.v140-event-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.v140-event-actions button,.v140-events-actions button{border:1px solid #dfe6ef;background:#fff;color:#234568;border-radius:10px;padding:8px 9px;font-size:8px;font-weight:950;cursor:pointer}.v140-event-actions button.primary{background:#10233f;color:#fff;border-color:#10233f}.v140-events-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.v140-events-note{margin-top:8px;font-size:7.5px;line-height:1.45;color:#8794a4;font-weight:750}
+#myTripHub .v140-events{margin:12px 0}.v60-map-mode #v140CityEvents{display:block!important}.v60-map-mode #v140CityEvents .v140-events{margin:10px 0}
+@media(max-width:420px){.v140-events-title{font-size:15px}.v140-event-top{display:block}.v140-event-date{display:inline-block;margin-top:6px}}
+</style>
+<script id="v140-local-events-js">
+// V140 · destination-aware local events. No /api changes.
+const V140_OFFICIAL_EVENTS={
+  Suwon:{
+    official:'https://www.suwon.go.kr/culture/index.do',
+    festival:'https://www.suwon.go.kr/sw-www/sw-visitsuwon/sw-visitsuwon-03.jsp',
+    events:[
+      {start:'2026-09-04',end:'2026-09-06',nameEn:'Book Kids Con',nameKo:'북키즈콘',placeEn:'Suwon Convention Center',placeKo:'수원컨벤션센터',search:'수원컨벤션센터'},
+      {start:'2026-09-12',end:'2026-09-12',nameEn:'Suwon Ballet Festival',nameKo:'수원발레축제',placeEn:'Suwon SK Artrium',placeKo:'수원SK아트리움',search:'수원SK아트리움'},
+      {start:'2026-09-12',end:'2026-09-12',nameEn:'Suwon AI & Robot Festa',nameKo:'수원 AI·로봇 페스타',placeEn:'Suwon Convention Center',placeKo:'수원컨벤션센터',search:'수원컨벤션센터'},
+      {start:'2026-09-19',end:'2026-09-20',nameEn:'Suwon Jazz Festival',nameKo:'수원재즈페스티벌',placeEn:'Gwanggyo Lake Park',placeKo:'광교호수공원',search:'광교호수공원'},
+      {start:'2026-09-19',end:'2026-10-06',nameEn:'Suwon Hwaseong Media Art',nameKo:'수원화성 미디어아트',placeEn:'Hwaseomun & Janganmun area',placeKo:'화서문·장안문 일대',search:'장안문 수원'},
+      {start:'2026-10-04',end:'2026-10-04',nameEn:'King Jeongjo Royal Procession',nameKo:'정조대왕 능행차',placeEn:'Gyeongbokgung → Hwaseong Haenggung → Yungneung',placeKo:'경복궁 → 화성행궁 → 융릉',search:'화성행궁'},
+      {start:'2026-10-04',end:'2026-10-11',nameEn:'Suwon Hwaseong Cultural Festival',nameKo:'수원화성문화제',placeEn:'Haenggung Plaza & Suwon Hwaseong',placeKo:'행궁광장·수원화성 일원',search:'화성행궁'},
+      {start:'2026-10-16',end:'2026-10-18',nameEn:'Suwon Chicken Street Festival',nameKo:'수원 통닭거리 축제',placeEn:'Hwaseong Haenggung Plaza & Chicken Street',placeKo:'화성행궁광장·통닭거리',search:'수원 통닭거리'},
+      {start:'2026-11-06',end:'2026-11-08',nameEn:'Beautysum Suwon',nameKo:'뷰티썸 수원',placeEn:'Suwon Convention Center',placeKo:'수원컨벤션센터',search:'수원컨벤션센터'}
+    ]
+  }
+};
+const V140_VISITKOREA_FESTIVALS='https://english.visitkorea.or.kr/svc/sp/festivals';
+function v140KoreaToday(){
+  try{
+    const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+    const o={};parts.forEach(p=>{if(p.type!=='literal')o[p.type]=p.value;});
+    return `${o.year}-${o.month}-${o.day}`;
+  }catch(_){return new Date().toISOString().slice(0,10);}
+}
+function v140AddDays(ymd,days){
+  const [y,m,d]=String(ymd).split('-').map(Number); if(!y||!m||!d) return ymd;
+  const dt=new Date(Date.UTC(y,m-1,d));dt.setUTCDate(dt.getUTCDate()+Number(days||0));return dt.toISOString().slice(0,10);
+}
+function v140TripWindow(){
+  const start=document.getElementById('tripDate')?.value||v140KoreaToday();
+  const days=Math.max(1,Math.min(10,Number(document.getElementById('days')?.value)||1));
+  return {start,end:v140AddDays(start,days-1),days};
+}
+function v140EventDate(e){
+  const fmt=(v)=>{const [y,m,d]=v.split('-');return lang==='ko'?`${Number(m)}월 ${Number(d)}일`:`${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][Number(m)-1]} ${Number(d)}`};
+  return e.start===e.end?fmt(e.start):`${fmt(e.start)} – ${fmt(e.end)}`;
+}
+function v140CityName(city){return lang==='ko'?(cityMeta?.[city]?.ko||city):city;}
+function v140EventSelection(city){
+  const cfg=V140_OFFICIAL_EVENTS[city];if(!cfg) return {cfg:null,items:[],during:false};
+  const w=v140TripWindow();
+  const all=[...cfg.events].sort((a,b)=>a.start.localeCompare(b.start));
+  const during=all.filter(e=>e.start<=w.end&&e.end>=w.start);
+  if(during.length) return {cfg,items:during.slice(0,5),during:true};
+  const next=all.filter(e=>e.end>=w.start).slice(0,4);
+  return {cfg,items:next,during:false};
+}
+function v140OpenExternal(url){try{window.open(url,'_blank','noopener,noreferrer');}catch(_){location.href=url;}}
+function v140OpenEventPlace(city,search){
+  const c=cityGuideConfig?.[city];
+  if(c&&typeof openCity==='function') openCity(city,c.ko,c.emoji,c.descEn,c.descKo,c.moveEn,c.moveKo,c.costEn,c.costKo); else go('city');
+  setTimeout(()=>{
+    const input=document.getElementById('cityMapSearchInput');
+    if(input){input.value=search||'';try{searchCityMapPlace();}catch(_){}}
+  },500);
+}
+function v140EventsHtml(city,context){
+  const cityName=v140CityName(city);const sel=v140EventSelection(city);
+  if(!sel.cfg){
+    return `<div class="v140-events"><div class="v140-events-head"><div><span class="v140-events-kicker">${lang==='ko'?'LOCAL EVENTS':'LOCAL EVENTS'}</span><b class="v140-events-title">${lang==='ko'?`${cityName} 행사 일정`:`What's on in ${cityName}`}</b><span class="v140-events-sub">${lang==='ko'?'지역별 공식 행사 일정을 연결하는 중입니다. 우선 VISITKOREA 축제 정보를 확인할 수 있어요.':'City-specific official schedules are being connected. For now, check the official VISITKOREA festival guide.'}</span></div><span class="v140-events-badge">BETA</span></div><div class="v140-events-actions"><button type="button" onclick="v140OpenExternal(V140_VISITKOREA_FESTIVALS)">${lang==='ko'?'VISITKOREA 축제 보기 ↗':'VISITKOREA Festivals ↗'}</button></div></div>`;
+  }
+  const w=v140TripWindow();
+  const rows=sel.items.length?sel.items.map(e=>`<div class="v140-event ${sel.during?'when':''}"><div class="v140-event-top"><b>${lang==='ko'?e.nameKo:e.nameEn}</b><span class="v140-event-date">${v140EventDate(e)}</span></div><div class="v140-event-place">📍 ${lang==='ko'?e.placeKo:e.placeEn}</div><div class="v140-event-actions"><button type="button" class="primary" onclick="v140OpenEventPlace('${city}','${String(e.search).replace(/'/g,"\\'")}')">${lang==='ko'?'지도에서 보기':'Show on map'}</button></div></div>`).join(''):`<div class="v140-event"><div class="v140-event-note">${lang==='ko'?'선택한 날짜 이후 확인된 행사 데이터가 없습니다. 공식 일정을 확인해 주세요.':'No connected event is available after the selected date. Check the official schedule.'}</div></div>`;
+  const sub=sel.during?(lang==='ko'?`${w.start} ~ ${w.end} 여행 날짜와 겹치는 행사입니다.`:`Events overlapping your ${w.start} – ${w.end} trip.`):(lang==='ko'?'여행 날짜와 겹치는 행사가 없어 다음 예정 행사를 보여드려요.':'No event overlaps your trip dates, so here are the next scheduled events.');
+  return `<div class="v140-events"><div class="v140-events-head"><div><span class="v140-events-kicker">${context==='city'?(lang==='ko'?'CITY NOW':'CITY NOW'):(lang==='ko'?'TRIP MATCH':'TRIP MATCH')}</span><b class="v140-events-title">${lang==='ko'?`${cityName} 행사 일정`:`What's on in ${cityName}`}</b><span class="v140-events-sub">${sub}</span></div><span class="v140-events-badge">${sel.during?(lang==='ko'?'여행 중':'YOUR DATES'):(lang==='ko'?'다음 행사':'UP NEXT')}</span></div><div class="v140-events-list">${rows}</div><div class="v140-events-actions"><button type="button" onclick="v140OpenExternal('${sel.cfg.official}')">${lang==='ko'?'수원시 공식 행사 ↗':'Official Suwon events ↗'}</button><button type="button" onclick="v140OpenExternal('${sel.cfg.festival}')">${lang==='ko'?'수원 관광 축제 ↗':'Suwon festival guide ↗'}</button><button type="button" onclick="v140OpenExternal(V140_VISITKOREA_FESTIVALS)">${lang==='ko'?'VISITKOREA 영문 축제 ↗':'VISITKOREA English ↗'}</button></div><div class="v140-events-note">${lang==='ko'?'공식 수원시 공개 일정 기반의 1차 연결입니다. 일정·장소는 방문 전 공식 페이지에서 최종 확인하세요.':'Phase 1 uses published Suwon City schedules. Recheck the official page before visiting because event details can change.'}</div></div>`;
+}
+function v140RenderLocalEvents(){
+  const dest=document.getElementById('dest')?.value||'Suwon';
+  const city=cityState?.key||dest;
+  const result=document.getElementById('v140ResultEvents');if(result) result.innerHTML=v140EventsHtml(dest,'result');
+  const cityBox=document.getElementById('v140CityEvents');if(cityBox) cityBox.innerHTML=v140EventsHtml(city,'city');
+  const tripBox=document.getElementById('v140MyTripEvents');if(tripBox) tripBox.innerHTML=v140EventsHtml(dest,'trip');
+}
+['dest','tripDate','days'].forEach(id=>document.getElementById(id)?.addEventListener('change',()=>setTimeout(v140RenderLocalEvents,0)));
+const v140PreviousApplyLang=applyLang;
+applyLang=function(){const out=v140PreviousApplyLang.apply(this,arguments);setTimeout(v140RenderLocalEvents,0);return out;};
+const v140PreviousGo=go;
+go=function(id){const out=v140PreviousGo.apply(this,arguments);if(['result','city','myTripHub','planner'].includes(id))setTimeout(v140RenderLocalEvents,120);return out;};
+if(typeof openCity==='function'){
+  const v140PreviousOpenCity=openCity;
+  openCity=function(){const out=v140PreviousOpenCity.apply(this,arguments);setTimeout(v140RenderLocalEvents,160);return out;};
+}
+setTimeout(v140RenderLocalEvents,500);
 </script>
 
 </body>
