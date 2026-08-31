@@ -1099,15 +1099,131 @@ button:disabled{opacity:.55;cursor:not-allowed}
 #city.v60-map-mode #cityGuideMap .leaflet-map-pane,#city.v60-map-mode #cityGuideMap .leaflet-tile-pane{width:100%;height:100%}
 #city.v60-map-mode #cityGuideMap .leaflet-tile{max-width:none!important;max-height:none!important}
 @media(max-width:420px){#city.v60-map-mode .city-map-wrap{padding:8px!important}#city.v60-map-mode #cityGuideMap{height:52dvh!important;min-height:390px!important;max-height:520px!important}.trip-check-item{min-height:52px!important;padding:9px 11px!important}}
+/* V65 · vector basemap replacement */
+#cityGuideMap .maplibregl-map,#cityGuideMap .maplibregl-canvas-container,#cityGuideMap .maplibregl-canvas{width:100%!important;height:100%!important;max-width:none!important;max-height:none!important}
+#cityGuideMap .maplibregl-canvas{display:block!important}
+#cityGuideMap .maplibregl-ctrl-bottom-left,#cityGuideMap .maplibregl-ctrl-bottom-right{font-size:9px}
+#cityGuideMap .maplibregl-ctrl-attrib{background:rgba(255,255,255,.88)!important}
+
+
+/* V64 · My Trip readability + progressive disclosure */
+#myTripHub .mytrip-panel{padding:16px!important}
+#myTripHub .v60-trip-grid{
+  display:flex!important;grid-template-columns:none!important;gap:8px!important;overflow-x:auto!important;
+  margin:0 0 10px!important;padding:0 0 2px!important;scrollbar-width:none
+}
+#myTripHub .v60-trip-grid::-webkit-scrollbar{display:none}
+#myTripHub .v60-trip-grid button{
+  flex:0 0 auto!important;min-height:46px!important;border-radius:999px!important;padding:9px 14px!important;
+  font-size:14px!important;font-weight:900!important;display:inline-flex!important;align-items:center!important;gap:7px!important
+}
+#myTripHub .v60-trip-grid button span{display:inline!important;font-size:18px!important;margin:0!important}
+#myTripHub .v60-trip-grid button b{font-size:14px!important}
+.v64-trip-more{margin:0 0 14px;border:0}
+.v64-trip-more>summary{
+  list-style:none;cursor:pointer;min-height:42px;display:flex;align-items:center;padding:0 12px;
+  border:1px solid #dfe7ef;border-radius:999px;background:#f7f9fc;color:#425a75;font-size:14px;font-weight:850
+}
+.v64-trip-more>summary::-webkit-details-marker{display:none}
+.v64-trip-more>div{display:flex;gap:8px;overflow-x:auto;padding:8px 1px 1px}
+.v64-trip-more button{
+  flex:0 0 auto;min-height:42px;border:1px solid #dfe7ef;border-radius:999px;background:#fff;color:#294663;
+  padding:8px 12px;font-size:14px;font-weight:850
+}
+
+#myTripHub.v60-overview #myTripUnifiedItinerary{display:none!important}
+#myTripHub.v60-detail #myTripTodayCard,
+#myTripHub.v60-detail #myTripUnifiedItinerary,
+#myTripHub.v60-detail .mytrip-summary,
+#myTripHub.v60-detail .v60-trip-grid,
+#myTripHub.v60-detail .v64-trip-more{display:none!important}
+
+#myTripHub .mytrip-summary{
+  display:flex!important;flex-wrap:wrap!important;gap:8px!important;margin:8px 0 14px!important
+}
+#myTripHub .mytrip-summary[hidden]{display:none!important}
+#myTripHub .mytrip-stat{
+  flex:1 1 145px;background:transparent!important;border:1px solid #e2e8f0;border-radius:14px!important;padding:10px 12px!important
+}
+#myTripHub .mytrip-stat.primary{flex-basis:100%;border-color:#cfddeb;background:#f8fbff!important}
+#myTripHub .mytrip-stat span{font-size:12px!important;color:#607086!important;font-weight:800!important;line-height:1.3}
+#myTripHub .mytrip-stat b{font-size:15px!important;color:#163455!important;margin-top:4px!important;line-height:1.35}
+#myTripHub .mytrip-stat.primary b{font-size:19px!important}
+
+#myTripHub .mytrip-today-card{
+  margin:10px 0 0!important;padding:16px!important;border-radius:18px!important;background:#fff!important
+}
+#myTripHub .mytrip-today-head h3{font-size:20px!important;line-height:1.25!important}
+#myTripHub .mytrip-kicker,#myTripHub .move-kicker{font-size:12px!important;opacity:.78!important;letter-spacing:.02em!important}
+#myTripHub .prototype-pill{font-size:12px!important}
+.v64-primary-route{margin-top:14px;padding:0 0 13px;border-bottom:1px solid #e7ecf2}
+.v64-primary-route span,.v64-trip-facts span{display:block;font-size:12px;color:#66778b;font-weight:850;margin-bottom:4px}
+.v64-primary-route b{display:block;font-size:20px;line-height:1.35;color:#102d50}
+.v64-trip-facts{display:grid;grid-template-columns:1fr 1fr;gap:0 16px;margin-top:4px}
+.v64-trip-facts>div{padding:11px 0;border-bottom:1px solid #edf1f5}
+.v64-trip-facts b{display:block;font-size:15px;line-height:1.35;color:#203d5e}
+#myTripHub .mytrip-today-places{
+  margin-top:12px!important;padding:12px 0!important;border-radius:0!important;background:transparent!important;border-top:1px solid #e7ecf2
+}
+#myTripHub .mytrip-today-places>span{font-size:13px!important;opacity:1!important;color:#53677e;font-weight:900}
+#myTripHub .mytrip-today-places ol{font-size:15px!important;line-height:1.6!important;margin-top:7px!important}
+.v64-primary-action{
+  width:100%;min-height:52px;margin-top:14px;border:0;border-radius:14px;background:#0b2a54;color:#fff;
+  font-size:16px;font-weight:950;padding:12px 16px
+}
+.v64-secondary-actions{margin-top:10px}
+.v64-secondary-actions>summary{
+  cursor:pointer;list-style:none;min-height:44px;border:1px solid #dfe7ef;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;color:#36536f;font-size:14px;font-weight:900;background:#fff
+}
+.v64-secondary-actions>summary::-webkit-details-marker{display:none}
+.v64-secondary-actions>div{display:grid;grid-template-columns:1fr;gap:8px;margin-top:8px}
+.v64-secondary-actions button{
+  min-height:46px;border:1px solid #dfe7ef;border-radius:12px;background:#fff;color:#294663;font-size:14px;font-weight:850
+}
+.v64-info-note{margin-top:10px}
+.v64-info-note>summary{cursor:pointer;color:#65768a;font-size:13px;font-weight:850}
+.v64-info-note p,.v64-empty-card>p{font-size:14px!important;line-height:1.55!important;color:#596c82!important;opacity:1!important}
+.v64-empty-card{border-style:dashed!important}
+.v64-empty-card h3{font-size:20px!important}
+
+#myTripHub .mytrip-section{padding:15px!important}
+#myTripHub .mytrip-section h3{font-size:19px!important;line-height:1.3}
+#myTripHub .mytrip-section p,
+#myTripHub .mytrip-item,
+#myTripHub .mytrip-empty{font-size:14px!important;line-height:1.55!important;color:#596c82!important}
+#myTripHub .mytrip-badge{font-size:12px!important;padding:6px 9px!important}
+#myTripHub .mytrip-btn{min-height:46px!important;font-size:14px!important;padding:10px 12px!important}
+#myTripHub .v60-detail-back{font-size:14px!important;min-height:46px!important}
+
+#myTripHub .trip-check-head h3{font-size:20px!important}
+#myTripHub .trip-check-head>b{font-size:14px!important}
+#myTripHub .trip-check-item span{font-size:14px!important;line-height:1.45!important}
+#myTripHub .trip-check-note{font-size:13px!important;line-height:1.5!important;opacity:.78!important}
+#myTripHub .emergency-card-head h3{font-size:20px!important}
+#myTripHub .emergency-show-btn{font-size:14px!important;min-height:42px!important}
+#myTripHub .emergency-number-card span{font-size:12px!important;opacity:.8!important}
+#myTripHub .emergency-phrase-list button{font-size:14px!important;min-height:46px!important}
+#myTripHub .unified-itinerary-note{font-size:13px!important;opacity:.8!important}
+
+@media(max-width:420px){
+  #myTripHub .mytrip-panel{padding:13px!important}
+  .v64-trip-facts{grid-template-columns:1fr 1fr}
+  #myTripHub .mytrip-stat{flex-basis:100%}
+}
+
 </style>
 
 <link rel="preconnect" href="https://unpkg.com" crossorigin>
-<link rel="preconnect" href="https://tile.openstreetmap.org" crossorigin>
-<link rel="dns-prefetch" href="//tile.openstreetmap.org">
+<link rel="preconnect" href="https://tiles.openfreemap.org" crossorigin>
+<link rel="dns-prefetch" href="//tiles.openfreemap.org">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
  integrity="sha256-p4NxAoJBhIINfQ3ynflw8TNqcFBCIjiNV+RZ3x6NxVM=" crossorigin="">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.css">
+<script src="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.js"></script>
+<script src="https://unpkg.com/@maplibre/maplibre-gl-leaflet/leaflet-maplibre-gl.js"></script>
 
 </head>
 <body>
@@ -1260,7 +1376,7 @@ button:disabled{opacity:.55;cursor:not-allowed}
   <div class="card tip"><div class="ico">💳</div><div><b data-en="Made for international travelers" data-ko="외국인 여행자를 위해 만들었어요">Made for international travelers</b><p data-en="We highlight simpler booking options, local transport tips, and services that are easier to use without a Korean phone number." data-ko="한국 전화번호가 없어도 비교적 쉽게 이용할 수 있는 예약 방법, 현지 교통 팁과 서비스를 안내합니다.">We highlight simpler booking options, local transport tips, and services that are easier to use without a Korean phone number.</p></div></div>
 
   <div class="beta-release-card" id="betaReleaseCard">
-    <div><b data-en="Public Beta · V63" data-ko="공개 베타 · V63">Public Beta · V63</b><span data-en="Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report." data-ko="친구들과 테스트 중 문제가 보이면 화면과 재현 순서를 함께 보내주세요. 신고 문구에 위치정보는 자동으로 넣지 않습니다.">Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.</span></div>
+    <div><b data-en="Public Beta · V65" data-ko="공개 베타 · V65">Public Beta · V65</b><span data-en="Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report." data-ko="친구들과 테스트 중 문제가 보이면 화면과 재현 순서를 함께 보내주세요. 신고 문구에 위치정보는 자동으로 넣지 않습니다.">Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.</span></div>
     <button type="button" onclick="shareBetaIssue()" data-en="Report a problem" data-ko="문제 제보">Report a problem</button>
   </div>
 </section>
@@ -1894,12 +2010,17 @@ button:disabled{opacity:.55;cursor:not-allowed}
 
     <div class="v60-trip-grid" id="v60TripGrid">
       <button type="button" class="primary" onclick="v60OpenMyTripSection('myTripPlanSection')"><span>🗓️</span><b data-en="Plan" data-ko="일정">Plan</b></button>
-      <button type="button" onclick="v60OpenMyTripSection('myTripSavedPlaces')"><span>⭐</span><b data-en="Saved places" data-ko="저장 장소">Saved places</b></button>
+      <button type="button" onclick="v60OpenMyTripSection('myTripSavedPlaces')"><span>⭐</span><b data-en="Saved" data-ko="저장 장소">Saved</b></button>
       <button type="button" onclick="v60OpenMyTripSection('myTripJourneySection')"><span>🧭</span><b data-en="Journey" data-ko="이동경로">Journey</b></button>
-      <button type="button" onclick="v60OpenMyTripSection('myTripStaySection')"><span>🏨</span><b data-en="Stay" data-ko="숙소">Stay</b></button>
-      <button type="button" onclick="v60OpenMyTripSection('myTripBudgetSection')"><span>💳</span><b data-en="Budget" data-ko="예산">Budget</b></button>
-      <button type="button" onclick="v60OpenMyTripSection('myTripStopAlertSection')"><span>🔔</span><b data-en="Stop alert" data-ko="하차 알림">Stop alert</b></button>
     </div>
+    <details class="v64-trip-more">
+      <summary data-en="More trip tools" data-ko="더보기 · 숙소 · 예산 · 하차 알림">More trip tools</summary>
+      <div>
+        <button type="button" onclick="v60OpenMyTripSection('myTripStaySection')">🏨 <span data-en="Stay" data-ko="숙소">Stay</span></button>
+        <button type="button" onclick="v60OpenMyTripSection('myTripBudgetSection')">💳 <span data-en="Budget" data-ko="예산">Budget</span></button>
+        <button type="button" onclick="v60OpenMyTripSection('myTripStopAlertSection')">🔔 <span data-en="Stop alert" data-ko="하차 알림">Stop alert</span></button>
+      </div>
+    </details>
 
     <div class="v30-quickbar" aria-label="My Trip quick sections">
       <button type="button" onclick="document.getElementById('myTripPlanSection')?.scrollIntoView({behavior:'smooth',block:'start'})" data-en="🗺️ Plan" data-ko="🗺️ 일정">🗺️ Plan</button>
@@ -2237,7 +2358,7 @@ function toggleAllTools(){
 }
 
 let current='home';
-const APP_RELEASE='Korea Route Public Beta V63';
+const APP_RELEASE='Korea Route Public Beta V65';
 
 // V36 safe auto-restore: persist only explicit, non-sensitive trip state and user preferences.
 // Never mirror API keys, current/GPS location, sensor state, or walk-recovery data.
@@ -3476,28 +3597,30 @@ function reloadCityMapTiles(){
   if(!map||!cityGuideTileLayer) return;
   cityMapTileErrors=0;
   cityMapBeginNetworkLoad({force:true});
-  try{ cityGuideTileLayer.redraw(); }catch(e){}
+  try{ cityGuideTileLayer.redraw?.(); }catch(e){}
   scheduleCityMapInvalidate();
-  setTimeout(()=>{ try{cityGuideTileLayer.redraw();}catch(e){} },180);
+  setTimeout(()=>{ try{cityGuideTileLayer.redraw?.();}catch(e){} },180);
 }
 function refreshCityMapOnlineState(){
   if(!navigator.onLine){
-    setCityMapHealth('error',lang==='ko'?'오프라인 · 지도 타일을 불러올 수 없습니다.':'Offline · map tiles unavailable.');
+    setCityMapHealth('error',lang==='ko'?'오프라인 · 온라인 지도를 불러올 수 없습니다.':'Offline · online map unavailable.');
     setCityMapLoading(false);
     return;
   }
   if(cityGuideMap&&!document.querySelector('#city .city-map-wrap')?.classList.contains('map-loading')){
-    setCityMapHealth(cityMapTileErrors?'error':'ready',cityMapTileErrors?(lang==='ko'?'일부 지도 타일 로딩 실패 · 다시 불러오기를 눌러보세요.':'Some map tiles failed · tap Reload map.'):(lang==='ko'?'지도 준비됨':'Map ready'));
+    setCityMapHealth(cityMapTileErrors?'error':'ready',cityMapTileErrors?(lang==='ko'?'일부 지도 데이터 로딩 실패 · 다시 불러오기를 눌러보세요.':'Some map data failed · tap Reload map.'):(lang==='ko'?'지도 준비됨':'Map ready'));
   }
 }
 function scheduleCityMapInvalidate({pan=false}={}){
   if(!cityGuideMap) return;
   clearTimeout(cityMapInvalidateTimer);
-  requestAnimationFrame(()=>{
+  const repair=()=>{
     try{cityGuideMap.invalidateSize({pan:false,animate:false});}catch(e){}
-    cityMapInvalidateTimer=setTimeout(()=>{
-      try{cityGuideMap.invalidateSize({pan:false,animate:false});}catch(e){}
-    },140);
+    try{cityGuideTileLayer?.getMaplibreMap?.().resize();cityGuideTileLayer?.getMaplibreMap?.().triggerRepaint();}catch(e){}
+  };
+  requestAnimationFrame(()=>{
+    repair();
+    cityMapInvalidateTimer=setTimeout(repair,140);
   });
 }
 function ensureCityMapResizeObserver(){
@@ -3523,21 +3646,32 @@ function ensureCityGuideMap(){
       inertia:true,inertiaDeceleration:coarsePointer?4200:3600,inertiaMaxSpeed:coarsePointer?1200:1500,
       bounceAtZoomLimits:false,preferCanvas:true
     }).setView([37.2636,127.0286],12);
-    cityGuideTileLayer=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-      maxZoom:19,
-      updateWhenIdle:coarsePointer,
-      updateWhenZooming:false,
-      updateInterval:coarsePointer?260:180,
-      keepBuffer:coarsePointer?3:4,
-      attribution:'&copy; OpenStreetMap contributors'
-    });
-    cityGuideTileLayer.on('loading',()=>cityMapBeginNetworkLoad());
-    cityGuideTileLayer.on('load',()=>{
-      cityMapInitialTileLoadPending=false;
-      cityMapEndNetworkLoad(); refreshCityMapOnlineState();
-    });
-    cityGuideTileLayer.on('tileerror',()=>{ cityMapTileErrors++; cityMapEndNetworkLoad(); setCityMapHealth('error',lang==='ko'?'일부 지도 타일 로딩 실패 · 다시 불러오기를 눌러보세요.':'Some map tiles failed · tap Reload map.'); });
-    cityGuideTileLayer.addTo(cityGuideMap);
+    if(typeof maplibregl==='undefined'||typeof L.maplibreGL!=='function'){
+      const el=document.getElementById('cityGuideMap');
+      if(el) el.innerHTML='<div style="height:100%;display:grid;place-items:center;padding:20px;text-align:center;font-weight:900;color:#6c7b91">Vector map library could not load.<br><small style="font-weight:700">Check the network and reload the map.</small></div>';
+      setCityMapHealth('error',lang==='ko'?'벡터 지도 라이브러리를 불러오지 못했습니다.':'Vector map library could not load.');
+      return null;
+    }
+    cityMapBeginNetworkLoad({force:true});
+    cityGuideTileLayer=L.maplibreGL({
+      style:'https://tiles.openfreemap.org/styles/liberty',
+      interactive:false,
+      attributionControl:true,
+      maxZoom:19
+    }).addTo(cityGuideMap);
+    // Compatibility shim: V63 repair/reload code can keep calling redraw().
+    cityGuideTileLayer.redraw=()=>{
+      try{const gl=cityGuideTileLayer.getMaplibreMap?.();gl?.resize();gl?.triggerRepaint();}catch(e){}
+      return cityGuideTileLayer;
+    };
+    const gl=cityGuideTileLayer.getMaplibreMap?.();
+    if(gl){
+      gl.on('load',()=>{cityMapInitialTileLoadPending=false;cityMapEndNetworkLoad();setCityMapHealth('ready',lang==='ko'?'벡터 지도 준비됨':'Vector map ready');});
+      gl.on('idle',()=>{cityMapEndNetworkLoad();refreshCityMapOnlineState();});
+      gl.on('error',()=>{cityMapTileErrors++;cityMapEndNetworkLoad();setCityMapHealth('error',lang==='ko'?'벡터 지도 일부를 불러오지 못했습니다 · 다시 불러오기를 눌러보세요.':'Some vector map data failed · tap Reload map.');});
+    }else{
+      setTimeout(()=>{cityMapInitialTileLoadPending=false;cityMapEndNetworkLoad();refreshCityMapOnlineState();},900);
+    }
     cityGuideMap.on('zoomend moveend',()=>refreshCityMapOnlineState());
     cityGuideMap.on('dragstart',()=>{
       if(cityMapFollowActive){
@@ -4430,66 +4564,83 @@ function myTripTodayCardHtml(){
   const stayText=staySummaryText(data.stay);
   const walletText=walletSummaryText(data.wallet);
   const places=data.places||[];
+  const checklistReady=data.checklist.total?`${data.checklist.done}/${data.checklist.total}`:'—';
+  const verifyReady=data.moveVerify.total?`${data.moveVerify.done}/${data.moveVerify.total}`:'—';
+  const hasCore=!!(routeText||stayText||walletText||places.length);
+
+  if(!hasCore){
+    return `<section class="mytrip-today-card v64-empty-card">
+      <div class="mytrip-today-head">
+        <div>
+          <span class="mytrip-kicker">${lang==='ko'?'오늘의 여행':'TODAY'}</span>
+          <h3>${lang==='ko'?'아직 등록된 일정이 없어요':'No trip plan yet'}</h3>
+        </div>
+      </div>
+      <p>${lang==='ko'?'일정을 하나 추가하면 오늘 필요한 정보만 여기에 보여드릴게요.':'Add a plan and this card will show only what you need today.'}</p>
+      <button class="v64-primary-action" type="button" onclick="go('planner')">${lang==='ko'?'+ 일정 추가하기':'+ Add a plan'}</button>
+    </section>`;
+  }
 
   return `<section class="mytrip-today-card">
     <div class="mytrip-today-head">
       <div>
-        <span class="mytrip-kicker">${lang==='ko'?'오늘의 여행 카드':'TODAY CARD'}</span>
+        <span class="mytrip-kicker">${lang==='ko'?'오늘의 여행':'TODAY'}</span>
         <h3>${lang==='ko'?'지금 필요한 것만 보기':'What you need now'}</h3>
       </div>
-      <span class="prototype-pill">${lang==='ko'?'준비 요약':'Prep summary'}</span>
+      <span class="prototype-pill">${lang==='ko'?'준비 요약':'Prep'}</span>
     </div>
 
-    <div class="mytrip-today-grid">
-      <div>
-        <span>${lang==='ko'?'이동':'Move'}</span>
-        <b>${routeText|| (lang==='ko'?'아직 경로 없음':'No route saved')}</b>
-      </div>
-      <div>
-        <span>${lang==='ko'?'숙소':'Stay'}</span>
-        <b>${stayText|| (lang==='ko'?'아직 숙소 권역 없음':'No stay area saved')}</b>
-      </div>
-      <div>
-        <span>${lang==='ko'?'예산':'Budget'}</span>
-        <b>${walletText|| (lang==='ko'?'아직 예산 없음':'No budget saved')}</b>
-      </div>
-      <div>
-        <span>${lang==='ko'?'출발 전 체크':'Checklist'}</span>
-        <b>${data.checklist.done}/${data.checklist.total}</b>
-      </div>
-      <div class="${data.moveVerify.total&&data.moveVerify.done===data.moveVerify.total?'today-verify-complete':'today-verify-pending'}">
-        <span>${lang==='ko'?'이동 출발 확인':'Move verify'}</span>
-        <b>${data.moveVerify.done}/${data.moveVerify.total} · ${data.moveVerify.total&&data.moveVerify.done===data.moveVerify.total
-          ? (lang==='ko'?'완료':'Ready')
-          : (lang==='ko'?'확인 필요':'Needs check')
-        }</b>
-      </div>
+    ${routeText?`<div class="v64-primary-route">
+      <span>${lang==='ko'?'이동':'Route'}</span>
+      <b>${routeText}</b>
+    </div>`:''}
+
+    <div class="v64-trip-facts">
+      ${stayText?`<div><span>${lang==='ko'?'숙소':'Stay'}</span><b>${stayText}</b></div>`:''}
+      ${walletText?`<div><span>${lang==='ko'?'예산':'Budget'}</span><b>${walletText}</b></div>`:''}
+      <div><span>${lang==='ko'?'출발 준비':'Checklist'}</span><b>${checklistReady}</b></div>
+      ${data.moveVerify.total?`<div><span>${lang==='ko'?'출발 확인':'Departure check'}</span><b>${verifyReady}</b></div>`:''}
     </div>
 
-    <div class="mytrip-today-places">
+    ${places.length?`<div class="mytrip-today-places">
       <span>${lang==='ko'?`Day ${myTripTodayDayNumber()} 장소`:`Day ${myTripTodayDayNumber()} places`}</span>
-      ${places.length
-        ? `<ol>${places.slice(0,3).map(p=>`<li class="${isCityWalkPlaceVisited(p.key)?'visited':''}">${lang==='ko'?(p.ko||p.en||''):(p.en||p.ko||'')}</li>`).join('')}</ol>`
-        : `<p>${lang==='ko'?'Explore에서 장소를 저장하고 Day 1에 넣으면 여기에 표시됩니다.':'Save places in Explore and add them to Day 1 to see them here.'}</p>`
-      }
-      ${data.visitProgress?.total?`<div class="mytrip-today-progress">✓ ${lang==='ko'?'오늘 방문 진행도':'Visited today'} · ${data.visitProgress.done}/${data.visitProgress.total}</div>`:''}
-    </div>
+      <ol>${places.slice(0,3).map(p=>`<li class="${isCityWalkPlaceVisited(p.key)?'visited':''}">${lang==='ko'?(p.ko||p.en||''):(p.en||p.ko||'')}</li>`).join('')}</ol>
+      ${data.visitProgress?.total?`<div class="mytrip-today-progress">✓ ${lang==='ko'?'방문':'Visited'} · ${data.visitProgress.done}/${data.visitProgress.total}</div>`:''}
+    </div>`:''}
 
-    <div class="mytrip-today-actions">
-      <button type="button" onclick="openMyTripTodayRoute()">${lang==='ko'?'오늘 동선 열기':'Open day route'}</button>
-      <button type="button" id="myTripTodayCopyBtn" onclick="copyMyTripTodayList()">${lang==='ko'?'오늘 목록 복사':'Copy day list'}</button>
-      <button type="button" onclick="openMyTripMoveVerify()">${data.moveVerify.total&&data.moveVerify.done===data.moveVerify.total
-        ? (lang==='ko'?'출발 확인 다시 보기':'Review departure checks')
-        : (lang==='ko'?'출발 확인 계속':'Continue departure checks')
-      }</button>
-      <button type="button" onclick="openMyTripEmergencySheet()">${lang==='ko'?'긴급 카드':'Emergency card'}</button>
-    </div>
+    <button class="v64-primary-action" type="button" onclick="v64TodayPrimaryAction()">${places.length
+      ? (lang==='ko'?'오늘 동선 보기':'Open today route')
+      : routeText
+        ? (lang==='ko'?'이동경로 보기':'Open route')
+        : (lang==='ko'?'일정 보기':'Open plan')
+    }</button>
 
-    <p class="mytrip-today-note">${lang==='ko'
-      ?'저장된 여행정보를 한눈에 보는 준비용 카드입니다. 실시간 운행·영업·예약 가능 여부를 뜻하지 않습니다.'
-      :'A quick prep card built from your saved trip data. It does not represent live transport, opening hours, or booking availability.'
-    }</p>
+    <details class="v64-secondary-actions">
+      <summary>${lang==='ko'?'더보기':'More'}</summary>
+      <div>
+        <button type="button" id="myTripTodayCopyBtn" onclick="copyMyTripTodayList()">${lang==='ko'?'오늘 목록 복사':'Copy day list'}</button>
+        <button type="button" onclick="openMyTripMoveVerify()">${lang==='ko'?'출발 확인':'Departure checks'}</button>
+        <button type="button" onclick="openMyTripEmergencySheet()">${lang==='ko'?'긴급 카드':'Emergency card'}</button>
+      </div>
+    </details>
+
+    <details class="v64-info-note">
+      <summary>${lang==='ko'?'안내':'About this card'}</summary>
+      <p>${lang==='ko'
+        ?'저장된 여행정보를 요약한 준비용 카드입니다. 실시간 운행·영업·예약 가능 여부를 뜻하지 않습니다.'
+        :'A preparation summary from saved trip data. It does not represent live transport, opening hours, or booking availability.'
+      }</p>
+    </details>
   </section>`;
+}
+
+function v64TodayPrimaryAction(){
+  const data=myTripTodayData();
+  const places=data.places||[];
+  if(places.length){openMyTripTodayRoute();return;}
+  const routeText=routeSummaryText(data.route);
+  if(routeText){go('moveHub');return;}
+  go('planner');
 }
 
 function renderMyTripTodayCard(){
@@ -5032,7 +5183,7 @@ function cityMapSourceBadge(){
   if(!badge) return;
   const isLive=live && live.style.display!=='none';
   badge.textContent=isLive
-    ? (lang==='ko'?'지도: Leaflet · OpenStreetMap':'Map: Leaflet · OpenStreetMap')
+    ? (lang==='ko'?'벡터 지도: OpenFreeMap · OpenStreetMap 데이터':'Vector map: OpenFreeMap · OpenStreetMap data')
     : (lang==='ko'?'지도 연결 불가 · 간단 지도 사용 중':'Map unavailable · schematic fallback');
 }
 
@@ -8709,15 +8860,15 @@ function refreshMyTrip(){
   const walletBody=document.getElementById('myTripWalletBody');
   const readiness=document.getElementById('myTripReadiness');
 
-  const pieces=[
-    {labelEn:'Route',labelKo:'이동',value:start&&dest?`${start} → ${dest}`:(lang==='ko'?'미설정':'Not set')},
-    {labelEn:'Stay',labelKo:'숙소',value:stay?(lang==='ko'?(stay.nameKo||stay.id):(stay.nameEn||stay.id)):(lang==='ko'?'미설정':'Not set')},
-    {labelEn:'Budget',labelKo:'예산',value:wallet?myTripFmt(wallet.total):(lang==='ko'?'미설정':'Not set')},
-    {labelEn:'Travelers',labelKo:'인원',value:wallet?String(wallet.people||1):(lang==='ko'?'미설정':'Not set')}
-  ];
+  const pieces=[];
+  if(start&&dest) pieces.push({labelEn:'Route',labelKo:'이동',value:`${start} → ${dest}`,primary:true});
+  if(stay) pieces.push({labelEn:'Stay',labelKo:'숙소',value:lang==='ko'?(stay.nameKo||stay.id):(stay.nameEn||stay.id)});
+  if(wallet) pieces.push({labelEn:'Budget',labelKo:'예산',value:myTripFmt(wallet.total)});
+  if(wallet&&Number(wallet.people)>1) pieces.push({labelEn:'Travelers',labelKo:'인원',value:String(wallet.people)});
 
   if(summary){
-    summary.innerHTML=pieces.map(x=>`<div class="mytrip-stat"><span>${lang==='ko'?x.labelKo:x.labelEn}</span><b>${x.value}</b></div>`).join('');
+    summary.hidden=pieces.length===0;
+    summary.innerHTML=pieces.map(x=>`<div class="mytrip-stat${x.primary?' primary':''}"><span>${lang==='ko'?x.labelKo:x.labelEn}</span><b>${x.value}</b></div>`).join('');
   }
 
   if(routeBody){
