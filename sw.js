@@ -1,4 +1,4 @@
-const CACHE='korea-route-public-beta-v140-0901';
+const CACHE='korea-route-public-beta-v141-0901';
 const CORE=['/','/index.html'];
 const OPTIONAL=['/manifest.json','/icon-192.png','/icon-512.png'];
 
