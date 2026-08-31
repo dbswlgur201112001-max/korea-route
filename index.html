@@ -3124,7 +3124,7 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
   <div class="card tip"><div class="ico">💳</div><div><b data-i18n="home.visitor.card.title">Made for international travelers</b><p data-i18n="home.visitor.card.desc">We highlight simpler booking options, local transport tips, and services that are easier to use without a Korean phone number.</p></div></div>
 
   <div class="beta-release-card" id="betaReleaseCard">
-    <div><b data-i18n="home.beta.title">Public Beta · V138</b><span data-i18n="home.beta.subtitle">Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.</span></div>
+    <div><b data-i18n="home.beta.title">Public Beta · V139</b><span data-i18n="home.beta.subtitle">Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.</span></div>
     <button type="button" onclick="shareBetaIssue()" data-i18n="home.beta.report">Report a problem</button>
   </div>
 </section>
@@ -4076,7 +4076,7 @@ const TRANSLATIONS = {
     "home.visitor.badge": "여행 팁",
     "home.visitor.card.title": "외국인 여행자를 위해 만들었어요",
     "home.visitor.card.desc": "한국 전화번호가 없어도 비교적 쉽게 이용할 수 있는 예약 방법, 현지 교통 팁과 서비스를 안내합니다.",
-    "home.beta.title": "공개 베타 · V138",
+    "home.beta.title": "공개 베타 · V139",
     "home.beta.subtitle": "친구들과 테스트 중 문제가 보이면 화면과 재현 순서를 함께 보내주세요. 신고 문구에 위치정보는 자동으로 넣지 않습니다.",
     "home.beta.report": "문제 제보",
     "home.search.placeholder": "KTX · 화장실 · 번역 · 환급 · 짐보관...",
@@ -4229,7 +4229,7 @@ const TRANSLATIONS = {
     "home.visitor.badge": "TRAVEL TIP",
     "home.visitor.card.title": "Made for international travelers",
     "home.visitor.card.desc": "We highlight simpler booking options, local transport tips, and services that are easier to use without a Korean phone number.",
-    "home.beta.title": "Public Beta · V138",
+    "home.beta.title": "Public Beta · V139",
     "home.beta.subtitle": "Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.",
     "home.beta.report": "Report a problem",
     "home.search.placeholder": "KTX · restroom · translate · tax refund...",
@@ -4513,7 +4513,7 @@ function toggleAllTools(){
 }
 
 let current='home';
-const APP_RELEASE='Korea Route Public Beta V138';
+const APP_RELEASE='Korea Route Public Beta V139';
 
 // V36 safe auto-restore: persist only explicit, non-sensitive trip state and user preferences.
 // Never mirror API keys, current/GPS location, sensor state, or walk-recovery data.
@@ -8676,9 +8676,26 @@ function setCityMapNearbyBusy(type,btn,busy){
   });
   if(btn){btn.classList.toggle('loading',!!busy);btn.disabled=!!busy;}
 }
+function cityMapEffectiveSearchCenter(map=ensureCityGuideMap()){
+  try{
+    if(v131TravelerCenterMode==='map'&&map){
+      const c=map.getCenter();
+      const lat=Number(c?.lat),lng=Number(c?.lng);
+      if(Number.isFinite(lat)&&Number.isFinite(lng)) return {lat,lng,source:'map'};
+    }
+  }catch(_){ }
+  const lat=Number(exploreUserLocation?.lat),lng=Number(exploreUserLocation?.lng);
+  if(Number.isFinite(lat)&&Number.isFinite(lng)) return {lat,lng,source:'location'};
+  if(map){
+    const c=map.getCenter();
+    const mlat=Number(c?.lat),mlng=Number(c?.lng);
+    if(Number.isFinite(mlat)&&Number.isFinite(mlng)) return {lat:mlat,lng:mlng,source:'map'};
+  }
+  return null;
+}
 function cityMapNearbyFallbackUrl(type){
   const map=ensureCityGuideMap();
-  const center=exploreUserLocation||(map?{lat:map.getCenter().lat,lng:map.getCenter().lng}:null);
+  const center=cityMapEffectiveSearchCenter(map);
   const terms={food:'restaurant',convenience:'convenience store',cafe:'cafe',shopping:'shopping',toilets:'public restroom',pharmacy:'pharmacy',atm:'ATM',luggage:'luggage storage'};
   const q=terms[type]||cityMapNearbyLabel(type);
   if(center&&Number.isFinite(center.lat)&&Number.isFinite(center.lng)) return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}&center=${encodeURIComponent(center.lat+','+center.lng)}`;
@@ -8710,10 +8727,10 @@ async function showCityMapNearby(type,sourceBtn=null){
     renderCityMapNearbyMessage(type,'error');
     return;
   }
-  const center=exploreUserLocation||{lat:map.getCenter().lat,lng:map.getCenter().lng};
+  const nearbySeq=++cityMapNearbyRequestSeq;
+  const center=cityMapEffectiveSearchCenter(map)||{lat:map.getCenter().lat,lng:map.getCenter().lng};
   const box=document.getElementById('cityMapSearchResults');
   if(['toilets','convenience','atm','pharmacy','luggage','food','cafe','shopping'].includes(type)){
-    const nearbySeq=++cityMapNearbyRequestSeq;
     setCityMapNearbyBusy(type,btn,true);
     renderCityMapNearbyMessage(type,'loading');
     setCityMapStatus(lang==='ko'?`${cityMapNearbyLabel(type)} 주변 후보를 찾는 중…`:`Finding nearby ${cityMapNearbyLabel(type)}…`);
@@ -8756,9 +8773,10 @@ async function showCityMapNearby(type,sourceBtn=null){
         const fresh=await v126FetchOverpass(q);
         data=cityMapCacheSet(cacheKey,fresh);
       }
+      if(nearbySeq!==cityMapNearbyRequestSeq) return;
       const items=(data.elements||[]).map(el=>{const lat=Number(el.lat??el.center?.lat),lng=Number(el.lon??el.center?.lon);if(!Number.isFinite(lat)||!Number.isFinite(lng))return null;const km=haversineKm(center.lat,center.lng,lat,lng);const name=lang==='ko'?(el.tags?.['name:ko']||el.tags?.name||el.tags?.['name:en']||'이름 미표시 역'):(el.tags?.['name:en']||el.tags?.name||el.tags?.['name:ko']||'Unnamed station');return {kind:'osm',name,sub:km<1?`${Math.round(km*1000)}m`:`${km.toFixed(1)}km`,lat,lng,icon:'🚉',category:{id:'station',icon:'🚉',en:'Transit',ko:'역·교통',rank:0},rank:0,source:'OpenStreetMap',km};}).filter(Boolean).sort((a,b)=>a.km-b.km).slice(0,8);
       cityMapRenderSearchResults(items); setCityMapStatus(items.length?(lang==='ko'?`가까운 역·교통 ${items.length}곳을 표시했습니다.`:`Showing ${items.length} nearby transit places.`):(lang==='ko'?'주변에서 역 정보를 찾지 못했습니다.':'No nearby transit places found.'));
-    }catch(e){if(box){box.innerHTML=`<div class="city-map-search-empty">${lang==='ko'?'역 정보를 불러오지 못했습니다.':'Could not load nearby transit.'}</div>`;box.classList.add('show');}}
+    }catch(e){if(nearbySeq!==cityMapNearbyRequestSeq)return;if(box){box.innerHTML=`<div class="city-map-search-empty">${lang==='ko'?'역 정보를 불러오지 못했습니다.':'Could not load nearby transit.'}</div>`;box.classList.add('show');}}
   }
 }
 
@@ -9750,7 +9768,8 @@ async function loadCityFacility(type,btn,{keepActive=false,centerOverride=null,c
   cityFacilitySelectedMarker=null;
   cityMapSelectedFacility=null;
   updateCityMapRouteBar();
-  const center=(centerOverride&&Number.isFinite(Number(centerOverride.lat))&&Number.isFinite(Number(centerOverride.lng)))?{lat:Number(centerOverride.lat),lng:Number(centerOverride.lng)}:(exploreUserLocation||{lat:map.getCenter().lat,lng:map.getCenter().lng});
+  const effectiveCenter=cityMapEffectiveSearchCenter(map);
+  const center=(centerOverride&&Number.isFinite(Number(centerOverride.lat))&&Number.isFinite(Number(centerOverride.lng)))?{lat:Number(centerOverride.lat),lng:Number(centerOverride.lng)}:(effectiveCenter||{lat:map.getCenter().lat,lng:map.getCenter().lng});
   const requestSeq=++cityFacilityRequestSeq;
   const centerText=centerName?`${centerName} · `:'';
   setCityMapStatus(lang==='ko'?`${centerText}주변 ${cityFacilityRadiusLabel()} 시설을 불러오는 중…`:`Loading facilities within ${cityFacilityRadiusLabel()} of ${centerName||'the selected area'}…`);
@@ -9844,6 +9863,7 @@ function openCityMapWalkingHelp(){
 function renderCityGuideMap(city){
   stopCityWalkGuide({silent:true});
   stopCityMapFollow();
+  cityMapNearbyRequestSeq++;
   activeCityFacility=''; cityFacilityRequestSeq++;
   cityEssentialDashboardRequestSeq++; cityEssentialDashboardItems=[]; closeCityEssentialsDashboard();
   cityUrgentNeedRequestSeq++; cityUrgentNeedItems=[]; const urgentPanel=document.getElementById('cityUrgentPanel'); if(urgentPanel){urgentPanel.classList.remove('show');urgentPanel.innerHTML='';} const troublePanel=document.getElementById('cityTripTroublePanel'); if(troublePanel){troublePanel.classList.remove('show');troublePanel.innerHTML='';}
@@ -16314,6 +16334,10 @@ applyLang=function(){
 
 <script id="v138-network-timeout-race-fixes-js">
 // V138 · bug-only pass: route/transit request timeouts + AbortController race protection. No /api file changes.
+</script>
+
+<script id="v139-map-center-race-fixes-js">
+// V139 · bug-only pass: nearby searches respect visible-map vs GPS mode; stale quick-search responses are invalidated on filter/city changes. No /api changes.
 </script>
 
 </body>
