@@ -2821,7 +2821,8 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
 }
 </style>
 
-\n<style id="v124-traveler-filter-map">
+
+<style id="v124-traveler-filter-map">
 /* V124 Traveler Filter Map — map-first bottom sheet, large mobile text */
 .traveler-filter-sheet{display:none;position:relative;z-index:930;margin:-30px 10px 8px;border:1px solid rgba(11,35,69,.10);border-radius:26px 26px 18px 18px;background:rgba(255,255,255,.98);box-shadow:0 -10px 34px rgba(11,35,69,.16);padding:9px 14px 14px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 #city.v60-map-mode .traveler-filter-sheet{display:block}
@@ -2851,7 +2852,56 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
 #city.v60-map-mode #cityGuideMap{height:clamp(470px,66dvh,690px)!important;min-height:470px!important}
 #city.v60-map-mode .city-map-live-wrap{margin-bottom:0!important}
 @media(max-width:420px){.traveler-filter-sheet{margin:-26px 6px 7px;padding:8px 12px 13px}.traveler-sheet-head b{font-size:21px}.traveler-main-btn{font-size:16px;padding:9px 12px}.traveler-result-card{flex-basis:82vw}}
-</style>\n</head>
+</style>
+
+<style id="v125-map-bottom-safe">
+/* V125 · map bottom-safe repair: keep map controls/sheet clear of enlarged fixed navigation. */
+:root{--v125-map-bottom-clearance:calc(var(--v60-nav-h) + env(safe-area-inset-bottom) + 18px)}
+#city.v60-map-mode{padding-bottom:calc(var(--v60-nav-h) + env(safe-area-inset-bottom) + 38px)!important}
+#city.v60-map-mode .city-map-live-wrap{overflow:visible!important}
+#city.v60-map-mode .city-map-locate-float{
+  bottom:var(--v125-map-bottom-clearance)!important;
+  right:14px!important;
+  z-index:1600!important;
+}
+#city.v60-map-mode .traveler-filter-sheet{
+  position:relative!important;
+  z-index:1650!important;
+  margin:-72px 8px calc(var(--v60-nav-h) + env(safe-area-inset-bottom) + 26px)!important;
+  padding:12px 14px 24px!important;
+  max-height:min(52dvh,560px)!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain!important;
+  scroll-padding-bottom:28px!important;
+}
+#city.v60-map-mode .traveler-result-strip{padding-bottom:8px!important}
+#city.v60-map-mode #cityMapDestCard{scroll-margin-bottom:calc(var(--v60-nav-h) + env(safe-area-inset-bottom) + 28px)!important}
+@media(max-width:420px){
+  #city.v60-map-mode .city-map-locate-float{right:12px!important;bottom:calc(var(--v60-nav-h) + env(safe-area-inset-bottom) + 14px)!important}
+  #city.v60-map-mode .traveler-filter-sheet{margin:-66px 5px calc(var(--v60-nav-h) + env(safe-area-inset-bottom) + 22px)!important;padding:10px 12px 22px!important;max-height:50dvh!important}
+}
+</style>
+
+
+<style id="v126-confirmed-bug-repair">
+/* V126 · confirmed bug repair from device screenshots. No /api changes. */
+.planner-create-trip{width:100%;min-height:58px;margin:18px 0 0;border:0;border-radius:16px;background:#0b2a54;color:#fff;font-size:19px;font-weight:950;box-shadow:0 8px 22px rgba(11,42,84,.18);cursor:pointer}
+.planner-create-trip:active{transform:translateY(1px)}
+.planner-create-hint{margin:8px 3px 2px;color:#61738a;font-size:16px;line-height:1.5;font-weight:750}
+#scenicRouteWrap.v126-visible{display:flex!important}
+/* The V124 traveler sheet replaces the older prototype/category controls in map-first mode. */
+#city.v60-map-mode #visitorFilterBar,#city.v60-map-mode #exploreCategoryBar,#city.v60-map-mode #exploreNearMeTools,#city.v60-map-mode #exploreVisibleCount{display:none!important}
+/* All modal dialogs must sit above the fixed 5-tab navigation. */
+[role="dialog"][aria-modal="true"]{z-index:12000!important}
+.v105-make-sheet,.v54-leave-sheet{padding-bottom:calc(28px + env(safe-area-inset-bottom))!important}
+/* Draw our own locale-safe datetime text; the transparent native control still opens the phone picker. */
+.v126-local-datetime{position:relative;width:100%;min-height:56px;border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden}
+.v126-local-datetime-display{min-height:56px;display:flex;align-items:center;padding:0 44px 0 13px;font-size:17px;line-height:1.35;color:var(--ink);font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.v126-local-datetime-display:after{content:"▾";position:absolute;right:15px;top:50%;transform:translateY(-50%);color:#52677d;font-size:17px}
+.v126-local-datetime>input[type="datetime-local"]{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;min-height:56px!important;opacity:0!important;z-index:2!important;cursor:pointer!important}
+@media(max-width:420px){.planner-create-trip{min-height:60px;font-size:18px}.planner-create-hint{font-size:15px}.v126-local-datetime-display{font-size:16px}}
+</style>
+</head>
 <body>
 <div class="app">
 
@@ -3049,7 +3099,7 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
       <option value="fast">Fastest</option>
       <option value="cheap">Cheapest</option>
     </select>
-    <label style="display:flex;align-items:center;gap:8px;margin:16px 0 0;font-size:12px;font-weight:850;letter-spacing:0;text-transform:none">
+    <label id="scenicRouteWrap" style="display:none;align-items:center;gap:8px;margin:16px 0 0;font-size:12px;font-weight:850;letter-spacing:0;text-transform:none">
       <input id="scenicRoute" type="checkbox" style="width:auto;accent-color:#2f6fed">
       <span data-en="Prefer scenic route (via Gyeongju, Seoul ↔ Busan)" data-ko="경치 좋은 경로 우선 (서울 ↔ 부산 구간, 경주 경유)">Prefer scenic route (via Gyeongju, Seoul ↔ Busan)</span>
     </label>
@@ -3057,6 +3107,8 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
       <label data-en="SUGGESTED ROUTE" data-ko="추천 이동 경로">SUGGESTED ROUTE</label>
       <div id="plannerRoute"></div>
     </div>
+    <button id="plannerCreateTripBtn" class="planner-create-trip" type="button" onclick="v126CreateTrip()" data-en="🧳 Create My Trip" data-ko="🧳 여행 일정 만들기">🧳 Create My Trip</button>
+    <p class="planner-create-hint" data-en="Next: see your route, travel time and the actions to take." data-ko="다음 화면에서 이동 경로·예상 시간·다음 행동을 확인합니다.">Next: see your route, travel time and the actions to take.</p>
   </div>
 </section>
 
@@ -3320,7 +3372,8 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
   <button type="button" class="city-map-locate-float" id="cityMapLocateFloatBtn" onclick="locateCityMapUser()" aria-label="Find my location">
     <span class="pin">📍</span><span data-en="My location" data-ko="내 위치 찾기">My location</span>
   </button>
-</div>\n<div class="traveler-filter-sheet" id="travelerFilterSheet" aria-live="polite">
+</div>
+<div class="traveler-filter-sheet" id="travelerFilterSheet" aria-live="polite">
   <div class="traveler-sheet-handle" aria-hidden="true"></div>
   <div class="traveler-sheet-head">
     <div><b id="travelerFilterTitle">Nearby for travelers</b><span id="travelerFilterSubtitle">Choose what matters to you, then narrow the map.</span></div>
@@ -4401,7 +4454,7 @@ function toggleAllTools(){
 }
 
 let current='home';
-const APP_RELEASE='Korea Route Public Beta V124';
+const APP_RELEASE='Korea Route Public Beta V126';
 
 // V36 safe auto-restore: persist only explicit, non-sensitive trip state and user preferences.
 // Never mirror API keys, current/GPS location, sensor state, or walk-recovery data.
@@ -15214,7 +15267,8 @@ function v118ToggleMapMore(){
 document.addEventListener('DOMContentLoaded',()=>{document.getElementById('helperHub')?.classList.remove('v118-tools-open');});
 </script>
 
-\n<script id="v124-traveler-filter-map-js">
+
+<script id="v124-traveler-filter-map-js">
 // V124 Traveler Filter Map. Existing IDs/functions remain intact; this is an additive map layer.
 let travelerFilterLayer=null;
 let travelerFilterItems=[];
@@ -15423,7 +15477,7 @@ async function loadTravelerFilter(){
   try{
     const cacheKey=cityMapCacheKey('traveler-filter',[f.id,Math.round(radius),cityMapCenterKey(center.lat,center.lng,4)]);
     let data=cityMapCacheGet(cacheKey,180000);
-    if(!data){const r=await fetch('https://overpass-api.de/api/interpreter?data='+encodeURIComponent(q),{cache:'no-store'});if(!r.ok) throw new Error('overpass');data=cityMapCacheSet(cacheKey,await r.json());}
+    if(!data){data=cityMapCacheSet(cacheKey,await v126FetchOverpass(q));}
     if(seq!==travelerFilterRequestSeq) return;
     const meta=travelerFilterMeta(f.id); const seen=new Set();
     const items=(data.elements||[]).map(el=>{
@@ -15469,5 +15523,90 @@ if(typeof applyLang==='function'){
   applyLang=function(){const out=v124OriginalApplyLang.apply(this,arguments);setTimeout(()=>{renderTravelerFilterSheet();if(travelerFilterItems.length){renderTravelerFilterResults(travelerFilterItems);drawTravelerFilterMarkers(travelerFilterItems);}},0);return out;};
 }
 setTimeout(initTravelerFilterMap,600);
+</script>
+\n<script id="v126-confirmed-bug-repair-js">
+// V126: high-priority repairs confirmed from the user's phone screenshots.
+function v126CreateTrip(){
+  if(typeof plannerCitiesDiffer==='function'&&!plannerCitiesDiffer({notify:true})) return;
+  try{
+    const travelers=document.getElementById('travelers');
+    const days=document.getElementById('days');
+    if(travelers) travelers.value=String(Math.max(1,Math.min(9,Number(travelers.value)||1)));
+    if(days) days.value=String(Math.max(1,Math.min(10,Number(days.value)||1)));
+  }catch(_){ }
+  go('result');
+  setTimeout(()=>{try{calculate();window.scrollTo({top:0,behavior:'smooth'});}catch(e){console.error(e);}},40);
+}
+function v126SyncScenicVisibility(){
+  const start=document.getElementById('start')?.value||'';
+  const dest=document.getElementById('dest')?.value||'';
+  const wrap=document.getElementById('scenicRouteWrap');
+  const cb=document.getElementById('scenicRoute');
+  const allowed=(start==='Seoul'&&dest==='Busan')||(start==='Busan'&&dest==='Seoul');
+  wrap?.classList.toggle('v126-visible',allowed);
+  if(!allowed&&cb?.checked){cb.checked=false;try{updateRoutePreview();}catch(_){ }}
+}
+
+function v126FormatLocalDateTime(value){
+  const m=String(value||'').match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+  if(!m) return lang==='ko'?'날짜와 시간을 선택하세요':'Choose date and time';
+  const y=Number(m[1]),mo=Number(m[2]),d=Number(m[3]),h=Number(m[4]),min=m[5];
+  const hour12=((h+11)%12)+1;
+  if(lang==='ko') return `${y}. ${String(mo).padStart(2,'0')}. ${String(d).padStart(2,'0')}. ${h<12?'오전':'오후'} ${hour12}:${min}`;
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${months[Math.max(0,Math.min(11,mo-1))]} ${d}, ${y} · ${hour12}:${min} ${h<12?'AM':'PM'}`;
+}
+function v126SyncLocalDateTime(input){
+  if(!input) return;
+  const display=input.parentElement?.querySelector?.('.v126-local-datetime-display');
+  if(display) display.textContent=v126FormatLocalDateTime(input.value);
+}
+function v126LocalizeDateTimeInput(input){
+  if(!input||input.dataset.v126Localized==='1') return;
+  input.dataset.v126Localized='1';
+  const parent=input.parentNode; if(!parent) return;
+  const wrap=document.createElement('div'); wrap.className='v126-local-datetime';
+  const display=document.createElement('div'); display.className='v126-local-datetime-display'; display.setAttribute('aria-hidden','true');
+  parent.insertBefore(wrap,input); wrap.appendChild(display); wrap.appendChild(input);
+  const sync=()=>v126SyncLocalDateTime(input);
+  input.addEventListener('input',sync); input.addEventListener('change',sync); sync();
+}
+function v126LocalizeOpenDateTimes(){
+  v126LocalizeDateTimeInput(document.getElementById('v105Departure'));
+  v126LocalizeDateTimeInput(document.getElementById('v54Departure'));
+}
+
+async function v126FetchOverpass(q){
+  const endpoints=['https://overpass-api.de/api/interpreter?data=','https://overpass.kumi.systems/api/interpreter?data='];
+  let lastError=null;
+  for(const base of endpoints){
+    const controller=new AbortController();
+    const timer=setTimeout(()=>controller.abort(),7000);
+    try{
+      const r=await fetch(base+encodeURIComponent(q),{cache:'no-store',signal:controller.signal});
+      if(!r.ok) throw new Error('overpass '+r.status);
+      const data=await r.json();
+      if(data&&Array.isArray(data.elements)) return data;
+      throw new Error('invalid overpass data');
+    }catch(e){lastError=e;}finally{clearTimeout(timer);}
+  }
+  throw lastError||new Error('overpass unavailable');
+}
+
+if(typeof v105OpenCanIMakeIt==='function'){
+  const v126OriginalV105Open=v105OpenCanIMakeIt;
+  v105OpenCanIMakeIt=function(){const out=v126OriginalV105Open.apply(this,arguments);setTimeout(v126LocalizeOpenDateTimes,0);return out;};
+}
+if(typeof v54OpenLeaveBy==='function'){
+  const v126OriginalV54Open=v54OpenLeaveBy;
+  v54OpenLeaveBy=function(){const out=v126OriginalV54Open.apply(this,arguments);setTimeout(v126LocalizeOpenDateTimes,0);return out;};
+}
+if(typeof applyLang==='function'){
+  const v126OriginalApplyLang=applyLang;
+  applyLang=function(){const out=v126OriginalApplyLang.apply(this,arguments);setTimeout(()=>{v126SyncScenicVisibility();v126LocalizeOpenDateTimes();document.querySelectorAll('.v126-local-datetime>input').forEach(v126SyncLocalDateTime);},0);return out;};
+}
+['start','dest'].forEach(id=>document.getElementById(id)?.addEventListener('change',()=>setTimeout(v126SyncScenicVisibility,0)));
+document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{v126SyncScenicVisibility();v126LocalizeOpenDateTimes();},120));
+setTimeout(v126SyncScenicVisibility,0);
 </script>\n</body>
 </html>
