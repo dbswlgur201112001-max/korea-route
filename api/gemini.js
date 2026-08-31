@@ -9,7 +9,7 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: 'message가 필요합니다' });
   }
 
-  const model = 'gemini-2.0-flash';
+  const model = 'gemini-3.6-flash';
   const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
 
   if (!process.env.GEMINI_API_KEY) {
