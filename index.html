@@ -1069,8 +1069,8 @@ button:disabled{opacity:.55;cursor:not-allowed}
 .screen{padding-bottom:calc(var(--v60-nav-h) + 34px + env(safe-area-inset-bottom))}
 .bottom{display:none!important}
 .v60-tabbar{position:fixed;z-index:9000;left:50%;bottom:0;transform:translateX(-50%);width:min(460px,100%);height:calc(var(--v60-nav-h) + env(safe-area-inset-bottom));padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,1fr);gap:3px;background:rgba(255,255,255,.97);border-top:1px solid #dce4ee;box-shadow:0 -8px 26px rgba(20,45,78,.08);backdrop-filter:blur(14px)}
-.v60-tabbar button{border:0;background:transparent;color:#7c8795;border-radius:15px;min-width:0;padding:6px 2px;display:grid;place-items:center;gap:2px;font-size:8px;font-weight:950;cursor:pointer}
-.v60-tabbar button .ico{font-size:21px;line-height:1}.v60-tabbar button.active{color:#174985;background:#eef4ff}.v60-tabbar button span:last-child{white-space:nowrap}
+.v60-tabbar button{border:0;background:transparent;color:#536174;border-radius:15px;min-width:0;padding:6px 2px;display:grid;place-items:center;gap:3px;font-size:12px;font-weight:950;cursor:pointer}
+.v60-tabbar button .ico{font-size:23px;line-height:1}.v60-tabbar button.active{color:#174985;background:#eef4ff}.v60-tabbar button span:last-child{white-space:nowrap}
 .v60-home-shortcuts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 0 4px}.v60-home-shortcuts button{min-height:72px;border:1px solid #dfe7f0;background:#fff;border-radius:18px;color:var(--v60-ink);font-weight:950;font-size:10px;box-shadow:0 6px 18px rgba(18,45,80,.05)}.v60-home-shortcuts button span{display:block;font-size:22px;margin-bottom:5px}.v60-home-shortcuts button.primary{background:#0b2a54;color:#fff;border-color:#0b2a54}
 .v60-home-note{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:10px 0 2px;padding:11px 12px;border:1px solid #e1e8f0;border-radius:15px;background:#fff}.v60-home-note b{font-size:10px}.v60-home-note span{display:block;color:#76869a;font-size:8px;margin-top:3px}.v60-home-note button{border:0;border-radius:11px;padding:9px 11px;background:#eef4ff;color:#214e8f;font-size:8px;font-weight:950;white-space:nowrap}
 #home>.hero,#home>.install-box,#home>.quick-start,#home>.travel-pulse,#home>.quick-sos,#home>.nearby-essentials,#home>#featureArchitecture,#home>.section-head,#home>.card{display:none!important}
@@ -1219,6 +1219,105 @@ button:disabled{opacity:.55;cursor:not-allowed}
   #myTripHub .mytrip-panel{padding:13px!important}
   .v64-trip-facts{grid-template-columns:1fr 1fr}
   #myTripHub .mytrip-stat{flex-basis:100%}
+}
+
+
+/* V68 · Home readability floor — scoped to Home except shared bottom nav above */
+#home .quick span,
+#home .sub,
+#home .tip p,
+#home .install-box span,
+#home .quick-start-head span,
+#home .quick-start-btn small,
+#home .quick-start-note,
+#home .travel-pulse-head span,
+#home .quick-sos-head span,
+#home .quick-sos-note,
+#home .nearby-essentials-head span,
+#home .nearby-essentials-status,
+#home .module-card p,
+#home .release-sample-note,
+#home .beta-release-card span,
+#home .global-search-head span{font-size:14px!important;line-height:1.55!important;color:#53657d!important}
+#home .section-head span,
+#home .global-search-badge,
+#home .quick-start-badge,
+#home .travel-pulse-live,
+#home .quick-sos-badge,
+#home .nearby-essentials-badge,
+#home .module-ready,
+#home .badge{font-size:12px!important;line-height:1.25!important}
+#home .section-head h2{font-size:20px!important;line-height:1.25!important}
+#home .global-search-head b,
+#home .quick-start-head b,
+#home .travel-pulse-head b,
+#home .quick-sos-head b,
+#home .nearby-essentials-head b{font-size:18px!important;line-height:1.3!important}
+#home .quick-start-btn b,
+#home .module-card b,
+#home .tip b{font-size:15px!important;line-height:1.35!important}
+#home .quick-start-shortcuts button,
+#home .travel-pulse-actions button,
+#home .quick-sos-grid button,
+#home .nearby-essential-btn,
+#home .nearby-location-btn,
+#home .all-tools-toggle,
+#home .beta-release-card button,
+#home .v60-home-shortcuts button{font-size:15px!important;line-height:1.3!important;min-height:44px}
+#home .global-search-fast button span:last-child,
+#home .global-search-suggest button{font-size:14px!important}
+#home .city-chip{font-size:14px!important}
+#home .price span{font-size:13px!important}
+#home .save{font-size:14px!important;line-height:1.5!important}
+#home small{font-size:13px!important;line-height:1.45!important}
+
+
+/* V69 · Route + Tools readability and progressive disclosure */
+#moveHub.v60-route-mode .v60-screen-intro h1{font-size:24px!important;line-height:1.22!important;letter-spacing:-.015em}
+#moveHub.v60-route-mode .v60-screen-intro p{font-size:14px!important;line-height:1.55!important;color:#52657a!important;margin-top:7px!important}
+#moveHub.v60-route-mode .v60-route-shortcuts{gap:9px!important;margin-bottom:14px!important}
+#moveHub.v60-route-mode .v60-route-shortcuts button{min-height:72px!important;font-size:14px!important;line-height:1.25!important;padding:10px 6px!important}
+#moveHub.v60-route-mode .v60-route-shortcuts button span{font-size:24px!important;margin-bottom:5px!important}
+#moveHub.v60-route-mode #liveMovePlanner{padding:16px!important;border-radius:18px!important;border-color:#d8e3ef!important;box-shadow:none!important}
+#moveHub.v60-route-mode #liveMovePlanner .feature-top h3{font-size:19px!important;line-height:1.3!important;color:#153653!important}
+#moveHub.v60-route-mode #liveMovePlanner .slot-type{font-size:11px!important;padding:6px 8px!important}
+#moveHub.v60-route-mode .route-live-grid{gap:10px!important;margin:14px 0!important}
+#moveHub.v60-route-mode .route-live-grid label{font-size:14px!important;gap:7px!important;color:#40546d!important}
+#moveHub.v60-route-mode .route-live-grid select{min-height:48px!important;font-size:16px!important;padding:11px 10px!important;border-radius:12px!important}
+#moveHub.v60-route-mode .move-pref-row{gap:7px!important;margin:12px 0!important}
+#moveHub.v60-route-mode .move-pref{min-height:42px!important;font-size:13px!important;padding:9px 7px!important;line-height:1.2!important}
+#moveHub.v60-route-mode #moveLiveSearchBtn{min-height:50px!important;font-size:15px!important;padding:12px 14px!important}
+#moveHub.v60-route-mode #moveLiveSummary{padding:12px!important;border-radius:13px!important}
+#moveHub.v60-route-mode #moveLiveSummary b{font-size:13px!important;margin-bottom:6px!important}
+#moveHub.v60-route-mode #moveLiveSummary span{font-size:14px!important;line-height:1.5!important}
+#moveHub.v60-route-mode .live-route-title{font-size:17px!important;line-height:1.3!important}
+#moveHub.v60-route-mode .live-route-badge{font-size:11px!important;padding:6px 8px!important}
+#moveHub.v60-route-mode .live-route-meta span{font-size:12px!important;padding:6px 8px!important}
+#moveHub.v60-route-mode .live-route-steps{font-size:14px!important;line-height:1.55!important}
+#moveHub.v60-route-mode .live-route-card button{font-size:14px!important;min-height:44px!important}
+
+#helperHub .v60-screen-intro h1{font-size:24px!important;line-height:1.22!important;color:#10233f!important}
+#helperHub .v60-screen-intro p{font-size:14px!important;line-height:1.55!important;color:#52657a!important;margin-top:7px!important}
+#helperHub .v69-tool-tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:2px 0 12px;margin:0 0 5px;scroll-snap-type:x proximity}
+#helperHub .v69-tool-tabs::-webkit-scrollbar{display:none}
+#helperHub .v69-tool-tabs button{flex:0 0 auto;min-height:44px;border:1px solid #dce5ef;border-radius:999px;background:#fff;color:#36546f;padding:9px 13px;font-size:14px;font-weight:900;white-space:nowrap;scroll-snap-align:start}
+#helperHub .v69-tool-tabs button.active{background:#0b2a54;color:#fff;border-color:#0b2a54}
+#helperHub [data-v69-tool-group]{display:none}
+#helperHub [data-v69-tool-group="move"]{display:block}
+#helperHub [data-v69-tool-group][data-v69-active="1"]{display:block}
+#helperHub [data-v69-tool-group][hidden]{display:none!important}
+#helperHub .v60-helper-card{border:0!important;border-top:1px solid #e3e9f0!important;border-radius:0!important;background:transparent!important;padding:14px 0 0!important;margin:0!important;box-shadow:none!important}
+#helperHub .v60-group-title{font-size:19px!important;line-height:1.3!important;margin:2px 0 10px!important;color:#173653!important}
+#helperHub .v60-icon-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;margin:0 0 12px!important}
+#helperHub .v60-icon-grid button{min-height:78px!important;border-radius:16px!important;padding:11px 9px!important;font-size:14px!important;line-height:1.3!important;text-align:center!important}
+#helperHub .v60-icon-grid button .ico{font-size:26px!important;margin-bottom:6px!important}
+@media(max-width:360px){
+  #moveHub.v60-route-mode .v60-route-shortcuts{grid-template-columns:1fr!important}
+  #moveHub.v60-route-mode .v60-route-shortcuts button{min-height:52px!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:8px!important}
+  #moveHub.v60-route-mode .v60-route-shortcuts button span{display:inline!important;margin:0!important;font-size:21px!important}
+  #helperHub .v60-icon-grid{grid-template-columns:1fr!important}
+  #helperHub .v60-icon-grid button{min-height:56px!important;display:grid!important;grid-template-columns:34px minmax(0,1fr)!important;text-align:left!important;align-items:center!important}
+  #helperHub .v60-icon-grid button .ico{margin:0!important;font-size:23px!important}
 }
 
 </style>
@@ -1385,7 +1484,7 @@ button:disabled{opacity:.55;cursor:not-allowed}
   <div class="card tip"><div class="ico">💳</div><div><b data-i18n="home.visitor.card.title">Made for international travelers</b><p data-i18n="home.visitor.card.desc">We highlight simpler booking options, local transport tips, and services that are easier to use without a Korean phone number.</p></div></div>
 
   <div class="beta-release-card" id="betaReleaseCard">
-    <div><b data-i18n="home.beta.title">Public Beta · V67</b><span data-i18n="home.beta.subtitle">Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.</span></div>
+    <div><b data-i18n="home.beta.title">Public Beta · V69</b><span data-i18n="home.beta.subtitle">Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.</span></div>
     <button type="button" onclick="shareBetaIssue()" data-i18n="home.beta.report">Report a problem</button>
   </div>
 </section>
@@ -2104,32 +2203,39 @@ button:disabled{opacity:.55;cursor:not-allowed}
 
 <section class="screen" id="helperHub">
   <div class="top"><button type="button" class="back" aria-label="Back / 뒤로" onclick="go('home')">‹</button><div class="brand" data-en="Travel Tools" data-ko="여행 도구">Travel Tools</div><button class="pill" onclick="toggleLang()">EN / 한국어</button></div>
-  <div class="v60-screen-intro"><h1 data-en="Choose what you need." data-ko="필요한 것만 바로 고르세요.">Choose what you need.</h1><p data-en="Tools are grouped by situation so you do not have to scroll through long pages." data-ko="긴 화면을 찾지 않아도 되도록 상황별로 묶었습니다.">Tools are grouped by situation.</p></div>
-  <div class="v60-helper-card"><h2 class="v60-group-title" data-en="Move & navigation" data-ko="이동 · 길찾기">Move & navigation</h2><div class="v60-icon-grid">
+  <div class="v60-screen-intro"><h1 data-en="Choose what you need." data-ko="필요한 것만 바로 고르세요.">Choose what you need.</h1><p data-en="Choose one category first. Only those tools are shown." data-ko="먼저 한 가지 상황을 고르세요. 필요한 도구만 보여줍니다.">Choose one category first. Only those tools are shown.</p></div>
+  <div class="v69-tool-tabs" role="tablist" aria-label="Travel tool categories">
+    <button type="button" class="active" data-v69-tool-tab="move" onclick="v69SelectToolGroup('move',this)">🚆 <span data-en="Move" data-ko="이동">Move</span></button>
+    <button type="button" data-v69-tool-tab="nearby" onclick="v69SelectToolGroup('nearby',this)">📍 <span data-en="Nearby" data-ko="주변">Nearby</span></button>
+    <button type="button" data-v69-tool-tab="language" onclick="v69SelectToolGroup('language',this)">💬 <span data-en="Language" data-ko="언어">Language</span></button>
+    <button type="button" data-v69-tool-tab="money" onclick="v69SelectToolGroup('money',this)">💳 <span data-en="Money" data-ko="돈·관리">Money</span></button>
+    <button type="button" data-v69-tool-tab="help" onclick="v69SelectToolGroup('help',this)">🆘 <span data-en="Help" data-ko="도움">Help</span></button>
+  </div>
+  <div class="v60-helper-card" data-v69-tool-group="move" data-v69-active="1"><h2 class="v60-group-title" data-en="Move & navigation" data-ko="이동 · 길찾기">Move & navigation</h2><div class="v60-icon-grid">
     <button type="button" onclick="v60OpenRouteTab()"><span class="ico">🚆</span><span data-en="Route" data-ko="경로">Route</span></button>
     <button type="button" onclick="openSubwayMapHub()"><span class="ico">🚇</span><span data-en="Subway map" data-ko="지하철 노선도">Subway map</span></button>
     <button type="button" onclick="openCheckRide()"><span class="ico">📷</span><span data-en="Check & Ride" data-ko="체크 & 라이드">Check & Ride</span></button>
     <button type="button" onclick="v60OpenTripDetail('myTripStopAlertSection')"><span class="ico">🔔</span><span data-en="Stop alert" data-ko="하차 알림">Stop alert</span></button>
   </div></div>
-  <div class="v60-helper-card"><h2 class="v60-group-title" data-en="Nearby" data-ko="주변에서 찾기">Nearby</h2><div class="v60-icon-grid">
+  <div class="v60-helper-card" data-v69-tool-group="nearby"><h2 class="v60-group-title" data-en="Nearby" data-ko="주변에서 찾기">Nearby</h2><div class="v60-icon-grid">
     <button type="button" onclick="openNearbyEssential('convenience')"><span class="ico">🏪</span><span data-en="Convenience" data-ko="편의점">Convenience</span></button>
     <button type="button" onclick="openNearbyEssential('restroom')"><span class="ico">🚻</span><span data-en="Restroom" data-ko="화장실">Restroom</span></button>
     <button type="button" onclick="openNearbyEssential('pharmacy')"><span class="ico">💊</span><span data-en="Pharmacy" data-ko="약국">Pharmacy</span></button>
     <button type="button" onclick="openNearbyEssential('luggage')"><span class="ico">🧳</span><span data-en="Luggage" data-ko="짐보관">Luggage</span></button>
   </div></div>
-  <div class="v60-helper-card"><h2 class="v60-group-title" data-en="Language & food" data-ko="언어 · 식당">Language & food</h2><div class="v60-icon-grid">
+  <div class="v60-helper-card" data-v69-tool-group="language"><h2 class="v60-group-title" data-en="Language & food" data-ko="언어 · 식당">Language & food</h2><div class="v60-icon-grid">
     <button type="button" onclick="openTranslationHub()"><span class="ico">💬</span><span data-en="Translate" data-ko="번역">Translate</span></button>
     <button type="button" onclick="openPhraseSheet('all')"><span class="ico">📴</span><span data-en="Offline phrases" data-ko="오프라인 문장">Offline phrases</span></button>
     <button type="button" onclick="openRestaurantOrderHelper()"><span class="ico">🍽️</span><span data-en="Order food" data-ko="식당 주문">Order food</span></button>
     <button type="button" onclick="openPhraseSheet('shopping')"><span class="ico">🛍️</span><span data-en="Shopping phrases" data-ko="쇼핑 문장">Shopping phrases</span></button>
   </div></div>
-  <div class="v60-helper-card"><h2 class="v60-group-title" data-en="Money & trip admin" data-ko="돈 · 여행 관리">Money & trip admin</h2><div class="v60-icon-grid">
+  <div class="v60-helper-card" data-v69-tool-group="money"><h2 class="v60-group-title" data-en="Money & trip admin" data-ko="돈 · 여행 관리">Money & trip admin</h2><div class="v60-icon-grid">
     <button type="button" onclick="go('walletHub')"><span class="ico">💱</span><span data-en="Wallet / FX" data-ko="환율 · 예산">Wallet / FX</span></button>
     <button type="button" onclick="go('walletHub');setTimeout(openTaxRefundHelper,80)"><span class="ico">🧾</span><span data-en="Tax refund" data-ko="세금 환급">Tax refund</span></button>
     <button type="button" onclick="go('stayHub')"><span class="ico">🏨</span><span data-en="Stay" data-ko="숙소">Stay</span></button>
     <button type="button" onclick="go('planner')"><span class="ico">🗓️</span><span data-en="Plan trip" data-ko="여행 계획">Plan trip</span></button>
   </div></div>
-  <div class="v60-helper-card"><h2 class="v60-group-title" data-en="Help now" data-ko="지금 도움">Help now</h2><div class="v60-icon-grid">
+  <div class="v60-helper-card" data-v69-tool-group="help"><h2 class="v60-group-title" data-en="Help now" data-ko="지금 도움">Help now</h2><div class="v60-icon-grid">
     <button type="button" onclick="openV55EmergencyFind()"><span class="ico">🆘</span><span data-en="Emergency" data-ko="긴급">Emergency</span></button>
     <button type="button" onclick="globalSearchOpenMedical()"><span class="ico">🩺</span><span data-en="Medical" data-ko="의료">Medical</span></button>
     <button type="button" onclick="globalSearchOpenLostHelp()"><span class="ico">🎒</span><span data-en="Lost item" data-ko="분실">Lost item</span></button>
@@ -2254,7 +2360,7 @@ const TRANSLATIONS = {
     "home.visitor.badge": "여행 팁",
     "home.visitor.card.title": "외국인 여행자를 위해 만들었어요",
     "home.visitor.card.desc": "한국 전화번호가 없어도 비교적 쉽게 이용할 수 있는 예약 방법, 현지 교통 팁과 서비스를 안내합니다.",
-    "home.beta.title": "공개 베타 · V67",
+    "home.beta.title": "공개 베타 · V69",
     "home.beta.subtitle": "친구들과 테스트 중 문제가 보이면 화면과 재현 순서를 함께 보내주세요. 신고 문구에 위치정보는 자동으로 넣지 않습니다.",
     "home.beta.report": "문제 제보",
     "home.search.placeholder": "KTX · 화장실 · 번역 · 환급 · 짐보관...",
@@ -2391,7 +2497,7 @@ const TRANSLATIONS = {
     "home.visitor.badge": "TRAVEL TIP",
     "home.visitor.card.title": "Made for international travelers",
     "home.visitor.card.desc": "We highlight simpler booking options, local transport tips, and services that are easier to use without a Korean phone number.",
-    "home.beta.title": "Public Beta · V67",
+    "home.beta.title": "Public Beta · V69",
     "home.beta.subtitle": "Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.",
     "home.beta.report": "Report a problem",
     "home.search.placeholder": "KTX · restroom · translate · tax refund...",
@@ -2645,7 +2751,7 @@ function toggleAllTools(){
 }
 
 let current='home';
-const APP_RELEASE='Korea Route Public Beta V67';
+const APP_RELEASE='Korea Route Public Beta V69';
 
 // V36 safe auto-restore: persist only explicit, non-sensitive trip state and user preferences.
 // Never mirror API keys, current/GPS location, sensor state, or walk-recovery data.
@@ -12249,6 +12355,25 @@ function v60OpenTripDetail(id){go('myTripHub');setTimeout(()=>{renderSavedPlaces
 document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>v60SyncTabbar(current),620));
 
 
+
+// V69 · Tools category switcher: keep one tool group visible at a time.
+function v69SelectToolGroup(group,btn){
+  const hub=document.getElementById('helperHub');
+  if(!hub)return;
+  hub.querySelectorAll('[data-v69-tool-group]').forEach(card=>{
+    const active=card.dataset.v69ToolGroup===group;
+    card.hidden=!active;
+    if(active)card.dataset.v69Active='1';else delete card.dataset.v69Active;
+  });
+  hub.querySelectorAll('[data-v69-tool-tab]').forEach(tab=>{
+    const active=tab.dataset.v69ToolTab===group;
+    tab.classList.toggle('active',active);
+    tab.setAttribute('aria-selected',active?'true':'false');
+  });
+  if(btn?.scrollIntoView)btn.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+}
+document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>v69SelectToolGroup('move'),180));
+
 // V61 · Android / browser Back Guard
 // Web pages cannot force-close a browser or PWA process. Instead, Korea Route keeps
 // one same-document history guard entry: overlays/details close first, Home asks for
@@ -12332,8 +12457,16 @@ function v61HandleBackPop(){
   v61RearmHistoryGuard();
 }
 window.addEventListener('popstate',v61HandleBackPop);
+// V68: initialize immediately as well as on lifecycle events. Samsung Internet/PWA can
+// otherwise receive the first hardware Back before a deferred DOMContentLoaded guard exists.
+v61InitHistoryGuard();
+setTimeout(v61InitHistoryGuard,0);
+setTimeout(v61InitHistoryGuard,350);
 document.addEventListener('DOMContentLoaded',v61InitHistoryGuard);
 window.addEventListener('pageshow',e=>{v61BackIsExiting=false;setTimeout(v61InitHistoryGuard,e.persisted?0:40)});
+document.addEventListener('visibilitychange',()=>{
+  if(!document.hidden && !v61BackIsExiting) setTimeout(v61InitHistoryGuard,0);
+});
 document.addEventListener('click',()=>{
   if(v61BackExitArmedAt && Date.now()-v61BackExitArmedAt>V61_BACK_EXIT_WINDOW)v61BackExitArmedAt=0;
 },{passive:true});
