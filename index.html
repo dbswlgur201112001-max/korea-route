@@ -3124,7 +3124,7 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
   <div class="card tip"><div class="ico">💳</div><div><b data-i18n="home.visitor.card.title">Made for international travelers</b><p data-i18n="home.visitor.card.desc">We highlight simpler booking options, local transport tips, and services that are easier to use without a Korean phone number.</p></div></div>
 
   <div class="beta-release-card" id="betaReleaseCard">
-    <div><b data-i18n="home.beta.title">Public Beta · V134</b><span data-i18n="home.beta.subtitle">Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.</span></div>
+    <div><b data-i18n="home.beta.title">Public Beta · V136</b><span data-i18n="home.beta.subtitle">Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.</span></div>
     <button type="button" onclick="shareBetaIssue()" data-i18n="home.beta.report">Report a problem</button>
   </div>
 </section>
@@ -4076,7 +4076,7 @@ const TRANSLATIONS = {
     "home.visitor.badge": "여행 팁",
     "home.visitor.card.title": "외국인 여행자를 위해 만들었어요",
     "home.visitor.card.desc": "한국 전화번호가 없어도 비교적 쉽게 이용할 수 있는 예약 방법, 현지 교통 팁과 서비스를 안내합니다.",
-    "home.beta.title": "공개 베타 · V134",
+    "home.beta.title": "공개 베타 · V136",
     "home.beta.subtitle": "친구들과 테스트 중 문제가 보이면 화면과 재현 순서를 함께 보내주세요. 신고 문구에 위치정보는 자동으로 넣지 않습니다.",
     "home.beta.report": "문제 제보",
     "home.search.placeholder": "KTX · 화장실 · 번역 · 환급 · 짐보관...",
@@ -4229,7 +4229,7 @@ const TRANSLATIONS = {
     "home.visitor.badge": "TRAVEL TIP",
     "home.visitor.card.title": "Made for international travelers",
     "home.visitor.card.desc": "We highlight simpler booking options, local transport tips, and services that are easier to use without a Korean phone number.",
-    "home.beta.title": "Public Beta · V134",
+    "home.beta.title": "Public Beta · V136",
     "home.beta.subtitle": "Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.",
     "home.beta.report": "Report a problem",
     "home.search.placeholder": "KTX · restroom · translate · tax refund...",
@@ -4513,7 +4513,7 @@ function toggleAllTools(){
 }
 
 let current='home';
-const APP_RELEASE='Korea Route Public Beta V134';
+const APP_RELEASE='Korea Route Public Beta V136';
 
 // V36 safe auto-restore: persist only explicit, non-sensitive trip state and user preferences.
 // Never mirror API keys, current/GPS location, sensor state, or walk-recovery data.
@@ -8756,7 +8756,7 @@ async function showCityMapNearby(type,sourceBtn=null){
         const fresh=await v126FetchOverpass(q);
         data=cityMapCacheSet(cacheKey,fresh);
       }
-      const items=(data.elements||[]).map(el=>{const lat=Number(el.lat??el.center?.lat),lng=Number(el.lon??el.center?.lon);if(!Number.isFinite(lat)||!Number.isFinite(lng))return null;const km=haversineKm(center.lat,center.lng,lat,lng);const name=el.tags?.name||el.tags?.['name:en']||el.tags?.['name:ko']||(lang==='ko'?'이름 미표시 역':'Unnamed station');return {kind:'osm',name,sub:km<1?`${Math.round(km*1000)}m`:`${km.toFixed(1)}km`,lat,lng,icon:'🚉',category:{id:'station',icon:'🚉',en:'Transit',ko:'역·교통',rank:0},rank:0,source:'OpenStreetMap',km};}).filter(Boolean).sort((a,b)=>a.km-b.km).slice(0,8);
+      const items=(data.elements||[]).map(el=>{const lat=Number(el.lat??el.center?.lat),lng=Number(el.lon??el.center?.lon);if(!Number.isFinite(lat)||!Number.isFinite(lng))return null;const km=haversineKm(center.lat,center.lng,lat,lng);const name=lang==='ko'?(el.tags?.['name:ko']||el.tags?.name||el.tags?.['name:en']||'이름 미표시 역'):(el.tags?.['name:en']||el.tags?.name||el.tags?.['name:ko']||'Unnamed station');return {kind:'osm',name,sub:km<1?`${Math.round(km*1000)}m`:`${km.toFixed(1)}km`,lat,lng,icon:'🚉',category:{id:'station',icon:'🚉',en:'Transit',ko:'역·교통',rank:0},rank:0,source:'OpenStreetMap',km};}).filter(Boolean).sort((a,b)=>a.km-b.km).slice(0,8);
       cityMapRenderSearchResults(items); setCityMapStatus(items.length?(lang==='ko'?`가까운 역·교통 ${items.length}곳을 표시했습니다.`:`Showing ${items.length} nearby transit places.`):(lang==='ko'?'주변에서 역 정보를 찾지 못했습니다.':'No nearby transit places found.'));
     }catch(e){if(box){box.innerHTML=`<div class="city-map-search-empty">${lang==='ko'?'역 정보를 불러오지 못했습니다.':'Could not load nearby transit.'}</div>`;box.classList.add('show');}}
   }
@@ -8775,11 +8775,16 @@ async function searchCityMapPlace(){
   if(box){box.innerHTML=`<div class="city-map-search-empty">${lang==='ko'?'검색 중…':'Searching…'}</div>`;box.classList.add('show');}
   try{
     const query=`${q}, ${city}, South Korea`;
-    const url=`https://nominatim.openstreetmap.org/search?format=jsonv2&limit=6&addressdetails=1&countrycodes=kr&q=${encodeURIComponent(query)}`;
+    const nominatimLang=lang==='ko'?'ko':'en';
+    const url=`https://nominatim.openstreetmap.org/search?format=jsonv2&limit=6&addressdetails=1&countrycodes=kr&accept-language=${nominatimLang}&q=${encodeURIComponent(query)}`;
     const cacheKey=cityMapCacheKey('place-search',[city.toLowerCase(),q.toLowerCase()]);
     let data=cityMapCacheGet(cacheKey,600000);
     if(!data){
-      const r=await fetch(url,{headers:{'Accept':'application/json'},cache:'no-store'});
+      const controller=new AbortController();
+      const timer=setTimeout(()=>controller.abort(),8000);
+      let r;
+      try{r=await fetch(url,{headers:{'Accept':'application/json'},cache:'no-store',signal:controller.signal});}
+      finally{clearTimeout(timer);}
       if(!r.ok) throw new Error('search');
       data=cityMapCacheSet(cacheKey,await r.json());
     }
@@ -9431,7 +9436,7 @@ async function loadCityUrgentNeed(type){
       const detected=cityFacilityTypeFromTags(el.tags||{});
       if(detected!==type) return null;
       const v=cityFacilityVisual(type),km=haversineKm(center.lat,center.lng,lat,lng);
-      const name=el.tags?.['name:en']||el.tags?.name||el.tags?.['name:ko']||(lang==='ko'?`${v.labelKo} · 이름 미표시`:`Unnamed ${v.labelEn}`);
+      const name=lang==='ko'?(el.tags?.['name:ko']||el.tags?.name||el.tags?.['name:en']||`${v.labelKo} · 이름 미표시`):(el.tags?.['name:en']||el.tags?.name||el.tags?.['name:ko']||`Unnamed ${v.labelEn}`);
       return {type,name,lat,lng,km:Number.isFinite(km)?km:999};
     }).filter(Boolean).sort((a,b)=>a.km-b.km);
     cityUrgentNeedItems=items.slice(0,3);
@@ -9499,7 +9504,7 @@ async function loadCityEssentialsDashboard(){
       if(!['toilets','convenience','atm','pharmacy'].includes(type)) return null;
       const v=cityFacilityVisual(type);
       const km=haversineKm(center.lat,center.lng,lat,lng);
-      const name=el.tags?.['name:en']||el.tags?.name||el.tags?.['name:ko']||(lang==='ko'?`${v.labelKo} · 이름 미표시`:`Unnamed ${v.labelEn}`);
+      const name=lang==='ko'?(el.tags?.['name:ko']||el.tags?.name||el.tags?.['name:en']||`${v.labelKo} · 이름 미표시`):(el.tags?.['name:en']||el.tags?.name||el.tags?.['name:ko']||`Unnamed ${v.labelEn}`);
       return {type,name,lat,lng,km:Number.isFinite(km)?km:999};
     }).filter(Boolean).sort((a,b)=>a.km-b.km);
     cityEssentialDashboardItems=items;
@@ -9755,7 +9760,7 @@ async function loadCityFacility(type,btn,{keepActive=false,centerOverride=null,c
     entries.forEach(({el,lat,lng,km})=>{
       const itemType=type==='all'?cityFacilityTypeFromTags(el.tags||{}):type;
       const v=cityFacilityVisual(itemType);
-      const name=el.tags?.name||el.tags?.['name:en']||el.tags?.['name:ko']||(lang==='ko'?`${v.labelKo} · 이름 미표시`:`Unnamed ${v.labelEn}`);
+      const name=lang==='ko'?(el.tags?.['name:ko']||el.tags?.name||el.tags?.['name:en']||`${v.labelKo} · 이름 미표시`):(el.tags?.['name:en']||el.tags?.name||el.tags?.['name:ko']||`Unnamed ${v.labelEn}`);
       nextLoadedFacilities.push({type:itemType,name,lat,lng,km});
       const dist=km<1?`${Math.max(10,Math.round(km*1000/10)*10)}m`:`${km.toFixed(1)}km`;
       const marker=L.marker([lat,lng],{icon:cityFacilityDivIcon(itemType,false),keyboard:true,title:name});
@@ -16201,6 +16206,61 @@ applyLang = function(){
 <script id="v135-map-network-language-fixes-js">
 // V135 · bug-only pass: all Overpass-powered map helpers now use the shared retry/fallback fetcher.
 // Map search placeholder and fullscreen close accessibility text now follow the selected app language.
+</script>
+
+
+<script id="v136-map-rebuild-search-language-fixes-js">
+// V136 · bug-only pass: map rebuild user-dot binding, geo fallback relocalization.
+let v136UserDomBoundMap=null;
+const v136PreviousBindCityUserDomMarkerEvents=bindCityUserDomMarkerEvents;
+bindCityUserDomMarkerEvents=function(){
+  if(!cityGuideMap) return;
+  if(v136UserDomBoundMap===cityGuideMap) return;
+  v136UserDomBoundMap=cityGuideMap;
+  cityUserDomEventsBound=true;
+  try{
+    cityGuideMap.on('move zoom viewreset resize',updateCityUserDomMarker);
+    cityGuideMap.on('moveend zoomend',updateCityUserDomMarker);
+  }catch(_){
+    try{return v136PreviousBindCityUserDomMarkerEvents.apply(this,arguments);}catch(__){}
+  }
+};
+
+// If the vector map had to be torn down and rebuilt, rebind the location overlay to the new map instance.
+const v136PreviousEnsureCityGuideMap=ensureCityGuideMap;
+ensureCityGuideMap=function(){
+  const map=v136PreviousEnsureCityGuideMap.apply(this,arguments);
+  if(map){
+    bindCityUserDomMarkerEvents();
+    if(cityUserDomLatLng){
+      requestAnimationFrame(updateCityUserDomMarker);
+      setTimeout(updateCityUserDomMarker,100);
+    }
+  }
+  return map;
+};
+
+// Keep the GPS permission fallback in the currently selected app language.
+let v136LastGeoFallbackError=null;
+const v136PreviousGeoFallback=v132ShowLocationFallback;
+v132ShowLocationFallback=function(err){
+  v136LastGeoFallbackError=err||{code:0};
+  const out=v136PreviousGeoFallback.apply(this,arguments);
+  document.getElementById('cityMapStatus')?.setAttribute('data-v136-geo-fallback','1');
+  return out;
+};
+const v136PreviousSetCityMapStatus=setCityMapStatus;
+setCityMapStatus=function(text){
+  document.getElementById('cityMapStatus')?.removeAttribute('data-v136-geo-fallback');
+  return v136PreviousSetCityMapStatus.apply(this,arguments);
+};
+const v136PreviousApplyLang=applyLang;
+applyLang=function(){
+  const hadFallback=document.getElementById('cityMapStatus')?.getAttribute('data-v136-geo-fallback')==='1';
+  const out=v136PreviousApplyLang.apply(this,arguments);
+  if(hadFallback) setTimeout(()=>v132ShowLocationFallback(v136LastGeoFallbackError||{code:0}),0);
+  return out;
+};
 </script>
 
 </body>
