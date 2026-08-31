@@ -4650,6 +4650,9 @@ function applyLang(){
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
     el.setAttribute('placeholder',t(el.dataset.i18nPlaceholder));
   });
+  document.querySelectorAll('[data-en-placeholder][data-ko-placeholder]').forEach(el=>{
+    el.setAttribute('placeholder',lang==='ko'?el.getAttribute('data-ko-placeholder'):el.getAttribute('data-en-placeholder'));
+  });
   const langBtn=document.getElementById('langBtn');
   if(langBtn) langBtn.textContent=lang==='ko'?'한국어 / EN':'EN / 한국어';
   if(cityState){ renderCity(); setTimeout(()=>{try{renderCityGuideMap(cityState.key||cityState.en)}catch(e){}},120); }
@@ -4663,6 +4666,8 @@ function applyLang(){
   if(gs){gs.placeholder=t('home.search.placeholder');if(gs.value)renderGlobalSearchResults(gs.value);}
   if(typeof refreshMoveSelectorLanguage==='function') refreshMoveSelectorLanguage();
   if(typeof v60MountMapCitySwitch==='function'&&document.getElementById('v60CitySwitch'))v60MountMapCitySwitch();
+  const bigMapExit=document.querySelector('.city-map-fullscreen-exit');
+  if(bigMapExit) bigMapExit.setAttribute('aria-label',lang==='ko'?'큰 지도 닫기':'Close big map');
 }
 function toggleLang(){lang=lang==='en'?'ko':'en';localStorage.setItem('koreaRouteLang',lang);applyLang()}
 function go(id){
@@ -8748,8 +8753,8 @@ async function showCityMapNearby(type,sourceBtn=null){
       const cacheKey=cityMapCacheKey('station-nearby',[cityMapCenterKey(center.lat,center.lng,4)]);
       let data=cityMapCacheGet(cacheKey,180000);
       if(!data){
-        const r=await fetch('https://overpass-api.de/api/interpreter?data='+encodeURIComponent(q),{cache:'no-store'}); if(!r.ok) throw new Error('station');
-        data=cityMapCacheSet(cacheKey,await r.json());
+        const fresh=await v126FetchOverpass(q);
+        data=cityMapCacheSet(cacheKey,fresh);
       }
       const items=(data.elements||[]).map(el=>{const lat=Number(el.lat??el.center?.lat),lng=Number(el.lon??el.center?.lon);if(!Number.isFinite(lat)||!Number.isFinite(lng))return null;const km=haversineKm(center.lat,center.lng,lat,lng);const name=el.tags?.name||el.tags?.['name:en']||el.tags?.['name:ko']||(lang==='ko'?'이름 미표시 역':'Unnamed station');return {kind:'osm',name,sub:km<1?`${Math.round(km*1000)}m`:`${km.toFixed(1)}km`,lat,lng,icon:'🚉',category:{id:'station',icon:'🚉',en:'Transit',ko:'역·교통',rank:0},rank:0,source:'OpenStreetMap',km};}).filter(Boolean).sort((a,b)=>a.km-b.km).slice(0,8);
       cityMapRenderSearchResults(items); setCityMapStatus(items.length?(lang==='ko'?`가까운 역·교통 ${items.length}곳을 표시했습니다.`:`Showing ${items.length} nearby transit places.`):(lang==='ko'?'주변에서 역 정보를 찾지 못했습니다.':'No nearby transit places found.'));
@@ -8818,9 +8823,8 @@ async function loadSelectedStationPack(btn){
     const cacheKey=cityMapCacheKey('station-pack',[cityMapCenterKey(lat,lng,4)]);
     let data=cityMapCacheGet(cacheKey,600000);
     if(!data){
-      const r=await fetch('https://overpass-api.de/api/interpreter?data='+encodeURIComponent(q),{cache:'no-store'});
-      if(!r.ok) throw new Error('station-pack');
-      data=cityMapCacheSet(cacheKey,await r.json());
+      const fresh=await v126FetchOverpass(q);
+      data=cityMapCacheSet(cacheKey,fresh);
     }
     if(seq!==cityStationPackRequestSeq) return;
     const current=cityMapSelectedSearchPlace;
@@ -9419,7 +9423,7 @@ async function loadCityUrgentNeed(type){
     const q=cityFacilityQuery(type,center.lat,center.lng,radius).replace('out center 45;','out center 60;');
     const cacheKey=cityMapCacheKey('urgent-need',[type,radius,cityMapCenterKey(center.lat,center.lng,4)]);
     let data=cityMapCacheGet(cacheKey,180000);
-    if(!data){const r=await fetch('https://overpass-api.de/api/interpreter?data='+encodeURIComponent(q),{cache:'no-store'});if(!r.ok) throw new Error('urgent');data=cityMapCacheSet(cacheKey,await r.json());}
+    if(!data){const fresh=await v126FetchOverpass(q);data=cityMapCacheSet(cacheKey,fresh);}
     if(seq!==cityUrgentNeedRequestSeq) return;
     const items=(data.elements||[]).map(el=>{
       const lat=Number(el.lat??el.center?.lat),lng=Number(el.lon??el.center?.lon);
@@ -9484,9 +9488,8 @@ async function loadCityEssentialsDashboard(){
     const cacheKey=cityMapCacheKey('essential-dashboard',[cityFacilityRadius,cityMapCenterKey(center.lat,center.lng,4)]);
     let data=cityMapCacheGet(cacheKey,180000);
     if(!data){
-      const r=await fetch('https://overpass-api.de/api/interpreter?data='+encodeURIComponent(q),{cache:'no-store'});
-      if(!r.ok) throw new Error('dashboard');
-      data=cityMapCacheSet(cacheKey,await r.json());
+      const fresh=await v126FetchOverpass(q);
+      data=cityMapCacheSet(cacheKey,fresh);
     }
     if(seq!==cityEssentialDashboardRequestSeq) return;
     const items=(data.elements||[]).map(el=>{
@@ -9736,9 +9739,8 @@ async function loadCityFacility(type,btn,{keepActive=false,centerOverride=null,c
     const cacheKey=cityMapCacheKey('facility',[type,cityFacilityRadius,cityMapCenterKey(center.lat,center.lng,4)]);
     let data=cityMapCacheGet(cacheKey,180000);
     if(!data){
-      const r=await fetch('https://overpass-api.de/api/interpreter?data='+encodeURIComponent(q),{cache:'no-store'});
-      if(!r.ok) throw new Error('facility');
-      data=cityMapCacheSet(cacheKey,await r.json());
+      const fresh=await v126FetchOverpass(q);
+      data=cityMapCacheSet(cacheKey,fresh);
     }
     if(requestSeq!==cityFacilityRequestSeq) return;
     const group=L.layerGroup();
@@ -10923,9 +10925,7 @@ async function v38FetchMappedRecommendations(city,cat){
     ?`nwr[amenity=cafe](${around});nwr[shop=bakery](${around});`
     :`nwr[amenity~"^(restaurant|fast_food|food_court)$"](${around});`;
   const q=`[out:json][timeout:12];(${body});out center 60;`;
-  const r=await fetch('https://overpass-api.de/api/interpreter?data='+encodeURIComponent(q),{cache:'no-store'});
-  if(!r.ok) throw new Error('recommendation');
-  const data=await r.json(); const seen=new Set();
+  const data=await v126FetchOverpass(q); const seen=new Set();
   const arr=(data.elements||[]).map(el=>{
     const tags=el.tags||{}; const lat=Number(el.lat??el.center?.lat),lng=Number(el.lon??el.center?.lon);
     const en=tags['name:en']||tags.name||''; const ko=tags['name:ko']||tags.name||'';
@@ -16196,6 +16196,11 @@ applyLang = function(){
   setTimeout(()=>{if(document.getElementById('v60CitySwitch')) v60MountMapCitySwitch();},0);
   return out;
 };
+</script>
+
+<script id="v135-map-network-language-fixes-js">
+// V135 · bug-only pass: all Overpass-powered map helpers now use the shared retry/fallback fetcher.
+// Map search placeholder and fullscreen close accessibility text now follow the selected app language.
 </script>
 
 </body>
