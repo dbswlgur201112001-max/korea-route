@@ -3124,7 +3124,7 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
   <div class="card tip"><div class="ico">💳</div><div><b data-i18n="home.visitor.card.title">Made for international travelers</b><p data-i18n="home.visitor.card.desc">We highlight simpler booking options, local transport tips, and services that are easier to use without a Korean phone number.</p></div></div>
 
   <div class="beta-release-card" id="betaReleaseCard">
-    <div><b data-i18n="home.beta.title">Public Beta · V142</b><span data-i18n="home.beta.subtitle">Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.</span></div>
+    <div><b data-i18n="home.beta.title">Public Beta · V144</b><span data-i18n="home.beta.subtitle">Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.</span></div>
     <button type="button" onclick="shareBetaIssue()" data-i18n="home.beta.report">Report a problem</button>
   </div>
 </section>
@@ -4082,7 +4082,7 @@ const TRANSLATIONS = {
     "home.visitor.badge": "여행 팁",
     "home.visitor.card.title": "외국인 여행자를 위해 만들었어요",
     "home.visitor.card.desc": "한국 전화번호가 없어도 비교적 쉽게 이용할 수 있는 예약 방법, 현지 교통 팁과 서비스를 안내합니다.",
-    "home.beta.title": "공개 베타 · V142",
+    "home.beta.title": "공개 베타 · V144",
     "home.beta.subtitle": "친구들과 테스트 중 문제가 보이면 화면과 재현 순서를 함께 보내주세요. 신고 문구에 위치정보는 자동으로 넣지 않습니다.",
     "home.beta.report": "문제 제보",
     "home.search.placeholder": "KTX · 화장실 · 번역 · 환급 · 짐보관...",
@@ -4235,7 +4235,7 @@ const TRANSLATIONS = {
     "home.visitor.badge": "TRAVEL TIP",
     "home.visitor.card.title": "Made for international travelers",
     "home.visitor.card.desc": "We highlight simpler booking options, local transport tips, and services that are easier to use without a Korean phone number.",
-    "home.beta.title": "Public Beta · V142",
+    "home.beta.title": "Public Beta · V144",
     "home.beta.subtitle": "Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.",
     "home.beta.report": "Report a problem",
     "home.search.placeholder": "KTX · restroom · translate · tax refund...",
@@ -4519,7 +4519,7 @@ function toggleAllTools(){
 }
 
 let current='home';
-const APP_RELEASE='Korea Route Public Beta V142';
+const APP_RELEASE='Korea Route Public Beta V144';
 
 // V36 safe auto-restore: persist only explicit, non-sensitive trip state and user preferences.
 // Never mirror API keys, current/GPS location, sensor state, or walk-recovery data.
@@ -16550,7 +16550,7 @@ v141SavedEventsHtml=function(city){
     const match=v142SavedEventMatchesTrip(x);const eid=encodeURIComponent(x.id);
     const name=lang==='ko'?(x.nameKo||x.nameEn):x.nameEn;
     const place=lang==='ko'?(x.placeKo||x.placeEn):(x.placeEn||x.placeKo||'');
-    return `<div class="v141-saved-item"><div><b>${name}</b><small>${x.start===x.end?x.start:`${x.start} – ${x.end}`} · ${place}</small><span class="v142-saved-status ${match?'match':''}">${match?(lang==='ko'?'현재 여행 날짜와 일치':'MATCHES TRIP DATES'):(lang==='ko'?'현재 여행 날짜 밖':'OUTSIDE TRIP DATES')}</span></div><div class="v142-saved-actions"><button type="button" onclick="v140OpenEventPlace('${v142JsArg(city)}','${v142JsArg(x.search||'')}')">${lang==='ko'?'지도':'Map'}</button><button type="button" class="v142-saved-remove" onclick="v142RemoveSavedEvent('${eid}')">${lang==='ko'?'삭제':'Remove'}</button></div></div>`;
+    return `<div class="v141-saved-item"><div><b>${name}</b><small>${x.start===x.end?x.start:`${x.start} – ${x.end}`} · ${place}</small><span class="v142-saved-status ${match?'match':''}">${match?(lang==='ko'?'현재 여행 날짜와 일치':'MATCHES TRIP DATES'):(lang==='ko'?'현재 여행 날짜 밖':'OUTSIDE TRIP DATES')}</span></div><div class="v142-saved-actions"><button type="button" onclick="v140OpenEventPlace('${v142JsArg(city)}','${v142JsArg(x.search||'')}')">${lang==='ko'?'지도':'Map'}</button><button type="button" class="v142-saved-remove" onclick="v142RemoveSavedEvent('${v142JsArg(eid)}')">${lang==='ko'?'삭제':'Remove'}</button></div></div>`;
   }).join('');
   return `<div class="v141-saved-wrap"><div class="v141-saved-head"><b>${lang==='ko'?'My Trip에 저장한 행사':'Events saved to My Trip'}</b><span>${saved.length}</span></div>${rows}</div>`;
 };
@@ -16563,7 +16563,7 @@ v140EventsHtml=function(city,context){
   const visibleItems=context==='planner'?sel.items.slice(0,3):sel.items;
   const rows=visibleItems.length?visibleItems.map(e=>{
     const day=context==='city'?0:v141EventTripDay(e);const saved=v141IsEventSaved(city,e);const eid=encodeURIComponent(v141EventId(city,e));
-    return `<div class="v140-event ${sel.during?'when':''}"><div class="v140-event-top"><b>${lang==='ko'?e.nameKo:e.nameEn}</b><span class="v140-event-date">${v140EventDate(e)}</span></div><div class="v140-event-place">📍 ${lang==='ko'?e.placeKo:e.placeEn}</div>${day?`<span class="v141-day-badge">${lang==='ko'?`추천 Day ${day}`:`Suggested Day ${day}`}</span>`:''}<div class="v140-event-actions"><button type="button" class="primary" onclick="v140OpenEventPlace('${v142JsArg(city)}','${v142JsArg(e.search)}')">${lang==='ko'?'지도에서 보기':'Show on map'}</button><button type="button" class="v141-event-save ${saved?'saved':''}" onclick="v141ToggleEvent('${v142JsArg(city)}','${eid}')">${saved?(lang==='ko'?'✓ My Trip 저장됨':'✓ Saved to My Trip'):(lang==='ko'?'＋ My Trip에 추가':'＋ Add to My Trip')}</button></div></div>`;
+    return `<div class="v140-event ${sel.during?'when':''}"><div class="v140-event-top"><b>${lang==='ko'?e.nameKo:e.nameEn}</b><span class="v140-event-date">${v140EventDate(e)}</span></div><div class="v140-event-place">📍 ${lang==='ko'?e.placeKo:e.placeEn}</div>${day?`<span class="v141-day-badge">${lang==='ko'?`추천 Day ${day}`:`Suggested Day ${day}`}</span>`:''}<div class="v140-event-actions"><button type="button" class="primary" onclick="v140OpenEventPlace('${v142JsArg(city)}','${v142JsArg(e.search)}')">${lang==='ko'?'지도에서 보기':'Show on map'}</button><button type="button" class="v141-event-save ${saved?'saved':''}" onclick="v141ToggleEvent('${v142JsArg(city)}','${v142JsArg(eid)}')">${saved?(lang==='ko'?'✓ My Trip 저장됨':'✓ Saved to My Trip'):(lang==='ko'?'＋ My Trip에 추가':'＋ Add to My Trip')}</button></div></div>`;
   }).join(''):`<div class="v140-event"><div class="v140-event-note">${lang==='ko'?'선택한 날짜 이후 확인된 행사 데이터가 없습니다. 공식 일정을 확인해 주세요.':'No connected event is available after the selected date. Check the official schedule.'}</div></div>`;
   const isCity=context==='city';
   const sub=isCity?(sel.during?(lang==='ko'?`${w.start} 현재 진행 중인 행사입니다.`:`Happening in ${cityName} today (${w.start}).`):(lang==='ko'?'오늘 진행 중인 연결 행사가 없어 다음 예정 행사를 보여드려요.':'No connected event is active today, so here are the next scheduled events.')):(sel.during?(lang==='ko'?`${w.start} ~ ${w.end} 여행 날짜와 겹치는 행사입니다.`:`Events overlapping your ${w.start} – ${w.end} trip.`):(lang==='ko'?'여행 날짜와 겹치는 행사가 없어 다음 예정 행사를 보여드려요.':'No event overlaps your trip dates, so here are the next scheduled events.'));
@@ -16572,6 +16572,115 @@ v140EventsHtml=function(city,context){
   const plannerNote=context==='planner'?`<div class="v141-planner-note">${lang==='ko'?'목적지와 날짜를 바꾸면 행사 추천도 바로 바뀝니다.':'Change destination or dates and the event match updates immediately.'}</div>`:'';
   const badge=isCity?(sel.during?(lang==='ko'?'오늘':'TODAY'):(lang==='ko'?'다음 행사':'UP NEXT')):(sel.during?(lang==='ko'?'여행 중':'YOUR DATES'):(lang==='ko'?'다음 행사':'UP NEXT'));
   return `<div class="v140-events"><div class="v140-events-head"><div><span class="v140-events-kicker">${contextKicker}</span><b class="v140-events-title">${lang==='ko'?`${cityName} 행사 일정`:`What's on in ${cityName}`}</b><span class="v140-events-sub">${sub}</span></div><span class="v140-events-badge">${badge}</span></div><div class="v140-events-list">${rows}</div>${plannerNote}${savedHtml}<div class="v140-events-actions"><button type="button" onclick="v140OpenExternal('${sel.cfg.official}')">${lang==='ko'?'수원시 공식 행사 ↗':'Official Suwon events ↗'}</button><button type="button" onclick="v140OpenExternal('${sel.cfg.festival}')">${lang==='ko'?'수원 관광 축제 ↗':'Suwon festival guide ↗'}</button><button type="button" onclick="v140OpenExternal(V140_VISITKOREA_FESTIVALS)">${lang==='ko'?'VISITKOREA 영문 축제 ↗':'VISITKOREA English ↗'}</button></div><div class="v140-events-note">${lang==='ko'?'공식 수원시 공개 일정 기반의 1차 연결입니다. 일정·장소는 방문 전 공식 페이지에서 최종 확인하세요.':'Phase 1 uses published Suwon City schedules. Recheck the official page before visiting because event details can change.'}</div></div>`;
+};
+setTimeout(v140RenderLocalEvents,0);
+</script>
+
+
+<style id="v143-event-saved-scope-css">
+.v143-saved-city-group{margin-top:10px;padding-top:9px;border-top:1px solid #edf1f6}
+.v143-saved-city-group:first-of-type{margin-top:6px;padding-top:0;border-top:0}
+.v143-saved-city-title{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
+.v143-saved-city-title b{font-size:9px;line-height:1.25;color:#33445b}
+.v143-saved-city-title span{display:inline-flex;border-radius:999px;padding:3px 6px;background:#eef3fb;color:#4c6382;font-size:7px;font-weight:950;white-space:nowrap}
+.v143-saved-city-group.current .v143-saved-city-title span{background:#eef8f1;color:#237343}
+.v143-saved-status.other-city{background:#fff6e8;color:#8a611c}
+</style>
+<script id="v143-event-saved-scope-js">
+// V143 · Saved event scope + destination/date correctness + English-first map lookup.
+function v143CurrentTripDestination(){
+  return document.getElementById('dest')?.value||'';
+}
+function v143SavedEventTripState(x){
+  const dest=v143CurrentTripDestination();
+  const w=v140TripWindow();
+  const sameCity=!!(x&&dest&&x.city===dest);
+  const dateMatch=!!(x&&x.start<=w.end&&x.end>=w.start);
+  return {sameCity,dateMatch,match:sameCity&&dateMatch,dest,w};
+}
+v142SavedEventMatchesTrip=function(x){return v143SavedEventTripState(x).match;};
+
+v141SavedEventsHtml=function(){
+  const saved=v141LoadSavedEvents();
+  if(!saved.length)return '';
+  const dest=v143CurrentTripDestination();
+  const grouped=new Map();
+  saved.forEach(x=>{
+    if(!x||!x.city)return;
+    if(!grouped.has(x.city))grouped.set(x.city,[]);
+    grouped.get(x.city).push(x);
+  });
+  const cities=[...grouped.keys()].sort((a,b)=>{
+    if(a===dest&&b!==dest)return -1;
+    if(b===dest&&a!==dest)return 1;
+    return String(a).localeCompare(String(b));
+  });
+  const groups=cities.map(city=>{
+    const items=grouped.get(city).slice().sort((a,b)=>String(a.start).localeCompare(String(b.start)));
+    const cityLabel=v140CityName(city);
+    const rows=items.map(x=>{
+      const state=v143SavedEventTripState(x);const eid=encodeURIComponent(x.id);
+      const name=lang==='ko'?(x.nameKo||x.nameEn):x.nameEn;
+      const place=lang==='ko'?(x.placeKo||x.placeEn):(x.placeEn||x.placeKo||'');
+      let status='',cls='';
+      if(state.match){status=lang==='ko'?'이 여행과 일치':'MATCHES THIS TRIP';cls='match';}
+      else if(state.sameCity){status=lang==='ko'?'여행 날짜 밖':'OUTSIDE TRIP DATES';}
+      else {status=lang==='ko'?`${cityLabel}에 저장됨`:`SAVED FOR ${cityLabel.toUpperCase()}`;cls='other-city';}
+      return `<div class="v141-saved-item"><div><b>${name}</b><small>${x.start===x.end?x.start:`${x.start} – ${x.end}`} · ${place}</small><span class="v142-saved-status ${cls}">${status}</span></div><div class="v142-saved-actions"><button type="button" onclick="v140OpenEventPlace('${v142JsArg(city)}','${v142JsArg(x.search||x.placeKo||x.placeEn||'')}')">${lang==='ko'?'지도':'Map'}</button><button type="button" class="v142-saved-remove" onclick="v142RemoveSavedEvent('${v142JsArg(eid)}')">${lang==='ko'?'삭제':'Remove'}</button></div></div>`;
+    }).join('');
+    return `<div class="v143-saved-city-group ${city===dest?'current':''}"><div class="v143-saved-city-title"><b>${cityLabel}</b><span>${city===dest?(lang==='ko'?'현재 여행 목적지':'CURRENT TRIP'):(lang==='ko'?'다른 저장 도시':'OTHER CITY')}</span></div>${rows}</div>`;
+  }).join('');
+  return `<div class="v141-saved-wrap"><div class="v141-saved-head"><b>${lang==='ko'?'My Trip에 저장한 행사':'Events saved to My Trip'}</b><span>${saved.length}</span></div>${groups}</div>`;
+};
+
+let v143EventMapToken=0;
+v140OpenEventPlace=function(city,search){
+  const token=++v143EventMapToken;
+  const cfg=V140_OFFICIAL_EVENTS?.[city];
+  const event=cfg?.events?.find(e=>[e.search,e.placeKo,e.placeEn].filter(Boolean).includes(search));
+  const query=lang==='ko'?(event?.search||event?.placeKo||search):(event?.placeEn||event?.nameEn||search);
+  const c=cityGuideConfig?.[city];
+  try{
+    if(c&&typeof openCity==='function') openCity(city,c.ko,c.emoji,c.descEn,c.descKo,c.moveEn,c.moveKo,c.costEn,c.costKo);
+    else go('city');
+  }catch(_){try{go('city');}catch(__){}}
+  let tries=0;
+  const run=()=>{
+    if(token!==v143EventMapToken)return;
+    tries++;
+    const input=document.getElementById('cityMapSearchInput');
+    const cityReady=!cityState?.key||cityState.key===city;
+    if(input&&cityReady){
+      input.value=query||'';
+      try{searchCityMapPlace();return;}catch(_){}
+    }
+    if(tries<10)setTimeout(run,120);
+    else try{if(typeof v11Toast==='function')v11Toast(lang==='ko'?'지도가 아직 준비되지 않았어요. 다시 눌러주세요.':'Map is still loading. Tap the event map button again.');}catch(_){}
+  };
+  setTimeout(run,80);
+};
+
+// Changing destination/date must immediately refresh saved-event trip status too.
+['dest','tripDate','days'].forEach(id=>document.getElementById(id)?.addEventListener('input',()=>setTimeout(v140RenderLocalEvents,0)));
+setTimeout(v140RenderLocalEvents,0);
+</script>
+
+
+<style id="v144-event-persistence-css">
+.v144-saved-only{margin-top:12px!important}
+.v144-saved-only>.v141-saved-wrap{margin-top:0;padding-top:0;border-top:0}
+</style>
+<script id="v144-event-persistence-js">
+// V144 · Saved events must remain visible in My Trip even when the current destination
+// has no connected city-event feed yet. Also keep inline saved-event IDs JS-safe.
+const v144PreviousEventsHtml=v140EventsHtml;
+v140EventsHtml=function(city,context){
+  const html=v144PreviousEventsHtml.apply(this,arguments);
+  if(context==='trip' && !V140_OFFICIAL_EVENTS?.[city]){
+    const saved=typeof v141SavedEventsHtml==='function'?v141SavedEventsHtml():'';
+    if(saved) return `${html}<div class="v140-events v144-saved-only">${saved}</div>`;
+  }
+  return html;
 };
 setTimeout(v140RenderLocalEvents,0);
 </script>
