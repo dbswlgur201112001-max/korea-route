@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" translate="no" class="notranslate">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
@@ -8,6 +8,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Korea Route">
+<meta name="google" content="notranslate">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="manifest" href="manifest.json">
 <style>
@@ -2901,6 +2902,21 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
 .v126-local-datetime>input[type="datetime-local"]{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;min-height:56px!important;opacity:0!important;z-index:2!important;cursor:pointer!important}
 @media(max-width:420px){.planner-create-trip{min-height:60px;font-size:18px}.planner-create-hint{font-size:15px}.v126-local-datetime-display{font-size:16px}}
 </style>
+
+<style id="v129-map-location-fullscreen-fix">
+/* V129 · device-confirmed map repairs: visible GPS marker + true map fullscreen. */
+.kr-user-location-icon{background:transparent!important;border:0!important;position:relative!important;pointer-events:none!important}
+.kr-user-location-pulse{position:absolute;left:1px;top:1px;width:30px;height:30px;border-radius:50%;background:rgba(47,111,237,.20);box-shadow:0 0 0 1px rgba(47,111,237,.18);animation:krUserPulse 1.8s ease-out infinite}
+.kr-user-location-core{position:absolute;left:8px;top:8px;width:16px;height:16px;border-radius:50%;background:#2f6fed;border:4px solid #fff;box-shadow:0 2px 10px rgba(11,35,69,.42)}
+@keyframes krUserPulse{0%{transform:scale(.72);opacity:.95}70%{transform:scale(1.25);opacity:.18}100%{transform:scale(1.35);opacity:0}}
+#city .leaflet-city-user-pane{z-index:1850!important;pointer-events:none!important}
+#city .city-map-live-wrap.city-map-fullscreen{position:fixed!important;inset:0!important;z-index:1900!important;width:100vw!important;height:100dvh!important;margin:0!important;padding:0!important;background:#fff!important;overflow:hidden!important;border-radius:0!important}
+#city.v60-map-mode .city-map-live-wrap.city-map-fullscreen #cityGuideMap,#city .city-map-live-wrap.city-map-fullscreen #cityGuideMap{display:block!important;width:100vw!important;height:100dvh!important;min-height:100dvh!important;max-height:none!important;border-radius:0!important;margin:0!important}
+#city.v60-map-mode .city-map-live-wrap.city-map-fullscreen .city-map-locate-float,#city .city-map-live-wrap.city-map-fullscreen .city-map-locate-float{display:inline-flex!important;position:fixed!important;right:18px!important;bottom:calc(22px + env(safe-area-inset-bottom,0px))!important;z-index:2005!important}
+.city-map-fullscreen-exit{position:fixed!important;top:calc(14px + env(safe-area-inset-top,0px))!important;right:14px!important;z-index:2010!important;min-width:54px!important;min-height:52px!important;border:0!important;border-radius:16px!important;background:rgba(11,35,69,.94)!important;color:#fff!important;font-size:18px!important;font-weight:950!important;box-shadow:0 8px 24px rgba(11,35,69,.28)!important;backdrop-filter:blur(8px)!important;-webkit-backdrop-filter:blur(8px)!important}
+@media(max-width:420px){.city-map-fullscreen-exit{right:12px!important;top:calc(10px + env(safe-area-inset-top,0px))!important}.city-map-live-wrap.city-map-fullscreen .city-map-locate-float{right:12px!important}}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -3133,7 +3149,7 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
   <div class="section-head"><h2 data-en="Your route" data-ko="여행 경로">Your route</h2><span id="stopCount">2 STOPS</span></div>
   <div class="route-map">
     <div class="map-track" id="resultRoute"></div>
-    <div id="liveMap" class="city-map" style="margin-top:14px"></div>
+    <div id="liveMap" class="city-map" style="margin-top:14px"></div><div class="ff-sample" style="margin:8px 4px 0;font-weight:850" data-en="Vector map: OpenFreeMap · OpenStreetMap data" data-ko="벡터 지도: OpenFreeMap · OpenStreetMap 데이터">Vector map: OpenFreeMap · OpenStreetMap data</div>
   </div>
 
   <div class="section-head"><h2 data-en="By segment" data-ko="구간별 교통편">By segment</h2><span data-en="SAMPLE" data-ko="샘플">SAMPLE</span></div>
@@ -4454,7 +4470,7 @@ function toggleAllTools(){
 }
 
 let current='home';
-const APP_RELEASE='Korea Route Public Beta V126';
+const APP_RELEASE='Korea Route Public Beta V128';
 
 // V36 safe auto-restore: persist only explicit, non-sensitive trip state and user preferences.
 // Never mirror API keys, current/GPS location, sensor state, or walk-recovery data.
@@ -4580,6 +4596,8 @@ function refreshActiveScreenState(id=current,{entry=false}={}){
 
 function applyLang(){
   document.documentElement.lang=lang==='ko'?'ko':'en';
+  document.documentElement.setAttribute('translate','no');
+  document.documentElement.classList.add('notranslate');
   document.querySelectorAll('[data-en][data-ko]').forEach(el=>{
     el.innerHTML=el.getAttribute(lang==='ko'?'data-ko':'data-en');
   });
@@ -7423,9 +7441,13 @@ function applyCityUserPosition(lat,lng,accuracy,{recenter=true}={}){
       radius:safeAccuracy,pane:'cityUserPane',weight:2,color:'#2f6fed',opacity:.72,
       fillColor:'#2f6fed',fillOpacity:.11,interactive:false
     });
-    cityUserDot=L.circleMarker([lat,lng],{
-      pane:'cityUserPane',radius:10,weight:4,color:'#ffffff',opacity:1,
-      fillColor:'#2f6fed',fillOpacity:1,interactive:false
+    const userIcon=L.divIcon({
+      className:'kr-user-location-icon',
+      html:'<span class="kr-user-location-pulse"></span><span class="kr-user-location-core"></span>',
+      iconSize:[32,32],iconAnchor:[16,16]
+    });
+    cityUserDot=L.marker([lat,lng],{
+      pane:'cityUserPane',icon:userIcon,interactive:false,keyboard:false,zIndexOffset:3000
     });
     cityUserLayer=L.layerGroup([cityUserAccuracyCircle,cityUserDot]).addTo(map);
   }else{
@@ -9039,20 +9061,26 @@ function openCityMapSelectedWalk(){
 }
 
 function toggleCityMapFocus(){
-  const wrap=document.querySelector('#city .city-map-wrap');
-  if(!wrap) return;
-  const on=wrap.classList.toggle('city-map-focus');
-  let exit=wrap.querySelector('.city-map-focus-exit');
+  const live=document.querySelector('#city .city-map-live-wrap');
+  if(!live) return;
+  const on=live.classList.toggle('city-map-fullscreen');
+  let exit=live.querySelector('.city-map-fullscreen-exit');
   if(on&&!exit){
     exit=document.createElement('button');
-    exit.type='button'; exit.className='city-map-focus-exit';
-    exit.textContent=lang==='ko'?'✕ 지도 닫기':'✕ Close map';
-    exit.style.cssText='border:0;background:#0b2345;color:#fff;border-radius:12px;padding:9px 11px;font-weight:900;font-size:10px;float:right';
+    exit.type='button'; exit.className='city-map-fullscreen-exit';
+    exit.setAttribute('aria-label',lang==='ko'?'큰 지도 닫기':'Close big map');
+    exit.textContent='✕';
     exit.onclick=toggleCityMapFocus;
-    wrap.querySelector('.city-map-head')?.appendChild(exit);
+    live.appendChild(exit);
   }
+  if(exit) exit.style.display=on?'block':'none';
   document.body.style.overflow=on?'hidden':'';
+  if(on&&exploreUserLocation){
+    const map=ensureCityGuideMap();
+    if(map){map.setView([Number(exploreUserLocation.lat),Number(exploreUserLocation.lng)],Math.max(16,Number(map.getZoom?.())||16),{animate:false});}
+  }
   scheduleCityMapInvalidate();
+  setTimeout(()=>scheduleCityMapInvalidate(),220);
 }
 
 
@@ -9759,6 +9787,7 @@ const cityCoords={
 };
 let routeMap=null;
 let routeLayer=null;
+let routeMapTileLayer=null;
 
 function ensureMap(){
   if(typeof L==='undefined'){
@@ -9767,13 +9796,31 @@ function ensureMap(){
     return null;
   }
   if(!routeMap){
-    routeMap=L.map('liveMap',{zoomControl:true,scrollWheelZoom:false}).setView([36.3,127.8],7);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-      maxZoom:18,
-      attribution:'&copy; OpenStreetMap contributors'
-    }).addTo(routeMap);
+    routeMap=L.map('liveMap',{
+      zoomControl:true,scrollWheelZoom:false,touchZoom:true,doubleClickZoom:true,
+      fadeAnimation:false,markerZoomAnimation:false,preferCanvas:true
+    }).setView([36.3,127.8],7);
+
+    // V127: use the same OpenFreeMap vector base as the main Map tab.
+    if(typeof maplibregl!=='undefined' && typeof L.maplibreGL==='function'){
+      routeMapTileLayer=L.maplibreGL({
+        style:'https://tiles.openfreemap.org/styles/liberty',
+        interactive:false,
+        attributionControl:true,
+        maxZoom:19
+      }).addTo(routeMap);
+    }else{
+      // Safe fallback only when the vector library fails to load.
+      routeMapTileLayer=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+        maxZoom:18,
+        attribution:'&copy; OpenStreetMap contributors'
+      }).addTo(routeMap);
+    }
   }
-  setTimeout(()=>routeMap.invalidateSize(),80);
+  setTimeout(()=>{
+    try{routeMap.invalidateSize({pan:false,animate:false});}catch(e){}
+    try{routeMapTileLayer?.getMaplibreMap?.().resize();routeMapTileLayer?.getMaplibreMap?.().triggerRepaint();}catch(e){}
+  },80);
   return routeMap;
 }
 
@@ -15166,7 +15213,7 @@ function v61CloseTopLayer(){
   if(taxi?.classList.contains('show')){closeTaxiCard();return true;}
   const emergency=document.getElementById('myTripEmergencySheet');
   if(emergency){closeMyTripEmergencySheet();return true;}
-  const mapWrap=document.querySelector('#city .city-map-wrap.city-map-focus');
+  const mapWrap=document.querySelector('#city .city-map-live-wrap.city-map-fullscreen');
   if(mapWrap){toggleCityMapFocus();return true;}
   const trouble=document.getElementById('cityTripTroublePanel');
   if(trouble?.classList.contains('show')){closeCityTripTrouble();return true;}
@@ -15608,5 +15655,6 @@ if(typeof applyLang==='function'){
 ['start','dest'].forEach(id=>document.getElementById(id)?.addEventListener('change',()=>setTimeout(v126SyncScenicVisibility,0)));
 document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{v126SyncScenicVisibility();v126LocalizeOpenDateTimes();},120));
 setTimeout(v126SyncScenicVisibility,0);
-</script>\n</body>
+</script>\n<!-- V127: trip result map unified with OpenFreeMap vector base -->
+</body>
 </html>
