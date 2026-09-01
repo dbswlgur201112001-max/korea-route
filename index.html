@@ -3958,7 +3958,7 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
       <div class="eyebrow">MOVE · TAXI CHECK</div>
       <h1 id="v162TaxiTitle">Taxi Check</h1>
       <p id="v162TaxiSubtitle">Get a rough fare range before you ride.</p>
-      <span class="checked" id="v162TaxiChecked">CHECKED · 2026-09-01</span>
+      <span class="checked" id="v162TaxiChecked">Last updated · 2026-09-01</span>
     </div>
     <div id="v162TaxiBody"><div class="v162-card"><p data-en="Loading taxi information…" data-ko="택시 정보를 불러오는 중…">Loading taxi information…</p></div></div>
   </div>
@@ -18806,7 +18806,7 @@ function v162Estimate(region,distanceKm,time){
   const surcharge=v162SurchargeForTime(region,time);
   const rate=Number(surcharge?.rate||1);
   const center=distanceFare*rate;
-  return {center,lower:v162Round100(center*.85),upper:v162Round100(center*1.2),surcharge,steps,distanceFare};
+  return {center,lower:v162Round100(center),upper:v162Round100(center*1.35),surcharge,steps,distanceFare};
 }
 function v162FareResultHtml(data){
   const region=data?.regions?.seoul; if(!region)return '';
@@ -18851,7 +18851,7 @@ function renderTaxiCheckHub(){
   const data=v162TaxiData; const host=document.getElementById('v162TaxiBody'); if(!host||!data)return;
   const region=data.regions?.seoul; if(!region)return;
   const title=document.getElementById('v162TaxiTitle'),sub=document.getElementById('v162TaxiSubtitle'),checked=document.getElementById('v162TaxiChecked');
-  if(title)title.textContent=v162TaxiText(data.title);if(sub)sub.textContent=v162TaxiText(data.subtitle);if(checked)checked.textContent=`${lang==='ko'?'공식요금 확인':'FARE CHECKED'} · ${data.checked_on||''}`;
+  if(title)title.textContent=v162TaxiText(data.title);if(sub)sub.textContent=v162TaxiText(data.subtitle);if(checked)checked.textContent=`${lang==='ko'?'마지막 업데이트':'Last updated'} · ${data.checked_on||''}`;
   const refs=(data.reference_trips||[]).map((r,i)=>`<button type="button" class="v162-ref" onclick="v162SetReferenceTrip(${i})">${v162TaxiEsc(v162TaxiText(r.name))}<span>≈ ${Number(r.distance_km).toFixed(1)} km · ${lang==='ko'?'거리 입력':'fill distance'}</span></button>`).join('');
   const checks=(data.before_you_ride||[]).map(item=>`<label class="v162-check ${v162TaxiChecklistState.has(String(item.id))?'done':''}" data-v162-check="${v162TaxiEsc(item.id)}"><input type="checkbox" ${v162TaxiChecklistState.has(String(item.id))?'checked':''} onchange="v162ToggleChecklist('${v162TaxiEsc(item.id)}',this.checked)"><span>${v162TaxiEsc(v162TaxiText(item.text))}</span></label>`).join('');
   const flags=(data.red_flags||[]).map(item=>`<div class="v162-flag ${item.severity==='high'?'high':''}" data-v162-flag="${v162TaxiEsc(item.id)}"><button type="button" class="v162-flag-toggle" aria-expanded="false" onclick="v162ToggleFlag('${v162TaxiEsc(item.id)}')"><span class="v162-flag-mark">${item.severity==='high'?'⚠️':'ℹ️'}</span><span class="v162-flag-title">${v162TaxiEsc(v162TaxiText(item.title))}</span><span class="v162-severity">${item.severity==='high'?(lang==='ko'?'주의':'CHECK'):(lang==='ko'?'참고':'INFO')}</span><span>⌄</span></button><div class="v162-flag-body">${v162TaxiEsc(v162TaxiText(item.body))}</div></div>`).join('');

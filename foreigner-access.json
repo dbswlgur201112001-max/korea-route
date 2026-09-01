@@ -15,185 +15,6 @@
   },
   "categories": [
     {
-      "id": "maps",
-      "name": {
-        "en": "Maps & booking",
-        "ko": "지도 · 예약"
-      },
-      "items": [
-        {
-          "id": "naver-map",
-          "name": {
-            "en": "NAVER Map",
-            "ko": "네이버 지도"
-          },
-          "status": "yes",
-          "needs_korean_number": false,
-          "why": {
-            "en": "Foreign visitors can use passport verification for NAVER Map bookings, orders and payments without a Korean mobile phone number.",
-            "ko": "외국인 방문객은 여권 인증을 이용해 한국 휴대폰 번호 없이 네이버 지도 예약·주문·결제 기능을 사용할 수 있습니다."
-          },
-          "workaround": {
-            "en": "If a booking or payment asks for identity verification, choose passport verification. Availability still depends on the individual merchant or service.",
-            "ko": "예약이나 결제 과정에서 본인확인이 필요하면 여권 인증을 선택하세요. 실제 이용 가능 여부는 개별 매장이나 서비스에 따라 달라질 수 있습니다."
-          },
-          "source": "NAVER Corp.",
-          "source_url": "https://www.navercorp.com/media/pressReleasesDetail?seq=10034413"
-        },
-        {
-          "id": "kakao-map",
-          "name": {
-            "en": "KakaoMap",
-            "ko": "카카오맵"
-          },
-          "status": "yes",
-          "needs_korean_number": false,
-          "why": {
-            "en": "Basic place search and route finding are available in KakaoMap. Account-linked extras can have separate sign-in requirements.",
-            "ko": "카카오맵의 기본 장소 검색과 길찾기는 사용할 수 있습니다. 계정에 연결되는 일부 추가 기능은 별도 로그인 조건이 있을 수 있습니다."
-          },
-          "workaround": {
-            "en": "Use KakaoMap for search and routes first. If an account-only feature blocks you, use the core map without that extra feature or switch to NAVER Map.",
-            "ko": "우선 카카오맵의 검색·길찾기를 사용하세요. 계정 전용 기능에서 막히면 해당 추가 기능 없이 기본 지도를 쓰거나 네이버 지도로 전환하세요."
-          },
-          "source": "Kakao Corp.",
-          "source_url": "https://www.kakaocorp.com/page/service/service/KakaoMap?lang=en"
-        }
-      ]
-    },
-    {
-      "id": "taxi",
-      "name": {
-        "en": "Taxi & local transport",
-        "ko": "택시 · 현지 이동"
-      },
-      "items": [
-        {
-          "id": "kride",
-          "name": {
-            "en": "k.ride",
-            "ko": "k.ride"
-          },
-          "status": "yes",
-          "needs_korean_number": false,
-          "why": {
-            "en": "k.ride is Kakao Mobility's service for global travelers and supports multilingual use and overseas payment cards.",
-            "ko": "k.ride는 카카오모빌리티의 해외 여행자용 서비스로 다국어 사용과 해외 결제카드를 지원합니다."
-          },
-          "workaround": {
-            "en": "Use your overseas phone number and the available Google, Apple or email sign-in flow. Register an international card for in-app payment.",
-            "ko": "해외 전화번호와 제공되는 Google·Apple·이메일 로그인 방식을 이용하세요. 앱 결제에는 해외 카드를 등록할 수 있습니다."
-          },
-          "source": "Kakao Mobility / VISITKOREA",
-          "source_url": "https://utility.kride.kakaomobility.com/"
-        },
-        {
-          "id": "kakao-t",
-          "name": {
-            "en": "Kakao T",
-            "ko": "카카오 T"
-          },
-          "status": "partial",
-          "needs_korean_number": false,
-          "why": {
-            "en": "A Korean phone number is not strictly required: VISITKOREA says a local overseas mobile number can be used to create the Kakao account. Setup still goes through KakaoTalk and can be less convenient for short-term visitors.",
-            "ko": "한국 전화번호가 반드시 필요한 것은 아닙니다. VISITKOREA 안내에 따르면 해외에서 쓰는 본인 휴대폰 번호로 카카오 계정을 만들 수 있습니다. 다만 카카오톡을 통한 가입 과정 때문에 단기 여행자에게는 번거로울 수 있습니다."
-          },
-          "workaround": {
-            "en": "If Kakao T setup is inconvenient, use k.ride instead; it is designed specifically for international travelers.",
-            "ko": "카카오 T 가입이 번거로우면 해외 여행자 전용으로 설계된 k.ride를 이용하세요."
-          },
-          "source": "VISITKOREA",
-          "source_url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=197907"
-        },
-        {
-          "id": "uber-taxi",
-          "name": {
-            "en": "Uber Taxi",
-            "ko": "Uber Taxi"
-          },
-          "status": "yes",
-          "needs_korean_number": false,
-          "why": {
-            "en": "VISITKOREA says an existing Uber app and saved payment information can be used to call Uber Taxi in Korea.",
-            "ko": "VISITKOREA 안내에 따르면 기존 Uber 앱과 저장된 결제 정보를 그대로 이용해 한국에서 Uber Taxi를 호출할 수 있습니다."
-          },
-          "workaround": {
-            "en": "Keep your existing Uber account and payment method. Vehicle availability varies by location and time.",
-            "ko": "기존 Uber 계정과 결제수단을 그대로 사용하세요. 차량 이용 가능 여부는 지역과 시간에 따라 달라질 수 있습니다."
-          },
-          "source": "VISITKOREA",
-          "source_url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=140661"
-        },
-        {
-          "id": "seoul-bike",
-          "name": {
-            "en": "Seoul Bike (Ttareungi) · Foreigner pass",
-            "ko": "서울자전거 따릉이 · 외국인 이용권"
-          },
-          "status": "yes",
-          "needs_korean_number": false,
-          "why": {
-            "en": "The official foreigner flow lets international tourists choose Foreigner, enter an email address and purchase a pass by card.",
-            "ko": "공식 외국인 이용 절차에서 Foreigner를 선택하고 이메일 주소를 입력한 뒤 카드로 이용권을 구매할 수 있습니다."
-          },
-          "workaround": {
-            "en": "Choose Foreigner on the Seoul Bike app. Keep the pass code sent by email so you can recover it if needed.",
-            "ko": "서울자전거 앱에서 Foreigner를 선택하세요. 필요할 때 다시 등록할 수 있도록 이메일로 받은 이용권 코드를 보관하세요."
-          },
-          "source": "Seoul Metropolitan Government",
-          "source_url": "https://english.seoul.go.kr/seoul-bike-instructions-and-chatbot-service-for-international-tourists/"
-        }
-      ]
-    },
-    {
-      "id": "rail",
-      "name": {
-        "en": "Rail",
-        "ko": "철도"
-      },
-      "items": [
-        {
-          "id": "korail-global",
-          "name": {
-            "en": "KORAIL Global website",
-            "ko": "KORAIL 글로벌 웹사이트"
-          },
-          "status": "yes",
-          "needs_korean_number": false,
-          "why": {
-            "en": "KORAIL's global site supports ticket purchase by credit card and ticket lookup using the email and purchase information.",
-            "ko": "KORAIL 글로벌 사이트는 신용카드로 승차권 구매가 가능하며 이메일과 구매 정보를 이용해 승차권을 조회할 수 있습니다."
-          },
-          "workaround": {
-            "en": "Use the official Global website rather than a Korean-only member flow. Keep the email and purchase details used for the booking.",
-            "ko": "한국어 회원 전용 흐름 대신 공식 Global 웹사이트를 이용하세요. 예약에 사용한 이메일과 구매 정보를 보관하세요."
-          },
-          "source": "KORAIL",
-          "source_url": "https://www.korail.com/global/eng/ticket/reservation?radTrvCate=GTRN"
-        },
-        {
-          "id": "srt-global",
-          "name": {
-            "en": "SRT English website",
-            "ko": "SRT 영문 웹사이트"
-          },
-          "status": "partial",
-          "needs_korean_number": false,
-          "why": {
-            "en": "The current SRT English site says online ticket payment accepts Korean-issued credit cards, not foreign-issued cards. The payment method is the main limitation here, not the phone number.",
-            "ko": "현재 SRT 영문 사이트는 온라인 승차권 결제에 한국 발급 신용카드만 가능하고 해외 발급 카드는 사용할 수 없다고 안내합니다. 이 경우 핵심 제한은 전화번호보다 결제수단입니다."
-          },
-          "workaround": {
-            "en": "If KTX/KORAIL serves your route, compare that option first. Otherwise check current SRT purchase options at the station or the official SRT site before travel.",
-            "ko": "같은 구간에 KTX/KORAIL이 있다면 먼저 비교하세요. SRT가 필요하면 여행 전 역 구매 가능 여부나 SRT 공식 사이트의 최신 결제 조건을 다시 확인하세요."
-          },
-          "source": "SR / SRT",
-          "source_url": "https://app.srail.or.kr/main/main_eng.do"
-        }
-      ]
-    },
-    {
       "id": "food",
       "name": {
         "en": "Food & reservations",
@@ -275,166 +96,6 @@
           },
           "source": "VISITKOREA",
           "source_url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=226767"
-        }
-      ]
-    },
-    {
-      "id": "transit-card",
-      "name": {
-        "en": "Transit cards",
-        "ko": "교통카드"
-      },
-      "items": [
-        {
-          "id": "tmoney-physical",
-          "name": {
-            "en": "Physical Tmoney card",
-            "ko": "실물 티머니 카드"
-          },
-          "status": "yes",
-          "needs_korean_number": false,
-          "why": {
-            "en": "Tourists can buy and recharge physical Tmoney cards at convenience stores and transit locations; normal card use does not depend on having a Korean phone number.",
-            "ko": "관광객은 편의점과 교통시설에서 실물 티머니 카드를 구입·충전할 수 있으며 일반적인 카드 사용은 한국 전화번호 보유 여부와 무관합니다."
-          },
-          "workaround": {
-            "en": "For the simplest setup, buy a physical card and recharge it locally. Some special mobile or refund functions can have separate requirements.",
-            "ko": "가장 간단하게 쓰려면 실물 카드를 구입해 현지에서 충전하세요. 일부 모바일 기능이나 환불 기능에는 별도 조건이 있을 수 있습니다."
-          },
-          "source": "Tmoney / VISITKOREA",
-          "source_url": "https://tmoney.co.kr/aeb/biz/bridge/foreignTravel.dev"
-        }
-      ]
-    },
-    {
-      "id": "tickets",
-      "name": {
-        "en": "Tickets & live events",
-        "ko": "공연 · 스포츠 예매"
-      },
-      "items": [
-        {
-          "id": "ticketlink-global",
-          "name": {
-            "en": "Ticketlink Global",
-            "ko": "티켓링크 글로벌"
-          },
-          "status": "yes",
-          "needs_korean_number": false,
-          "why": {
-            "en": "Ticketlink Global supports passport-based identity verification for foreign visitors. Some events require this verification before ticket purchase, but a Korean mobile number is not the required identity method.",
-            "ko": "티켓링크 글로벌은 외국인 방문객의 여권 기반 본인인증을 지원합니다. 일부 공연은 예매 전 이 인증이 필요하지만 한국 휴대폰 번호가 필수 본인인증 수단은 아닙니다."
-          },
-          "workaround": {
-            "en": "Use the Global page and complete passport verification when the event shows a verified-members requirement. Check event-specific fees and pickup rules before paying.",
-            "ko": "글로벌 페이지에서 예매하고 인증 대상 공연이면 여권 인증을 완료하세요. 결제 전에 공연별 수수료와 티켓 수령 조건도 확인하세요."
-          },
-          "source": "Ticketlink Global",
-          "source_url": "https://www.ticketlink.co.kr/global/en/help/notice/65080"
-        },
-        {
-          "id": "nol-ticket-domestic",
-          "name": {
-            "en": "NOL Ticket · domestic booking flow",
-            "ko": "NOL 티켓 · 국내 예매 흐름"
-          },
-          "status": "partial",
-          "needs_korean_number": true,
-          "why": {
-            "en": "NOL Ticket terms say the service may request mobile-number verification, real-name verification or other identity checks, and use can be limited when required verification is not completed.",
-            "ko": "NOL 티켓 약관은 휴대전화번호 인증, 실명확인 또는 기타 본인인증을 요청할 수 있으며 필요한 인증을 완료하지 않으면 서비스 이용이 제한될 수 있다고 안내합니다."
-          },
-          "workaround": {
-            "en": "First check whether the event offers a Global booking page. If not, look for official phone/box-office sales or another authorized global seller rather than trying to bypass domestic identity checks.",
-            "ko": "먼저 해당 공연에 글로벌 예매 페이지가 있는지 확인하세요. 없다면 국내 본인인증을 우회하려 하지 말고 공식 전화·현장 판매 또는 다른 공식 글로벌 판매처를 확인하세요."
-          },
-          "source": "NOL Ticket service terms",
-          "source_url": "https://policy.yanolja.com/pf/policy/nol-ticket-service"
-        },
-        {
-          "id": "kbo-domestic-booking",
-          "name": {
-            "en": "KBO baseball · domestic online booking",
-            "ko": "프로야구 · 국내 온라인 예매"
-          },
-          "status": "partial",
-          "needs_korean_number": true,
-          "why": {
-            "en": "KBO teams use different ticket channels, including Ticketlink, NOL/Interpark-style flows and club-operated booking. Domestic booking can therefore inherit each provider’s identity-verification requirements.",
-            "ko": "KBO 구단은 티켓링크, NOL/인터파크 계열, 구단 자체 예매 등 서로 다른 예매처를 사용합니다. 따라서 국내 온라인 예매는 각 예매처의 본인인증 조건에 영향을 받을 수 있습니다."
-          },
-          "workaround": {
-            "en": "Check the KBO ticket guide for your team’s official seller. Use a Global page when offered; for games with remaining seats, official same-day box-office sales can be a practical backup.",
-            "ko": "KBO 티켓 안내에서 응원 구단의 공식 예매처를 먼저 확인하세요. 글로벌 페이지가 있으면 그것을 이용하고, 잔여석이 있는 경기는 공식 현장 판매가 현실적인 대안이 될 수 있습니다."
-          },
-          "source": "KBO ticket guide",
-          "source_url": "https://www.koreabaseball.com/kbo/league/map.aspx"
-        }
-      ]
-    },
-    {
-      "id": "stay",
-      "name": {
-        "en": "Stay booking",
-        "ko": "숙박 예약"
-      },
-      "items": [
-        {
-          "id": "nol-stay-domestic",
-          "name": {
-            "en": "NOL / Yanolja · domestic stay booking",
-            "ko": "NOL / 야놀자 · 국내 숙박 예약"
-          },
-          "status": "partial",
-          "needs_korean_number": true,
-          "why": {
-            "en": "NOL’s general service terms allow mobile-phone or real-name identity verification to be requested, including for services such as accommodation. Some booking features can therefore be inconvenient for short-term visitors without a Korean mobile identity flow.",
-            "ko": "NOL 일반 서비스 약관은 숙박 등을 포함한 서비스에서 휴대전화번호 또는 실명 방식의 본인인증을 요청할 수 있다고 안내합니다. 따라서 한국 휴대폰 본인인증 수단이 없는 단기 여행자는 일부 예약 기능이 불편할 수 있습니다."
-          },
-          "workaround": {
-            "en": "If the domestic flow asks for Korean identity verification, compare the same property on an international booking platform or contact the property directly.",
-            "ko": "국내 예약 과정에서 한국 본인인증을 요구하면 같은 숙소를 글로벌 예약 플랫폼에서 비교하거나 숙소에 직접 문의하세요."
-          },
-          "source": "NOL service terms",
-          "source_url": "https://policy.yanolja.com/pf/policy/community?t=community"
-        },
-        {
-          "id": "goodchoice-domestic",
-          "name": {
-            "en": "Goodchoice / Yeogi Eottae · domestic flow",
-            "ko": "여기어때 · 국내 이용 흐름"
-          },
-          "status": "partial",
-          "needs_korean_number": true,
-          "why": {
-            "en": "The domestic service has used mobile-phone verification in account flows. Public materials do not provide a clear traveler-specific no-Korean-number path, so Korea Route treats this as a recheck-needed domestic flow rather than assuming access.",
-            "ko": "국내 서비스는 계정 이용 과정에서 휴대폰 인증을 사용해 왔습니다. 공개 자료에서 외국인 여행자를 위한 명확한 무(無)한국번호 이용 경로가 확인되지 않아, Korea Route는 이용 가능하다고 단정하지 않고 재확인이 필요한 국내 흐름으로 표시합니다."
-          },
-          "workaround": {
-            "en": "Try the current app only if it accepts your international number. Otherwise book the property through a global platform or directly with the accommodation.",
-            "ko": "현재 앱에서 해외 번호를 받을 수 있는지 먼저 확인하세요. 안 되면 글로벌 플랫폼이나 숙소 직접 예약을 이용하세요."
-          },
-          "source": "Goodchoice public service / signup materials",
-          "source_url": "https://www.goodchoice.kr/home/"
-        },
-        {
-          "id": "agoda-global",
-          "name": {
-            "en": "Agoda · global booking",
-            "ko": "Agoda · 글로벌 예약"
-          },
-          "status": "yes",
-          "needs_korean_number": false,
-          "why": {
-            "en": "Agoda is a global accommodation booking platform designed for international reservations; a Korean mobile number is not a Korea-specific requirement for searching and booking listed stays.",
-            "ko": "Agoda는 해외 여행자를 위한 글로벌 숙박 예약 플랫폼으로, 등록 숙소 검색·예약에 한국 휴대폰 번호를 한국 전용 필수조건으로 요구하지 않습니다."
-          },
-          "workaround": {
-            "en": "Enter a reachable international contact number and check the property’s own check-in, deposit and late-arrival rules before confirming.",
-            "ko": "연락 가능한 해외 전화번호를 입력하고 예약 확정 전 숙소의 체크인·보증금·늦은 도착 조건을 확인하세요."
-          },
-          "source": "Agoda",
-          "source_url": "https://www.agoda.com/"
         }
       ]
     },
@@ -571,6 +232,185 @@
       ]
     },
     {
+      "id": "stay",
+      "name": {
+        "en": "Stay booking",
+        "ko": "숙박 예약"
+      },
+      "items": [
+        {
+          "id": "nol-stay-domestic",
+          "name": {
+            "en": "NOL / Yanolja · domestic stay booking",
+            "ko": "NOL / 야놀자 · 국내 숙박 예약"
+          },
+          "status": "partial",
+          "needs_korean_number": true,
+          "why": {
+            "en": "NOL’s general service terms allow mobile-phone or real-name identity verification to be requested, including for services such as accommodation. Some booking features can therefore be inconvenient for short-term visitors without a Korean mobile identity flow.",
+            "ko": "NOL 일반 서비스 약관은 숙박 등을 포함한 서비스에서 휴대전화번호 또는 실명 방식의 본인인증을 요청할 수 있다고 안내합니다. 따라서 한국 휴대폰 본인인증 수단이 없는 단기 여행자는 일부 예약 기능이 불편할 수 있습니다."
+          },
+          "workaround": {
+            "en": "If the domestic flow asks for Korean identity verification, compare the same property on an international booking platform or contact the property directly.",
+            "ko": "국내 예약 과정에서 한국 본인인증을 요구하면 같은 숙소를 글로벌 예약 플랫폼에서 비교하거나 숙소에 직접 문의하세요."
+          },
+          "source": "NOL service terms",
+          "source_url": "https://policy.yanolja.com/pf/policy/community?t=community"
+        },
+        {
+          "id": "goodchoice-domestic",
+          "name": {
+            "en": "Goodchoice / Yeogi Eottae · domestic flow",
+            "ko": "여기어때 · 국내 이용 흐름"
+          },
+          "status": "partial",
+          "needs_korean_number": true,
+          "why": {
+            "en": "The domestic service has used mobile-phone verification in account flows. Public materials do not provide a clear traveler-specific no-Korean-number path, so Korea Route treats this as a recheck-needed domestic flow rather than assuming access.",
+            "ko": "국내 서비스는 계정 이용 과정에서 휴대폰 인증을 사용해 왔습니다. 공개 자료에서 외국인 여행자를 위한 명확한 무(無)한국번호 이용 경로가 확인되지 않아, Korea Route는 이용 가능하다고 단정하지 않고 재확인이 필요한 국내 흐름으로 표시합니다."
+          },
+          "workaround": {
+            "en": "Try the current app only if it accepts your international number. Otherwise book the property through a global platform or directly with the accommodation.",
+            "ko": "현재 앱에서 해외 번호를 받을 수 있는지 먼저 확인하세요. 안 되면 글로벌 플랫폼이나 숙소 직접 예약을 이용하세요."
+          },
+          "source": "Goodchoice public service / signup materials",
+          "source_url": "https://www.goodchoice.kr/home/"
+        },
+        {
+          "id": "agoda-global",
+          "name": {
+            "en": "Agoda · global booking",
+            "ko": "Agoda · 글로벌 예약"
+          },
+          "status": "yes",
+          "needs_korean_number": false,
+          "why": {
+            "en": "Agoda is a global accommodation booking platform designed for international reservations; a Korean mobile number is not a Korea-specific requirement for searching and booking listed stays.",
+            "ko": "Agoda는 해외 여행자를 위한 글로벌 숙박 예약 플랫폼으로, 등록 숙소 검색·예약에 한국 휴대폰 번호를 한국 전용 필수조건으로 요구하지 않습니다."
+          },
+          "workaround": {
+            "en": "Enter a reachable international contact number and check the property’s own check-in, deposit and late-arrival rules before confirming.",
+            "ko": "연락 가능한 해외 전화번호를 입력하고 예약 확정 전 숙소의 체크인·보증금·늦은 도착 조건을 확인하세요."
+          },
+          "source": "Agoda",
+          "source_url": "https://www.agoda.com/"
+        }
+      ]
+    },
+    {
+      "id": "tickets",
+      "name": {
+        "en": "Tickets & live events",
+        "ko": "공연 · 스포츠 예매"
+      },
+      "items": [
+        {
+          "id": "ticketlink-global",
+          "name": {
+            "en": "Ticketlink Global",
+            "ko": "티켓링크 글로벌"
+          },
+          "status": "yes",
+          "needs_korean_number": false,
+          "why": {
+            "en": "Ticketlink Global supports passport-based identity verification for foreign visitors. Some events require this verification before ticket purchase, but a Korean mobile number is not the required identity method.",
+            "ko": "티켓링크 글로벌은 외국인 방문객의 여권 기반 본인인증을 지원합니다. 일부 공연은 예매 전 이 인증이 필요하지만 한국 휴대폰 번호가 필수 본인인증 수단은 아닙니다."
+          },
+          "workaround": {
+            "en": "Use the Global page and complete passport verification when the event shows a verified-members requirement. Check event-specific fees and pickup rules before paying.",
+            "ko": "글로벌 페이지에서 예매하고 인증 대상 공연이면 여권 인증을 완료하세요. 결제 전에 공연별 수수료와 티켓 수령 조건도 확인하세요."
+          },
+          "source": "Ticketlink Global",
+          "source_url": "https://www.ticketlink.co.kr/global/en/help/notice/65080"
+        },
+        {
+          "id": "nol-ticket-domestic",
+          "name": {
+            "en": "NOL Ticket · domestic booking flow",
+            "ko": "NOL 티켓 · 국내 예매 흐름"
+          },
+          "status": "partial",
+          "needs_korean_number": true,
+          "why": {
+            "en": "NOL Ticket terms say the service may request mobile-number verification, real-name verification or other identity checks, and use can be limited when required verification is not completed.",
+            "ko": "NOL 티켓 약관은 휴대전화번호 인증, 실명확인 또는 기타 본인인증을 요청할 수 있으며 필요한 인증을 완료하지 않으면 서비스 이용이 제한될 수 있다고 안내합니다."
+          },
+          "workaround": {
+            "en": "First check whether the event offers a Global booking page. If not, look for official phone/box-office sales or another authorized global seller rather than trying to bypass domestic identity checks.",
+            "ko": "먼저 해당 공연에 글로벌 예매 페이지가 있는지 확인하세요. 없다면 국내 본인인증을 우회하려 하지 말고 공식 전화·현장 판매 또는 다른 공식 글로벌 판매처를 확인하세요."
+          },
+          "source": "NOL Ticket service terms",
+          "source_url": "https://policy.yanolja.com/pf/policy/nol-ticket-service"
+        },
+        {
+          "id": "kbo-domestic-booking",
+          "name": {
+            "en": "KBO baseball · domestic online booking",
+            "ko": "프로야구 · 국내 온라인 예매"
+          },
+          "status": "partial",
+          "needs_korean_number": true,
+          "why": {
+            "en": "KBO teams use different ticket channels, including Ticketlink, NOL/Interpark-style flows and club-operated booking. Domestic booking can therefore inherit each provider’s identity-verification requirements.",
+            "ko": "KBO 구단은 티켓링크, NOL/인터파크 계열, 구단 자체 예매 등 서로 다른 예매처를 사용합니다. 따라서 국내 온라인 예매는 각 예매처의 본인인증 조건에 영향을 받을 수 있습니다."
+          },
+          "workaround": {
+            "en": "Check the KBO ticket guide for your team’s official seller. Use a Global page when offered; for games with remaining seats, official same-day box-office sales can be a practical backup.",
+            "ko": "KBO 티켓 안내에서 응원 구단의 공식 예매처를 먼저 확인하세요. 글로벌 페이지가 있으면 그것을 이용하고, 잔여석이 있는 경기는 공식 현장 판매가 현실적인 대안이 될 수 있습니다."
+          },
+          "source": "KBO ticket guide",
+          "source_url": "https://www.koreabaseball.com/kbo/league/map.aspx"
+        }
+      ]
+    },
+    {
+      "id": "rail",
+      "name": {
+        "en": "Rail",
+        "ko": "철도"
+      },
+      "items": [
+        {
+          "id": "korail-global",
+          "name": {
+            "en": "KORAIL Global website",
+            "ko": "KORAIL 글로벌 웹사이트"
+          },
+          "status": "yes",
+          "needs_korean_number": false,
+          "why": {
+            "en": "KORAIL's global site supports ticket purchase by credit card and ticket lookup using the email and purchase information.",
+            "ko": "KORAIL 글로벌 사이트는 신용카드로 승차권 구매가 가능하며 이메일과 구매 정보를 이용해 승차권을 조회할 수 있습니다."
+          },
+          "workaround": {
+            "en": "Use the official Global website rather than a Korean-only member flow. Keep the email and purchase details used for the booking.",
+            "ko": "한국어 회원 전용 흐름 대신 공식 Global 웹사이트를 이용하세요. 예약에 사용한 이메일과 구매 정보를 보관하세요."
+          },
+          "source": "KORAIL",
+          "source_url": "https://www.korail.com/global/eng/ticket/reservation?radTrvCate=GTRN"
+        },
+        {
+          "id": "srt-global",
+          "name": {
+            "en": "SRT English website",
+            "ko": "SRT 영문 웹사이트"
+          },
+          "status": "partial",
+          "needs_korean_number": false,
+          "why": {
+            "en": "The current SRT English site says online ticket payment accepts Korean-issued credit cards, not foreign-issued cards. The payment method is the main limitation here, not the phone number.",
+            "ko": "현재 SRT 영문 사이트는 온라인 승차권 결제에 한국 발급 신용카드만 가능하고 해외 발급 카드는 사용할 수 없다고 안내합니다. 이 경우 핵심 제한은 전화번호보다 결제수단입니다."
+          },
+          "workaround": {
+            "en": "If KTX/KORAIL serves your route, compare that option first. Otherwise check current SRT purchase options at the station or the official SRT site before travel.",
+            "ko": "같은 구간에 KTX/KORAIL이 있다면 먼저 비교하세요. SRT가 필요하면 여행 전 역 구매 가능 여부나 SRT 공식 사이트의 최신 결제 조건을 다시 확인하세요."
+          },
+          "source": "SR / SRT",
+          "source_url": "https://app.srail.or.kr/main/main_eng.do"
+        }
+      ]
+    },
+    {
       "id": "car",
       "name": {
         "en": "Rental car & car sharing",
@@ -633,6 +473,166 @@
           },
           "source": "SOCAR Enterprise FAQ",
           "source_url": "https://enterprise.socar.kr/faqs/%EB%A9%B4%ED%97%88%EC%A6%9D-%EC%97%86%EC%9D%B4%EB%8F%84-%EA%B0%80%EC%9E%85%EC%9D%B4-%EA%B0%80%EB%8A%A5%ED%95%9C%EA%B0%80%EC%9A%94/"
+        }
+      ]
+    },
+    {
+      "id": "taxi",
+      "name": {
+        "en": "Taxi & local transport",
+        "ko": "택시 · 현지 이동"
+      },
+      "items": [
+        {
+          "id": "kride",
+          "name": {
+            "en": "k.ride",
+            "ko": "k.ride"
+          },
+          "status": "yes",
+          "needs_korean_number": false,
+          "why": {
+            "en": "k.ride is Kakao Mobility's service for global travelers and supports multilingual use and overseas payment cards.",
+            "ko": "k.ride는 카카오모빌리티의 해외 여행자용 서비스로 다국어 사용과 해외 결제카드를 지원합니다."
+          },
+          "workaround": {
+            "en": "Use your overseas phone number and the available Google, Apple or email sign-in flow. Register an international card for in-app payment.",
+            "ko": "해외 전화번호와 제공되는 Google·Apple·이메일 로그인 방식을 이용하세요. 앱 결제에는 해외 카드를 등록할 수 있습니다."
+          },
+          "source": "Kakao Mobility / VISITKOREA",
+          "source_url": "https://utility.kride.kakaomobility.com/"
+        },
+        {
+          "id": "kakao-t",
+          "name": {
+            "en": "Kakao T",
+            "ko": "카카오 T"
+          },
+          "status": "partial",
+          "needs_korean_number": false,
+          "why": {
+            "en": "A Korean phone number is not strictly required: VISITKOREA says a local overseas mobile number can be used to create the Kakao account. Setup still goes through KakaoTalk and can be less convenient for short-term visitors.",
+            "ko": "한국 전화번호가 반드시 필요한 것은 아닙니다. VISITKOREA 안내에 따르면 해외에서 쓰는 본인 휴대폰 번호로 카카오 계정을 만들 수 있습니다. 다만 카카오톡을 통한 가입 과정 때문에 단기 여행자에게는 번거로울 수 있습니다."
+          },
+          "workaround": {
+            "en": "If Kakao T setup is inconvenient, use k.ride instead; it is designed specifically for international travelers.",
+            "ko": "카카오 T 가입이 번거로우면 해외 여행자 전용으로 설계된 k.ride를 이용하세요."
+          },
+          "source": "VISITKOREA",
+          "source_url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=197907"
+        },
+        {
+          "id": "uber-taxi",
+          "name": {
+            "en": "Uber Taxi",
+            "ko": "Uber Taxi"
+          },
+          "status": "yes",
+          "needs_korean_number": false,
+          "why": {
+            "en": "VISITKOREA says an existing Uber app and saved payment information can be used to call Uber Taxi in Korea.",
+            "ko": "VISITKOREA 안내에 따르면 기존 Uber 앱과 저장된 결제 정보를 그대로 이용해 한국에서 Uber Taxi를 호출할 수 있습니다."
+          },
+          "workaround": {
+            "en": "Keep your existing Uber account and payment method. Vehicle availability varies by location and time.",
+            "ko": "기존 Uber 계정과 결제수단을 그대로 사용하세요. 차량 이용 가능 여부는 지역과 시간에 따라 달라질 수 있습니다."
+          },
+          "source": "VISITKOREA",
+          "source_url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=140661"
+        },
+        {
+          "id": "seoul-bike",
+          "name": {
+            "en": "Seoul Bike (Ttareungi) · Foreigner pass",
+            "ko": "서울자전거 따릉이 · 외국인 이용권"
+          },
+          "status": "yes",
+          "needs_korean_number": false,
+          "why": {
+            "en": "The official foreigner flow lets international tourists choose Foreigner, enter an email address and purchase a pass by card.",
+            "ko": "공식 외국인 이용 절차에서 Foreigner를 선택하고 이메일 주소를 입력한 뒤 카드로 이용권을 구매할 수 있습니다."
+          },
+          "workaround": {
+            "en": "Choose Foreigner on the Seoul Bike app. Keep the pass code sent by email so you can recover it if needed.",
+            "ko": "서울자전거 앱에서 Foreigner를 선택하세요. 필요할 때 다시 등록할 수 있도록 이메일로 받은 이용권 코드를 보관하세요."
+          },
+          "source": "Seoul Metropolitan Government",
+          "source_url": "https://english.seoul.go.kr/seoul-bike-instructions-and-chatbot-service-for-international-tourists/"
+        }
+      ]
+    },
+    {
+      "id": "transit-card",
+      "name": {
+        "en": "Transit cards",
+        "ko": "교통카드"
+      },
+      "items": [
+        {
+          "id": "tmoney-physical",
+          "name": {
+            "en": "Physical Tmoney card",
+            "ko": "실물 티머니 카드"
+          },
+          "status": "yes",
+          "needs_korean_number": false,
+          "why": {
+            "en": "Tourists can buy and recharge physical Tmoney cards at convenience stores and transit locations; normal card use does not depend on having a Korean phone number.",
+            "ko": "관광객은 편의점과 교통시설에서 실물 티머니 카드를 구입·충전할 수 있으며 일반적인 카드 사용은 한국 전화번호 보유 여부와 무관합니다."
+          },
+          "workaround": {
+            "en": "For the simplest setup, buy a physical card and recharge it locally. Some special mobile or refund functions can have separate requirements.",
+            "ko": "가장 간단하게 쓰려면 실물 카드를 구입해 현지에서 충전하세요. 일부 모바일 기능이나 환불 기능에는 별도 조건이 있을 수 있습니다."
+          },
+          "source": "Tmoney / VISITKOREA",
+          "source_url": "https://tmoney.co.kr/aeb/biz/bridge/foreignTravel.dev"
+        }
+      ]
+    },
+    {
+      "id": "maps",
+      "name": {
+        "en": "Maps & booking",
+        "ko": "지도 · 예약"
+      },
+      "items": [
+        {
+          "id": "naver-map",
+          "name": {
+            "en": "NAVER Map",
+            "ko": "네이버 지도"
+          },
+          "status": "yes",
+          "needs_korean_number": false,
+          "why": {
+            "en": "Foreign visitors can use passport verification for NAVER Map bookings, orders and payments without a Korean mobile phone number.",
+            "ko": "외국인 방문객은 여권 인증을 이용해 한국 휴대폰 번호 없이 네이버 지도 예약·주문·결제 기능을 사용할 수 있습니다."
+          },
+          "workaround": {
+            "en": "If a booking or payment asks for identity verification, choose passport verification. Availability still depends on the individual merchant or service.",
+            "ko": "예약이나 결제 과정에서 본인확인이 필요하면 여권 인증을 선택하세요. 실제 이용 가능 여부는 개별 매장이나 서비스에 따라 달라질 수 있습니다."
+          },
+          "source": "NAVER Corp.",
+          "source_url": "https://www.navercorp.com/media/pressReleasesDetail?seq=10034413"
+        },
+        {
+          "id": "kakao-map",
+          "name": {
+            "en": "KakaoMap",
+            "ko": "카카오맵"
+          },
+          "status": "yes",
+          "needs_korean_number": false,
+          "why": {
+            "en": "Basic place search and route finding are available in KakaoMap. Account-linked extras can have separate sign-in requirements.",
+            "ko": "카카오맵의 기본 장소 검색과 길찾기는 사용할 수 있습니다. 계정에 연결되는 일부 추가 기능은 별도 로그인 조건이 있을 수 있습니다."
+          },
+          "workaround": {
+            "en": "Use KakaoMap for search and routes first. If an account-only feature blocks you, use the core map without that extra feature or switch to NAVER Map.",
+            "ko": "우선 카카오맵의 검색·길찾기를 사용하세요. 계정 전용 기능에서 막히면 해당 추가 기능 없이 기본 지도를 쓰거나 네이버 지도로 전환하세요."
+          },
+          "source": "Kakao Corp.",
+          "source_url": "https://www.kakaocorp.com/page/service/service/KakaoMap?lang=en"
         }
       ]
     }
