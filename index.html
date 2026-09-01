@@ -18399,5 +18399,123 @@ setTimeout(v140RenderLocalEvents,0);
 })();
 </script>
 
+
+<style id="v159-event-source-fallback-css">
+.v159-source-resilience{margin:10px 0 0;padding:10px;border:1px solid #dfe8f2;border-radius:13px;background:#f8fbff}
+.v159-source-resilience>b{display:block;font-size:8.2px;color:#294b70;line-height:1.35}
+.v159-source-resilience>span{display:block;margin-top:3px;font-size:6.9px;line-height:1.45;color:#758597;font-weight:800}
+.v159-source-list{display:grid;gap:6px;margin-top:8px}
+.v159-source-option{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid #e1e8f0;border-radius:11px;background:#fff;padding:8px 9px}
+.v159-source-option>div{min-width:0}.v159-source-option b{display:block;font-size:7.5px;color:#304f70;line-height:1.35}.v159-source-option small{display:block;margin-top:2px;font-size:6.4px;color:#8793a1;font-weight:800;line-height:1.35}
+.v159-source-option button{flex:0 0 auto;border:0;background:#eef4fb;color:#2a5179;border-radius:999px;padding:6px 8px;font-size:6.7px;font-weight:950;cursor:pointer;white-space:nowrap}
+.v159-source-fallback-note{margin-top:7px;font-size:6.6px;line-height:1.45;color:#7d8997;font-weight:800}
+.v159-saved-info{border-color:#d5e1ed!important;color:#315b83!important}
+@media(max-width:520px){.v159-source-option{align-items:flex-start}.v159-source-option button{margin-top:1px}}
+</style>
+<script id="v159-event-source-fallback-js">
+// V159 · Resilient event-source chain. A broken/deleted event URL must not strand the traveler.
+// Still no live sync: these are alternate official/public source routes, not automatic verification.
+(function(){
+  if(typeof V140_OFFICIAL_EVENTS!=='object'||typeof window.v150OpenEventTranslation!=='function')return;
+  function esc(v){return typeof v145EventHtml==='function'?v145EventHtml(String(v??'')):String(v??'');}
+  function js(v){return typeof v142JsArg==='function'?v142JsArg(String(v??'')):String(v??'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
+  function decodeId(v){try{return decodeURIComponent(String(v||''));}catch(_){return String(v||'');}}
+  function sourceLang(city,e,url){
+    if(e?.sourceLanguage)return e.sourceLanguage;
+    const cfg=V140_OFFICIAL_EVENTS?.[city]||{};
+    const u=String(url||'').toLowerCase();
+    if(u.includes('english.')||u.includes('/eng/')||u.includes('/en/'))return 'en';
+    if(cfg.sourceLanguage)return cfg.sourceLanguage;
+    return 'unknown';
+  }
+  function cityName(city){return typeof v140CityName==='function'?v140CityName(city):city;}
+  function eventById(city,id){
+    const cfg=V140_OFFICIAL_EVENTS?.[city];if(!cfg)return null;
+    return (cfg.events||[]).find(e=>typeof v141EventId==='function'&&v141EventId(city,e)===id)||null;
+  }
+  function savedById(id){
+    try{return (typeof v141LoadSavedEvents==='function'?v141LoadSavedEvents():[]).find(x=>x&&x.id===id)||null;}catch(_){return null;}
+  }
+  function addUnique(out,seen,url,type,labelEn,labelKo,langCode){
+    url=String(url||'').trim();if(!url||seen.has(url))return;
+    seen.add(url);out.push({url,type,labelEn,labelKo,sourceLanguage:langCode||'unknown'});
+  }
+  function chain(city,e){
+    const cfg=V140_OFFICIAL_EVENTS?.[city]||{},out=[],seen=new Set();
+    addUnique(out,seen,e?.officialUrl,'event','Official event page','행사 공식페이지',sourceLang(city,e,e?.officialUrl));
+    addUnique(out,seen,cfg.festival,'city-guide',cfg.festivalLabelEn||`${cityName(city)} festival / event guide`,cfg.festivalLabelKo||`${cityName(city)} 축제·행사 안내`,sourceLang(city,null,cfg.festival));
+    addUnique(out,seen,cfg.official,'city-calendar',cfg.officialLabelEn||`${cityName(city)} official event calendar`,cfg.officialLabelKo||`${cityName(city)} 공식 행사 일정`,sourceLang(city,null,cfg.official));
+    if(typeof V140_VISITKOREA_FESTIVALS!=='undefined')addUnique(out,seen,V140_VISITKOREA_FESTIVALS,'national','VISITKOREA English festival guide','VISITKOREA 영문 축제 안내','en');
+    return out;
+  }
+  window.v159GetEventSourceChain=function(city,encodedId){
+    const id=decodeId(encodedId),e=eventById(city,id)||savedById(id)||{};
+    return chain(city,e).map(x=>({...x}));
+  };
+  window.v159OpenEventSource=function(city,encodedId,index){
+    const list=window.v159GetEventSourceChain(city,encodedId),x=list[Number(index)||0];if(!x?.url)return;
+    if(typeof v150OpenOriginalUrl==='function')return v150OpenOriginalUrl(x.url);
+    try{window.open(x.url,'_blank','noopener,noreferrer');}catch(_){location.href=x.url;}
+  };
+  function sourceBlock(city,id,e){
+    const list=chain(city,e),sourceCount=list.length;
+    if(!sourceCount)return '';
+    const rows=list.map((x,i)=>{
+      const label=lang==='ko'?(x.labelKo||x.labelEn):(x.labelEn||x.labelKo);
+      const kind=lang==='ko'?(x.type==='event'?'개별 행사':x.type==='city-guide'?'도시 행사 허브':x.type==='city-calendar'?'도시 공식 일정':'국가 여행정보'):(x.type==='event'?'Event-level source':x.type==='city-guide'?'City event hub':x.type==='city-calendar'?'City official calendar':'National travel guide');
+      const langText=x.sourceLanguage==='ko'?(lang==='ko'?'한국어 원문':'Korean source'):x.sourceLanguage==='en'?(lang==='ko'?'영문 원문':'English source'):(lang==='ko'?'원문 언어 확인 필요':'Source language varies');
+      return `<div class="v159-source-option"><div><b>${esc(label)}</b><small>${esc(kind)} · ${esc(langText)}</small></div><button type="button" onclick="v159OpenEventSource('${js(city)}','${js(encodeURIComponent(id))}',${i})">${lang==='ko'?'열기':'Open'} ↗</button></div>`;
+    }).join('');
+    const title=lang==='ko'?`공식 출처 ${sourceCount}개`:`${sourceCount} source${sourceCount===1?'':'s'} available`;
+    const detail=lang==='ko'?'첫 링크가 삭제·차단되면 아래 다음 공식 출처를 사용하세요. 출처를 여는 것만으로 일정이 최신으로 검증되지는 않습니다.':'If the first page is removed, blocked or unavailable, use the next official/public source below. Opening a source does not mark the schedule as freshly verified.';
+    return `<div class="v159-source-resilience"><b>${esc(title)}</b><span>${esc(detail)}</span><div class="v159-source-list">${rows}</div><div class="v159-source-fallback-note">${esc(lang==='ko'?'Korea Route는 이 목록을 자동 상태검사하지 않습니다. 취소·시간변경은 방문 전에 원문에서 확인하세요.':'Korea Route does not automatically health-check these external pages. Confirm cancellations and time changes before visiting.')}</div></div>`;
+  }
+  function enhanceSheet(city,id,e){
+    const sheet=document.querySelector('#v150EventTranslationOverlay .v150-translation-sheet');if(!sheet)return;
+    sheet.querySelectorAll('.v159-source-resilience').forEach(n=>n.remove());
+    const actions=sheet.querySelector('.v150-translation-actions'),disclaimer=sheet.querySelector('.v150-translation-disclaimer');
+    const holder=document.createElement('div');holder.innerHTML=sourceBlock(city,id,e);const node=holder.firstElementChild;if(!node)return;
+    if(actions)actions.insertAdjacentElement('afterend',node);else if(disclaimer)disclaimer.insertAdjacentElement('beforebegin',node);else sheet.appendChild(node);
+  }
+  const baseOpenEventTranslation=window.v150OpenEventTranslation;
+  window.v150OpenEventTranslation=function(city,encodedId){
+    const id=decodeId(encodedId),e=eventById(city,id)||savedById(id)||null;
+    if(!e||!eventById(city,id)){
+      // Old saved event IDs may outlive a feed edit. Keep the save useful by showing source choices anyway.
+      let wrap=document.getElementById('v150EventTranslationOverlay');
+      if(!wrap){wrap=document.createElement('div');wrap.id='v150EventTranslationOverlay';wrap.className='v150-translation-overlay';document.body.appendChild(wrap);}
+      const name=lang==='ko'?(e?.nameKo||e?.nameEn||'저장한 행사'):(e?.nameEn||e?.nameKo||'Saved event');
+      const date=typeof v140EventDate==='function'&&e?v140EventDate(e):`${e?.start||''}${e?.end&&e.end!==e.start?' – '+e.end:''}`;
+      const place=lang==='ko'?(e?.placeKo||e?.placeEn||''):(e?.placeEn||e?.placeKo||'');
+      wrap.innerHTML=`<div class="v150-translation-sheet" role="dialog" aria-modal="true"><div class="v150-translation-head"><div><small>SAVED EVENT SOURCE</small><h3>${esc(name)}</h3></div><button class="v150-translation-close" type="button" onclick="v150CloseEventTranslation()" aria-label="Close">×</button></div><div class="v150-translation-card"><div class="v150-translation-row"><strong>${lang==='ko'?'날짜':'Date'}</strong><span>${esc(date)}</span></div><div class="v150-translation-row"><strong>${lang==='ko'?'장소':'Place'}</strong><span>${esc(place)}</span></div></div>${sourceBlock(city,id,e||{})}</div>`;
+      wrap.classList.add('open');wrap.setAttribute('aria-hidden','false');return;
+    }
+    const out=baseOpenEventTranslation.apply(this,arguments);
+    try{enhanceSheet(city,id,e);}catch(_){setTimeout(()=>{try{enhanceSheet(city,id,e);}catch(__){}},0);}
+    return out;
+  };
+  window.v159OpenSavedEventInfo=function(city,encodedId){return window.v150OpenEventTranslation(city,encodedId);};
+
+  // Saved events must retain an information/source route, not only Map/Remove actions.
+  if(typeof v141SavedEventsHtml==='function'&&typeof v141LoadSavedEvents==='function'){
+    const baseSaved=v141SavedEventsHtml;
+    v141SavedEventsHtml=function(){
+      let html=baseSaved();if(!html)return html;
+      let saved=[];try{saved=v141LoadSavedEvents()||[];}catch(_){}
+      saved.forEach(x=>{
+        if(!x?.id||!x?.city)return;
+        const enc=encodeURIComponent(x.id),needle=`<button type="button" class="v142-saved-remove" onclick="v142RemoveSavedEvent('${js(enc)}')">`;
+        if(!html.includes(needle))return;
+        const info=`<button type="button" class="v159-saved-info" onclick="v159OpenSavedEventInfo('${js(x.city)}','${js(enc)}')">${lang==='ko'?'정보':'Info'}</button>`;
+        html=html.replace(needle,info+needle);
+      });
+      return html;
+    };
+  }
+
+  try{setTimeout(v140RenderLocalEvents,0);}catch(_){ }
+})();
+</script>
+
 </body>
 </html>
