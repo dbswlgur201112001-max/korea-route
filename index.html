@@ -3939,7 +3939,7 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
 <section class="screen" id="foreignerAccessHub">
   <div class="top"><button type="button" class="back" aria-label="Back / 뒤로" onclick="closeForeignerAccessHub()">‹</button><div class="brand" data-en="Can I use this?" data-ko="이거 쓸 수 있나요?">Can I use this?</div><button class="pill" onclick="toggleLang()">EN / 한국어</button></div>
   <div class="v161-access-wrap">
-    <div class="v161-access-intro"><h1 id="v161AccessTitle">Can I use this?</h1><p id="v161AccessSubtitle">Check whether a travel service works without a Korean phone number.</p><span class="v161-access-checked" id="v161AccessChecked">CHECKED · 2026-09-01</span></div>
+    <div class="v161-access-intro"><h1 id="v161AccessTitle">Can I use this?</h1><p id="v161AccessSubtitle">Check whether a travel service works without a Korean phone number.</p><span class="v161-access-checked" id="v161AccessChecked">Last updated · 2026-09-01</span></div>
     <div class="v161-access-controls">
       <label class="v161-access-search"><span>🔎</span><input id="v161AccessSearch" type="search" autocomplete="off" maxlength="70" placeholder="Search a service" aria-label="Search services"><button type="button" onclick="clearForeignerAccessSearch()" aria-label="Clear search">×</button></label>
       <div class="v161-access-toggle"><b id="v161AccessToggleLabel">Show only what works without a Korean number</b><button id="v161AccessToggle" class="v161-switch" type="button" role="switch" aria-checked="false" aria-label="Show only services that work without a Korean number" onclick="toggleForeignerAccessNoNumber()"></button></div>
@@ -18699,7 +18699,7 @@ setTimeout(v140RenderLocalEvents,0);
 })();
 </script>
 
-\n<script id="v161-foreigner-access-js">
+<script id="v161-foreigner-access-js">
 let v161AccessData=null;
 let v161AccessOnlyNoNumber=false;
 let v161AccessReturn='helperHub';
@@ -18737,12 +18737,13 @@ function renderForeignerAccess(){
   const data=v161AccessData;if(!data)return;
   const title=document.getElementById('v161AccessTitle'),sub=document.getElementById('v161AccessSubtitle'),checked=document.getElementById('v161AccessChecked'),toggleLabel=document.getElementById('v161AccessToggleLabel'),toggle=document.getElementById('v161AccessToggle'),search=document.getElementById('v161AccessSearch'),body=document.getElementById('v161AccessBody'),disc=document.getElementById('v161AccessDisclaimer'),summary=document.getElementById('v161AccessSummary');
   if(title)title.textContent=v161L(data.title,'Can I use this?');if(sub)sub.textContent=v161L(data.subtitle);
-  if(checked)checked.textContent=(lang==='ko'?'정보 확인일 · ':'CHECKED · ')+(data.source_checked_on||data.version||'—');
+  if(checked)checked.textContent=(lang==='ko'?'마지막 업데이트 · ':'Last updated · ')+(data.source_checked_on||data.version||'—');
   if(toggleLabel)toggleLabel.textContent=v161L(data.toggle_label);if(toggle){toggle.classList.toggle('on',v161AccessOnlyNoNumber);toggle.setAttribute('aria-checked',v161AccessOnlyNoNumber?'true':'false')}
   if(search){search.placeholder=lang==='ko'?'서비스명 검색':'Search a service';search.setAttribute('aria-label',search.placeholder)}
   if(disc)disc.textContent=v161L(data.disclaimer);
   const q=(search?.value||'').trim().toLocaleLowerCase();let visible=0,total=0;let html='';
-  for(const cat of data.categories){
+  const orderedCategories=(data.categories||[]).map((cat,index)=>({cat,index,blocked:(cat.items||[]).reduce((n,item)=>n+(item.status==='partial'||item.status==='no'?1:0),0)})).sort((a,b)=>b.blocked-a.blocked||a.index-b.index).map(x=>x.cat);
+  for(const cat of orderedCategories){
     const items=(cat.items||[]).filter(item=>{total++;if(v161AccessOnlyNoNumber&&item.needs_korean_number!==false)return false;const hay=(v161L(item.name)+' '+(item.name?.en||'')+' '+(item.name?.ko||'')).toLocaleLowerCase();return !q||hay.includes(q)});
     if(!items.length)continue;visible+=items.length;
     html+=`<section class="v161-access-section"><h2>${v161Escape(v161L(cat.name))}</h2><div class="v161-access-list">`;
@@ -18755,7 +18756,8 @@ function renderForeignerAccess(){
 (function(){const input=document.getElementById('v161AccessSearch');if(input)input.addEventListener('input',renderForeignerAccess)})();
 const v161OriginalApplyLang=applyLang;
 applyLang=function(){v161OriginalApplyLang();if(v161AccessData)renderForeignerAccess()};
-</script>\n
+</script>
+
 <script id="v162-taxi-check-script">
 // V162 · Taxi Check. Data stays in taxi-fare.json; no exact-fare claim is made.
 let v162TaxiData=null;

@@ -305,6 +305,336 @@
           "source_url": "https://tmoney.co.kr/aeb/biz/bridge/foreignTravel.dev"
         }
       ]
+    },
+    {
+      "id": "tickets",
+      "name": {
+        "en": "Tickets & live events",
+        "ko": "공연 · 스포츠 예매"
+      },
+      "items": [
+        {
+          "id": "ticketlink-global",
+          "name": {
+            "en": "Ticketlink Global",
+            "ko": "티켓링크 글로벌"
+          },
+          "status": "yes",
+          "needs_korean_number": false,
+          "why": {
+            "en": "Ticketlink Global supports passport-based identity verification for foreign visitors. Some events require this verification before ticket purchase, but a Korean mobile number is not the required identity method.",
+            "ko": "티켓링크 글로벌은 외국인 방문객의 여권 기반 본인인증을 지원합니다. 일부 공연은 예매 전 이 인증이 필요하지만 한국 휴대폰 번호가 필수 본인인증 수단은 아닙니다."
+          },
+          "workaround": {
+            "en": "Use the Global page and complete passport verification when the event shows a verified-members requirement. Check event-specific fees and pickup rules before paying.",
+            "ko": "글로벌 페이지에서 예매하고 인증 대상 공연이면 여권 인증을 완료하세요. 결제 전에 공연별 수수료와 티켓 수령 조건도 확인하세요."
+          },
+          "source": "Ticketlink Global",
+          "source_url": "https://www.ticketlink.co.kr/global/en/help/notice/65080"
+        },
+        {
+          "id": "nol-ticket-domestic",
+          "name": {
+            "en": "NOL Ticket · domestic booking flow",
+            "ko": "NOL 티켓 · 국내 예매 흐름"
+          },
+          "status": "partial",
+          "needs_korean_number": true,
+          "why": {
+            "en": "NOL Ticket terms say the service may request mobile-number verification, real-name verification or other identity checks, and use can be limited when required verification is not completed.",
+            "ko": "NOL 티켓 약관은 휴대전화번호 인증, 실명확인 또는 기타 본인인증을 요청할 수 있으며 필요한 인증을 완료하지 않으면 서비스 이용이 제한될 수 있다고 안내합니다."
+          },
+          "workaround": {
+            "en": "First check whether the event offers a Global booking page. If not, look for official phone/box-office sales or another authorized global seller rather than trying to bypass domestic identity checks.",
+            "ko": "먼저 해당 공연에 글로벌 예매 페이지가 있는지 확인하세요. 없다면 국내 본인인증을 우회하려 하지 말고 공식 전화·현장 판매 또는 다른 공식 글로벌 판매처를 확인하세요."
+          },
+          "source": "NOL Ticket service terms",
+          "source_url": "https://policy.yanolja.com/pf/policy/nol-ticket-service"
+        },
+        {
+          "id": "kbo-domestic-booking",
+          "name": {
+            "en": "KBO baseball · domestic online booking",
+            "ko": "프로야구 · 국내 온라인 예매"
+          },
+          "status": "partial",
+          "needs_korean_number": true,
+          "why": {
+            "en": "KBO teams use different ticket channels, including Ticketlink, NOL/Interpark-style flows and club-operated booking. Domestic booking can therefore inherit each provider’s identity-verification requirements.",
+            "ko": "KBO 구단은 티켓링크, NOL/인터파크 계열, 구단 자체 예매 등 서로 다른 예매처를 사용합니다. 따라서 국내 온라인 예매는 각 예매처의 본인인증 조건에 영향을 받을 수 있습니다."
+          },
+          "workaround": {
+            "en": "Check the KBO ticket guide for your team’s official seller. Use a Global page when offered; for games with remaining seats, official same-day box-office sales can be a practical backup.",
+            "ko": "KBO 티켓 안내에서 응원 구단의 공식 예매처를 먼저 확인하세요. 글로벌 페이지가 있으면 그것을 이용하고, 잔여석이 있는 경기는 공식 현장 판매가 현실적인 대안이 될 수 있습니다."
+          },
+          "source": "KBO ticket guide",
+          "source_url": "https://www.koreabaseball.com/kbo/league/map.aspx"
+        }
+      ]
+    },
+    {
+      "id": "stay",
+      "name": {
+        "en": "Stay booking",
+        "ko": "숙박 예약"
+      },
+      "items": [
+        {
+          "id": "nol-stay-domestic",
+          "name": {
+            "en": "NOL / Yanolja · domestic stay booking",
+            "ko": "NOL / 야놀자 · 국내 숙박 예약"
+          },
+          "status": "partial",
+          "needs_korean_number": true,
+          "why": {
+            "en": "NOL’s general service terms allow mobile-phone or real-name identity verification to be requested, including for services such as accommodation. Some booking features can therefore be inconvenient for short-term visitors without a Korean mobile identity flow.",
+            "ko": "NOL 일반 서비스 약관은 숙박 등을 포함한 서비스에서 휴대전화번호 또는 실명 방식의 본인인증을 요청할 수 있다고 안내합니다. 따라서 한국 휴대폰 본인인증 수단이 없는 단기 여행자는 일부 예약 기능이 불편할 수 있습니다."
+          },
+          "workaround": {
+            "en": "If the domestic flow asks for Korean identity verification, compare the same property on an international booking platform or contact the property directly.",
+            "ko": "국내 예약 과정에서 한국 본인인증을 요구하면 같은 숙소를 글로벌 예약 플랫폼에서 비교하거나 숙소에 직접 문의하세요."
+          },
+          "source": "NOL service terms",
+          "source_url": "https://policy.yanolja.com/pf/policy/community?t=community"
+        },
+        {
+          "id": "goodchoice-domestic",
+          "name": {
+            "en": "Goodchoice / Yeogi Eottae · domestic flow",
+            "ko": "여기어때 · 국내 이용 흐름"
+          },
+          "status": "partial",
+          "needs_korean_number": true,
+          "why": {
+            "en": "The domestic service has used mobile-phone verification in account flows. Public materials do not provide a clear traveler-specific no-Korean-number path, so Korea Route treats this as a recheck-needed domestic flow rather than assuming access.",
+            "ko": "국내 서비스는 계정 이용 과정에서 휴대폰 인증을 사용해 왔습니다. 공개 자료에서 외국인 여행자를 위한 명확한 무(無)한국번호 이용 경로가 확인되지 않아, Korea Route는 이용 가능하다고 단정하지 않고 재확인이 필요한 국내 흐름으로 표시합니다."
+          },
+          "workaround": {
+            "en": "Try the current app only if it accepts your international number. Otherwise book the property through a global platform or directly with the accommodation.",
+            "ko": "현재 앱에서 해외 번호를 받을 수 있는지 먼저 확인하세요. 안 되면 글로벌 플랫폼이나 숙소 직접 예약을 이용하세요."
+          },
+          "source": "Goodchoice public service / signup materials",
+          "source_url": "https://www.goodchoice.kr/home/"
+        },
+        {
+          "id": "agoda-global",
+          "name": {
+            "en": "Agoda · global booking",
+            "ko": "Agoda · 글로벌 예약"
+          },
+          "status": "yes",
+          "needs_korean_number": false,
+          "why": {
+            "en": "Agoda is a global accommodation booking platform designed for international reservations; a Korean mobile number is not a Korea-specific requirement for searching and booking listed stays.",
+            "ko": "Agoda는 해외 여행자를 위한 글로벌 숙박 예약 플랫폼으로, 등록 숙소 검색·예약에 한국 휴대폰 번호를 한국 전용 필수조건으로 요구하지 않습니다."
+          },
+          "workaround": {
+            "en": "Enter a reachable international contact number and check the property’s own check-in, deposit and late-arrival rules before confirming.",
+            "ko": "연락 가능한 해외 전화번호를 입력하고 예약 확정 전 숙소의 체크인·보증금·늦은 도착 조건을 확인하세요."
+          },
+          "source": "Agoda",
+          "source_url": "https://www.agoda.com/"
+        }
+      ]
+    },
+    {
+      "id": "payment",
+      "name": {
+        "en": "Payment & cash access",
+        "ko": "결제 · 현금 인출"
+      },
+      "items": [
+        {
+          "id": "seoul-subway-new-machine",
+          "name": {
+            "en": "Seoul subway · new ticket machines",
+            "ko": "서울 지하철 · 신형 무인발권기"
+          },
+          "status": "yes",
+          "needs_korean_number": false,
+          "why": {
+            "en": "VISITKOREA’s 2026 transportation guide says new ticket machines on Seoul Subway Lines 1–8 accept foreign-issued credit cards for single-use tickets and short-term Climate Card passes.",
+            "ko": "VISITKOREA의 2026 교통 안내는 서울 지하철 1~8호선 신형 발권기에서 1회용 승차권과 기후동행카드 단기권 구매 시 해외 발급 신용카드를 사용할 수 있다고 안내합니다."
+          },
+          "workaround": {
+            "en": "Look for the newer multilingual machine. If a station still has an older machine, use the station information center or another supported payment method.",
+            "ko": "다국어 신형 발권기를 찾으세요. 구형 기기만 있다면 역 고객안내센터나 다른 지원 결제수단을 이용하세요."
+          },
+          "source": "VISITKOREA · 2026 transportation guide",
+          "source_url": "https://english.visitkorea.or.kr/public/contents/travel/KoreaTransportationGuide_enu.pdf"
+        },
+        {
+          "id": "tmoney-foreign-card-topup",
+          "name": {
+            "en": "Tmoney · purchase/top-up with a foreign card",
+            "ko": "티머니 · 해외카드 구매·충전"
+          },
+          "status": "no",
+          "needs_korean_number": false,
+          "why": {
+            "en": "VISITKOREA’s 2026 transportation guide says foreign-issued credit cards are not accepted for purchasing or topping up standard prepaid Tmoney cards; cash is used instead.",
+            "ko": "VISITKOREA의 2026 교통 안내는 일반 선불 티머니 카드 구매·충전에 해외 발급 신용카드를 사용할 수 없고 현금을 사용해야 한다고 안내합니다."
+          },
+          "workaround": {
+            "en": "Use Korean won cash for a standard Tmoney card, or compare traveler-oriented alternatives such as WOWPASS when its features fit your trip.",
+            "ko": "일반 티머니는 원화 현금으로 구매·충전하세요. 여행 방식에 맞는다면 WOWPASS 같은 여행자용 대안도 비교하세요."
+          },
+          "source": "VISITKOREA · 2026 transportation guide",
+          "source_url": "https://english.visitkorea.or.kr/public/contents/travel/KoreaTransportationGuide_enu.pdf"
+        },
+        {
+          "id": "global-atm",
+          "name": {
+            "en": "ATM cash withdrawal · foreign cards",
+            "ko": "ATM 현금 인출 · 해외카드"
+          },
+          "status": "partial",
+          "needs_korean_number": false,
+          "why": {
+            "en": "Foreign-card cash withdrawal depends on the ATM’s supported international card network, the issuing bank and withdrawal settings. Not every domestic ATM supports every foreign card.",
+            "ko": "해외카드 현금 인출은 ATM이 지원하는 국제 카드망, 카드 발급사, 해외 인출 설정에 따라 달라집니다. 모든 국내 ATM이 모든 해외카드를 지원하는 것은 아닙니다."
+          },
+          "workaround": {
+            "en": "Prefer ATMs marked Global/International and check the card-network logos that match your card. Airport and major-bank global ATMs are useful first choices; keep another payment method as backup.",
+            "ko": "Global/International 표시와 본인 카드의 국제 브랜드 로고가 있는 ATM을 우선 이용하세요. 공항이나 주요 은행의 글로벌 ATM을 먼저 시도하고 다른 결제수단도 준비하세요."
+          },
+          "source": "VISITKOREA",
+          "source_url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=374&vcontsId=140053"
+        }
+      ]
+    },
+    {
+      "id": "bus",
+      "name": {
+        "en": "Express & intercity bus",
+        "ko": "고속 · 시외버스"
+      },
+      "items": [
+        {
+          "id": "kobus-web",
+          "name": {
+            "en": "KOBUS · express bus web booking",
+            "ko": "KOBUS · 고속버스 웹 예매"
+          },
+          "status": "partial",
+          "needs_korean_number": false,
+          "why": {
+            "en": "VISITKOREA says KOBUS supports English, Japanese and Chinese online booking, but regional access restrictions may affect some countries.",
+            "ko": "VISITKOREA는 KOBUS가 영어·일본어·중국어 온라인 예매를 지원하지만 일부 국가에서는 접속 제한의 영향을 받을 수 있다고 안내합니다."
+          },
+          "workaround": {
+            "en": "If KOBUS does not work from your location, use an affiliated international platform such as Klook or Hanpass, or buy at the terminal.",
+            "ko": "현재 위치에서 KOBUS가 작동하지 않으면 Klook·Hanpass 같은 제휴 글로벌 플랫폼을 이용하거나 터미널에서 구매하세요."
+          },
+          "source": "VISITKOREA · Express Bus & Intercity Bus",
+          "source_url": "https://english.visitkorea.or.kr/svc/contents/infoBscView.do?vcontsId=140657"
+        },
+        {
+          "id": "intercity-domestic-web",
+          "name": {
+            "en": "Bustago / txBus · intercity web booking",
+            "ko": "Bustago / txBus · 시외버스 웹 예매"
+          },
+          "status": "partial",
+          "needs_korean_number": false,
+          "why": {
+            "en": "VISITKOREA says Bustago and txBus provide multilingual booking, but the route and ticket-delivery flow can vary and some bookings require ticket printing or terminal pickup.",
+            "ko": "VISITKOREA는 Bustago와 txBus가 다국어 예매를 지원한다고 안내하지만 노선과 발권 방식이 다를 수 있고 일부 예매는 터미널 출력·수령이 필요할 수 있습니다."
+          },
+          "workaround": {
+            "en": "Before paying, confirm whether a mobile ticket is accepted or terminal printing is required. Hanpass can be a simpler alternative for supported intercity routes.",
+            "ko": "결제 전에 모바일 승차권 사용 가능 여부와 터미널 출력 필요 여부를 확인하세요. 지원 노선이라면 Hanpass가 더 간단한 대안이 될 수 있습니다."
+          },
+          "source": "VISITKOREA · Express Bus & Intercity Bus",
+          "source_url": "https://english.visitkorea.or.kr/svc/contents/infoBscView.do?vcontsId=140657"
+        },
+        {
+          "id": "global-bus-platforms",
+          "name": {
+            "en": "Klook / Hanpass · bus booking",
+            "ko": "Klook / Hanpass · 버스 예매"
+          },
+          "status": "yes",
+          "needs_korean_number": false,
+          "why": {
+            "en": "VISITKOREA lists Klook and Hanpass as international booking options for Korean express/intercity buses and notes support for foreign-issued credit cards.",
+            "ko": "VISITKOREA는 Klook과 Hanpass를 한국 고속·시외버스의 외국인용 예매 수단으로 안내하며 해외 발급 신용카드 지원도 명시하고 있습니다."
+          },
+          "workaround": {
+            "en": "Check whether your exact route is covered; these platforms do not necessarily list every domestic bus.",
+            "ko": "원하는 정확한 노선이 지원되는지 확인하세요. 모든 국내 버스 노선이 등록되어 있는 것은 아닙니다."
+          },
+          "source": "VISITKOREA · 2026 transportation guide",
+          "source_url": "https://english.visitkorea.or.kr/public/contents/travel/KoreaTransportationGuide_enu.pdf"
+        }
+      ]
+    },
+    {
+      "id": "car",
+      "name": {
+        "en": "Rental car & car sharing",
+        "ko": "렌터카 · 카셰어링"
+      },
+      "items": [
+        {
+          "id": "sk-rentacar",
+          "name": {
+            "en": "SK Rent-a-Car",
+            "ko": "SK렌터카"
+          },
+          "status": "yes",
+          "needs_korean_number": false,
+          "why": {
+            "en": "SK Rent-a-Car provides an English reservation site for international travelers. Its rental requirements focus on a valid IDP, home-country license, passport, age/experience rules and a credit card in the driver’s name.",
+            "ko": "SK렌터카는 해외 여행자를 위한 영문 예약 사이트를 제공합니다. 주요 조건은 유효한 국제운전면허증(IDP), 본국 면허증, 여권, 연령·운전경력 및 운전자 본인 명의 신용카드입니다."
+          },
+          "workaround": {
+            "en": "Carry the original passport, valid paper IDP, home-country license and a credit card in the driver’s name. Confirm vehicle class and age requirements before booking.",
+            "ko": "여권 원본, 유효한 종이 국제운전면허증, 본국 운전면허증, 운전자 본인 명의 신용카드를 준비하세요. 예약 전 차종별 연령 조건도 확인하세요."
+          },
+          "source": "SK Rent-a-Car",
+          "source_url": "https://homepage.skdirect.co.kr/en/useGuide/shortRental/rentalQualification"
+        },
+        {
+          "id": "lotte-rentacar",
+          "name": {
+            "en": "LOTTE Rent-a-Car",
+            "ko": "롯데렌터카"
+          },
+          "status": "yes",
+          "needs_korean_number": false,
+          "why": {
+            "en": "VISITKOREA lists LOTTE Rent-a-Car as an online rental option for international visitors and notes foreign-issued credit-card support.",
+            "ko": "VISITKOREA는 롯데렌터카를 외국인 방문객이 온라인 예약할 수 있는 렌터카 수단으로 안내하고 해외 발급 신용카드 지원도 명시합니다."
+          },
+          "workaround": {
+            "en": "Prepare a valid IDP, passport, home-country license when required, and a credit card in the driver’s name. Check the company’s current pickup requirements before travel.",
+            "ko": "유효한 국제운전면허증, 여권, 필요한 경우 본국 운전면허증, 운전자 본인 명의 신용카드를 준비하세요. 여행 전 현재 차량 수령 조건을 다시 확인하세요."
+          },
+          "source": "VISITKOREA · Driving in Korea",
+          "source_url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=480&vcontsId=140664"
+        },
+        {
+          "id": "socar-domestic",
+          "name": {
+            "en": "SOCAR · domestic car sharing",
+            "ko": "쏘카 · 국내 카셰어링"
+          },
+          "status": "no",
+          "needs_korean_number": true,
+          "why": {
+            "en": "SOCAR’s own signup guidance says a personal mobile phone number is required to create the app account, and vehicle use also requires license registration.",
+            "ko": "쏘카 자체 가입 안내는 앱 계정 생성에 개인 명의 휴대폰 번호가 필요하다고 안내하며 차량 이용에는 운전면허 등록도 필요합니다."
+          },
+          "workaround": {
+            "en": "Use an international-traveler rental company such as SK Rent-a-Car or LOTTE Rent-a-Car instead of trying to bypass SOCAR’s domestic account verification.",
+            "ko": "쏘카의 국내 계정 인증을 우회하려 하지 말고 SK렌터카나 롯데렌터카 같은 외국인 여행자 이용이 가능한 일반 렌터카를 이용하세요."
+          },
+          "source": "SOCAR Enterprise FAQ",
+          "source_url": "https://enterprise.socar.kr/faqs/%EB%A9%B4%ED%97%88%EC%A6%9D-%EC%97%86%EC%9D%B4%EB%8F%84-%EA%B0%80%EC%9E%85%EC%9D%B4-%EA%B0%80%EB%8A%A5%ED%95%9C%EA%B0%80%EC%9A%94/"
+        }
+      ]
     }
   ],
   "disclaimer": {
