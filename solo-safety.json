@@ -1,0 +1,95 @@
+{
+  "schema": "korea-route/solo-safety",
+  "version": "1.0.0",
+  "updated": "2026-09-01",
+  "review_cycle_days": 180,
+  "disclaimer": {
+    "en": "None of this replaces calling 112 (police) or 119 (medical/fire) in an actual emergency. This screen is about preparation and lower-level discomfort — not a substitute for emergency services.",
+    "ko": "실제 응급상황에서는 112(경찰)·119(구급)에 전화하는 것을 대체하지 않습니다. 이 화면은 사전 준비와 경미한 불편 상황을 위한 것이지 응급 서비스의 대체재가 아닙니다."
+  },
+  "check_in_plan": {
+    "intro": {
+      "en": "Korea Route can't reliably send you a push reminder if the app isn't open, so the most dependable check-in method is telling a real person your plan before you go out.",
+      "ko": "코리아 루트는 앱이 꺼져 있으면 알림을 확실히 보낼 수 없습니다. 가장 확실한 체크인 방법은 나가기 전에 실제 사람에게 계획을 알리는 것입니다."
+    },
+    "message_template": {
+      "en": "Heading to {place} now. Should be done by {time}. I'll message you by then — if you don't hear from me, please try calling, and call 112 if you still can't reach me after that.",
+      "ko": "지금 {place}로 갑니다. {time}쯤 끝날 예정이에요. 그때까지 연락드릴게요 — 만약 연락이 없으면 전화해 주시고, 그래도 안 되면 112에 신고해 주세요."
+    },
+    "share_note": {
+      "en": "Fill in the place and time, then use your phone's share button to send this through whatever app your contact actually uses (KakaoTalk, WhatsApp, SMS, etc).",
+      "ko": "장소와 시간을 채운 뒤 휴대폰 공유 버튼으로 상대방이 실제 쓰는 앱(카카오톡, 왓츠앱, 문자 등)으로 보내세요."
+    }
+  },
+  "location_share": {
+    "intro": {
+      "en": "A one-tap way to send your current location as a map link, for the moment rather than continuous tracking.",
+      "ko": "지금 위치를 지도 링크로 한 번에 보내는 기능입니다. 지속적인 실시간 추적이 아니라 그 순간의 위치입니다."
+    },
+    "message_template": {
+      "en": "My current location: {mapLink}",
+      "ko": "제 현재 위치입니다: {mapLink}"
+    },
+    "note": {
+      "en": "For true continuous live location sharing, Google Maps and KakaoTalk both have a native 'share live location' feature — search for it in whichever app your contact already uses.",
+      "ko": "지속적인 실시간 위치 공유가 필요하면 구글맵과 카카오톡 둘 다 자체 '실시간 위치 공유' 기능이 있습니다 — 상대방이 쓰는 앱에서 찾아보세요."
+    }
+  },
+  "silent_112": {
+    "title": {
+      "en": "If you can't speak: silent 112 report",
+      "ko": "말하기 어려운 상황: 말 없는 112 신고"
+    },
+    "phone_method": {
+      "en": "Call 112. If you can't talk, tap any number key twice so it makes a knocking sound ('똑똑') — this is a recognized signal Korean police are trained to respond to. They will text you a secure link so you can share your camera view and location, and chat silently.",
+      "ko": "112에 전화하세요. 말할 수 없으면 아무 숫자 버튼이나 두 번 두드리듯 누르세요('똑똑') — 경찰이 훈련받은 인식 신호입니다. 카메라 화면과 위치를 공유하고 조용히 채팅할 수 있는 보안 링크를 문자로 보내줍니다."
+    },
+    "text_method": {
+      "en": "You can also send a text message to 112. Include your address or a description of where you are and what's happening — texts go to a central center that dispatches officers.",
+      "ko": "112로 문자를 보낼 수도 있습니다. 주소나 현재 위치, 상황 설명을 포함하세요 — 중앙 신고센터로 접수되어 경찰이 출동합니다."
+    },
+    "app": {
+      "name": "112신고 (Korean National Police app)",
+      "note": {
+        "en": "The official police app adds a fake-incoming-call feature and a loud whistle sound, both meant to help you exit an uncomfortable situation.",
+        "ko": "경찰청 공식 앱에는 위장전화(가짜 전화 오는 척)와 큰 소리 호루라기 기능이 있어 불편한 상황에서 빠져나오는 데 도움이 됩니다."
+      }
+    }
+  },
+  "seoul_ansimi": {
+    "name": {
+      "en": "Seoul Ansimi (안심이) app",
+      "ko": "서울시 안심이 앱"
+    },
+    "note": {
+      "en": "Seoul's official safe-walk-home app: live route monitoring with CCTV integration, an SOS button (works by shaking your phone or pressing the volume button), and a request for a walking escort late at night in some districts.",
+      "ko": "서울시 공식 안심귀가 앱: CCTV 연동 실시간 경로 모니터링, SOS 버튼(흔들기·볼륨버튼으로 작동), 일부 자치구에서는 심야 도보 동행 신청까지 가능합니다."
+    },
+    "caveat": {
+      "en": "Sign-up may require a Korean phone number — check this before counting on it as your main plan.",
+      "ko": "가입에 한국 휴대폰 번호가 필요할 수 있습니다 — 주 대책으로 삼기 전에 미리 확인하세요."
+    }
+  },
+  "uncomfortable_situation_phrases": [
+    {
+      "ko": "그만하세요.",
+      "en": "Please stop."
+    },
+    {
+      "ko": "저를 따라오지 마세요.",
+      "en": "Please don't follow me."
+    },
+    {
+      "ko": "도와주세요!",
+      "en": "Help me!"
+    },
+    {
+      "ko": "저 사람이 저를 괴롭히고 있어요.",
+      "en": "That person is bothering me."
+    },
+    {
+      "ko": "경찰을 불러 주세요.",
+      "en": "Please call the police."
+    }
+  ]
+}
