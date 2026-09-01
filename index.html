@@ -4101,7 +4101,7 @@ body.dark .v165-tab:not(.active),body.dark .v165-pick,body.dark .v165-check-sear
 
 
 <script>
-const KR_BUILD_VERSION='V172';
+const KR_BUILD_VERSION='V173';
 const TRANSLATIONS = {
   "ko": {
     "home.brand": "코리아 루트",
@@ -18743,8 +18743,14 @@ setTimeout(v140RenderLocalEvents,0);
 })();
 </script>
 
+
+<style id="v173-offline-data-badge-css">
+.v161-access-checked.offline,.v162-taxi-hero .checked.offline,.v165-updated.offline{background:rgba(245,158,11,.14)!important;border-color:rgba(245,158,11,.45)!important;color:#fbbf24!important;}
+</style>
+
 <script id="v161-foreigner-access-js">
 let v161AccessData=null;
+let v161AccessDataSource='network';
 let v161AccessOnlyNoNumber=false;
 let v161AccessReturn='helperHub';
 const V161_ACCESS_BADGES={yes:{icon:'○',en:'Works',ko:'사용 가능'},partial:{icon:'△',en:'With limits',ko:'제한 있음'},no:{icon:'✕',en:'Blocked',ko:'이용 어려움'}};
@@ -18765,6 +18771,7 @@ async function loadForeignerAccessData(force=false){
   try{
     const res=await fetch('./foreigner-access.json',{cache:'no-store'});
     if(!res.ok)throw new Error('HTTP '+res.status);
+    v161AccessDataSource=(res.headers.get('X-Korea-Route-Data-Source')||'network').toLowerCase();
     const data=await res.json();
     if(!v161ValidateAccessData(data))throw new Error('Invalid foreigner-access.json structure');
     v161AccessData=data;
@@ -18789,7 +18796,7 @@ function renderForeignerAccess(){
   const data=v161AccessData;if(!data)return;
   const title=document.getElementById('v161AccessTitle'),sub=document.getElementById('v161AccessSubtitle'),checked=document.getElementById('v161AccessChecked'),toggleLabel=document.getElementById('v161AccessToggleLabel'),toggle=document.getElementById('v161AccessToggle'),search=document.getElementById('v161AccessSearch'),body=document.getElementById('v161AccessBody'),disc=document.getElementById('v161AccessDisclaimer'),summary=document.getElementById('v161AccessSummary');
   if(title)title.textContent=v161L(data.title,'Can I use this?');if(sub)sub.textContent=v161L(data.subtitle);
-  if(checked)checked.textContent=(lang==='ko'?'마지막 업데이트 · ':'Last updated · ')+(data.source_checked_on||data.version||'—');
+  if(checked){const d=data.source_checked_on||data.version||'—';checked.textContent=v161AccessDataSource==='cache'?(lang==='ko'?`오프라인 저장 데이터 · 업데이트 ${d}`:`Offline saved data · updated ${d}`):(lang==='ko'?`마지막 업데이트 · ${d}`:`Last updated · ${d}`);checked.classList.toggle('offline',v161AccessDataSource==='cache');}
   if(toggleLabel)toggleLabel.textContent=v161L(data.toggle_label);if(toggle){toggle.classList.toggle('on',v161AccessOnlyNoNumber);toggle.setAttribute('aria-checked',v161AccessOnlyNoNumber?'true':'false')}
   if(search){search.placeholder=lang==='ko'?'서비스명 검색':'Search a service';search.setAttribute('aria-label',search.placeholder)}
   if(disc)disc.textContent=v161L(data.disclaimer);
@@ -18814,6 +18821,7 @@ applyLang=function(){v161OriginalApplyLang();if(v161AccessData)renderForeignerAc
 // V162 · Taxi Check. Data stays in taxi-fare.json; no exact-fare claim is made.
 let v162TaxiData=null;
 let v162TaxiLoading=null;
+let v162TaxiDataSource='network';
 const v162TaxiChecklistState=new Set(); // current page session only; intentionally not persisted.
 const v162TaxiDraft={distance:'',time:''}; // preserve inputs across language toggles/navigation in this page load only.
 
@@ -18828,7 +18836,7 @@ async function loadTaxiFareData(force=false){
   if(v162TaxiData) return v162TaxiData;
   if(v162TaxiLoading) return v162TaxiLoading;
   v162TaxiLoading=fetch('./taxi-fare.json',{cache:'no-store'})
-    .then(r=>{if(!r.ok)throw new Error('taxi-fare.json '+r.status);return r.json();})
+    .then(r=>{if(!r.ok)throw new Error('taxi-fare.json '+r.status);v162TaxiDataSource=(r.headers.get('X-Korea-Route-Data-Source')||'network').toLowerCase();return r.json();})
     .then(data=>{
       const region=data?.regions?.seoul;
       if(!region||!Number.isFinite(Number(region.base_fare))||!Number.isFinite(Number(region.base_distance_m))||!Number.isFinite(Number(region.distance_step_m))||!Number.isFinite(Number(region.distance_step_fare))||!Array.isArray(region?.surcharges?.windows))throw new Error('Invalid taxi-fare.json');
@@ -18911,7 +18919,7 @@ function renderTaxiCheckHub(){
   const data=v162TaxiData; const host=document.getElementById('v162TaxiBody'); if(!host||!data)return;
   const region=data.regions?.seoul; if(!region)return;
   const title=document.getElementById('v162TaxiTitle'),sub=document.getElementById('v162TaxiSubtitle'),checked=document.getElementById('v162TaxiChecked');
-  if(title)title.textContent=v162TaxiText(data.title);if(sub)sub.textContent=v162TaxiText(data.subtitle);if(checked)checked.textContent=`${lang==='ko'?'마지막 업데이트':'Last updated'} · ${data.checked_on||''}`;
+  if(title)title.textContent=v162TaxiText(data.title);if(sub)sub.textContent=v162TaxiText(data.subtitle);if(checked){const d=data.checked_on||'—';checked.textContent=v162TaxiDataSource==='cache'?(lang==='ko'?`오프라인 저장 데이터 · 업데이트 ${d}`:`Offline saved data · updated ${d}`):`${lang==='ko'?'마지막 업데이트':'Last updated'} · ${d}`;checked.classList.toggle('offline',v162TaxiDataSource==='cache');}
   const refs=(data.reference_trips||[]).map((r,i)=>`<button type="button" class="v162-ref" onclick="v162SetReferenceTrip(${i})">${v162TaxiEsc(v162TaxiText(r.name))}<span>≈ ${Number(r.distance_km).toFixed(1)} km · ${lang==='ko'?'거리 입력':'fill distance'}</span></button>`).join('');
   const checks=(data.before_you_ride||[]).map(item=>`<label class="v162-check ${v162TaxiChecklistState.has(String(item.id))?'done':''}" data-v162-check="${v162TaxiEsc(item.id)}"><input type="checkbox" ${v162TaxiChecklistState.has(String(item.id))?'checked':''} onchange="v162ToggleChecklist('${v162TaxiEsc(item.id)}',this.checked)"><span>${v162TaxiEsc(v162TaxiText(item.text))}</span></label>`).join('');
   const flags=(data.red_flags||[]).map(item=>`<div class="v162-flag ${item.severity==='high'?'high':''}" data-v162-flag="${v162TaxiEsc(item.id)}"><button type="button" class="v162-flag-toggle" aria-expanded="false" onclick="v162ToggleFlag('${v162TaxiEsc(item.id)}')"><span class="v162-flag-mark">${item.severity==='high'?'⚠️':'ℹ️'}</span><span class="v162-flag-title">${v162TaxiEsc(v162TaxiText(item.title))}</span><span class="v162-severity">${item.severity==='high'?(lang==='ko'?'주의':'CHECK'):(lang==='ko'?'참고':'INFO')}</span><span>⌄</span></button><div class="v162-flag-body">${v162TaxiEsc(v162TaxiText(item.body))}</div></div>`).join('');
@@ -18959,6 +18967,7 @@ async function copyTaxiPhrase(index){
 // V165 · Fair Price Check. All baselines and user-facing copy are sourced from price-baseline.json.
 let v165PriceData=null;
 let v165PriceLoading=null;
+let v165PriceDataSource='network';
 let v165PriceMode='browse';
 let v165SelectedItemId='';
 let v165SearchDraft='';
@@ -18982,7 +18991,7 @@ function v165ValidatePriceData(data){
 async function loadFairPriceData(force=false){
   if(v165PriceData&&!force)return v165PriceData;
   if(v165PriceLoading&&!force)return v165PriceLoading;
-  v165PriceLoading=fetch('./price-baseline.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('price-baseline.json '+r.status);return r.json();}).then(data=>{if(!v165ValidatePriceData(data))throw new Error('Invalid price-baseline.json structure');v165PriceData=data;return data;}).finally(()=>{v165PriceLoading=null;});
+  v165PriceLoading=fetch('./price-baseline.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('price-baseline.json '+r.status);v165PriceDataSource=(r.headers.get('X-Korea-Route-Data-Source')||'network').toLowerCase();return r.json();}).then(data=>{if(!v165ValidatePriceData(data))throw new Error('Invalid price-baseline.json structure');v165PriceData=data;return data;}).finally(()=>{v165PriceLoading=null;});
   return v165PriceLoading;
 }
 function v165AllItems(){const out=[];(v165PriceData?.groups||[]).forEach(g=>(g.items||[]).forEach(item=>out.push({item,group:g})));return out;}
@@ -19025,7 +19034,7 @@ function v165TipsHtml(){
 function v165SetMode(mode){v165PriceMode=mode==='check'?'check':'browse';renderFairPriceCheck();}
 function renderFairPriceCheck(){
   if(!v165PriceData)return;const title=document.getElementById('v165Title'),sub=document.getElementById('v165Subtitle'),updated=document.getElementById('v165Updated'),body=document.getElementById('v165Body'),tips=document.getElementById('v165Tips'),btab=document.getElementById('v165BrowseTab'),ctab=document.getElementById('v165CheckTab');
-  if(title)title.textContent=v165T(v165PriceData.title,'Fair Price Check');if(sub)sub.textContent=v165T(v165PriceData.subtitle);if(updated)updated.textContent=`${v165Ui('last_updated','Last updated')} · ${v165PriceData.checked_on||'—'}`;
+  if(title)title.textContent=v165T(v165PriceData.title,'Fair Price Check');if(sub)sub.textContent=v165T(v165PriceData.subtitle);if(updated){const d=v165PriceData.checked_on||'—';updated.textContent=v165PriceDataSource==='cache'?(lang==='ko'?`오프라인 저장 데이터 · 업데이트 ${d}`:`Offline saved data · updated ${d}`):`${v165Ui('last_updated','Last updated')} · ${d}`;updated.classList.toggle('offline',v165PriceDataSource==='cache');}
   if(btab){btab.textContent=v165Ui('browse','Browse');btab.classList.toggle('active',v165PriceMode==='browse');}if(ctab){ctab.textContent=v165Ui('check_price','Check a price');ctab.classList.toggle('active',v165PriceMode==='check');}
   if(body)body.innerHTML=v165PriceMode==='check'?v165RenderCheck():v165RenderBrowse();if(tips)tips.innerHTML=v165TipsHtml();
 }

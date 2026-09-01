@@ -1,6 +1,15 @@
-const CACHE='korea-route-public-beta-v172-0901';
+const CACHE='korea-route-public-beta-v173-0901';
 const CORE=['/','/index.html','/foreigner-access.json','/taxi-fare.json','/price-baseline.json'];
 const OPTIONAL=['/manifest.json','/icon-192.png','/icon-512.png'];
+const DATA_PATHS=new Set(['/foreigner-access.json','/taxi-fare.json','/price-baseline.json']);
+
+async function taggedResponse(response,source){
+  if(!response) return response;
+  const headers=new Headers(response.headers);
+  headers.set('X-Korea-Route-Data-Source',source);
+  const body=await response.clone().arrayBuffer();
+  return new Response(body,{status:response.status,statusText:response.statusText,headers});
+}
 
 self.addEventListener('install',event=>{
   event.waitUntil((async()=>{
@@ -34,6 +43,19 @@ self.addEventListener('fetch',event=>{
         })
         .catch(()=>caches.match('/index.html'))
     );
+    return;
+  }
+  if(DATA_PATHS.has(url.pathname)){
+    event.respondWith((async()=>{
+      try{
+        const response=await fetch(request,{cache:'no-store'});
+        if(!response.ok) throw new Error('HTTP '+response.status);
+        return taggedResponse(response,'network');
+      }catch(_){
+        const cached=await caches.match(request);
+        return cached?taggedResponse(cached,'cache'):Response.error();
+      }
+    })());
     return;
   }
   event.respondWith(fetch(request,{cache:'no-store'}).catch(()=>caches.match(request)));
