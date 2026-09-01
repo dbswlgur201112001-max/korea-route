@@ -4101,7 +4101,7 @@ body.dark .v165-tab:not(.active),body.dark .v165-pick,body.dark .v165-check-sear
 
 
 <script>
-const KR_BUILD_VERSION='V171';
+const KR_BUILD_VERSION='V172';
 const TRANSLATIONS = {
   "ko": {
     "home.brand": "코리아 루트",
@@ -18750,6 +18750,14 @@ let v161AccessReturn='helperHub';
 const V161_ACCESS_BADGES={yes:{icon:'○',en:'Works',ko:'사용 가능'},partial:{icon:'△',en:'With limits',ko:'제한 있음'},no:{icon:'✕',en:'Blocked',ko:'이용 어려움'}};
 function v161L(obj,fallback=''){if(!obj)return fallback;return obj[lang]||obj.en||obj.ko||fallback}
 function v161Escape(s=''){return String(s).replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]))}
+function v161IsBiText(value){return !!value&&typeof value==='object'&&typeof value.en==='string'&&value.en.trim()&&typeof value.ko==='string'&&value.ko.trim()}
+function v161ValidateAccessData(data){
+  if(!data||typeof data!=='object'||!Array.isArray(data.categories)||!data.categories.length||!v161IsBiText(data.disclaimer))return false;
+  const allowed=new Set(['yes','partial','no']);
+  return data.categories.every(cat=>cat&&typeof cat.id==='string'&&cat.id&&v161IsBiText(cat.name)&&Array.isArray(cat.items)&&cat.items.length&&cat.items.every(item=>
+    item&&typeof item.id==='string'&&item.id&&v161IsBiText(item.name)&&allowed.has(item.status)&&typeof item.needs_korean_number==='boolean'&&v161IsBiText(item.why)&&v161IsBiText(item.workaround)&&typeof item.source==='string'&&item.source.trim()&&typeof item.source_url==='string'&&item.source_url.trim()
+  ));
+}
 async function loadForeignerAccessData(force=false){
   if(v161AccessData&&!force)return v161AccessData;
   const body=document.getElementById('v161AccessBody');
@@ -18758,7 +18766,7 @@ async function loadForeignerAccessData(force=false){
     const res=await fetch('./foreigner-access.json',{cache:'no-store'});
     if(!res.ok)throw new Error('HTTP '+res.status);
     const data=await res.json();
-    if(!Array.isArray(data.categories))throw new Error('Invalid data');
+    if(!v161ValidateAccessData(data))throw new Error('Invalid foreigner-access.json structure');
     v161AccessData=data;
     renderForeignerAccess();
     return data;
@@ -18959,10 +18967,22 @@ function v165T(obj,fallback=''){if(obj==null)return fallback;if(typeof obj==='st
 function v165Esc(v=''){return typeof escapeHtmlText==='function'?escapeHtmlText(v):String(v).replace(/[&<>"']/g,'');}
 function v165Money(v){return Number(v||0).toLocaleString(lang==='ko'?'ko-KR':'en-US');}
 function v165Ui(key,fallback=''){return v165T(v165PriceData?.ui?.[key],fallback);}
+function v165IsBiText(value){return !!value&&typeof value==='object'&&typeof value.en==='string'&&value.en.trim()&&typeof value.ko==='string'&&value.ko.trim()}
+function v165ValidatePriceData(data){
+  if(!data||typeof data!=='object'||!Array.isArray(data.groups)||!data.groups.length||!Array.isArray(data.flag_rule?.tiers)||data.flag_rule.tiers.length!==4||!v165IsBiText(data.disclaimer)||!v165IsBiText(data.higher_price_note)||!Array.isArray(data.context_tips)||!data.context_tips.length)return false;
+  const tiersOk=data.flag_rule.tiers.every((tier,index)=>tier&&typeof tier.id==='string'&&tier.id&&v165IsBiText(tier.message)&&typeof tier.tone==='string'&&(index===data.flag_rule.tiers.length-1?tier.max_multiple==null:Number.isFinite(Number(tier.max_multiple))&&Number(tier.max_multiple)>0));
+  if(!tiersOk)return false;
+  return data.groups.every(group=>group&&typeof group.id==='string'&&group.id&&v165IsBiText(group.name)&&typeof group.source==='string'&&group.source.trim()&&typeof group.source_url==='string'&&group.source_url.trim()&&Array.isArray(group.items)&&group.items.length&&group.items.every(item=>{
+    if(!item||typeof item.id!=='string'||!item.id||!v165IsBiText(item.name)||!v165IsBiText(item.unit)||typeof item.fixed!=='boolean')return false;
+    const lo=Number(item.typical?.min),hi=Number(item.typical?.max);if(!Number.isFinite(lo)||!Number.isFinite(hi)||lo<0||hi<=0||hi<lo)return false;
+    if(item.fixed){const price=Number(item.price);if(!Number.isFinite(price)||price<=0||lo!==price||hi!==price)return false;}
+    return true;
+  }));
+}
 async function loadFairPriceData(force=false){
   if(v165PriceData&&!force)return v165PriceData;
   if(v165PriceLoading&&!force)return v165PriceLoading;
-  v165PriceLoading=fetch('./price-baseline.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('price-baseline.json '+r.status);return r.json();}).then(data=>{if(!Array.isArray(data.groups)||!Array.isArray(data.flag_rule?.tiers))throw new Error('Invalid price-baseline.json');v165PriceData=data;return data;}).finally(()=>{v165PriceLoading=null;});
+  v165PriceLoading=fetch('./price-baseline.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('price-baseline.json '+r.status);return r.json();}).then(data=>{if(!v165ValidatePriceData(data))throw new Error('Invalid price-baseline.json structure');v165PriceData=data;return data;}).finally(()=>{v165PriceLoading=null;});
   return v165PriceLoading;
 }
 function v165AllItems(){const out=[];(v165PriceData?.groups||[]).forEach(g=>(g.items||[]).forEach(item=>out.push({item,group:g})));return out;}

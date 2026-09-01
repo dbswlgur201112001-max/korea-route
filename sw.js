@@ -1,4 +1,4 @@
-const CACHE='korea-route-public-beta-v171-0901';
+const CACHE='korea-route-public-beta-v172-0901';
 const CORE=['/','/index.html','/foreigner-access.json','/taxi-fare.json','/price-baseline.json'];
 const OPTIONAL=['/manifest.json','/icon-192.png','/icon-512.png'];
 
