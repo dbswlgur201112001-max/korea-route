@@ -43,7 +43,7 @@
     ],
     "dish_notes": [
       { "dish": { "en": "Kimchi", "ko": "김치" }, "note": { "en": "Traditional kimchi is usually NOT vegan — it typically contains fish sauce or fermented shrimp. Ask for '비건 김치' specifically if it matters to you.", "ko": "전통 김치는 보통 비건이 아닙니다 — 액젓이나 새우젓이 들어가는 경우가 대부분입니다. 중요하다면 '비건 김치'를 따로 요청하세요." } },
-      { "dish": { "en": "Bibimbap", "ko": "비빔�ب" }, "note": { "en": "A good starting point — mostly vegetables and rice. Ask to remove egg and any meat.", "ko": "시작하기 좋은 메뉴 — 대부분 채소와 밥입니다. 달걀과 고기는 빼달라고 요청하세요." } },
+      { "dish": { "en": "Bibimbap", "ko": "비빔밥" }, "note": { "en": "A good starting point — mostly vegetables and rice. Ask to remove egg and any meat.", "ko": "시작하기 좋은 메뉴 — 대부분 채소와 밥입니다. 달걀과 고기는 빼달라고 요청하세요." } },
       { "dish": { "en": "Gimbap", "ko": "김밥" }, "note": { "en": "Often contains egg, ham, or fish cake — check before ordering, or ask for a vegetable-only version.", "ko": "달걀·햄·어묵이 들어간 경우가 많습니다 — 주문 전 확인하거나 채소만 넣은 버전을 요청하세요." } },
       { "dish": { "en": "Doenjang jjigae (soybean paste stew)", "ko": "된장찌개" }, "note": { "en": "The broth is very often anchovy-based even though the paste itself is soy.", "ko": "된장 자체는 콩이지만 육수는 멸치 기반인 경우가 매우 많습니다." } }
     ],
