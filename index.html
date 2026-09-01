@@ -4433,7 +4433,7 @@ body.dark .v197-quick-grid button.help{background:#341f28;border-color:#64404d;c
 
 
 <script>
-const KR_BUILD_VERSION='V200';
+const KR_BUILD_VERSION='V201';
 const TRANSLATIONS = {
   "ko": {
     "home.brand": "코리아 루트",
@@ -20764,6 +20764,173 @@ try{
 
 <script id="v199-place-search-fix-marker">
 /* V199 · Map place search now gives immediate visual response; known transport hubs also work without geocoding. */
+</script>
+<script id="v201-android-closewatcher-back">
+/* V201 · Android / installed-app Back bridge.
+   Some Android standalone launches treat the system Back action as a platform
+   close request and finish the app task before popstate can restore an SPA screen.
+   CloseWatcher receives that Android close request directly. */
+let v201CloseWatcher=null;
+let v201CloseHandling=false;
+
+function v201AndroidBackEnvironment(){
+  try{
+    return /Android/i.test(navigator.userAgent||'')
+      || window.matchMedia?.('(display-mode: standalone)')?.matches
+      || window.matchMedia?.('(display-mode: fullscreen)')?.matches
+      || window.matchMedia?.('(display-mode: minimal-ui)')?.matches
+      || navigator.standalone===true;
+  }catch(_){ return /Android/i.test(navigator.userAgent||''); }
+}
+function v201HasClosableLayer(){
+  const q=(sel)=>document.querySelector(sel);
+  return !!(
+    document.getElementById('v117TravelerTipsPanel')
+    || document.getElementById('v114ShareRoutePanel')
+    || document.getElementById('v113MapChoice')
+    || document.getElementById('v113LateNightPanel')
+    || document.getElementById('v76NearbyMapChoice')
+    || document.getElementById('v56SubwayOverlay')
+    || document.getElementById('v55EmergencyFind')
+    || document.getElementById('v107StaffPanel')
+    || document.getElementById('v106AddressPanel')
+    || document.getElementById('v105MakePanel')
+    || document.getElementById('v54LeavePanel')
+    || q('#phraseSheetLayer.show')
+    || q('#taxiCardLayer.show')
+    || document.getElementById('myTripEmergencySheet')
+    || q('#city .city-map-live-wrap.city-map-fullscreen')
+    || q('#cityTripTroublePanel.show')
+    || q('#cityEssentialDashboard.show')
+    || q('#cityMapSearchResults.show')
+    || q('#myTripHub.v60-detail')
+    || q('#helperHub.v118-tools-open')
+    || q('#home .v197-more[open]')
+    || q('#city.v198-map-info-open')
+    || q('#city.v198-filter-info-open')
+    || q('#city.v118-map-more')
+  );
+}
+function v201NeedsCloseWatcher(){
+  return v201AndroidBackEnvironment() && (current!=='home' || v201HasClosableLayer());
+}
+function v201ReplaceHistoryScreen(id,depth){
+  try{
+    history.replaceState({
+      ...(history.state||{}),
+      koreaRouteBackBase:false,
+      koreaRouteNav:true,
+      koreaRouteScreen:id,
+      koreaRouteDepth:Math.max(0,Number(depth)||0),
+      koreaRouteRelease:false
+    },document.title,location.href);
+  }catch(_){ }
+}
+function v201RestorePreviousInternalStep(){
+  if(typeof v61CloseTopLayer==='function' && v61CloseTopLayer()) return true;
+  if(current==='home') return false;
+
+  let depth=Math.max(0,Number(v200NavDepth)||0);
+  let previous='';
+  if(depth>0 && Array.isArray(v200NavStack)) previous=v200NavStack[depth-1]||'';
+
+  // Defensive fallback for a resumed standalone task whose JS stack was not rebuilt.
+  if(!previous || previous===current || !document.getElementById(previous)){
+    const parent={
+      city:'home',exploreHub:'home',moveHub:'home',move:'home',result:'moveHub',
+      myTripHub:'home',planner:'home',helperHub:'home',assistantHub:'helperHub',
+      walletHub:'helperHub',stayHub:'helperHub',transitCardHub:'helperHub',
+      taxiCheckHub:'moveHub',paymentAccessHub:'helperHub',cashConvenienceHub:'helperHub'
+    };
+    previous=parent[current]||'home';
+    depth=Math.max(1,depth);
+  }
+
+  const nextDepth=Math.max(0,depth-1);
+  if(Array.isArray(v200NavStack)){
+    v200NavStack=v200NavStack.slice(0,nextDepth+1);
+    if(!v200NavStack.length)v200NavStack=['home'];
+    v200NavStack[nextDepth]=previous;
+  }else{
+    v200NavStack=['home'];
+    if(previous!=='home')v200NavStack.push(previous);
+  }
+  v200NavDepth=nextDepth;
+  v200Restoring=true;
+  try{go(previous,{history:false});}
+  finally{v200Restoring=false;}
+  v201ReplaceHistoryScreen(previous,nextDepth);
+  return true;
+}
+function v201ConsumeAndroidBack(){
+  if(v201CloseHandling)return;
+  v201CloseHandling=true;
+  try{
+    v61BackExitArmedAt=0;
+    v201RestorePreviousInternalStep();
+  }catch(err){
+    console.warn('V201 Android Back restore skipped:',err);
+  }finally{
+    v201CloseHandling=false;
+    setTimeout(v201SyncCloseWatcher,0);
+  }
+}
+function v201DestroyCloseWatcher(){
+  if(!v201CloseWatcher)return;
+  try{v201CloseWatcher.destroy();}catch(_){ }
+  v201CloseWatcher=null;
+}
+function v201ArmCloseWatcher(){
+  if(!('CloseWatcher' in window) || !v201NeedsCloseWatcher()){
+    v201DestroyCloseWatcher();
+    return false;
+  }
+  if(v201CloseWatcher)return true;
+  try{
+    const watcher=new CloseWatcher();
+    v201CloseWatcher=watcher;
+    watcher.oncancel=(event)=>{
+      if(!event?.cancelable)return;
+      event.preventDefault();
+      try{watcher.destroy();}catch(_){ }
+      if(v201CloseWatcher===watcher)v201CloseWatcher=null;
+      v201ConsumeAndroidBack();
+    };
+    watcher.onclose=()=>{
+      if(v201CloseWatcher===watcher)v201CloseWatcher=null;
+      v201ConsumeAndroidBack();
+    };
+    return true;
+  }catch(err){
+    v201CloseWatcher=null;
+    console.warn('V201 CloseWatcher unavailable:',err);
+    return false;
+  }
+}
+function v201SyncCloseWatcher(){
+  if(v201NeedsCloseWatcher())v201ArmCloseWatcher();
+  else v201DestroyCloseWatcher();
+}
+
+// Wrap the final go() so every internal transition updates the Android Back guard.
+try{
+  const v201PreviousGo=go;
+  go=function(){
+    const out=v201PreviousGo.apply(this,arguments);
+    setTimeout(v201SyncCloseWatcher,0);
+    return out;
+  };
+}catch(err){console.warn('V201 go hook unavailable:',err)}
+
+document.addEventListener('click',()=>setTimeout(v201SyncCloseWatcher,0),true);
+document.addEventListener('toggle',()=>setTimeout(v201SyncCloseWatcher,0),true);
+window.addEventListener('pageshow',()=>setTimeout(v201SyncCloseWatcher,0));
+document.addEventListener('visibilitychange',()=>{
+  if(document.hidden)v201DestroyCloseWatcher();
+  else setTimeout(v201SyncCloseWatcher,0);
+});
+setTimeout(v201SyncCloseWatcher,0);
+setTimeout(v201SyncCloseWatcher,500);
 </script>
 </body>
 </html>
