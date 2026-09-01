@@ -3613,7 +3613,7 @@ body.dark .v197-quick-grid button.help{background:#341f28;border-color:#64404d;c
           </div>
         </details>
       </div>
-      <div class="city-map-search-hint" data-en="Search runs only when you tap Search · OpenStreetMap place data" data-ko="검색 버튼을 누를 때만 조회 · OpenStreetMap 장소 정보">Search runs only when you tap Search · OpenStreetMap place data</div>
+      <div class="city-map-search-hint" data-en="Tap Search · the map moves to the best match · OpenStreetMap place data" data-ko="검색을 누르면 가장 가까운 결과로 지도가 바로 이동합니다 · OpenStreetMap 장소 정보">Tap Search · the map moves to the best match · OpenStreetMap place data</div>
       <div class="city-map-search-results" id="cityMapSearchResults" aria-live="polite"></div>
     </div>
     <div class="city-map-tools" id="cityMapTools">
@@ -4433,7 +4433,7 @@ body.dark .v197-quick-grid button.help{background:#341f28;border-color:#64404d;c
 
 
 <script>
-const KR_BUILD_VERSION='V198';
+const KR_BUILD_VERSION='V199';
 const TRANSLATIONS = {
   "ko": {
     "home.brand": "코리아 루트",
@@ -9149,6 +9149,64 @@ function cityMapSearchSort(items,query=''){
   });
 }
 
+/* V199 · place-search response fix: known Korea Route transport hubs resolve locally,
+   and a successful search immediately moves the map to the first match. */
+function v199NormPlaceSearch(value){
+  return String(value||'').toLowerCase().replace(/[\s·._-]+/g,'').trim();
+}
+function v199HubSearchMatches(query){
+  const q=v199NormPlaceSearch(query);
+  if(!q||typeof ODSAY_MOVE_POINTS!=='object') return [];
+  const currentCity=document.getElementById('city')?.dataset.currentCity||'';
+  const rows=[];
+  Object.entries(ODSAY_MOVE_POINTS).forEach(([cityKey,p])=>{
+    const names=[p?.en,p?.ko,cityKey,`${cityKey} station`].filter(Boolean);
+    const exact=names.some(name=>v199NormPlaceSearch(name)===q);
+    const partial=names.some(name=>{
+      const n=v199NormPlaceSearch(name);
+      return q.length>=2&&(n.includes(q)||q.includes(n));
+    });
+    if(!exact&&!partial) return;
+    const lat=Number(p?.y),lng=Number(p?.x);
+    if(!Number.isFinite(lat)||!Number.isFinite(lng)) return;
+    const label=lang==='ko'?(p.ko||p.en):(p.en||p.ko);
+    rows.push({
+      kind:'hub',name:label,sub:lang==='ko'?`${cityKey} 대표 철도·교통 거점 · Korea Route 내장 위치`:`${cityKey} transport hub · built-in Korea Route location`,
+      lat,lng,icon:'🚉',category:{id:'station',icon:'🚉',en:'Station / Transit',ko:'역·교통',rank:0},
+      rank:currentCity===cityKey?-2:(exact?-1:0),importance:1,source:'Korea Route',_exact:exact,_city:cityKey
+    });
+  });
+  return cityMapSearchSort(rows,query).slice(0,8);
+}
+function v199SearchResultKey(x){
+  if(!x) return '';
+  if(Number.isFinite(Number(x.lat))&&Number.isFinite(Number(x.lng))) return `${Number(x.lat).toFixed(5)},${Number(x.lng).toFixed(5)}`;
+  return `${x.kind||''}:${x.index??''}:${String(x.name||'').toLowerCase()}`;
+}
+function v199MergeSearchResults(primary,secondary){
+  const out=[],seen=new Set();
+  [...(primary||[]),...(secondary||[])].forEach(x=>{const k=v199SearchResultKey(x);if(!k||seen.has(k))return;seen.add(k);out.push(x)});
+  return out;
+}
+function v199FocusFirstSearchResult(items,query='',source=''){
+  const first=(items||[])[0];
+  if(!first) return false;
+  if(first.kind==='poi'){
+    const city=document.getElementById('city')?.dataset.currentCity||'';
+    selectCityMapDestination(city,first.index,{pan:true});
+  }else if(first.kind==='facility'){
+    const f=cityMapLoadedFacilities[first.index];
+    if(f){renderCityFacilityGoCard(f);cityGuideMap?.setView([f.lat,f.lng],16,{animate:false});scheduleCityMapInvalidate();}
+  }else if(Number.isFinite(Number(first.lat))&&Number.isFinite(Number(first.lng))){
+    selectCityMapSearchPlace(first);
+  }else return false;
+  const map=document.getElementById('cityGuideMap');
+  if(map) setTimeout(()=>map.scrollIntoView({behavior:'smooth',block:'center'}),40);
+  const suffix=source==='local'?(lang==='ko'?' · 지도 이동 완료':' · map moved'):(lang==='ko'?' · 첫 결과로 지도 이동':' · map moved to first result');
+  setCityMapStatus((lang==='ko'?`“${query}” 검색 결과`:`Search result for “${query}”`)+suffix);
+  return true;
+}
+
 function cityMapSearchLocalMatches(query){
   const q=String(query||'').trim().toLowerCase();
   if(!q) return [];
@@ -9202,7 +9260,7 @@ function chooseCityMapSearchResult(i){
     const f=cityMapLoadedFacilities[item.index];
     if(f){renderCityFacilityGoCard(f);cityGuideMap?.setView([f.lat,f.lng],16,{animate:false});} return;
   }
-  if(item.kind==='osm') selectCityMapSearchPlace(item);
+  if(item.kind==='osm'||item.kind==='hub') selectCityMapSearchPlace(item);
 }
 
 function cityMapNearbyLabel(type){
@@ -9324,8 +9382,12 @@ async function searchCityMapPlace(){
   const input=document.getElementById('cityMapSearchInput');
   const q=String(input?.value||'').trim();
   if(!q){setCityMapStatus(lang==='ko'?'찾을 장소 이름을 입력하세요.':'Enter a place to search.');input?.focus();return;}
-  const local=cityMapSearchLocalMatches(q);
-  if(local.length){cityMapRenderSearchResults(local);setCityMapStatus(lang==='ko'?`앱 안에서 ${local.length}곳을 찾았습니다.`:`Found ${local.length} matching place${local.length>1?'s':''} in this guide.`);return;}
+  const local=v199MergeSearchResults(v199HubSearchMatches(q),cityMapSearchLocalMatches(q));
+  if(local.length){
+    cityMapRenderSearchResults(local);
+    v199FocusFirstSearchResult(local,q,'local');
+    return;
+  }
   const seq=++cityMapSearchRequestSeq;
   const city=document.getElementById('city')?.dataset.currentCity||'';
   setCityMapStatus(lang==='ko'?'OpenStreetMap에서 장소를 찾는 중…':'Searching OpenStreetMap places…');
@@ -9353,11 +9415,15 @@ async function searchCityMapPlace(){
       return {kind:'osm',name,sub:String(x.display_name||''),lat:Number(x.lat),lng:Number(x.lon),icon:category.icon,category,rank:category.rank,importance:Number(x.importance)||0,source:'OpenStreetMap'};
     }).filter(x=>x.name&&Number.isFinite(x.lat)&&Number.isFinite(x.lng)),q);
     cityMapRenderSearchResults(items);
-    setCityMapStatus(items.length?(lang==='ko'?`OpenStreetMap 장소 ${items.length}곳을 찾았습니다. 실제 영업·운영 여부는 별도 확인하세요.`:`Found ${items.length} OpenStreetMap places · verify current operation separately.`):(lang==='ko'?'검색 결과가 없습니다.':'No mapped places found.'));
+    if(items.length){
+      v199FocusFirstSearchResult(items,q,'network');
+    }else{
+      setCityMapStatus(lang==='ko'?'검색 결과가 없습니다.':'No mapped places found.');
+    }
   }catch(e){
     if(seq!==cityMapSearchRequestSeq) return;
-    if(box){box.innerHTML=`<div class="city-map-search-empty">${lang==='ko'?'장소 검색을 불러오지 못했습니다. 잠시 후 다시 시도하세요.':'Place search is temporarily unavailable. Try again shortly.'}</div>`;box.classList.add('show');}
-    setCityMapStatus(lang==='ko'?'장소 검색을 불러오지 못했습니다.':'Could not load place search.');
+    if(box){box.innerHTML=`<div class="city-map-search-empty"><b>${lang==='ko'?'장소 검색 연결이 잠시 불안정합니다.':'Place search is temporarily unavailable.'}</b><br><span>${lang==='ko'?'다시 시도하거나 Google Maps에서 같은 검색어를 확인하세요.':'Retry, or check the same query in Google Maps.'}</span><br><button type="button" class="soft" style="margin-top:8px" onclick="searchCityMapPlace()">↻ ${lang==='ko'?'다시 시도':'Retry'}</button> <button type="button" class="soft" style="margin-top:8px" onclick="window.open('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(document.getElementById('cityMapSearchInput')?.value||''),'_blank','noopener')">🗺️ Google Maps</button></div>`;box.classList.add('show');}
+    setCityMapStatus(lang==='ko'?'장소 검색 연결을 확인해 주세요.':'Check the place-search connection.');
   }
 }
 
@@ -20604,5 +20670,9 @@ try{
 }catch(err){console.warn('V198 map reset hook unavailable',err)}
 </script>
 
+
+<script id="v199-place-search-fix-marker">
+/* V199 · Map place search now gives immediate visual response; known transport hubs also work without geocoding. */
+</script>
 </body>
 </html>
