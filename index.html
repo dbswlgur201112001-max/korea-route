@@ -4433,7 +4433,7 @@ body.dark .v197-quick-grid button.help{background:#341f28;border-color:#64404d;c
 
 
 <script>
-const KR_BUILD_VERSION='V199';
+const KR_BUILD_VERSION='V200';
 const TRANSLATIONS = {
   "ko": {
     "home.brand": "코리아 루트",
@@ -4964,6 +4964,14 @@ function toggleAllTools(){
 }
 
 let current='home';
+// V200 · real in-app navigation history for Android/PWA Back.
+// Every screen transition gets a same-document history entry so hardware Back
+// returns one step at a time instead of dropping out of the standalone app.
+let v200HistoryReady=false;
+let v200Restoring=false;
+let v200NavDepth=0;
+let v200NavStack=['home'];
+
 const APP_RELEASE=`Korea Route Public Beta ${KR_BUILD_VERSION}`;
 
 // V36 safe auto-restore: persist only explicit, non-sensitive trip state and user preferences.
@@ -5125,10 +5133,41 @@ function applyLang(){
   if(bigMapExit) bigMapExit.setAttribute('aria-label',lang==='ko'?'큰 지도 닫기':'Close big map');
 }
 function toggleLang(){lang=lang==='en'?'ko':'en';localStorage.setItem('koreaRouteLang',lang);applyLang()}
-function go(id){
+function go(id,opts={}){
+  const target=document.getElementById(id);
+  if(!target){console.warn('Unknown screen:',id);return;}
+
+  // V200: normal forward navigation pushes a real same-document history entry.
+  // If the requested screen already exists earlier in our current stack (for example
+  // a visible Back button calling go('helperHub')), move back to that entry instead
+  // of creating a duplicate screen entry.
+  if(v200HistoryReady && !v200Restoring && opts?.history!==false && id!==current){
+    let previousIndex=-1;
+    for(let i=v200NavDepth-1;i>=0;i--){
+      if(v200NavStack[i]===id){previousIndex=i;break;}
+    }
+    if(previousIndex>=0){
+      const delta=previousIndex-v200NavDepth;
+      if(delta){history.go(delta);return;}
+    }
+    v200NavStack=v200NavStack.slice(0,v200NavDepth+1);
+    v200NavDepth+=1;
+    v200NavStack[v200NavDepth]=id;
+    try{
+      history.pushState({
+        ...(history.state||{}),
+        koreaRouteNav:true,
+        koreaRouteBackBase:false,
+        koreaRouteScreen:id,
+        koreaRouteDepth:v200NavDepth,
+        koreaRouteRelease:false
+      },document.title,location.href);
+    }catch(err){console.warn('V200 history push skipped:',err);}
+  }
+
   if(id!=='city'&&typeof stopCityWalkGuide==='function'&&cityWalkGuideTarget) stopCityWalkGuide({silent:true});
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active'); current=id; updateCTA(); if(typeof v60SyncTabbar==='function')v60SyncTabbar(id);
+  target.classList.add('active'); current=id; updateCTA(); if(typeof v60SyncTabbar==='function')v60SyncTabbar(id);
   window.scrollTo({top:0,behavior:'smooth'});
   setTimeout(()=>refreshActiveScreenState(id,{entry:true}),0);
 
@@ -16044,28 +16083,53 @@ function v117InitTravelerTips(){
 }
 document.addEventListener('DOMContentLoaded',v117InitTravelerTips);
 
-// V61 · Android / browser Back Guard
-// Web pages cannot force-close a browser or PWA process. Instead, Korea Route keeps
-// one same-document history guard entry: overlays/details close first, Home asks for
-// one more Back press, and the second Back within 2 seconds releases to browser history.
+// V200 · Android / browser / standalone PWA Back history
+// Keep a real same-document navigation stack. Hardware Back returns to the exact
+// previous Korea Route screen. Top layers (full map, sheets, drawers) close first.
+// Only Home uses the two-press exit guard.
 let v61BackExitArmedAt=0;
 let v61BackIsExiting=false;
 const V61_BACK_EXIT_WINDOW=2000;
 
+function v200CurrentHistoryState(){
+  return {
+    koreaRouteNav:true,
+    koreaRouteBackBase:false,
+    koreaRouteScreen:current||'home',
+    koreaRouteDepth:Math.max(0,Number(v200NavDepth)||0),
+    koreaRouteRelease:false
+  };
+}
 function v61RearmHistoryGuard(){
   try{
-    if(history.state?.koreaRouteBackGuard) return;
-    history.pushState({...(history.state||{}),koreaRouteBackGuard:true,koreaRouteRelease:false},document.title,location.href);
+    history.pushState({...(history.state||{}),...v200CurrentHistoryState()},document.title,location.href);
   }catch(_){ }
 }
 function v61InitHistoryGuard(){
+  if(v200HistoryReady)return;
   try{
     const state=history.state||{};
-    if(state.koreaRouteBackGuard) return;
-    if(state.koreaRouteBackBase){v61RearmHistoryGuard();return;}
-    history.replaceState({...state,koreaRouteBackBase:true,koreaRouteBackGuard:false},document.title,location.href);
-    v61RearmHistoryGuard();
-  }catch(_){ }
+    history.replaceState({
+      ...state,
+      koreaRouteBackBase:true,
+      koreaRouteNav:false,
+      koreaRouteScreen:'home',
+      koreaRouteDepth:-1,
+      koreaRouteRelease:false
+    },document.title,location.href);
+    const initial=current&&document.getElementById(current)?current:'home';
+    v200NavStack=[initial];
+    v200NavDepth=0;
+    history.pushState({
+      ...state,
+      koreaRouteBackBase:false,
+      koreaRouteNav:true,
+      koreaRouteScreen:initial,
+      koreaRouteDepth:0,
+      koreaRouteRelease:false
+    },document.title,location.href);
+    v200HistoryReady=true;
+  }catch(err){console.warn('V200 history init skipped:',err);}
 }
 function v61BackToast(){
   const text=lang==='ko'?'뒤로 한 번 더 누르면 종료됩니다.':'Press Back again to exit.';
@@ -16116,66 +16180,93 @@ function v61CloseTopLayer(){
   if(current==='home'&&homeMore){homeMore.open=false;return true;}
   return false;
 }
+
+function v200RestoreScreen(state){
+  const id=state?.koreaRouteScreen;
+  if(!id||!document.getElementById(id))return false;
+  const depth=Number.isFinite(Number(state.koreaRouteDepth))?Math.max(0,Number(state.koreaRouteDepth)):Math.max(0,v200NavDepth-1);
+  v200NavDepth=depth;
+  if(v200NavStack.length<=depth)v200NavStack.length=depth+1;
+  v200NavStack[depth]=id;
+  v200Restoring=true;
+  try{go(id,{history:false});}
+  finally{v200Restoring=false;}
+  return true;
+}
 function v61GoHomeFromBack(){
   document.getElementById('city')?.classList.remove('v60-map-mode');
   document.getElementById('moveHub')?.classList.remove('v60-route-mode');
-  go('home');
+  v200NavStack=['home'];
+  v200NavDepth=0;
+  v200Restoring=true;
+  try{go('home',{history:false});}
+  finally{v200Restoring=false;}
 }
-// V196 · Hardware Back follows the same route as the visible top-left Back button.
-// This prevents nested tools from jumping straight to Home (and then exiting the PWA)
-// when Android/Samsung hardware Back is used.
-function v196UseActiveScreenBackButton(){
-  if(!current || current==='home') return false;
-  const active=document.getElementById(current);
-  if(!active || !active.classList.contains('active')) return false;
-  const back=active.querySelector('.top .back');
-  if(!back || back.disabled) return false;
-  try{ back.click(); return true; }catch(err){ console.warn('V196 screen Back fallback failed:',current,err); return false; }
-}
-function v61HandleBackPop(){
-  if(v61BackIsExiting) return;
+// Kept for compatibility with older code paths. V200 no longer simulates a click on
+// the visible Back button; browser history itself is the source of truth.
+function v196UseActiveScreenBackButton(){return false;}
+function v61HandleBackPop(event){
+  if(v61BackIsExiting)return;
+
+  // A pop already moved the browser one history entry back. If a top layer is open,
+  // close only that layer and re-add the current screen entry so the underlying
+  // screen does not also change.
   if(v61CloseTopLayer()){
     v61BackExitArmedAt=0;
     v61RearmHistoryGuard();
     return;
   }
-  if(v196UseActiveScreenBackButton()){
+
+  const state=event?.state||{};
+  if(state.koreaRouteNav&&v200RestoreScreen(state)){
     v61BackExitArmedAt=0;
+    return;
+  }
+
+  if(state.koreaRouteBackBase){
+    // Reaching the base from any non-home screen should never eject the PWA.
+    // Recover to Home and put the guard back in place.
+    if(current!=='home'){
+      v61BackExitArmedAt=0;
+      v61GoHomeFromBack();
+      v61RearmHistoryGuard();
+      return;
+    }
+    const now=Date.now();
+    if(v61BackExitArmedAt&&now-v61BackExitArmedAt<=V61_BACK_EXIT_WINDOW){
+      v61BackIsExiting=true;
+      v61BackExitArmedAt=0;
+      setTimeout(()=>history.back(),0);
+      return;
+    }
+    v61BackExitArmedAt=now;
+    v61BackToast();
     v61RearmHistoryGuard();
     return;
   }
+
+  // Defensive fallback for an unexpected same-document state. Never drop a user
+  // straight out of the standalone app while an internal screen is visible.
   if(current!=='home'){
-    // Safety fallback for any future screen that forgets to provide a visible Back button.
     v61BackExitArmedAt=0;
     v61GoHomeFromBack();
     v61RearmHistoryGuard();
-    return;
   }
-  const now=Date.now();
-  if(v61BackExitArmedAt && now-v61BackExitArmedAt<=V61_BACK_EXIT_WINDOW){
-    v61BackIsExiting=true;
-    v61BackExitArmedAt=0;
-    // We are on the base entry after the second Back. Release to the browser/PWA.
-    setTimeout(()=>history.back(),0);
-    return;
-  }
-  v61BackExitArmedAt=now;
-  v61BackToast();
-  v61RearmHistoryGuard();
 }
 window.addEventListener('popstate',v61HandleBackPop);
-// V68: initialize immediately as well as on lifecycle events. Samsung Internet/PWA can
-// otherwise receive the first hardware Back before a deferred DOMContentLoaded guard exists.
+
+// Initialize immediately so Samsung Internet / installed PWA receives the guard
+// before the first hardware Back can occur.
 v61InitHistoryGuard();
 setTimeout(v61InitHistoryGuard,0);
 setTimeout(v61InitHistoryGuard,350);
 document.addEventListener('DOMContentLoaded',v61InitHistoryGuard);
-window.addEventListener('pageshow',e=>{v61BackIsExiting=false;setTimeout(v61InitHistoryGuard,e.persisted?0:40)});
+window.addEventListener('pageshow',()=>{v61BackIsExiting=false;if(!v200HistoryReady)setTimeout(v61InitHistoryGuard,0)});
 document.addEventListener('visibilitychange',()=>{
-  if(!document.hidden && !v61BackIsExiting) setTimeout(v61InitHistoryGuard,0);
+  if(!document.hidden&&!v61BackIsExiting&&!v200HistoryReady)setTimeout(v61InitHistoryGuard,0);
 });
 document.addEventListener('click',()=>{
-  if(v61BackExitArmedAt && Date.now()-v61BackExitArmedAt>V61_BACK_EXIT_WINDOW)v61BackExitArmedAt=0;
+  if(v61BackExitArmedAt&&Date.now()-v61BackExitArmedAt>V61_BACK_EXIT_WINDOW)v61BackExitArmedAt=0;
 },{passive:true});
 </script>
 
