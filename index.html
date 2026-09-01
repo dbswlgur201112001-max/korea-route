@@ -4101,7 +4101,7 @@ body.dark .v165-tab:not(.active),body.dark .v165-pick,body.dark .v165-check-sear
 
 
 <script>
-const KR_BUILD_VERSION='V173';
+const KR_BUILD_VERSION='V174';
 const TRANSLATIONS = {
   "ko": {
     "home.brand": "코리아 루트",
@@ -18832,8 +18832,7 @@ function v162TaxiText(obj){
 }
 function v162TaxiEsc(v){return typeof escapeHtmlText==='function'?escapeHtmlText(v):String(v??'').replace(/[&<>"']/g,'');}
 async function loadTaxiFareData(force=false){
-  if(force)v162TaxiData=null;
-  if(v162TaxiData) return v162TaxiData;
+  if(v162TaxiData&&!force) return v162TaxiData;
   if(v162TaxiLoading) return v162TaxiLoading;
   v162TaxiLoading=fetch('./taxi-fare.json',{cache:'no-store'})
     .then(r=>{if(!r.ok)throw new Error('taxi-fare.json '+r.status);v162TaxiDataSource=(r.headers.get('X-Korea-Route-Data-Source')||'network').toLowerCase();return r.json();})
@@ -19043,6 +19042,79 @@ function closeFairPriceCheckHub(){go('walletHub');}
 const v165OriginalApplyLang=applyLang;applyLang=function(){v165OriginalApplyLang();if(v165PriceData)renderFairPriceCheck();};
 </script>
 
+
+<script id="v174-online-data-recovery-script">
+// V174 · When connectivity returns, replace offline-saved reference data only after a valid network copy succeeds.
+// Existing cached data stays visible if the reconnect fetch still fails.
+(function(){
+  let timer=0;
+  function activeScreen(id){try{return typeof current!=='undefined'&&current===id}catch(_){return false}}
+  function mark(id){
+    const el=document.getElementById(id);if(!el)return;
+    el.textContent=lang==='ko'?'최신 데이터 확인 중…':'Checking for latest data…';
+    el.classList.add('offline');
+  }
+  async function refreshAccess(){
+    if(typeof v161AccessData==='undefined'||typeof loadForeignerAccessData!=='function')return false;
+    const oldData=v161AccessData,oldSource=v161AccessDataSource;
+    if(oldData&&oldSource!=='cache')return false;
+    if(!oldData&&!activeScreen('foreignerAccessHub'))return false;
+    if(activeScreen('foreignerAccessHub'))mark('v161AccessChecked');
+    try{
+      const fresh=await loadForeignerAccessData(true);
+      if(!fresh)throw new Error('access refresh failed');
+      if(activeScreen('foreignerAccessHub'))renderForeignerAccess();
+      return v161AccessDataSource==='network';
+    }catch(_){
+      v161AccessData=oldData;v161AccessDataSource=oldSource;
+      if(oldData&&activeScreen('foreignerAccessHub'))renderForeignerAccess();
+      return false;
+    }
+  }
+  async function refreshTaxi(){
+    if(typeof v162TaxiData==='undefined'||typeof loadTaxiFareData!=='function')return false;
+    const oldData=v162TaxiData,oldSource=v162TaxiDataSource;
+    if(oldData&&oldSource!=='cache')return false;
+    if(!oldData&&!activeScreen('taxiCheckHub'))return false;
+    if(activeScreen('taxiCheckHub'))mark('v162TaxiChecked');
+    try{
+      await loadTaxiFareData(true);
+      if(activeScreen('taxiCheckHub'))renderTaxiCheckHub();
+      return v162TaxiDataSource==='network';
+    }catch(_){
+      v162TaxiData=oldData;v162TaxiDataSource=oldSource;
+      if(oldData&&activeScreen('taxiCheckHub'))renderTaxiCheckHub();
+      return false;
+    }
+  }
+  async function refreshPrice(){
+    if(typeof v165PriceData==='undefined'||typeof loadFairPriceData!=='function')return false;
+    const oldData=v165PriceData,oldSource=v165PriceDataSource;
+    if(oldData&&oldSource!=='cache')return false;
+    if(!oldData&&!activeScreen('fairPriceHub'))return false;
+    if(activeScreen('fairPriceHub'))mark('v165Updated');
+    try{
+      await loadFairPriceData(true);
+      if(activeScreen('fairPriceHub'))renderFairPriceCheck();
+      return v165PriceDataSource==='network';
+    }catch(_){
+      v165PriceData=oldData;v165PriceDataSource=oldSource;
+      if(oldData&&activeScreen('fairPriceHub'))renderFairPriceCheck();
+      return false;
+    }
+  }
+  async function refreshAfterReconnect(){
+    if(typeof navigator!=='undefined'&&navigator.onLine===false)return;
+    const results=await Promise.allSettled([refreshAccess(),refreshTaxi(),refreshPrice()]);
+    const restored=results.some(r=>r.status==='fulfilled'&&r.value===true);
+    if(restored&&typeof v11Toast==='function')v11Toast(lang==='ko'?'최신 참고 데이터로 갱신했습니다.':'Latest reference data restored.');
+  }
+  window.addEventListener('online',()=>{
+    clearTimeout(timer);
+    timer=setTimeout(refreshAfterReconnect,650);
+  });
+})();
+</script>
 
 <script id="v166-mobile-safety-audit-script">
 // V166 · capture Taxi Check inputs before language rerender so mobile time controls cannot drop the current draft.
