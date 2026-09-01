@@ -151,7 +151,7 @@ export default async function handler(req,res){
   const image=parseImageDataUrl(req.body?.imageDataUrl);
   if(!image) return res.status(400).json({error:'INVALID_IMAGE'});
 
-  const model=process.env.GEMINI_KIOSK_MODEL || process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+  const model=process.env.GEMINI_KIOSK_MODEL || process.env.GEMINI_MODEL || 'gemini-3.6-flash';
   const endpoint=`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`;
   const controller=new AbortController();
   const timeout=setTimeout(()=>controller.abort(),20000);
@@ -163,7 +163,6 @@ export default async function handler(req,res){
       body:JSON.stringify({
         contents:[{role:'user',parts:[{text:KIOSK_PROMPT},{inlineData:{mimeType:image.mimeType,data:image.data}}]}],
         generationConfig:{
-          temperature:0,
           maxOutputTokens:1800,
           responseMimeType:'application/json',
           responseSchema:OUTPUT_SCHEMA
