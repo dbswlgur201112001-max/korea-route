@@ -17232,5 +17232,105 @@ setTimeout(v140RenderLocalEvents,0);
   try{setTimeout(v140RenderLocalEvents,0);}catch(_){}
 })();
 </script>
+
+
+<style id="v149-gyeongju-events-css">
+.v149-gyeongju-note{font-weight:800;color:#6e7d90}
+</style>
+<script id="v149-gyeongju-events-js">
+// V149 · Gyeongju event expansion. Static official data checked 2026-09-01.
+// Reuses V147 recurrence rules so museum/exhibition closure days do not create false TODAY matches.
+(function(){
+  if(typeof V140_OFFICIAL_EVENTS!=='object')return;
+
+  V140_OFFICIAL_EVENTS.Gyeongju={
+    official:'https://www.gyeongju.go.kr/tour/page.do?mnu_uid=2261',
+    festival:'https://www.gyeongju.go.kr/sillafestival/page.do?mnu_uid=2151',
+    sourceNameEn:'Gyeongju City / Gyeongju Cultural Foundation',
+    sourceNameKo:'경주시 / 경주문화재단',
+    officialLabelEn:'Gyeongju official event calendar',
+    officialLabelKo:'경주 공식 행사 일정',
+    festivalLabelEn:'Silla Cultural Festival',
+    festivalLabelKo:'신라문화제 공식 안내',
+    checkedOn:'2026-09-01',
+    events:[
+      {
+        key:'khnp-art-festival-special-2026',start:'2026-06-30',end:'2026-10-18',
+        nameEn:'KHNP Art Festival Special Exhibition – Korean Art: Late Joseon to Contemporary',nameKo:'2026 한수원아트페스티벌 특별전 <한국 미술, 조선 후기부터 현대까지>',
+        placeEn:'Gyeongju Arts Center · Alcheon Museum of Art',placeKo:'경주예술의전당 알천미술관 갤러리해(4F)',search:'Gyeongju Arts Center',mapSearchEn:'Gyeongju Arts Center',mapSearchKo:'경주예술의전당',
+        activeWeekdays:[0,2,3,4,5,6],
+        officialUrl:'https://garts.kr/index.do?menuId=00000260&menuLink=/user/sched/detl.do&schedId=SCHED_0000021189',
+        noteEn:'Open Tue–Sun, 10:00–18:00; last entry 17:30. Closed Mondays.',
+        noteKo:'화~일 10:00~18:00 운영, 마지막 입장 17:30. 월요일 휴관입니다.'
+      },
+      {
+        key:'little-prince-in-gyeongju-2026',start:'2026-07-15',end:'2026-09-30',
+        nameEn:'The Little Prince in Gyeongju',nameKo:'경주문화관1918 특별전시 <어린왕자 인 경주>',
+        placeEn:'Gyeongju Culture Center 1918 (former Gyeongju Station)',placeKo:'경주문화관1918(구 경주역)',search:'Gyeongju Culture Center 1918',mapSearchEn:'Gyeongju Culture Center 1918',mapSearchKo:'경주문화관1918',
+        activeWeekdays:[0,2,3,4,5,6],excludeDates:['2026-09-25'],
+        officialUrl:'https://garts.kr/index.do?menuId=00000261&menuLink=/user/sched/detl.do&schedId=SCHED_0000021285',
+        noteEn:'Open Tue–Sun, 10:00–17:30. Free admission. Closed Mondays and Sep 25 (Chuseok day).',
+        noteKo:'화~일 10:00~17:30 운영, 무료 관람. 월요일과 9월 25일 추석 당일 휴관입니다.'
+      },
+      {
+        key:'gyeongju-1918-earth-film-festival-2026',start:'2026-09-05',end:'2026-09-06',
+        nameEn:'Gyeongju Culture Center 1918 Environmental Film Festival – Play Again for Earth',nameKo:'경주문화관1918 환경영화제 <지구를 위해, 다시 PLAY>',
+        placeEn:'Gyeongju Culture Center 1918',placeKo:'경주문화관1918(구 경주역)',search:'Gyeongju Culture Center 1918',mapSearchEn:'Gyeongju Culture Center 1918',mapSearchKo:'경주문화관1918',
+        officialUrl:'https://www.gyeongju.go.kr/tour/page.do?cmd=2&con_uid=7777&listType=list&mnu_uid=2393',
+        noteEn:'Two-day environmental film event listed on Gyeongju City’s September culture calendar.',
+        noteKo:'경주시 9월 문화행사 일정에 등록된 이틀간의 환경영화제입니다.'
+      },
+      {
+        key:'legendary-little-basketball-team-musical-2026',start:'2026-09-11',end:'2026-09-11',
+        nameEn:'Musical – The Legendary Little Basketball Team',nameKo:'뮤지컬 <전설의 리틀 농구단>',
+        placeEn:'Gyeongju Arts Center · Hwarang Hall',placeKo:'경주예술의전당 화랑홀',search:'Gyeongju Arts Center',mapSearchEn:'Gyeongju Arts Center',mapSearchKo:'경주예술의전당',
+        officialUrl:'https://garts.kr/index.do?menuId=00000121&menuLink=/user/sched/detl.do&schedId=SCHED_0000021371',
+        noteEn:'One-day musical performance at Hwarang Hall. Check the official page for session and ticket details.',
+        noteKo:'화랑홀에서 열리는 1일 뮤지컬 공연입니다. 회차·티켓은 공식 페이지에서 확인하세요.'
+      },
+      {
+        key:'queen-elisabeth-winners-gyeongju-2026',start:'2026-09-13',end:'2026-09-13',
+        nameEn:'Queen Elisabeth Competition Winners Concert in Gyeongju',nameKo:'2026 퀸엘리자베스 콩쿠르 위너스 콘서트 in 경주',
+        placeEn:'Gyeongju Arts Center · Hwarang Hall',placeKo:'경주예술의전당 화랑홀',search:'Gyeongju Arts Center',mapSearchEn:'Gyeongju Arts Center',mapSearchKo:'경주예술의전당',
+        officialUrl:'https://garts.kr/index.do?menuId=00000121&menuLink=/user/sched/detl.do&schedCateCd=&schedId=SCHED_0000021355',
+        noteEn:'One-day winners concert at Hwarang Hall. Confirm performance time and ticket status before visiting.',
+        noteKo:'화랑홀에서 열리는 1일 위너스 콘서트입니다. 공연시간과 티켓 상태를 방문 전 확인하세요.'
+      },
+      {
+        key:'silla-ogi-chuseok-special-2026',start:'2026-09-25',end:'2026-09-25',
+        nameEn:'Silla Ogi – Chuseok Special Performance',nameKo:'2026 교촌문화공연 <신라오기> 추석특별공연',
+        placeEn:'Gyochon Traditional Village Square',placeKo:'경주 교촌마을 광장',search:'Gyochon Traditional Village',mapSearchEn:'Gyochon Traditional Village',mapSearchKo:'경주 교촌마을',
+        officialUrl:'https://garts.kr/index.do?evtId=EVT_10860&menuId=00000151&mode=detl&schedId=SCH_0011763&searchEvtId=EVT_10860&searchEvtKindId=KIND_003',
+        noteEn:'Free Chuseok special performance scheduled for 13:00. Rain or other conditions may change the schedule.',
+        noteKo:'13:00 예정 무료 추석 특별공연입니다. 우천 등 사유로 일정이 변경될 수 있습니다.'
+      },
+      {
+        key:'silla-cultural-festival-53-2026',start:'2026-10-09',end:'2026-10-11',
+        nameEn:'53rd Silla Cultural Festival',nameKo:'제53회 신라문화제',
+        placeEn:'Bonghwangdae & Woljeonggyo Bridge',placeKo:'경주 봉황대 및 월정교',search:'Bonghwangdae',mapSearchEn:'Bonghwangdae Gyeongju',mapSearchKo:'경주 봉황대',
+        officialUrl:'https://www.gyeongju.go.kr/sillafestival/page.do?mnu_uid=2151',
+        noteEn:'Gyeongju’s flagship heritage-and-arts festival runs Oct 9–11 around Bonghwangdae and Woljeonggyo.',
+        noteKo:'경주 대표 역사·예술 축제로 10월 9~11일 봉황대와 월정교 일원에서 열립니다.'
+      }
+    ]
+  };
+
+  // Use a precise representative map point while preserving multi-venue display labels.
+  v140OpenEventPlace=function(city,search){
+    const token=++v143EventMapToken;
+    const cfg=V140_OFFICIAL_EVENTS?.[city];
+    const event=cfg?.events?.find(e=>[e.search,e.placeKo,e.placeEn,e.mapSearchEn,e.mapSearchKo].filter(Boolean).includes(search));
+    const query=lang==='ko'?(event?.mapSearchKo||event?.search||event?.placeKo||search):(event?.mapSearchEn||event?.placeEn||event?.search||event?.nameEn||search);
+    const c=cityGuideConfig?.[city];
+    try{if(c&&typeof openCity==='function')openCity(city,c.ko,c.emoji,c.descEn,c.descKo,c.moveEn,c.moveKo,c.costEn,c.costKo);else go('city');}catch(_){try{go('city');}catch(__){}}
+    let tries=0;
+    const run=()=>{if(token!==v143EventMapToken)return;tries++;const input=document.getElementById('cityMapSearchInput');const cityReady=!cityState?.key||cityState.key===city;if(input&&cityReady){input.value=query||'';try{searchCityMapPlace();return;}catch(_){}}if(tries<10)setTimeout(run,120);else try{if(typeof v11Toast==='function')v11Toast(lang==='ko'?'지도가 아직 준비되지 않았어요. 다시 눌러주세요.':'Map is still loading. Tap the event map button again.');}catch(_){}};
+    setTimeout(run,80);
+  };
+
+  try{setTimeout(v140RenderLocalEvents,0);}catch(_){ }
+})();
+</script>
+
 </body>
 </html>
