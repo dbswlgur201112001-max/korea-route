@@ -4043,6 +4043,19 @@ body.dark .v175-unofficial-note,body.dark .v175-unofficial-result{background:#2a
 </section>
 
 
+<section class="screen" id="twoWayTalkHub">
+  <div class="top v180-normal-top"><button type="button" class="back" aria-label="Back / 뒤로" onclick="closeTwoWayTalkHub()">‹</button><div class="brand" data-en="Hear the answer" data-ko="상대방 대답 듣기">Hear the answer</div><button class="pill" onclick="toggleLang()">EN / 한국어</button></div>
+  <div class="v180-wrap">
+    <header class="v180-hero" id="v180Hero">
+      <div class="eyebrow">HELP · LANGUAGE · TWO-WAY</div>
+      <h1 id="v180Title">Hear the answer</h1>
+      <p id="v180Subtitle">Understand what comes back.</p>
+      <span class="v180-updated" id="v180Updated">Loading…</span>
+    </header>
+    <div id="v180Body"><div class="v180-loading">Loading answer cards…</div></div>
+  </div>
+</section>
+
 <section class="screen" id="helperHub">
   <div class="top"><button type="button" class="back" aria-label="Back / 뒤로" onclick="go('home')">‹</button><div class="brand" data-en="Help" data-ko="도움">Help</div><button class="pill" onclick="toggleLang()">EN / 한국어</button></div>
   <div class="v60-screen-intro"><h1 data-en="What do you need help with?" data-ko="어떤 도움이 필요한가요?">What do you need help with?</h1><p data-en="Start with the urgent action. Open the full toolbox only when you need it." data-ko="지금 필요한 행동부터 선택하세요. 전체 여행 도구는 필요할 때만 여세요.">Start with the urgent action. Open the full toolbox only when you need it.</p></div>
@@ -4081,6 +4094,7 @@ body.dark .v175-unofficial-note,body.dark .v175-unofficial-result{background:#2a
   </div></div>
   <div class="v60-helper-card" data-v69-tool-group="language"><h2 class="v60-group-title" data-en="Language & food" data-ko="언어 · 식당">Language & food</h2><div class="v60-icon-grid">
     <button type="button" onclick="openTranslationHub()"><span class="ico">💬</span><span data-en="Translate" data-ko="번역">Translate</span></button>
+    <button type="button" onclick="openTwoWayTalkHub('help')"><span class="ico">👂</span><span data-en="Hear the answer" data-ko="상대방 대답 듣기">Hear the answer</span></button>
     <button type="button" onclick="openPhraseSheet('all')"><span class="ico">📴</span><span data-en="Offline phrases" data-ko="오프라인 문장">Offline phrases</span></button>
     <button type="button" onclick="openRestaurantOrderHelper()"><span class="ico">🍽️</span><span data-en="Order food" data-ko="식당 주문">Order food</span></button>
     <button type="button" onclick="v115OpenFoodSafetyCard()"><span class="ico">🥗</span><span data-en="Food Safety Card" data-ko="음식 안전 카드">Food Safety Card</span></button>
@@ -4130,7 +4144,7 @@ body.dark .v175-unofficial-note,body.dark .v175-unofficial-result{background:#2a
 
 
 <script>
-const KR_BUILD_VERSION='V179';
+const KR_BUILD_VERSION='V180';
 const TRANSLATIONS = {
   "ko": {
     "home.brand": "코리아 루트",
@@ -13112,7 +13126,7 @@ function openTranslationHub(prefill=''){
         <button type="button" id="translateTargetBtn">${translationLanguageName(translationHubState.target)}</button>
       </div>
       <div class="translate-box"><label><span id="translateInputLabel">${lang==='ko'?'번역할 문장':'Text to translate'}</span><span class="translate-count" id="translateCount">0 / 600</span></label><textarea id="translateInput" maxlength="600" placeholder="${lang==='ko'?'여기에 문장을 입력하세요':'Type a short sentence here'}"></textarea></div>
-      <div class="translate-actions"><button type="button" class="primary" onclick="runTranslationHub()">🌐 ${lang==='ko'?'번역하기':'Translate'}</button><button type="button" onclick="clearTranslationHub()">⌫ ${lang==='ko'?'지우기':'Clear'}</button><button type="button" onclick="openPhraseSheet()">💬 ${lang==='ko'?'기본 여행 문장':'Quick phrases'}</button></div>
+      <div class="translate-actions"><button type="button" class="primary" onclick="runTranslationHub()">🌐 ${lang==='ko'?'번역하기':'Translate'}</button><button type="button" onclick="clearTranslationHub()">⌫ ${lang==='ko'?'지우기':'Clear'}</button><button type="button" onclick="openPhraseSheet()">💬 ${lang==='ko'?'기본 여행 문장':'Quick phrases'}</button><button type="button" class="v180-translate-entry" onclick="openTwoWayTalkHub('translation')">👂 ${lang==='ko'?'상대방 대답 듣기':'Hear the answer'}</button></div>
       <div id="translateStatus" class="translate-status">${lang==='ko'?'기기 내 번역 지원 여부를 번역할 때 확인합니다. 입력한 문장은 Korea Route의 자동 저장 대상이 아닙니다.':'On-device translation support is checked only when you translate. Translation text is not added to Korea Route auto-save.'}</div>
       <div id="translateResult" class="translate-result"><div class="label" id="translateResultLabel"></div><div class="big" id="translateResultBig"></div><div class="small" id="translateResultSource"></div><div class="translate-result-actions"><button type="button" onclick="copyTranslationResult()">📋 ${lang==='ko'?'결과 복사':'Copy result'}</button><button type="button" onclick="useTranslationAsReply()">⇄ ${lang==='ko'?'상대방 답변 번역':'Translate reply'}</button></div></div>
       <div id="translateFallback" class="translate-fallback"><p>${lang==='ko'?'이 브라우저에서 기기 내 번역을 사용할 수 없습니다. 입력한 문장을 직접 외부 번역 서비스로 열 수 있습니다. 외부 서비스를 열기 전에는 문장이 제3자에게 전송되지 않습니다.':'On-device translation is unavailable in this browser. You can choose to open the text in an external translation service. The text is not sent to a third party until you tap the button below.'}</p><button type="button" onclick="openExternalTranslation()">↗ ${lang==='ko'?'Google 번역에서 열기':'Open in Google Translate'}</button></div>
@@ -19534,5 +19548,148 @@ async function openPreArrivalHub(force=false){
 function closePreArrivalHub(){go(v178PreArrivalReturn&&document.getElementById(v178PreArrivalReturn)?v178PreArrivalReturn:'planner')}
 const v178OriginalApplyLang=applyLang;applyLang=function(){v178OriginalApplyLang();if(current==='preArrivalHub'){if(v178PreArrivalData)renderPreArrival();else v178SetHeader();}};
 </script>
+
+<style id="v180-two-way-talk-style">
+.v180-wrap{max-width:760px;margin:0 auto}.v180-hero{padding:4px 1px 12px}.v180-hero .eyebrow{font-size:11px;font-weight:950;letter-spacing:.08em;color:#57769b}.v180-hero h1{margin:6px 0 5px;color:#102d4e;font-size:29px;line-height:1.12}.v180-hero p{margin:0;color:#60758c;font-size:14px;line-height:1.55}.v180-updated{display:inline-flex;margin-top:9px;padding:5px 8px;border-radius:999px;background:#edf4fc;color:#496984;font-size:12px;font-weight:850}.v180-updated.offline{background:#fff2d8;color:#815c10}.v180-loading,.v180-error,.v180-panel{border:1px solid #dce5ef;border-radius:17px;background:#fff;padding:15px;color:#53677d;line-height:1.55}.v180-error button{margin-top:10px;min-height:44px;border:0;border-radius:12px;background:#0b2a54;color:#fff;padding:9px 13px;font-weight:900}.v180-search{position:relative;margin-bottom:12px}.v180-search input{width:100%;min-height:48px;border:1px solid #ccd8e5;border-radius:14px;background:#fff;color:#17324f;padding:10px 42px 10px 14px;font-size:16px;outline:none}.v180-search input:focus{border-color:#5b87b8;box-shadow:0 0 0 3px rgba(55,111,175,.12)}.v180-search span{position:absolute;right:14px;top:13px;font-size:18px}.v180-cats{display:flex;gap:7px;overflow:auto;padding:0 0 11px;scrollbar-width:none}.v180-cats::-webkit-scrollbar{display:none}.v180-cat{flex:0 0 auto;min-height:40px;border:1px solid #cfdae6;border-radius:999px;background:#fff;color:#355775;padding:7px 12px;font-size:12px;font-weight:900}.v180-cat.active{background:#0d315d;border-color:#0d315d;color:#fff}.v180-scenarios{display:grid;gap:9px}.v180-scenario{width:100%;min-height:64px;border:1px solid #d8e2ec;border-radius:16px;background:#fff;color:#17324f;text-align:left;padding:12px 13px;display:grid;grid-template-columns:36px minmax(0,1fr) 18px;align-items:center;gap:9px}.v180-scenario .ico{width:36px;height:36px;border-radius:11px;background:#eef4fb;display:grid;place-items:center;font-size:18px}.v180-scenario b{font-size:15px;line-height:1.4}.v180-scenario small{display:block;margin-top:4px;color:#75869a;font-size:11px;line-height:1.35}.v180-empty{padding:20px;text-align:center;color:#75869a}.v180-question{border:1px solid #d9e4ef;border-radius:18px;background:#fff;padding:17px}.v180-kicker{font-size:11px;font-weight:950;letter-spacing:.07em;color:#66809c}.v180-question h2{margin:7px 0 8px;color:#17324f;font-size:24px;line-height:1.28}.v180-question-note{margin:10px 0 0;padding:11px;border-radius:12px;background:#f3f7fb;color:#526a82;font-size:13px;line-height:1.55}.v180-question-actions{display:grid;gap:8px;margin-top:15px}.v180-question-actions button{min-height:48px;border:1px solid #cbd9e7;border-radius:13px;background:#f7fafd;color:#214b72;padding:9px 12px;font-size:14px;font-weight:900}.v180-question-actions .handover{min-height:62px;background:#0b2a54;border-color:#0b2a54;color:#fff;font-size:17px}.v180-backlink{margin-top:12px;min-height:42px;border:0;background:transparent;color:#426687;font-weight:850}.v180-disclaimer{margin-top:14px;padding:12px;border-radius:13px;background:#f3f6fa;color:#5f7286;font-size:12px;line-height:1.55}.v180-screen.handover-mode{}.v180-handover-mode .v180-normal-top,.v180-handover-mode #v180Hero{display:none}.v180-handover-mode .v180-wrap{max-width:none;margin:0;padding:0}.v180-handover{min-height:100dvh;background:#f7fbff;padding:18px 14px 28px;color:#102b48}.v180-handover .local-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}.v180-handover .local-top button{min-height:42px;border:1px solid #cbd9e7;border-radius:12px;background:#fff;color:#244c70;padding:7px 11px;font-weight:900}.v180-handover-question{margin:6px 0 12px;font-size:clamp(30px,8vw,36px);line-height:1.23;font-weight:950;letter-spacing:-.03em;text-align:center;word-break:keep-all}.v180-handover-instruction{margin:0 auto 15px;max-width:580px;text-align:center;color:#385a78;font-size:17px;font-weight:900;line-height:1.5}.v180-reply-list{display:grid;gap:9px;max-width:620px;margin:0 auto}.v180-reply-btn{width:100%;min-height:64px;border:2px solid #c6d7e8;border-radius:16px;background:#fff;color:#112f4e;padding:12px 14px;font-size:20px;font-weight:950;line-height:1.35;text-align:center;word-break:keep-all}.v180-reply-btn:active{transform:scale(.99);background:#edf5fd}.v180-numeric{max-width:620px;margin:18px auto 0;padding-top:17px;border-top:2px solid #d8e5f1}.v180-number-display{display:flex;align-items:baseline;justify-content:center;gap:8px;min-height:72px;margin:10px 0 12px;border:2px solid #bfcfe0;border-radius:16px;background:#fff;padding:9px 12px}.v180-number-display b{font-size:40px;line-height:1;font-variant-numeric:tabular-nums}.v180-number-display span{font-size:20px;font-weight:900}.v180-number-msg{min-height:20px;text-align:center;color:#8a5b12;font-size:12px;font-weight:850}.v180-keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.v180-keypad button{min-height:62px;border:1px solid #bfd0e1;border-radius:14px;background:#fff;color:#153553;font-size:24px;font-weight:950}.v180-keypad button.action{font-size:15px;background:#eaf2fa}.v180-keypad button.confirm{background:#0b2a54;color:#fff;border-color:#0b2a54}.v180-secondary-tools{max-width:620px;margin:20px auto 0;padding-top:18px;border-top:1px solid #d4e1ed}.v180-tool-box{margin-top:10px;border:1px solid #cfdeeb;border-radius:15px;background:#fff;padding:12px}.v180-tool-title{display:flex;align-items:center;justify-content:space-between;gap:9px}.v180-tool-title b{font-size:15px}.v180-tool-title button{min-height:42px;border:1px solid #c5d6e6;border-radius:11px;background:#eef5fb;color:#1e4b72;padding:7px 11px;font-weight:900}.v180-tool-title button:disabled{opacity:.48}.v180-offline-reason,.v180-voice-unavailable{margin:8px 0 0;color:#718396;font-size:12px;line-height:1.5}.v180-type-area{display:none;margin-top:10px}.v180-type-area.show{display:block}.v180-type-area textarea{width:100%;min-height:120px;resize:vertical;border:2px solid #c3d4e4;border-radius:13px;background:#fff;color:#17324f;padding:12px;font-size:18px;line-height:1.45}.v180-type-area .submit{width:100%;min-height:50px;margin-top:8px;border:0;border-radius:12px;background:#0b2a54;color:#fff;font-size:15px;font-weight:950}.v180-voice-panel{display:none;margin-top:10px;padding:11px;border-radius:12px;background:#f4f8fc;color:#405d78;font-size:13px;line-height:1.5}.v180-voice-panel.show{display:block}.v180-voice-panel button{min-height:44px;margin-top:8px;border:1px solid #bfcfe0;border-radius:11px;background:#fff;color:#214d75;padding:7px 10px;font-weight:900}.v180-heard{margin-top:9px;padding:10px;border:1px solid #cbd9e7;border-radius:11px;background:#fff;color:#183a5d}.v180-always{max-width:620px;margin:20px auto 0;padding-top:16px;border-top:1px dashed #bfcfe0}.v180-always h3{margin:0 0 8px;color:#617890;font-size:12px}.v180-always-list{display:grid;grid-template-columns:1fr 1fr;gap:7px}.v180-always-list button{min-height:56px;border:1px solid #d0dce8;border-radius:12px;background:#fff;color:#34536e;padding:8px;font-size:14px;font-weight:800}.v180-answer{min-height:60vh;display:grid;align-content:center;text-align:center;padding:18px 10px}.v180-answer .label{color:#698099;font-size:13px;font-weight:950;letter-spacing:.06em;text-transform:uppercase}.v180-answer .big{margin:12px auto 8px;max-width:650px;color:#102e4d;font-size:clamp(30px,8vw,42px);line-height:1.2;font-weight:950;word-break:keep-all}.v180-answer .small{margin:0 auto;max-width:620px;color:#708298;font-size:15px;line-height:1.5}.v180-heard-note{max-width:620px;margin:12px auto 0;padding:10px 12px;border-radius:12px;background:#eef5fb;color:#4a6682;font-size:13px;line-height:1.5}.v180-fallback-note{max-width:620px;margin:12px auto 0;padding:11px 12px;border:1px solid #e4bd75;border-radius:12px;background:#fff8e7;color:#684d1b;font-size:13px;line-height:1.5}.v180-answer-actions{display:grid;gap:8px;max-width:500px;margin:22px auto 0}.v180-answer-actions button{min-height:50px;border:1px solid #c9d7e5;border-radius:13px;background:#fff;color:#234c70;font-weight:950}.v180-answer-actions .primary{background:#0b2a54;border-color:#0b2a54;color:#fff}.v180-translate-entry{border-color:#9fb9d5!important;background:#edf5fd!important;color:#184b78!important}.v180-sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+body.dark .v180-loading,body.dark .v180-error,body.dark .v180-panel,body.dark .v180-search input,body.dark .v180-cat,body.dark .v180-scenario,body.dark .v180-question{background:#101c2e;border-color:#2c3d52;color:#eaf2fb}body.dark .v180-hero h1,body.dark .v180-question h2{color:#edf4fb}body.dark .v180-hero p,body.dark .v180-scenario small,body.dark .v180-disclaimer{color:#b6c4d5}body.dark .v180-cat.active{background:#dcecff;border-color:#dcecff;color:#112d49}body.dark .v180-scenario .ico,body.dark .v180-question-note,body.dark .v180-disclaimer{background:#17263b}body.dark .v180-question-note{color:#c0cede}body.dark .v180-updated{background:#172b44;color:#c7daf0}body.dark .v180-updated.offline{background:#392f17;color:#f1d487}body.dark .v180-handover{background:#0f1b2b;color:#edf4fb}body.dark .v180-handover-question{color:#fff}body.dark .v180-handover-instruction{color:#c8d7e5}body.dark .v180-handover .local-top button,body.dark .v180-reply-btn,body.dark .v180-number-display,body.dark .v180-keypad button,body.dark .v180-tool-box,body.dark .v180-type-area textarea,body.dark .v180-voice-panel button,body.dark .v180-heard,body.dark .v180-always-list button,body.dark .v180-answer-actions button{background:#15263a;border-color:#354a61;color:#eef5fc}body.dark .v180-keypad button.action,body.dark .v180-voice-panel{background:#1a2d43}body.dark .v180-keypad button.confirm,body.dark .v180-type-area .submit,body.dark .v180-answer-actions .primary{background:#d8eaff;border-color:#d8eaff;color:#102d4b}body.dark .v180-answer .big{color:#eff6fd}body.dark .v180-answer .small{color:#b7c6d7}body.dark .v180-heard-note{background:#172a40;color:#c3d3e4}body.dark .v180-fallback-note{background:#332b17;border-color:#75602a;color:#eed68d}
+@media(max-width:420px){.v180-hero h1{font-size:28px}.v180-scenario{min-height:66px}.v180-question h2{font-size:22px}.v180-handover{padding:14px 11px 24px}.v180-handover-question{font-size:30px}.v180-handover-instruction{font-size:17px}.v180-reply-btn{min-height:64px;font-size:20px}.v180-always-list{grid-template-columns:1fr}.v180-keypad button{min-height:60px}.v180-answer .big{font-size:32px}}
+</style>
+<script id="v180-two-way-talk-script">
+// V180 · Hear the answer. Answer cards/numbers are the primary offline modes; voice and free text are optional online helpers.
+let v180TwoWayData=null;
+let v180TwoWayDataSource='network';
+let v180TwoWayLoading=null;
+let v180TwoWayReturn='helperHub';
+let v180ReturnToTranslate=false;
+let v180Stage='browse';
+let v180SelectedId='';
+let v180Category='all';
+let v180Search='';
+let v180Number='';
+let v180NumberMessage='';
+let v180Answer=null;
+let v180VoiceRecognition=null;
+let v180HeardText='';
+let v180VoiceStatus='';
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+
+const V180_APP_LINKS={
+  foodSafetyCard:{available:()=>typeof v115OpenFoodSafetyCard==='function',open:()=>v115OpenFoodSafetyCard()},
+  fairPriceHub:{available:()=>typeof openFairPriceCheckHub==='function'&&!!document.getElementById('fairPriceHub'),open:()=>openFairPriceCheckHub('twoWayTalkHub')}
+};
+function v180Bi(v){return !!(v&&typeof v==='object'&&typeof v.en==='string'&&v.en.trim()&&typeof v.ko==='string'&&v.ko.trim())}
+function v180ValidateTwoWayData(data){
+  if(!data||typeof data!=='object'||data.schema!=='korea-route/two-way-talk')return false;
+  if(!Array.isArray(data.categories)||!data.categories.length||!Array.isArray(data.scenarios)||!data.scenarios.length)return false;
+  if(typeof data.handover_instruction_ko!=='string'||!data.handover_instruction_ko.trim()||typeof data.handover_instruction_ko_number!=='string'||!data.handover_instruction_ko_number.trim())return false;
+  if(!v180Bi(data.title)||!v180Bi(data.subtitle)||!v180Bi(data.disclaimer)||!data.ui)return false;
+  for(const k of ['mode_cards','mode_number','mode_type','mode_voice','hand_over','back_to_me','ask_again','answer_label','no_answer_yet','voice_unavailable','voice_privacy','number_prompt_generic','clear','search_placeholder'])if(!v180Bi(data.ui[k]))return false;
+  const cats=new Set();
+  for(const c of data.categories){if(!c||typeof c.id!=='string'||!c.id.trim()||!/^[A-Za-z0-9_-]+$/.test(c.id)||cats.has(c.id)||!v180Bi(c.name))return false;cats.add(c.id)}
+  const ids=new Set();
+  for(const sc of data.scenarios){
+    if(!sc||typeof sc.id!=='string'||!sc.id.trim()||!/^[A-Za-z0-9_-]+$/.test(sc.id)||ids.has(sc.id)||!cats.has(sc.category)||!v180Bi(sc.ask))return false;ids.add(sc.id);
+    if(sc.note!=null&&!v180Bi(sc.note))return false;if(sc.app_link!=null&&(typeof sc.app_link!=='string'||!/^[A-Za-z][A-Za-z0-9_-]*$/.test(sc.app_link)))return false;if(sc.app_link_label!=null&&!v180Bi(sc.app_link_label))return false;
+    let replyCount=0;
+    if(sc.replies!=null){if(!Array.isArray(sc.replies))return false;replyCount=sc.replies.length;for(const r of sc.replies){if(!r||typeof r.id!=='string'||!/^[A-Za-z0-9_-]+$/.test(r.id)||typeof r.ko!=='string'||!r.ko.trim()||typeof r.en!=='string'||!r.en.trim())return false;}}
+    const numericEnabled=!!(sc.numeric&&sc.numeric.enabled===true);
+    if(numericEnabled){if(!v180Bi(sc.numeric.unit)||typeof sc.numeric.max!=='number'||!Number.isFinite(sc.numeric.max)||sc.numeric.max<=0)return false;}
+    if(!replyCount&&!numericEnabled)return false;
+  }
+  if(data.always_available_replies!=null){if(!Array.isArray(data.always_available_replies))return false;for(const r of data.always_available_replies){if(!r||typeof r.id!=='string'||!/^[A-Za-z0-9_-]+$/.test(r.id)||typeof r.ko!=='string'||!r.ko.trim()||typeof r.en!=='string'||!r.en.trim())return false;}}
+  return true;
+}
+function v180T(v,f=''){return v&&typeof v==='object'?(v[lang]||v.en||v.ko||f):(v||f)}
+function v180Esc(v){return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
+function v180Ui(k,f=''){return v180T(v180TwoWayData?.ui?.[k],f)}
+function v180Online(){return navigator.onLine!==false}
+function v180Scenario(){return v180TwoWayData?.scenarios?.find(x=>x.id===v180SelectedId)||null}
+function v180AppAvailable(k){const x=V180_APP_LINKS[k];try{return !!(x&&x.available())}catch(_){return false}}
+function v180OpenApp(k){const x=V180_APP_LINKS[k];if(!x||!v180AppAvailable(k))return;x.open()}
+function v180SetHeader(){
+  const d=v180TwoWayData,t=document.getElementById('v180Title'),s=document.getElementById('v180Subtitle'),u=document.getElementById('v180Updated');
+  if(t)t.textContent=d?v180T(d.title,'Hear the answer'):(lang==='ko'?'상대방 대답 듣기':'Hear the answer');
+  if(s)s.textContent=d?v180T(d.subtitle):(lang==='ko'?'돌아오는 대답을 이해하세요.':'Understand what comes back.');
+  if(u){if(d){const date=d.checked_on||'—';u.textContent=v180TwoWayDataSource==='cache'?(lang==='ko'?`오프라인 저장 데이터 · 업데이트 ${date}`:`Offline saved data · updated ${date}`):(lang==='ko'?`마지막 업데이트 · ${date}`:`Last updated · ${date}`);u.classList.toggle('offline',v180TwoWayDataSource==='cache');}else{u.textContent=lang==='ko'?'데이터 불러오는 중…':'Loading data…';u.classList.remove('offline')}}
+}
+function v180SetModeClass(){document.getElementById('twoWayTalkHub')?.classList.toggle('v180-handover-mode',v180Stage==='handover')}
+function v180CategoryName(id){const c=v180TwoWayData?.categories?.find(x=>x.id===id);return c?v180T(c.name):id}
+function v180RenderBrowse(){
+  const d=v180TwoWayData;const q=v180Search.trim().toLocaleLowerCase();
+  const cats=`<button type="button" class="v180-cat ${v180Category==='all'?'active':''}" onclick="v180SetCategory('all')">${lang==='ko'?'전체':'All'}</button>`+d.categories.map(c=>`<button type="button" class="v180-cat ${v180Category===c.id?'active':''}" onclick="v180SetCategory('${v180Esc(c.id)}')">${v180Esc(c.icon||'')} ${v180Esc(v180T(c.name))}</button>`).join('');
+  const rows=d.scenarios.filter(sc=>{if(v180Category!=='all'&&sc.category!==v180Category)return false;if(!q)return true;const c=d.categories.find(x=>x.id===sc.category);const hay=[sc.ask.en,sc.ask.ko,c?.name?.en,c?.name?.ko].join(' ').toLocaleLowerCase();return hay.includes(q)}).map(sc=>{const c=d.categories.find(x=>x.id===sc.category);return `<button type="button" class="v180-scenario" onclick="v180SelectScenario('${v180Esc(sc.id)}')"><span class="ico">${v180Esc(c?.icon||'💬')}</span><span><b>${v180Esc(v180T(sc.ask))}</b><small>${v180Esc(v180T(c?.name)||'')}</small></span><span>›</span></button>`}).join('');
+  return `<div class="v180-search"><input id="v180SearchInput" type="search" autocomplete="off" value="${v180Esc(v180Search)}" placeholder="${v180Esc(v180Ui('search_placeholder','Search a situation'))}" oninput="v180SetSearch(this.value)"><span>⌕</span></div><div class="v180-cats">${cats}</div><div class="v180-scenarios">${rows||`<div class="v180-empty">${lang==='ko'?'찾는 상황이 없습니다.':'No matching situation.'}</div>`}</div><div class="v180-disclaimer">${v180Esc(v180T(d.disclaimer))}</div>`;
+}
+function v180RenderQuestion(){
+  const sc=v180Scenario();if(!sc)return v180RenderBrowse();const c=v180TwoWayData.categories.find(x=>x.id===sc.category);const app=sc.app_link&&v180AppAvailable(sc.app_link)?`<button type="button" onclick="v180OpenApp('${v180Esc(sc.app_link)}')">${v180Esc(sc.app_link_label?v180T(sc.app_link_label):lang==='ko'?'앱에서 열기':'Open in Korea Route')}</button>`:'';
+  return `<div class="v180-question"><div class="v180-kicker">${v180Esc(c?.icon||'💬')} ${v180Esc(v180T(c?.name)||'')}</div><h2>${v180Esc(v180T(sc.ask))}</h2>${sc.note?`<div class="v180-question-note">${v180Esc(v180T(sc.note))}</div>`:''}<div class="v180-question-actions">${app}<button type="button" class="handover" onclick="v180EnterHandover()">📱 ${v180Esc(v180Ui('hand_over','Hand your phone to the other person'))}</button></div></div><button type="button" class="v180-backlink" onclick="v180GoBrowse()">← ${lang==='ko'?'상황 목록':'Situations'}</button>`;
+}
+function v180ReplyButton(r){return `<button type="button" class="v180-reply-btn" onclick="v180ChooseReplyById('${v180Esc(r.id||'')}',false)">${v180Esc(r.ko)}</button>`}
+function v180Keypad(){return `<div class="v180-keypad">${['1','2','3','4','5','6','7','8','9'].map(n=>`<button type="button" onclick="v180NumberKey('${n}')">${n}</button>`).join('')}<button type="button" class="action" onclick="v180NumberClear()">지우기</button><button type="button" onclick="v180NumberKey('0')">0</button><button type="button" class="confirm" onclick="v180ConfirmNumber()">확인</button></div>`}
+function v180RenderHandover(){
+  const sc=v180Scenario();if(!sc)return v180RenderBrowse();const replies=Array.isArray(sc.replies)?sc.replies:[];const num=!!(sc.numeric&&sc.numeric.enabled===true);const online=v180Online();
+  const numeric=num?`<section class="v180-numeric"><p class="v180-handover-instruction">${v180Esc(v180TwoWayData.handover_instruction_ko_number)}</p><div class="v180-number-display"><b>${v180Esc(v180Number||'—')}</b><span>${v180Esc(sc.numeric.unit.ko)}</span></div><div class="v180-number-msg">${v180Esc(v180NumberMessage)}</div>${v180Keypad()}</section>`:'';
+  const typeBox=`<div class="v180-tool-box"><div class="v180-tool-title"><b>⌨️ ${v180Esc(v180TwoWayData.ui.mode_type.ko)}</b><button type="button" ${online?'onclick="v180ToggleType()"':'disabled'}>${online?'열기':'오프라인'}</button></div>${online?`<div class="v180-type-area" id="v180TypeArea"><textarea id="v180TypeInput" maxlength="600" placeholder="한국어로 답변을 입력해 주세요"></textarea><button type="button" class="submit" onclick="v180SubmitTyped()">입력한 답을 내 화면에 보여주기</button></div>`:`<p class="v180-offline-reason">오프라인에서는 자유 입력 번역을 사용할 수 없습니다. 위 답변 카드나 숫자를 이용해 주세요.</p>`}</div>`;
+  let voiceBox='';
+  if(SpeechRecognition){voiceBox=`<div class="v180-tool-box"><div class="v180-tool-title"><b>🎙️ ${v180Esc(v180TwoWayData.ui.mode_voice.ko)}</b><button type="button" ${online?'onclick="v180ShowVoicePrivacy()"':'disabled'}>${online?'사용하기':'오프라인'}</button></div>${online?'':`<p class="v180-offline-reason">오프라인에서는 음성 입력을 사용할 수 없습니다. 위 답변 카드나 숫자를 이용해 주세요.</p>`}<div class="v180-voice-panel" id="v180VoicePanel"></div></div>`}
+  else{voiceBox=`<div class="v180-tool-box"><div class="v180-tool-title"><b>🎙️ ${v180Esc(v180TwoWayData.ui.mode_voice.ko)}</b></div><p class="v180-voice-unavailable">${v180Esc(v180TwoWayData.ui.voice_unavailable.ko)}</p></div>`}
+  const always=(v180TwoWayData.always_available_replies||[]).map(r=>`<button type="button" onclick="v180ChooseReplyById('${v180Esc(r.id||'')}',true)">${v180Esc(r.ko)}</button>`).join('');
+  return `<div class="v180-handover"><div class="local-top"><button type="button" onclick="v180BackToQuestion()">← 질문으로</button><span>한국어 답변 화면</span></div><div class="v180-handover-question">${v180Esc(sc.ask.ko)}</div>${replies.length?`<p class="v180-handover-instruction">${v180Esc(v180TwoWayData.handover_instruction_ko)}</p><div class="v180-reply-list">${replies.map(v180ReplyButton).join('')}</div>`:''}${numeric}<div class="v180-secondary-tools">${typeBox}${voiceBox}</div>${always?`<div class="v180-always"><h3>다른 답변</h3><div class="v180-always-list">${always}</div></div>`:''}</div>`;
+}
+function v180RenderAnswer(){
+  const a=v180Answer||{};const voice=a.kind==='voice';const fallback=!!a.fallback;const heard=voice&&a.ko?`<div class="v180-heard-note"><b>${lang==='ko'?'이렇게 들렸습니다':'Heard as'}</b><br>${v180Esc(a.ko)}<br><small>${lang==='ko'?'음성 인식은 틀릴 수 있습니다.':'Speech recognition can be wrong.'}</small></div>`:'';
+  return `<div class="v180-answer"><div class="label">${v180Esc(v180Ui('answer_label','They answered'))}</div><div class="big">${v180Esc(a.en||a.ko||'')}</div>${a.ko&&!voice?`<div class="small">${v180Esc(a.ko)}</div>`:''}${heard}${fallback?`<div class="v180-fallback-note">${lang==='ko'?'자동 번역을 사용할 수 없어 입력된 한국어를 그대로 표시합니다. 정확한 통역이 필요하면 1330 무료 통역을 이용하세요.':'Automatic translation was unavailable, so the Korean text is shown as entered. For accurate interpretation, use the free 1330 interpretation service.'}</div>`:''}${voice&&!fallback?`<div class="v180-heard-note">${lang==='ko'?'위 영어는 음성 인식 결과를 기기 내 번역한 참고 문구입니다. 확정된 통역으로 보지 마세요.':'The English above is a possible meaning translated from the speech-recognition result. Do not treat it as a confirmed interpretation.'}</div>`:''}<div class="v180-answer-actions"><button type="button" class="primary" onclick="v180BackToHandover()">${lang==='ko'?'같은 질문 다시 보여주기':'Show the same question again'}</button><button type="button" onclick="v180GoBrowse()">${v180Esc(v180Ui('ask_again','Ask something else'))}</button></div></div>`;
+}
+function renderTwoWayTalk(){v180SetHeader();v180SetModeClass();const body=document.getElementById('v180Body');if(!body||!v180TwoWayData)return;body.innerHTML=v180Stage==='question'?v180RenderQuestion():v180Stage==='handover'?v180RenderHandover():v180Stage==='answer'?v180RenderAnswer():v180RenderBrowse()}
+function v180SetSearch(v){v180Search=String(v||'');const body=document.getElementById('v180Body');if(body&&v180Stage==='browse'){body.innerHTML=v180RenderBrowse();const el=document.getElementById('v180SearchInput');if(el){el.focus();try{el.setSelectionRange(el.value.length,el.value.length)}catch(_){}}}}
+function v180SetCategory(id){v180Category=id;renderTwoWayTalk()}
+function v180SelectScenario(id){if(!v180TwoWayData.scenarios.some(x=>x.id===id))return;v180SelectedId=id;v180Stage='question';v180Number='';v180NumberMessage='';v180Answer=null;renderTwoWayTalk()}
+function v180GoBrowse(){v180Stage='browse';v180SelectedId='';v180Number='';v180NumberMessage='';v180Answer=null;v180StopVoice();renderTwoWayTalk()}
+function v180EnterHandover(){if(!v180Scenario())return;v180Stage='handover';v180Number='';v180NumberMessage='';v180HeardText='';v180VoiceStatus='';renderTwoWayTalk()}
+function v180BackToQuestion(){v180StopVoice();v180Stage='question';renderTwoWayTalk()}
+function v180BackToHandover(){if(!v180Scenario()){v180GoBrowse();return}v180Stage='handover';v180Answer=null;renderTwoWayTalk()}
+function v180ChooseReplyById(id,always=false){const list=always?(v180TwoWayData?.always_available_replies||[]):(v180Scenario()?.replies||[]);const r=list.find(x=>x.id===id);if(!r)return;v180StopVoice();v180Answer={kind:'card',en:r.en,ko:r.ko,fallback:false};v180Stage='answer';renderTwoWayTalk()}
+function v180NumberClear(){v180Number='';v180NumberMessage='';renderTwoWayTalk()}
+function v180NumberKey(k){const sc=v180Scenario();if(!sc?.numeric?.enabled)return;const next=(v180Number+String(k)).replace(/^0+(?=\d)/,'');const n=Number(next);if(!Number.isFinite(n)||n>sc.numeric.max){v180NumberMessage=`최대 ${sc.numeric.max} ${sc.numeric.unit.ko}까지 입력할 수 있습니다.`;renderTwoWayTalk();return}v180Number=next;v180NumberMessage='';renderTwoWayTalk()}
+function v180ConfirmNumber(){const sc=v180Scenario();if(!sc?.numeric?.enabled||v180Number==='')return;const n=Number(v180Number);if(!Number.isFinite(n)||n<0||n>sc.numeric.max)return;const shown=new Intl.NumberFormat('en-US').format(n);v180Answer={kind:'number',en:`${shown} ${sc.numeric.unit.en}`,ko:`${shown} ${sc.numeric.unit.ko}`,fallback:false};v180Stage='answer';renderTwoWayTalk()}
+function v180ToggleType(){if(!v180Online())return;document.getElementById('v180TypeArea')?.classList.toggle('show');setTimeout(()=>document.getElementById('v180TypeInput')?.focus(),30)}
+async function v180TranslateFreeText(text,kind){
+  const ko=String(text||'').trim();if(!ko)return;if(!v180Online()){return}
+  try{const translator=await getOnDeviceTranslator('ko','en');const en=String(await translator.translate(ko)||'').trim();if(!en)throw new Error('empty translation');v180Answer={kind,en,ko,fallback:false};}
+  catch(err){console.info('V180 free-text translation unavailable',err?.message||err);v180Answer={kind,en:ko,ko,fallback:true};}
+  v180Stage='answer';renderTwoWayTalk();
+}
+function v180SubmitTyped(){if(!v180Online())return;const ta=document.getElementById('v180TypeInput');const text=(ta?.value||'').trim();if(!text){ta?.focus();return}v180TranslateFreeText(text,'typed')}
+function v180ShowVoicePrivacy(){
+  if(!SpeechRecognition||!v180Online())return;const panel=document.getElementById('v180VoicePanel');if(!panel)return;panel.classList.add('show');panel.innerHTML=`<b>마이크를 켜기 전에 확인해 주세요.</b><p>${v180Esc(v180TwoWayData.ui.voice_privacy.ko)}</p><button type="button" onclick="v180StartVoice()">마이크 시작</button><button type="button" onclick="v180HideVoicePanel()">답변 카드로 돌아가기</button>`;
+}
+function v180HideVoicePanel(){v180StopVoice();v180HeardText='';v180VoiceStatus='';const p=document.getElementById('v180VoicePanel');if(p){p.classList.remove('show');p.innerHTML=''}}
+function v180StopVoice(){try{if(v180VoiceRecognition)v180VoiceRecognition.abort()}catch(_){ }v180VoiceRecognition=null}
+function v180StartVoice(){
+  if(!SpeechRecognition||!v180Online())return;v180StopVoice();const panel=document.getElementById('v180VoicePanel');if(panel){panel.classList.add('show');panel.innerHTML='<b>말씀해 주세요…</b><p>음성을 글자로 듣고 있습니다.</p><button type="button" onclick="v180HideVoicePanel()">답변 카드로 돌아가기</button>'}
+  try{
+    const rec=new SpeechRecognition();v180VoiceRecognition=rec;rec.lang='ko-KR';rec.interimResults=false;rec.maxAlternatives=1;
+    rec.onresult=e=>{const text=String(e?.results?.[0]?.[0]?.transcript||'').trim();v180HeardText=text;v180VoiceRecognition=null;const p=document.getElementById('v180VoicePanel');if(p){p.classList.add('show');p.innerHTML=text?`<b>이렇게 들렸습니다</b><div class="v180-heard">${v180Esc(text)}</div><button type="button" onclick="v180UseHeardText()">이 내용으로 내 화면에 보여주기</button><button type="button" onclick="v180HideVoicePanel()">답변 카드로 돌아가기</button>`:`<b>음성을 알아듣지 못했습니다.</b><p>답변 카드를 이용해 주세요.</p><button type="button" onclick="v180HideVoicePanel()">답변 카드로 돌아가기</button>`}};
+    rec.onerror=()=>{v180VoiceRecognition=null;const p=document.getElementById('v180VoicePanel');if(p){p.classList.add('show');p.innerHTML='<b>음성 인식에 실패했습니다.</b><p>답변 카드는 계속 사용할 수 있습니다.</p><button type="button" onclick="v180HideVoicePanel()">답변 카드로 돌아가기</button>'}};
+    rec.onend=()=>{v180VoiceRecognition=null};rec.start();
+  }catch(_){v180VoiceRecognition=null;const p=document.getElementById('v180VoicePanel');if(p){p.classList.add('show');p.innerHTML='<b>음성 인식을 시작하지 못했습니다.</b><button type="button" onclick="v180HideVoicePanel()">답변 카드로 돌아가기</button>'}}
+}
+function v180UseHeardText(){if(!v180HeardText)return;v180TranslateFreeText(v180HeardText,'voice')}
+async function loadTwoWayTalkData(force=false){
+  if(v180TwoWayData&&!force)return v180TwoWayData;if(v180TwoWayLoading)return v180TwoWayLoading;
+  v180TwoWayLoading=(async()=>{const res=await fetch('./two-way-talk.json',{cache:'no-store'});if(!res.ok)throw new Error('HTTP '+res.status);const source=(res.headers.get('X-Korea-Route-Data-Source')||'network').toLowerCase();const data=await res.json();if(!v180ValidateTwoWayData(data))throw new Error('Invalid two-way-talk.json structure');v180TwoWayData=data;v180TwoWayDataSource=source==='cache'?'cache':'network';return data})();
+  try{return await v180TwoWayLoading}finally{v180TwoWayLoading=null}
+}
+async function openTwoWayTalkHub(source=''){
+  const fromTranslation=source==='translation';if(current!=='twoWayTalkHub')v180TwoWayReturn=current&&document.getElementById(current)?current:'helperHub';v180ReturnToTranslate=fromTranslation;if(fromTranslation&&typeof closePhraseSheet==='function')closePhraseSheet();v180Stage='browse';v180SelectedId='';v180Answer=null;v180Number='';v180Search='';v180Category='all';go('twoWayTalkHub');v180SetHeader();const body=document.getElementById('v180Body');if(body&&!v180TwoWayData)body.innerHTML=`<div class="v180-loading">${lang==='ko'?'답변 카드를 불러오는 중…':'Loading answer cards…'}</div>`;
+  try{await loadTwoWayTalkData();renderTwoWayTalk()}catch(err){console.warn('Two-way talk data load failed',err);v180SetModeClass();if(body)body.innerHTML=`<div class="v180-error"><b>${lang==='ko'?'대화 데이터를 불러오지 못했습니다.':'Could not load the answer-card data.'}</b><br>${lang==='ko'?'잘못된 데이터로 화면을 만들지 않습니다. 연결을 확인한 뒤 다시 시도하세요.':'Korea Route will not render malformed conversation data. Check your connection and try again.'}<button type="button" onclick="v180RetryLoad()">${lang==='ko'?'다시 시도':'Retry'}</button></div>`}
+}
+async function v180RetryLoad(){const old=v180TwoWayData,oldSource=v180TwoWayDataSource;try{const fresh=await loadTwoWayTalkData(true);if(fresh)renderTwoWayTalk()}catch(err){v180TwoWayData=old;v180TwoWayDataSource=oldSource;const body=document.getElementById('v180Body');if(body)body.innerHTML=`<div class="v180-error"><b>${lang==='ko'?'대화 데이터를 다시 불러오지 못했습니다.':'Could not reload the answer-card data.'}</b><button type="button" onclick="v180RetryLoad()">${lang==='ko'?'다시 시도':'Retry'}</button></div>`}}
+function closeTwoWayTalkHub(){v180StopVoice();const back=v180TwoWayReturn&&document.getElementById(v180TwoWayReturn)?v180TwoWayReturn:'helperHub';const reopen=v180ReturnToTranslate;v180ReturnToTranslate=false;go(back);if(reopen&&typeof openTranslationHub==='function')setTimeout(()=>openTranslationHub(),80)}
+window.addEventListener('offline',()=>{if(current==='twoWayTalkHub'&&v180TwoWayData)renderTwoWayTalk()});
+window.addEventListener('online',()=>{if(current==='twoWayTalkHub'&&v180TwoWayData)renderTwoWayTalk()});
+const v180OriginalApplyLang=applyLang;applyLang=function(){v180OriginalApplyLang();if(current==='twoWayTalkHub'&&v180TwoWayData)renderTwoWayTalk()};
+</script>
+
 </body>
 </html>

@@ -1,7 +1,7 @@
-const CACHE='korea-route-public-beta-v179-0901';
-const CORE=['/','/index.html','/foreigner-access.json','/taxi-fare.json','/price-baseline.json','/pre-arrival.json'];
+const CACHE='korea-route-public-beta-v180-0901';
+const CORE=['/','/index.html','/foreigner-access.json','/taxi-fare.json','/price-baseline.json','/pre-arrival.json','/two-way-talk.json'];
 const OPTIONAL=['/manifest.json','/icon-192.png','/icon-512.png'];
-const DATA_PATHS=new Set(['/foreigner-access.json','/taxi-fare.json','/price-baseline.json','/pre-arrival.json']);
+const DATA_PATHS=new Set(['/foreigner-access.json','/taxi-fare.json','/price-baseline.json','/pre-arrival.json','/two-way-talk.json']);
 
 async function taggedResponse(response,source){
   if(!response) return response;
