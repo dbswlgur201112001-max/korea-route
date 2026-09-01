@@ -3026,6 +3026,15 @@ body.dark .v165-tab:not(.active),body.dark .v165-pick,body.dark .v165-check-sear
 @media(max-width:380px){.v165-hero{padding:15px}.v165-hero h1{font-size:24px}.v165-card{padding:13px}.v165-item{align-items:flex-start;flex-direction:column}.v165-item-price{text-align:left}.v165-paid{grid-template-columns:1fr}.v165-paid button{min-height:46px}.v165-source{align-items:flex-start;flex-direction:column}.v165-source button{width:100%}}
 </style>
 
+
+<style id="v175-fair-price-coverage-style">
+/* V175 · Coverage expansion: official transport, convenience reference bands, and clearly labeled no-official-source market ranges. */
+.v175-unofficial-note,.v175-unofficial-result{margin:9px 0;padding:10px 11px;border:1px solid #e5c36c;border-radius:12px;background:#fff8e6;color:#6b5315;font-size:14px;line-height:1.5;font-weight:850}
+.v175-unofficial-result{margin-top:12px;margin-bottom:0}
+.v175-source-list{display:block}.v175-source-list>span{display:block;margin-bottom:6px;font-weight:850}.v175-source-list>div{display:grid;gap:6px}.v175-source-list button{width:100%;text-align:left;overflow-wrap:anywhere}
+body.dark .v175-unofficial-note,body.dark .v175-unofficial-result{background:#2a2413;border-color:#806a2c;color:#f1d78a}
+@media(max-width:380px){.v175-unofficial-note,.v175-unofficial-result{font-size:14px}.v175-source-list button{min-height:44px}}
+</style>
 </head>
 <body>
 <div class="app">
@@ -4101,7 +4110,7 @@ body.dark .v165-tab:not(.active),body.dark .v165-pick,body.dark .v165-check-sear
 
 
 <script>
-const KR_BUILD_VERSION='V174';
+const KR_BUILD_VERSION='V175';
 const TRANSLATIONS = {
   "ko": {
     "home.brand": "코리아 루트",
@@ -18976,31 +18985,78 @@ function v165Esc(v=''){return typeof escapeHtmlText==='function'?escapeHtmlText(
 function v165Money(v){return Number(v||0).toLocaleString(lang==='ko'?'ko-KR':'en-US');}
 function v165Ui(key,fallback=''){return v165T(v165PriceData?.ui?.[key],fallback);}
 function v165IsBiText(value){return !!value&&typeof value==='object'&&typeof value.en==='string'&&value.en.trim()&&typeof value.ko==='string'&&value.ko.trim()}
-function v165ValidatePriceData(data){
+function v165ValidatePriceData(data,taxiData=null){
   if(!data||typeof data!=='object'||!Array.isArray(data.groups)||!data.groups.length||!Array.isArray(data.flag_rule?.tiers)||data.flag_rule.tiers.length!==4||!v165IsBiText(data.disclaimer)||!v165IsBiText(data.higher_price_note)||!Array.isArray(data.context_tips)||!data.context_tips.length)return false;
   const tiersOk=data.flag_rule.tiers.every((tier,index)=>tier&&typeof tier.id==='string'&&tier.id&&v165IsBiText(tier.message)&&typeof tier.tone==='string'&&(index===data.flag_rule.tiers.length-1?tier.max_multiple==null:Number.isFinite(Number(tier.max_multiple))&&Number(tier.max_multiple)>0));
   if(!tiersOk)return false;
-  return data.groups.every(group=>group&&typeof group.id==='string'&&group.id&&v165IsBiText(group.name)&&typeof group.source==='string'&&group.source.trim()&&typeof group.source_url==='string'&&group.source_url.trim()&&Array.isArray(group.items)&&group.items.length&&group.items.every(item=>{
-    if(!item||typeof item.id!=='string'||!item.id||!v165IsBiText(item.name)||!v165IsBiText(item.unit)||typeof item.fixed!=='boolean')return false;
-    const lo=Number(item.typical?.min),hi=Number(item.typical?.max);if(!Number.isFinite(lo)||!Number.isFinite(hi)||lo<0||hi<=0||hi<lo)return false;
-    if(item.fixed){const price=Number(item.price);if(!Number.isFinite(price)||price<=0||lo!==price||hi!==price)return false;}
-    return true;
-  }));
+  const groupsOk=data.groups.every(group=>{
+    if(!group||typeof group.id!=='string'||!group.id||!v165IsBiText(group.name)||!Array.isArray(group.items)||!group.items.length)return false;
+    if(group.no_official_source!=null&&typeof group.no_official_source!=='boolean')return false;
+    const noOfficial=group.no_official_source===true;
+    if(noOfficial){
+      if(!v165IsBiText(group.note))return false;
+    }else{
+      const legacySource=typeof group.source==='string'&&group.source.trim()&&typeof group.source_url==='string'&&group.source_url.trim();
+      const sourceList=Array.isArray(group.sources)&&group.sources.length&&group.sources.every(s=>s&&typeof s.name==='string'&&s.name.trim()&&typeof s.url==='string'&&/^https?:\/\//.test(s.url));
+      if(!legacySource&&!sourceList)return false;
+    }
+    return group.items.every(item=>{
+      if(!item||typeof item.id!=='string'||!item.id||!v165IsBiText(item.name)||!v165IsBiText(item.unit)||typeof item.fixed!=='boolean')return false;
+      if(item.official!=null&&typeof item.official!=='boolean')return false;
+      if(noOfficial&&(item.official===true||item.fixed===true))return false;
+      if(item.official===true&&item.fixed!==true)return false;
+      const lo=Number(item.typical?.min),hi=Number(item.typical?.max);if(!Number.isFinite(lo)||!Number.isFinite(hi)||lo<0||hi<=0||hi<lo)return false;
+      if(item.fixed){const price=Number(item.price);if(!Number.isFinite(price)||price<=0||lo!==price||hi!==price)return false;}
+      return true;
+    });
+  });
+  if(!groupsOk)return false;
+  const unofficialExists=data.groups.some(g=>g?.no_official_source===true);
+  if(unofficialExists&&!v165IsBiText(data.ui?.unofficial_reference_warning))return false;
+  if(taxiData){
+    const region=taxiData?.regions?.seoul;if(!region)return false;
+    const map=new Map(v165AllItemsFromData(data).map(x=>[x.item.id,x.item]));
+    const round100=n=>Math.round(Number(n)/100)*100;
+    const base=Number(region.base_fare);if(!Number.isFinite(base)||base<=0)return false;
+    const rates=(region?.surcharges?.windows||[]).map(w=>Number(w.rate)).filter(Number.isFinite);
+    const rate20=rates.find(r=>Math.abs(r-1.2)<1e-9),rate40=rates.find(r=>Math.abs(r-1.4)<1e-9);
+    const day=Number(map.get('seoul-taxi-base-day')?.price),night20=Number(map.get('seoul-taxi-base-night20')?.price),night40=Number(map.get('seoul-taxi-base-night40')?.price);
+    if(day!==base||!rate20||!rate40||night20!==round100(base*rate20)||night40!==round100(base*rate40))return false;
+  }
+  return true;
+}
+function v165AllItemsFromData(data){const out=[];(data?.groups||[]).forEach(g=>(g.items||[]).forEach(item=>out.push({item,group:g})));return out;}
+async function v175LoadTaxiBaselineForPriceValidation(){
+  if(v162TaxiData?.regions?.seoul&&v162TaxiDataSource==='network')return v162TaxiData;
+  const r=await fetch('./taxi-fare.json',{cache:'no-store'});if(!r.ok)throw new Error('taxi-fare.json '+r.status);
+  const taxi=await r.json();const region=taxi?.regions?.seoul;
+  if(!region||!Number.isFinite(Number(region.base_fare))||!Array.isArray(region?.surcharges?.windows))throw new Error('Invalid taxi-fare.json for Fair Price cross-check');
+  return taxi;
 }
 async function loadFairPriceData(force=false){
   if(v165PriceData&&!force)return v165PriceData;
   if(v165PriceLoading&&!force)return v165PriceLoading;
-  v165PriceLoading=fetch('./price-baseline.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('price-baseline.json '+r.status);v165PriceDataSource=(r.headers.get('X-Korea-Route-Data-Source')||'network').toLowerCase();return r.json();}).then(data=>{if(!v165ValidatePriceData(data))throw new Error('Invalid price-baseline.json structure');v165PriceData=data;return data;}).finally(()=>{v165PriceLoading=null;});
+  v165PriceLoading=Promise.all([
+    fetch('./price-baseline.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('price-baseline.json '+r.status);v165PriceDataSource=(r.headers.get('X-Korea-Route-Data-Source')||'network').toLowerCase();return r.json();}),
+    v175LoadTaxiBaselineForPriceValidation()
+  ]).then(([data,taxi])=>{if(!v165ValidatePriceData(data,taxi))throw new Error('Invalid price-baseline.json structure or taxi fare mismatch');v165PriceData=data;return data;}).finally(()=>{v165PriceLoading=null;});
   return v165PriceLoading;
 }
-function v165AllItems(){const out=[];(v165PriceData?.groups||[]).forEach(g=>(g.items||[]).forEach(item=>out.push({item,group:g})));return out;}
+function v165AllItems(){return v165AllItemsFromData(v165PriceData);}
 function v165FindItem(id){return v165AllItems().find(x=>String(x.item.id)===String(id))||null;}
 function v165RangeText(item){if(item.fixed){const p=Number(item.price??item.typical?.max??0);return lang==='ko'?`${v165Money(p)}원`:`₩${v165Money(p)}`;}const lo=Number(item.typical?.min||0),hi=Number(item.typical?.max||0);return lang==='ko'?`${v165Money(lo)} ~ ${v165Money(hi)}원`:`₩${v165Money(lo)} – ₩${v165Money(hi)}`;}
 function v165OpenSource(url,label){if(!url)return;if(typeof v160SafeExternalOpen==='function'){v160SafeExternalOpen(url,{label:label||v165Ui('source','Source')});return;}window.open(url,'_blank','noopener');}
+function v175SourceRows(group){
+  if(group?.no_official_source===true)return '';
+  const srcs=Array.isArray(group?.sources)?group.sources:((group?.source&&group?.source_url)?[{name:group.source,url:group.source_url}]:[]);
+  if(!srcs.length)return '';
+  return `<div class="v165-source v175-source-list"><span>${v165Esc(v165Ui('source','Source'))}</span><div>${srcs.map((s,i)=>`<button type="button" onclick="v165OpenSource('${v165Esc(s.url||'')}','${v165Esc(s.name||'Source')}')">↗ ${v165Esc(s.name||v165Ui('source','Source'))}</button>`).join('')}</div></div>`;
+}
 function v165RenderBrowse(){
   const groups=(v165PriceData?.groups||[]).map(group=>{
     const items=(group.items||[]).map(item=>`<div class="v165-item"><div><b>${v165Esc(v165T(item.name))}</b><small>${v165Esc(v165T(item.unit))}</small></div><div class="v165-item-price">${v165RangeText(item)}${item.official?`<span class="v165-official">${v165Esc(v165Ui('official','OFFICIAL'))}</span>`:''}</div></div>`).join('');
-    return `<div class="v165-card"><h2>${v165Esc(v165T(group.name))}</h2>${group.note?`<div class="v165-group-note">${v165Esc(v165T(group.note))}</div>`:''}<div class="v165-items">${items}</div><div class="v165-source"><span>${v165Esc(v165Ui('source','Source'))}: ${v165Esc(group.source||'')}</span><button type="button" onclick="v165OpenSource('${v165Esc(group.source_url||'')}')">↗ ${v165Esc(v165Ui('source','Source'))}</button></div></div>`;
+    const unofficial=group.no_official_source===true?`<div class="v175-unofficial-note">⚠ ${v165Esc(v165Ui('unofficial_reference_warning','This item uses a reference range without an official statistical source.'))}</div>`:'';
+    return `<div class="v165-card"><h2>${v165Esc(v165T(group.name))}</h2>${group.note?`<div class="v165-group-note">${v165Esc(v165T(group.note))}</div>`:''}${unofficial}<div class="v165-items">${items}</div>${v175SourceRows(group)}</div>`;
   }).join('');
   return groups+`<div class="v165-method"><b>${v165Esc(v165Ui('methodology','How this reference was built'))}</b>${v165Esc(v165T(v165PriceData?.methodology))}</div>`;
 }
@@ -19020,7 +19076,8 @@ function v165Evaluate(){
   const item=selected.item;const upper=Number(item.fixed?(item.price??item.typical?.max):item.typical?.max||0);if(!(upper>0)){host.innerHTML='';return;}
   const multiple=paid/upper;const tiers=v165PriceData?.flag_rule?.tiers||[];const tier=tiers.find(t=>t.max_multiple==null||multiple<=Number(t.max_multiple))||tiers[tiers.length-1];
   const tone=tier?.tone||'neutral';const ref=v165RangeText(item);const paidText=lang==='ko'?`${v165Money(paid)}원`:`₩${v165Money(paid)}`;
-  host.innerHTML=`<div class="v165-result ${v165Esc(tone)}"><span class="label">${v165Esc(v165Ui('result_title','Price context'))}</span><h3>${v165Esc(v165T(tier?.message))}</h3><div class="meta">${v165Esc(v165T(item.name))} · ${v165Esc(v165Ui('usual_range','Usual reference range'))}: ${ref}<br>${v165Esc(v165Ui('paid_amount','Amount paid (KRW)'))}: ${paidText}</div><div class="disclaimer">${v165Esc(v165T(v165PriceData?.disclaimer))}<div class="higher">${v165Esc(v165T(v165PriceData?.higher_price_note))}</div></div></div>`;
+  const unofficial=selected.group?.no_official_source===true?`<div class="v175-unofficial-result">⚠ ${v165Esc(v165Ui('unofficial_reference_warning','This item uses a reference range without an official statistical source.'))}</div>`:'';
+  host.innerHTML=`${unofficial}<div class="v165-result ${v165Esc(tone)}"><span class="label">${v165Esc(v165Ui('result_title','Price context'))}</span><h3>${v165Esc(v165T(tier?.message))}</h3><div class="meta">${v165Esc(v165T(item.name))} · ${v165Esc(v165Ui('usual_range','Usual reference range'))}: ${ref}<br>${v165Esc(v165Ui('paid_amount','Amount paid (KRW)'))}: ${paidText}</div><div class="disclaimer">${v165Esc(v165T(v165PriceData?.disclaimer))}<div class="higher">${v165Esc(v165T(v165PriceData?.higher_price_note))}</div></div></div>${v175SourceRows(selected.group)}`;
 }
 function v165RenderCheck(){
   const selected=v165FindItem(v165SelectedItemId);const selectedHtml=selected?`<div class="v165-selected"><b>${v165Esc(v165T(selected.item.name))}</b><span>${v165Esc(v165Ui(selected.item.fixed?'official_price':'usual_range',selected.item.fixed?'Official price':'Usual reference range'))}: ${v165RangeText(selected.item)}</span></div>`:`<div class="v165-empty">${v165Esc(v165Ui('select_first','Choose an item first.'))}</div>`;

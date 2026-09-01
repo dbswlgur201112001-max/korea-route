@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "checked_on": "2026-09-01",
   "title": {
     "en": "Fair Price Check",
@@ -18,8 +18,8 @@
     "ko": "관광지, 호텔, 공항에서는 정상적으로 더 비쌀 수 있습니다."
   },
   "methodology": {
-    "en": "Seoul dining ranges are orientation bands built around the latest Seoul average prices shown by the Korea Consumer Agency Price Information service (about ±20%, rounded). They are not observed minimum/maximum prices. Official-price items use the published standard admission fee.",
-    "ko": "서울 외식 범위는 한국소비자원 참가격의 최신 서울 평균가격을 중심으로 약 ±20%를 반올림해 만든 참고 구간입니다. 실제 최저가·최고가 범위가 아닙니다. 공식가격 항목은 공개된 일반 관람요금을 사용합니다."
+    "en": "Official fixed-fare items use published operator or local-government fares. Seoul dining ranges are broad orientation bands around Korea Consumer Agency Seoul average prices (about ±20%, rounded), not observed minimum/maximum prices. Convenience-store ranges are broad reference bands built from official chain product/catalog and current product-event listings; brand, size, promotion and special-location stores can differ. Traditional-market and street-food ranges have no official statistical price series and are shown only as clearly labeled reference ranges.",
+    "ko": "공식 고정요금 항목은 지자체·운영기관이 공개한 요금을 사용합니다. 서울 외식 범위는 한국소비자원 참가격의 서울 평균가격을 중심으로 약 ±20%를 반올림해 만든 참고 구간이며 실제 최저가·최고가 범위가 아닙니다. 편의점 범위는 주요 편의점의 공식 상품·카탈로그 및 현재 상품·행사 안내를 바탕으로 만든 넓은 참고 구간으로, 브랜드·용량·행사·특수점포에 따라 달라질 수 있습니다. 전통시장·길거리 음식은 공식 가격 통계가 없어 별도 표시한 참고 범위만 제공합니다."
   },
   "flag_rule": {
     "tiers": [
@@ -62,6 +62,362 @@
     ]
   },
   "groups": [
+    {
+      "id": "transport-official",
+      "name": {
+        "en": "Transport · official fares",
+        "ko": "교통 · 공식요금"
+      },
+      "note": {
+        "en": "Published standard adult fares. Transfers, early-bird discounts, distance additions, tolls and special products can change the final amount.",
+        "ko": "공개된 일반 성인 기준요금입니다. 환승, 조조할인, 거리 추가요금, 통행료와 별도 상품에 따라 최종 금액은 달라질 수 있습니다."
+      },
+      "sources": [
+        {
+          "name": "Seoul Metropolitan Government · public transport fares",
+          "url": "https://news.seoul.go.kr/traffic/traffic_price"
+        },
+        {
+          "name": "Seoul Price Information · taxi fares",
+          "url": "https://sftc.seoul.go.kr/seoul/mulga/main/contents.do?menuNo=200023"
+        },
+        {
+          "name": "Airport Railroad (AREX) · passenger fare rules",
+          "url": "https://www.arex.or.kr/content.do?menuNo=MN201503060000000002"
+        }
+      ],
+      "items": [
+        {
+          "id": "seoul-subway-card",
+          "name": {
+            "en": "Seoul subway · adult transit card",
+            "ko": "서울 지하철 · 성인 교통카드"
+          },
+          "typical": {
+            "min": 1550,
+            "max": 1550
+          },
+          "price": 1550,
+          "unit": {
+            "en": "base fare · first 10 km",
+            "ko": "기본요금 · 10km 이내"
+          },
+          "fixed": true,
+          "official": true
+        },
+        {
+          "id": "seoul-city-bus-card",
+          "name": {
+            "en": "Seoul city bus · adult transit card",
+            "ko": "서울 시내버스 · 성인 교통카드"
+          },
+          "typical": {
+            "min": 1500,
+            "max": 1500
+          },
+          "price": 1500,
+          "unit": {
+            "en": "trunk/branch bus base fare",
+            "ko": "간·지선버스 기본요금"
+          },
+          "fixed": true,
+          "official": true
+        },
+        {
+          "id": "seoul-village-bus-card",
+          "name": {
+            "en": "Seoul village bus · adult transit card",
+            "ko": "서울 마을버스 · 성인 교통카드"
+          },
+          "typical": {
+            "min": 1200,
+            "max": 1200
+          },
+          "price": 1200,
+          "unit": {
+            "en": "base fare",
+            "ko": "기본요금"
+          },
+          "fixed": true,
+          "official": true
+        },
+        {
+          "id": "seoul-taxi-base-day",
+          "name": {
+            "en": "Seoul sedan taxi · daytime base fare",
+            "ko": "서울 중형택시 · 주간 기본요금"
+          },
+          "typical": {
+            "min": 4800,
+            "max": 4800
+          },
+          "price": 4800,
+          "unit": {
+            "en": "first 1.6 km · daytime",
+            "ko": "1.6km까지 · 주간"
+          },
+          "fixed": true,
+          "official": true
+        },
+        {
+          "id": "seoul-taxi-base-night20",
+          "name": {
+            "en": "Seoul sedan taxi · late-night +20% base fare",
+            "ko": "서울 중형택시 · 심야 +20% 기본요금"
+          },
+          "typical": {
+            "min": 5800,
+            "max": 5800
+          },
+          "price": 5800,
+          "unit": {
+            "en": "first 1.6 km · 22:00–23:00 / 02:00–04:00",
+            "ko": "1.6km까지 · 22:00–23:00 / 02:00–04:00"
+          },
+          "fixed": true,
+          "official": true
+        },
+        {
+          "id": "seoul-taxi-base-night40",
+          "name": {
+            "en": "Seoul sedan taxi · late-night +40% base fare",
+            "ko": "서울 중형택시 · 심야 +40% 기본요금"
+          },
+          "typical": {
+            "min": 6700,
+            "max": 6700
+          },
+          "price": 6700,
+          "unit": {
+            "en": "first 1.6 km · 23:00–02:00",
+            "ko": "1.6km까지 · 23:00–02:00"
+          },
+          "fixed": true,
+          "official": true
+        },
+        {
+          "id": "arex-express-t1-seoul",
+          "name": {
+            "en": "AREX Express · Incheon Airport T1 → Seoul Station",
+            "ko": "공항철도 직통열차 · 인천공항 T1 → 서울역"
+          },
+          "typical": {
+            "min": 18100,
+            "max": 18100
+          },
+          "price": 18100,
+          "unit": {
+            "en": "adult one-way standard fare",
+            "ko": "성인 편도 일반운임"
+          },
+          "fixed": true,
+          "official": true
+        },
+        {
+          "id": "arex-express-t2-seoul",
+          "name": {
+            "en": "AREX Express · Incheon Airport T2 → Seoul Station",
+            "ko": "공항철도 직통열차 · 인천공항 T2 → 서울역"
+          },
+          "typical": {
+            "min": 18700,
+            "max": 18700
+          },
+          "price": 18700,
+          "unit": {
+            "en": "adult one-way standard fare",
+            "ko": "성인 편도 일반운임"
+          },
+          "fixed": true,
+          "official": true
+        }
+      ]
+    },
+    {
+      "id": "convenience-store",
+      "name": {
+        "en": "Convenience store reference",
+        "ko": "편의점 참고가격"
+      },
+      "note": {
+        "en": "Not a nationwide fixed price. These are broad reference bands for common single items from official chain listings. Brand, size, promotion and special-location stores can differ; imported or premium products can cost more.",
+        "ko": "전국 고정가격이 아닙니다. 주요 편의점 공식 상품 안내에서 확인되는 일반 단품을 바탕으로 만든 넓은 참고 범위입니다. 브랜드·용량·행사·특수점포에 따라 달라지며 수입·프리미엄 상품은 더 비쌀 수 있습니다."
+      },
+      "sources": [
+        {
+          "name": "GS25 · official product/event listings",
+          "url": "https://gs25.gsretail.com/gscvs/ko/products/event-goods"
+        },
+        {
+          "name": "CU · official product catalog",
+          "url": "https://cu.bgfretail.com/product/product.do"
+        },
+        {
+          "name": "Emart24 · official product listings",
+          "url": "https://emart24.co.kr/goods/pl"
+        }
+      ],
+      "items": [
+        {
+          "id": "convenience-water-500",
+          "name": {
+            "en": "Domestic bottled water · 500 ml",
+            "ko": "국산 생수 · 500ml"
+          },
+          "typical": {
+            "min": 600,
+            "max": 1300
+          },
+          "unit": {
+            "en": "single bottle · regular domestic brand",
+            "ko": "1병 · 일반 국산 브랜드"
+          },
+          "fixed": false
+        },
+        {
+          "id": "convenience-triangle-gimbap",
+          "name": {
+            "en": "Triangle gimbap · standard single",
+            "ko": "삼각김밥 · 일반 단품"
+          },
+          "typical": {
+            "min": 1200,
+            "max": 2000
+          },
+          "unit": {
+            "en": "single standard item",
+            "ko": "일반 단품 1개"
+          },
+          "fixed": false
+        },
+        {
+          "id": "convenience-cup-ramen",
+          "name": {
+            "en": "Cup ramen · single cup",
+            "ko": "컵라면 · 1개"
+          },
+          "typical": {
+            "min": 1300,
+            "max": 2200
+          },
+          "unit": {
+            "en": "single regular cup",
+            "ko": "일반 용기 1개"
+          },
+          "fixed": false
+        },
+        {
+          "id": "convenience-canned-coffee",
+          "name": {
+            "en": "Canned / RTD coffee · single",
+            "ko": "캔·RTD 커피 · 1개"
+          },
+          "typical": {
+            "min": 1400,
+            "max": 2600
+          },
+          "unit": {
+            "en": "single common ready-to-drink item",
+            "ko": "일반 즉석음용 단품 1개"
+          },
+          "fixed": false
+        }
+      ]
+    },
+    {
+      "id": "market-street-food",
+      "name": {
+        "en": "Traditional market & street food",
+        "ko": "전통시장·길거리 음식"
+      },
+      "no_official_source": true,
+      "note": {
+        "en": "There is no official statistical price series for these items. These are commonly known broad reference ranges only; market, stall, portion and ingredients can vary widely.",
+        "ko": "공식 통계가 없어 일반적으로 알려진 범위입니다. 시장, 점포, 양과 재료에 따라 가격 차이가 클 수 있는 참고 범위입니다."
+      },
+      "items": [
+        {
+          "id": "market-tteokbokki",
+          "name": {
+            "en": "Tteokbokki · 1 serving",
+            "ko": "떡볶이 · 1인분"
+          },
+          "typical": {
+            "min": 3000,
+            "max": 7000
+          },
+          "unit": {
+            "en": "one serving",
+            "ko": "1인분"
+          },
+          "fixed": false
+        },
+        {
+          "id": "market-hotteok",
+          "name": {
+            "en": "Hotteok · 1 piece",
+            "ko": "호떡 · 1개"
+          },
+          "typical": {
+            "min": 1500,
+            "max": 3000
+          },
+          "unit": {
+            "en": "one piece",
+            "ko": "1개"
+          },
+          "fixed": false
+        },
+        {
+          "id": "market-bindaetteok",
+          "name": {
+            "en": "Bindaetteok · 1 pancake / plate",
+            "ko": "빈대떡 · 1장/1접시"
+          },
+          "typical": {
+            "min": 5000,
+            "max": 12000
+          },
+          "unit": {
+            "en": "one pancake or small plate",
+            "ko": "1장 또는 소접시"
+          },
+          "fixed": false
+        },
+        {
+          "id": "market-kalguksu",
+          "name": {
+            "en": "Market kalguksu · 1 bowl",
+            "ko": "시장 칼국수 · 1그릇"
+          },
+          "typical": {
+            "min": 5000,
+            "max": 10000
+          },
+          "unit": {
+            "en": "one bowl",
+            "ko": "1그릇"
+          },
+          "fixed": false
+        },
+        {
+          "id": "market-mini-gimbap",
+          "name": {
+            "en": "Market mini gimbap · small serving",
+            "ko": "시장 꼬마김밥 · 소량 1접시"
+          },
+          "typical": {
+            "min": 3000,
+            "max": 7000
+          },
+          "unit": {
+            "en": "small serving",
+            "ko": "소량 1접시"
+          },
+          "fixed": false
+        }
+      ]
+    },
     {
       "id": "seoul-dining",
       "name": {
@@ -389,6 +745,10 @@
     "tips_subtitle": {
       "en": "Keep these visible when you are unsure about an extra charge.",
       "ko": "추가 요금이 헷갈릴 때 바로 확인할 수 있도록 항상 표시합니다."
+    },
+    "unofficial_reference_warning": {
+      "en": "This item uses a reference range without an official statistical source.",
+      "ko": "이 항목은 공식 출처가 없는 참고 범위입니다."
     }
   }
 }
