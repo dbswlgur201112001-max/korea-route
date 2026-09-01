@@ -4110,7 +4110,7 @@ body.dark .v175-unofficial-note,body.dark .v175-unofficial-result{background:#2a
 
 
 <script>
-const KR_BUILD_VERSION='V175';
+const KR_BUILD_VERSION='V176';
 const TRANSLATIONS = {
   "ko": {
     "home.brand": "코리아 루트",
@@ -18971,6 +18971,12 @@ async function copyTaxiPhrase(index){
 </script>
 
 
+
+<style id="v176-fair-price-findability-style">
+/* V176 · Fair Price findability for the expanded 27-item baseline. */
+.v176-browse-tools{margin:11px 0 4px;padding:12px;border:1px solid #dce5ef;border-radius:15px;background:#fff}.v176-browse-tools input{width:100%;box-sizing:border-box;border:1px solid #cfdae7;border-radius:12px;padding:12px;font-size:16px;background:#fff;color:#162b40}.v176-group-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.v176-group-head h2{min-width:0}.v176-group-count{display:inline-block;margin-left:6px;color:#718094;font-size:12px;font-weight:850}.v176-group-toggle{flex:0 0 44px;width:44px;height:44px;border:1px solid #d7e1ec;border-radius:12px;background:#f7f9fc;color:#17384a;font-size:22px;font-weight:900;line-height:1;cursor:pointer}.v176-group-toggle:focus-visible{outline:3px solid rgba(11,35,69,.22);outline-offset:2px}.v176-group-toggle:disabled{opacity:.48;cursor:default}.v176-group-body[hidden]{display:none!important}.v176-group-body{margin-top:10px}.v176-no-match{margin-top:11px}.v176-group-card.matching{border-color:#a9bfd8;box-shadow:0 8px 24px rgba(11,35,69,.08)}body.dark .v176-browse-tools{background:#101c2e;border-color:#27364b}body.dark .v176-browse-tools input{background:#142238;border-color:#2d3c52;color:#edf4fb}body.dark .v176-group-toggle{background:#17263b;border-color:#34465f;color:#edf4fb}body.dark .v176-group-count{color:#b8c4d4}
+@media(max-width:380px){.v176-browse-tools{padding:10px}.v176-group-head{align-items:flex-start}.v176-group-head h2{font-size:17px}.v176-group-toggle{flex-basis:46px;width:46px;height:46px}.v176-group-count{display:block;margin:3px 0 0;font-size:12px}}
+</style>
 <script id="v165-fair-price-script">
 // V165 · Fair Price Check. All baselines and user-facing copy are sourced from price-baseline.json.
 let v165PriceData=null;
@@ -18980,6 +18986,8 @@ let v165PriceMode='browse';
 let v165SelectedItemId='';
 let v165SearchDraft='';
 let v165PaidDraft='';
+let v176BrowseDraft='';
+const v176OpenGroups=new Set(['transport-official','convenience-store','market-street-food']);
 function v165T(obj,fallback=''){if(obj==null)return fallback;if(typeof obj==='string')return obj;return String(lang==='ko'?(obj.ko??obj.en??fallback):(obj.en??obj.ko??fallback));}
 function v165Esc(v=''){return typeof escapeHtmlText==='function'?escapeHtmlText(v):String(v).replace(/[&<>"']/g,'');}
 function v165Money(v){return Number(v||0).toLocaleString(lang==='ko'?'ko-KR':'en-US');}
@@ -19052,19 +19060,56 @@ function v175SourceRows(group){
   if(!srcs.length)return '';
   return `<div class="v165-source v175-source-list"><span>${v165Esc(v165Ui('source','Source'))}</span><div>${srcs.map((s,i)=>`<button type="button" onclick="v165OpenSource('${v165Esc(s.url||'')}','${v165Esc(s.name||'Source')}')">↗ ${v165Esc(s.name||v165Ui('source','Source'))}</button>`).join('')}</div></div>`;
 }
+function v176Norm(value=''){
+  return String(value||'').toLocaleLowerCase().normalize('NFKC').replace(/[\s\-_/·.,()→+%₩원]/g,'');
+}
+function v176GroupMatches(group,q){
+  if(!q)return true;
+  const nq=v176Norm(q);
+  const groupText=[v165T(group?.name),group?.name?.en,group?.name?.ko,v165T(group?.note)].filter(Boolean).join(' ');
+  if(v176Norm(groupText).includes(nq))return true;
+  return (group?.items||[]).some(item=>v176ItemMatches(item,group,q));
+}
+function v176ItemMatches(item,group,q){
+  if(!q)return true;
+  const nq=v176Norm(q);
+  const hay=[v165T(item?.name),item?.name?.en,item?.name?.ko,v165T(item?.unit),item?.unit?.en,item?.unit?.ko,v165T(group?.name),group?.name?.en,group?.name?.ko,item?.id].filter(Boolean).join(' ');
+  return v176Norm(hay).includes(nq);
+}
+function v176ToggleGroup(id){
+  id=String(id||'');
+  if(v176OpenGroups.has(id))v176OpenGroups.delete(id);else v176OpenGroups.add(id);
+  renderFairPriceCheck();
+}
+function v176BrowseSearchChanged(value){
+  v176BrowseDraft=String(value||'');
+  renderFairPriceCheck();
+  setTimeout(()=>{const el=document.getElementById('v176BrowseSearch');if(el){el.focus();try{el.setSelectionRange(el.value.length,el.value.length)}catch(_){}}},0);
+}
 function v165RenderBrowse(){
-  const groups=(v165PriceData?.groups||[]).map(group=>{
-    const items=(group.items||[]).map(item=>`<div class="v165-item"><div><b>${v165Esc(v165T(item.name))}</b><small>${v165Esc(v165T(item.unit))}</small></div><div class="v165-item-price">${v165RangeText(item)}${item.official?`<span class="v165-official">${v165Esc(v165Ui('official','OFFICIAL'))}</span>`:''}</div></div>`).join('');
+  const q=v176BrowseDraft.trim();
+  const allGroups=v165PriceData?.groups||[];
+  const visibleGroups=allGroups.filter(group=>v176GroupMatches(group,q));
+  const tools=`<div class="v176-browse-tools"><input id="v176BrowseSearch" type="search" value="${v165Esc(v176BrowseDraft)}" placeholder="${v165Esc(v165Ui('search_placeholder','Search an item'))}" aria-label="${v165Esc(v165Ui('search_placeholder','Search an item'))}" oninput="v176BrowseSearchChanged(this.value)"></div>`;
+  const groups=visibleGroups.map(group=>{
+    const visibleItems=(group.items||[]).filter(item=>!q||v176ItemMatches(item,group,q));
+    const groupMatchedByName=q&&v176Norm([v165T(group.name),group.name?.en,group.name?.ko].filter(Boolean).join(' ')).includes(v176Norm(q));
+    const shownItems=groupMatchedByName?(group.items||[]):visibleItems;
+    const isOpen=!!q||v176OpenGroups.has(String(group.id));
+    const items=shownItems.map(item=>`<div class="v165-item"><div><b>${v165Esc(v165T(item.name))}</b><small>${v165Esc(v165T(item.unit))}</small></div><div class="v165-item-price">${v165RangeText(item)}${item.official?`<span class="v165-official">${v165Esc(v165Ui('official','OFFICIAL'))}</span>`:''}</div></div>`).join('');
     const unofficial=group.no_official_source===true?`<div class="v175-unofficial-note">⚠ ${v165Esc(v165Ui('unofficial_reference_warning','This item uses a reference range without an official statistical source.'))}</div>`:'';
-    return `<div class="v165-card"><h2>${v165Esc(v165T(group.name))}</h2>${group.note?`<div class="v165-group-note">${v165Esc(v165T(group.note))}</div>`:''}${unofficial}<div class="v165-items">${items}</div>${v175SourceRows(group)}</div>`;
+    const count=(group.items||[]).length;
+    const toggleLabel=lang==='ko'?(isOpen?'접기':'펼치기'):(isOpen?'Collapse':'Expand');
+    return `<div class="v165-card v176-group-card ${q?'matching':''}"><div class="v176-group-head"><h2>${v165Esc(v165T(group.name))}<span class="v176-group-count">${count}</span></h2><button type="button" class="v176-group-toggle" aria-expanded="${isOpen?'true':'false'}" aria-label="${v165Esc(toggleLabel+' · '+v165T(group.name))}" ${q?'disabled':''} onclick="v176ToggleGroup('${v165Esc(group.id)}')">${isOpen?'−':'＋'}</button></div>${group.note?`<div class="v165-group-note">${v165Esc(v165T(group.note))}</div>`:''}${unofficial}<div class="v176-group-body" ${isOpen?'':'hidden'}><div class="v165-items">${items}</div>${v175SourceRows(group)}</div></div>`;
   }).join('');
-  return groups+`<div class="v165-method"><b>${v165Esc(v165Ui('methodology','How this reference was built'))}</b>${v165Esc(v165T(v165PriceData?.methodology))}</div>`;
+  const empty=!visibleGroups.length?`<div class="v165-empty v176-no-match">${v165Esc(v165Ui('no_matches','No matching items. Try another search.'))}</div>`:'';
+  return tools+groups+empty+`<div class="v165-method"><b>${v165Esc(v165Ui('methodology','How this reference was built'))}</b>${v165Esc(v165T(v165PriceData?.methodology))}</div>`;
 }
 function v165PickItem(id){v165SelectedItemId=String(id||'');v165PaidDraft='';renderFairPriceCheck();}
 function v165SearchChanged(value){v165SearchDraft=String(value||'');renderFairPriceCheck();setTimeout(()=>{const el=document.getElementById('v165Search');if(el){el.focus();el.setSelectionRange(el.value.length,el.value.length);}},0);}
 function v165SelectListHtml(){
   const q=v165SearchDraft.trim().toLocaleLowerCase();
-  const matches=v165AllItems().filter(({item,group})=>!q||[v165T(item.name),item.name?.en,item.name?.ko,v165T(group.name)].filter(Boolean).some(s=>String(s).toLocaleLowerCase().includes(q)));
+  const matches=v165AllItems().filter(({item,group})=>!q||v176ItemMatches(item,group,q));
   if(!matches.length)return `<div class="v165-empty">${v165Esc(v165Ui('no_matches','No matching items. Try another search.'))}</div>`;
   return `<div class="v165-picks">${matches.map(({item,group})=>`<button type="button" class="v165-pick ${String(item.id)===v165SelectedItemId?'selected':''}" onclick="v165PickItem('${v165Esc(item.id)}')"><b>${v165Esc(v165T(item.name))}</b><small>${v165Esc(v165T(group.name))} · ${v165RangeText(item)}</small></button>`).join('')}</div>`;
 }
