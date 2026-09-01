@@ -3585,7 +3585,7 @@ body.dark .v197-quick-grid button.help{background:#341f28;border-color:#64404d;c
         <button type="button" onclick="searchCityMapPlace()" data-en="Search" data-ko="검색">Search</button>
       </div>
 
-      <button type="button" class="v118-map-more-toggle" id="v118MapMoreBtn" onclick="v118ToggleMapMore()"><span data-en="Categories & nearby essentials" data-ko="카테고리 · 주변 편의시설">Categories & nearby essentials</span> ▾</button>
+      <button type="button" class="v118-map-more-toggle" id="v118MapMoreBtn" onclick="v118ToggleMapMore()"><span data-en="More map tools" data-ko="지도 도구 더보기">More map tools</span> ▾</button>
       <div class="city-map-search-filters" id="cityMapSearchFilters" aria-label="Place category filters">
         <button type="button" class="city-map-search-filter active" data-search-cat="all" onclick="setCityMapSearchFilter('all')"><span class="ficon">✨</span><span data-en="All" data-ko="전체">All</span></button>
         <button type="button" class="city-map-search-filter" data-search-cat="station" onclick="setCityMapSearchFilter('station')"><span class="ficon">🚉</span><span data-en="Transit" data-ko="역·교통">Transit</span></button>
@@ -3690,13 +3690,14 @@ body.dark .v197-quick-grid button.help{background:#341f28;border-color:#64404d;c
   <div class="traveler-sheet-handle" aria-hidden="true"></div>
   <div class="traveler-sheet-head">
     <div><b id="travelerFilterTitle">Nearby for travelers</b><span id="travelerFilterSubtitle">Choose what matters to you, then narrow the map.</span></div>
-    <div class="traveler-sheet-count" id="travelerFilterCount">—</div>
+    <div class="v198-traveler-actions"><div class="traveler-sheet-count" id="travelerFilterCount">—</div><button type="button" class="v198-traveler-info" id="v198TravelerInfoBtn" onclick="v198ToggleTravelerInfo()" aria-label="Filter info">ⓘ</button></div>
   </div>
   <div class="traveler-main-scroll" id="travelerMainFilters"></div>
   <div class="traveler-sub-scroll" id="travelerSubFilters"></div>
   <div class="traveler-filter-note" id="travelerFilterNote"></div>
   <div class="traveler-result-strip" id="travelerFilterResults"></div>
 </div>
+<button type="button" class="v198-map-info-toggle" id="v198MapInfoBtn" onclick="v198ToggleMapInfo()"><span><b data-en="Official events & details" data-ko="공식 행사 · 상세정보">Official events & details</b><small data-en="Open only when you need extra city information" data-ko="필요할 때만 추가 도시 정보를 펼쳐보세요">Open only when you need extra city information</small></span><em>▾</em></button>
     <div id="cityMapDestCard" class="city-map-dest-card" aria-live="polite"></div>
     <div id="cityPoiList" class="poi-list"></div>
 
@@ -4432,7 +4433,7 @@ body.dark .v197-quick-grid button.help{background:#341f28;border-color:#64404d;c
 
 
 <script>
-const KR_BUILD_VERSION='V197';
+const KR_BUILD_VERSION='V198';
 const TRANSLATIONS = {
   "ko": {
     "home.brand": "코리아 루트",
@@ -16141,8 +16142,8 @@ function v118ToggleMapMore(){
   const open=city.classList.toggle('v118-map-more');
   const btn=document.getElementById('v118MapMoreBtn');
   if(btn){
-    const label=lang==='ko'?'카테고리 · 주변 편의시설':'Categories & nearby essentials';
-    btn.innerHTML=`<span data-en="Categories & nearby essentials" data-ko="카테고리 · 주변 편의시설">${label}</span> ${open?'▴':'▾'}`;
+    const label=lang==='ko'?'지도 도구 더보기':'More map tools';
+    btn.innerHTML=`<span data-en="More map tools" data-ko="지도 도구 더보기">${label}</span> ${open?'▴':'▾'}`;
   }
   setTimeout(()=>{try{if(typeof v63RepairCityMapLayout==='function')v63RepairCityMapLayout()}catch(_){}},60);
 }
@@ -20503,6 +20504,104 @@ async function openCashConvenienceHub(source=''){if(current!=='cashConvenienceHu
 async function v195RetryCashConvenience(){v195CashData=null;try{await loadCashConvenienceData(true);renderCashConvenience()}catch(_){const body=document.getElementById('v195Body');if(body)body.innerHTML=`<div class="v195-error">${lang==='ko'?'다시 불러오지 못했습니다.':'Could not reload the data.'}<button type="button" onclick="v195RetryCashConvenience()">${lang==='ko'?'다시 시도':'Retry'}</button></div>`}}
 function closeCashConvenienceHub(){go(v195CashReturn&&document.getElementById(v195CashReturn)?v195CashReturn:'helperHub')}
 const v195PreviousApplyLang=applyLang;applyLang=function(){v195PreviousApplyLang();if(current==='cashConvenienceHub'&&v195CashData)renderCashConvenience()};
+</script>
+
+
+<style id="v198-map-drawer-cleanup">
+/* V198 · Map drawer cleanup. UI hierarchy only; map/search/filter/event logic unchanged. */
+#city.v60-map-mode.active{display:flex!important;flex-direction:column}
+#city.v60-map-mode>.top{order:-30}
+#city.v60-map-mode>.city-map-wrap{order:-20}
+#city.v60-map-mode>#v140CityEvents{order:-10;display:none!important;margin:4px 0 14px}
+#city.v60-map-mode.v198-map-info-open>#v140CityEvents{display:block!important}
+#city.v60-map-mode .city-map-wrap{border-radius:20px!important;box-shadow:0 7px 24px rgba(19,47,88,.06)!important}
+#city.v60-map-mode .city-map-search{margin-bottom:0!important}
+#city.v60-map-mode .v118-map-more-toggle{min-height:44px!important;margin-top:7px!important;border-radius:13px!important;background:#f7f9fc!important;font-size:13px!important}
+#city.v60-map-mode.v118-map-more .v118-map-more-toggle{background:#edf4ff!important;color:#174985!important}
+#city.v60-map-mode .traveler-filter-sheet{position:relative!important;z-index:5!important;margin:9px 0 0!important;padding:10px 10px 11px!important;max-height:none!important;overflow:visible!important;border-radius:17px!important;border:1px solid #dfe7f0!important;box-shadow:none!important;background:#fff!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+#city.v60-map-mode .traveler-sheet-handle{display:none!important}
+#city.v60-map-mode .traveler-sheet-head{align-items:center!important}
+#city.v60-map-mode .traveler-sheet-head b{font-size:17px!important;line-height:1.25!important}
+#city.v60-map-mode .traveler-sheet-head>div:first-child>span{display:none!important}
+#city.v60-map-mode .v198-traveler-actions{display:flex;align-items:center;gap:6px;flex:0 0 auto}
+#city.v60-map-mode .traveler-sheet-count{min-width:42px!important;min-height:34px!important;padding:5px 8px!important;border-radius:11px!important;font-size:13px!important}
+#city.v60-map-mode .v198-traveler-info{width:34px;height:34px;border:1px solid #d8e2ed;border-radius:11px;background:#f6f9fc;color:#46617e;font-size:17px;font-weight:950;cursor:pointer}
+#city.v60-map-mode.v198-filter-info-open .v198-traveler-info{background:#0b2345;color:#fff;border-color:#0b2345}
+#city.v60-map-mode .traveler-main-scroll,#city.v60-map-mode .traveler-sub-scroll{gap:7px!important;padding:8px 1px 1px!important}
+#city.v60-map-mode .traveler-main-btn{min-height:42px!important;padding:8px 11px!important;border-radius:13px!important;font-size:14px!important}
+#city.v60-map-mode .traveler-main-btn .ico{font-size:18px!important}
+#city.v60-map-mode .traveler-sub-btn{min-height:38px!important;padding:7px 11px!important;font-size:13px!important}
+#city.v60-map-mode .traveler-filter-note{display:none!important;margin:8px 0 0!important;padding:9px 10px!important;font-size:13px!important;line-height:1.45!important}
+#city.v60-map-mode.v198-filter-info-open .traveler-filter-note{display:block!important}
+#city.v60-map-mode .traveler-result-strip{padding:8px 1px 0!important}
+#city.v60-map-mode .traveler-result-card{min-height:78px!important;padding:10px 11px!important;border-radius:14px!important}
+#city.v60-map-mode .traveler-result-card b{font-size:15px!important}
+#city.v60-map-mode .traveler-result-card span{font-size:13px!important}
+#city.v60-map-mode .city-map-locate-float{min-height:42px!important;padding:0 11px!important;border-radius:12px!important;font-size:12px!important;gap:5px!important}
+#city.v60-map-mode .city-map-locate-float .pin{font-size:15px!important}
+#city.v60-map-mode .v198-map-info-toggle{order:30;width:100%;min-height:54px;margin:9px 0 2px;padding:9px 12px;border:1px solid #dbe4ee;border-radius:15px;background:#f7f9fc;color:#294965;display:flex;align-items:center;justify-content:space-between;gap:10px;text-align:left;cursor:pointer}
+#city.v60-map-mode .v198-map-info-toggle span{min-width:0}
+#city.v60-map-mode .v198-map-info-toggle b{display:block;font-size:14px;line-height:1.25}
+#city.v60-map-mode .v198-map-info-toggle small{display:block;margin-top:3px;color:#73849a;font-size:11px;line-height:1.35;font-weight:750}
+#city.v60-map-mode .v198-map-info-toggle em{font-style:normal;font-size:20px;color:#6f829a;transition:transform .18s ease}
+#city.v60-map-mode.v198-map-info-open .v198-map-info-toggle{background:#edf4ff;border-color:#cbdcf0;color:#174985}
+#city.v60-map-mode.v198-map-info-open .v198-map-info-toggle em{transform:rotate(180deg)}
+#city.v60-map-mode.v198-map-info-open>#v140CityEvents .v140-events{margin:0!important}
+#city.v60-map-mode.v198-map-info-open>#v140CityEvents .v140-events-sub,#city.v60-map-mode.v198-map-info-open>#v140CityEvents .v140-events-note{font-size:12px!important;line-height:1.45!important}
+body.dark #city.v60-map-mode .traveler-filter-sheet,body.dark #city.v60-map-mode .v198-map-info-toggle{background:#10233d!important;border-color:#29415f!important;color:#edf5ff!important}
+body.dark #city.v60-map-mode .traveler-sheet-head b{color:#edf5ff!important}
+body.dark #city.v60-map-mode .v198-map-info-toggle small{color:#aebdd0!important}
+body.dark #city.v60-map-mode .v198-traveler-info{background:#172d49;border-color:#31506f;color:#dceaff}
+body.dark #city.v60-map-mode.v198-filter-info-open .v198-traveler-info{background:#dbeaff;color:#10233d}
+@media(max-width:420px){
+  #city.v60-map-mode .city-map-wrap{padding:8px!important}
+  #city.v60-map-mode #cityGuideMap{height:62dvh!important;min-height:440px!important}
+  #city.v60-map-mode .traveler-filter-sheet{margin:8px 0 0!important;padding:9px 9px 10px!important}
+  #city.v60-map-mode .traveler-sheet-head b{font-size:16px!important}
+  #city.v60-map-mode .traveler-main-btn{font-size:13px!important;min-height:40px!important}
+  #city.v60-map-mode .v198-map-info-toggle{min-height:52px!important}
+}
+</style>
+<script id="v198-map-drawer-cleanup-js">
+/* V198 · drawers sit on top of the existing map architecture; no map/search/event data logic changed. */
+function v198ToggleTravelerInfo(force){
+  const city=document.getElementById('city');if(!city)return false;
+  const open=typeof force==='boolean'?force:!city.classList.contains('v198-filter-info-open');
+  city.classList.toggle('v198-filter-info-open',open);
+  const btn=document.getElementById('v198TravelerInfoBtn');if(btn)btn.setAttribute('aria-expanded',open?'true':'false');
+  return open;
+}
+function v198ToggleMapInfo(force){
+  const city=document.getElementById('city');if(!city)return false;
+  const open=typeof force==='boolean'?force:!city.classList.contains('v198-map-info-open');
+  city.classList.toggle('v198-map-info-open',open);
+  const btn=document.getElementById('v198MapInfoBtn');if(btn){btn.setAttribute('aria-expanded',open?'true':'false');const em=btn.querySelector('em');if(em)em.textContent=open?'▴':'▾';}
+  if(open){setTimeout(()=>document.getElementById('v140CityEvents')?.scrollIntoView({behavior:'smooth',block:'start'}),60)}
+  return open;
+}
+function v198ResetMapDrawers(){
+  const city=document.getElementById('city');if(!city)return;
+  city.classList.remove('v198-map-info-open','v198-filter-info-open');
+  document.getElementById('v198MapInfoBtn')?.setAttribute('aria-expanded','false');
+  document.getElementById('v198TravelerInfoBtn')?.setAttribute('aria-expanded','false');
+}
+try{
+  const v198PrevCloseTopLayer=v61CloseTopLayer;
+  v61CloseTopLayer=function(){
+    if(v198PrevCloseTopLayer.apply(this,arguments))return true;
+    const city=document.getElementById('city');
+    if(current==='city'&&city?.classList.contains('v198-map-info-open')){v198ToggleMapInfo(false);return true;}
+    if(current==='city'&&city?.classList.contains('v198-filter-info-open')){v198ToggleTravelerInfo(false);return true;}
+    if(current==='city'&&city?.classList.contains('v118-map-more')){v118ToggleMapMore();return true;}
+    return false;
+  };
+}catch(err){console.warn('V198 back-layer hook unavailable',err)}
+try{
+  const v198PrevOpenMapTab=v60OpenMapTab;
+  v60OpenMapTab=function(){v198ResetMapDrawers();return v198PrevOpenMapTab.apply(this,arguments)};
+  const v198PrevChangeMapCity=v60ChangeMapCity;
+  v60ChangeMapCity=function(){v198ResetMapDrawers();return v198PrevChangeMapCity.apply(this,arguments)};
+}catch(err){console.warn('V198 map reset hook unavailable',err)}
 </script>
 
 </body>
