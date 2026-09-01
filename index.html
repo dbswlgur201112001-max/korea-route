@@ -3145,6 +3145,47 @@ body.dark #cashConvenienceHub .v195-top{background:rgba(13,28,49,.97)}body.dark 
 @media(max-width:520px){.v195-wrap{padding:6px 14px 92px}.v195-logo-card{grid-template-columns:48px minmax(0,1fr);padding:16px}.v195-logo-card .icon{font-size:38px}.v195-atm-grid,.v195-service-grid{grid-template-columns:1fr}.v195-compare{grid-column:auto}.v195-hero h1{font-size:25px}}
 </style>
 
+
+<style id="v197-home-drawer-cleanup">
+/* V197 · Home drawer cleanup: keep every feature, lower first-screen density */
+#home>.hero{padding:16px 17px!important;margin:4px 0 10px!important;border-radius:24px!important;box-shadow:0 12px 30px rgba(17,54,104,.18)!important}
+#home>.hero .kicker{font-size:10px!important;margin-bottom:6px!important}
+#home>.hero h1{font-size:25px!important;line-height:1.08!important;margin-bottom:7px!important}
+#home>.hero p{font-size:12px!important;line-height:1.45!important;max-width:33em}
+#home .home-offline-snapshot-wrap{margin:0 0 5px!important}
+#home .home-offline-snapshot-badge{padding:5px 8px!important;font-size:9px!important;opacity:.78}
+.v197-home-drawer{display:grid;gap:9px;margin:8px 0 14px}
+.v197-home-title{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin:1px 2px 0}
+.v197-home-title b{display:block;color:#17365b;font-size:18px;line-height:1.2;font-weight:950}
+.v197-home-title span{display:block;margin-top:3px;color:#75869a;font-size:11px;line-height:1.42;font-weight:720}
+.v197-intent-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.v197-intent{min-width:0;min-height:126px;border:1px solid #dbe4ee;border-radius:20px;background:#fff;color:#17365b;padding:13px;display:grid;grid-template-rows:auto 1fr;position:relative;text-align:left;box-shadow:0 5px 17px rgba(20,49,86,.045)}
+.v197-intent.primary{background:#0b2a54;color:#fff;border-color:#0b2a54}
+.v197-intent.live{background:#f3f8ff;border-color:#cddff4}
+.v197-intent .ico{width:42px;height:42px;border-radius:14px;background:#edf3fa;display:grid;place-items:center;font-size:22px;margin-bottom:12px}
+.v197-intent.primary .ico{background:rgba(255,255,255,.13)}
+.v197-intent b{display:block;font-size:17px;line-height:1.2;font-weight:950}
+.v197-intent small{display:block;margin-top:5px;font-size:11px;line-height:1.35;font-weight:750;opacity:.69}
+.v197-intent .go{position:absolute;right:12px;top:12px;font-size:24px;font-weight:700;opacity:.42}
+.v197-quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.v197-quick-grid button{min-height:52px;border:1px solid #dbe4ee;border-radius:15px;background:#fff;color:#17365b;display:flex;align-items:center;justify-content:flex-start;gap:8px;padding:0 12px;font-size:13px;font-weight:950;text-align:left}
+.v197-quick-grid button span{font-size:20px}.v197-quick-grid button.help{background:#fff8f8;border-color:#eed6d6;color:#8f3434}
+.v197-more{margin-top:0}
+.v197-more summary{list-style:none;cursor:pointer;min-height:44px;border:1px solid #dbe4ee;border-radius:14px;background:#f7f9fc;color:#34516f;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:12px;font-weight:950}
+.v197-more summary::-webkit-details-marker{display:none}.v197-more .chev{font-size:18px;opacity:.55;transition:transform .18s ease}.v197-more[open] .chev{transform:rotate(180deg)}
+.v197-more-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:7px}
+.v197-more-grid button{min-height:48px;border:1px solid #dbe4ee;border-radius:13px;background:#fff;color:#294763;font-size:11px;font-weight:900;padding:8px}
+body.dark .v197-home-title b{color:#edf5ff}
+body.dark .v197-home-title span{color:#aebdd0}
+body.dark .v197-intent,body.dark .v197-quick-grid button,body.dark .v197-more-grid button,body.dark .v197-more summary{background:#10233d;border-color:#29415f;color:#edf5ff}
+body.dark .v197-intent.live{background:#132a48;border-color:#315477}
+body.dark .v197-intent.primary{background:#194d86;border-color:#295f99}
+body.dark .v197-intent .ico{background:#1c3554}
+body.dark .v197-intent.primary .ico{background:rgba(255,255,255,.12)}
+body.dark .v197-quick-grid button.help{background:#341f28;border-color:#64404d;color:#ffdbe2}
+@media(max-width:360px){.v197-intent-grid{grid-template-columns:1fr}.v197-intent{min-height:96px;grid-template-columns:44px minmax(0,1fr);grid-template-rows:auto;gap:10px;align-items:center}.v197-intent .ico{margin:0}.v197-more-grid{grid-template-columns:1fr}}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -3171,18 +3212,34 @@ body.dark #cashConvenienceHub .v195-top{background:rgba(13,28,49,.97)}body.dark 
   </div>
 
   
-  <div class="v118-home-nav" id="v118HomeNav">
-    <div class="v118-home-title"><div><b data-en="What do you want to do?" data-ko="무엇을 하시겠어요?">What do you want to do?</b><span data-en="Choose one. More options appear only after you enter." data-ko="하나만 선택하세요. 세부 기능은 들어간 뒤에 보여드립니다.">Choose one. More options appear only after you enter.</span></div></div>
-    <button type="button" class="v118-home-step primary" onclick="v60OpenRouteTab()"><span class="ico">⇄</span><span><b data-en="Find a route" data-ko="길찾기">Find a route</b><small data-en="From → To → transport options" data-ko="출발 → 도착 → 교통편 순서로">From → To → transport options</small></span><span class="go">›</span></button>
-    <button type="button" class="v118-home-step" onclick="v60OpenMapTab()"><span class="ico">🗺️</span><span><b data-en="Find a place on the map" data-ko="지도에서 장소 찾기">Find a place on the map</b><small data-en="Search first, then choose directions or walking help" data-ko="장소를 찾은 뒤 길찾기·도보 안내 선택">Search first, then choose directions or walking help</small></span><span class="go">›</span></button>
-    <button type="button" class="v118-home-step" onclick="v60OpenTripOverview()"><span class="ico">🧳</span><span><b data-en="Open My Trip" data-ko="내 여행 보기">Open My Trip</b><small data-en="Plan · stay · saved places" data-ko="일정 · 숙소 · 저장 장소">Plan · stay · saved places</small></span><span class="go">›</span></button>
-    <button type="button" class="v118-home-step" onclick="v118OpenHelpTab()"><span class="ico">🆘</span><span><b data-en="I need help" data-ko="도움이 필요해요">I need help</b><small data-en="Emergency · 1330 · late-night · translation" data-ko="긴급 · 1330 · 심야 귀가 · 번역">Emergency · 1330 · late-night · translation</small></span><span class="go">›</span></button>
-    <div class="v118-home-helpbar">
-      <button type="button" onclick="go('planner')" data-en="🗓️ Make a trip plan" data-ko="🗓️ 여행 일정 만들기">🗓️ Make a trip plan</button>
-      <button type="button" onclick="openPreArrivalHub()" data-en="✈️ Before you fly" data-ko="✈️ 출발 전 준비">✈️ Before you fly</button>
-      <button type="button" onclick="go('assistantHub')" data-en="✨ Ask Trip Assistant" data-ko="✨ 여행 도우미에게 묻기">✨ Ask Trip Assistant</button>
-      <button type="button" onclick="openForeignerAccessHub()" data-en="📱 Can I use this?" data-ko="📱 이거 쓸 수 있나요?">📱 Can I use this?</button>
+  <div class="v197-home-drawer" id="v118HomeNav">
+    <div class="v197-home-title">
+      <div><b data-en="Start here" data-ko="여기서 시작하세요">Start here</b><span data-en="Two simple choices. Everything else stays one tap away." data-ko="먼저 두 가지만 고르세요. 나머지 기능은 한 번 더 누르면 열립니다.">Two simple choices. Everything else stays one tap away.</span></div>
     </div>
+
+    <div class="v197-intent-grid">
+      <button type="button" class="v197-intent primary" onclick="v60OpenRouteTab()">
+        <span class="ico">⇄</span><span><b data-en="Plan Route" data-ko="경로 찾기">Plan Route</b><small data-en="From → To · compare transport" data-ko="출발 → 도착 · 교통편 비교">From → To · compare transport</small></span><span class="go">›</span>
+      </button>
+      <button type="button" class="v197-intent live" onclick="v60OpenMapTab()">
+        <span class="ico">📍</span><span><b data-en="In Korea Now" data-ko="지금 한국에서">In Korea Now</b><small data-en="Map · nearby · walking help" data-ko="지도 · 주변 찾기 · 도보 도움">Map · nearby · walking help</small></span><span class="go">›</span>
+      </button>
+    </div>
+
+    <div class="v197-quick-grid" aria-label="Quick access">
+      <button type="button" onclick="v60OpenTripOverview()"><span>🧳</span><b data-en="My Trip" data-ko="내 여행">My Trip</b></button>
+      <button type="button" class="help" onclick="v118OpenHelpTab()"><span>🆘</span><b data-en="Help" data-ko="도움">Help</b></button>
+    </div>
+
+    <details class="v197-more">
+      <summary><span data-en="More travel tools" data-ko="여행 도구 더보기">More travel tools</span><span class="chev">⌄</span></summary>
+      <div class="v197-more-grid">
+        <button type="button" onclick="go('planner')" data-en="🗓️ Make a trip plan" data-ko="🗓️ 여행 일정 만들기">🗓️ Make a trip plan</button>
+        <button type="button" onclick="openPreArrivalHub()" data-en="✈️ Before you fly" data-ko="✈️ 출발 전 준비">✈️ Before you fly</button>
+        <button type="button" onclick="go('assistantHub')" data-en="✨ Trip Assistant" data-ko="✨ 여행 도우미">✨ Trip Assistant</button>
+        <button type="button" onclick="openForeignerAccessHub()" data-en="📱 Can I use this?" data-ko="📱 이거 쓸 수 있나요?">📱 Can I use this?</button>
+      </div>
+    </details>
   </div>
 
 <div class="install-box" id="installBox">
@@ -4375,7 +4432,7 @@ body.dark #cashConvenienceHub .v195-top{background:rgba(13,28,49,.97)}body.dark 
 
 
 <script>
-const KR_BUILD_VERSION='V193';
+const KR_BUILD_VERSION='V197';
 const TRANSLATIONS = {
   "ko": {
     "home.brand": "코리아 루트",
@@ -15988,6 +16045,8 @@ function v61CloseTopLayer(){
   if(current==='myTripHub'&&trip?.classList.contains('v60-detail')){v60ResetTripClasses();window.scrollTo({top:0,behavior:'smooth'});return true;}
   const help=document.getElementById('helperHub');
   if(current==='helperHub'&&help?.classList.contains('v118-tools-open')){if(typeof v118CloseToolMenu==='function')v118CloseToolMenu();else help.classList.remove('v118-tools-open');return true;}
+  const homeMore=document.querySelector('#home .v197-more[open]');
+  if(current==='home'&&homeMore){homeMore.open=false;return true;}
   return false;
 }
 function v61GoHomeFromBack(){
