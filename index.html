@@ -19021,5 +19021,104 @@ const v165OriginalApplyLang=applyLang;applyLang=function(){v165OriginalApplyLang
 })();
 </script>
 
+
+<style id="v167-overlay-back-accessibility-css">
+html.v167-modal-open,body.v167-modal-open{overflow:hidden!important;overscroll-behavior:none}
+</style>
+<script id="v167-overlay-back-accessibility-script">
+// V167 · Overlay/back/accessibility stability.
+// Reuses the existing V61 Back Guard instead of adding a second history stack.
+(function(){
+  const IDS=['v160ExternalLaunchGuard','v150EventTranslationOverlay','phraseSheetLayer'];
+  const wasOpen=new Map();
+  const returnFocus=new Map();
+  let restoreTimer=0;
+  function openState(id,el){
+    if(!el)return false;
+    if(id==='phraseSheetLayer')return el.classList.contains('show');
+    return el.classList.contains('open')&&el.getAttribute('aria-hidden')!=='true';
+  }
+  function firstFocus(el){
+    return el?.querySelector('[aria-label="Close"],.v160-launch-close,.v150-translation-close,.phrase-sheet-head button,button:not([disabled]),a[href],input,select,textarea,[tabindex]:not([tabindex="-1"])')||null;
+  }
+  function syncModalState(){
+    let any=false;
+    IDS.forEach(id=>{
+      const el=document.getElementById(id),open=openState(id,el),prev=wasOpen.get(id)===true;
+      any=any||open;
+      if(open&&!prev){
+        const active=document.activeElement;
+        if(active&&active!==document.body&&active!==document.documentElement&&active.isConnected)returnFocus.set(id,active);
+        requestAnimationFrame(()=>{try{firstFocus(el)?.focus({preventScroll:true});}catch(_){try{firstFocus(el)?.focus();}catch(__){}}});
+      }else if(!open&&prev){
+        const target=returnFocus.get(id);returnFocus.delete(id);
+        clearTimeout(restoreTimer);restoreTimer=setTimeout(()=>{
+          try{if(target?.isConnected&&typeof target.focus==='function')target.focus({preventScroll:true});}catch(_){try{target?.focus?.();}catch(__){}}
+        },0);
+      }
+      wasOpen.set(id,open);
+    });
+    document.documentElement.classList.toggle('v167-modal-open',any);
+    document.body?.classList.toggle('v167-modal-open',any);
+  }
+  function closeTopV167Layer(){
+    const launch=document.getElementById('v160ExternalLaunchGuard');
+    if(openState('v160ExternalLaunchGuard',launch)){window.v160CloseLaunchGuard?.();syncModalState();return true;}
+    const event=document.getElementById('v150EventTranslationOverlay');
+    if(openState('v150EventTranslationOverlay',event)){
+      if(typeof window.v150CloseEventTranslation==='function')window.v150CloseEventTranslation();
+      else if(typeof window.v154CloseSourceStatus==='function')window.v154CloseSourceStatus();
+      else{event.classList.remove('open');event.setAttribute('aria-hidden','true');}
+      syncModalState();return true;
+    }
+    const phrase=document.getElementById('phraseSheetLayer');
+    if(openState('phraseSheetLayer',phrase)&&phrase.classList.contains('v162-bright-layer')){
+      if(typeof window.closeTaxiPhraseCard==='function')window.closeTaxiPhraseCard();
+      else if(typeof window.closePhraseSheet==='function')window.closePhraseSheet();
+      syncModalState();return true;
+    }
+    return false;
+  }
+
+  // Make every phrase close also clear the Taxi full-screen skin.
+  const baseClosePhrase=window.closePhraseSheet;
+  if(typeof baseClosePhrase==='function'){
+    window.closePhraseSheet=function(){
+      document.getElementById('phraseSheetLayer')?.classList.remove('v162-bright-layer');
+      const out=baseClosePhrase.apply(this,arguments);syncModalState();return out;
+    };
+  }
+
+  // Extend the existing V61 top-layer closer; do not add another popstate/history handler.
+  const baseV61Close=window.v61CloseTopLayer;
+  if(typeof baseV61Close==='function'){
+    window.v61CloseTopLayer=function(){
+      if(closeTopV167Layer())return true;
+      const out=baseV61Close.apply(this,arguments);syncModalState();return out;
+    };
+  }
+
+  // Escape closes only the currently topmost Korea Route overlay, not multiple stacked sheets.
+  document.addEventListener('keydown',e=>{
+    if(e.key!=='Escape')return;
+    if(closeTopV167Layer()){
+      e.preventDefault();e.stopImmediatePropagation();
+      return;
+    }
+    const phrase=document.getElementById('phraseSheetLayer');
+    if(openState('phraseSheetLayer',phrase)){
+      e.preventDefault();e.stopImmediatePropagation();window.closePhraseSheet?.();syncModalState();
+    }
+  },true);
+
+  // Track opens/closes for body scroll lock and focus return without touching app navigation state.
+  const observer=new MutationObserver(records=>{
+    if(records.some(r=>IDS.includes(r.target?.id)||[...r.addedNodes].some(n=>n?.nodeType===1&&IDS.includes(n.id))))syncModalState();
+  });
+  const start=()=>{if(document.body){observer.observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:['class','aria-hidden']});syncModalState();}};
+  if(document.body)start();else document.addEventListener('DOMContentLoaded',start,{once:true});
+})();
+</script>
+
 </body>
 </html>
