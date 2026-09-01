@@ -1,0 +1,314 @@
+{
+  "version": "2026-09-01",
+  "source_checked_on": "2026-09-01",
+  "title": {
+    "en": "Can I use this?",
+    "ko": "이거 쓸 수 있나요?"
+  },
+  "subtitle": {
+    "en": "Check whether a travel service works without a Korean phone number.",
+    "ko": "한국 전화번호 없이 여행 서비스를 쓸 수 있는지 빠르게 확인하세요."
+  },
+  "toggle_label": {
+    "en": "Show only what works without a Korean number",
+    "ko": "한국 번호 없이 되는 것만 보기"
+  },
+  "categories": [
+    {
+      "id": "maps",
+      "name": {
+        "en": "Maps & booking",
+        "ko": "지도 · 예약"
+      },
+      "items": [
+        {
+          "id": "naver-map",
+          "name": {
+            "en": "NAVER Map",
+            "ko": "네이버 지도"
+          },
+          "status": "yes",
+          "needs_korean_number": false,
+          "why": {
+            "en": "Foreign visitors can use passport verification for NAVER Map bookings, orders and payments without a Korean mobile phone number.",
+            "ko": "외국인 방문객은 여권 인증을 이용해 한국 휴대폰 번호 없이 네이버 지도 예약·주문·결제 기능을 사용할 수 있습니다."
+          },
+          "workaround": {
+            "en": "If a booking or payment asks for identity verification, choose passport verification. Availability still depends on the individual merchant or service.",
+            "ko": "예약이나 결제 과정에서 본인확인이 필요하면 여권 인증을 선택하세요. 실제 이용 가능 여부는 개별 매장이나 서비스에 따라 달라질 수 있습니다."
+          },
+          "source": "NAVER Corp.",
+          "source_url": "https://www.navercorp.com/media/pressReleasesDetail?seq=10034413"
+        },
+        {
+          "id": "kakao-map",
+          "name": {
+            "en": "KakaoMap",
+            "ko": "카카오맵"
+          },
+          "status": "yes",
+          "needs_korean_number": false,
+          "why": {
+            "en": "Basic place search and route finding are available in KakaoMap. Account-linked extras can have separate sign-in requirements.",
+            "ko": "카카오맵의 기본 장소 검색과 길찾기는 사용할 수 있습니다. 계정에 연결되는 일부 추가 기능은 별도 로그인 조건이 있을 수 있습니다."
+          },
+          "workaround": {
+            "en": "Use KakaoMap for search and routes first. If an account-only feature blocks you, use the core map without that extra feature or switch to NAVER Map.",
+            "ko": "우선 카카오맵의 검색·길찾기를 사용하세요. 계정 전용 기능에서 막히면 해당 추가 기능 없이 기본 지도를 쓰거나 네이버 지도로 전환하세요."
+          },
+          "source": "Kakao Corp.",
+          "source_url": "https://www.kakaocorp.com/page/service/service/KakaoMap?lang=en"
+        }
+      ]
+    },
+    {
+      "id": "taxi",
+      "name": {
+        "en": "Taxi & local transport",
+        "ko": "택시 · 현지 이동"
+      },
+      "items": [
+        {
+          "id": "kride",
+          "name": {
+            "en": "k.ride",
+            "ko": "k.ride"
+          },
+          "status": "yes",
+          "needs_korean_number": false,
+          "why": {
+            "en": "k.ride is Kakao Mobility's service for global travelers and supports multilingual use and overseas payment cards.",
+            "ko": "k.ride는 카카오모빌리티의 해외 여행자용 서비스로 다국어 사용과 해외 결제카드를 지원합니다."
+          },
+          "workaround": {
+            "en": "Use your overseas phone number and the available Google, Apple or email sign-in flow. Register an international card for in-app payment.",
+            "ko": "해외 전화번호와 제공되는 Google·Apple·이메일 로그인 방식을 이용하세요. 앱 결제에는 해외 카드를 등록할 수 있습니다."
+          },
+          "source": "Kakao Mobility / VISITKOREA",
+          "source_url": "https://utility.kride.kakaomobility.com/"
+        },
+        {
+          "id": "kakao-t",
+          "name": {
+            "en": "Kakao T",
+            "ko": "카카오 T"
+          },
+          "status": "partial",
+          "needs_korean_number": false,
+          "why": {
+            "en": "A Korean phone number is not strictly required: VISITKOREA says a local overseas mobile number can be used to create the Kakao account. Setup still goes through KakaoTalk and can be less convenient for short-term visitors.",
+            "ko": "한국 전화번호가 반드시 필요한 것은 아닙니다. VISITKOREA 안내에 따르면 해외에서 쓰는 본인 휴대폰 번호로 카카오 계정을 만들 수 있습니다. 다만 카카오톡을 통한 가입 과정 때문에 단기 여행자에게는 번거로울 수 있습니다."
+          },
+          "workaround": {
+            "en": "If Kakao T setup is inconvenient, use k.ride instead; it is designed specifically for international travelers.",
+            "ko": "카카오 T 가입이 번거로우면 해외 여행자 전용으로 설계된 k.ride를 이용하세요."
+          },
+          "source": "VISITKOREA",
+          "source_url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=197907"
+        },
+        {
+          "id": "uber-taxi",
+          "name": {
+            "en": "Uber Taxi",
+            "ko": "Uber Taxi"
+          },
+          "status": "yes",
+          "needs_korean_number": false,
+          "why": {
+            "en": "VISITKOREA says an existing Uber app and saved payment information can be used to call Uber Taxi in Korea.",
+            "ko": "VISITKOREA 안내에 따르면 기존 Uber 앱과 저장된 결제 정보를 그대로 이용해 한국에서 Uber Taxi를 호출할 수 있습니다."
+          },
+          "workaround": {
+            "en": "Keep your existing Uber account and payment method. Vehicle availability varies by location and time.",
+            "ko": "기존 Uber 계정과 결제수단을 그대로 사용하세요. 차량 이용 가능 여부는 지역과 시간에 따라 달라질 수 있습니다."
+          },
+          "source": "VISITKOREA",
+          "source_url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=140661"
+        },
+        {
+          "id": "seoul-bike",
+          "name": {
+            "en": "Seoul Bike (Ttareungi) · Foreigner pass",
+            "ko": "서울자전거 따릉이 · 외국인 이용권"
+          },
+          "status": "yes",
+          "needs_korean_number": false,
+          "why": {
+            "en": "The official foreigner flow lets international tourists choose Foreigner, enter an email address and purchase a pass by card.",
+            "ko": "공식 외국인 이용 절차에서 Foreigner를 선택하고 이메일 주소를 입력한 뒤 카드로 이용권을 구매할 수 있습니다."
+          },
+          "workaround": {
+            "en": "Choose Foreigner on the Seoul Bike app. Keep the pass code sent by email so you can recover it if needed.",
+            "ko": "서울자전거 앱에서 Foreigner를 선택하세요. 필요할 때 다시 등록할 수 있도록 이메일로 받은 이용권 코드를 보관하세요."
+          },
+          "source": "Seoul Metropolitan Government",
+          "source_url": "https://english.seoul.go.kr/seoul-bike-instructions-and-chatbot-service-for-international-tourists/"
+        }
+      ]
+    },
+    {
+      "id": "rail",
+      "name": {
+        "en": "Rail",
+        "ko": "철도"
+      },
+      "items": [
+        {
+          "id": "korail-global",
+          "name": {
+            "en": "KORAIL Global website",
+            "ko": "KORAIL 글로벌 웹사이트"
+          },
+          "status": "yes",
+          "needs_korean_number": false,
+          "why": {
+            "en": "KORAIL's global site supports ticket purchase by credit card and ticket lookup using the email and purchase information.",
+            "ko": "KORAIL 글로벌 사이트는 신용카드로 승차권 구매가 가능하며 이메일과 구매 정보를 이용해 승차권을 조회할 수 있습니다."
+          },
+          "workaround": {
+            "en": "Use the official Global website rather than a Korean-only member flow. Keep the email and purchase details used for the booking.",
+            "ko": "한국어 회원 전용 흐름 대신 공식 Global 웹사이트를 이용하세요. 예약에 사용한 이메일과 구매 정보를 보관하세요."
+          },
+          "source": "KORAIL",
+          "source_url": "https://www.korail.com/global/eng/ticket/reservation?radTrvCate=GTRN"
+        },
+        {
+          "id": "srt-global",
+          "name": {
+            "en": "SRT English website",
+            "ko": "SRT 영문 웹사이트"
+          },
+          "status": "partial",
+          "needs_korean_number": false,
+          "why": {
+            "en": "The current SRT English site says online ticket payment accepts Korean-issued credit cards, not foreign-issued cards. The payment method is the main limitation here, not the phone number.",
+            "ko": "현재 SRT 영문 사이트는 온라인 승차권 결제에 한국 발급 신용카드만 가능하고 해외 발급 카드는 사용할 수 없다고 안내합니다. 이 경우 핵심 제한은 전화번호보다 결제수단입니다."
+          },
+          "workaround": {
+            "en": "If KTX/KORAIL serves your route, compare that option first. Otherwise check current SRT purchase options at the station or the official SRT site before travel.",
+            "ko": "같은 구간에 KTX/KORAIL이 있다면 먼저 비교하세요. SRT가 필요하면 여행 전 역 구매 가능 여부나 SRT 공식 사이트의 최신 결제 조건을 다시 확인하세요."
+          },
+          "source": "SR / SRT",
+          "source_url": "https://app.srail.or.kr/main/main_eng.do"
+        }
+      ]
+    },
+    {
+      "id": "food",
+      "name": {
+        "en": "Food & reservations",
+        "ko": "식당 · 배달"
+      },
+      "items": [
+        {
+          "id": "catchtable-global",
+          "name": {
+            "en": "CATCHTABLE Global",
+            "ko": "캐치테이블 글로벌"
+          },
+          "status": "yes",
+          "needs_korean_number": false,
+          "why": {
+            "en": "CATCHTABLE Global allows restaurant reservations and waitlists without a Korean phone number, using email and an international credit card.",
+            "ko": "캐치테이블 글로벌은 한국 전화번호 없이 이메일과 해외 신용카드로 식당 예약과 웨이팅을 이용할 수 있습니다."
+          },
+          "workaround": {
+            "en": "Use the Global website/app, not the domestic-only flow, and check each restaurant's reservation or deposit rules before confirming.",
+            "ko": "국내용 흐름이 아니라 Global 웹사이트·앱을 이용하고, 예약 확정 전 각 식당의 예약·보증금 조건을 확인하세요."
+          },
+          "source": "VISITKOREA / CATCHTABLE Global",
+          "source_url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=1589778"
+        },
+        {
+          "id": "shuttle-delivery",
+          "name": {
+            "en": "SHUTTLE Delivery",
+            "ko": "셔틀 딜리버리"
+          },
+          "status": "partial",
+          "needs_korean_number": false,
+          "why": {
+            "en": "SHUTTLE lets foreign visitors sign up without a Korean phone number and pay with international cards, but delivery coverage is limited by area.",
+            "ko": "SHUTTLE은 한국 전화번호 없이 가입하고 해외 카드로 결제할 수 있지만 배달 가능 지역에는 제한이 있습니다."
+          },
+          "workaround": {
+            "en": "Check your delivery address in the app before choosing food. If your area is outside coverage, use pickup or another visitor-friendly service.",
+            "ko": "음식을 고르기 전에 앱에서 배달 주소가 서비스 지역인지 확인하세요. 지역 밖이라면 포장 주문이나 다른 외국인 친화 서비스를 이용하세요."
+          },
+          "source": "VISITKOREA / SHUTTLE Delivery",
+          "source_url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=226767"
+        },
+        {
+          "id": "creatrip-delivery",
+          "name": {
+            "en": "Creatrip food delivery",
+            "ko": "크리에이트립 음식 배달"
+          },
+          "status": "partial",
+          "needs_korean_number": false,
+          "why": {
+            "en": "VISITKOREA lists Creatrip as a multilingual delivery option that can be used without a Korean phone number or Korean payment method. Service hours and the ordering flow can be more limited than domestic apps.",
+            "ko": "VISITKOREA는 크리에이트립을 한국 전화번호나 한국 결제수단 없이 이용 가능한 다국어 배달 선택지로 안내합니다. 다만 국내 배달앱보다 운영시간과 주문 방식에 제한이 있을 수 있습니다."
+          },
+          "workaround": {
+            "en": "Check current delivery hours, destination coverage and the required support/contact steps before ordering.",
+            "ko": "주문 전에 현재 배달 운영시간, 서비스 지역, 필요한 고객지원·연락 절차를 확인하세요."
+          },
+          "source": "VISITKOREA",
+          "source_url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=194469"
+        },
+        {
+          "id": "domestic-delivery-typical",
+          "name": {
+            "en": "Domestic delivery apps · typical local flow",
+            "ko": "국내 배달앱 · 일반적인 로컬 이용 방식"
+          },
+          "status": "no",
+          "needs_korean_number": true,
+          "why": {
+            "en": "VISITKOREA notes that most Korean delivery apps commonly require local phone-number verification and may not support foreign-issued cards, which can block short-term visitors.",
+            "ko": "VISITKOREA는 대부분의 국내 배달앱이 일반적으로 현지 휴대폰 번호 인증을 요구하고 해외 발급 카드를 지원하지 않는 경우가 있어 단기 여행자가 이용하기 어려울 수 있다고 안내합니다."
+          },
+          "workaround": {
+            "en": "Use a visitor-oriented option such as SHUTTLE Delivery or Creatrip where available instead of trying to bypass local verification.",
+            "ko": "현지 본인인증을 우회하려 하지 말고, 이용 지역에서 가능하다면 SHUTTLE Delivery나 크리에이트립 같은 여행자용 대안을 이용하세요."
+          },
+          "source": "VISITKOREA",
+          "source_url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=226767"
+        }
+      ]
+    },
+    {
+      "id": "transit-card",
+      "name": {
+        "en": "Transit cards",
+        "ko": "교통카드"
+      },
+      "items": [
+        {
+          "id": "tmoney-physical",
+          "name": {
+            "en": "Physical Tmoney card",
+            "ko": "실물 티머니 카드"
+          },
+          "status": "yes",
+          "needs_korean_number": false,
+          "why": {
+            "en": "Tourists can buy and recharge physical Tmoney cards at convenience stores and transit locations; normal card use does not depend on having a Korean phone number.",
+            "ko": "관광객은 편의점과 교통시설에서 실물 티머니 카드를 구입·충전할 수 있으며 일반적인 카드 사용은 한국 전화번호 보유 여부와 무관합니다."
+          },
+          "workaround": {
+            "en": "For the simplest setup, buy a physical card and recharge it locally. Some special mobile or refund functions can have separate requirements.",
+            "ko": "가장 간단하게 쓰려면 실물 카드를 구입해 현지에서 충전하세요. 일부 모바일 기능이나 환불 기능에는 별도 조건이 있을 수 있습니다."
+          },
+          "source": "Tmoney / VISITKOREA",
+          "source_url": "https://tmoney.co.kr/aeb/biz/bridge/foreignTravel.dev"
+        }
+      ]
+    }
+  ],
+  "disclaimer": {
+    "en": "Service rules, identity checks, accepted cards and coverage can change without notice. This screen is a traveler-oriented reference checked on Sep 1, 2026, not a guarantee of access. Always confirm the final sign-up, payment and availability conditions in the official service before relying on it.",
+    "ko": "서비스의 가입 조건, 본인인증, 결제수단, 이용 가능 지역은 예고 없이 바뀔 수 있습니다. 이 화면은 2026년 9월 1일 확인한 여행자 참고 정보이며 이용 가능성을 보장하지 않습니다. 실제 이용 전 반드시 각 공식 서비스에서 최종 가입·결제·이용 조건을 확인하세요."
+  }
+}

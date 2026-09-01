@@ -1,5 +1,5 @@
-const CACHE='korea-route-public-beta-v160-0901';
-const CORE=['/','/index.html'];
+const CACHE='korea-route-public-beta-v161-0901';
+const CORE=['/','/index.html','/foreigner-access.json'];
 const OPTIONAL=['/manifest.json','/icon-192.png','/icon-512.png'];
 
 self.addEventListener('install',event=>{

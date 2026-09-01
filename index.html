@@ -2960,6 +2960,18 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
 @media(max-width:420px){#cityMapStatus .v132-location-fallback-actions{grid-template-columns:1fr}}
 </style>
 
+
+<style id="v161-foreigner-access">
+#foreignerAccessHub{background:#f5f8fc;color:#10233f;min-height:100dvh;padding-bottom:90px}
+#foreignerAccessHub .top{position:sticky;top:0;z-index:20;background:rgba(245,248,252,.96);backdrop-filter:blur(12px);padding-bottom:10px}
+.v161-access-wrap{max-width:720px;margin:0 auto;padding:0 16px 28px}
+.v161-access-intro{padding:8px 0 14px}.v161-access-intro h1{margin:0;font-size:27px;line-height:1.15;color:#10233f}.v161-access-intro p{margin:7px 0 0;font-size:14px;line-height:1.55;color:#5d6e82}.v161-access-checked{display:inline-flex;margin-top:9px;padding:6px 9px;border-radius:999px;background:#eaf2fb;color:#365b82;font-size:11px;font-weight:900}
+.v161-access-controls{display:grid;gap:10px;position:sticky;top:58px;z-index:15;background:linear-gradient(#f5f8fc 82%,rgba(245,248,252,0));padding:4px 0 14px}.v161-access-search{display:flex;align-items:center;gap:9px;background:#fff;border:1px solid #dce5ef;border-radius:16px;padding:0 13px;min-height:50px;box-shadow:0 7px 22px rgba(18,51,84,.06)}.v161-access-search span{font-size:18px}.v161-access-search input{min-width:0;flex:1;border:0;outline:0;background:transparent;color:#10233f;font-size:15px}.v161-access-search button{border:0;background:transparent;color:#71849a;font-size:22px;padding:7px;cursor:pointer}
+.v161-access-toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid #dce5ef;background:#fff;border-radius:16px;padding:11px 12px}.v161-access-toggle b{font-size:13px;line-height:1.4}.v161-switch{position:relative;flex:0 0 auto;width:48px;height:28px;border:0;border-radius:999px;background:#c7d2df;padding:0;cursor:pointer}.v161-switch::after{content:"";position:absolute;top:4px;left:4px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 2px 7px rgba(0,0,0,.2);transition:.18s}.v161-switch.on{background:#2f6fed}.v161-switch.on::after{transform:translateX(20px)}
+.v161-access-summary{font-size:12px;font-weight:850;color:#60758d;padding:0 2px 2px}.v161-access-section{margin:0 0 17px}.v161-access-section h2{font-size:17px;line-height:1.25;margin:0 0 8px;color:#173653}.v161-access-list{display:grid;gap:8px}.v161-access-card{background:#fff;border:1px solid #dfe7ef;border-radius:17px;overflow:hidden;box-shadow:0 6px 18px rgba(18,51,84,.045)}.v161-access-card>button{width:100%;border:0;background:transparent;color:inherit;padding:13px;display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:9px;align-items:center;text-align:left;cursor:pointer}.v161-access-name{font-size:14px;font-weight:950;line-height:1.3}.v161-access-badge{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:6px 8px;font-size:11px;font-weight:950;white-space:nowrap}.v161-access-badge.yes{background:#e8f7ef;color:#0c7a43}.v161-access-badge.partial{background:#fff4d8;color:#8a5a00}.v161-access-badge.no{background:#fde9e9;color:#a23838}.v161-access-chevron{font-size:18px;color:#8392a3;transition:.18s}.v161-access-card.open .v161-access-chevron{transform:rotate(90deg)}.v161-access-detail{display:none;border-top:1px solid #edf1f5;padding:13px;background:#fbfcfe}.v161-access-card.open .v161-access-detail{display:block}.v161-access-detail-block+ .v161-access-detail-block{margin-top:11px}.v161-access-detail b{display:block;font-size:11px;letter-spacing:.04em;color:#61778e;margin-bottom:4px}.v161-access-detail p{margin:0;font-size:13px;line-height:1.55;color:#344b63}.v161-access-source{margin-top:11px;padding-top:10px;border-top:1px dashed #dbe4ec;display:flex;align-items:center;justify-content:space-between;gap:9px}.v161-access-source span{min-width:0;font-size:10px;line-height:1.35;color:#7a8999}.v161-access-source button{flex:0 0 auto;border:0;border-radius:11px;background:#edf3fa;color:#285480;padding:8px 9px;font-size:11px;font-weight:900;cursor:pointer}
+.v161-access-empty{padding:24px 16px;text-align:center;background:#fff;border:1px dashed #cfdbe7;border-radius:17px;color:#60758d;font-size:13px;line-height:1.55}.v161-access-disclaimer{position:sticky;bottom:68px;z-index:12;margin-top:20px;border:1px solid #d7e2ed;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-radius:16px;padding:12px 13px;font-size:11px;line-height:1.5;color:#5f7184;box-shadow:0 -5px 24px rgba(18,51,84,.08)}.v161-access-error{padding:18px;border-radius:16px;background:#fff3f3;border:1px solid #f1cccc;color:#8e3232;font-size:13px;line-height:1.55}.v161-access-error button{margin-top:9px;border:0;border-radius:11px;background:#8e3232;color:#fff;padding:9px 11px;font-weight:900}
+@media(max-width:380px){.v161-access-wrap{padding-left:12px;padding-right:12px}.v161-access-intro h1{font-size:24px}.v161-access-card>button{grid-template-columns:minmax(0,1fr) auto}.v161-access-chevron{grid-column:2;grid-row:2}.v161-access-badge{grid-column:2;grid-row:1}.v161-access-name{grid-row:1/3}.v161-access-source{align-items:flex-start;flex-direction:column}.v161-access-source button{width:100%}.v161-access-disclaimer{bottom:66px}}
+</style>
 </head>
 <body>
 <div class="app">
@@ -2991,6 +3003,7 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
     <div class="v118-home-helpbar">
       <button type="button" onclick="go('planner')" data-en="🗓️ Make a trip plan" data-ko="🗓️ 여행 일정 만들기">🗓️ Make a trip plan</button>
       <button type="button" onclick="go('assistantHub')" data-en="✨ Ask Trip Assistant" data-ko="✨ 여행 도우미에게 묻기">✨ Ask Trip Assistant</button>
+      <button type="button" onclick="openForeignerAccessHub()" data-en="📱 Can I use this?" data-ko="📱 이거 쓸 수 있나요?">📱 Can I use this?</button>
     </div>
   </div>
 
@@ -3898,6 +3911,20 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
 
 
 
+<section class="screen" id="foreignerAccessHub">
+  <div class="top"><button type="button" class="back" aria-label="Back / 뒤로" onclick="closeForeignerAccessHub()">‹</button><div class="brand" data-en="Can I use this?" data-ko="이거 쓸 수 있나요?">Can I use this?</div><button class="pill" onclick="toggleLang()">EN / 한국어</button></div>
+  <div class="v161-access-wrap">
+    <div class="v161-access-intro"><h1 id="v161AccessTitle">Can I use this?</h1><p id="v161AccessSubtitle">Check whether a travel service works without a Korean phone number.</p><span class="v161-access-checked" id="v161AccessChecked">CHECKED · 2026-09-01</span></div>
+    <div class="v161-access-controls">
+      <label class="v161-access-search"><span>🔎</span><input id="v161AccessSearch" type="search" autocomplete="off" maxlength="70" placeholder="Search a service" aria-label="Search services"><button type="button" onclick="clearForeignerAccessSearch()" aria-label="Clear search">×</button></label>
+      <div class="v161-access-toggle"><b id="v161AccessToggleLabel">Show only what works without a Korean number</b><button id="v161AccessToggle" class="v161-switch" type="button" role="switch" aria-checked="false" aria-label="Show only services that work without a Korean number" onclick="toggleForeignerAccessNoNumber()"></button></div>
+      <div class="v161-access-summary" id="v161AccessSummary"></div>
+    </div>
+    <div id="v161AccessBody"></div>
+    <div class="v161-access-disclaimer" id="v161AccessDisclaimer"></div>
+  </div>
+</section>
+
 <section class="screen" id="transitCardHub">
   <div class="top"><button type="button" class="back" aria-label="Back / 뒤로" onclick="v120CloseTransitCardHub()">‹</button><div class="brand" data-en="Transit Card" data-ko="교통카드">Transit Card</div><button class="pill" onclick="toggleLang()">EN / 한국어</button></div>
   <div class="v60-screen-intro"><h1 data-en="Which transit card fits my trip?" data-ko="내 여행에는 어떤 교통카드가 맞을까?">Which transit card fits my trip?</h1><p data-en="Compare transit-card choices here, separately from route directions." data-ko="길찾기 화면과 분리해서 Tmoney/EZL · Climate Card · WOWPASS 후보를 비교합니다.">Compare transit-card choices here.</p></div>
@@ -3914,6 +3941,7 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
       <button type="button" onclick="v118Call1330()"><span>☎️</span><b data-en="Call 1330" data-ko="1330 여행 도움">Call 1330</b></button>
       <button type="button" onclick="v113OpenLateNightRescue()"><span>🌙</span><b data-en="Late-night rescue" data-ko="심야 귀가">Late-night rescue</b></button>
       <button type="button" onclick="openTranslationHub()"><span>💬</span><b data-en="Translate" data-ko="번역">Translate</b></button>
+      <button type="button" onclick="openForeignerAccessHub()"><span>📱</span><b data-en="Can I use this?" data-ko="이거 쓸 수 있나요?">Can I use this?</b></button>
     </div>
     <button type="button" class="v118-help-more" onclick="v118OpenToolMenu()" data-en="More travel tools" data-ko="여행 도구 더보기">More travel tools</button>
   </div>
@@ -3962,6 +3990,7 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
     <button type="button" onclick="v113OpenLateNightRescue()"><span class="ico">🌙</span><span data-en="Late Night Rescue" data-ko="심야 귀가">Late Night Rescue</span></button>
     <button type="button" onclick="v107OpenStaffHelper()"><span class="ico">🪪</span><span data-en="Show Staff" data-ko="직원에게 보여주기">Show Staff</span></button>
     <button type="button" onclick="v117OpenTravelerTips(false)"><span class="ico">💡</span><span data-en="Korea travel tips" data-ko="한국 여행 필수 팁">Korea travel tips</span></button>
+    <button type="button" onclick="openForeignerAccessHub()"><span class="ico">📱</span><span data-en="Can I use this?" data-ko="이거 쓸 수 있나요?">Can I use this?</span></button>
   </div></div>
 </section>
 
@@ -4519,7 +4548,7 @@ function toggleAllTools(){
 }
 
 let current='home';
-const APP_RELEASE='Korea Route Public Beta V145';
+const APP_RELEASE='Korea Route Public Beta V161';
 
 // V36 safe auto-restore: persist only explicit, non-sensitive trip state and user preferences.
 // Never mirror API keys, current/GPS location, sensor state, or walk-recovery data.
@@ -18628,5 +18657,61 @@ setTimeout(v140RenderLocalEvents,0);
 })();
 </script>
 
-</body>
+\n<script id="v161-foreigner-access-js">
+let v161AccessData=null;
+let v161AccessOnlyNoNumber=false;
+let v161AccessReturn='helperHub';
+const V161_ACCESS_BADGES={yes:{icon:'○',en:'Works',ko:'사용 가능'},partial:{icon:'△',en:'With limits',ko:'제한 있음'},no:{icon:'✕',en:'Blocked',ko:'이용 어려움'}};
+function v161L(obj,fallback=''){if(!obj)return fallback;return obj[lang]||obj.en||obj.ko||fallback}
+function v161Escape(s=''){return String(s).replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]))}
+async function loadForeignerAccessData(force=false){
+  if(v161AccessData&&!force)return v161AccessData;
+  const body=document.getElementById('v161AccessBody');
+  if(body)body.innerHTML=`<div class="v161-access-empty">${lang==='ko'?'서비스 정보를 불러오는 중…':'Loading service access data…'}</div>`;
+  try{
+    const res=await fetch('./foreigner-access.json',{cache:'no-store'});
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const data=await res.json();
+    if(!Array.isArray(data.categories))throw new Error('Invalid data');
+    v161AccessData=data;
+    renderForeignerAccess();
+    return data;
+  }catch(err){
+    if(body)body.innerHTML=`<div class="v161-access-error"><b>${lang==='ko'?'접근성 데이터를 불러오지 못했습니다.':'Could not load access data.'}</b><br>${lang==='ko'?'네트워크 연결 후 다시 시도하세요. 임의의 서비스 판정은 표시하지 않습니다.':'Check your connection and try again. Korea Route will not invent service access results.'}<br><button type="button" onclick="loadForeignerAccessData(true)">${lang==='ko'?'다시 시도':'Retry'}</button></div>`;
+    return null;
+  }
+}
+function openForeignerAccessHub(){
+  v161AccessReturn=(current==='home'||current==='helperHub')?current:'helperHub';
+  go('foreignerAccessHub');
+  loadForeignerAccessData().then(()=>renderForeignerAccess());
+}
+function closeForeignerAccessHub(){go(v161AccessReturn||'helperHub')}
+function toggleForeignerAccessNoNumber(){v161AccessOnlyNoNumber=!v161AccessOnlyNoNumber;renderForeignerAccess()}
+function clearForeignerAccessSearch(){const el=document.getElementById('v161AccessSearch');if(el){el.value='';el.focus()}renderForeignerAccess()}
+function v161OpenAccessSource(url){if(!url)return;if(typeof v160SafeExternalOpen==='function'){v160SafeExternalOpen(url,{label:lang==='ko'?'공식 출처':'Official source'});return}window.open(url,'_blank','noopener')}
+function toggleForeignerAccessCard(id){const el=document.getElementById('v161-card-'+id);if(!el)return;const open=el.classList.toggle('open');const btn=el.querySelector(':scope > button');if(btn)btn.setAttribute('aria-expanded',open?'true':'false')}
+function renderForeignerAccess(){
+  const data=v161AccessData;if(!data)return;
+  const title=document.getElementById('v161AccessTitle'),sub=document.getElementById('v161AccessSubtitle'),checked=document.getElementById('v161AccessChecked'),toggleLabel=document.getElementById('v161AccessToggleLabel'),toggle=document.getElementById('v161AccessToggle'),search=document.getElementById('v161AccessSearch'),body=document.getElementById('v161AccessBody'),disc=document.getElementById('v161AccessDisclaimer'),summary=document.getElementById('v161AccessSummary');
+  if(title)title.textContent=v161L(data.title,'Can I use this?');if(sub)sub.textContent=v161L(data.subtitle);
+  if(checked)checked.textContent=(lang==='ko'?'정보 확인일 · ':'CHECKED · ')+(data.source_checked_on||data.version||'—');
+  if(toggleLabel)toggleLabel.textContent=v161L(data.toggle_label);if(toggle){toggle.classList.toggle('on',v161AccessOnlyNoNumber);toggle.setAttribute('aria-checked',v161AccessOnlyNoNumber?'true':'false')}
+  if(search){search.placeholder=lang==='ko'?'서비스명 검색':'Search a service';search.setAttribute('aria-label',search.placeholder)}
+  if(disc)disc.textContent=v161L(data.disclaimer);
+  const q=(search?.value||'').trim().toLocaleLowerCase();let visible=0,total=0;let html='';
+  for(const cat of data.categories){
+    const items=(cat.items||[]).filter(item=>{total++;if(v161AccessOnlyNoNumber&&item.needs_korean_number!==false)return false;const hay=(v161L(item.name)+' '+(item.name?.en||'')+' '+(item.name?.ko||'')).toLocaleLowerCase();return !q||hay.includes(q)});
+    if(!items.length)continue;visible+=items.length;
+    html+=`<section class="v161-access-section"><h2>${v161Escape(v161L(cat.name))}</h2><div class="v161-access-list">`;
+    for(const item of items){const b=V161_ACCESS_BADGES[item.status]||V161_ACCESS_BADGES.partial;const badgeLabel=lang==='ko'?b.ko:b.en;html+=`<article class="v161-access-card" id="v161-card-${v161Escape(item.id)}"><button type="button" aria-expanded="false" onclick="toggleForeignerAccessCard('${v161Escape(item.id)}')"><span class="v161-access-name">${v161Escape(v161L(item.name))}</span><span class="v161-access-badge ${v161Escape(item.status)}">${b.icon} ${v161Escape(badgeLabel)}</span><span class="v161-access-chevron">›</span></button><div class="v161-access-detail"><div class="v161-access-detail-block"><b>${lang==='ko'?'왜 이렇게 표시되나요?':'WHY'}</b><p>${v161Escape(v161L(item.why))}</p></div><div class="v161-access-detail-block"><b>${lang==='ko'?'이렇게 해보세요':'WORKAROUND'}</b><p>${v161Escape(v161L(item.workaround))}</p></div><div class="v161-access-source"><span>${lang==='ko'?'출처':'Source'} · ${v161Escape(item.source||'Official service')} · ${v161Escape(data.source_checked_on||'')}</span>${item.source_url?`<button type="button" onclick="event.stopPropagation();v161OpenAccessSource('${v161Escape(item.source_url)}')">${lang==='ko'?'공식 출처 ↗':'Official source ↗'}</button>`:''}</div></div></article>`}
+    html+='</div></section>';
+  }
+  if(summary)summary.textContent=lang==='ko'?`${visible}개 표시 · 전체 ${total}개`:`${visible} shown · ${total} total`;
+  if(body)body.innerHTML=html||`<div class="v161-access-empty">${lang==='ko'?'조건에 맞는 서비스가 없습니다. 검색어나 필터를 바꿔보세요.':'No services match. Try another search or turn off the filter.'}</div>`;
+}
+(function(){const input=document.getElementById('v161AccessSearch');if(input)input.addEventListener('input',renderForeignerAccess)})();
+const v161OriginalApplyLang=applyLang;
+applyLang=function(){v161OriginalApplyLang();if(v161AccessData)renderForeignerAccess()};
+</script>\n</body>
 </html>
