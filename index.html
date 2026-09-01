@@ -17777,5 +17777,117 @@ setTimeout(v140RenderLocalEvents,0);
 })();
 </script>
 
+
+<style id="v153-event-freshness-order-css">
+.v153-feed-health{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:7px;font-size:7.3px;line-height:1.45;color:#758397;font-weight:800}
+.v153-feed-health .pill{display:inline-flex;align-items:center;border-radius:999px;padding:3px 6px;background:#edf7f0;color:#2b7146;border:1px solid #d5eadc;font-size:6.8px;font-weight:950;letter-spacing:.02em}
+.v153-feed-health.warn .pill{background:#fff7e8;color:#8a5a13;border-color:#f2dfba}
+.v153-feed-health.stale .pill{background:#fff0ef;color:#9a4039;border-color:#efcfcc}
+.v141-saved-item.v153-past{opacity:.68}
+.v141-saved-item.v153-past .v142-saved-status{background:#f2f3f5!important;color:#6f7782!important;border-color:#e1e4e8!important}
+.v153-past-note{display:block;margin-top:3px;font-size:6.7px;line-height:1.35;color:#8792a0;font-weight:800}
+</style>
+<script id="v153-event-freshness-order-js">
+// V153 · Five-city event freshness, CITY NOW/UP NEXT ordering, and saved past-event clarity.
+// Static feeds remain user-visible as checked snapshots; this patch does not claim live sync.
+(function(){
+  if(typeof V140_OFFICIAL_EVENTS!=='object'||typeof v147EventOverlapsWindow!=='function')return;
+
+  function v153DayDiff(a,b){
+    const A=Date.parse(String(a||'')+'T00:00:00Z'),B=Date.parse(String(b||'')+'T00:00:00Z');
+    return Number.isFinite(A)&&Number.isFinite(B)?Math.floor((B-A)/86400000):NaN;
+  }
+  function v153FeedHealth(cfg){
+    const checked=String(cfg?.checkedOn||'');
+    if(!checked)return {cls:'stale',pill:lang==='ko'?'확인일 없음':'CHECK DATE MISSING',text:lang==='ko'?'공식 페이지에서 직접 확인해 주세요.':'Recheck the official source before relying on this list.'};
+    const today=v140KoreaToday(),age=Math.max(0,v153DayDiff(checked,today));
+    if(age<=7)return {cls:'',pill:lang==='ko'?'최근 확인':'RECENTLY CHECKED',text:lang==='ko'?`${checked} 확인 · 실시간 자동 동기화 아님`:`Checked ${checked} · static snapshot, not live sync`};
+    if(age<=30)return {cls:'warn',pill:lang==='ko'?'재확인 권장':'RECHECK',text:lang==='ko'?`${age}일 전 확인 · 방문 전 공식 일정 재확인`:`Checked ${age} days ago · recheck the official schedule before visiting`};
+    return {cls:'stale',pill:lang==='ko'?'오래된 일정':'STALE',text:lang==='ko'?`${age}일 전 확인 · 공식 일정 확인 필요`:`Checked ${age} days ago · official recheck required`};
+  }
+  window.v153FeedHealth=v153FeedHealth;
+
+  // Current events: surface the ones ending soon first. Upcoming events: nearest real operating day first.
+  v140EventSelection=function(city,context){
+    const cfg=V140_OFFICIAL_EVENTS?.[city],w=v142EventWindow(context);
+    if(!cfg)return {cfg:null,items:[],during:false,w};
+    const all=[...(cfg.events||[])];
+    const during=all.filter(e=>v147EventOverlapsWindow(e,w)).sort((a,b)=>{
+      if(context==='city'){
+        const endCmp=String(a.end||'').localeCompare(String(b.end||''));
+        if(endCmp)return endCmp;
+      }
+      const aa=v147NextOccurrence(a,w.start)||a.start||'',bb=v147NextOccurrence(b,w.start)||b.start||'';
+      const nextCmp=String(aa).localeCompare(String(bb));
+      return nextCmp||String(a.end||'').localeCompare(String(b.end||''))||String(a.nameEn||'').localeCompare(String(b.nameEn||''));
+    });
+    if(during.length)return {cfg,items:during.slice(0,5),during:true,w};
+    const next=all.map(e=>({e,next:v147NextOccurrence(e,w.start)})).filter(x=>x.next).sort((a,b)=>String(a.next).localeCompare(String(b.next))||String(a.e.end||'').localeCompare(String(b.e.end||''))||String(a.e.nameEn||'').localeCompare(String(b.e.nameEn||''))).slice(0,4).map(x=>x.e);
+    return {cfg,items:next,during:false,w};
+  };
+
+  function v153SavedIsPast(x){
+    const today=v140KoreaToday();
+    return !v147NextOccurrence(x,today);
+  }
+  function v153SavedRank(x,dest){
+    const state=v143SavedEventTripState(x),past=v153SavedIsPast(x);
+    if(state.match)return 0;
+    if(state.sameCity&&!past)return 1;
+    if(!past)return 2;
+    return 3;
+  }
+
+  // Preserve saved history, but move ended events down and label them clearly instead of mixing them with actionable plans.
+  v141SavedEventsHtml=function(){
+    const saved=v141LoadSavedEvents();
+    if(!saved.length)return '';
+    const dest=v143CurrentTripDestination(),grouped=new Map();
+    saved.forEach(x=>{if(!x||!x.city)return;if(!grouped.has(x.city))grouped.set(x.city,[]);grouped.get(x.city).push(x);});
+    const cities=[...grouped.keys()].sort((a,b)=>{
+      const ar=Math.min(...grouped.get(a).map(x=>v153SavedRank(x,dest))),br=Math.min(...grouped.get(b).map(x=>v153SavedRank(x,dest)));
+      return ar-br||String(a).localeCompare(String(b));
+    });
+    const groups=cities.map(city=>{
+      const items=grouped.get(city).slice().sort((a,b)=>{
+        const ar=v153SavedRank(a,dest),br=v153SavedRank(b,dest);if(ar!==br)return ar-br;
+        const an=v147NextOccurrence(a,v140KoreaToday())||a.end||a.start||'',bn=v147NextOccurrence(b,v140KoreaToday())||b.end||b.start||'';
+        return String(an).localeCompare(String(bn))||String(a.nameEn||'').localeCompare(String(b.nameEn||''));
+      });
+      const cityLabel=v140CityName(city);
+      const rows=items.map(x=>{
+        const state=v143SavedEventTripState(x),past=v153SavedIsPast(x),eid=encodeURIComponent(x.id);
+        const name=lang==='ko'?(x.nameKo||x.nameEn):(x.nameEn||x.nameKo||''),place=lang==='ko'?(x.placeKo||x.placeEn):(x.placeEn||x.placeKo||'');
+        let status='',cls='';
+        if(state.match){status=lang==='ko'?'이 여행과 일치':'MATCHES THIS TRIP';cls='match';}
+        else if(past){status=lang==='ko'?'종료된 행사':'PAST EVENT';cls='past';}
+        else if(state.sameCity){status=lang==='ko'?'여행 날짜 밖':'OUTSIDE TRIP DATES';}
+        else{status=lang==='ko'?`${cityLabel}에 저장됨`:`SAVED FOR ${String(cityLabel).toUpperCase()}`;cls='other-city';}
+        const dateText=typeof v140EventDate==='function'?v140EventDate(x):(x.start===x.end?x.start:`${x.start} – ${x.end}`);
+        const mapSearch=x.search||x.mapSearchEn||x.mapSearchKo||x.placeKo||x.placeEn||'';
+        const pastNote=past?`<span class="v153-past-note">${lang==='ko'?'기록은 유지됩니다. 필요 없으면 삭제하세요.':'Kept as trip history. Remove it when you no longer need it.'}</span>`:'';
+        return `<div class="v141-saved-item ${past?'v153-past':''}"><div><b>${v145EventHtml(name)}</b><small>${v145EventHtml(dateText)} · ${v145EventHtml(place)}</small><span class="v142-saved-status ${cls}">${v145EventHtml(status)}</span>${pastNote}</div><div class="v142-saved-actions"><button type="button" onclick="v140OpenEventPlace('${v142JsArg(city)}','${v142JsArg(mapSearch)}')">${lang==='ko'?'지도':'Map'}</button><button type="button" class="v142-saved-remove" onclick="v142RemoveSavedEvent('${v142JsArg(eid)}')">${lang==='ko'?'삭제':'Remove'}</button></div></div>`;
+      }).join('');
+      const hasActionable=items.some(x=>!v153SavedIsPast(x));
+      return `<div class="v143-saved-city-group ${city===dest&&hasActionable?'current':''}"><div class="v143-saved-city-title"><b>${v145EventHtml(cityLabel)}</b><span>${city===dest&&hasActionable?(lang==='ko'?'현재 여행 목적지':'CURRENT TRIP'):(lang==='ko'?'저장한 행사':'SAVED EVENTS')}</span></div>${rows}</div>`;
+    }).join('');
+    return `<div class="v141-saved-wrap"><div class="v141-saved-head"><b>${lang==='ko'?'My Trip에 저장한 행사':'Events saved to My Trip'}</b><span>${saved.length}</span></div>${groups}</div>`;
+  };
+
+  // Wrap the final V152 renderer so every connected city exposes feed age without duplicating the large event-card renderer.
+  const v153BaseEventsHtml=v140EventsHtml;
+  v140EventsHtml=function(city,context){
+    const html=v153BaseEventsHtml(city,context),cfg=V140_OFFICIAL_EVENTS?.[city];
+    if(!cfg||!html)return html;
+    const h=v153FeedHealth(cfg);
+    const health=`<div class="v153-feed-health ${h.cls}"><span class="pill">${v145EventHtml(h.pill)}</span><span>${v145EventHtml(h.text)}</span></div>`;
+    // Replace V146's older freshness line to avoid two competing freshness messages.
+    return html.replace(/<div class="v146-events-freshness">[\s\S]*?<\/div>/,health);
+  };
+
+  try{setTimeout(v140RenderLocalEvents,0);}catch(_){}
+})();
+</script>
+
 </body>
 </html>
