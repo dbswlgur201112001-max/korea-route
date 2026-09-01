@@ -2996,6 +2996,18 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
 </style>
 
 
+
+<style id="v166-mobile-safety-audit-style">
+/* V166 · mobile QA + calm price-context presentation. No data changes. */
+.v162-result strong{max-width:100%;white-space:normal;overflow-wrap:anywhere;word-break:keep-all}
+.v165-result.strong{border-left-color:#a67c2f!important;background:#fffdf8!important}
+body.dark .v165-result.strong{background:#172336!important;border-left-color:#c49a49!important}
+#helperHub .v118-help-primary>button:last-child:nth-child(odd){grid-column:1/-1}
+@media(max-width:380px){
+  .v162-result strong{font-size:20px;line-height:1.2}
+  #helperHub .v118-help-primary>button:last-child:nth-child(odd){grid-column:1/-1}
+}
+</style>
 <style id="v165-fair-price-style">
 /* V165 · Fair Price Check — one calm, mobile-first screen using price-baseline.json */
 .v165-wrap{max-width:760px;margin:0 auto;padding:0 0 18px}
@@ -18987,6 +18999,26 @@ function renderFairPriceCheck(){
 async function openFairPriceCheckHub(){go('fairPriceHub');const body=document.getElementById('v165Body');if(body)body.innerHTML=`<div class="v165-card"><p>${lang==='ko'?'가격 참고정보를 불러오는 중…':'Loading price references…'}</p></div>`;try{await loadFairPriceData();renderFairPriceCheck();}catch(err){console.warn('Fair Price data load failed',err);if(body)body.innerHTML=`<div class="v165-card"><p>${lang==='ko'?'price-baseline.json을 불러오지 못했습니다. 임의의 가격판정은 표시하지 않습니다.':'Could not load price-baseline.json. Korea Route will not invent a price result.'}</p><button type="button" onclick="openFairPriceCheckHub()">${lang==='ko'?'다시 시도':'Retry'}</button></div>`;}}
 function closeFairPriceCheckHub(){go('walletHub');}
 const v165OriginalApplyLang=applyLang;applyLang=function(){v165OriginalApplyLang();if(v165PriceData)renderFairPriceCheck();};
+</script>
+
+
+<script id="v166-mobile-safety-audit-script">
+// V166 · capture Taxi Check inputs before language rerender so mobile time controls cannot drop the current draft.
+(function(){
+  const baseToggleLang=window.toggleLang;
+  if(typeof baseToggleLang!=='function')return;
+  window.toggleLang=function(){
+    try{
+      if(typeof current!=='undefined'&&current==='taxiCheckHub'&&typeof v162TaxiDraft==='object'){
+        const d=document.getElementById('v162TaxiDistance');
+        const t=document.getElementById('v162TaxiTime');
+        if(d)v162TaxiDraft.distance=d.value;
+        if(t)v162TaxiDraft.time=t.value;
+      }
+    }catch(_){ }
+    return baseToggleLang.apply(this,arguments);
+  };
+})();
 </script>
 
 </body>
