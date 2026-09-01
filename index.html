@@ -18517,5 +18517,116 @@ setTimeout(v140RenderLocalEvents,0);
 })();
 </script>
 
+
+
+<style id="v160-external-launch-guard-css">
+.v160-launch-guard{position:fixed;inset:0;z-index:2147483000;display:none;align-items:flex-end;justify-content:center;background:rgba(7,18,35,.58);padding:16px;box-sizing:border-box}
+.v160-launch-guard.open{display:flex}
+.v160-launch-sheet{width:min(560px,100%);background:#fff;border-radius:22px 22px 16px 16px;padding:16px;box-shadow:0 24px 80px rgba(0,0,0,.28);color:#10233f}
+.v160-launch-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.v160-launch-head small{display:block;font-size:7.5px;font-weight:950;letter-spacing:.08em;color:#2f6fed}.v160-launch-head h3{margin:4px 0 0;font-size:17px;line-height:1.25}.v160-launch-close{border:0;background:#eef2f7;color:#30465f;width:34px;height:34px;border-radius:999px;font-size:20px;cursor:pointer}
+.v160-launch-body{margin-top:10px;border:1px solid #e2e9f1;border-radius:14px;padding:11px;background:#fbfdff}.v160-launch-body b{display:block;font-size:9px;line-height:1.4}.v160-launch-body span{display:block;margin-top:4px;font-size:7.5px;line-height:1.5;color:#708197;font-weight:800;word-break:break-word}
+.v160-launch-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.v160-launch-actions button{border:1px solid #dce5ef;background:#fff;color:#244565;border-radius:11px;padding:10px 11px;font-size:8px;font-weight:950;cursor:pointer}.v160-launch-actions button.primary{background:#10233f;border-color:#10233f;color:#fff}.v160-launch-actions button.next{background:#edf7ff;border-color:#cfe4f7;color:#155f91}
+.v160-launch-note{margin-top:9px;font-size:7px;line-height:1.5;color:#8190a2;font-weight:800}
+@media(min-width:700px){.v160-launch-guard{align-items:center}.v160-launch-sheet{border-radius:22px}}
+</style>
+<script id="v160-external-launch-guard-js">
+// V160 · External-link launch guard.
+// We can detect popup/navigation blocking, but we cannot truthfully health-check a cross-origin page after it opens.
+(function(){
+  let state=null;
+  function esc(v){return typeof v145EventHtml==='function'?v145EventHtml(String(v??'')):String(v??'');}
+  function validUrl(url){const s=String(url||'').trim();return /^https?:\/\//i.test(s)?s:'';}
+  function overlay(){
+    let w=document.getElementById('v160ExternalLaunchGuard');
+    if(w)return w;
+    w=document.createElement('div');w.id='v160ExternalLaunchGuard';w.className='v160-launch-guard';w.setAttribute('aria-hidden','true');
+    w.addEventListener('click',e=>{if(e.target===w)window.v160CloseLaunchGuard?.();});document.body.appendChild(w);return w;
+  }
+  function close(){const w=document.getElementById('v160ExternalLaunchGuard');if(w){w.classList.remove('open');w.setAttribute('aria-hidden','true');}state=null;}
+  window.v160CloseLaunchGuard=close;
+  function copy(url){
+    const done=()=>{try{if(typeof v11Toast==='function')v11Toast(lang==='ko'?'링크를 복사했어요.':'Link copied.');}catch(_){}};
+    try{if(navigator.clipboard?.writeText){navigator.clipboard.writeText(url).then(done).catch(()=>fallback());return;}}catch(_){ }
+    fallback();
+    function fallback(){try{const t=document.createElement('textarea');t.value=url;t.setAttribute('readonly','');t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();document.execCommand('copy');t.remove();done();}catch(_){}}
+  }
+  window.v160CopyBlockedLink=function(){if(state?.url)copy(state.url);};
+  window.v160OpenBlockedInSameTab=function(){const u=state?.url;if(!u)return;close();try{location.assign(u);}catch(_){try{location.href=u;}catch(__){}}};
+  function showBlocked(url,ctx){
+    state={url,...(ctx||{})};const w=overlay();
+    const label=ctx?.label||(lang==='ko'?'공식 외부 페이지':'Official external page');
+    const hasNext=Array.isArray(ctx?.chain)&&Number.isInteger(ctx?.index)&&ctx.index+1<ctx.chain.length;
+    w.innerHTML=`<div class="v160-launch-sheet" role="dialog" aria-modal="true" aria-label="${lang==='ko'?'외부 링크 열기':'Open external link'}"><div class="v160-launch-head"><div><small>EXTERNAL LINK</small><h3>${esc(lang==='ko'?'새 탭을 열 수 없어요':'New tab was blocked')}</h3></div><button type="button" class="v160-launch-close" onclick="v160CloseLaunchGuard()" aria-label="Close">×</button></div><div class="v160-launch-body"><b>${esc(label)}</b><span>${esc(url)}</span></div><div class="v160-launch-actions"><button type="button" class="primary" onclick="v160OpenBlockedInSameTab()">${lang==='ko'?'현재 탭에서 열기':'Open in this tab'} ↗</button><button type="button" onclick="v160CopyBlockedLink()">${lang==='ko'?'링크 복사':'Copy link'}</button>${hasNext?`<button type="button" class="next" onclick="v160TryNextEventSource()">${lang==='ko'?'다음 출처 시도':'Try next source'} →</button>`:''}</div><div class="v160-launch-note">${esc(lang==='ko'?'브라우저가 새 탭을 차단한 경우입니다. Korea Route는 외부 사이트가 실제로 404인지, 서버가 다운됐는지까지 자동 판정하지 않습니다.':'Your browser blocked the new tab. Korea Route cannot truthfully determine whether a cross-origin page later returns 404 or is temporarily unavailable.')}</div></div>`;
+    w.classList.add('open');w.setAttribute('aria-hidden','false');
+  }
+  function attempt(url,ctx){
+    const target=validUrl(url);if(!target)return false;
+    let opened=null,started=false;
+    try{opened=window.open('about:blank','_blank');}catch(_){opened=null;}
+    if(opened){
+      try{opened.opener=null;}catch(_){ }
+      try{opened.location.replace(target);started=true;}catch(_){try{opened.location.href=target;started=true;}catch(__){started=false;}}
+      if(started)return true;
+      try{opened.close();}catch(_){ }
+    }
+    showBlocked(target,ctx);return false;
+  }
+  window.v160SafeExternalOpen=attempt;
+
+  // Event-source chain: when opening is blocked, preserve context so the traveler can try the next source.
+  if(typeof window.v159GetEventSourceChain==='function'){
+    window.v159OpenEventSource=function(city,encodedId,index){
+      const list=window.v159GetEventSourceChain(city,encodedId)||[];const i=Math.max(0,Number(index)||0),x=list[i];if(!x?.url)return false;
+      const label=lang==='ko'?(x.labelKo||x.labelEn):(x.labelEn||x.labelKo);
+      return attempt(x.url,{city,encodedId,index:i,chain:list,label});
+    };
+  }
+  window.v160TryNextEventSource=function(){
+    const s=state;if(!s||!Array.isArray(s.chain)||!Number.isInteger(s.index))return;
+    const next=s.index+1,x=s.chain[next];if(!x?.url)return;
+    const label=lang==='ko'?(x.labelKo||x.labelEn):(x.labelEn||x.labelKo);
+    close();attempt(x.url,{city:s.city,encodedId:s.encodedId,index:next,chain:s.chain,label});
+  };
+
+  // Generic official/event links: do not silently eject the traveler from Korea Route when a popup is blocked.
+  window.v150OpenOriginalUrl=function(url){return attempt(url,{label:lang==='ko'?'공식 원문':'Official source'});};
+  window.v150ExternalVisitKorea=function(){
+    if(typeof V140_VISITKOREA_FESTIVALS==='undefined')return false;
+    return attempt(V140_VISITKOREA_FESTIVALS,{label:'VISITKOREA'});
+  };
+
+  // Translation sheets keep their source URL in a V160-visible context so their legacy buttons can use the same guard.
+  let translationCtx=null;
+  const prevEventTranslation=window.v150OpenEventTranslation;
+  if(typeof prevEventTranslation==='function'){
+    window.v150OpenEventTranslation=function(city,encodedId){
+      let id='';try{id=decodeURIComponent(encodedId||'');}catch(_){id=encodedId||'';}
+      const list=typeof window.v159GetEventSourceChain==='function'?window.v159GetEventSourceChain(city,encodedId):[];
+      translationCtx={city,encodedId,id,url:list?.[0]?.url||'',chain:list||[],index:0};
+      return prevEventTranslation.apply(this,arguments);
+    };
+  }
+  const prevCityTranslation=window.v150OpenCityTranslation;
+  if(typeof prevCityTranslation==='function'){
+    window.v150OpenCityTranslation=function(city){
+      const cfg=V140_OFFICIAL_EVENTS?.[city]||{};translationCtx={city,url:cfg.festival||cfg.official||'',chain:[],index:0};
+      return prevCityTranslation.apply(this,arguments);
+    };
+  }
+  window.v150OpenOriginalSource=function(){
+    const u=translationCtx?.url||'';if(!u)return false;
+    return attempt(u,{city:translationCtx.city,encodedId:translationCtx.encodedId,index:0,chain:translationCtx.chain||[],label:lang==='ko'?'공식 원문':'Official source'});
+  };
+  window.v150OpenAutoTranslatedSource=function(){
+    const u=translationCtx?.url||'';if(!u)return false;
+    const target=lang==='ko'?'ko':'en';
+    const translated=`https://translate.google.com/translate?sl=auto&tl=${encodeURIComponent(target)}&u=${encodeURIComponent(u)}`;
+    return attempt(translated,{label:lang==='ko'?'자동번역 공식페이지':'Auto-translated official page'});
+  };
+
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
+})();
+</script>
+
 </body>
 </html>
