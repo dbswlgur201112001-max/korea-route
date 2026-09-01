@@ -1,0 +1,58 @@
+{
+  "schema": "korea-route/dietary-map",
+  "version": "1.0.0",
+  "updated": "2026-09-01",
+  "review_cycle_days": 180,
+  "disclaimer": {
+    "en": "Korea Route does not maintain its own restaurant database here — restaurants open, close, and lose or gain certification too often for a static list to stay reliable. This screen explains how the system works and points to live, crowdsourced apps instead of naming specific restaurants.",
+    "ko": "이 화면은 자체 식당 목록을 유지하지 않습니다 — 식당은 자주 개업·폐업하고 인증도 자주 바뀌어서 고정된 목록은 금방 틀린 정보가 됩니다. 대신 시스템이 어떻게 작동하는지 설명하고, 실시간으로 갱신되는 앱을 안내합니다."
+  },
+  "halal": {
+    "reality_check": {
+      "en": "Officially halal-certified restaurants are genuinely rare in Korea — historically only a small handful nationwide, concentrated around Itaewon in Seoul. Most \"Muslim-friendly\" places are self-declared or use the lighter tiers below. Plan around this rather than expecting broad availability.",
+      "ko": "한국에서 정식 할랄 인증 식당은 실제로 매우 적습니다 — 전국적으로 소수에 불과하고 서울 이태원 주변에 몰려 있습니다. \"무슬림 친화\" 대부분은 자가 신고이거나 아래의 더 낮은 단계입니다. 폭넓게 있을 거라 기대하지 말고 미리 계획하세요."
+    },
+    "tiers": [
+      { "id": "certified", "name": { "en": "Halal certified", "ko": "할랄 공식 인증" }, "detail": { "en": "Certified by a body recognized by Korea's Ministry of Food and Drug Safety, with a Muslim owner or advisor involved. Look for the KMF (Korea Muslim Federation) certification mark.", "ko": "식품의약품안전처가 인정하는 기관의 인증을 받고 무슬림 운영자·자문이 관여합니다. KMF(한국이슬람교) 인증 마크를 찾으세요." } },
+      { "id": "self-certified", "name": { "en": "Muslim self-certified", "ko": "무슬림 자가 인증" }, "detail": { "en": "The owner (often Muslim) states the food is halal without third-party certification.", "ko": "운영자(주로 무슬림)가 제3자 인증 없이 스스로 할랄이라고 밝힌 곳입니다." } },
+      { "id": "friendly", "name": { "en": "Muslim-friendly", "ko": "무슬림 프렌들리" }, "detail": { "en": "Offers some halal-ingredient dishes or accommodations, but the kitchen also handles non-halal food and alcohol. Stricter Muslim travelers often skip this tier.", "ko": "할랄 재료를 쓴 메뉴가 일부 있지만 주방에서 비할랄 음식·알코올도 함께 다룹니다. 엄격한 무슬림 여행자는 이 단계를 건너뛰기도 합니다." } },
+      { "id": "pork-free", "name": { "en": "No pork", "ko": "돼지고기 없음" }, "detail": { "en": "Pork is not on the menu, but alcohol in cooking and non-halal meat slaughter are not addressed.", "ko": "돼지고기는 메뉴에 없지만, 조리용 알코올이나 할랄 도축 여부는 다루지 않습니다." } }
+    ],
+    "anchor_area": {
+      "en": "Itaewon (Seoul), home to the Seoul Central Mosque, has by far the highest concentration of halal and Muslim-friendly restaurants in Korea. If you're short on time, this is the most reliable area to search rather than hoping to find something elsewhere.",
+      "ko": "서울중앙성원이 있는 이태원에 한국에서 할랄·무슬림 친화 식당이 압도적으로 몰려 있습니다. 시간이 없다면 다른 지역에서 찾기보다 이 지역을 먼저 검색하는 게 확실합니다."
+    },
+    "prayer_rooms": {
+      "en": "Multi-faith or Muslim prayer rooms exist at Incheon and Gimpo airports, and at some large malls and tourist attractions — search \"prayer room\" or \"무슬림 기도실\" plus the specific location, since availability varies by building.",
+      "ko": "인천·김포공항과 일부 대형 쇼핑몰·관광지에 다종교 기도실 또는 무슬림 기도실이 있습니다. 건물마다 다르므로 장소명과 함께 \"기도실\" 또는 \"prayer room\"으로 검색하세요."
+    },
+    "recommended_apps": [
+      { "name": "Zabihah", "note": { "en": "Crowdsourced halal restaurant finder that includes Korea listings and stays more current than any static list here.", "ko": "크라우드소싱 방식의 할랄 식당 찾기 앱. 한국 목록도 있고 여기 있는 고정 목록보다 항상 최신입니다." } }
+    ]
+  },
+  "vegan": {
+    "reality_check": {
+      "en": "Traditional Korean cooking leans on animal-based stock and sauces even in dishes that look vegetable-based, so \"looks like a salad\" is not a safe assumption.",
+      "ko": "한국 전통 조리는 채소 위주로 보이는 음식에도 동물성 육수·양념이 들어가는 경우가 많아서, \"샐러드처럼 보이니 괜찮겠지\"는 안전한 가정이 아닙니다."
+    },
+    "hidden_ingredients": [
+      { "ko": "액젓 · 멸치육수", "en": "Fish sauce / anchovy stock", "note": { "en": "The base of most kimchi and many soup broths — including ones that otherwise look fully vegetable-based.", "ko": "대부분의 김치와 많은 국물 요리의 기본 베이스입니다 — 겉보기엔 완전 채소 요리 같아도 들어가는 경우가 많습니다." } },
+      { "ko": "새우젓 · 젓갈", "en": "Salted shrimp / fermented seafood", "note": { "en": "Common seasoning in kimchi and side dishes.", "ko": "김치·반찬에 흔히 쓰이는 양념입니다." } },
+      { "ko": "젤라틴 · 꿀", "en": "Gelatin / honey", "note": { "en": "Used in some desserts and drinks. Not on Korea's mandatory allergen label list, so its absence from a label doesn't confirm it's plant-based.", "ko": "일부 디저트·음료에 쓰입니다. 한국의 필수 알레르기 표시 대상이 아니라서, 표시가 없다고 식물성이라는 뜻은 아닙니다." } },
+      { "ko": "라드 · 동물성 유지", "en": "Lard / animal fat", "note": { "en": "Sometimes used in fried food and baked goods.", "ko": "튀김이나 제과에 쓰이기도 합니다." } }
+    ],
+    "dish_notes": [
+      { "dish": { "en": "Kimchi", "ko": "김치" }, "note": { "en": "Traditional kimchi is usually NOT vegan — it typically contains fish sauce or fermented shrimp. Ask for '비건 김치' specifically if it matters to you.", "ko": "전통 김치는 보통 비건이 아닙니다 — 액젓이나 새우젓이 들어가는 경우가 대부분입니다. 중요하다면 '비건 김치'를 따로 요청하세요." } },
+      { "dish": { "en": "Bibimbap", "ko": "비빔�ب" }, "note": { "en": "A good starting point — mostly vegetables and rice. Ask to remove egg and any meat.", "ko": "시작하기 좋은 메뉴 — 대부분 채소와 밥입니다. 달걀과 고기는 빼달라고 요청하세요." } },
+      { "dish": { "en": "Gimbap", "ko": "김밥" }, "note": { "en": "Often contains egg, ham, or fish cake — check before ordering, or ask for a vegetable-only version.", "ko": "달걀·햄·어묵이 들어간 경우가 많습니다 — 주문 전 확인하거나 채소만 넣은 버전을 요청하세요." } },
+      { "dish": { "en": "Doenjang jjigae (soybean paste stew)", "ko": "된장찌개" }, "note": { "en": "The broth is very often anchovy-based even though the paste itself is soy.", "ko": "된장 자체는 콩이지만 육수는 멸치 기반인 경우가 매우 많습니다." } }
+    ],
+    "recommended_apps": [
+      { "name": "HappyCow", "note": { "en": "The most widely used vegan/vegetarian restaurant finder, with active Korea listings kept current by users.", "ko": "가장 널리 쓰이는 비건·채식 식당 찾기 앱. 한국 목록도 사용자들이 계속 최신으로 갱신합니다." } }
+    ]
+  },
+  "connect_food_safety_card": {
+    "en": "Once you've picked a place, use the Food Safety Card to show staff exactly what you need in Korean — it already covers vegan, vegetarian, halal, and allergies.",
+    "ko": "식당을 정했다면 음식 안전 카드로 직원에게 필요한 내용을 한국어로 정확히 보여주세요 — 비건·채식·할랄·알레르기를 이미 다 지원합니다."
+  }
+}
