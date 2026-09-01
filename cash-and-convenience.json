@@ -1,0 +1,60 @@
+{
+  "schema": "korea-route/cash-and-convenience",
+  "version": "1.0.0",
+  "updated": "2026-09-01",
+  "review_cycle_days": 180,
+  "disclaimer": {
+    "en": "Fees, hours, and which stores offer which service can change. Treat the numbers here as a general range, not a guarantee — check the machine screen or ask staff before committing.",
+    "ko": "수수료·운영시간·매장별 서비스 제공 여부는 바뀔 수 있습니다. 여기 숫자는 대략적인 범위로 참고하고, 실제로는 기기 화면이나 직원에게 확인 후 진행하세요."
+  },
+  "atm": {
+    "logo_check": {
+      "en": "Not every Korean ATM accepts foreign cards. Before inserting your card, look for a Visa, Mastercard, Maestro, Plus, or Cirrus sticker on the machine — no sticker usually means domestic cards only.",
+      "ko": "한국의 모든 ATM이 해외카드를 받는 건 아닙니다. 카드를 넣기 전에 기기에 Visa, Mastercard, Maestro, Plus, Cirrus 스티커가 있는지 확인하세요 — 스티커가 없으면 보통 국내카드 전용입니다."
+    },
+    "best_bets": {
+      "en": "Banks known for reliable foreign-card ATMs: Woori Bank, Shinhan Bank, KB Kookmin Bank, Citibank Korea, and especially Hana Bank, which has a 'Global ATM' with many language options at every branch.",
+      "ko": "해외카드가 잘 되는 은행: 우리은행, 신한은행, 국민은행(KB), 한국씨티은행, 그리고 모든 지점에 다국어 지원 '글로벌 ATM'이 있는 하나은행이 특히 잘 됩니다."
+    },
+    "bank_vs_convenience": {
+      "en": "Bank ATMs usually charge a lower fee but may have limited overnight hours at some branches. Convenience store ATMs (especially GS25's 'Global ATM' network, which supports cards from 40+ countries) charge a bit more but are open 24/7 and everywhere — useful for a small amount late at night.",
+      "ko": "은행 ATM은 보통 수수료가 낮지만 일부 지점은 심야에 운영이 제한될 수 있습니다. 편의점 ATM(특히 40개국 이상 카드를 지원하는 GS25 '글로벌 ATM')은 수수료가 조금 더 붙지만 24시간·어디서나 가능합니다 — 늦은 밤 소액 인출에 유용합니다."
+    },
+    "dcc_warning": {
+      "en": "If the ATM or a card terminal asks whether to charge you in your home currency or Korean won, always choose Korean won (KRW). Choosing your home currency triggers 'dynamic currency conversion,' which uses a worse exchange rate than your card issuer would give you.",
+      "ko": "ATM이나 카드 단말기에서 본국 통화로 결제할지 원화로 결제할지 물으면 항상 원화(KRW)를 선택하세요. 본국 통화를 선택하면 'DCC(현지통화 결제)'가 적용되어 카드사가 제공하는 환율보다 불리한 환율이 적용됩니다."
+    },
+    "typical_fee_note": {
+      "en": "Expect a withdrawal fee in the rough range of 3,000-5,000 KRW at most machines, on top of whatever your own card issuer charges for a foreign ATM withdrawal — check your card's terms before you travel.",
+      "ko": "대부분 기기에서 약 3,000~5,000원 수준의 인출 수수료가 붙고, 여기에 카드 발급사가 부과하는 해외 인출 수수료가 별도로 더해집니다 — 출국 전 카드 약관을 확인하세요."
+    }
+  },
+  "convenience_store": {
+    "intro": {
+      "en": "Korean convenience stores (CU, GS25, 7-Eleven, Emart24) do far more than snacks — they're a 24-hour utility stop, but which service is available depends on the chain.",
+      "ko": "한국 편의점(CU, GS25, 세븐일레븐, 이마트24)은 간식만 파는 곳이 아니라 24시간 생활 인프라입니다. 다만 서비스마다 되는 체인이 다릅니다."
+    },
+    "services": [
+      {
+        "id": "tmoney-topup",
+        "name": { "en": "T-money transit card top-up", "ko": "T-money 교통카드 충전" },
+        "note": { "en": "Widely available, but cash only at the counter — most convenience stores do not accept card payment for a T-money top-up.", "ko": "대부분 매장에서 가능하지만 카운터에서 현금으로만 됩니다 — 카드로는 안 되는 곳이 대부분입니다." }
+      },
+      {
+        "id": "international-parcel",
+        "name": { "en": "International parcel shipping", "ko": "국제택배 발송" },
+        "note": { "en": "Available at GS25 and CU (partnered with DHL, EMS, or SF Express), 24/7, prepaid only. 7-Eleven does not offer this service. Good for shipping souvenirs home instead of carrying extra luggage.", "ko": "GS25와 CU에서 가능(DHL·EMS·SF Express 제휴), 24시간, 선불 결제만 가능합니다. 세븐일레븐은 이 서비스가 없습니다. 짐을 늘리는 대신 기념품을 집으로 부치기 좋습니다." }
+      },
+      {
+        "id": "atm-cash",
+        "name": { "en": "ATM cash withdrawal", "ko": "ATM 현금 인출" },
+        "note": { "en": "See the ATM section above — GS25 in particular runs a foreign-card-friendly 'Global ATM' network.", "ko": "위 ATM 섹션 참고 — 특히 GS25는 해외카드 친화적인 '글로벌 ATM' 네트워크를 운영합니다." }
+      },
+      {
+        "id": "eating-space",
+        "name": { "en": "In-store seating and microwave", "ko": "매장 내 취식 공간·전자레인지" },
+        "note": { "en": "Most locations have a microwave, hot water dispenser, and some seating for eating instant noodles or a heated snack on the spot.", "ko": "대부분 매장에 전자레인지, 온수기, 그리고 즉석에서 라면이나 데운 간식을 먹을 수 있는 좌석이 있습니다." }
+      }
+    ]
+  }
+}
