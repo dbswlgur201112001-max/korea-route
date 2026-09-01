@@ -17112,5 +17112,125 @@ setTimeout(v140RenderLocalEvents,0);
 })();
 </script>
 
+
+
+<style id="v148-busan-events-css">
+.v148-event-closed-note{font-weight:850;color:#6d7f94}
+</style>
+<script id="v148-busan-events-js">
+// V148 · Busan event expansion. Static official data checked 2026-09-01.
+// Keeps the V147 recurrence engine: actual operating weekdays and exception dates
+// determine TODAY / YOUR DATES instead of using a broad date range alone.
+(function(){
+  if(typeof V140_OFFICIAL_EVENTS!=='object')return;
+
+  V140_OFFICIAL_EVENTS.Busan={
+    official:'https://www.busan.go.kr/eng/bsevents',
+    festival:'https://www.visitbusan.net/schedule/list.do?boardId=BBS_0000009&menuCd=DOM_000000204012000000&month=9&year=2026',
+    sourceNameEn:'Busan Metropolitan City / Visit Busan',
+    sourceNameKo:'부산광역시 / Visit Busan',
+    officialLabelEn:'Busan official event calendar',
+    officialLabelKo:'부산시 공식 행사 일정',
+    festivalLabelEn:'Visit Busan event calendar',
+    festivalLabelKo:'Visit Busan 행사 일정',
+    checkedOn:'2026-09-01',
+    events:[
+      {
+        key:'busan-biennale-2026',start:'2026-08-29',end:'2026-11-01',
+        nameEn:'Busan Biennale 2026',nameKo:'2026 부산비엔날레',
+        placeEn:'Busan MoCA · Space OneZ · Former Busan Nam High School',placeKo:'부산현대미술관·스페이스 원지·(구)부산남고',search:'Busan Museum of Contemporary Art',mapSearchEn:'Busan Museum of Contemporary Art',mapSearchKo:'부산현대미술관',
+        activeWeekdays:[0,2,3,4,5,6],excludeDates:['2026-10-06'],
+        officialUrl:'https://busanbiennale2026.com/en/visit',
+        noteEn:'Dissident Chorus. Open Tue–Sun, 10:00–18:00; Mondays are closed, with an additional closure on Oct 6. Three venues are connected by a free shuttle on exhibition days.',
+        noteKo:'《불협하는 합창》. 화~일 10:00~18:00 운영, 월요일 휴관이며 10월 6일도 휴관합니다. 전시 운영일에는 세 전시장을 잇는 무료 셔틀이 있습니다.'
+      },
+      {
+        key:'starry-night-busan-music-campnic-2026',start:'2026-09-04',end:'2026-09-19',
+        nameEn:'Starry Night Busan – Night Music Campnic',nameKo:'2026 별바다부산 나이트 뮤직 캠크닉',
+        placeEn:'Dadaepo Beach Park',placeKo:'다대포해변공원',search:'Dadaepo Beach Park',
+        activeWeekdays:[5,6],
+        officialUrl:'https://www.visitbusan.net/schedule/view.do?boardId=BBS_0000009&dataSid=6313&menuCd=DOM_000000204012000000',
+        noteEn:'Runs only Sep 4–5, 11–12 and 18–19, 17:00–22:00, with sunset dining, live music, picnic and wellness programs.',
+        noteKo:'9월 4~5일, 11~12일, 18~19일에만 17:00~22:00 운영합니다. 선셋 다이닝·라이브 음악·피크닉·웰니스 프로그램이 진행됩니다.'
+      },
+      {
+        key:'gwangalli-m-drone-september-2026',start:'2026-09-05',end:'2026-09-26',
+        nameEn:'Gwangalli M Drone Light Show – September',nameKo:'광안리 M 드론라이트쇼 9월 공연',
+        placeEn:'Gwangalli Beach',placeKo:'광안리해수욕장',search:'Gwangalli Beach',
+        activeWeekdays:[6],
+        officialUrl:'https://www.visitbusan.net/schedule/view.do?boardId=BBS_0000009&dataSid=6342&menuCd=DOM_000000204019000000',
+        noteEn:'Saturday shows on Sep 5, 12, 19 and 26. The Sep 26 Chuseok show uses 3,000 drones and is scheduled once at 20:00. Weather or communications can cause same-day changes.',
+        noteKo:'9월 5·12·19·26일 토요일 공연입니다. 9월 26일 한가위 공연은 3,000대 드론으로 20:00 1회 진행 예정이며 기상·통신 상황에 따라 당일 변경될 수 있습니다.'
+      },
+      {
+        key:'world-smart-city-expo-2026',start:'2026-09-09',end:'2026-09-11',
+        nameEn:'World Smart City Expo 2026',nameKo:'2026 월드 스마트시티 엑스포',
+        placeEn:'BEXCO Exhibition Center 1',placeKo:'벡스코 제1전시장',search:'BEXCO',
+        officialUrl:'https://www.worldsmartcityexpo.com/eng/sub01/sub01.php',
+        noteEn:'Sep 9–11 at BEXCO. Exhibition hours are 10:00–17:00 on Sep 9–10 and 10:00–16:00 on Sep 11.',
+        noteKo:'9월 9~11일 벡스코에서 열립니다. 관람시간은 9~10일 10:00~17:00, 11일 10:00~16:00입니다.'
+      },
+      {
+        key:'busan-international-rock-festival-2026',start:'2026-10-02',end:'2026-10-04',
+        nameEn:'Busan International Rock Festival 2026',nameKo:'2026 부산국제록페스티벌',
+        placeEn:'Samnak Ecological Park',placeKo:'삼락생태공원',search:'Samnak Ecological Park',
+        officialUrl:'https://busanrockfestival.com/',
+        noteEn:'Three-day international rock festival at Samnak Ecological Park. Check the official site for daily lineup, entry and ticket details.',
+        noteKo:'삼락생태공원에서 열리는 3일간의 국제 록 페스티벌입니다. 일자별 라인업·입장·티켓은 공식 사이트에서 확인하세요.'
+      },
+      {
+        key:'busan-international-film-festival-31',start:'2026-10-06',end:'2026-10-15',
+        nameEn:'31st Busan International Film Festival',nameKo:'제31회 부산국제영화제',
+        placeEn:'Busan Cinema Center & selected theaters',placeKo:'영화의전당 및 부산 시내 지정 상영관',search:'Busan Cinema Center',mapSearchEn:'Busan Cinema Center',mapSearchKo:'영화의전당',
+        officialUrl:'https://www.biff.kr/eng/addon/10000001/page.asp?page_num=10591',
+        noteEn:'The 31st BIFF runs for 10 days. Screening locations and times vary by film, so use the official program before heading to a theater.',
+        noteKo:'제31회 부산국제영화제는 10일간 진행됩니다. 작품별 상영관·시간이 다르므로 이동 전 공식 프로그램을 확인하세요.'
+      },
+      {
+        key:'busan-fireworks-festival-21',start:'2026-11-07',end:'2026-11-07',
+        nameEn:'21st Busan Fireworks Festival',nameKo:'제21회 부산불꽃축제',
+        placeEn:'Gwangalli Beach · Igidae · Dongbaekseom',placeKo:'광안리해수욕장·이기대·동백섬 일원',search:'Gwangalli Beach',mapSearchEn:'Gwangalli Beach',mapSearchKo:'광안리해수욕장',
+        officialUrl:'https://busanfireworks.com/en/',
+        noteEn:'Main festival date is Nov 7. Viewing areas include Gwangalli Beach, Igidae and Dongbaekseom; check official traffic and ticket guidance closer to the date.',
+        noteKo:'본행사는 11월 7일입니다. 광안리해수욕장·이기대·동백섬 일원에서 진행되며 교통·티켓 안내는 행사 전 공식 페이지를 다시 확인하세요.'
+      }
+    ]
+  };
+
+  // V148: multi-venue events keep a display label, but map actions use one precise
+  // representative place instead of sending a long multi-place label to geocoding.
+  v140OpenEventPlace=function(city,search){
+    const token=++v143EventMapToken;
+    const cfg=V140_OFFICIAL_EVENTS?.[city];
+    const event=cfg?.events?.find(e=>[e.search,e.placeKo,e.placeEn,e.mapSearchEn,e.mapSearchKo].filter(Boolean).includes(search));
+    const query=lang==='ko'
+      ?(event?.mapSearchKo||event?.search||event?.placeKo||search)
+      :(event?.mapSearchEn||event?.placeEn||event?.search||event?.nameEn||search);
+    const c=cityGuideConfig?.[city];
+    try{
+      if(c&&typeof openCity==='function')openCity(city,c.ko,c.emoji,c.descEn,c.descKo,c.moveEn,c.moveKo,c.costEn,c.costKo);
+      else go('city');
+    }catch(_){try{go('city');}catch(__){}}
+    let tries=0;
+    const run=()=>{
+      if(token!==v143EventMapToken)return;
+      tries++;
+      const input=document.getElementById('cityMapSearchInput');
+      const cityReady=!cityState?.key||cityState.key===city;
+      if(input&&cityReady){
+        input.value=query||'';
+        try{searchCityMapPlace();return;}catch(_){}
+      }
+      if(tries<10)setTimeout(run,120);
+      else try{if(typeof v11Toast==='function')v11Toast(lang==='ko'?'지도가 아직 준비되지 않았어요. 다시 눌러주세요.':'Map is still loading. Tap the event map button again.');}catch(_){}
+    };
+    setTimeout(run,80);
+  };
+
+  // Render again after the Busan feed is registered so a currently open Busan view
+  // switches from generic BETA copy to the connected CITY NOW feed immediately.
+  try{setTimeout(v140RenderLocalEvents,0);}catch(_){}
+})();
+</script>
 </body>
 </html>
