@@ -1,0 +1,139 @@
+{
+  "schema": "korea-route/payment-access",
+  "version": "1.0.0",
+  "updated": "2026-09-01",
+  "review_cycle_days": 90,
+  "disclaimer": {
+    "en": "Mobile payment coverage in Korea changes fast — new store partnerships and terminal rollouts happen every few months. Treat 'yes' as 'usually works at bigger/chain stores' rather than guaranteed everywhere, and keep a card or some cash as backup.",
+    "ko": "한국의 모바일 결제 지원 범위는 몇 달 단위로 계속 바뀝니다. '가능'은 '체인점·대형 매장에서는 대체로 된다'는 뜻이지 어디서나 100% 된다는 뜻이 아닙니다. 카드나 현금을 백업으로 챙기세요."
+  },
+  "wallets": [
+    {
+      "id": "paypay",
+      "name": { "en": "PayPay (Japan)", "ko": "페이페이 (일본)" },
+      "status": "yes",
+      "where": {
+        "en": "Convenience stores, department stores, cosmetics shops, street food stalls, and any Alipay+ or ZeroPay(제로페이) sign — a fairly wide network as of late 2025.",
+        "ko": "편의점, 백화점, 화장품 매장, 포장마차, 그리고 Alipay+ 또는 제로페이 표시가 있는 곳. 2025년 하반기 기준 꽤 넓게 지원됩니다."
+      },
+      "note": {
+        "en": "You must complete identity verification (eKYC) in the PayPay app before leaving Japan — it does not work if set up after arrival. A roughly 3.85% overseas-use fee is added.",
+        "ko": "일본 출국 전에 앱에서 본인인증(eKYC)을 마쳐야 합니다. 도착 후 설정하면 안 됩니다. 해외 이용 수수료 약 3.85%가 붙습니다."
+      }
+    },
+    {
+      "id": "alipay",
+      "name": { "en": "Alipay (China)", "ko": "알리페이 (중국)" },
+      "status": "partial",
+      "where": {
+        "en": "Hotels, department stores, duty-free shops, and stores that specifically registered for Chinese mobile payment (often marked with an Alipay or WeChat Pay sticker at the register). Small independent restaurants and markets often don't take it.",
+        "ko": "호텔, 백화점, 면세점, 그리고 중국 결제를 별도로 등록한 매장(계산대에 알리페이·위챗페이 스티커가 붙어 있는 경우가 많음). 작은 개인 식당·시장은 안 되는 경우가 많습니다."
+      },
+      "note": {
+        "en": "Look for the sticker before assuming it works — there's no single Alipay-wide network the way there is in China.",
+        "ko": "된다고 가정하지 말고 스티커를 먼저 확인하세요. 중국처럼 알리페이 하나로 전국이 되는 구조가 아닙니다."
+      }
+    },
+    {
+      "id": "wechat-pay",
+      "name": { "en": "WeChat Pay (China)", "ko": "위챗페이 (중국)" },
+      "status": "partial",
+      "where": {
+        "en": "Same coverage pattern as Alipay — hotels, department stores, duty-free, and specifically-registered stores.",
+        "ko": "알리페이와 지원 범위가 비슷합니다 — 호텔, 백화점, 면세점, 별도 등록 매장."
+      },
+      "note": {
+        "en": "For amounts over about 200 CNY, some stores route the charge through your linked UnionPay card instead of the wallet balance directly.",
+        "ko": "200위안 이상 결제는 일부 매장에서 지갑 잔액이 아니라 연결된 유니온페이 카드로 처리되기도 합니다."
+      }
+    },
+    {
+      "id": "apple-pay",
+      "name": { "en": "Apple Pay", "ko": "애플페이" },
+      "status": "yes",
+      "where": {
+        "en": "Officially available in Korea since 2023. Works at most NFC terminals — convenience stores and chain restaurants are the most reliable. Some small independent shops still lack an NFC terminal.",
+        "ko": "2023년부터 한국 정식 서비스 중입니다. NFC 단말기가 있는 대부분의 매장에서 됩니다 — 편의점, 프랜차이즈 음식점이 가장 안정적입니다. 작은 개인 매장은 NFC 단말기가 없는 경우가 아직 있습니다."
+      },
+      "note": {
+        "en": "Works with foreign-issued Visa and Mastercard in most places; American Express acceptance is spottier. If it fails, try again explicitly saying '애플페이' to staff, or use the physical card.",
+        "ko": "해외 발행 비자·마스터카드는 대부분 됩니다. 아멕스는 되는 곳이 상대적으로 적습니다. 안 되면 직원에게 '애플페이'라고 말하고 다시 시도하거나 실물 카드를 쓰세요."
+      }
+    },
+    {
+      "id": "google-wallet",
+      "name": { "en": "Google Wallet (tap-to-pay)", "ko": "구글월렛 (탭투페이)" },
+      "status": "no",
+      "where": {
+        "en": "Not officially supported for offline NFC payment in Korea as of mid-2026. Google Play purchases (apps, subscriptions) are a separate thing and do work.",
+        "ko": "2026년 중반 기준 한국에서 오프라인 NFC 결제는 공식 지원되지 않습니다. 구글 플레이 앱·구독 결제는 별개로 가능합니다."
+      },
+      "note": {
+        "en": "If you have an Android phone with no other option, bring a physical card — don't count on tap-to-pay.",
+        "ko": "다른 결제수단이 없는 안드로이드 폰이라면 실물 카드를 챙기세요. 탭투페이는 기대하지 마세요."
+      }
+    },
+    {
+      "id": "samsung-pay",
+      "name": { "en": "Samsung Pay", "ko": "삼성페이" },
+      "status": "no",
+      "where": {
+        "en": "Extremely strong for Korean residents, but not practical for short-term visitors — it generally requires a Samsung account tied to a Korean phone number and has limited support for adding a foreign-issued card.",
+        "ko": "한국 거주자에게는 매우 강력하지만, 단기 방문자에게는 실용적이지 않습니다 — 보통 한국 번호로 된 삼성 계정이 필요하고 해외 카드 등록 지원이 제한적입니다."
+      },
+      "note": {
+        "en": "Don't plan around this one unless you already have it set up with a Korean account.",
+        "ko": "이미 한국 계정으로 설정돼 있지 않다면 이걸 믿고 계획하지 마세요."
+      }
+    }
+  ],
+  "transit_payment": {
+    "summary": {
+      "en": "Tapping your phone or a foreign card directly at a subway/bus gate is still limited. The reliable path is a prepaid transit card.",
+      "ko": "지하철·버스 게이트에 폰이나 해외 카드를 직접 태그하는 건 아직 제한적입니다. 확실한 방법은 선불 교통카드입니다."
+    },
+    "apple_wallet_tmoney": {
+      "en": "Since April 2026, you can add T-money to Apple Wallet and top it up using a foreign-issued Mastercard through the Mobile T-money app (about 4.5% fee). You still can't tap your physical card directly at the gate — the phone itself is the card.",
+      "ko": "2026년 4월부터 애플월렛에 T-money를 추가하고 모바일티머니 앱에서 해외 발행 마스터카드로 충전할 수 있습니다(수수료 약 4.5%). 실물 카드를 게이트에 직접 태그하는 방식은 아직 안 됩니다 — 폰 자체가 카드 역할을 합니다."
+    },
+    "station_machines": {
+      "en": "As of March 2026, new ticket machines at 273 stations accept foreign cards, but only for single-journey tickets or short-term Climate Card passes — not for topping up a regular T-money card.",
+      "ko": "2026년 3월 기준 273개 역의 신형 발매기가 해외카드를 받지만, 1회용 승차권이나 기후동행카드 단기권 구매만 가능하고 일반 T-money 충전은 안 됩니다."
+    }
+  },
+  "prepaid_cards": [
+    {
+      "id": "wowpass",
+      "name": { "en": "WOWPASS", "ko": "WOWPASS" },
+      "note": {
+        "en": "Currency-exchange kiosk plus prepaid card in one. Load foreign cash or card into it at the kiosk, then use it like a normal contactless card for transit, shops, and taxis. The most tourist-proof single option here.",
+        "ko": "환전 키오스크와 선불카드가 합쳐진 서비스입니다. 키오스크에서 외화나 카드로 충전한 뒤, 교통·매장·택시에서 일반 후불교통카드처럼 씁니다. 여기서 가장 무난한 선택지입니다."
+      }
+    },
+    {
+      "id": "namane",
+      "name": { "en": "NAMANE", "ko": "나만의" },
+      "note": {
+        "en": "Similar concept to WOWPASS — a prepaid card aimed at foreign visitors, available at some airport and city kiosks.",
+        "ko": "WOWPASS와 비슷한 개념의 외국인 대상 선불카드로, 공항·시내 일부 키오스크에서 발급됩니다."
+      }
+    }
+  ],
+  "fallbacks": [
+    {
+      "id": "no-terminal",
+      "trigger": { "en": "The store has no card/phone terminal at all", "ko": "매장에 카드·폰 단말기 자체가 없음" },
+      "advice": { "en": "This is common at small markets and street stalls. Keep some cash on hand for these.", "ko": "작은 시장·노점에서는 흔합니다. 이런 곳을 위해 현금을 조금 챙겨두세요." }
+    },
+    {
+      "id": "card-declined-taxi",
+      "trigger": { "en": "A taxi says it doesn't take foreign cards", "ko": "택시가 해외카드를 안 받는다고 함" },
+      "advice": { "en": "Some older taxi terminals only read domestic cards. Ask for cash payment, or pay with a WOWPASS/NAMANE prepaid card if you have one.", "ko": "일부 구형 택시 단말기는 국내 카드만 읽습니다. 현금으로 결제하거나, 있다면 WOWPASS·NAMANE 선불카드로 결제하세요." }
+    },
+    {
+      "id": "transit-top-up-fails",
+      "trigger": { "en": "You can't find a way to top up a physical T-money card", "ko": "실물 T-money 카드를 충전할 방법을 못 찾음" },
+      "advice": { "en": "Convenience stores and station cash machines only take Korean won cash for top-ups — not foreign cards. Either bring cash, or switch to a WOWPASS/NAMANE prepaid card, which can be loaded with a foreign card.", "ko": "편의점과 역 현금충전기는 원화 현금만 받고 해외카드는 안 받습니다. 현금을 준비하거나, 해외카드로 충전 가능한 WOWPASS·NAMANE 선불카드로 바꾸세요." }
+    }
+  ]
+}
