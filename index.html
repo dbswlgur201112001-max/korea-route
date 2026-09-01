@@ -901,6 +901,11 @@ background-size:32px 32px,32px 32px,100% 100%}
 .offline-freshness-badge.current{background:rgba(34,197,94,.10)}
 .offline-freshness-badge.changed{background:rgba(245,158,11,.12)}
 .offline-freshness-badge.none{background:rgba(127,127,127,.08)}
+.home-offline-snapshot-wrap{display:flex;justify-content:flex-end;margin:4px 0 8px}
+.home-offline-snapshot-badge{border:1px solid rgba(127,127,127,.18);border-radius:999px;padding:6px 10px;font-size:8px;font-weight:950;line-height:1.2;background:#f3f4f6;color:#48576a;box-shadow:0 2px 7px rgba(19,47,88,.04)}
+.home-offline-snapshot-badge.current{background:#e9f9ef;border-color:#b9e7c8;color:#17743a}
+.home-offline-snapshot-badge.stale{background:#fff7dc;border-color:#ead78b;color:#795f00}
+.home-offline-snapshot-badge.none{background:#fff1f1;border-color:#e8bcbc;color:#9a3030;cursor:pointer}
 
 
 .mytrip-today-card{margin:12px 0;padding:14px;border:1px solid rgba(127,127,127,.18);border-radius:16px;background:rgba(127,127,127,.035)}
@@ -3085,6 +3090,10 @@ body.dark #paymentAccessHub .v188-top{background:rgba(13,28,49,.97)}body.dark .v
     <button class="pill" id="langBtn" onclick="toggleLang()">EN / 한국어</button>
   </div>
 
+  <div class="home-offline-snapshot-wrap">
+    <button type="button" id="homeOfflineSnapshotBadge" class="home-offline-snapshot-badge none" onclick="handleHomeOfflineSnapshotBadge()" aria-live="polite">Offline copy not saved</button>
+  </div>
+
   <div class="hero">
     <div class="kicker" data-i18n="home.hero.kicker">Travel Korea smarter</div>
     <h1 data-i18n="home.hero.title">Your Korea trip,<br>made simple.</h1>
@@ -4921,6 +4930,7 @@ function applyLang(){
   if(gs){gs.placeholder=t('home.search.placeholder');if(gs.value)renderGlobalSearchResults(gs.value);}
   if(typeof refreshMoveSelectorLanguage==='function') refreshMoveSelectorLanguage();
   if(typeof v60MountMapCitySwitch==='function'&&document.getElementById('v60CitySwitch'))v60MountMapCitySwitch();
+  if(typeof renderHomeOfflineSnapshotBadge==='function') renderHomeOfflineSnapshotBadge();
   const bigMapExit=document.querySelector('.city-map-fullscreen-exit');
   if(bigMapExit) bigMapExit.setAttribute('aria-label',lang==='ko'?'큰 지도 닫기':'Close big map');
 }
@@ -7332,7 +7342,33 @@ function offlineSnapshotFreshness(){
   return {state:'changed',labelKo:'변경사항 미저장',labelEn:'Changes not saved'};
 }
 
+function renderHomeOfflineSnapshotBadge(){
+  const badge=document.getElementById('homeOfflineSnapshotBadge');
+  if(!badge) return;
+  const freshness=offlineSnapshotFreshness();
+  // Legacy freshness uses "changed" for the same stale-copy state. Keep existing logic intact.
+  const state=freshness.state==='changed'?'stale':freshness.state;
+  badge.className=`home-offline-snapshot-badge ${state}`;
+  badge.dataset.state=state;
+  if(state==='current'){
+    badge.textContent=lang==='ko'?'오프라인 준비 완료':'Offline ready';
+    badge.setAttribute('aria-disabled','true');
+  }else if(state==='stale'){
+    badge.textContent=lang==='ko'?'오프라인 사본이 오래됨':'Offline copy is stale';
+    badge.setAttribute('aria-disabled','true');
+  }else{
+    badge.textContent=lang==='ko'?'오프라인 사본 없음 · 지금 저장':'No offline copy · Save now';
+    badge.setAttribute('aria-disabled','false');
+  }
+}
+
+function handleHomeOfflineSnapshotBadge(){
+  const badge=document.getElementById('homeOfflineSnapshotBadge');
+  if((badge?.dataset.state||'none')==='none') saveOfflineTripSnapshot();
+}
+
 function renderOfflineTripSnapshot(){
+  renderHomeOfflineSnapshotBadge();
   let block=document.getElementById('myTripOfflineSnapshot');
   if(!block){
     block=document.createElement('section');
@@ -7387,6 +7423,65 @@ function renderOfflineTripSnapshot(){
     <div id="offlineTripFeedback" class="offline-trip-feedback" aria-live="polite"></div>
   `;
 }
+
+const OFFLINE_TRIP_AUTOSAVE_DEBOUNCE_MS=2500;
+const OFFLINE_TRIP_AUTOSAVE_POLL_MS=500;
+let offlineTripAutoSaveTimer=null;
+let offlineTripAutoSaveFingerprint='';
+let offlineTripLastForcedSaveAt=0;
+
+function offlineTripTrackedSessionFingerprint(){
+  const data={};
+  OFFLINE_TRIP_SESSION_KEYS.forEach(key=>{
+    const value=sessionStorage.getItem(key);
+    data[key]=value===null?null:value;
+  });
+  return stableOfflineSnapshotString(data);
+}
+
+function offlineTripStoredSnapshotFingerprint(){
+  const snapshot=readOfflineTripSnapshot();
+  const data={};
+  OFFLINE_TRIP_SESSION_KEYS.forEach(key=>{
+    data[key]=snapshot?.data&&Object.prototype.hasOwnProperty.call(snapshot.data,key)
+      ?String(snapshot.data[key])
+      :null;
+  });
+  return stableOfflineSnapshotString(data);
+}
+
+function scheduleOfflineTripSnapshotAutoSave(){
+  clearTimeout(offlineTripAutoSaveTimer);
+  offlineTripAutoSaveTimer=setTimeout(()=>{
+    offlineTripAutoSaveTimer=null;
+    // If the user saved manually during the debounce window, avoid a duplicate write.
+    if(offlineTripTrackedSessionFingerprint()!==offlineTripStoredSnapshotFingerprint()) saveOfflineTripSnapshot();
+  },OFFLINE_TRIP_AUTOSAVE_DEBOUNCE_MS);
+}
+
+function watchOfflineTripSessionChanges(){
+  const next=offlineTripTrackedSessionFingerprint();
+  if(next===offlineTripAutoSaveFingerprint) return;
+  offlineTripAutoSaveFingerprint=next;
+  scheduleOfflineTripSnapshotAutoSave();
+  renderHomeOfflineSnapshotBadge();
+}
+
+function forceOfflineTripSnapshotOnDisconnect(){
+  clearTimeout(offlineTripAutoSaveTimer);
+  offlineTripAutoSaveTimer=null;
+  offlineTripAutoSaveFingerprint=offlineTripTrackedSessionFingerprint();
+  const now=Date.now();
+  // Guard against duplicate browser offline events while still saving immediately on a real transition.
+  if(now-offlineTripLastForcedSaveAt<1000) return;
+  offlineTripLastForcedSaveAt=now;
+  saveOfflineTripSnapshot();
+}
+
+offlineTripAutoSaveFingerprint=offlineTripTrackedSessionFingerprint();
+setInterval(watchOfflineTripSessionChanges,OFFLINE_TRIP_AUTOSAVE_POLL_MS);
+window.addEventListener('offline',forceOfflineTripSnapshotOnDisconnect);
+setTimeout(renderHomeOfflineSnapshotBadge,0);
 
 function renderSavedPlacesInMyTrip(){
   const screen=document.getElementById('myTripHub');
