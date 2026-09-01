@@ -984,6 +984,22 @@ background-size:32px 32px,32px 32px,100% 100%}
 .live-weather-advice{margin-top:8px;padding:11px 12px;border-radius:14px;background:#fff8e8;color:#6f5620;font-size:12px;font-weight:800;line-height:1.5}
 .live-weather-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.live-weather-smart-action{margin-top:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}.live-weather-smart-action button{border:0;border-radius:999px;padding:9px 12px;background:#10233f;color:#fff;font-size:10px;font-weight:900}.live-weather-smart-action span{font-size:9px;line-height:1.4;color:#6f5620}
 @media(max-width:430px){.live-weather-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.live-weather-metric{padding:9px 7px}.live-weather-metric strong{font-size:15px}}
+.live-air-quality-card{position:relative;overflow:visible}
+.live-air-quality-status{margin-top:10px;padding:11px 12px;border-radius:14px;background:#f5f8fc;color:#526278;font-size:12px;font-weight:700;line-height:1.5}
+.live-air-quality-status b{display:block;color:#10233f;font-size:14px;margin-bottom:2px}.live-air-quality-status span{display:block}
+.live-air-quality-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
+.live-air-quality-metric{border:1px solid #e2e8f0;border-radius:14px;padding:11px;background:#fff;display:grid;gap:4px}
+.live-air-quality-metric small{font-size:11px;font-weight:800;color:#7b8798;text-transform:uppercase;letter-spacing:.04em}.live-air-quality-metric strong{font-size:20px;color:#10233f}
+.live-air-quality-grade{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;padding:11px 12px;border:1px solid #e2e8f0;border-radius:14px;background:#fff}
+.live-air-quality-grade span:first-child{font-size:12px;font-weight:900;color:#526278}.live-air-quality-badge{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:7px 12px;color:#fff;font-size:13px;font-weight:950;line-height:1.2}
+.live-air-quality-advice{display:grid;gap:8px;margin-top:10px}.live-air-quality-advice-row{padding:11px 12px;border-radius:14px;background:#f8fafc;border:1px solid #e2e8f0;line-height:1.5}.live-air-quality-advice-row b{display:block;font-size:11px;color:#526278;margin-bottom:3px}.live-air-quality-advice-row span{font-size:12px;font-weight:800;color:#233a58}
+.live-air-quality-mask{width:100%;margin-top:10px;border:1px solid #cfd8e6;border-radius:14px;background:#fff;padding:12px;text-align:left;display:flex;justify-content:space-between;gap:10px;align-items:center;color:#10233f}.live-air-quality-mask b{display:block;font-size:12px;margin-bottom:3px}.live-air-quality-mask span{display:block;font-size:11px;line-height:1.45;color:#526278}.live-air-quality-mask i{font-style:normal;font-size:18px}
+.live-air-quality-combine{margin-top:8px;font-size:10px;line-height:1.5;color:#6b7789}
+.live-air-quality-fallbacks{margin-top:12px;display:grid;gap:7px}.live-air-quality-fallbacks>h4{margin:0 0 1px;font-size:13px;color:#10233f}.live-air-quality-fallbacks details{border:1px solid #e2e8f0;border-radius:13px;background:#fff;overflow:hidden}.live-air-quality-fallbacks summary{padding:11px 12px;font-size:12px;font-weight:900;cursor:pointer;color:#233a58}.live-air-quality-fallbacks p{margin:0;padding:0 12px 12px;font-size:11px;line-height:1.55;color:#526278}
+.live-air-quality-notes{position:sticky;bottom:0;z-index:3;margin:12px -1px -1px;padding:10px 11px;border:1px solid #dfe5ee;border-radius:13px;background:rgba(248,250,252,.97);box-shadow:0 -5px 14px rgba(16,35,63,.05);backdrop-filter:blur(7px)}.live-air-quality-notes p{margin:0;font-size:10px;line-height:1.45;color:#5f6f83}.live-air-quality-notes p+p{margin-top:5px}
+.air-quality-mask-backdrop{position:fixed;inset:0;z-index:12000;background:rgba(7,18,35,.58);display:flex;align-items:flex-end;justify-content:center;padding:14px}.air-quality-mask-sheet{width:min(520px,100%);max-height:82vh;overflow:auto;background:#fff;border-radius:22px 22px 16px 16px;padding:16px;box-shadow:0 -12px 34px rgba(0,0,0,.2)}.air-quality-mask-sheet-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.air-quality-mask-sheet-head h3{margin:0;font-size:19px;color:#10233f}.air-quality-mask-sheet-head button{border:0;background:#eef2f7;border-radius:999px;width:36px;height:36px;font-size:22px;color:#233a58}.air-quality-mask-sheet-intro{margin:9px 0 12px;font-size:12px;line-height:1.55;color:#526278}.air-quality-mask-type{border:1px solid #e2e8f0;border-radius:14px;padding:11px 12px;margin-top:8px}.air-quality-mask-type b{font-size:14px;color:#10233f}.air-quality-mask-type p{margin:4px 0 0;font-size:11px;line-height:1.5;color:#526278}.air-quality-mask-buy{margin-top:11px;padding:11px 12px;border-radius:14px;background:#f5f8fc;font-size:11px;line-height:1.5;color:#233a58;font-weight:700}
+@media(max-width:430px){.live-air-quality-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.live-air-quality-metric strong{font-size:18px}.live-air-quality-notes p{font-size:10.5px}}
+
 
 .city-walk-localhelp{display:none;margin-top:9px;padding:11px;border-radius:14px;background:#fff;color:#0b2345}.city-walk-localhelp.show{display:block}.city-walk-localhelp-label{font-size:7px;font-weight:950;letter-spacing:.08em;color:#6d7f97}.city-walk-localhelp-name{display:block;margin-top:4px;font-size:20px;line-height:1.2;word-break:keep-all}.city-walk-localhelp-phrase{margin-top:8px;padding:9px;border-radius:11px;background:#f1f6fb;font-size:12px;font-weight:900;line-height:1.35}.city-walk-localhelp-note{margin-top:5px;font-size:7px;line-height:1.4;color:#68788d;font-weight:800}.city-walk-localhelp-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.city-walk-localhelp-actions button{border:0;border-radius:10px;padding:9px 7px;font-size:8px;font-weight:950;cursor:pointer;background:#e8f0f8;color:#0b2345}.city-walk-localhelp-actions button.primary{background:#0b2345;color:#fff}.city-walk-actions .walk-local{background:rgba(255,255,255,.13);color:#fff;grid-column:1/-1}
 
@@ -3739,6 +3755,22 @@ body.dark #paymentAccessHub .v188-top{background:rgba(13,28,49,.97)}body.dark .v
       <button type="button" class="mini-action" id="liveWeatherRefreshBtn" data-en="Refresh weather" data-ko="날씨 새로고침">Refresh weather</button>
     </div>
   </div>
+  <div class="feature-card live-air-quality-card" id="liveAirQualityLayer">
+    <div class="feature-top">
+      <div>
+        <h3 data-en="Air quality · PM2.5 / PM10" data-ko="미세먼지 · PM2.5 / PM10">Air quality · PM2.5 / PM10</h3>
+        <p data-en="Uses the same location or selected-city coordinates as live weather, then grades PM2.5 and PM10 using Korea's local thresholds." data-ko="실시간 날씨와 같은 현재 위치 또는 선택 도시 좌표를 사용하고, PM2.5·PM10을 한국 기준으로 직접 등급 계산합니다.">Uses the same location or selected-city coordinates as live weather, then grades PM2.5 and PM10 using Korea's local thresholds.</p>
+      </div>
+      <span class="slot-type api" id="liveAirQualityBadge">LIVE WEB DATA</span>
+    </div>
+    <div id="liveAirQualityStatus" class="live-air-quality-status" aria-live="polite" data-en="Loading current air quality…" data-ko="현재 미세먼지 불러오는 중…">Loading current air quality…</div>
+    <div id="liveAirQualityGrid" class="live-air-quality-grid"></div>
+    <div id="liveAirQualityGrade"></div>
+    <div id="liveAirQualityAdvice"></div>
+    <div id="liveAirQualityMask"></div>
+    <div id="liveAirQualityFallbacks"></div>
+    <div id="liveAirQualityNotes"></div>
+  </div>
   <div class="feature-card" id="koreaTimeLayer">
     <div class="feature-top">
       <div>
@@ -4931,6 +4963,7 @@ function applyLang(){
   if(typeof refreshMoveSelectorLanguage==='function') refreshMoveSelectorLanguage();
   if(typeof v60MountMapCitySwitch==='function'&&document.getElementById('v60CitySwitch'))v60MountMapCitySwitch();
   if(typeof renderHomeOfflineSnapshotBadge==='function') renderHomeOfflineSnapshotBadge();
+  if(typeof renderLiveAirQualityFromState==='function') renderLiveAirQualityFromState();
   const bigMapExit=document.querySelector('.city-map-fullscreen-exit');
   if(bigMapExit) bigMapExit.setAttribute('aria-label',lang==='ko'?'큰 지도 닫기':'Close big map');
 }
@@ -14980,6 +15013,7 @@ async function refreshLiveWeather(){
   const status=document.getElementById('liveWeatherStatus'),grid=document.getElementById('liveWeatherGrid'),advice=document.getElementById('liveWeatherAdvice'),badge=document.getElementById('liveWeatherBadge');
   if(!status||!grid)return;
   const t=liveWeatherTarget();
+  void refreshLiveAirQuality();
   status.textContent=lang==='ko'?`${t.label} 현재 날씨 확인 중…`:`Checking current weather for ${t.label}…`; grid.innerHTML=''; if(advice)advice.innerHTML=''; if(badge)badge.textContent='LOADING';
   try{
     if(liveWeatherController)liveWeatherController.abort(); liveWeatherController=new AbortController();
@@ -15003,6 +15037,123 @@ async function refreshLiveWeather(){
     if(badge)badge.textContent='UNAVAILABLE';
   }
 }
+
+let liveAirQualityController=null;
+let airQualityHelpData=null;
+let latestLiveAirQualityState={status:'loading'};
+async function loadAirQualityHelpData(){
+  if(airQualityHelpData)return airQualityHelpData;
+  const r=await fetch('./air-quality-help.json',{headers:{Accept:'application/json'}});
+  if(!r.ok)throw new Error(`Air quality help HTTP ${r.status}`);
+  const d=await r.json();
+  if(!d||!Array.isArray(d.grades)||!d.grades.length||!d.disclaimer||!d.data_source_note)throw new Error('Invalid air quality help data');
+  airQualityHelpData=d;
+  return d;
+}
+function airQualityText(value){return value?.[lang==='ko'?'ko':'en']||value?.en||value?.ko||'';}
+function airQualityInRange(value,range){
+  if(!Number.isFinite(value)||!Array.isArray(range)||range.length<2)return false;
+  const low=Number(range[0]); const high=range[1]==null?Infinity:Number(range[1]);
+  return Number.isFinite(low)&&value>=low&&value<=high;
+}
+function airQualityGradeIndex(value,key,grades){
+  if(!Number.isFinite(value))return -1;
+  for(let i=0;i<grades.length;i++)if(airQualityInRange(value,grades[i]?.[key]))return i;
+  return -1;
+}
+function combinedKoreaAirQualityGrade(pm25,pm10,grades){
+  const a=airQualityGradeIndex(pm25,'pm25_range_ugm3',grades);
+  const b=airQualityGradeIndex(pm10,'pm10_range_ugm3',grades);
+  const idx=Math.max(a,b);
+  return idx>=0?{grade:grades[idx],index:idx,pm25Index:a,pm10Index:b}:null;
+}
+function renderAirQualityStaticData(data){
+  const fallbacks=document.getElementById('liveAirQualityFallbacks');
+  const notes=document.getElementById('liveAirQualityNotes');
+  if(fallbacks){
+    fallbacks.className='live-air-quality-fallbacks';
+    fallbacks.innerHTML=`<h4>${lang==='ko'?'이럴 땐':'If this happens'}</h4>${(data.fallbacks||[]).map(x=>`<details><summary>${escapeHtmlText(airQualityText(x.trigger))}</summary><p>${escapeHtmlText(airQualityText(x.advice))}</p></details>`).join('')}`;
+  }
+  if(notes){
+    notes.className='live-air-quality-notes';
+    notes.innerHTML=`<p>${escapeHtmlText(airQualityText(data.disclaimer))}</p><p>${escapeHtmlText(airQualityText(data.data_source_note))}</p>`;
+  }
+}
+function renderLiveAirQualityReady(){
+  const state=latestLiveAirQualityState;
+  const status=document.getElementById('liveAirQualityStatus'),grid=document.getElementById('liveAirQualityGrid'),gradeBox=document.getElementById('liveAirQualityGrade'),advice=document.getElementById('liveAirQualityAdvice'),mask=document.getElementById('liveAirQualityMask'),badge=document.getElementById('liveAirQualityBadge');
+  const data=airQualityHelpData;
+  if(!status||!grid||!data||state.status!=='ready')return;
+  const grade=state.grade; const t=liveWeatherTarget();
+  renderAirQualityStaticData(data);
+  status.innerHTML=`<b>${escapeHtmlText(t.label)} · ${escapeHtmlText(airQualityText(grade.name))}</b><span>${lang==='ko'?'Open-Meteo 공개 대기질 데이터 · 한국 기준 직접 계산':'Open-Meteo public air-quality data · graded with Korea thresholds'}${t.source==='city'?(lang==='ko'?' · 도시 중심 기준':' · city-center coordinates'):''}</span>`;
+  grid.innerHTML=`<div class="live-air-quality-metric"><small>PM2.5</small><strong>${Number.isFinite(state.pm25)?state.pm25.toFixed(1)+' μg/m³':'—'}</strong></div><div class="live-air-quality-metric"><small>PM10</small><strong>${Number.isFinite(state.pm10)?state.pm10.toFixed(1)+' μg/m³':'—'}</strong></div>`;
+  if(gradeBox)gradeBox.innerHTML=`<div class="live-air-quality-grade"><span>${lang==='ko'?'종합 등급':'Overall grade'}</span><strong class="live-air-quality-badge" style="background:${escapeHtmlText(grade.color||'#64748b')}">${escapeHtmlText(airQualityText(grade.name))}</strong></div><div class="live-air-quality-combine">${escapeHtmlText(airQualityText(data.combine_rule))}</div>`;
+  if(advice){advice.className='live-air-quality-advice';advice.innerHTML=`<div class="live-air-quality-advice-row"><b>${lang==='ko'?'일반인':'General public'}</b><span>${escapeHtmlText(airQualityText(grade.general_public))}</span></div><div class="live-air-quality-advice-row"><b>${lang==='ko'?'민감군':'Sensitive groups'}</b><span>${escapeHtmlText(airQualityText(grade.sensitive_group))}</span></div>`;}
+  if(mask)mask.innerHTML=`<button type="button" class="live-air-quality-mask" onclick="openAirQualityMaskGuide()"><span><b>${lang==='ko'?'마스크 권장':'Mask guidance'}</b><span>${escapeHtmlText(airQualityText(grade.mask))}</span></span><i>›</i></button>`;
+  if(badge){badge.textContent=lang==='ko'?'실시간':'LIVE AIR';badge.style.background=grade.color||'';badge.style.color='#fff';}
+}
+function renderLiveAirQualityFromState(){
+  if(!airQualityHelpData)return;
+  renderAirQualityStaticData(airQualityHelpData);
+  if(latestLiveAirQualityState.status==='ready')renderLiveAirQualityReady();
+  else if(latestLiveAirQualityState.status==='unavailable'){
+    const status=document.getElementById('liveAirQualityStatus');
+    if(status)status.textContent=lang==='ko'?'현재 미세먼지 수치를 불러오지 못했습니다. 아래 안내와 공식 에어코리아를 확인하세요.':'Current air-quality readings are unavailable. Use the guidance below and check official Air Korea readings.';
+  }
+}
+function closeAirQualityMaskGuide(){document.getElementById('airQualityMaskSheet')?.remove();}
+function openAirQualityMaskGuide(){
+  const data=airQualityHelpData; if(!data?.mask_guide)return;
+  closeAirQualityMaskGuide();
+  const g=data.mask_guide; const wrap=document.createElement('div');
+  wrap.id='airQualityMaskSheet'; wrap.className='air-quality-mask-backdrop';
+  wrap.innerHTML=`<div class="air-quality-mask-sheet" role="dialog" aria-modal="true" aria-label="${lang==='ko'?'KF 마스크 안내':'KF mask guide'}"><div class="air-quality-mask-sheet-head"><h3>${lang==='ko'?'KF 마스크 안내':'KF mask guide'}</h3><button type="button" onclick="closeAirQualityMaskGuide()" aria-label="Close">×</button></div><p class="air-quality-mask-sheet-intro">${escapeHtmlText(airQualityText(g.intro))}</p>${(g.types||[]).map(x=>`<div class="air-quality-mask-type"><b>${escapeHtmlText(x.label||'')}</b><p>${escapeHtmlText(airQualityText(x.note))}</p></div>`).join('')}<div class="air-quality-mask-buy">${escapeHtmlText(airQualityText(g.where_to_buy))}</div></div>`;
+  wrap.addEventListener('click',e=>{if(e.target===wrap)closeAirQualityMaskGuide();});
+  document.body.appendChild(wrap);
+}
+async function refreshLiveAirQuality(){
+  const status=document.getElementById('liveAirQualityStatus'),grid=document.getElementById('liveAirQualityGrid'),gradeBox=document.getElementById('liveAirQualityGrade'),advice=document.getElementById('liveAirQualityAdvice'),mask=document.getElementById('liveAirQualityMask'),badge=document.getElementById('liveAirQualityBadge');
+  if(!status||!grid)return;
+  const t=liveWeatherTarget();
+  status.textContent=lang==='ko'?`${t.label} 미세먼지 확인 중…`:`Checking air quality for ${t.label}…`;
+  grid.innerHTML=''; if(gradeBox)gradeBox.innerHTML=''; if(advice)advice.innerHTML=''; if(mask)mask.innerHTML='';
+  if(badge){badge.textContent='LOADING';badge.style.background='';badge.style.color='';}
+  let data;
+  try{
+    data=await loadAirQualityHelpData();
+    renderAirQualityStaticData(data);
+  }catch(_){
+    latestLiveAirQualityState={status:'unavailable'};
+    status.textContent=lang==='ko'?'미세먼지 기준 안내 데이터를 불러오지 못했습니다.':'Air-quality guidance data could not be loaded.';
+    if(badge)badge.textContent='UNAVAILABLE';
+    return;
+  }
+  if(liveAirQualityController)liveAirQualityController.abort();
+  liveAirQualityController=new AbortController();
+  const controller=liveAirQualityController;
+  const timer=setTimeout(()=>controller.abort(),8000);
+  try{
+    const url=`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${encodeURIComponent(t.lat)}&longitude=${encodeURIComponent(t.lng)}&current=pm10,pm2_5&timezone=auto`;
+    const r=await fetch(url,{signal:controller.signal,headers:{Accept:'application/json'}});
+    if(!r.ok)throw new Error(`HTTP ${r.status}`);
+    const d=await r.json(); const c=d?.current;
+    const pm25=Number(c?.pm2_5),pm10=Number(c?.pm10);
+    if(!Number.isFinite(pm25)||!Number.isFinite(pm10))throw new Error('No current air quality');
+    const combined=combinedKoreaAirQualityGrade(pm25,pm10,data.grades);
+    if(!combined?.grade)throw new Error('No matching Korea air-quality grade');
+    latestLiveAirQualityState={status:'ready',pm25,pm10,grade:combined.grade,gradeIndex:combined.index};
+    renderLiveAirQualityReady();
+  }catch(e){
+    if(controller!==liveAirQualityController)return;
+    latestLiveAirQualityState={status:'unavailable'};
+    status.textContent=e?.name==='AbortError'?(lang==='ko'?'미세먼지 조회 시간이 초과되었습니다. 잠시 후 날씨를 새로고침해 다시 시도하세요.':'Air-quality request timed out. Refresh weather and try again shortly.'):(lang==='ko'?'현재 미세먼지 수치를 불러오지 못했습니다. 아래 안내와 공식 에어코리아를 확인하세요.':'Current air-quality readings are unavailable. Use the guidance below and check official Air Korea readings.');
+    if(badge){badge.textContent='UNAVAILABLE';badge.style.background='';badge.style.color='';}
+  }finally{
+    clearTimeout(timer);
+  }
+}
+
 function initLiveWeather(){
   document.getElementById('liveWeatherRefreshBtn')?.addEventListener('click',refreshLiveWeather);
   document.getElementById('moveTo')?.addEventListener('change',refreshLiveWeather);

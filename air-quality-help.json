@@ -1,0 +1,96 @@
+{
+  "schema": "korea-route/air-quality-help",
+  "version": "1.0.0",
+  "updated": "2026-09-01",
+  "review_cycle_days": 365,
+  "disclaimer": {
+    "en": "Grade thresholds follow Korea's own air quality standard (used by Korean news, apps and government alerts), not a US or European index — that's the version you'll see referenced locally. This is general guidance, not medical advice. If you have asthma or a heart or lung condition, follow your doctor's advice over this.",
+    "ko": "등급 기준은 한국 정부·언론·앱이 실제로 쓰는 국내 기준입니다(미국·유럽 지수 아님) — 현지에서 보게 될 표현과 같습니다. 일반적인 안내이며 의학적 조언이 아닙니다. 천식이나 심장·폐 질환이 있다면 이 안내보다 의사의 지침을 따르세요."
+  },
+  "data_source_note": {
+    "en": "Live numbers are pulled from a free public forecast source and may differ slightly from Air Korea's official monitoring stations. For official real-time readings, check airkorea.or.kr.",
+    "ko": "실시간 수치는 무료 공개 예보 소스에서 가져오며 에어코리아 공식 측정소 값과 약간 다를 수 있습니다. 공식 실시간 값은 airkorea.or.kr에서 확인하세요."
+  },
+  "sensitive_group_note": {
+    "en": "\"Sensitive groups\" means children, older adults, and anyone with asthma, another lung condition, or a heart condition.",
+    "ko": "\"민감군\"은 어린이, 노약자, 그리고 천식·폐질환·심장질환이 있는 사람을 말합니다."
+  },
+  "grades": [
+    {
+      "id": "good",
+      "name": { "en": "Good", "ko": "좋음" },
+      "color": "#2e9e4f",
+      "pm25_range_ugm3": [0, 15],
+      "pm10_range_ugm3": [0, 30],
+      "general_public": { "en": "No restrictions. A normal day outdoors.", "ko": "제약 없음. 평소처럼 야외활동 가능." },
+      "sensitive_group": { "en": "No restrictions.", "ko": "제약 없음." },
+      "mask": { "en": "Not needed for air quality.", "ko": "미세먼지 때문에는 필요 없음." }
+    },
+    {
+      "id": "moderate",
+      "name": { "en": "Moderate", "ko": "보통" },
+      "color": "#7aa832",
+      "pm25_range_ugm3": [16, 35],
+      "pm10_range_ugm3": [31, 80],
+      "general_public": { "en": "No restrictions for most people.", "ko": "대부분 제약 없음." },
+      "sensitive_group": { "en": "Consider shortening long, intense outdoor exercise.", "ko": "장시간 격한 야외운동은 줄이는 걸 고려하세요." },
+      "mask": { "en": "Optional.", "ko": "선택 사항." }
+    },
+    {
+      "id": "bad",
+      "name": { "en": "Bad", "ko": "나쁨" },
+      "color": "#d98a1f",
+      "pm25_range_ugm3": [36, 75],
+      "pm10_range_ugm3": [81, 150],
+      "general_public": { "en": "Cut back on long or intense outdoor activity.", "ko": "장시간·격한 야외활동을 줄이세요." },
+      "sensitive_group": { "en": "Avoid outdoor activity where possible.", "ko": "가능하면 야외활동을 피하세요." },
+      "mask": { "en": "Recommended outdoors — a KF80 or higher mask.", "ko": "야외에서는 착용 권장 — KF80 이상." }
+    },
+    {
+      "id": "very-bad",
+      "name": { "en": "Very bad", "ko": "매우나쁨" },
+      "color": "#b5342e",
+      "pm25_range_ugm3": [76, null],
+      "pm10_range_ugm3": [151, null],
+      "general_public": { "en": "Minimize outdoor activity, especially exercise.", "ko": "야외활동, 특히 운동은 최소화하세요." },
+      "sensitive_group": { "en": "Stay indoors where possible.", "ko": "가능하면 실내에 머무르세요." },
+      "mask": { "en": "Strongly recommended outdoors — KF94 or KF99.", "ko": "야외에서는 착용 강력 권장 — KF94 또는 KF99." }
+    }
+  ],
+  "combine_rule": {
+    "en": "Korea reports one overall grade using whichever of PM10 or PM2.5 is worse — this app does the same.",
+    "ko": "한국은 PM10과 PM2.5 중 더 나쁜 등급을 종합 등급으로 발표합니다 — 이 앱도 동일하게 계산합니다."
+  },
+  "mask_guide": {
+    "intro": {
+      "en": "Korean masks are labeled KF (Korea Filter) followed by a number — the number is the percentage of fine particles it filters out.",
+      "ko": "한국 마스크는 KF(Korea Filter) + 숫자로 표시되며, 숫자는 미세입자를 걸러내는 비율입니다."
+    },
+    "types": [
+      { "id": "kf80", "label": "KF80", "note": { "en": "Filters about 80%. Easiest to breathe through — fine for a bad-but-not-severe day.", "ko": "약 80% 차단. 숨쉬기 가장 편함 — 나쁨 정도면 충분." } },
+      { "id": "kf94", "label": "KF94", "note": { "en": "Filters about 94%. Similar to an N95. The standard choice on a very-bad day.", "ko": "약 94% 차단. N95와 비슷함 — 매우나쁨일 때 기본 선택." } },
+      { "id": "kf99", "label": "KF99", "note": { "en": "Filters about 99%. Hardest to breathe through — usually only worth it for the worst days or if you're in a sensitive group.", "ko": "약 99% 차단. 숨쉬기 가장 답답함 — 최악의 날이거나 민감군일 때만 필요." } }
+    ],
+    "where_to_buy": {
+      "en": "Any convenience store, pharmacy (약국), or drugstore like Olive Young sells KF masks — no prescription needed.",
+      "ko": "편의점, 약국, 올리브영 같은 드럭스토어 어디서나 KF 마스크를 팝니다 — 처방전 필요 없음."
+    }
+  },
+  "fallbacks": [
+    {
+      "id": "no-mask",
+      "trigger": { "en": "It's a bad-air day and you don't have a mask", "ko": "미세먼지 나쁜 날인데 마스크가 없음" },
+      "advice": { "en": "The nearest convenience store or pharmacy will have KF masks — they're cheap and sold everywhere.", "ko": "가까운 편의점이나 약국에 KF 마스크가 있습니다 — 저렴하고 어디서나 팝니다." }
+    },
+    {
+      "id": "reading-wont-load",
+      "trigger": { "en": "The live reading won't load", "ko": "실시간 수치가 안 뜸" },
+      "advice": { "en": "Check airkorea.or.kr directly, or just look outside — visibility noticeably dropping is a rough sign of a bad-air day.", "ko": "airkorea.or.kr에서 직접 확인하거나, 창밖 시야가 눈에 띄게 흐려졌는지 보세요 — 나쁜 날의 대략적인 신호입니다." }
+    },
+    {
+      "id": "yellow-dust-season",
+      "trigger": { "en": "It's spring and people mention '황사' (yellow dust)", "ko": "봄철 '황사' 이야기가 나옴" },
+      "advice": { "en": "황사 (yellow dust) is a separate seasonal event — sand blown in from China/Mongolia, usually worse in spring. Same masks and precautions apply; treat it like a bad-air day.", "ko": "황사는 봄철에 중국·몽골에서 날아오는 별도의 계절 현상입니다. 대처법은 미세먼지 나쁜 날과 동일합니다." }
+    }
+  ]
+}
