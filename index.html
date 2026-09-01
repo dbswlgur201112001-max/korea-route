@@ -17621,5 +17621,161 @@ setTimeout(v140RenderLocalEvents,0);
 })();
 </script>
 
+
+<style id="v152-event-integration-stability-css">
+.v152-source-type{display:inline-flex;align-items:center;margin-top:6px;padding:3px 6px;border-radius:999px;background:#f4f7fb;color:#718096;font-size:7px;font-weight:900}
+</style>
+<script id="v152-event-integration-stability-js">
+// V152 · five-city event integration stability pass.
+// Fixes representative map queries, saved recurring-date display, and source-aware event-info labels.
+(function(){
+  if(typeof V140_OFFICIAL_EVENTS!=='object')return;
+
+  function v152HasHangul(v){return /[\u3131-\u318e\uac00-\ud7a3]/.test(String(v||''));}
+  function v152RepresentativePlace(v){
+    const text=String(v||'').trim();
+    if(!text)return '';
+    const first=text.split(/\s*(?:&|·|→|\||\/)+\s*/)[0].trim();
+    return first||text;
+  }
+  function v152FindEvent(city,token){
+    const cfg=V140_OFFICIAL_EVENTS?.[city];
+    const values=e=>[e?.search,e?.placeKo,e?.placeEn,e?.mapSearchEn,e?.mapSearchKo,e?.nameEn,e?.nameKo].filter(Boolean).map(String);
+    return cfg?.events?.find(e=>values(e).includes(String(token||'')))
+      || v141LoadSavedEvents().find(e=>e&&e.city===city&&values(e).includes(String(token||'')))
+      || null;
+  }
+  function v152MapQuery(city,e,fallback){
+    if(!e)return String(fallback||'');
+    if(lang==='ko'){
+      if(e.mapSearchKo)return e.mapSearchKo;
+      if(e.search&&v152HasHangul(e.search))return e.search;
+      return v152RepresentativePlace(e.placeKo)||e.search||e.nameKo||e.nameEn||fallback||'';
+    }
+    if(e.mapSearchEn)return e.mapSearchEn;
+    if(e.search&&!v152HasHangul(e.search))return e.search;
+    return v152RepresentativePlace(e.placeEn)||e.search||e.nameEn||e.nameKo||fallback||'';
+  }
+  window.v152EventMapQuery=v152MapQuery;
+
+  // One map-query rule for all five connected cities. Multi-venue display labels no longer
+  // override a precise representative search phrase in English mode.
+  v140OpenEventPlace=function(city,search){
+    const token=++v143EventMapToken;
+    const event=v152FindEvent(city,search);
+    const query=v152MapQuery(city,event,search);
+    const c=cityGuideConfig?.[city];
+    try{
+      if(c&&typeof openCity==='function')openCity(city,c.ko,c.emoji,c.descEn,c.descKo,c.moveEn,c.moveKo,c.costEn,c.costKo);
+      else go('city');
+    }catch(_){try{go('city');}catch(__){}}
+    let tries=0;
+    const run=()=>{
+      if(token!==v143EventMapToken)return;
+      tries++;
+      const input=document.getElementById('cityMapSearchInput');
+      const cityReady=!cityState?.key||cityState.key===city;
+      if(input&&cityReady){
+        input.value=query||'';
+        try{searchCityMapPlace();return;}catch(_){}
+      }
+      if(tries<10)setTimeout(run,120);
+      else try{if(typeof v11Toast==='function')v11Toast(lang==='ko'?'지도가 아직 준비되지 않았어요. 다시 눌러주세요.':'Map is still loading. Tap the event map button again.');}catch(_){}
+    };
+    setTimeout(run,80);
+  };
+
+  function v152EventSourceUrl(city,e){
+    const cfg=V140_OFFICIAL_EVENTS?.[city]||{};
+    return e?.officialUrl||cfg.festival||cfg.official||V140_VISITKOREA_FESTIVALS||'';
+  }
+  function v152SourceLanguage(city,e,url){
+    const cfg=V140_OFFICIAL_EVENTS?.[city]||{};
+    if(e?.sourceLanguage)return e.sourceLanguage;
+    if(cfg.sourceLanguage)return cfg.sourceLanguage;
+    const u=String(url||'').toLowerCase();
+    if(u.includes('english.')||u.includes('/eng/')||u.includes('/en/'))return 'en';
+    if(u.includes('/kr/')||u.includes('gyeongju.go.kr')||u.includes('suwon.go.kr'))return 'ko';
+    return 'unknown';
+  }
+  function v152SourceButtons(city,cfg){
+    const out=[];const sourceLang=cfg?.sourceLanguage||'unknown';
+    if(lang==='en'&&sourceLang==='ko'){
+      out.push(`<button type="button" class="v150-event-translate" onclick="v150OpenCityTranslation('${v142JsArg(city)}')">Translated ${v145EventHtml(v140CityName(city))} guide</button>`);
+      const original=cfg?.festival||cfg?.official||'';
+      if(original)out.push(`<button type="button" onclick="v150OpenOriginalUrl('${v142JsArg(original)}')">Original Korean page ↗</button>`);
+    }else{
+      if(cfg?.official){const label=lang==='ko'?(cfg.officialLabelKo||`${v140CityName(city)} 공식 행사`):(cfg.officialLabelEn||`Official ${v140CityName(city)} events`);out.push(`<button type="button" onclick="v150OpenOriginalUrl('${v142JsArg(cfg.official)}')">${v145EventHtml(label)} ↗</button>`);}
+      if(cfg?.festival){const label=lang==='ko'?(cfg.festivalLabelKo||`${v140CityName(city)} 축제 안내`):(cfg.festivalLabelEn||`${v140CityName(city)} festival guide`);out.push(`<button type="button" onclick="v150OpenOriginalUrl('${v142JsArg(cfg.festival)}')">${v145EventHtml(label)} ↗</button>`);}
+    }
+    out.push(`<button type="button" onclick="v150ExternalVisitKorea()">${lang==='ko'?'VISITKOREA 영문 축제':'VISITKOREA English'} ↗</button>`);
+    return out.join('');
+  }
+
+  // Saved events now use the same localized date formatter as event cards, so recurring
+  // operating days such as Fri–Sun remain visible in My Trip as well.
+  v141SavedEventsHtml=function(){
+    const saved=v141LoadSavedEvents();
+    if(!saved.length)return '';
+    const dest=v143CurrentTripDestination();
+    const grouped=new Map();
+    saved.forEach(x=>{if(!x||!x.city)return;if(!grouped.has(x.city))grouped.set(x.city,[]);grouped.get(x.city).push(x);});
+    const cities=[...grouped.keys()].sort((a,b)=>{if(a===dest&&b!==dest)return -1;if(b===dest&&a!==dest)return 1;return String(a).localeCompare(String(b));});
+    const groups=cities.map(city=>{
+      const items=grouped.get(city).slice().sort((a,b)=>String(a.start).localeCompare(String(b.start)));
+      const cityLabel=v140CityName(city);
+      const rows=items.map(x=>{
+        const state=v143SavedEventTripState(x),eid=encodeURIComponent(x.id);
+        const name=lang==='ko'?(x.nameKo||x.nameEn):(x.nameEn||x.nameKo||'');
+        const place=lang==='ko'?(x.placeKo||x.placeEn):(x.placeEn||x.placeKo||'');
+        let status='',cls='';
+        if(state.match){status=lang==='ko'?'이 여행과 일치':'MATCHES THIS TRIP';cls='match';}
+        else if(state.sameCity){status=lang==='ko'?'여행 날짜 밖':'OUTSIDE TRIP DATES';}
+        else{status=lang==='ko'?`${cityLabel}에 저장됨`:`SAVED FOR ${String(cityLabel).toUpperCase()}`;cls='other-city';}
+        const dateText=typeof v140EventDate==='function'?v140EventDate(x):(x.start===x.end?x.start:`${x.start} – ${x.end}`);
+        const mapSearch=x.search||x.mapSearchEn||x.mapSearchKo||x.placeKo||x.placeEn||'';
+        return `<div class="v141-saved-item"><div><b>${v145EventHtml(name)}</b><small>${v145EventHtml(dateText)} · ${v145EventHtml(place)}</small><span class="v142-saved-status ${cls}">${v145EventHtml(status)}</span></div><div class="v142-saved-actions"><button type="button" onclick="v140OpenEventPlace('${v142JsArg(city)}','${v142JsArg(mapSearch)}')">${lang==='ko'?'지도':'Map'}</button><button type="button" class="v142-saved-remove" onclick="v142RemoveSavedEvent('${v142JsArg(eid)}')">${lang==='ko'?'삭제':'Remove'}</button></div></div>`;
+      }).join('');
+      return `<div class="v143-saved-city-group ${city===dest?'current':''}"><div class="v143-saved-city-title"><b>${v145EventHtml(cityLabel)}</b><span>${city===dest?(lang==='ko'?'현재 여행 목적지':'CURRENT TRIP'):(lang==='ko'?'다른 저장 도시':'OTHER CITY')}</span></div>${rows}</div>`;
+    }).join('');
+    return `<div class="v141-saved-wrap"><div class="v141-saved-head"><b>${lang==='ko'?'My Trip에 저장한 행사':'Events saved to My Trip'}</b><span>${saved.length}</span></div>${groups}</div>`;
+  };
+
+  // Final event renderer after all five city feeds have registered.
+  v140EventsHtml=function(city,context){
+    const cityName=v140CityName(city);const sel=v140EventSelection(city,context);
+    if(!sel.cfg){
+      const saved=context==='trip'&&typeof v141SavedEventsHtml==='function'?v141SavedEventsHtml():'';
+      const base=`<div class="v140-events"><div class="v140-events-head"><div><span class="v140-events-kicker">LOCAL EVENTS</span><b class="v140-events-title">${lang==='ko'?`${v145EventHtml(cityName)} 행사 일정`:`What's on in ${v145EventHtml(cityName)}`}</b><span class="v140-events-sub">${lang==='ko'?'이 도시는 아직 공식 지역 행사 피드가 연결되지 않았습니다. VISITKOREA 축제 정보를 확인할 수 있어요.':'This city does not have a connected local event feed yet. Check the official VISITKOREA festival guide.'}</span></div><span class="v140-events-badge">BETA</span></div><div class="v140-events-actions"><button type="button" onclick="v150ExternalVisitKorea()">${lang==='ko'?'VISITKOREA 축제 보기 ↗':'VISITKOREA Festivals ↗'}</button></div></div>`;
+      return saved?`${base}<div class="v140-events v144-saved-only">${saved}</div>`:base;
+    }
+    const w=sel.w||v142EventWindow(context);const visibleItems=context==='planner'?sel.items.slice(0,3):sel.items;
+    const rows=visibleItems.length?visibleItems.map(e=>{
+      const day=context==='city'?0:v141EventTripDay(e),saved=v141IsEventSaved(city,e),eid=encodeURIComponent(v141EventId(city,e));
+      const eventName=lang==='ko'?(e.nameKo||e.nameEn):(e.nameEn||e.nameKo||'');
+      const place=lang==='ko'?(e.placeKo||e.placeEn):(e.placeEn||e.placeKo||'');
+      const note=lang==='ko'?(e.noteKo||''):(e.noteEn||'');
+      const sourceUrl=v152EventSourceUrl(city,e),sourceLang=v152SourceLanguage(city,e,sourceUrl);
+      const infoLabel=lang==='ko'?'행사 정보':(sourceLang==='ko'?'Translated info':'Event info');
+      const official=e.officialUrl?`<button type="button" class="v147-event-official" onclick="v150OpenOriginalUrl('${v142JsArg(e.officialUrl)}')">${lang==='ko'?'공식 원문':(sourceLang==='ko'?'Original Korean':'Official info')} ↗</button>`:'';
+      return `<div class="v140-event ${sel.during?'when':''}"><div class="v140-event-top"><b>${v145EventHtml(eventName)}</b><span class="v140-event-date">${v145EventHtml(v140EventDate(e))}</span></div><div class="v140-event-place">📍 ${v145EventHtml(place)}</div>${note?`<div class="v147-event-note">${v145EventHtml(note)}</div>`:''}${day?`<span class="v141-day-badge">${lang==='ko'?`추천 Day ${day}`:`Suggested Day ${day}`}</span>`:''}<div class="v140-event-actions"><button type="button" class="primary" onclick="v140OpenEventPlace('${v142JsArg(city)}','${v142JsArg(e.search||e.mapSearchEn||e.mapSearchKo||e.placeKo||e.placeEn||'')}')">${lang==='ko'?'지도에서 보기':'Show on map'}</button><button type="button" class="v150-event-translate" onclick="v150OpenEventTranslation('${v142JsArg(city)}','${v142JsArg(eid)}')">${infoLabel}</button>${official}<button type="button" class="v141-event-save ${saved?'saved':''}" onclick="v141ToggleEvent('${v142JsArg(city)}','${v142JsArg(eid)}')">${saved?(lang==='ko'?'✓ My Trip 저장됨':'✓ Saved to My Trip'):(lang==='ko'?'＋ My Trip에 추가':'＋ Add to My Trip')}</button></div></div>`;
+    }).join(''):`<div class="v140-event"><div class="v140-event-note">${lang==='ko'?'선택한 날짜 이후 확인된 행사가 없습니다. 공식 일정을 확인해 주세요.':'No connected event is available after the selected date. Check the official schedule.'}</div></div>`;
+    const isCity=context==='city';
+    const sub=isCity?(sel.during?(lang==='ko'?`${w.start} 현재 실제 운영일과 겹치는 행사입니다.`:`Happening in ${cityName} today (${w.start}), including recurring-day rules.`):(lang==='ko'?'오늘 실제 운영일과 겹치는 연결 행사가 없어 다음 예정 행사를 보여드려요.':'No connected event is active on its actual operating day today, so here are the next scheduled events.')):(sel.during?(lang==='ko'?`${w.start} ~ ${w.end} 여행 날짜와 실제 운영일이 겹치는 행사입니다.`:`Events whose actual operating days overlap your ${w.start} – ${w.end} trip.`):(lang==='ko'?'여행 날짜의 실제 운영일과 겹치는 행사가 없어 다음 예정 행사를 보여드려요.':'No event operating day overlaps your trip dates, so here are the next scheduled events.'));
+    const contextKicker=isCity?'CITY NOW':context==='planner'?'DESTINATION EVENTS':'TRIP MATCH';
+    const savedHtml=context==='trip'?v141SavedEventsHtml():'';
+    const plannerNote=context==='planner'?`<div class="v141-planner-note">${lang==='ko'?'목적지와 날짜를 바꾸면 행사 추천도 바로 바뀝니다.':'Change destination or dates and the event match updates immediately.'}</div>`:'';
+    const badge=isCity?(sel.during?(lang==='ko'?'오늘':'TODAY'):(lang==='ko'?'다음 행사':'UP NEXT')):(sel.during?(lang==='ko'?'여행 중':'YOUR DATES'):(lang==='ko'?'다음 행사':'UP NEXT'));
+    const checked=sel.cfg.checkedOn||'',freshness=checked?`<div class="v146-events-freshness"><b>${lang==='ko'?'공식 일정 확인일':'Official schedule checked'}</b> · ${v145EventHtml(checked)} · ${lang==='ko'?'실시간 자동 동기화가 아닙니다.':'not a live sync.'}</div>`:'';
+    const source=lang==='ko'?(sel.cfg.sourceNameKo||cityName):(sel.cfg.sourceNameEn||cityName);
+    const sourceLang=sel.cfg.sourceLanguage||'unknown';
+    const sourceNote=lang==='ko'?`${source} 공개 일정 기반입니다. 일정·장소는 방문 전 공식 페이지에서 최종 확인하세요.`:(sourceLang==='ko'?`Based on published schedules from ${source}. Use Translated info before opening the Korean source.`:`Based on published schedules from ${source}. Recheck the official page before visiting because event details can change.`);
+    return `<div class="v140-events"><div class="v140-events-head"><div><span class="v140-events-kicker">${contextKicker}</span><b class="v140-events-title">${lang==='ko'?`${v145EventHtml(cityName)} 행사 일정`:`What's on in ${v145EventHtml(cityName)}`}</b><span class="v140-events-sub">${sub}</span></div><span class="v140-events-badge">${badge}</span></div><div class="v140-events-list">${rows}</div>${plannerNote}${savedHtml}<div class="v140-events-actions">${v152SourceButtons(city,sel.cfg)}</div>${freshness}<div class="v140-events-note">${v145EventHtml(sourceNote)}</div></div>`;
+  };
+
+  try{setTimeout(v140RenderLocalEvents,0);}catch(_){}
+})();
+</script>
+
 </body>
 </html>
