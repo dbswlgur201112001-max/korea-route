@@ -1,0 +1,607 @@
+{
+  "schema": "korea-route/kiosk-help",
+  "version": "1.0.0",
+  "checked_on": "2026-09-01",
+  "title": {
+    "en": "Restaurant kiosk help",
+    "ko": "식당 키오스크 도움"
+  },
+  "subtitle": {
+    "en": "Most Korean restaurant kiosks use the same words. Learn them once, or photograph the screen if you're stuck.",
+    "ko": "한국 식당 키오스크는 대부분 같은 단어를 씁니다. 미리 익히거나, 막히면 화면을 촬영하세요."
+  },
+  "core_principle": {
+    "en": "Korea Route reads the screen for you. It does not decide what to press. You stay in control of every tap, especially payment.",
+    "ko": "Korea Route는 화면을 읽어줄 뿐, 무엇을 누를지 결정하지 않습니다. 모든 터치, 특히 결제는 사용자가 판단합니다."
+  },
+  "ui": {
+    "glossary_tab": {
+      "en": "Kiosk words",
+      "ko": "키오스크 단어"
+    },
+    "photo_tab": {
+      "en": "Photograph the screen",
+      "ko": "화면 촬영"
+    },
+    "stage_label": {
+      "en": "Step",
+      "ko": "단계"
+    },
+    "search_placeholder": {
+      "en": "Search a word you see",
+      "ko": "화면에 보이는 단어 검색"
+    },
+    "take_photo": {
+      "en": "Take / choose photo",
+      "ko": "사진 촬영 · 선택"
+    },
+    "read_screen": {
+      "en": "Read this screen",
+      "ko": "화면 읽기"
+    },
+    "reading": {
+      "en": "Reading the screen…",
+      "ko": "화면을 읽는 중…"
+    },
+    "low_confidence": {
+      "en": "Parts of this screen were unclear. Check the kiosk itself before tapping.",
+      "ko": "화면 일부를 명확히 읽지 못했습니다. 누르기 전에 실제 키오스크를 확인하세요."
+    },
+    "not_a_kiosk": {
+      "en": "This doesn't look like a kiosk screen. Try again with the full screen in frame.",
+      "ko": "키오스크 화면으로 보이지 않습니다. 화면 전체가 나오도록 다시 찍어보세요."
+    },
+    "ask_staff": {
+      "en": "Ask staff instead",
+      "ko": "직원에게 요청하기"
+    },
+    "retake": {
+      "en": "Take another photo",
+      "ko": "다시 촬영"
+    },
+    "offline_photo": {
+      "en": "Photo reading needs a connection. The word list below works offline.",
+      "ko": "화면 읽기는 인터넷이 필요합니다. 아래 단어 목록은 오프라인에서도 됩니다."
+    }
+  },
+  "stages": [
+    {
+      "id": "start",
+      "order": 1,
+      "name": {
+        "en": "First screen",
+        "ko": "첫 화면"
+      },
+      "what_to_expect": {
+        "en": "The kiosk asks whether you're eating in or taking away, and sometimes your language.",
+        "ko": "매장에서 먹을지 포장할지 묻고, 언어 선택이 있는 경우도 있습니다."
+      },
+      "tip": {
+        "en": "Look for a globe icon or 'ENG' in a corner first. Many kiosks have English but hide it.",
+        "ko": "먼저 구석의 지구본 아이콘이나 'ENG'를 찾아보세요. 영어가 있는데 눈에 안 띄는 경우가 많습니다."
+      },
+      "terms": [
+        {
+          "ko": "매장식사",
+          "en": "Eat in",
+          "alt": [
+            "먹고가기",
+            "매장"
+          ]
+        },
+        {
+          "ko": "포장",
+          "en": "Takeaway",
+          "alt": [
+            "포장하기",
+            "테이크아웃",
+            "가져가기"
+          ]
+        },
+        {
+          "ko": "주문하기",
+          "en": "Start order",
+          "alt": [
+            "주문시작",
+            "터치하여 주문"
+          ]
+        },
+        {
+          "ko": "언어",
+          "en": "Language",
+          "alt": [
+            "Language",
+            "ENG",
+            "English"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "menu",
+      "order": 2,
+      "name": {
+        "en": "Choosing food",
+        "ko": "메뉴 고르기"
+      },
+      "what_to_expect": {
+        "en": "Categories along the top or side, dishes in a grid with prices.",
+        "ko": "상단이나 옆에 분류, 가운데 격자로 메뉴와 가격."
+      },
+      "tip": {
+        "en": "'세트' costs more than '단품' because it includes sides or a drink.",
+        "ko": "'세트'는 사이드나 음료가 포함되어 '단품'보다 비쌉니다."
+      },
+      "terms": [
+        {
+          "ko": "인기",
+          "en": "Popular",
+          "alt": [
+            "베스트",
+            "추천"
+          ]
+        },
+        {
+          "ko": "신메뉴",
+          "en": "New"
+        },
+        {
+          "ko": "세트",
+          "en": "Combo / set meal"
+        },
+        {
+          "ko": "단품",
+          "en": "Single item, no sides"
+        },
+        {
+          "ko": "사이드",
+          "en": "Side dish"
+        },
+        {
+          "ko": "음료",
+          "en": "Drinks"
+        },
+        {
+          "ko": "품절",
+          "en": "Sold out",
+          "alt": [
+            "일시품절",
+            "재료소진"
+          ]
+        },
+        {
+          "ko": "매운맛",
+          "en": "Spicy"
+        },
+        {
+          "ko": "순한맛",
+          "en": "Mild"
+        },
+        {
+          "ko": "1인분",
+          "en": "One portion"
+        },
+        {
+          "ko": "2인분부터",
+          "en": "Minimum two portions",
+          "alt": [
+            "2인 이상"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "options",
+      "order": 3,
+      "name": {
+        "en": "Options",
+        "ko": "옵션 선택"
+      },
+      "what_to_expect": {
+        "en": "After tapping a dish, a panel asks for size, spice level, extras and quantity.",
+        "ko": "메뉴를 누르면 크기, 맵기, 추가, 수량을 묻는 창이 뜹니다."
+      },
+      "tip": {
+        "en": "'필수선택' must be answered before you can continue. '추가선택' is optional and usually adds cost.",
+        "ko": "'필수선택'은 반드시 골라야 넘어갑니다. '추가선택'은 선택이며 보통 돈이 더 붙습니다."
+      },
+      "terms": [
+        {
+          "ko": "필수선택",
+          "en": "Required choice",
+          "alt": [
+            "필수",
+            "필수 옵션"
+          ]
+        },
+        {
+          "ko": "추가선택",
+          "en": "Optional extra",
+          "alt": [
+            "선택",
+            "추가옵션"
+          ]
+        },
+        {
+          "ko": "수량",
+          "en": "Quantity",
+          "alt": [
+            "개수"
+          ]
+        },
+        {
+          "ko": "곱빼기",
+          "en": "Extra large portion"
+        },
+        {
+          "ko": "사이즈업",
+          "en": "Size up"
+        },
+        {
+          "ko": "추가",
+          "en": "Add"
+        },
+        {
+          "ko": "빼기",
+          "en": "Remove",
+          "alt": [
+            "제외",
+            "빼주세요"
+          ]
+        },
+        {
+          "ko": "덜 맵게",
+          "en": "Less spicy"
+        },
+        {
+          "ko": "안 맵게",
+          "en": "Not spicy"
+        },
+        {
+          "ko": "담기",
+          "en": "Add to cart",
+          "alt": [
+            "장바구니 담기",
+            "선택완료"
+          ]
+        },
+        {
+          "ko": "취소",
+          "en": "Cancel"
+        }
+      ]
+    },
+    {
+      "id": "cart",
+      "order": 4,
+      "name": {
+        "en": "Checking your order",
+        "ko": "주문 확인"
+      },
+      "what_to_expect": {
+        "en": "A list of what you chose with quantities and a running total.",
+        "ko": "고른 항목과 수량, 합계 금액 목록."
+      },
+      "tip": {
+        "en": "This is the last easy place to fix a mistake. Check quantity numbers here, not after payment.",
+        "ko": "실수를 고치기 쉬운 마지막 단계입니다. 결제 후가 아니라 여기서 수량을 확인하세요."
+      },
+      "terms": [
+        {
+          "ko": "장바구니",
+          "en": "Cart",
+          "alt": [
+            "주문내역",
+            "담은 메뉴"
+          ]
+        },
+        {
+          "ko": "합계",
+          "en": "Total",
+          "alt": [
+            "총 금액",
+            "총액",
+            "결제금액"
+          ]
+        },
+        {
+          "ko": "수량변경",
+          "en": "Change quantity"
+        },
+        {
+          "ko": "삭제",
+          "en": "Delete",
+          "alt": [
+            "전체삭제",
+            "비우기"
+          ]
+        },
+        {
+          "ko": "더 담기",
+          "en": "Add more items",
+          "alt": [
+            "추가 주문",
+            "메뉴 더보기"
+          ]
+        },
+        {
+          "ko": "결제하기",
+          "en": "Go to payment",
+          "alt": [
+            "결제",
+            "주문완료"
+          ]
+        },
+        {
+          "ko": "이전",
+          "en": "Back",
+          "alt": [
+            "뒤로"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "payment",
+      "order": 5,
+      "name": {
+        "en": "Payment",
+        "ko": "결제"
+      },
+      "high_caution": true,
+      "what_to_expect": {
+        "en": "Payment method, then loyalty and receipt questions. Money moves at this step.",
+        "ko": "결제 수단을 고른 뒤 적립·영수증을 묻습니다. 이 단계에서 돈이 나갑니다."
+      },
+      "tip": {
+        "en": "'적립' and '현금영수증' are for Korean residents' tax records. You can decline both — look for 아니요 / 없음 / 다음.",
+        "ko": "'적립'과 '현금영수증'은 한국 거주자의 세금·포인트용입니다. 둘 다 거절해도 됩니다 — 아니요 / 없음 / 다음을 찾으세요."
+      },
+      "terms": [
+        {
+          "ko": "카드",
+          "en": "Card",
+          "alt": [
+            "신용카드",
+            "체크카드"
+          ]
+        },
+        {
+          "ko": "간편결제",
+          "en": "Mobile / QR payment",
+          "alt": [
+            "QR결제",
+            "페이"
+          ]
+        },
+        {
+          "ko": "현금",
+          "en": "Cash"
+        },
+        {
+          "ko": "카드를 넣어주세요",
+          "en": "Insert your card",
+          "alt": [
+            "카드 투입",
+            "카드를 꽂아주세요"
+          ]
+        },
+        {
+          "ko": "카드를 대주세요",
+          "en": "Tap your card",
+          "alt": [
+            "터치",
+            "접촉"
+          ]
+        },
+        {
+          "ko": "적립",
+          "en": "Loyalty points — you can skip",
+          "alt": [
+            "포인트 적립",
+            "멤버십"
+          ]
+        },
+        {
+          "ko": "현금영수증",
+          "en": "Cash receipt for tax — you can skip"
+        },
+        {
+          "ko": "아니요",
+          "en": "No",
+          "alt": [
+            "없음",
+            "미적립",
+            "안함"
+          ]
+        },
+        {
+          "ko": "영수증",
+          "en": "Receipt",
+          "alt": [
+            "영수증 출력"
+          ]
+        },
+        {
+          "ko": "결제취소",
+          "en": "Cancel payment"
+        },
+        {
+          "ko": "승인",
+          "en": "Approved",
+          "alt": [
+            "결제완료",
+            "승인완료"
+          ]
+        },
+        {
+          "ko": "결제실패",
+          "en": "Payment failed",
+          "alt": [
+            "승인거절",
+            "카드오류"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "after",
+      "order": 6,
+      "name": {
+        "en": "After paying",
+        "ko": "결제 후"
+      },
+      "what_to_expect": {
+        "en": "A number slip prints. Wait for your number to be called or shown.",
+        "ko": "번호표가 출력됩니다. 번호가 불리거나 표시될 때까지 기다리세요."
+      },
+      "tip": {
+        "en": "Keep the slip. It is how staff identify your order if something is wrong.",
+        "ko": "번호표를 보관하세요. 문제가 생겼을 때 직원이 주문을 확인하는 근거입니다."
+      },
+      "terms": [
+        {
+          "ko": "주문번호",
+          "en": "Order number",
+          "alt": [
+            "번호표",
+            "대기번호"
+          ]
+        },
+        {
+          "ko": "호출",
+          "en": "Being called",
+          "alt": [
+            "호출중"
+          ]
+        },
+        {
+          "ko": "준비중",
+          "en": "Being prepared",
+          "alt": [
+            "조리중"
+          ]
+        },
+        {
+          "ko": "픽업",
+          "en": "Pick up here",
+          "alt": [
+            "수령",
+            "찾아가세요"
+          ]
+        }
+      ]
+    }
+  ],
+  "ai_rules": {
+    "must_never": [
+      {
+        "id": "no-instruct",
+        "en": "Never tell the user which button to press. Describe what the screen says and let them decide.",
+        "ko": "어떤 버튼을 누르라고 말하지 마라. 화면에 무엇이 적혀 있는지 설명하고 판단은 사용자가 하게 하라."
+      },
+      {
+        "id": "no-allergen",
+        "en": "Never state or imply that a dish is safe for an allergy, intolerance or dietary restriction. Ingredients are not visible on a kiosk screen. Redirect to the Food Safety Card and staff.",
+        "ko": "어떤 음식이 알레르기·불내증·식이제한에 안전하다고 말하거나 암시하지 마라. 키오스크 화면에 재료는 나오지 않는다. 음식 안전 카드와 직원 문의로 안내하라."
+      },
+      {
+        "id": "no-confirm-price",
+        "en": "Never confirm that a total is correct. Report the number you read and ask the user to verify it against the kiosk.",
+        "ko": "합계 금액이 맞다고 확인해주지 마라. 읽은 숫자를 보고하고 사용자가 키오스크와 대조하도록 요청하라."
+      },
+      {
+        "id": "no-guess",
+        "en": "Never fill in text that is blurred, cut off or unreadable. Say which part was unclear.",
+        "ko": "흐릿하거나 잘리거나 읽을 수 없는 글자를 추측해 채우지 마라. 어느 부분이 불명확했는지 밝혀라."
+      },
+      {
+        "id": "no-payment-step",
+        "en": "On a payment screen, do not walk the user through completing the transaction. Read the screen, flag the amount, and stop.",
+        "ko": "결제 화면에서는 결제 완료 절차를 안내하지 마라. 화면을 읽고 금액을 짚어준 뒤 멈춰라."
+      }
+    ],
+    "output_shape": {
+      "stage": "one of: start | menu | options | cart | payment | after | unknown",
+      "readings": "list of { korean_text, english_meaning, where_on_screen, confidence }",
+      "amount_seen": "the total amount if one is visible, or null",
+      "unclear_parts": "list of short descriptions of what could not be read",
+      "note": "at most two sentences of neutral context, never an instruction"
+    }
+  },
+  "staff_phrases": [
+    {
+      "ko": "죄송한데, 주문을 도와주실 수 있나요?",
+      "en": "Excuse me, could you help me order?"
+    },
+    {
+      "ko": "영어 화면이 있나요?",
+      "en": "Is there an English screen?"
+    },
+    {
+      "ko": "이 키오스크에서 해외 카드가 되나요?",
+      "en": "Does this kiosk accept overseas cards?"
+    },
+    {
+      "ko": "직원분께 직접 주문해도 될까요?",
+      "en": "Could I order from a staff member instead?"
+    },
+    {
+      "ko": "잘못 주문한 것 같아요. 확인해 주실 수 있나요?",
+      "en": "I think I ordered the wrong thing. Could you check?"
+    }
+  ],
+  "fallbacks": [
+    {
+      "id": "card-declined",
+      "trigger": {
+        "en": "Card was declined",
+        "ko": "카드 결제가 거절됨"
+      },
+      "advice": {
+        "en": "Many kiosks reject overseas cards. Ask staff to take the order at the counter, or pay cash.",
+        "ko": "상당수 키오스크가 해외카드를 받지 않습니다. 직원에게 카운터 주문을 요청하거나 현금으로 결제하세요."
+      },
+      "app_link": "foreignerAccessHub"
+    },
+    {
+      "id": "no-english",
+      "trigger": {
+        "en": "No English option anywhere",
+        "ko": "영어 화면이 없음"
+      },
+      "advice": {
+        "en": "Use the word list on this screen, or ask staff to order for you.",
+        "ko": "이 화면의 단어 목록을 쓰거나, 직원에게 대신 주문해 달라고 요청하세요."
+      }
+    },
+    {
+      "id": "allergy",
+      "trigger": {
+        "en": "You need to avoid an ingredient",
+        "ko": "피해야 하는 재료가 있음"
+      },
+      "advice": {
+        "en": "Do not order from the kiosk. Show your Food Safety Card to staff — a kiosk screen never lists ingredients.",
+        "ko": "키오스크로 주문하지 마세요. 음식 안전 카드를 직원에게 보여주세요. 키오스크 화면에는 재료가 표시되지 않습니다."
+      },
+      "app_link": "foodSafetyCard",
+      "priority": "critical"
+    },
+    {
+      "id": "wrong-order",
+      "trigger": {
+        "en": "You already paid for the wrong thing",
+        "ko": "잘못 주문하고 결제함"
+      },
+      "advice": {
+        "en": "Take your number slip to the counter immediately, before the food is made.",
+        "ko": "음식이 나오기 전에 번호표를 들고 즉시 카운터로 가세요."
+      }
+    }
+  ],
+  "disclaimer": {
+    "en": "Photo reading can misread a screen. Korea Route reads and translates — it never decides what you should press, and never judges whether a dish is safe for you. Confirm on the kiosk itself, especially before paying.",
+    "ko": "화면 읽기는 잘못 인식할 수 있습니다. Korea Route는 읽고 번역할 뿐, 무엇을 누를지 결정하지 않으며 음식이 안전한지 판단하지 않습니다. 특히 결제 전에는 반드시 키오스크에서 직접 확인하세요."
+  }
+}
