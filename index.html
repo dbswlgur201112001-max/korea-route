@@ -4101,7 +4101,7 @@ body.dark .v165-tab:not(.active),body.dark .v165-pick,body.dark .v165-check-sear
 
 
 <script>
-const KR_BUILD_VERSION='V170';
+const KR_BUILD_VERSION='V171';
 const TRANSLATIONS = {
   "ko": {
     "home.brand": "코리아 루트",
@@ -18815,10 +18815,18 @@ function v162TaxiText(obj){
   return String(lang==='ko'?(obj.ko??obj.en??''):(obj.en??obj.ko??''));
 }
 function v162TaxiEsc(v){return typeof escapeHtmlText==='function'?escapeHtmlText(v):String(v??'').replace(/[&<>"']/g,'');}
-async function loadTaxiFareData(){
+async function loadTaxiFareData(force=false){
+  if(force)v162TaxiData=null;
   if(v162TaxiData) return v162TaxiData;
   if(v162TaxiLoading) return v162TaxiLoading;
-  v162TaxiLoading=fetch('./taxi-fare.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('taxi-fare.json '+r.status);return r.json();}).then(data=>{v162TaxiData=data;return data;}).finally(()=>{v162TaxiLoading=null;});
+  v162TaxiLoading=fetch('./taxi-fare.json',{cache:'no-store'})
+    .then(r=>{if(!r.ok)throw new Error('taxi-fare.json '+r.status);return r.json();})
+    .then(data=>{
+      const region=data?.regions?.seoul;
+      if(!region||!Number.isFinite(Number(region.base_fare))||!Number.isFinite(Number(region.base_distance_m))||!Number.isFinite(Number(region.distance_step_m))||!Number.isFinite(Number(region.distance_step_fare))||!Array.isArray(region?.surcharges?.windows))throw new Error('Invalid taxi-fare.json');
+      v162TaxiData=data;return data;
+    })
+    .finally(()=>{v162TaxiLoading=null;});
   return v162TaxiLoading;
 }
 function v162CurrentClock(){
@@ -18914,11 +18922,15 @@ function renderTaxiCheckHub(){
   if(time)time.value=v162TaxiDraft.time||v162CurrentClock();
   v162RenderFareOnly();
 }
-async function openTaxiCheckHub(){
+async function openTaxiCheckHub(force=false){
   go('taxiCheckHub');
   const host=document.getElementById('v162TaxiBody');
-  try{await loadTaxiFareData();renderTaxiCheckHub();}
-  catch(err){console.warn('Taxi data load failed',err);if(host)host.innerHTML=`<div class="v162-card"><b>${lang==='ko'?'택시 데이터를 불러오지 못했습니다.':'Taxi data could not be loaded.'}</b><p>${lang==='ko'?'인터넷 연결 또는 taxi-fare.json 배포 여부를 확인하세요.':'Check your connection or whether taxi-fare.json was deployed.'}</p></div>`;}
+  if(host)host.innerHTML=`<div class="v162-card"><p>${lang==='ko'?'택시 요금 정보를 불러오는 중…':'Loading taxi fare data…'}</p></div>`;
+  try{await loadTaxiFareData(force);renderTaxiCheckHub();}
+  catch(err){
+    console.warn('Taxi data load failed',err);
+    if(host)host.innerHTML=`<div class="v162-card"><b>${lang==='ko'?'택시 데이터를 불러오지 못했습니다.':'Taxi data could not be loaded.'}</b><p>${lang==='ko'?'연결 상태를 확인한 뒤 다시 시도하세요. Korea Route는 데이터가 없을 때 임의의 요금을 계산하지 않습니다.':'Check your connection and try again. Korea Route will not invent a fare when the data is unavailable.'}</p><button type="button" class="v162-ref" onclick="openTaxiCheckHub(true)">${lang==='ko'?'다시 시도':'Retry'}</button></div>`;
+  }
 }
 function closeTaxiCheckHub(){go('moveHub');}
 function showTaxiPhraseCard(index){
