@@ -101,7 +101,7 @@ const OUTPUT_SCHEMA = {
         }
       }
     },
-    amount_seen: { anyOf: [{ type: 'NUMBER' }, { type: 'STRING' }, { type: 'NULL' }] },
+    amount_seen: { type: 'NUMBER', nullable: true },
     unclear_parts: { type: 'ARRAY', items: { type: 'STRING' } },
     note: { type: 'STRING' }
   }
