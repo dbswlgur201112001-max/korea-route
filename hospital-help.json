@@ -11,7 +11,10 @@
     {
       "id": "emergency",
       "level": "critical",
-      "name": { "en": "Emergency", "ko": "응급" },
+      "name": {
+        "en": "Emergency",
+        "ko": "응급"
+      },
       "examples": {
         "en": "Chest pain, can't breathe, heavy bleeding, unconscious, severe allergic reaction, broken bone",
         "ko": "가슴 통증, 호흡 곤란, 심한 출혈, 의식 없음, 심한 알레르기 반응, 골절"
@@ -24,7 +27,10 @@
     {
       "id": "moderate",
       "level": "caution",
-      "name": { "en": "Needs a doctor, not an emergency", "ko": "병원은 가야 하지만 응급은 아님" },
+      "name": {
+        "en": "Needs a doctor, not an emergency",
+        "ko": "병원은 가야 하지만 응급은 아님"
+      },
       "examples": {
         "en": "Fever that won't go down, ongoing vomiting, a cut that may need stitches, ear or eye pain",
         "ko": "안 내려가는 열, 계속되는 구토, 봉합이 필요할 수 있는 상처, 귀·눈 통증"
@@ -37,7 +43,10 @@
     {
       "id": "mild",
       "level": "normal",
-      "name": { "en": "Minor and manageable", "ko": "가벼운 증상" },
+      "name": {
+        "en": "Minor and manageable",
+        "ko": "가벼운 증상"
+      },
       "examples": {
         "en": "Cold symptoms, mild headache, upset stomach, small cuts, motion sickness",
         "ko": "감기 증상, 가벼운 두통, 배탈, 작은 상처, 멀미"
@@ -52,7 +61,10 @@
     {
       "id": "119",
       "number": "119",
-      "name": { "en": "Ambulance / fire / medical emergency", "ko": "구급차 · 소방 · 응급의료" },
+      "name": {
+        "en": "Ambulance / fire / medical emergency",
+        "ko": "구급차 · 소방 · 응급의료"
+      },
       "detail": {
         "en": "Free, 24/7, works from any phone including one without a Korean SIM. Say '영어 되나요?' (Do you speak English?) or just wait — they can bring in an interpreter.",
         "ko": "무료, 24시간, 한국 유심이 없는 전화로도 가능합니다. 영어가 필요하면 기다리세요 — 통역을 연결해줍니다."
@@ -61,7 +73,10 @@
     {
       "id": "bbb-korea",
       "number": "1588-5644",
-      "name": { "en": "BBB Korea — free 3-way interpretation", "ko": "BBB 코리아 — 무료 3자 통역" },
+      "name": {
+        "en": "BBB Korea — free 3-way interpretation",
+        "ko": "BBB 코리아 — 무료 3자 통역"
+      },
       "detail": {
         "en": "Free volunteer phone interpretation in 20 languages, 24/7. Call this number, then have hospital staff speak to the interpreter with you. Very commonly used for hospital visits.",
         "ko": "20개 언어, 24시간 무료 자원봉사 전화 통역입니다. 이 번호로 전화한 뒤 병원 직원과 3자통화로 연결하면 됩니다. 병원 방문 시 실제로 많이 쓰입니다."
@@ -70,7 +85,10 @@
     {
       "id": "1330",
       "number": "1330",
-      "name": { "en": "Korea Travel Hotline", "ko": "관광통역안내전화" },
+      "name": {
+        "en": "Korea Travel Hotline",
+        "ko": "관광통역안내전화"
+      },
       "detail": {
         "en": "24/7 tourist help line in English, Japanese, Chinese, Russian, Vietnamese, Thai, Malay/Indonesian. Can help you find a nearby hospital and explain the situation.",
         "ko": "24시간 관광 안내 전화(영어 등 8개 언어). 가까운 병원 안내나 상황 설명 도움을 받을 수 있습니다."
@@ -79,7 +97,10 @@
     {
       "id": "1345",
       "number": "1345",
-      "name": { "en": "Foreigner Contact Center", "ko": "외국인종합안내센터" },
+      "name": {
+        "en": "Foreigner Contact Center",
+        "ko": "외국인종합안내센터"
+      },
       "detail": {
         "en": "Weekdays 9am-10pm, 20 languages. More for visa/stay questions, but can also connect you to help.",
         "ko": "평일 09:00~22:00, 20개 언어. 주로 체류·비자 문의용이지만 도움 연결도 가능합니다."
@@ -89,7 +110,10 @@
   "international_clinics": [
     {
       "id": "severance-seoul",
-      "name": { "en": "Severance Hospital — International Health Care Center", "ko": "세브란스병원 국제진료센터" },
+      "name": {
+        "en": "Severance Hospital — International Health Care Center",
+        "ko": "세브란스병원 국제진료센터"
+      },
       "city": "seoul",
       "area_ko": "서울 서대문구 신촌",
       "note": {
@@ -99,18 +123,24 @@
     },
     {
       "id": "snuh-seoul",
-      "name": { "en": "Seoul National University Hospital — International Clinic", "ko": "서울대학교병원 국제진료센터" },
+      "name": {
+        "en": "Seoul National University Hospital — International Clinic",
+        "ko": "서울대학교병원 국제진료센터"
+      },
       "city": "seoul",
       "area_ko": "서울 종로구 연건동",
-      "emergency_contact": "0130-484-0505",
       "note": {
-        "en": "24-hour emergency contact line specifically for international patients: 0130-484-0505. Can issue English medical certificates and receipts.",
-        "ko": "국제환자 전용 24시간 상담 연락처(0130-484-0505). 영문 진단서·영수증 발급 가능."
-      }
+        "en": "International Healthcare Center contact: +82-2-2072-0505, Monday-Friday 9:00am-5:30pm (except holidays). English receipts are available upon request.",
+        "ko": "국제진료센터 연락처는 02-2072-0505이며, 운영시간은 월~금 09:00~17:30(공휴일 제외)입니다. 영문 영수증은 요청 시 발급 가능합니다."
+      },
+      "phone": "02-2072-0505"
     },
     {
       "id": "amc-seoul",
-      "name": { "en": "Asan Medical Center — International Healthcare Center", "ko": "서울아산병원 국제진료센터" },
+      "name": {
+        "en": "Asan Medical Center — International Healthcare Center",
+        "ko": "서울아산병원 국제진료센터"
+      },
       "city": "seoul",
       "area_ko": "서울 송파구 풍납동",
       "note": {
@@ -120,7 +150,10 @@
     },
     {
       "id": "cmc-seoul",
-      "name": { "en": "Seoul St. Mary's Hospital — International Clinic", "ko": "서울성모병원 국제진료센터" },
+      "name": {
+        "en": "Seoul St. Mary's Hospital — International Clinic",
+        "ko": "서울성모병원 국제진료센터"
+      },
       "city": "seoul",
       "area_ko": "서울 서초구 반포동",
       "note": {
@@ -130,7 +163,10 @@
     },
     {
       "id": "snubh-bundang",
-      "name": { "en": "Seoul National University Bundang Hospital — International Health Care Center", "ko": "분당서울대학교병원 국제진료센터" },
+      "name": {
+        "en": "Seoul National University Bundang Hospital — International Health Care Center",
+        "ko": "분당서울대학교병원 국제진료센터"
+      },
       "city": "gyeonggi",
       "area_ko": "경기 성남시 분당구",
       "phone": "1588-3369",
@@ -144,49 +180,88 @@
     {
       "ko": "영문 진단서를 받을 수 있을까요?",
       "en": "Can I get a medical certificate in English?",
-      "note": { "en": "This is the document your travel insurer will usually ask for first.", "ko": "여행자보험 청구 시 가장 먼저 요구되는 서류입니다." }
+      "note": {
+        "en": "This is the document your travel insurer will usually ask for first.",
+        "ko": "여행자보험 청구 시 가장 먼저 요구되는 서류입니다."
+      }
     },
     {
       "ko": "영문 진료비 영수증이 필요합니다.",
       "en": "I need a receipt in English for my medical expenses.",
-      "note": { "en": "Needed to claim reimbursement.", "ko": "환급 청구용으로 필요합니다." }
+      "note": {
+        "en": "Needed to claim reimbursement.",
+        "ko": "환급 청구용으로 필요합니다."
+      }
     },
     {
       "ko": "입원(외래)확인서를 발급해 주세요.",
       "en": "Please issue an admission (or outpatient visit) confirmation.",
-      "note": { "en": "Some insurers require proof of the visit itself, separate from the diagnosis.", "ko": "일부 보험사는 진단서와 별도로 방문 확인서를 요구합니다." }
+      "note": {
+        "en": "Some insurers require proof of the visit itself, separate from the diagnosis.",
+        "ko": "일부 보험사는 진단서와 별도로 방문 확인서를 요구합니다."
+      }
     },
     {
       "ko": "여행자 보험이 있습니다. 나중에 청구할 수 있게 서류를 전부 챙겨주세요.",
       "en": "I have travel insurance. Please give me all the documents I'll need to file a claim later.",
-      "note": { "en": "Say this before you pay if possible — it's easier to get everything at once.", "ko": "가능하면 결제 전에 말하세요 — 한 번에 서류를 받는 게 더 수월합니다." }
+      "note": {
+        "en": "Say this before you pay if possible — it's easier to get everything at once.",
+        "ko": "가능하면 결제 전에 말하세요 — 한 번에 서류를 받는 게 더 수월합니다."
+      }
     },
     {
       "ko": "신용카드로 결제할 수 있나요?",
       "en": "Can I pay by credit card?",
-      "note": { "en": "Most hospitals accept cards, but smaller clinics may be cash-only.", "ko": "대부분 병원은 카드 결제가 되지만, 작은 의원은 현금만 받는 경우가 있습니다." }
+      "note": {
+        "en": "Most hospitals accept cards, but smaller clinics may be cash-only.",
+        "ko": "대부분 병원은 카드 결제가 되지만, 작은 의원은 현금만 받는 경우가 있습니다."
+      }
     }
   ],
   "fallbacks": [
     {
       "id": "cant-communicate",
-      "trigger": { "en": "Staff don't speak enough English", "ko": "직원이 영어를 잘 못함" },
-      "advice": { "en": "Call BBB Korea (1588-5644) and hand the phone to hospital staff so the volunteer interpreter can speak with them directly.", "ko": "BBB 코리아(1588-5644)에 전화해서 병원 직원에게 전화기를 건네주세요. 통역 자원봉사자가 직접 통화합니다." }
+      "trigger": {
+        "en": "Staff don't speak enough English",
+        "ko": "직원이 영어를 잘 못함"
+      },
+      "advice": {
+        "en": "Call BBB Korea (1588-5644) and hand the phone to hospital staff so the volunteer interpreter can speak with them directly.",
+        "ko": "BBB 코리아(1588-5644)에 전화해서 병원 직원에게 전화기를 건네주세요. 통역 자원봉사자가 직접 통화합니다."
+      }
     },
     {
       "id": "no-insurance-docs",
-      "trigger": { "en": "Not sure what paperwork your insurer needs", "ko": "보험사가 어떤 서류를 요구하는지 모름" },
-      "advice": { "en": "Ask for everything before you leave: English medical certificate, English receipt, and visit confirmation. It's much harder to go back for these later.", "ko": "나가기 전에 전부 요청하세요: 영문 진단서, 영문 영수증, 방문확인서. 나중에 다시 받으러 오기는 훨씬 번거롭습니다." }
+      "trigger": {
+        "en": "Not sure what paperwork your insurer needs",
+        "ko": "보험사가 어떤 서류를 요구하는지 모름"
+      },
+      "advice": {
+        "en": "Ask for everything before you leave: English medical certificate, English receipt, and visit confirmation. It's much harder to go back for these later.",
+        "ko": "나가기 전에 전부 요청하세요: 영문 진단서, 영문 영수증, 방문확인서. 나중에 다시 받으러 오기는 훨씬 번거롭습니다."
+      }
     },
     {
       "id": "pharmacy-closed",
-      "trigger": { "en": "Pharmacy is closed and it's evening", "ko": "저녁인데 약국이 문을 닫음" },
-      "advice": { "en": "Search for a 심야약국 (late-night pharmacy) or 공휴일지킴이약국 (holiday-duty pharmacy) — some areas keep one open on a rotation. If nothing is open and it can't wait, go to a hospital emergency room (응급실) instead.", "ko": "심야약국이나 공휴일지킴이약국을 찾아보세요 — 지역별로 순번제로 운영합니다. 기다릴 수 없는 상황이면 병원 응급실로 가세요." }
+      "trigger": {
+        "en": "Pharmacy is closed and it's evening",
+        "ko": "저녁인데 약국이 문을 닫음"
+      },
+      "advice": {
+        "en": "Search for a 심야약국 (late-night pharmacy) or 공휴일지킴이약국 (holiday-duty pharmacy) — some areas keep one open on a rotation. If nothing is open and it can't wait, go to a hospital emergency room (응급실) instead.",
+        "ko": "심야약국이나 공휴일지킴이약국을 찾아보세요 — 지역별로 순번제로 운영합니다. 기다릴 수 없는 상황이면 병원 응급실로 가세요."
+      }
     },
     {
       "id": "prescription-needed",
-      "trigger": { "en": "You need a repeat prescription for medication from home", "ko": "본국에서 먹던 약을 다시 처방받아야 함" },
-      "advice": { "en": "Korean pharmacies generally cannot sell prescription medication without a Korean doctor's prescription, even with your home-country prescription. Bring the medication box or a photo of it to a clinic — it speeds up finding the Korean equivalent.", "ko": "본국 처방전이 있어도 한국 약국은 한국 의사 처방 없이는 처방약을 팔 수 없습니다. 약 상자나 사진을 병원에 가져가면 한국 내 대체약을 찾는 데 도움이 됩니다." }
+      "trigger": {
+        "en": "You need a repeat prescription for medication from home",
+        "ko": "본국에서 먹던 약을 다시 처방받아야 함"
+      },
+      "advice": {
+        "en": "Korean pharmacies generally cannot sell prescription medication without a Korean doctor's prescription, even with your home-country prescription. Bring the medication box or a photo of it to a clinic — it speeds up finding the Korean equivalent.",
+        "ko": "본국 처방전이 있어도 한국 약국은 한국 의사 처방 없이는 처방약을 팔 수 없습니다. 약 상자나 사진을 병원에 가져가면 한국 내 대체약을 찾는 데 도움이 됩니다."
+      }
     }
   ]
 }
