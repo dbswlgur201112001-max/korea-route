@@ -1,0 +1,394 @@
+{
+  "version": 1,
+  "checked_on": "2026-09-01",
+  "title": {
+    "en": "Fair Price Check",
+    "ko": "정상가 확인"
+  },
+  "subtitle": {
+    "en": "Check a usual reference range before deciding what a price means.",
+    "ko": "가격이 어떤 수준인지 판단하기 전에 통상적인 참고 범위를 확인하세요."
+  },
+  "disclaimer": {
+    "en": "Reference information only. Prices vary by location, season, portion size, ingredients and service. This tool does not determine whether a seller acted improperly.",
+    "ko": "참고 정보입니다. 가격은 지역, 시기, 양, 재료와 서비스에 따라 달라질 수 있습니다. 이 도구는 판매자의 행위가 부당했는지 판정하지 않습니다."
+  },
+  "higher_price_note": {
+    "en": "Tourist areas, hotels and airports legitimately cost more.",
+    "ko": "관광지, 호텔, 공항에서는 정상적으로 더 비쌀 수 있습니다."
+  },
+  "methodology": {
+    "en": "Seoul dining ranges are orientation bands built around the latest Seoul average prices shown by the Korea Consumer Agency Price Information service (about ±20%, rounded). They are not observed minimum/maximum prices. Official-price items use the published standard admission fee.",
+    "ko": "서울 외식 범위는 한국소비자원 참가격의 최신 서울 평균가격을 중심으로 약 ±20%를 반올림해 만든 참고 구간입니다. 실제 최저가·최고가 범위가 아닙니다. 공식가격 항목은 공개된 일반 관람요금을 사용합니다."
+  },
+  "flag_rule": {
+    "tiers": [
+      {
+        "id": "within",
+        "max_multiple": 1.0,
+        "tone": "neutral",
+        "message": {
+          "en": "This is within the usual range.",
+          "ko": "통상적인 가격 범위 안입니다."
+        }
+      },
+      {
+        "id": "slightly",
+        "max_multiple": 1.5,
+        "tone": "neutral",
+        "message": {
+          "en": "Slightly above the usual range. Tourist areas often cost more.",
+          "ko": "통상 범위보다 조금 높습니다. 관광지에서는 더 비쌀 수 있습니다."
+        }
+      },
+      {
+        "id": "noticeably",
+        "max_multiple": 2.0,
+        "tone": "caution",
+        "message": {
+          "en": "Noticeably above the usual range.",
+          "ko": "통상 범위보다 눈에 띄게 높은 편입니다."
+        }
+      },
+      {
+        "id": "well_above",
+        "max_multiple": null,
+        "tone": "strong",
+        "message": {
+          "en": "Well above the usual range for this item.",
+          "ko": "이 품목의 통상 범위보다 상당히 높은 편입니다."
+        }
+      }
+    ]
+  },
+  "groups": [
+    {
+      "id": "seoul-dining",
+      "name": {
+        "en": "Seoul dining reference",
+        "ko": "서울 외식 참고가격"
+      },
+      "note": {
+        "en": "These are broad orientation bands around Seoul average dining prices, not guaranteed menu prices. Portion size and restaurant type matter.",
+        "ko": "서울 평균 외식가격을 중심으로 만든 넓은 참고 구간이며 실제 메뉴 가격을 보장하지 않습니다. 양과 음식점 유형에 따라 달라집니다."
+      },
+      "source": "Korea Consumer Agency Price Information (참가격)",
+      "source_url": "https://www.price.go.kr/tprice/portal/servicepriceinfo/dineoutprice/dineOutPriceList.do",
+      "items": [
+        {
+          "id": "gimbap",
+          "name": {
+            "en": "Gimbap · 1 roll",
+            "ko": "김밥 · 1줄"
+          },
+          "typical": {
+            "min": 3000,
+            "max": 4500
+          },
+          "reference_average": 3869,
+          "unit": {
+            "en": "per roll",
+            "ko": "1줄"
+          },
+          "fixed": false
+        },
+        {
+          "id": "jajangmyeon",
+          "name": {
+            "en": "Jajangmyeon",
+            "ko": "자장면"
+          },
+          "typical": {
+            "min": 6000,
+            "max": 9000
+          },
+          "reference_average": 7654,
+          "unit": {
+            "en": "per serving",
+            "ko": "1인분"
+          },
+          "fixed": false
+        },
+        {
+          "id": "kimchi-jjigae",
+          "name": {
+            "en": "Kimchi jjigae set meal",
+            "ko": "김치찌개 백반"
+          },
+          "typical": {
+            "min": 7000,
+            "max": 10500
+          },
+          "reference_average": 8654,
+          "unit": {
+            "en": "per serving",
+            "ko": "1인분"
+          },
+          "fixed": false
+        },
+        {
+          "id": "kalguksu",
+          "name": {
+            "en": "Kalguksu",
+            "ko": "칼국수"
+          },
+          "typical": {
+            "min": 8000,
+            "max": 12000
+          },
+          "reference_average": 10038,
+          "unit": {
+            "en": "per serving",
+            "ko": "1인분"
+          },
+          "fixed": false
+        },
+        {
+          "id": "bibimbap",
+          "name": {
+            "en": "Bibimbap",
+            "ko": "비빔밥"
+          },
+          "typical": {
+            "min": 9500,
+            "max": 14000
+          },
+          "reference_average": 11769,
+          "unit": {
+            "en": "per serving",
+            "ko": "1인분"
+          },
+          "fixed": false
+        },
+        {
+          "id": "naengmyeon",
+          "name": {
+            "en": "Naengmyeon",
+            "ko": "냉면"
+          },
+          "typical": {
+            "min": 10000,
+            "max": 15000
+          },
+          "reference_average": 12692,
+          "unit": {
+            "en": "per serving",
+            "ko": "1인분"
+          },
+          "fixed": false
+        },
+        {
+          "id": "samgyetang",
+          "name": {
+            "en": "Samgyetang",
+            "ko": "삼계탕"
+          },
+          "typical": {
+            "min": 14500,
+            "max": 22000
+          },
+          "reference_average": 18192,
+          "unit": {
+            "en": "per serving",
+            "ko": "1인분"
+          },
+          "fixed": false
+        },
+        {
+          "id": "samgyeopsal",
+          "name": {
+            "en": "Samgyeopsal · 200 g equivalent",
+            "ko": "삼겹살 · 200g 환산"
+          },
+          "typical": {
+            "min": 17000,
+            "max": 25500
+          },
+          "reference_average": 21321,
+          "unit": {
+            "en": "200 g equivalent",
+            "ko": "200g 환산"
+          },
+          "fixed": false
+        }
+      ]
+    },
+    {
+      "id": "official-palace-entry",
+      "name": {
+        "en": "Official palace admission",
+        "ko": "궁궐 공식 관람요금"
+      },
+      "note": {
+        "en": "Standard adult individual admission shown by the Royal Palaces and Tombs Center. Special programs, guided areas, discounts and free-admission rules can differ.",
+        "ko": "궁능유적본부가 안내하는 일반 성인 개인 관람요금입니다. 특별 프로그램, 별도 관람구역, 할인과 무료관람 조건은 다를 수 있습니다."
+      },
+      "source": "Royal Palaces and Tombs Center",
+      "source_url": "https://royal.khs.go.kr/ROYAL/contents/R703000000.do",
+      "items": [
+        {
+          "id": "gyeongbokgung-adult",
+          "name": {
+            "en": "Gyeongbokgung Palace · adult individual admission",
+            "ko": "경복궁 · 성인 개인 관람료"
+          },
+          "typical": {
+            "min": 3000,
+            "max": 3000
+          },
+          "price": 3000,
+          "unit": {
+            "en": "standard admission",
+            "ko": "일반 관람"
+          },
+          "fixed": true,
+          "official": true
+        },
+        {
+          "id": "changdeokgung-adult",
+          "name": {
+            "en": "Changdeokgung Palace · adult palace-area admission",
+            "ko": "창덕궁 · 성인 전각관람료"
+          },
+          "typical": {
+            "min": 3000,
+            "max": 3000
+          },
+          "price": 3000,
+          "unit": {
+            "en": "palace-area admission",
+            "ko": "전각관람"
+          },
+          "fixed": true,
+          "official": true
+        }
+      ]
+    }
+  ],
+  "context_tips": [
+    {
+      "id": "no-tip",
+      "icon": "🙅",
+      "title": {
+        "en": "No tipping culture",
+        "ko": "팁 문화 없음"
+      },
+      "body": {
+        "en": "Tipping is not required or expected at ordinary Korean restaurants.",
+        "ko": "일반적인 한국 음식점에서는 팁을 요구하거나 기대하지 않습니다."
+      },
+      "source": "VISITKOREA",
+      "source_url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=140727"
+    },
+    {
+      "id": "side-dishes",
+      "icon": "🥢",
+      "title": {
+        "en": "Extra side dishes are usually free",
+        "ko": "반찬 추가는 보통 무료"
+      },
+      "body": {
+        "en": "At ordinary Korean restaurants, asking for more side dishes generally does not add a separate charge. Some places use self-service stations.",
+        "ko": "일반적인 한국 음식점에서는 반찬을 더 요청해도 별도 요금이 붙지 않는 경우가 일반적이며, 셀프 코너를 운영하는 곳도 있습니다."
+      },
+      "source": "VISITKOREA",
+      "source_url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=140727"
+    },
+    {
+      "id": "water",
+      "icon": "💧",
+      "title": {
+        "en": "Water is usually free",
+        "ko": "물은 보통 무료"
+      },
+      "body": {
+        "en": "Ordinary Korean restaurants generally provide drinking water without an extra charge; self-service water is common.",
+        "ko": "일반적인 한국 음식점에서는 식수를 별도 요금 없이 제공하는 경우가 일반적이며 셀프 물 이용도 흔합니다."
+      },
+      "source": "VISITKOREA",
+      "source_url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=140727"
+    }
+  ],
+  "ui": {
+    "browse": {
+      "en": "Browse",
+      "ko": "둘러보기"
+    },
+    "check_price": {
+      "en": "Check a price",
+      "ko": "가격 확인"
+    },
+    "search_placeholder": {
+      "en": "Search an item",
+      "ko": "품목 검색"
+    },
+    "choose_item": {
+      "en": "Choose an item",
+      "ko": "품목 선택"
+    },
+    "paid_amount": {
+      "en": "Amount paid (KRW)",
+      "ko": "지불한 금액 (원)"
+    },
+    "check_button": {
+      "en": "Check this price",
+      "ko": "이 가격 확인"
+    },
+    "usual_range": {
+      "en": "Usual reference range",
+      "ko": "통상 참고 범위"
+    },
+    "official_price": {
+      "en": "Official price",
+      "ko": "공식 가격"
+    },
+    "official": {
+      "en": "OFFICIAL",
+      "ko": "공식"
+    },
+    "per": {
+      "en": "Reference",
+      "ko": "참고"
+    },
+    "last_updated": {
+      "en": "Last updated",
+      "ko": "마지막 업데이트"
+    },
+    "methodology": {
+      "en": "How this reference was built",
+      "ko": "참고가격 산정 방식"
+    },
+    "source": {
+      "en": "Source",
+      "ko": "출처"
+    },
+    "no_matches": {
+      "en": "No matching items. Try another search.",
+      "ko": "일치하는 품목이 없습니다. 다른 검색어를 입력하세요."
+    },
+    "select_first": {
+      "en": "Choose an item first.",
+      "ko": "먼저 품목을 선택하세요."
+    },
+    "enter_amount": {
+      "en": "Enter the amount you paid.",
+      "ko": "지불한 금액을 입력하세요."
+    },
+    "result_title": {
+      "en": "Price context",
+      "ko": "가격 참고 결과"
+    },
+    "typical_label": {
+      "en": "Reference",
+      "ko": "참고"
+    },
+    "tips_title": {
+      "en": "Useful price customs in Korea",
+      "ko": "한국에서 알아두면 좋은 가격 문화"
+    },
+    "tips_subtitle": {
+      "en": "Keep these visible when you are unsure about an extra charge.",
+      "ko": "추가 요금이 헷갈릴 때 바로 확인할 수 있도록 항상 표시합니다."
+    }
+  }
+}
