@@ -1,0 +1,203 @@
+{
+  "version": 1,
+  "checked_on": "2026-09-01",
+  "title": {
+    "en": "Taxi Check",
+    "ko": "택시 요금 확인"
+  },
+  "subtitle": {
+    "en": "Get a rough fare range before you ride, then keep a few calm checks handy.",
+    "ko": "타기 전에 대략적인 요금 범위를 확인하고, 이동 중에는 몇 가지 기본 사항만 차분히 확인하세요."
+  },
+  "regions": {
+    "seoul": {
+      "name": {"en": "Seoul sedan taxi", "ko": "서울 일반 중형택시"},
+      "base_fare": 4800,
+      "base_distance_m": 1600,
+      "distance_step_m": 131,
+      "distance_step_fare": 100,
+      "currency": "KRW",
+      "surcharges": {
+        "windows": [
+          {
+            "start": "22:00",
+            "end": "23:00",
+            "rate": 1.2,
+            "label": {"en": "Late night +20%", "ko": "심야 할증 +20%"}
+          },
+          {
+            "start": "23:00",
+            "end": "02:00",
+            "rate": 1.4,
+            "label": {"en": "Late night +40%", "ko": "심야 할증 +40%"}
+          },
+          {
+            "start": "02:00",
+            "end": "04:00",
+            "rate": 1.2,
+            "label": {"en": "Late night +20%", "ko": "심야 할증 +20%"}
+          }
+        ]
+      },
+      "meter_notes": [
+        {
+          "en": "The real Seoul meter can also add time-based fare when traffic is slow.",
+          "ko": "실제 서울 택시 미터는 저속 운행 시 시간요금도 함께 계산될 수 있습니다."
+        },
+        {
+          "en": "Out-of-city surcharges, tolls, call fees and flexible-rate taxi products are not included in this simple estimate.",
+          "ko": "시계외 할증, 통행료, 호출료, 탄력요금 택시 상품은 이 단순 예상치에 포함되지 않습니다."
+        }
+      ],
+      "source": {
+        "name": "Seoul Metropolitan Government",
+        "url": "https://english.seoul.go.kr/policy/transportation/modes-of-transport/taxi/"
+      }
+    }
+  },
+  "result_disclaimer": {
+    "en": "Estimate only. Actual metered fare may vary with traffic, route, low-speed time charges, tolls and applicable surcharges. Use this range to plan, not to judge a driver or settle a dispute.",
+    "ko": "예상 범위입니다. 실제 미터 요금은 교통 상황, 경로, 저속 시간요금, 통행료 및 적용되는 할증에 따라 달라질 수 있습니다. 이 범위는 계획용이며 기사 평가나 현장 분쟁 판단용이 아닙니다."
+  },
+  "reference_trips_note": {
+    "en": "Planning examples only. Road distance changes with the actual pickup point and route.",
+    "ko": "계획용 예시입니다. 실제 승차 위치와 경로에 따라 도로 거리는 달라집니다."
+  },
+  "reference_trips": [
+    {
+      "id": "seoul-station-myeongdong",
+      "name": {"en": "Seoul Station → Myeongdong", "ko": "서울역 → 명동"},
+      "distance_km": 2.4
+    },
+    {
+      "id": "hongdae-gyeongbokgung",
+      "name": {"en": "Hongdae → Gyeongbokgung", "ko": "홍대 → 경복궁"},
+      "distance_km": 6.5
+    },
+    {
+      "id": "myeongdong-gangnam",
+      "name": {"en": "Myeongdong → Gangnam Station", "ko": "명동 → 강남역"},
+      "distance_km": 10.0
+    },
+    {
+      "id": "gimpo-myeongdong",
+      "name": {"en": "Gimpo Airport → Myeongdong", "ko": "김포공항 → 명동"},
+      "distance_km": 20.0
+    }
+  ],
+  "before_you_ride": [
+    {
+      "id": "destination",
+      "text": {"en": "Show the destination name or address clearly before departure.", "ko": "출발 전에 목적지 이름이나 주소를 분명하게 보여주세요."}
+    },
+    {
+      "id": "meter",
+      "text": {"en": "For a normal metered ride, check that the meter starts after departure.", "ko": "일반 미터 택시라면 출발 후 미터기가 작동하는지 확인하세요."}
+    },
+    {
+      "id": "payment",
+      "text": {"en": "If payment method matters, ask before the ride whether your card is accepted.", "ko": "결제수단이 중요하면 출발 전에 사용할 카드가 가능한지 확인하세요."}
+    },
+    {
+      "id": "receipt",
+      "text": {"en": "Keep the receipt or payment record until you reach your destination.", "ko": "목적지에 도착할 때까지 영수증이나 결제 내역을 보관하세요."}
+    }
+  ],
+  "red_flags": [
+    {
+      "id": "meter-not-used",
+      "severity": "high",
+      "title": {"en": "The meter is not being used when you expected a metered ride", "ko": "일반 미터 택시인데 미터기가 작동하지 않음"},
+      "body": {"en": "Stay calm. You can ask whether the ride is being charged by the meter. If the explanation is unclear, keep the taxi plate, receipt and payment details and ask 1330 or Seoul 120 for help afterward.", "ko": "차분하게 미터 요금인지 확인해 보세요. 설명이 명확하지 않다면 차량번호, 영수증, 결제 내역을 보관하고 이후 1330 또는 서울 120에 도움을 요청할 수 있습니다."}
+    },
+    {
+      "id": "unexpected-extra",
+      "severity": "high",
+      "title": {"en": "A large extra cash payment is requested unexpectedly", "ko": "예상하지 못한 큰 추가 현금 결제를 요구받음"},
+      "body": {"en": "Some legitimate extras such as tolls or applicable surcharges can exist. Ask what the extra charge is for and keep the receipt or payment record. If you are still unsure, seek help after the ride rather than arguing on the spot.", "ko": "통행료나 적용 가능한 할증처럼 정당한 추가비용이 있을 수 있습니다. 추가금의 이유를 확인하고 영수증이나 결제 내역을 보관하세요. 여전히 의문이 있으면 현장에서 다투기보다 탑승 후 도움을 요청하세요."}
+    },
+    {
+      "id": "route-different",
+      "severity": "normal",
+      "title": {"en": "The route looks very different from the map you expected", "ko": "예상한 지도 경로와 이동 경로가 크게 달라 보임"},
+      "body": {"en": "Traffic, road restrictions and pickup position can change the route. Check your map and destination first. If needed, calmly show the destination again.", "ko": "교통 상황, 도로 통제, 승차 위치에 따라 경로가 달라질 수 있습니다. 먼저 지도와 목적지를 확인하고 필요하면 목적지를 다시 보여주세요."}
+    },
+    {
+      "id": "surcharge",
+      "severity": "normal",
+      "title": {"en": "A late-night or out-of-city surcharge appears", "ko": "심야 또는 시계외 할증이 표시됨"},
+      "body": {"en": "A surcharge may be legitimate depending on the time and destination. Check the time, destination and receipt before deciding whether anything is unusual.", "ko": "시간과 목적지에 따라 할증이 정상적으로 적용될 수 있습니다. 이상 여부를 판단하기 전에 시간, 목적지, 영수증을 먼저 확인하세요."}
+    }
+  ],
+  "phrase_cards": [
+    {
+      "id": "destination",
+      "icon": "📍",
+      "en": "Please take me to this address.",
+      "ko": "이 주소로 가 주세요."
+    },
+    {
+      "id": "meter",
+      "icon": "🚕",
+      "en": "Please use the meter.",
+      "ko": "미터기로 부탁드립니다."
+    },
+    {
+      "id": "card",
+      "icon": "💳",
+      "en": "Can I pay by card?",
+      "ko": "카드로 결제할 수 있나요?"
+    },
+    {
+      "id": "receipt",
+      "icon": "🧾",
+      "en": "Please give me a receipt.",
+      "ko": "영수증 주세요."
+    },
+    {
+      "id": "stop",
+      "icon": "✋",
+      "en": "Please let me off here.",
+      "ko": "여기서 내려 주세요."
+    }
+  ],
+  "complaint": {
+    "what_you_need": [
+      {"en": "Full taxi license plate number", "ko": "택시 전체 차량번호"},
+      {"en": "Date and approximate ride time", "ko": "날짜와 대략적인 탑승 시간"},
+      {"en": "Pickup and drop-off locations", "ko": "승차지와 하차지"},
+      {"en": "Receipt or payment record if available", "ko": "가능하면 영수증 또는 결제 내역"},
+      {"en": "Photos, screenshots or a short note of what happened if safely available", "ko": "안전하게 확보할 수 있다면 사진, 스크린샷 또는 상황 메모"}
+    ],
+    "channels": [
+      {
+        "id": "kto1330",
+        "label": {"en": "1330 Travel Helpline & Complaint Center", "ko": "1330 관광안내·불편신고"},
+        "tel": "1330",
+        "note": {"en": "Tourist information, interpretation and complaint support in Korea.", "ko": "한국 여행 안내, 통역 및 관광 불편 신고 지원."},
+        "source": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=454&vcontsId=140632"
+      },
+      {
+        "id": "seoul120",
+        "label": {"en": "Seoul 120 Dasan Call Center", "ko": "서울 120 다산콜센터"},
+        "tel": "02-120",
+        "note": {"en": "Seoul taxi inconvenience reports. Multilingual service is listed for 09:00–18:00 KST; keep the full license plate number.", "ko": "서울 택시 불편 신고. 다국어 상담은 09:00–18:00(KST)로 안내되며 전체 차량번호를 준비하세요."},
+        "source": "https://english.seoul.go.kr/service/movement/public-transportation/taxi/"
+      }
+    ]
+  },
+  "sources": [
+    {
+      "name": "Seoul Metropolitan Government · Taxi",
+      "url": "https://english.seoul.go.kr/policy/transportation/modes-of-transport/taxi/"
+    },
+    {
+      "name": "VISITKOREA · 1330 Travel Helpline & Complaint Center",
+      "url": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=454&vcontsId=140632"
+    },
+    {
+      "name": "Seoul Metropolitan Government · Taxi complaint guidance",
+      "url": "https://english.seoul.go.kr/service/movement/public-transportation/taxi/"
+    }
+  ]
+}

@@ -2972,6 +2972,29 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
 .v161-access-empty{padding:24px 16px;text-align:center;background:#fff;border:1px dashed #cfdbe7;border-radius:17px;color:#60758d;font-size:13px;line-height:1.55}.v161-access-disclaimer{position:sticky;bottom:68px;z-index:12;margin-top:20px;border:1px solid #d7e2ed;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-radius:16px;padding:12px 13px;font-size:11px;line-height:1.5;color:#5f7184;box-shadow:0 -5px 24px rgba(18,51,84,.08)}.v161-access-error{padding:18px;border-radius:16px;background:#fff3f3;border:1px solid #f1cccc;color:#8e3232;font-size:13px;line-height:1.55}.v161-access-error button{margin-top:9px;border:0;border-radius:11px;background:#8e3232;color:#fff;padding:9px 11px;font-weight:900}
 @media(max-width:380px){.v161-access-wrap{padding-left:12px;padding-right:12px}.v161-access-intro h1{font-size:24px}.v161-access-card>button{grid-template-columns:minmax(0,1fr) auto}.v161-access-chevron{grid-column:2;grid-row:2}.v161-access-badge{grid-column:2;grid-row:1}.v161-access-name{grid-row:1/3}.v161-access-source{align-items:flex-start;flex-direction:column}.v161-access-source button{width:100%}.v161-access-disclaimer{bottom:66px}}
 </style>
+
+<style id="v162-taxi-check-style">
+/* V162 · Taxi Check. Mobile-first, calm-information tone. */
+#taxiCheckHub{background:#f4f7fb;color:#102d4f;min-height:100dvh;padding-bottom:32px}
+.v162-taxi-wrap{max-width:760px;margin:0 auto;padding:10px 14px 34px}
+.v162-taxi-hero{background:linear-gradient(145deg,#0b2345,#153e6b);color:#fff;border-radius:24px;padding:20px 18px;margin:8px 0 14px;box-shadow:0 14px 32px rgba(11,35,69,.16)}
+.v162-taxi-hero .eyebrow{font-size:11px;font-weight:950;letter-spacing:.14em;color:#9ed8ff;margin-bottom:7px}
+.v162-taxi-hero h1{font-size:27px;line-height:1.08;margin:0 0 8px}.v162-taxi-hero p{margin:0;color:#dbeaf7;font-size:14px;line-height:1.55}
+.v162-taxi-hero .checked{display:inline-flex;margin-top:12px;border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:6px 9px;font-size:10px;font-weight:900;letter-spacing:.04em}
+.v162-card{background:#fff;border:1px solid #dbe5ef;border-radius:20px;padding:16px;margin:0 0 12px;box-shadow:0 5px 18px rgba(23,55,86,.055)}
+.v162-card-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:12px}.v162-card-head h2{font-size:18px;line-height:1.2;margin:0;color:#123452}.v162-card-head p{font-size:12px;line-height:1.5;color:#60758c;margin:4px 0 0}
+.v162-region-pill{flex:0 0 auto;border-radius:999px;background:#eaf4ff;color:#1c5c8f;font-size:10px;font-weight:950;padding:6px 8px}
+.v162-fare-inputs{display:grid;grid-template-columns:1fr 1fr;gap:9px}.v162-fare-inputs label{display:block;font-size:11px;font-weight:900;color:#4d6580}.v162-fare-inputs input{width:100%;box-sizing:border-box;margin-top:5px;border:1px solid #cbd8e5;border-radius:14px;background:#fbfdff;color:#102d4f;font:inherit;font-size:16px;min-height:48px;padding:10px 12px;outline:none}.v162-fare-inputs input:focus{border-color:#397db0;box-shadow:0 0 0 3px rgba(57,125,176,.12)}
+.v162-result{margin-top:12px;border-radius:18px;background:#eef7ff;border:1px solid #cfe6f7;padding:14px}.v162-result.empty{background:#f7f9fb;border-color:#e2e8ef}.v162-result .label{display:block;font-size:10px;font-weight:950;letter-spacing:.1em;color:#57718b}.v162-result strong{display:block;font-size:25px;line-height:1.15;color:#0c416e;margin:5px 0 8px}.v162-surcharge{display:inline-flex;align-items:center;gap:5px;border-radius:999px;background:#fff3d7;color:#825000;border:1px solid #f1cf83;padding:5px 8px;font-size:11px;font-weight:950}.v162-result-meta{font-size:11px;line-height:1.45;color:#61768b;margin-top:8px}.v162-result-disclaimer{margin-top:9px;border-top:1px solid #d5e5f1;padding-top:9px;font-size:11px;line-height:1.5;color:#607284}
+.v162-ref-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.v162-ref{border:1px solid #d9e4ee;border-radius:14px;background:#f9fbfd;color:#183e61;min-height:72px;padding:10px;text-align:left;font-weight:900}.v162-ref span{display:block;font-size:10px;color:#74879a;margin-top:5px;font-weight:800}.v162-section-note{font-size:11px;line-height:1.5;color:#708397;margin:9px 0 0}
+.v162-check-list{display:grid;gap:8px}.v162-check{display:flex;align-items:flex-start;gap:10px;border:1px solid #dfe7ee;border-radius:14px;padding:11px;background:#fbfcfe;cursor:pointer}.v162-check input{width:20px;height:20px;flex:0 0 auto;margin:1px 0 0}.v162-check span{font-size:13px;line-height:1.45;color:#23435f;font-weight:800}.v162-check.done{background:#eef8f2;border-color:#bfdec9}.v162-session-note{font-size:10px;color:#788a9b;margin-top:8px}
+.v162-flags{display:grid;gap:8px}.v162-flag{border:1px solid #dfe6ed;border-radius:15px;overflow:hidden;background:#fff}.v162-flag.high{border-color:#e8baba}.v162-flag-toggle{width:100%;border:0;background:#f9fbfd;color:#1d3d58;display:flex;align-items:center;gap:9px;text-align:left;padding:12px;font-weight:900}.v162-flag.high .v162-flag-toggle{background:#fff3f3}.v162-flag-mark{font-size:16px}.v162-flag-title{flex:1;font-size:13px;line-height:1.35}.v162-severity{font-size:9px;border-radius:999px;padding:4px 6px;background:#f0f3f6;color:#617383;white-space:nowrap}.v162-flag.high .v162-severity{background:#f8dddd;color:#8a2f2f}.v162-flag-body{display:none;padding:0 12px 12px;font-size:12px;line-height:1.55;color:#5e7184}.v162-flag.open .v162-flag-body{display:block}
+.v162-phrase-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.v162-phrase-card{border:1px solid #d9e4ef;background:#fbfdff;border-radius:15px;padding:12px;text-align:left;min-height:92px;color:#163c60}.v162-phrase-card .ico{font-size:20px}.v162-phrase-card b{display:block;font-size:15px;line-height:1.35;margin:7px 0 3px}.v162-phrase-card small{display:block;color:#71859a;line-height:1.35}
+.phrase-sheet-layer.v162-bright-layer{background:#fff!important;align-items:stretch!important;padding:0!important}.phrase-sheet-layer.v162-bright-layer .phrase-sheet.v162-taxi-bright{max-width:none!important;width:100%!important;height:100dvh!important;max-height:none!important;border-radius:0!important;background:#fff!important;color:#0b2345!important;padding:calc(18px + env(safe-area-inset-top)) 18px calc(18px + env(safe-area-inset-bottom))!important;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center}.v162-taxi-bright .phrase-sheet-head{position:absolute;top:calc(10px + env(safe-area-inset-top));left:14px;right:14px}.v162-taxi-bright .v162-focus-core{text-align:center}.v162-taxi-bright .v162-focus-icon{font-size:44px}.v162-taxi-bright .v162-focus-ko{font-size:38px;font-weight:950;line-height:1.22;color:#071f38;margin:18px auto 14px;max-width:720px;word-break:keep-all}.v162-taxi-bright .v162-focus-en{font-size:18px;line-height:1.45;color:#5f7284;max-width:650px;margin:0 auto}.v162-taxi-bright .v162-focus-actions{display:flex;gap:8px;justify-content:center;margin-top:24px;flex-wrap:wrap}.v162-taxi-bright .v162-focus-actions button{border:1px solid #cad9e7;border-radius:14px;background:#f5f9fc;color:#173e62;padding:12px 14px;font-weight:900}.v162-taxi-bright .v162-focus-actions .primary{background:#0b2345;color:#fff;border-color:#0b2345}
+.v162-need-list{display:grid;gap:7px}.v162-need{display:flex;gap:9px;align-items:flex-start;background:#f8fafc;border-radius:12px;padding:9px 10px;font-size:12px;line-height:1.45;color:#425b70}.v162-need::before{content:'✓';font-weight:950;color:#2d7c59}.v162-call-grid{display:grid;gap:8px;margin-top:12px}.v162-call-btn{display:flex;align-items:center;justify-content:space-between;gap:10px;text-decoration:none;border-radius:15px;background:#0b2345;color:#fff;padding:12px 13px;font-weight:900}.v162-call-btn small{display:block;color:#d9e8f5;font-weight:700;font-size:10px;line-height:1.35;margin-top:3px}.v162-call-btn strong{font-size:16px;white-space:nowrap}.v162-source-note{font-size:10px;color:#77899a;line-height:1.45;margin-top:10px}
+@media(max-width:420px){.v162-taxi-wrap{padding-left:11px;padding-right:11px}.v162-taxi-hero{border-radius:20px;padding:17px 15px}.v162-taxi-hero h1{font-size:24px}.v162-card{border-radius:17px;padding:13px}.v162-fare-inputs{grid-template-columns:1fr}.v162-ref-grid,.v162-phrase-grid{grid-template-columns:1fr}.v162-result strong{font-size:22px}.v162-taxi-bright .v162-focus-ko{font-size:32px}.v162-call-btn{align-items:flex-start;flex-direction:column}.v162-call-btn strong{font-size:15px}}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -3542,6 +3565,7 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
     <div class="v120-route-secondary-links">
       <button type="button" class="primary" onclick="openTransitCardHub()">💳 <span data-en="Transit card guide" data-ko="교통카드 추천">Transit card guide</span></button>
       <button type="button" onclick="openSubwayMapHub()">🚇 <span data-en="Subway map" data-ko="지하철 노선도">Subway map</span></button>
+      <button type="button" onclick="openTaxiCheckHub()">🚕 <span data-en="Taxi Check" data-ko="택시 요금 확인">Taxi Check</span></button>
     </div>
     <div class="v120-route-note" data-en="Route first. Payment cards and travel helpers are separated so this screen stays focused on how to get there." data-ko="이 화면은 이동 방법만 보여줍니다. 교통카드·결제·여행 도구는 별도 화면에서 확인하세요.">Route first. Payment cards and travel helpers are separated.</div>
 
@@ -3552,6 +3576,7 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
         <button type="button" onclick="v105OpenCanIMakeIt()">🚦 <span data-en="Can I make it?" data-ko="지금 출발해도 될까?">Can I make it?</span></button>
         <button type="button" onclick="v107OpenStaffHelper()">🪪 <span data-en="Show staff" data-ko="직원에게 보여주기">Show staff</span></button>
         <button type="button" onclick="openSubwayMapHub()">🚇 <span data-en="Subway map" data-ko="지하철 노선도">Subway map</span></button>
+        <button type="button" onclick="openTaxiCheckHub()">🚕 <span data-en="Taxi Check" data-ko="택시 요금 확인">Taxi Check</span></button>
       </div>
     </details>
 
@@ -3925,6 +3950,20 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
   </div>
 </section>
 
+
+<section class="screen" id="taxiCheckHub">
+  <div class="top"><button type="button" class="back" aria-label="Back / 뒤로" onclick="closeTaxiCheckHub()">‹</button><div class="brand" data-en="Taxi Check" data-ko="택시 요금 확인">Taxi Check</div><button class="pill" onclick="toggleLang()">EN / 한국어</button></div>
+  <div class="v162-taxi-wrap">
+    <div class="v162-taxi-hero">
+      <div class="eyebrow">MOVE · TAXI CHECK</div>
+      <h1 id="v162TaxiTitle">Taxi Check</h1>
+      <p id="v162TaxiSubtitle">Get a rough fare range before you ride.</p>
+      <span class="checked" id="v162TaxiChecked">CHECKED · 2026-09-01</span>
+    </div>
+    <div id="v162TaxiBody"><div class="v162-card"><p data-en="Loading taxi information…" data-ko="택시 정보를 불러오는 중…">Loading taxi information…</p></div></div>
+  </div>
+</section>
+
 <section class="screen" id="transitCardHub">
   <div class="top"><button type="button" class="back" aria-label="Back / 뒤로" onclick="v120CloseTransitCardHub()">‹</button><div class="brand" data-en="Transit Card" data-ko="교통카드">Transit Card</div><button class="pill" onclick="toggleLang()">EN / 한국어</button></div>
   <div class="v60-screen-intro"><h1 data-en="Which transit card fits my trip?" data-ko="내 여행에는 어떤 교통카드가 맞을까?">Which transit card fits my trip?</h1><p data-en="Compare transit-card choices here, separately from route directions." data-ko="길찾기 화면과 분리해서 Tmoney/EZL · Climate Card · WOWPASS 후보를 비교합니다.">Compare transit-card choices here.</p></div>
@@ -3960,6 +3999,7 @@ input[type="checkbox"],input[type="radio"]{width:24px!important;height:24px!impo
     <button type="button" onclick="v105OpenCanIMakeIt()"><span class="ico">🚦</span><span data-en="Can I Make It?" data-ko="지금 출발해도 될까?">Can I Make It?</span></button>
     <button type="button" onclick="v114OpenShareRoute()"><span class="ico">📤</span><span data-en="Share My Route" data-ko="내 이동경로 공유">Share My Route</span></button>
     <button type="button" onclick="v60OpenTripDetail('myTripStopAlertSection')"><span class="ico">🔔</span><span data-en="Stop alert" data-ko="하차 알림">Stop alert</span></button>
+    <button type="button" onclick="openTaxiCheckHub()"><span class="ico">🚕</span><span data-en="Taxi Check" data-ko="택시 요금 확인">Taxi Check</span></button>
   </div></div>
   <div class="v60-helper-card" data-v69-tool-group="nearby"><h2 class="v60-group-title" data-en="Nearby" data-ko="주변에서 찾기">Nearby</h2><div class="v60-icon-grid">
     <button type="button" onclick="openNearbyEssential('convenience')"><span class="ico">🏪</span><span data-en="Convenience" data-ko="편의점">Convenience</span></button>
@@ -4548,7 +4588,7 @@ function toggleAllTools(){
 }
 
 let current='home';
-const APP_RELEASE='Korea Route Public Beta V161';
+const APP_RELEASE='Korea Route Public Beta V162';
 
 // V36 safe auto-restore: persist only explicit, non-sensitive trip state and user preferences.
 // Never mirror API keys, current/GPS location, sensor state, or walk-recovery data.
@@ -4663,6 +4703,8 @@ function refreshActiveScreenState(id=current,{entry=false}={}){
       initMyTripHub();
     }else if(id==='transitCardHub'){
       if(typeof renderTransitCardHub==='function') renderTransitCardHub();
+    }else if(id==='taxiCheckHub'){
+      if(typeof renderTaxiCheckHub==='function') renderTaxiCheckHub();
     }else if(id==='moveHub'||id==='move'){
       const {fromCity,toCity}=typeof currentMoveSegmentCities==='function'?currentMoveSegmentCities():{fromCity:'',toCity:''};
       if(lastLiveTransitResult?.routes?.length && lastLiveTransitResult.fromCity===fromCity && lastLiveTransitResult.toCity===toCity){
@@ -18713,5 +18755,138 @@ function renderForeignerAccess(){
 (function(){const input=document.getElementById('v161AccessSearch');if(input)input.addEventListener('input',renderForeignerAccess)})();
 const v161OriginalApplyLang=applyLang;
 applyLang=function(){v161OriginalApplyLang();if(v161AccessData)renderForeignerAccess()};
-</script>\n</body>
+</script>\n
+<script id="v162-taxi-check-script">
+// V162 · Taxi Check. Data stays in taxi-fare.json; no exact-fare claim is made.
+let v162TaxiData=null;
+let v162TaxiLoading=null;
+const v162TaxiChecklistState=new Set(); // current page session only; intentionally not persisted.
+const v162TaxiDraft={distance:'',time:''}; // preserve inputs across language toggles/navigation in this page load only.
+
+function v162TaxiText(obj){
+  if(obj==null) return '';
+  if(typeof obj==='string') return obj;
+  return String(lang==='ko'?(obj.ko??obj.en??''):(obj.en??obj.ko??''));
+}
+function v162TaxiEsc(v){return typeof escapeHtmlText==='function'?escapeHtmlText(v):String(v??'').replace(/[&<>"']/g,'');}
+async function loadTaxiFareData(){
+  if(v162TaxiData) return v162TaxiData;
+  if(v162TaxiLoading) return v162TaxiLoading;
+  v162TaxiLoading=fetch('./taxi-fare.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('taxi-fare.json '+r.status);return r.json();}).then(data=>{v162TaxiData=data;return data;}).finally(()=>{v162TaxiLoading=null;});
+  return v162TaxiLoading;
+}
+function v162CurrentClock(){
+  const d=new Date();
+  return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+}
+function v162ClockMinutes(value){
+  const m=String(value||'').match(/^(\d{1,2}):(\d{2})$/); if(!m)return NaN;
+  const h=Number(m[1]),min=Number(m[2]); if(h<0||h>23||min<0||min>59)return NaN;
+  return h*60+min;
+}
+function v162TimeInWindow(time,start,end){
+  const t=v162ClockMinutes(time),a=v162ClockMinutes(start),b=v162ClockMinutes(end);
+  if(!Number.isFinite(t)||!Number.isFinite(a)||!Number.isFinite(b)) return false;
+  return a<b ? (t>=a && t<b) : (t>=a || t<b); // handles 23:00 → 02:00
+}
+function v162SurchargeForTime(region,time){
+  const windows=region?.surcharges?.windows||[];
+  return windows.find(w=>v162TimeInWindow(time,w.start,w.end))||null;
+}
+function v162Round100(value){return Math.round(Number(value||0)/100)*100;}
+function v162FormatNumber(v){return Number(v||0).toLocaleString(lang==='ko'?'ko-KR':'en-US');}
+function v162Estimate(region,distanceKm,time){
+  const km=Number(distanceKm); if(!Number.isFinite(km)||km<=0)return null;
+  const m=km*1000;
+  const extra=Math.max(0,m-Number(region.base_distance_m||0));
+  const steps=Math.ceil(extra/Number(region.distance_step_m||1));
+  const distanceFare=Number(region.base_fare||0)+steps*Number(region.distance_step_fare||0);
+  const surcharge=v162SurchargeForTime(region,time);
+  const rate=Number(surcharge?.rate||1);
+  const center=distanceFare*rate;
+  return {center,lower:v162Round100(center*.85),upper:v162Round100(center*1.2),surcharge,steps,distanceFare};
+}
+function v162FareResultHtml(data){
+  const region=data?.regions?.seoul; if(!region)return '';
+  const km=document.getElementById('v162TaxiDistance')?.value||'';
+  const time=document.getElementById('v162TaxiTime')?.value||'';
+  const est=v162Estimate(region,km,time);
+  const disclaimer=v162TaxiEsc(v162TaxiText(data.result_disclaimer));
+  if(!est){
+    return `<div class="v162-result empty"><span class="label">${lang==='ko'?'예상 범위':'ESTIMATED RANGE'}</span><strong>${lang==='ko'?'거리를 입력하세요':'Enter a distance'}</strong><div class="v162-result-disclaimer">${disclaimer}</div></div>`;
+  }
+  const range=lang==='ko'?`약 ${v162FormatNumber(est.lower)} ~ ${v162FormatNumber(est.upper)}원`:`About ₩${v162FormatNumber(est.lower)} – ₩${v162FormatNumber(est.upper)}`;
+  const badge=est.surcharge?`<span class="v162-surcharge">🌙 ${v162TaxiEsc(v162TaxiText(est.surcharge.label))}</span>`:'';
+  const basis=lang==='ko'?`거리 기반 계산 · ${Number(km).toFixed(1)}km · 출발 ${v162TaxiEsc(time)}`:`Distance-based · ${Number(km).toFixed(1)} km · depart ${v162TaxiEsc(time)}`;
+  return `<div class="v162-result"><span class="label">${lang==='ko'?'예상 범위':'ESTIMATED RANGE'}</span><strong>${range}</strong>${badge}<div class="v162-result-meta">${basis}</div><div class="v162-result-disclaimer">⚠️ ${disclaimer}</div></div>`;
+}
+function v162RenderFareOnly(){
+  if(!v162TaxiData)return;
+  const d=document.getElementById('v162TaxiDistance'),t=document.getElementById('v162TaxiTime');
+  if(d)v162TaxiDraft.distance=d.value;if(t)v162TaxiDraft.time=t.value;
+  const host=document.getElementById('v162TaxiResult'); if(host)host.innerHTML=v162FareResultHtml(v162TaxiData);
+}
+function v162SetReferenceTrip(index){
+  const item=v162TaxiData?.reference_trips?.[Number(index)]; if(!item)return;
+  const input=document.getElementById('v162TaxiDistance'); if(input){input.value=String(item.distance_km);v162TaxiDraft.distance=input.value;input.focus();}
+  v162RenderFareOnly();
+}
+function v162ToggleChecklist(id,checked){
+  if(checked)v162TaxiChecklistState.add(String(id));else v162TaxiChecklistState.delete(String(id));
+  const label=document.querySelector(`[data-v162-check="${CSS.escape(String(id))}"]`); if(label)label.classList.toggle('done',!!checked);
+}
+function v162ToggleFlag(id){
+  const box=document.querySelector(`[data-v162-flag="${CSS.escape(String(id))}"]`); if(!box)return;
+  const open=!box.classList.contains('open');box.classList.toggle('open',open);box.querySelector('button')?.setAttribute('aria-expanded',open?'true':'false');
+}
+function v162ComplaintHtml(data){
+  const c=data?.complaint||{};
+  const needs=(c.what_you_need||[]).map(x=>`<div class="v162-need">${v162TaxiEsc(v162TaxiText(x))}</div>`).join('');
+  const calls=(c.channels||[]).map(ch=>`<a class="v162-call-btn" href="tel:${v162TaxiEsc(ch.tel)}"><span>☎️ ${v162TaxiEsc(v162TaxiText(ch.label))}<small>${v162TaxiEsc(v162TaxiText(ch.note))}</small></span><strong>${v162TaxiEsc(ch.tel)}</strong></a>`).join('');
+  return `<div class="v162-card"><div class="v162-card-head"><div><h2>${lang==='ko'?'문제가 생겼다면':'If something went wrong'}</h2><p>${lang==='ko'?'현장에서 다투기보다 기록을 남기고 공식 도움을 이용하세요.':'Keep useful details and use an official help channel rather than arguing on the spot.'}</p></div></div><div class="v162-need-list">${needs}</div><div class="v162-call-grid">${calls}</div><div class="v162-source-note">${lang==='ko'?'긴급한 위험 상황에서는 112·119와 현장 안전 안내를 우선하세요.':'For immediate danger or emergencies, prioritize 112/119 and on-site safety instructions.'}</div></div>`;
+}
+function renderTaxiCheckHub(){
+  const data=v162TaxiData; const host=document.getElementById('v162TaxiBody'); if(!host||!data)return;
+  const region=data.regions?.seoul; if(!region)return;
+  const title=document.getElementById('v162TaxiTitle'),sub=document.getElementById('v162TaxiSubtitle'),checked=document.getElementById('v162TaxiChecked');
+  if(title)title.textContent=v162TaxiText(data.title);if(sub)sub.textContent=v162TaxiText(data.subtitle);if(checked)checked.textContent=`${lang==='ko'?'공식요금 확인':'FARE CHECKED'} · ${data.checked_on||''}`;
+  const refs=(data.reference_trips||[]).map((r,i)=>`<button type="button" class="v162-ref" onclick="v162SetReferenceTrip(${i})">${v162TaxiEsc(v162TaxiText(r.name))}<span>≈ ${Number(r.distance_km).toFixed(1)} km · ${lang==='ko'?'거리 입력':'fill distance'}</span></button>`).join('');
+  const checks=(data.before_you_ride||[]).map(item=>`<label class="v162-check ${v162TaxiChecklistState.has(String(item.id))?'done':''}" data-v162-check="${v162TaxiEsc(item.id)}"><input type="checkbox" ${v162TaxiChecklistState.has(String(item.id))?'checked':''} onchange="v162ToggleChecklist('${v162TaxiEsc(item.id)}',this.checked)"><span>${v162TaxiEsc(v162TaxiText(item.text))}</span></label>`).join('');
+  const flags=(data.red_flags||[]).map(item=>`<div class="v162-flag ${item.severity==='high'?'high':''}" data-v162-flag="${v162TaxiEsc(item.id)}"><button type="button" class="v162-flag-toggle" aria-expanded="false" onclick="v162ToggleFlag('${v162TaxiEsc(item.id)}')"><span class="v162-flag-mark">${item.severity==='high'?'⚠️':'ℹ️'}</span><span class="v162-flag-title">${v162TaxiEsc(v162TaxiText(item.title))}</span><span class="v162-severity">${item.severity==='high'?(lang==='ko'?'주의':'CHECK'):(lang==='ko'?'참고':'INFO')}</span><span>⌄</span></button><div class="v162-flag-body">${v162TaxiEsc(v162TaxiText(item.body))}</div></div>`).join('');
+  const phrases=(data.phrase_cards||[]).map((item,i)=>`<button type="button" class="v162-phrase-card" onclick="showTaxiPhraseCard(${i})"><span class="ico">${v162TaxiEsc(item.icon||'💬')}</span><b>${v162TaxiEsc(item.ko)}</b><small>${v162TaxiEsc(item.en)}</small></button>`).join('');
+  const notes=(region.meter_notes||[]).map(n=>v162TaxiEsc(v162TaxiText(n))).join(' · ');
+  host.innerHTML=`
+    <div class="v162-card"><div class="v162-card-head"><div><h2>${lang==='ko'?'1) 예상요금 계산':'1) Fare estimate'}</h2><p>${lang==='ko'?'서울 일반 중형택시의 거리 기준 단순 계산입니다.':'Simple distance-based estimate for a Seoul sedan taxi.'}</p></div><span class="v162-region-pill">${v162TaxiEsc(v162TaxiText(region.name))}</span></div><div class="v162-fare-inputs"><label>${lang==='ko'?'거리 (km)':'Distance (km)'}<input id="v162TaxiDistance" type="number" min="0.1" max="200" step="0.1" inputmode="decimal" placeholder="e.g. 8.5" oninput="v162RenderFareOnly()"></label><label>${lang==='ko'?'출발 시각':'Departure time'}<input id="v162TaxiTime" type="time" onchange="v162RenderFareOnly()"></label></div><div id="v162TaxiResult"></div><p class="v162-section-note">${notes}</p></div>
+    <div class="v162-card"><div class="v162-card-head"><div><h2>${lang==='ko'?'2) 참고 구간':'2) Reference trips'}</h2><p>${lang==='ko'?'카드를 누르면 거리 입력에 반영됩니다.':'Tap a card to fill the distance.'}</p></div></div><div class="v162-ref-grid">${refs}</div><p class="v162-section-note">${v162TaxiEsc(v162TaxiText(data.reference_trips_note))}</p></div>
+    <div class="v162-card"><div class="v162-card-head"><div><h2>${lang==='ko'?'3) 타기 전 체크리스트':'3) Before you ride'}</h2><p>${lang==='ko'?'필요한 것만 체크하세요.':'Check only what is useful to you.'}</p></div></div><div class="v162-check-list">${checks}</div><div class="v162-session-note">${lang==='ko'?'체크 상태는 이 페이지 세션에서만 유지되며 저장하지 않습니다.':'Checkmarks stay in this page session only and are not saved.'}</div></div>
+    <div class="v162-card"><div class="v162-card-head"><div><h2>${lang==='ko'?'4) 이럴 땐 이렇게':'4) If this happens'}</h2><p>${lang==='ko'?'단정하지 말고 상황과 기록을 먼저 확인하세요.':'Check the situation and records before drawing a conclusion.'}</p></div></div><div class="v162-flags">${flags}</div></div>
+    <div class="v162-card"><div class="v162-card-head"><div><h2>${lang==='ko'?'5) 기사에게 보여줄 문구':'5) Show the driver'}</h2><p>${lang==='ko'?'누르면 밝은 전체화면으로 크게 표시합니다.':'Tap a phrase for a bright full-screen card.'}</p></div></div><div class="v162-phrase-grid">${phrases}</div></div>
+    ${v162ComplaintHtml(data)}
+    <div class="v162-source-note">${lang==='ko'?'데이터 출처: 서울특별시 택시 요금 안내 · 한국관광공사 1330 · 서울 120. 마지막 확인':'Sources: Seoul Metropolitan Government taxi fare guidance · KTO 1330 · Seoul 120. Last checked'} ${v162TaxiEsc(data.checked_on||'')}</div>`;
+  const distance=document.getElementById('v162TaxiDistance'),time=document.getElementById('v162TaxiTime');
+  if(distance&&v162TaxiDraft.distance)distance.value=v162TaxiDraft.distance;
+  if(time)time.value=v162TaxiDraft.time||v162CurrentClock();
+  v162RenderFareOnly();
+}
+async function openTaxiCheckHub(){
+  go('taxiCheckHub');
+  const host=document.getElementById('v162TaxiBody');
+  try{await loadTaxiFareData();renderTaxiCheckHub();}
+  catch(err){console.warn('Taxi data load failed',err);if(host)host.innerHTML=`<div class="v162-card"><b>${lang==='ko'?'택시 데이터를 불러오지 못했습니다.':'Taxi data could not be loaded.'}</b><p>${lang==='ko'?'인터넷 연결 또는 taxi-fare.json 배포 여부를 확인하세요.':'Check your connection or whether taxi-fare.json was deployed.'}</p></div>`;}
+}
+function closeTaxiCheckHub(){go('moveHub');}
+function showTaxiPhraseCard(index){
+  const p=v162TaxiData?.phrase_cards?.[Number(index)];if(!p||typeof ensurePhraseSheetLayer!=='function')return;
+  const layer=ensurePhraseSheetLayer();layer.classList.add('v162-bright-layer');
+  layer.innerHTML=`<div class="phrase-sheet v162-taxi-bright" role="dialog" aria-modal="true" aria-label="Taxi phrase"><div class="phrase-sheet-head"><div><span>${lang==='ko'?'기사에게 보여주기':'SHOW THE DRIVER'}</span><h3>${lang==='ko'?'이 화면을 그대로 보여주세요':'Show this screen'}</h3></div><button type="button" onclick="closeTaxiPhraseCard()" aria-label="Close">×</button></div><div class="v162-focus-core"><div class="v162-focus-icon">${v162TaxiEsc(p.icon||'💬')}</div><div class="v162-focus-ko">${v162TaxiEsc(p.ko)}</div><div class="v162-focus-en">${v162TaxiEsc(p.en)}</div><div class="v162-focus-actions"><button type="button" class="primary" onclick="copyTaxiPhrase(${Number(index)})">📋 ${lang==='ko'?'한국어 복사':'Copy Korean'}</button><button type="button" onclick="closeTaxiPhraseCard()">${lang==='ko'?'닫기':'Close'}</button></div></div></div>`;
+}
+function closeTaxiPhraseCard(){const layer=document.getElementById('phraseSheetLayer');layer?.classList.remove('v162-bright-layer');if(typeof closePhraseSheet==='function')closePhraseSheet();}
+async function copyTaxiPhrase(index){
+  const text=v162TaxiData?.phrase_cards?.[Number(index)]?.ko||'';if(!text)return;
+  let ok=false;try{ok=await copyTextWithFallback(text);}catch(_){ }
+  if(typeof v11Toast==='function')v11Toast(ok?(lang==='ko'?'한국어 문구를 복사했습니다.':'Korean phrase copied.'):(lang==='ko'?'복사하지 못했습니다.':'Could not copy.'));
+}
+</script>
+
+</body>
 </html>
