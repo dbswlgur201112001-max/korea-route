@@ -3065,6 +3065,7 @@ body.dark .v175-unofficial-note,body.dark .v175-unofficial-result{background:#2a
     <button type="button" class="v118-home-step" onclick="v118OpenHelpTab()"><span class="ico">🆘</span><span><b data-en="I need help" data-ko="도움이 필요해요">I need help</b><small data-en="Emergency · 1330 · late-night · translation" data-ko="긴급 · 1330 · 심야 귀가 · 번역">Emergency · 1330 · late-night · translation</small></span><span class="go">›</span></button>
     <div class="v118-home-helpbar">
       <button type="button" onclick="go('planner')" data-en="🗓️ Make a trip plan" data-ko="🗓️ 여행 일정 만들기">🗓️ Make a trip plan</button>
+      <button type="button" onclick="openPreArrivalHub()" data-en="✈️ Before you fly" data-ko="✈️ 출발 전 준비">✈️ Before you fly</button>
       <button type="button" onclick="go('assistantHub')" data-en="✨ Ask Trip Assistant" data-ko="✨ 여행 도우미에게 묻기">✨ Ask Trip Assistant</button>
       <button type="button" onclick="openForeignerAccessHub()" data-en="📱 Can I use this?" data-ko="📱 이거 쓸 수 있나요?">📱 Can I use this?</button>
     </div>
@@ -3209,6 +3210,7 @@ body.dark .v175-unofficial-note,body.dark .v175-unofficial-result{background:#2a
   <div class="top"><button type="button" class="back" aria-label="Back / 뒤로" onclick="go('home')">‹</button><div class="brand" data-en="Trip Planner" data-ko="여행 플래너">Trip Planner</div><div style="width:40px"></div></div>
   <h2 class="page-title" data-en="Build your Korea route" data-ko="한국 여행 경로 만들기">Build your Korea route</h2>
   <p class="page-sub" data-en="Pick your main cities, trip length, and number of travelers." data-ko="주요 도시, 여행 기간, 인원수를 선택하세요.">Pick your main cities, trip length, and number of travelers.</p>
+  <button type="button" class="v178-plan-entry" onclick="openPreArrivalHub()"><span class="ico">✈️</span><span><b data-en="Before you fly" data-ko="출발 전 준비">Before you fly</b><small data-en="Visa/K-ETA self-check · eSIM · apps · address · arrival prep" data-ko="비자·K-ETA 직접 확인 · eSIM · 앱 · 주소 · 도착 준비">Visa/K-ETA self-check · eSIM · apps · address · arrival prep</small></span><span class="go">›</span></button>
   <div class="form-card">
     <label data-en="STARTING CITY" data-ko="출발 도시">STARTING CITY</label>
     <select id="start"><option value="Seoul">Seoul</option><option value="Suwon">Suwon</option><option value="Incheon">Incheon</option><option value="Chuncheon">Chuncheon</option><option value="Gangneung">Gangneung</option><option value="Sokcho">Sokcho</option><option value="Daejeon">Daejeon</option><option value="Gongju">Gongju</option><option value="Jeonju">Jeonju</option><option value="Yeosu">Yeosu</option><option value="Suncheon">Suncheon</option><option value="Gyeongju">Gyeongju</option><option value="Andong">Andong</option><option value="Daegu">Daegu</option><option value="Ulsan">Ulsan</option><option value="Pohang">Pohang</option><option value="Busan">Busan</option><option value="Tongyeong">Tongyeong</option><option value="Geoje">Geoje</option><option value="Jeju">Jeju</option></select>
@@ -3977,6 +3979,24 @@ body.dark .v175-unofficial-note,body.dark .v175-unofficial-result{background:#2a
 
 
 
+<section class="screen" id="preArrivalHub">
+  <div class="top"><button type="button" class="back" aria-label="Back / 뒤로" onclick="closePreArrivalHub()">‹</button><div class="brand" data-en="Before you fly" data-ko="출발 전 준비">Before you fly</div><button class="pill" onclick="toggleLang()">EN / 한국어</button></div>
+  <div class="v178-wrap">
+    <header class="v178-hero">
+      <div class="eyebrow">PLAN · BEFORE YOU FLY</div>
+      <h1 id="v178Title">Before you fly</h1>
+      <p id="v178Subtitle">The things that are hard to fix once you land.</p>
+      <span class="v178-updated" id="v178Updated">Loading…</span>
+    </header>
+    <div class="v178-critical" id="v178Critical" role="note" aria-live="polite"><span class="ico">⚠️</span><p>Korea Route never tells you whether you personally need a visa or a K-ETA. Always confirm on the official government site before booking.</p></div>
+    <div class="v178-progress-card">
+      <div><span data-en="Checklist progress" data-ko="준비 진행률">Checklist progress</span><b id="v178Progress">0 of 0 done</b></div>
+      <button type="button" id="v178Reset" onclick="v178ResetChecklist()">Reset checklist</button>
+    </div>
+    <div id="v178Body"><div class="v178-loading">Loading pre-departure checklist…</div></div>
+  </div>
+</section>
+
 <section class="screen" id="foreignerAccessHub">
   <div class="top"><button type="button" class="back" aria-label="Back / 뒤로" onclick="closeForeignerAccessHub()">‹</button><div class="brand" data-en="Can I use this?" data-ko="이거 쓸 수 있나요?">Can I use this?</div><button class="pill" onclick="toggleLang()">EN / 한국어</button></div>
   <div class="v161-access-wrap">
@@ -4110,7 +4130,7 @@ body.dark .v175-unofficial-note,body.dark .v175-unofficial-result{background:#2a
 
 
 <script>
-const KR_BUILD_VERSION='V177';
+const KR_BUILD_VERSION='V178';
 const TRANSLATIONS = {
   "ko": {
     "home.brand": "코리아 루트",
@@ -19147,8 +19167,8 @@ function renderFairPriceCheck(){
   if(btab){btab.textContent=v165Ui('browse','Browse');btab.classList.toggle('active',v165PriceMode==='browse');}if(ctab){ctab.textContent=v165Ui('check_price','Check a price');ctab.classList.toggle('active',v165PriceMode==='check');}
   if(body)body.innerHTML=v165PriceMode==='check'?v165RenderCheck():v165RenderBrowse();if(tips)tips.innerHTML=v165TipsHtml();
 }
-async function openFairPriceCheckHub(){go('fairPriceHub');const body=document.getElementById('v165Body');if(body)body.innerHTML=`<div class="v165-card"><p>${lang==='ko'?'가격 참고정보를 불러오는 중…':'Loading price references…'}</p></div>`;try{await loadFairPriceData();renderFairPriceCheck();}catch(err){console.warn('Fair Price data load failed',err);if(body)body.innerHTML=`<div class="v165-card"><p>${lang==='ko'?'price-baseline.json을 불러오지 못했습니다. 임의의 가격판정은 표시하지 않습니다.':'Could not load price-baseline.json. Korea Route will not invent a price result.'}</p><button type="button" onclick="openFairPriceCheckHub()">${lang==='ko'?'다시 시도':'Retry'}</button></div>`;}}
-function closeFairPriceCheckHub(){go('walletHub');}
+async function openFairPriceCheckHub(returnTo=''){window.v165PriceReturn=returnTo||'walletHub';go('fairPriceHub');const body=document.getElementById('v165Body');if(body)body.innerHTML=`<div class="v165-card"><p>${lang==='ko'?'가격 참고정보를 불러오는 중…':'Loading price references…'}</p></div>`;try{await loadFairPriceData();renderFairPriceCheck();}catch(err){console.warn('Fair Price data load failed',err);if(body)body.innerHTML=`<div class="v165-card"><p>${lang==='ko'?'price-baseline.json을 불러오지 못했습니다. 임의의 가격판정은 표시하지 않습니다.':'Could not load price-baseline.json. Korea Route will not invent a price result.'}</p><button type="button" onclick="openFairPriceCheckHub()">${lang==='ko'?'다시 시도':'Retry'}</button></div>`;}}
+function closeFairPriceCheckHub(){const back=window.v165PriceReturn||'walletHub';window.v165PriceReturn='';go(back&&document.getElementById(back)?back:'walletHub');}
 const v165OriginalApplyLang=applyLang;applyLang=function(){v165OriginalApplyLang();if(v165PriceData)renderFairPriceCheck();};
 </script>
 
@@ -19407,5 +19427,112 @@ html.v167-modal-open,body.v167-modal-open{overflow:hidden!important;overscroll-b
 }
 </style>
 
+
+<style id="v178-pre-arrival-style">
+.v178-plan-entry{width:100%;min-height:72px;margin:0 0 13px;border:1px solid #cbd9ea;border-radius:17px;background:#f5f9ff;color:#17365b;display:grid;grid-template-columns:44px minmax(0,1fr) 22px;align-items:center;gap:10px;text-align:left;padding:11px 12px;cursor:pointer}.v178-plan-entry .ico{width:42px;height:42px;border-radius:13px;background:#e4efff;display:grid;place-items:center;font-size:21px}.v178-plan-entry b{display:block;font-size:15px;line-height:1.3}.v178-plan-entry small{display:block;margin-top:4px;color:#65788d;font-size:12px;line-height:1.4}.v178-plan-entry .go{font-size:25px;color:#6581a1}
+.v178-wrap{max-width:760px;margin:0 auto}.v178-hero{padding:3px 1px 12px}.v178-hero .eyebrow{font-size:11px;font-weight:950;letter-spacing:.08em;color:#51729a}.v178-hero h1{margin:6px 0 5px;font-size:29px;line-height:1.12;color:#102d4e}.v178-hero p{margin:0;color:#60758c;font-size:14px;line-height:1.55}.v178-updated{display:inline-flex;margin-top:9px;padding:5px 8px;border-radius:999px;background:#edf4fc;color:#496984;font-size:12px;font-weight:850}.v178-updated.offline{background:#fff2d8;color:#815c10}
+.v178-critical{display:grid;grid-template-columns:34px minmax(0,1fr);gap:9px;align-items:start;margin:1px 0 12px;padding:13px;border:1px solid #e5b867;border-radius:16px;background:#fff8e8;color:#5d4314}.v178-critical .ico{width:34px;height:34px;border-radius:11px;background:#ffe7ae;display:grid;place-items:center;font-size:18px}.v178-critical p{margin:0;font-size:14px;font-weight:800;line-height:1.55}
+.v178-progress-card{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px;padding:12px 13px;border:1px solid #dce5ef;border-radius:15px;background:#fff}.v178-progress-card span{display:block;color:#718094;font-size:11px;font-weight:850}.v178-progress-card b{display:block;margin-top:3px;color:#183a60;font-size:16px}.v178-progress-card button{min-height:42px;border:1px solid #cad7e5;border-radius:12px;background:#f5f8fc;color:#244968;padding:8px 11px;font-size:12px;font-weight:900}
+.v178-phase{margin:0 0 18px}.v178-phase-head{display:flex;align-items:end;justify-content:space-between;gap:10px;margin:0 2px 8px}.v178-phase-head span{font-size:10px;font-weight:950;letter-spacing:.07em;color:#71849b;text-transform:uppercase}.v178-phase-head h2{margin:3px 0 0;font-size:19px;line-height:1.3;color:#17365b}.v178-list{display:grid;gap:10px}
+.v178-item{position:relative;border:1px solid #dce5ef;border-left:4px solid #97a9bd;border-radius:17px;background:#fff;padding:14px;box-shadow:0 7px 22px rgba(15,45,77,.04)}.v178-item.priority-critical{border-left-width:6px;border-left-color:#a34f58;background:#fffafa}.v178-item.priority-high{border-left-width:5px;border-left-color:#2d6fb7}.v178-item.priority-normal{border-left-width:4px;border-left-color:#8b9eb1}.v178-item.priority-optional{border-left-width:3px;border-left-color:#b39454;border-style:solid solid solid dashed}.v178-item.done{opacity:.72}.v178-item-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:start}.v178-item h3{margin:0;color:#17324f;font-size:16px;line-height:1.38}.v178-badges{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:5px}.v178-badge{display:inline-flex;align-items:center;min-height:24px;padding:4px 7px;border-radius:999px;font-size:10px;font-weight:950;letter-spacing:.035em}.v178-badge.verify{background:#fff0cf;color:#74520d}.v178-badge.optional{background:#edf1f5;color:#57687a}.v178-item-body{margin:9px 0 0;color:#4f6277;font-size:14px;line-height:1.58}.v178-note{margin-top:9px;padding:10px 11px;border-radius:12px;background:#f5f8fc;color:#53677d;font-size:13px;line-height:1.55}.v178-expiry{margin-top:10px;padding:10px 11px;border:1px solid #e6bf76;border-radius:12px;background:#fff9e9;color:#644a19}.v178-expiry b{display:block;font-size:12px;line-height:1.5}.v178-expiry span{display:block;margin-top:4px;font-size:13px;font-weight:950}.v178-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}.v178-actions button{min-height:42px;border:1px solid #cbd8e7;border-radius:12px;background:#f6f9fd;color:#214c75;padding:8px 11px;font-size:12px;font-weight:900}.v178-actions button.primary{background:#0b2a54;border-color:#0b2a54;color:#fff}.v178-source-name{margin-top:7px;color:#718094;font-size:11px;line-height:1.4}
+.v178-check{display:flex;align-items:flex-start;gap:9px;margin-top:12px;padding-top:11px;border-top:1px solid #e7edf3;cursor:pointer}.v178-check input{width:20px;height:20px;margin:1px 0 0;accent-color:#225f9f;flex:0 0 auto}.v178-check-copy b{display:block;color:#24435f;font-size:13px;line-height:1.35}.v178-check-copy small{display:block;margin-top:4px;color:#708095;font-size:11px;line-height:1.5}.v178-check input:focus-visible{outline:3px solid rgba(31,100,183,.25);outline-offset:2px}
+.v178-footer{margin-top:22px;padding-top:15px;border-top:1px solid #dce5ef}.v178-footer h2{margin:0 0 8px;color:#17365b;font-size:17px}.v178-sources{display:grid;gap:7px}.v178-source-btn{width:100%;min-height:44px;border:1px solid #d5e0ea;border-radius:12px;background:#fff;color:#214a70;text-align:left;padding:9px 11px;font-size:12px;font-weight:850}.v178-disclaimer{margin-top:12px;padding:12px;border-radius:13px;background:#f3f6fa;color:#5b6f85;font-size:12px;line-height:1.55}.v178-loading,.v178-error{padding:16px;border:1px solid #dce5ef;border-radius:15px;background:#fff;color:#5a6d82;font-size:13px;line-height:1.55}.v178-error button{display:block;margin-top:10px;min-height:42px;border:0;border-radius:11px;background:#0b2a54;color:#fff;padding:8px 12px;font-weight:900}
+body.dark .v178-plan-entry,body.dark .v178-progress-card,body.dark .v178-item,body.dark .v178-source-btn,body.dark .v178-loading,body.dark .v178-error{background:#101c2e;border-color:#2c3c51;color:#edf4fb}body.dark .v178-item.priority-critical{background:#21191f}body.dark .v178-plan-entry small,body.dark .v178-hero p,body.dark .v178-item-body,body.dark .v178-source-name,body.dark .v178-check-copy small{color:#b6c4d5}body.dark .v178-plan-entry b,body.dark .v178-hero h1,body.dark .v178-phase-head h2,body.dark .v178-item h3,body.dark .v178-check-copy b,body.dark .v178-footer h2,body.dark .v178-progress-card b{color:#edf4fb}body.dark .v178-note,body.dark .v178-disclaimer{background:#17263b;color:#c4d0df}body.dark .v178-critical,body.dark .v178-expiry{background:#2a2413;border-color:#806a2c;color:#f2d994}body.dark .v178-critical .ico{background:#493912}body.dark .v178-updated{background:#172b44;color:#c7daf0}body.dark .v178-updated.offline{background:#392f17;color:#f1d487}body.dark .v178-progress-card button,body.dark .v178-actions button{background:#17263b;border-color:#34465f;color:#e7f1fb}body.dark .v178-source-btn{color:#dcecff}body.dark .v178-badge.optional{background:#243246;color:#c6d3df}body.dark .v178-badge.verify{background:#3b3018;color:#efd58a}
+@media(max-width:420px){.v178-plan-entry{min-height:68px}.v178-progress-card{align-items:stretch;flex-direction:column}.v178-progress-card button{width:100%}.v178-item-head{grid-template-columns:1fr}.v178-badges{justify-content:flex-start}.v178-actions{display:grid;grid-template-columns:1fr}.v178-actions button{width:100%;min-height:46px}.v178-item h3{font-size:16px}.v178-item-body{font-size:14px}.v178-critical p{font-size:14px}.v178-source-btn{font-size:13px}.v178-check-copy b{font-size:14px}.v178-check-copy small{font-size:12px}}
+</style>
+<script id="v178-pre-arrival-script">
+// V178 · Before you fly. Checklist state is memory-only by design and resets on reload.
+let v178PreArrivalData=null;
+let v178PreArrivalDataSource='network';
+let v178PreArrivalLoading=null;
+let v178PreArrivalReturn='planner';
+const v178PreArrivalDone=new Set();
+const V178_APP_LINKS={
+  foreignerAccessHub:{available:()=>typeof openForeignerAccessHub==='function'&&!!document.getElementById('foreignerAccessHub'),open:()=>{openForeignerAccessHub();if(typeof v161AccessReturn!=='undefined')v161AccessReturn='preArrivalHub';}},
+  fairPriceHub:{available:()=>typeof openFairPriceCheckHub==='function'&&!!document.getElementById('fairPriceHub'),open:()=>openFairPriceCheckHub('preArrivalHub')},
+  addressCard:{available:()=>typeof v106OpenAddressCard==='function',open:()=>v106OpenAddressCard(false)},
+  transitCardHub:{available:()=>typeof openTransitCardHub==='function'&&!!document.getElementById('transitCardHub'),open:()=>openTransitCardHub()}
+};
+function v178Bi(v){return !!(v&&typeof v==='object'&&typeof v.en==='string'&&v.en.trim()&&typeof v.ko==='string'&&v.ko.trim())}
+function v178ValidatePreArrivalData(data){
+  if(!data||typeof data!=='object'||data.schema!=='korea-route/pre-arrival')return false;
+  if(!Array.isArray(data.phases)||!data.phases.length||!Array.isArray(data.items)||!data.items.length)return false;
+  if(!v178Bi(data.critical_notice)||!v178Bi(data.disclaimer))return false;
+  if(!data.ui||!v178Bi(data.ui.verify_badge)||!v178Bi(data.ui.expiry_warning))return false;
+  for(const key of ['phase_label','optional_badge','open_official','open_in_app','progress','reset'])if(!v178Bi(data.ui[key]))return false;
+  const phaseIds=new Set();
+  for(const phase of data.phases){if(!phase||typeof phase.id!=='string'||!phase.id.trim()||phaseIds.has(phase.id)||!v178Bi(phase.label))return false;phaseIds.add(phase.id)}
+  const itemIds=new Set(),dateRe=/^\d{4}-\d{2}-\d{2}$/;
+  for(const item of data.items){
+    if(!item||typeof item.id!=='string'||!item.id.trim()||itemIds.has(item.id)||!phaseIds.has(item.phase))return false;itemIds.add(item.id);
+    if(!v178Bi(item.title)||!v178Bi(item.body))return false;
+    if(item.note!=null&&!v178Bi(item.note))return false;
+    if(!['critical','high','normal','optional'].includes(item.priority))return false;
+    if(typeof item.verify_yourself!=='boolean')return false;
+    if(item.optional!=null&&typeof item.optional!=='boolean')return false;
+    if(item.expiry!=null){if(typeof item.expiry!=='string'||!dateRe.test(item.expiry)||Number.isNaN(Date.parse(item.expiry+'T00:00:00Z')))return false;}
+    if(item.source_url!=null&&(typeof item.source_url!=='string'||!item.source_url.startsWith('https://')))return false;
+    if(item.app_link_label!=null&&!v178Bi(item.app_link_label))return false;
+    if(item.id==='visa-keta'&&!item.expiry)return false;
+    if(item.id==='visa-keta'){
+      const text=[item.title.en,item.title.ko,item.body.en,item.body.ko,item.note?.en||'',item.note?.ko||''].join(' ').toLowerCase();
+      if(text.includes("you don't need a k-eta")||text.includes('면제 대상입니다')||text.includes('신청하지 않아도 됩니다'))return false;
+    }
+  }
+  if(data.sources!=null){if(!Array.isArray(data.sources))return false;for(const src of data.sources){if(!src||typeof src.name!=='string'||!src.name.trim()||typeof src.url!=='string'||!src.url.startsWith('https://'))return false;}}
+  return true;
+}
+function v178T(v,fallback=''){return v&&typeof v==='object'?(v[lang]||v.en||v.ko||fallback):(v||fallback)}
+function v178Esc(v){return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
+function v178Ui(key,fallback=''){return v178T(v178PreArrivalData?.ui?.[key],fallback)}
+function v178FallbackCritical(){return lang==='ko'?'Korea Route는 특정 개인의 비자·K-ETA 필요 여부를 판단하지 않습니다. 입국 요건은 국적에 따라 다르고 예고 없이 바뀝니다. 예약 전 반드시 공식 정부 사이트에서 확인하세요.':'Korea Route never tells you whether you personally need a visa or a K-ETA. Entry rules depend on your nationality and change without notice. Always confirm on the official government site before booking.'}
+function v178SetHeader(){
+  const d=v178PreArrivalData,title=document.getElementById('v178Title'),sub=document.getElementById('v178Subtitle'),critical=document.querySelector('#v178Critical p'),updated=document.getElementById('v178Updated'),reset=document.getElementById('v178Reset');
+  if(title)title.textContent=d?v178T(d.title,'Before you fly'):(lang==='ko'?'출발 전 준비':'Before you fly');
+  if(sub)sub.textContent=d?v178T(d.subtitle):(lang==='ko'?'도착 후에는 해결하기 어려운 준비를 출발일 기준으로 확인하세요.':'Check the things that are hard to fix after landing.');
+  if(critical)critical.textContent=d?v178T(d.critical_notice):v178FallbackCritical();
+  if(updated){if(d){const date=d.checked_on||'—';updated.textContent=v178PreArrivalDataSource==='cache'?(lang==='ko'?`오프라인 저장 데이터 · 업데이트 ${date}`:`Offline saved data · updated ${date}`):(lang==='ko'?`마지막 업데이트 · ${date}`:`Last updated · ${date}`);updated.classList.toggle('offline',v178PreArrivalDataSource==='cache');}else{updated.textContent=lang==='ko'?'데이터 불러오는 중…':'Loading data…';updated.classList.remove('offline');}}
+  if(reset)reset.textContent=d?v178Ui('reset',lang==='ko'?'체크 초기화':'Reset checklist'):(lang==='ko'?'체크 초기화':'Reset checklist');
+}
+function v178UpdateProgress(){
+  const el=document.getElementById('v178Progress');if(!el||!v178PreArrivalData)return;
+  const ids=new Set(v178PreArrivalData.items.map(x=>x.id));let done=0;for(const id of v178PreArrivalDone)if(ids.has(id))done++;
+  el.textContent=v178Ui('progress','{done} of {total} done').replace('{done}',String(done)).replace('{total}',String(v178PreArrivalData.items.length));
+}
+function v178SetDone(id,checked){if(!v178PreArrivalData||!v178PreArrivalData.items.some(x=>x.id===id))return;if(checked)v178PreArrivalDone.add(id);else v178PreArrivalDone.delete(id);document.getElementById('v178Item-'+id)?.classList.toggle('done',!!checked);v178UpdateProgress()}
+function v178ResetChecklist(){v178PreArrivalDone.clear();renderPreArrival()}
+function v178OpenOfficial(url,label){if(typeof url!=='string'||!url.startsWith('https://'))return;if(typeof v160SafeExternalOpen==='function'){v160SafeExternalOpen(url,{label:label||v178Ui('open_official','Official site')});return}window.open(url,'_blank','noopener')}
+function v178CanOpenAppLink(key){const cfg=V178_APP_LINKS[key];try{return !!(cfg&&cfg.available())}catch(_){return false}}
+function v178OpenAppLink(key){const cfg=V178_APP_LINKS[key];if(!cfg||!v178CanOpenAppLink(key))return;cfg.open()}
+function v178CheckLabel(item){if(item.verify_yourself)return item.id==='visa-keta'?(lang==='ko'?'확인 완료 표시':'Mark as checked'):(lang==='ko'?'직접 확인함':'Reviewed');return lang==='ko'?'완료':'Done'}
+function v178VerifyHelp(item){if(!item.verify_yourself)return '';return item.id==='visa-keta'?(lang==='ko'?'이 체크는 이 항목을 직접 확인했다는 기록일 뿐, 대한민국 입국 요건 충족을 의미하지 않습니다.':"Checking this box only means you reviewed this item. It does not confirm that you meet Korea's entry requirements."):(lang==='ko'?'이 체크는 해당 내용을 직접 확인했다는 표시일 뿐, 법적·입국 요건 충족을 의미하지 않습니다.':'This check only means you reviewed the item. It does not confirm that any legal or entry requirement is satisfied.')}
+function v178RenderItem(item){
+  const badges=[];if(item.verify_yourself)badges.push(`<span class="v178-badge verify">${v178Esc(v178Ui('verify_badge','VERIFY YOURSELF'))}</span>`);if(item.optional===true)badges.push(`<span class="v178-badge optional">${v178Esc(v178Ui('optional_badge','OPTIONAL'))}</span>`);
+  const note=item.note?`<div class="v178-note">${v178Esc(v178T(item.note))}</div>`:'';
+  const expiry=item.expiry?`<div class="v178-expiry"><b>${v178Esc(v178Ui('expiry_warning','This rule has a known end date. Re-check if you are travelling after it.'))}</b><span>${lang==='ko'?'종료 예정일':'End date'}: ${v178Esc(item.expiry)}</span></div>`:'';
+  const actions=[];
+  if(item.source_url)actions.push(`<button type="button" class="primary" onclick="v178OpenOfficial('${v178Esc(item.source_url)}','${v178Esc(v178Ui('open_official','Official site'))}')">${v178Esc(v178Ui('open_official','Official site ↗'))}</button>`);
+  if(item.app_link&&v178CanOpenAppLink(item.app_link))actions.push(`<button type="button" onclick="v178OpenAppLink('${v178Esc(item.app_link)}')">${v178Esc(item.app_link_label?v178T(item.app_link_label):v178Ui('open_in_app','Open in Korea Route'))}</button>`);
+  const checked=v178PreArrivalDone.has(item.id);
+  return `<article class="v178-item priority-${v178Esc(item.priority)}${checked?' done':''}" id="v178Item-${v178Esc(item.id)}"><div class="v178-item-head"><h3>${v178Esc(v178T(item.title))}</h3><div class="v178-badges">${badges.join('')}</div></div><p class="v178-item-body">${v178Esc(v178T(item.body))}</p>${note}${expiry}${item.source?`<div class="v178-source-name">${lang==='ko'?'출처':'Source'} · ${v178Esc(item.source)}</div>`:''}${actions.length?`<div class="v178-actions">${actions.join('')}</div>`:''}<label class="v178-check"><input type="checkbox" ${checked?'checked':''} onchange="v178SetDone('${v178Esc(item.id)}',this.checked)"><span class="v178-check-copy"><b>${v178Esc(v178CheckLabel(item))}</b>${item.verify_yourself?`<small>${v178Esc(v178VerifyHelp(item))}</small>`:''}</span></label></article>`;
+}
+function renderPreArrival(){
+  v178SetHeader();const data=v178PreArrivalData,body=document.getElementById('v178Body');if(!body||!data)return;let html='';
+  for(const phase of data.phases){const items=data.items.filter(item=>item.phase===phase.id);if(!items.length)continue;html+=`<section class="v178-phase"><div class="v178-phase-head"><div><span>${v178Esc(v178Ui('phase_label','When'))}</span><h2>${v178Esc(v178T(phase.label))}</h2></div><span>${items.length}</span></div><div class="v178-list">${items.map(v178RenderItem).join('')}</div></section>`;}
+  if(Array.isArray(data.sources)&&data.sources.length){html+=`<footer class="v178-footer"><h2>${lang==='ko'?'공식 출처':'Official sources'}</h2><div class="v178-sources">${data.sources.map(src=>`<button type="button" class="v178-source-btn" onclick="v178OpenOfficial('${v178Esc(src.url)}','${v178Esc(src.name)}')">${v178Esc(src.name)} ↗</button>`).join('')}</div><div class="v178-disclaimer">${v178Esc(v178T(data.disclaimer))}</div></footer>`;}else{html+=`<footer class="v178-footer"><div class="v178-disclaimer">${v178Esc(v178T(data.disclaimer))}</div></footer>`;}
+  body.innerHTML=html;v178UpdateProgress();
+}
+async function loadPreArrivalData(force=false){
+  if(v178PreArrivalData&&!force)return v178PreArrivalData;if(v178PreArrivalLoading)return v178PreArrivalLoading;
+  v178PreArrivalLoading=(async()=>{const res=await fetch('./pre-arrival.json',{cache:'no-store'});if(!res.ok)throw new Error('HTTP '+res.status);const source=(res.headers.get('X-Korea-Route-Data-Source')||'network').toLowerCase();const data=await res.json();if(!v178ValidatePreArrivalData(data))throw new Error('Invalid pre-arrival.json structure');v178PreArrivalData=data;v178PreArrivalDataSource=source==='cache'?'cache':'network';return data;})();
+  try{return await v178PreArrivalLoading}finally{v178PreArrivalLoading=null}
+}
+async function openPreArrivalHub(force=false){
+  if(current!=='preArrivalHub')v178PreArrivalReturn=(current==='home'||current==='planner')?current:'planner';go('preArrivalHub');v178SetHeader();const body=document.getElementById('v178Body');if(body&&!v178PreArrivalData)body.innerHTML=`<div class="v178-loading">${lang==='ko'?'출발 전 준비 정보를 불러오는 중…':'Loading pre-departure checklist…'}</div>`;
+  try{await loadPreArrivalData(force);renderPreArrival()}catch(err){console.warn('Pre-arrival data load failed',err);v178SetHeader();if(body)body.innerHTML=`<div class="v178-error"><b>${lang==='ko'?'출발 전 준비 데이터를 불러오지 못했습니다.':'Could not load the pre-departure checklist.'}</b><br>${lang==='ko'?'입국 요건을 임의로 추측하지 않습니다. 연결을 확인한 뒤 다시 시도하세요.':'Korea Route will not guess entry requirements. Check your connection and try again.'}<button type="button" onclick="openPreArrivalHub(true)">${lang==='ko'?'다시 시도':'Retry'}</button></div>`;}
+}
+function closePreArrivalHub(){go(v178PreArrivalReturn&&document.getElementById(v178PreArrivalReturn)?v178PreArrivalReturn:'planner')}
+const v178OriginalApplyLang=applyLang;applyLang=function(){v178OriginalApplyLang();if(current==='preArrivalHub'){if(v178PreArrivalData)renderPreArrival();else v178SetHeader();}};
+</script>
 </body>
 </html>
