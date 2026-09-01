@@ -11,33 +11,120 @@
     "ko": "한국어를 보여주는 것은 이미 됩니다. 이 화면은 돌아오는 대답을 이해하기 위한 것입니다."
   },
   "ui": {
-    "mode_cards": { "en": "Tap an answer", "ko": "답변 고르기" },
-    "mode_number": { "en": "Answer with a number", "ko": "숫자로 답하기" },
-    "mode_type": { "en": "Type the answer", "ko": "직접 입력" },
-    "mode_voice": { "en": "Speak the answer", "ko": "말로 답하기" },
-    "hand_over": { "en": "Hand your phone to the other person", "ko": "상대방에게 휴대폰을 건네세요" },
-    "back_to_me": { "en": "Show me the answer", "ko": "내 화면으로 돌아가기" },
-    "ask_again": { "en": "Ask something else", "ko": "다른 질문 하기" },
-    "answer_label": { "en": "They answered", "ko": "상대방 답변" },
-    "no_answer_yet": { "en": "Waiting for an answer", "ko": "답변 대기 중" },
-    "voice_unavailable": { "en": "Voice input is not available on this device. Use the answer cards instead.", "ko": "이 기기에서는 음성 입력을 사용할 수 없습니다. 답변 카드를 이용하세요." },
-    "voice_privacy": { "en": "Audio is processed only to produce text on this screen. Korea Route does not store or upload recordings.", "ko": "음성은 이 화면에 글자를 표시하기 위해서만 처리됩니다. Korea Route는 녹음을 저장하거나 전송하지 않습니다." },
-    "number_prompt_generic": { "en": "Enter the number", "ko": "숫자를 입력해 주세요" },
-    "clear": { "en": "Clear", "ko": "지우기" },
-    "search_placeholder": { "en": "Search a situation", "ko": "상황 검색" }
+    "mode_cards": {
+      "en": "Tap an answer",
+      "ko": "답변 고르기"
+    },
+    "mode_number": {
+      "en": "Answer with a number",
+      "ko": "숫자로 답하기"
+    },
+    "mode_type": {
+      "en": "Type the answer",
+      "ko": "직접 입력"
+    },
+    "mode_voice": {
+      "en": "Speak the answer",
+      "ko": "말로 답하기"
+    },
+    "hand_over": {
+      "en": "Hand your phone to the other person",
+      "ko": "상대방에게 휴대폰을 건네세요"
+    },
+    "back_to_me": {
+      "en": "Show me the answer",
+      "ko": "내 화면으로 돌아가기"
+    },
+    "ask_again": {
+      "en": "Ask something else",
+      "ko": "다른 질문 하기"
+    },
+    "answer_label": {
+      "en": "They answered",
+      "ko": "상대방 답변"
+    },
+    "no_answer_yet": {
+      "en": "Waiting for an answer",
+      "ko": "답변 대기 중"
+    },
+    "voice_unavailable": {
+      "en": "Voice input is not available on this device. Use the answer cards instead.",
+      "ko": "이 기기에서는 음성 입력을 사용할 수 없습니다. 답변 카드를 이용하세요."
+    },
+    "voice_privacy": {
+      "en": "Audio is processed only to produce text on this screen. Korea Route does not store or upload recordings.",
+      "ko": "음성은 이 화면에 글자를 표시하기 위해서만 처리됩니다. Korea Route는 녹음을 저장하거나 전송하지 않습니다."
+    },
+    "number_prompt_generic": {
+      "en": "Enter the number",
+      "ko": "숫자를 입력해 주세요"
+    },
+    "clear": {
+      "en": "Clear",
+      "ko": "지우기"
+    },
+    "search_placeholder": {
+      "en": "Search a situation",
+      "ko": "상황 검색"
+    }
   },
-
+  "handover_ui": {
+    "confirm": "확인",
+    "open": "열기",
+    "offline": "오프라인",
+    "use": "사용하기",
+    "other_replies": "다른 답변",
+    "back_to_question": "← 질문으로",
+    "korean_answer_screen": "한국어 답변 화면",
+    "type_placeholder": "한국어로 답변을 입력해 주세요",
+    "show_typed_answer": "입력한 답을 내 화면에 보여주기",
+    "offline_type_notice": "오프라인에서는 자유 입력 번역을 사용할 수 없습니다. 위 답변 카드나 숫자를 이용해 주세요.",
+    "offline_voice_notice": "오프라인에서는 음성 입력을 사용할 수 없습니다. 위 답변 카드나 숫자를 이용해 주세요."
+  },
   "handover_instruction_ko": "죄송하지만, 아래에서 맞는 답을 눌러 주세요.",
   "handover_instruction_ko_number": "죄송하지만, 숫자를 입력해 주세요.",
-
   "categories": [
-    { "id": "directions", "icon": "🧭", "name": { "en": "Directions", "ko": "길 찾기" } },
-    { "id": "transit", "icon": "🚌", "name": { "en": "Transit", "ko": "대중교통" } },
-    { "id": "restaurant", "icon": "🍜", "name": { "en": "Restaurant", "ko": "식당" } },
-    { "id": "shop", "icon": "💳", "name": { "en": "Shops & payment", "ko": "상점 · 결제" } },
-    { "id": "help", "icon": "🆘", "name": { "en": "Help", "ko": "도움" } }
+    {
+      "id": "directions",
+      "icon": "🧭",
+      "name": {
+        "en": "Directions",
+        "ko": "길 찾기"
+      }
+    },
+    {
+      "id": "transit",
+      "icon": "🚌",
+      "name": {
+        "en": "Transit",
+        "ko": "대중교통"
+      }
+    },
+    {
+      "id": "restaurant",
+      "icon": "🍜",
+      "name": {
+        "en": "Restaurant",
+        "ko": "식당"
+      }
+    },
+    {
+      "id": "shop",
+      "icon": "💳",
+      "name": {
+        "en": "Shops & payment",
+        "ko": "상점 · 결제"
+      }
+    },
+    {
+      "id": "help",
+      "icon": "🆘",
+      "name": {
+        "en": "Help",
+        "ko": "도움"
+      }
+    }
   ],
-
   "scenarios": [
     {
       "id": "right-way",
@@ -47,30 +134,82 @@
         "ko": "여기 가는 길, 이 방향이 맞나요?"
       },
       "replies": [
-        { "id": "yes", "ko": "네, 맞아요. 쭉 가세요.", "en": "Yes, keep going straight." },
-        { "id": "opposite", "ko": "아니요, 반대 방향이에요.", "en": "No, it's the opposite direction." },
-        { "id": "turn", "ko": "저기서 꺾으셔야 해요.", "en": "You need to turn over there." },
-        { "id": "far", "ko": "걸어가기엔 좀 멀어요.", "en": "It's a bit far to walk." },
-        { "id": "unknown", "ko": "저도 잘 모르겠어요.", "en": "Sorry, I don't know either." }
+        {
+          "id": "yes",
+          "ko": "네, 맞아요. 쭉 가세요.",
+          "en": "Yes, keep going straight."
+        },
+        {
+          "id": "opposite",
+          "ko": "아니요, 반대 방향이에요.",
+          "en": "No, it's the opposite direction."
+        },
+        {
+          "id": "turn",
+          "ko": "저기서 꺾으셔야 해요.",
+          "en": "You need to turn over there."
+        },
+        {
+          "id": "far",
+          "ko": "걸어가기엔 좀 멀어요.",
+          "en": "It's a bit far to walk."
+        },
+        {
+          "id": "unknown",
+          "ko": "저도 잘 모르겠어요.",
+          "en": "Sorry, I don't know either."
+        }
       ]
     },
     {
       "id": "how-long-walk",
       "category": "directions",
-      "ask": { "en": "How many minutes on foot?", "ko": "걸어서 몇 분 걸리나요?" },
-      "numeric": { "enabled": true, "unit": { "en": "minutes", "ko": "분" }, "max": 180 },
+      "ask": {
+        "en": "How many minutes on foot?",
+        "ko": "걸어서 몇 분 걸리나요?"
+      },
+      "numeric": {
+        "enabled": true,
+        "unit": {
+          "en": "minutes",
+          "ko": "분"
+        },
+        "max": 180
+      },
       "replies": [
-        { "id": "close", "ko": "바로 근처예요.", "en": "It's very close." },
-        { "id": "too-far", "ko": "걸어가긴 어려워요. 교통편을 이용하세요.", "en": "Too far to walk — take transport." }
+        {
+          "id": "close",
+          "ko": "바로 근처예요.",
+          "en": "It's very close."
+        },
+        {
+          "id": "too-far",
+          "ko": "걸어가긴 어려워요. 교통편을 이용하세요.",
+          "en": "Too far to walk — take transport."
+        }
       ]
     },
     {
       "id": "which-exit",
       "category": "directions",
-      "ask": { "en": "Which station exit should I use?", "ko": "몇 번 출구로 나가야 하나요?" },
-      "numeric": { "enabled": true, "unit": { "en": "exit number", "ko": "번 출구" }, "max": 30 },
+      "ask": {
+        "en": "Which station exit should I use?",
+        "ko": "몇 번 출구로 나가야 하나요?"
+      },
+      "numeric": {
+        "enabled": true,
+        "unit": {
+          "en": "exit number",
+          "ko": "번 출구"
+        },
+        "max": 30
+      },
       "replies": [
-        { "id": "not-here", "ko": "여기서 나가면 안 돼요. 다른 쪽이에요.", "en": "Not from here — it's the other side." }
+        {
+          "id": "not-here",
+          "ko": "여기서 나가면 안 돼요. 다른 쪽이에요.",
+          "en": "Not from here — it's the other side."
+        }
       ]
     },
     {
@@ -81,50 +220,140 @@
         "ko": "이거 제 목적지까지 가나요?"
       },
       "replies": [
-        { "id": "yes", "ko": "네, 갑니다.", "en": "Yes, it goes there." },
-        { "id": "no", "ko": "아니요, 안 갑니다.", "en": "No, it doesn't." },
-        { "id": "other-side", "ko": "반대편에서 타셔야 해요.", "en": "You need the other side / direction." },
-        { "id": "transfer", "ko": "중간에 갈아타셔야 해요.", "en": "You'll need to transfer partway." },
-        { "id": "last-gone", "ko": "오늘은 막차가 끊겼어요.", "en": "The last one has already gone today." }
+        {
+          "id": "yes",
+          "ko": "네, 갑니다.",
+          "en": "Yes, it goes there."
+        },
+        {
+          "id": "no",
+          "ko": "아니요, 안 갑니다.",
+          "en": "No, it doesn't."
+        },
+        {
+          "id": "other-side",
+          "ko": "반대편에서 타셔야 해요.",
+          "en": "You need the other side / direction."
+        },
+        {
+          "id": "transfer",
+          "ko": "중간에 갈아타셔야 해요.",
+          "en": "You'll need to transfer partway."
+        },
+        {
+          "id": "last-gone",
+          "ko": "오늘은 막차가 끊겼어요.",
+          "en": "The last one has already gone today."
+        }
       ]
     },
     {
       "id": "how-many-stops",
       "category": "transit",
-      "ask": { "en": "How many stops from here?", "ko": "여기서 몇 정거장인가요?" },
-      "numeric": { "enabled": true, "unit": { "en": "stops", "ko": "정거장" }, "max": 40 },
+      "ask": {
+        "en": "How many stops from here?",
+        "ko": "여기서 몇 정거장인가요?"
+      },
+      "numeric": {
+        "enabled": true,
+        "unit": {
+          "en": "stops",
+          "ko": "정거장"
+        },
+        "max": 40
+      },
       "replies": [
-        { "id": "next", "ko": "다음이 바로 그곳이에요.", "en": "It's the next one." }
+        {
+          "id": "next",
+          "ko": "다음이 바로 그곳이에요.",
+          "en": "It's the next one."
+        }
       ]
     },
     {
       "id": "seat-available",
       "category": "restaurant",
-      "ask": { "en": "Do you have a table for us?", "ko": "지금 자리 있나요?" },
+      "ask": {
+        "en": "Do you have a table for us?",
+        "ko": "지금 자리 있나요?"
+      },
       "replies": [
-        { "id": "yes", "ko": "네, 자리 있습니다.", "en": "Yes, we have a table." },
-        { "id": "wait", "ko": "잠시 기다리셔야 해요.", "en": "You'll have to wait a little." },
-        { "id": "full", "ko": "지금은 만석이에요.", "en": "We're full right now." },
-        { "id": "takeout", "ko": "포장만 가능해요.", "en": "Takeout only." },
-        { "id": "closing", "ko": "곧 마감이라 주문이 어려워요.", "en": "We're closing soon, so we can't take orders." }
+        {
+          "id": "yes",
+          "ko": "네, 자리 있습니다.",
+          "en": "Yes, we have a table."
+        },
+        {
+          "id": "wait",
+          "ko": "잠시 기다리셔야 해요.",
+          "en": "You'll have to wait a little."
+        },
+        {
+          "id": "full",
+          "ko": "지금은 만석이에요.",
+          "en": "We're full right now."
+        },
+        {
+          "id": "takeout",
+          "ko": "포장만 가능해요.",
+          "en": "Takeout only."
+        },
+        {
+          "id": "closing",
+          "ko": "곧 마감이라 주문이 어려워요.",
+          "en": "We're closing soon, so we can't take orders."
+        }
       ]
     },
     {
       "id": "how-long-wait",
       "category": "restaurant",
-      "ask": { "en": "How long is the wait?", "ko": "얼마나 기다려야 하나요?" },
-      "numeric": { "enabled": true, "unit": { "en": "minutes", "ko": "분" }, "max": 240 }
+      "ask": {
+        "en": "How long is the wait?",
+        "ko": "얼마나 기다려야 하나요?"
+      },
+      "numeric": {
+        "enabled": true,
+        "unit": {
+          "en": "minutes",
+          "ko": "분"
+        },
+        "max": 240
+      }
     },
     {
       "id": "is-it-spicy",
       "category": "restaurant",
-      "ask": { "en": "Is this dish spicy?", "ko": "이 음식 매운가요?" },
+      "ask": {
+        "en": "Is this dish spicy?",
+        "ko": "이 음식 매운가요?"
+      },
       "replies": [
-        { "id": "not", "ko": "안 매워요.", "en": "Not spicy." },
-        { "id": "little", "ko": "조금 매워요.", "en": "A little spicy." },
-        { "id": "very", "ko": "많이 매워요.", "en": "Very spicy." },
-        { "id": "adjustable", "ko": "덜 맵게 해드릴 수 있어요.", "en": "We can make it less spicy." },
-        { "id": "cannot-adjust", "ko": "맵기 조절은 어려워요.", "en": "We can't adjust the spice level." }
+        {
+          "id": "not",
+          "ko": "안 매워요.",
+          "en": "Not spicy."
+        },
+        {
+          "id": "little",
+          "ko": "조금 매워요.",
+          "en": "A little spicy."
+        },
+        {
+          "id": "very",
+          "ko": "많이 매워요.",
+          "en": "Very spicy."
+        },
+        {
+          "id": "adjustable",
+          "ko": "덜 맵게 해드릴 수 있어요.",
+          "en": "We can make it less spicy."
+        },
+        {
+          "id": "cannot-adjust",
+          "ko": "맵기 조절은 어려워요.",
+          "en": "We can't adjust the spice level."
+        }
       ]
     },
     {
@@ -140,64 +369,177 @@
       },
       "app_link": "foodSafetyCard",
       "replies": [
-        { "id": "no", "ko": "안 들어갑니다.", "en": "No, it doesn't contain that." },
-        { "id": "yes", "ko": "네, 들어갑니다.", "en": "Yes, it contains that." },
-        { "id": "unsure", "ko": "확실하지 않아요. 다른 메뉴를 권합니다.", "en": "I'm not certain — I'd suggest another dish." },
-        { "id": "can-remove", "ko": "빼고 만들어 드릴 수 있어요.", "en": "We can make it without that." }
+        {
+          "id": "no",
+          "ko": "안 들어갑니다.",
+          "en": "No, it doesn't contain that."
+        },
+        {
+          "id": "yes",
+          "ko": "네, 들어갑니다.",
+          "en": "Yes, it contains that."
+        },
+        {
+          "id": "unsure",
+          "ko": "확실하지 않아요. 다른 메뉴를 권합니다.",
+          "en": "I'm not certain — I'd suggest another dish."
+        },
+        {
+          "id": "can-remove",
+          "ko": "빼고 만들어 드릴 수 있어요.",
+          "en": "We can make it without that."
+        }
       ]
     },
     {
       "id": "card-ok",
       "category": "shop",
-      "ask": { "en": "Can I pay with this card?", "ko": "이 카드로 결제되나요?" },
+      "ask": {
+        "en": "Can I pay with this card?",
+        "ko": "이 카드로 결제되나요?"
+      },
       "replies": [
-        { "id": "yes", "ko": "네, 됩니다.", "en": "Yes, that works." },
-        { "id": "cash-only", "ko": "현금만 받습니다.", "en": "Cash only." },
-        { "id": "foreign-no", "ko": "해외 카드는 안 됩니다.", "en": "Overseas cards don't work here." },
-        { "id": "minimum", "ko": "최소 결제 금액이 있어요.", "en": "There's a minimum amount for card payment." },
-        { "id": "try", "ko": "한번 해볼게요.", "en": "Let me try it." }
+        {
+          "id": "yes",
+          "ko": "네, 됩니다.",
+          "en": "Yes, that works."
+        },
+        {
+          "id": "cash-only",
+          "ko": "현금만 받습니다.",
+          "en": "Cash only."
+        },
+        {
+          "id": "foreign-no",
+          "ko": "해외 카드는 안 됩니다.",
+          "en": "Overseas cards don't work here."
+        },
+        {
+          "id": "minimum",
+          "ko": "최소 결제 금액이 있어요.",
+          "en": "There's a minimum amount for card payment."
+        },
+        {
+          "id": "try",
+          "ko": "한번 해볼게요.",
+          "en": "Let me try it."
+        }
       ]
     },
     {
       "id": "how-much",
       "category": "shop",
-      "ask": { "en": "How much is this in total?", "ko": "전부 얼마인가요?" },
-      "numeric": { "enabled": true, "unit": { "en": "KRW", "ko": "원" }, "max": 10000000 },
+      "ask": {
+        "en": "How much is this in total?",
+        "ko": "전부 얼마인가요?"
+      },
+      "numeric": {
+        "enabled": true,
+        "unit": {
+          "en": "KRW",
+          "ko": "원"
+        },
+        "max": 10000000
+      },
       "app_link": "fairPriceHub",
-      "app_link_label": { "en": "Check if this is a usual price", "ko": "통상 가격인지 확인하기" }
+      "app_link_label": {
+        "en": "Check if this is a usual price",
+        "ko": "통상 가격인지 확인하기"
+      }
     },
     {
       "id": "tax-refund",
       "category": "shop",
-      "ask": { "en": "Is tax refund available here?", "ko": "여기서 택스리펀 되나요?" },
+      "ask": {
+        "en": "Is tax refund available here?",
+        "ko": "여기서 택스리펀 되나요?"
+      },
       "replies": [
-        { "id": "yes", "ko": "네, 됩니다. 여권 주세요.", "en": "Yes — please give me your passport." },
-        { "id": "no", "ko": "저희는 안 됩니다.", "en": "We don't offer that." },
-        { "id": "minimum", "ko": "최소 구매 금액을 넘어야 해요.", "en": "You need to spend above a minimum amount." }
+        {
+          "id": "yes",
+          "ko": "네, 됩니다. 여권 주세요.",
+          "en": "Yes — please give me your passport."
+        },
+        {
+          "id": "no",
+          "ko": "저희는 안 됩니다.",
+          "en": "We don't offer that."
+        },
+        {
+          "id": "minimum",
+          "ko": "최소 구매 금액을 넘어야 해요.",
+          "en": "You need to spend above a minimum amount."
+        }
       ]
     },
     {
       "id": "pharmacy-dosage",
       "category": "help",
-      "ask": { "en": "How do I take this medicine?", "ko": "이 약은 어떻게 먹나요?" },
+      "ask": {
+        "en": "How do I take this medicine?",
+        "ko": "이 약은 어떻게 먹나요?"
+      },
       "replies": [
-        { "id": "after-meal", "ko": "식후에 드세요.", "en": "Take it after meals." },
-        { "id": "before-meal", "ko": "식전에 드세요.", "en": "Take it before meals." },
-        { "id": "once", "ko": "하루 한 번이에요.", "en": "Once a day." },
-        { "id": "twice", "ko": "하루 두 번이에요.", "en": "Twice a day." },
-        { "id": "three", "ko": "하루 세 번이에요.", "en": "Three times a day." },
-        { "id": "see-doctor", "ko": "병원에 가보시는 게 좋겠어요.", "en": "You should see a doctor." }
+        {
+          "id": "after-meal",
+          "ko": "식후에 드세요.",
+          "en": "Take it after meals."
+        },
+        {
+          "id": "before-meal",
+          "ko": "식전에 드세요.",
+          "en": "Take it before meals."
+        },
+        {
+          "id": "once",
+          "ko": "하루 한 번이에요.",
+          "en": "Once a day."
+        },
+        {
+          "id": "twice",
+          "ko": "하루 두 번이에요.",
+          "en": "Twice a day."
+        },
+        {
+          "id": "three",
+          "ko": "하루 세 번이에요.",
+          "en": "Three times a day."
+        },
+        {
+          "id": "see-doctor",
+          "ko": "병원에 가보시는 게 좋겠어요.",
+          "en": "You should see a doctor."
+        }
       ]
     },
     {
       "id": "lost-item",
       "category": "help",
-      "ask": { "en": "I lost something here. Has it been handed in?", "ko": "여기서 물건을 잃어버렸는데, 들어온 게 있나요?" },
+      "ask": {
+        "en": "I lost something here. Has it been handed in?",
+        "ko": "여기서 물건을 잃어버렸는데, 들어온 게 있나요?"
+      },
       "replies": [
-        { "id": "found", "ko": "네, 보관하고 있어요.", "en": "Yes, we have it here." },
-        { "id": "not-found", "ko": "들어온 게 없어요.", "en": "Nothing has been handed in." },
-        { "id": "office", "ko": "유실물 센터로 가보세요.", "en": "Please go to the lost and found office." },
-        { "id": "later", "ko": "나중에 다시 확인해 주세요.", "en": "Please check again later." }
+        {
+          "id": "found",
+          "ko": "네, 보관하고 있어요.",
+          "en": "Yes, we have it here."
+        },
+        {
+          "id": "not-found",
+          "ko": "들어온 게 없어요.",
+          "en": "Nothing has been handed in."
+        },
+        {
+          "id": "office",
+          "ko": "유실물 센터로 가보세요.",
+          "en": "Please go to the lost and found office."
+        },
+        {
+          "id": "later",
+          "ko": "나중에 다시 확인해 주세요.",
+          "en": "Please check again later."
+        }
       ]
     },
     {
@@ -208,20 +550,46 @@
         "ko": "이 번호로 전화 좀 걸어주실 수 있나요?"
       },
       "replies": [
-        { "id": "yes", "ko": "네, 걸어드릴게요.", "en": "Yes, I'll call for you." },
-        { "id": "no", "ko": "죄송하지만 어려워요.", "en": "Sorry, I can't." },
-        { "id": "use-1330", "ko": "1330에 전화해 보세요. 통역이 됩니다.", "en": "Try calling 1330 — they provide interpretation." }
+        {
+          "id": "yes",
+          "ko": "네, 걸어드릴게요.",
+          "en": "Yes, I'll call for you."
+        },
+        {
+          "id": "no",
+          "ko": "죄송하지만 어려워요.",
+          "en": "Sorry, I can't."
+        },
+        {
+          "id": "use-1330",
+          "ko": "1330에 전화해 보세요. 통역이 됩니다.",
+          "en": "Try calling 1330 — they provide interpretation."
+        }
       ]
     }
   ],
-
   "always_available_replies": [
-    { "id": "repeat", "ko": "다시 한 번 보여주세요.", "en": "Please show that again." },
-    { "id": "dont-understand", "ko": "무슨 말인지 모르겠어요.", "en": "I don't understand." },
-    { "id": "wait-moment", "ko": "잠시만 기다려 주세요.", "en": "Please wait a moment." },
-    { "id": "ask-someone", "ko": "다른 사람에게 물어볼게요.", "en": "Let me ask someone else." }
+    {
+      "id": "repeat",
+      "ko": "다시 한 번 보여주세요.",
+      "en": "Please show that again."
+    },
+    {
+      "id": "dont-understand",
+      "ko": "무슨 말인지 모르겠어요.",
+      "en": "I don't understand."
+    },
+    {
+      "id": "wait-moment",
+      "ko": "잠시만 기다려 주세요.",
+      "en": "Please wait a moment."
+    },
+    {
+      "id": "ask-someone",
+      "ko": "다른 사람에게 물어볼게요.",
+      "en": "Let me ask someone else."
+    }
   ],
-
   "disclaimer": {
     "en": "These are common replies, not a full translation. If the answer matters — medication, allergies, emergencies — ask them to call 1330 for free interpretation.",
     "ko": "자주 쓰이는 답변 예시이며 완전한 통역이 아닙니다. 약, 알레르기, 응급 상황처럼 정확성이 중요한 경우에는 1330 무료 통역을 이용하도록 요청하세요."
