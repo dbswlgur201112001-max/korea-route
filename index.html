@@ -17889,5 +17889,111 @@ setTimeout(v140RenderLocalEvents,0);
 })();
 </script>
 
+
+<style id="v154-event-source-registry-css">
+.v154-source-status{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:7px}
+.v154-source-status button{border:1px solid #dce5ef;background:#fff;color:#35516f;border-radius:999px;padding:6px 8px;font-size:7px;font-weight:950;cursor:pointer}
+.v154-source-status span{font-size:6.9px;line-height:1.4;color:#7d8998;font-weight:800}
+.v154-source-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.v154-source-cell{border:1px solid #e4eaf1;border-radius:12px;padding:10px;background:#fbfdff}
+.v154-source-cell small{display:block;font-size:6.8px;font-weight:950;letter-spacing:.04em;color:#8090a2;text-transform:uppercase}
+.v154-source-cell b{display:block;margin-top:4px;font-size:9px;line-height:1.45;color:#244565}
+.v154-source-explain{margin-top:11px;padding:10px;border-radius:12px;background:#fff8eb;color:#79571c;font-size:7.7px;line-height:1.55;font-weight:800;border:1px solid #f0dfbd}
+@media(max-width:420px){.v154-source-grid{grid-template-columns:1fr}}
+</style>
+<script id="v154-event-source-registry-js">
+// V154 · Official-source registry + refresh-ready metadata for the five connected city event feeds.
+// This is still a static official snapshot. No background/live event sync is claimed or performed.
+(function(){
+  if(typeof V140_OFFICIAL_EVENTS!=='object')return;
+
+  const connected=['Suwon','Seoul','Busan','Gyeongju','Jeju'];
+  function v154Coverage(cfg){
+    const events=(cfg?.events||[]).filter(e=>e&&e.start&&e.end);
+    if(!events.length)return {start:'',end:''};
+    const starts=events.map(e=>String(e.start)).sort(),ends=events.map(e=>String(e.end)).sort();
+    return {start:starts[0]||'',end:ends[ends.length-1]||''};
+  }
+  function v154SourceLangLabel(code){
+    if(lang==='ko')return code==='ko'?'한국어':code==='en'?'영어':'확인 필요';
+    return code==='ko'?'Korean':code==='en'?'English':'Needs review';
+  }
+  function v154SourceSnapshot(city){
+    const cfg=V140_OFFICIAL_EVENTS?.[city];if(!cfg)return null;
+    const coverage=v154Coverage(cfg),events=(cfg.events||[]).filter(Boolean);
+    const eventOfficialCount=events.filter(e=>!!e.officialUrl).length;
+    const sourceLanguage=cfg.sourceLanguage||'unknown';
+    return {
+      city,
+      mode:'static-official',
+      checkedOn:String(cfg.checkedOn||''),
+      sourceLanguage,
+      sourceNameEn:cfg.sourceNameEn||city,
+      sourceNameKo:cfg.sourceNameKo||city,
+      official:cfg.official||'',
+      festival:cfg.festival||'',
+      coverageStart:coverage.start,
+      coverageEnd:coverage.end,
+      eventCount:events.length,
+      eventOfficialCount,
+      liveSync:false
+    };
+  }
+  const registry={};
+  connected.forEach(city=>{
+    const cfg=V140_OFFICIAL_EVENTS?.[city];if(!cfg)return;
+    cfg.sourceId=cfg.sourceId||`official-${String(city).toLowerCase()}-events`;
+    cfg.sourceMode='static-official';
+    cfg.liveSync=false;
+    (cfg.events||[]).forEach(e=>{
+      if(!e||typeof e!=='object')return;
+      e.sourceCheckedOn=e.sourceCheckedOn||cfg.checkedOn||'';
+      e.sourceUrl=e.sourceUrl||e.officialUrl||cfg.festival||cfg.official||'';
+      e.sourceMode='static-official';
+    });
+    registry[city]=v154SourceSnapshot(city);
+  });
+  window.V154_EVENT_SOURCE_REGISTRY=registry;
+  window.v154GetEventSourceRegistry=function(){
+    const out={};connected.forEach(city=>{const x=v154SourceSnapshot(city);if(x)out[city]=x;});return out;
+  };
+
+  function v154Esc(v){return typeof v145EventHtml==='function'?v145EventHtml(String(v??'')):String(v??'');}
+  function v154OpenSourceStatus(city){
+    const s=v154SourceSnapshot(city);if(!s)return;
+    let wrap=document.getElementById('v150EventTranslationOverlay');
+    if(!wrap){
+      wrap=document.createElement('div');wrap.id='v150EventTranslationOverlay';wrap.className='v150-translation-overlay';document.body.appendChild(wrap);
+    }
+    const cityName=typeof v140CityName==='function'?v140CityName(city):city;
+    const sourceName=lang==='ko'?(s.sourceNameKo||cityName):(s.sourceNameEn||cityName);
+    const coverage=s.coverageStart&&s.coverageEnd?`${s.coverageStart} – ${s.coverageEnd}`:(lang==='ko'?'없음':'None');
+    const health=typeof v153FeedHealth==='function'?v153FeedHealth(V140_OFFICIAL_EVENTS?.[city]):null;
+    const statusText=health?.pill||(lang==='ko'?'최근 확인':'RECENTLY CHECKED');
+    const modeText=lang==='ko'?'정적 공식 스냅샷':'STATIC OFFICIAL SNAPSHOT';
+    const sourceUrl=s.festival||s.official||'';
+    wrap.innerHTML=`<div class="v150-translation-sheet" role="dialog" aria-modal="true" aria-label="${lang==='ko'?'행사 출처 상태':'Event source status'}"><div class="v150-translation-head"><div><small>EVENT SOURCE STATUS</small><h3>${v154Esc(lang==='ko'?`${cityName} 행사 출처`:`${cityName} event source`)}</h3></div><button class="v150-translation-close" type="button" onclick="v154CloseSourceStatus()" aria-label="Close">×</button></div><span class="v150-source-badge">${v154Esc(statusText)} · ${v154Esc(modeText)}</span><div class="v154-source-grid"><div class="v154-source-cell"><small>${lang==='ko'?'출처':'Source'}</small><b>${v154Esc(sourceName)}</b></div><div class="v154-source-cell"><small>${lang==='ko'?'원문 언어':'Source language'}</small><b>${v154Esc(v154SourceLangLabel(s.sourceLanguage))}</b></div><div class="v154-source-cell"><small>${lang==='ko'?'확인일':'Checked on'}</small><b>${v154Esc(s.checkedOn||'—')}</b></div><div class="v154-source-cell"><small>${lang==='ko'?'연결된 행사':'Connected events'}</small><b>${s.eventCount}</b></div><div class="v154-source-cell"><small>${lang==='ko'?'개별 공식 링크':'Event-level official links'}</small><b>${s.eventOfficialCount} / ${s.eventCount}</b></div><div class="v154-source-cell"><small>${lang==='ko'?'현재 데이터 범위':'Current coverage'}</small><b>${v154Esc(coverage)}</b></div></div><div class="v154-source-explain">${v154Esc(lang==='ko'?'이 목록은 공식 공개 일정을 수동으로 확인해 연결한 정적 스냅샷입니다. 아직 백그라운드 자동 갱신/API 동기화는 연결되어 있지 않습니다. 방문 전 공식 원문에서 변경·취소 여부를 최종 확인하세요.':'This feed is a manually checked static snapshot of published official schedules. Background refresh/API sync is not connected yet. Recheck the official source for changes or cancellations before visiting.')}</div><div class="v150-translation-actions">${sourceUrl?`<button type="button" class="primary" onclick="v150OpenOriginalUrl('${typeof v142JsArg==='function'?v142JsArg(sourceUrl):sourceUrl}')">${lang==='ko'?'도시 공식 일정':'Open city source'} ↗</button>`:''}${V140_VISITKOREA_FESTIVALS?`<button type="button" onclick="v150ExternalVisitKorea()">VISITKOREA English ↗</button>`:''}</div></div>`;
+    wrap.classList.add('open');wrap.setAttribute('aria-hidden','false');
+  }
+  function v154CloseSourceStatus(){
+    const w=document.getElementById('v150EventTranslationOverlay');if(w){w.classList.remove('open');w.setAttribute('aria-hidden','true');}
+  }
+  window.v154OpenSourceStatus=v154OpenSourceStatus;
+  window.v154CloseSourceStatus=v154CloseSourceStatus;
+
+  const base=v140EventsHtml;
+  v140EventsHtml=function(city,context){
+    const html=base(city,context),snap=v154SourceSnapshot(city);if(!html||!snap)return html;
+    const label=lang==='ko'?'출처 상태':'Source status';
+    const brief=lang==='ko'?`${snap.eventCount}개 행사 · ${snap.checkedOn||'확인일 없음'}`:`${snap.eventCount} events · checked ${snap.checkedOn||'unknown'}`;
+    const status=`<div class="v154-source-status"><button type="button" onclick="v154OpenSourceStatus('${typeof v142JsArg==='function'?v142JsArg(city):city}')">${label}</button><span>${v154Esc(brief)}</span></div>`;
+    const marker=/<div class="v153-feed-health[\s\S]*?<\/div>/;
+    return marker.test(html)?html.replace(marker,m=>m+status):html.replace(/<div class="v140-events-note">/,status+'<div class="v140-events-note">');
+  };
+
+  try{setTimeout(v140RenderLocalEvents,0);}catch(_){ }
+})();
+</script>
+
 </body>
 </html>
