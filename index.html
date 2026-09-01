@@ -15986,12 +15986,25 @@ function v61CloseTopLayer(){
   if(searchResults?.classList.contains('show')){searchResults.classList.remove('show');return true;}
   const trip=document.getElementById('myTripHub');
   if(current==='myTripHub'&&trip?.classList.contains('v60-detail')){v60ResetTripClasses();window.scrollTo({top:0,behavior:'smooth'});return true;}
+  const help=document.getElementById('helperHub');
+  if(current==='helperHub'&&help?.classList.contains('v118-tools-open')){if(typeof v118CloseToolMenu==='function')v118CloseToolMenu();else help.classList.remove('v118-tools-open');return true;}
   return false;
 }
 function v61GoHomeFromBack(){
   document.getElementById('city')?.classList.remove('v60-map-mode');
   document.getElementById('moveHub')?.classList.remove('v60-route-mode');
   go('home');
+}
+// V196 · Hardware Back follows the same route as the visible top-left Back button.
+// This prevents nested tools from jumping straight to Home (and then exiting the PWA)
+// when Android/Samsung hardware Back is used.
+function v196UseActiveScreenBackButton(){
+  if(!current || current==='home') return false;
+  const active=document.getElementById(current);
+  if(!active || !active.classList.contains('active')) return false;
+  const back=active.querySelector('.top .back');
+  if(!back || back.disabled) return false;
+  try{ back.click(); return true; }catch(err){ console.warn('V196 screen Back fallback failed:',current,err); return false; }
 }
 function v61HandleBackPop(){
   if(v61BackIsExiting) return;
@@ -16000,13 +16013,13 @@ function v61HandleBackPop(){
     v61RearmHistoryGuard();
     return;
   }
-  if(current==='transitCardHub'){
+  if(v196UseActiveScreenBackButton()){
     v61BackExitArmedAt=0;
-    v120CloseTransitCardHub();
     v61RearmHistoryGuard();
     return;
   }
   if(current!=='home'){
+    // Safety fallback for any future screen that forgets to provide a visible Back button.
     v61BackExitArmedAt=0;
     v61GoHomeFromBack();
     v61RearmHistoryGuard();
