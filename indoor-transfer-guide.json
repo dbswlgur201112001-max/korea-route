@@ -1,0 +1,62 @@
+{
+  "schema": "korea-route/indoor-transfer-guide",
+  "version": "1.0.0",
+  "updated": "2026-09-01",
+  "review_cycle_days": 180,
+  "disclaimer": {
+    "en": "These complexes get renovated and re-signed over time, so exact exit numbers can change. This guide gives you the structural logic (what's connected to what, which signs to follow) rather than a fixed turn-by-turn route — pair it with the official navigation tools listed for the current layout.",
+    "ko": "이런 복합 시설은 시간이 지나며 리모델링·표지판 교체가 있어서 출구 번호가 바뀔 수 있습니다. 이 안내는 고정된 경로가 아니라 구조적 원리(무엇이 무엇과 연결되는지, 어떤 표지판을 따라가야 하는지)를 설명합니다 — 현재 배치는 아래 공식 내비게이션 도구와 함께 확인하세요."
+  },
+  "general_principle": {
+    "en": "In Korea's biggest transfer hubs, follow color-coded signs for your specific mode of transport (KTX, subway line number, airport rail) rather than trying to remember a route — the signage is built for exactly this. When in doubt, ask any station staff member; they deal with confused travelers constantly and are used to it.",
+    "ko": "한국의 대형 환승 거점에서는 경로를 외우려 하지 말고 이용할 교통수단(KTX, 지하철 호선, 공항철도)의 색상 표지판을 따라가세요 — 표지판이 그러라고 만들어진 겁니다. 헷갈리면 역무원에게 물어보세요. 매일 겪는 일이라 익숙합니다."
+  },
+  "hubs": [
+    {
+      "id": "seoul-station",
+      "name": { "en": "Seoul Station", "ko": "서울역" },
+      "why_confusing": {
+        "en": "Seoul Station is really two separate station buildings joined by a connector: the subway/KTX building (lines 1, 4, and the KTX/regular rail concourse) and the separate Airport Railroad (AREX) building to the west, which is several floors underground.",
+        "ko": "서울역은 사실 통로로 이어진 두 개의 별도 건물입니다: 지하철·KTX 건물(1·4호선, KTX·일반열차 대합실)과, 서쪽에 있고 지하 여러 층 아래에 있는 별도의 공항철도(AREX) 건물입니다."
+      },
+      "buffer_minutes": 15,
+      "buffer_note": { "en": "Give yourself at least 15 minutes to transfer between AREX and KTX, more if you have large luggage — it involves multiple escalators.", "ko": "공항철도와 KTX 사이 환승은 최소 15분 여유를 두세요. 큰 짐이 있으면 더 필요합니다 — 에스컬레이터를 여러 번 타야 합니다." },
+      "tip": {
+        "en": "If you're heading to KTX, just keep following KTX signs once you see them — don't follow the AREX transfer gate signs past that point, they lead somewhere else.",
+        "ko": "KTX로 갈 거라면 KTX 표지판이 보이는 순간부터는 계속 그것만 따라가세요 — 그 이후로 공항철도 환승게이트 표지판을 따라가면 다른 곳으로 갑니다."
+      }
+    },
+    {
+      "id": "incheon-airport",
+      "name": { "en": "Incheon Airport (T1 ↔ T2)", "ko": "인천공항 (1터미널 ↔ 2터미널)" },
+      "why_confusing": {
+        "en": "Terminal 1 and Terminal 2 are separate buildings, several kilometers apart. Always check which terminal your specific flight uses before you arrive — going to the wrong one costs real time.",
+        "ko": "1터미널과 2터미널은 몇 km 떨어진 별도의 건물입니다. 도착 전에 항공편이 어느 터미널인지 반드시 확인하세요 — 잘못 가면 시간이 크게 낭비됩니다."
+      },
+      "buffer_minutes": 30,
+      "buffer_note": { "en": "If you must move between terminals, allow at least 30 minutes: either the free inter-terminal shuttle bus (about 15-20 minutes) or the airport railroad (AREX), which also connects both terminals by train.", "ko": "터미널 간 이동이 필요하면 최소 30분을 잡으세요: 무료 터미널 간 셔틀버스(약 15~20분) 또는 두 터미널을 모두 연결하는 공항철도(AREX) 열차를 이용할 수 있습니다." },
+      "tip": {
+        "en": "The shuttle bus is free and departs frequently from clearly marked stops outside both terminals. Confirm your terminal on your boarding pass or airline app before you leave your gate.",
+        "ko": "셔틀버스는 무료이며 양 터미널 밖 표시된 정류장에서 자주 출발합니다. 게이트를 떠나기 전에 탑승권이나 항공사 앱으로 터미널을 다시 확인하세요."
+      }
+    },
+    {
+      "id": "express-bus-terminal",
+      "name": { "en": "Express Bus Terminal (고속터미널)", "ko": "고속터미널역" },
+      "why_confusing": {
+        "en": "This subway station connects to two entirely different bus terminal buildings that are easy to mix up: the Gyeongbu/Yeongdong line terminal and the separate Central City building for the Honam line, plus a department store and underground mall in between.",
+        "ko": "이 지하철역은 헷갈리기 쉬운 두 개의 완전히 다른 버스터미널 건물과 연결됩니다: 경부·영동선 터미널과, 호남선을 담당하는 별도의 센트럴시티 건물, 그리고 그 사이에 백화점과 지하상가가 있습니다."
+      },
+      "buffer_minutes": 20,
+      "buffer_note": { "en": "Check your bus ticket for which line (Gyeongbu/Yeongdong vs. Honam) before you start walking — the two terminal buildings are not next to each other inside the complex.", "ko": "걷기 시작하기 전에 버스표에서 노선(경부·영동선 vs 호남선)을 확인하세요 — 두 터미널 건물은 복합시설 안에서 바로 붙어있지 않습니다." },
+      "tip": {
+        "en": "If you're not sure which building you need, ask at any information desk before committing to a direction — this complex is large enough that a wrong guess costs real walking time.",
+        "ko": "어느 건물인지 확신이 없다면 방향을 정하기 전에 안내데스크에 물어보세요 — 복합시설이 커서 잘못 짐작하면 실제로 많이 걷게 됩니다."
+      }
+    }
+  ],
+  "navigation_tools": [
+    { "name": "Naver Map", "note": { "en": "Has indoor floor maps for many of these complexes — search the building name once you're inside for a floor-by-floor view.", "ko": "이런 복합시설 상당수의 실내 층별 지도를 제공합니다 — 안에 들어가서 건물명으로 검색하면 층별 지도가 나옵니다." } },
+    { "name": "Incheon Airport app", "note": { "en": "Official app with live gate info, shuttle bus times, and an indoor map specific to Incheon Airport.", "ko": "실시간 게이트 정보, 셔틀버스 시간, 인천공항 전용 실내지도를 제공하는 공식 앱입니다." } }
+  ]
+}
