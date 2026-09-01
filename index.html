@@ -17995,5 +17995,104 @@ setTimeout(v140RenderLocalEvents,0);
 })();
 </script>
 
+
+<style id="v155-event-source-health-css">
+.v155-source-health{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:8px;padding:8px 9px;border:1px solid #dce8df;background:#f6fbf7;border-radius:12px}
+.v155-source-health.warn{border-color:#f0dfbc;background:#fffaf0}
+.v155-source-health.stale{border-color:#efcfcc;background:#fff6f5}
+.v155-source-health-main{display:flex;align-items:center;gap:6px;flex-wrap:wrap;min-width:0}
+.v155-source-health-main b{font-size:7.3px;color:#2d5d43;line-height:1.3}
+.v155-source-health.warn .v155-source-health-main b{color:#815819}
+.v155-source-health.stale .v155-source-health-main b{color:#8e403a}
+.v155-source-health-main span{font-size:6.9px;color:#7b8795;font-weight:800;line-height:1.35}
+.v155-source-health button{border:1px solid #cfdae6;background:#fff;color:#274b70;border-radius:999px;padding:6px 8px;font-size:6.9px;font-weight:950;cursor:pointer;white-space:nowrap}
+.v155-source-health.warn button,.v155-source-health.stale button{border-color:#ddc9a8}
+.v155-health-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.v155-health-card{border:1px solid #e4eaf1;border-radius:12px;padding:10px;background:#fff}
+.v155-health-card small{display:block;font-size:6.7px;font-weight:950;color:#8190a0;text-transform:uppercase;letter-spacing:.04em}
+.v155-health-card b{display:block;margin-top:4px;font-size:9px;color:#244565;line-height:1.4}
+.v155-health-card span{display:block;margin-top:3px;font-size:7px;color:#798798;font-weight:800;line-height:1.45}
+@media(max-width:420px){.v155-health-row{grid-template-columns:1fr}}
+</style>
+<script id="v155-event-source-health-js">
+// V155 · Source-health layer + manual official-source recheck path.
+// IMPORTANT: opening an official source does NOT update checkedOn. The feed remains a static snapshot until data is actually refreshed in a future build/API.
+(function(){
+  if(typeof V140_OFFICIAL_EVENTS!=='object')return;
+  const cities=['Suwon','Seoul','Busan','Gyeongju','Jeju'];
+
+  function v155DayDiff(a,b){
+    const A=Date.parse(String(a||'')+'T00:00:00Z'),B=Date.parse(String(b||'')+'T00:00:00Z');
+    return Number.isFinite(A)&&Number.isFinite(B)?Math.max(0,Math.floor((B-A)/86400000)):null;
+  }
+  function v155Health(city){
+    const cfg=V140_OFFICIAL_EVENTS?.[city];
+    if(!cfg)return null;
+    const checked=String(cfg.checkedOn||'');
+    const today=typeof v140KoreaToday==='function'?v140KoreaToday():new Date().toISOString().slice(0,10);
+    const age=checked?v155DayDiff(checked,today):null;
+    let state='healthy',label=lang==='ko'?'최근 확인':'CURRENT',cls='';
+    if(age===null){state='stale';label=lang==='ko'?'확인일 없음':'CHECK NEEDED';cls='stale';}
+    else if(age>30){state='stale';label=lang==='ko'?'오래된 일정':'STALE';cls='stale';}
+    else if(age>7){state='recheck';label=lang==='ko'?'재확인 권장':'RECHECK';cls='warn';}
+    const sourceUrl=cfg.festival||cfg.official||'';
+    return {city,state,label,cls,checkedOn:checked,ageDays:age,sourceUrl,liveSync:cfg.liveSync===true,eventCount:(cfg.events||[]).filter(Boolean).length};
+  }
+  function v155Registry(){
+    const out={};cities.forEach(city=>{const h=v155Health(city);if(h)out[city]=h;});return out;
+  }
+  window.V155_EVENT_SOURCE_HEALTH=v155Registry();
+  window.v155GetEventSourceHealth=function(city){return city?v155Health(city):v155Registry();};
+
+  function v155Esc(v){return typeof v145EventHtml==='function'?v145EventHtml(String(v??'')):String(v??'');}
+  function v155RecheckOfficialSource(city){
+    const h=v155Health(city);if(!h||!h.sourceUrl)return;
+    if(typeof v150OpenOriginalUrl==='function')v150OpenOriginalUrl(h.sourceUrl);
+    else if(typeof v140OpenExternal==='function')v140OpenExternal(h.sourceUrl);
+    else try{window.open(h.sourceUrl,'_blank','noopener,noreferrer');}catch(_){location.href=h.sourceUrl;}
+  }
+  window.v155RecheckOfficialSource=v155RecheckOfficialSource;
+
+  function v155HealthInline(city){
+    const h=v155Health(city);if(!h)return '';
+    const ageText=h.ageDays===null?(lang==='ko'?'확인일 없음':'check date missing'):(h.ageDays===0?(lang==='ko'?'오늘 확인':'checked today'):(lang==='ko'?`${h.ageDays}일 전 확인`:`checked ${h.ageDays} days ago`));
+    const detail=h.liveSync?(lang==='ko'?'자동 동기화 연결됨':'live sync connected'):(lang==='ko'?'정적 공식 스냅샷':'static official snapshot');
+    const action=(h.state==='healthy')?(lang==='ko'?'공식 출처 열기':'Open official source'):(lang==='ko'?'공식 출처 재확인':'Recheck official source');
+    return `<div class="v155-source-health ${h.cls}"><div class="v155-source-health-main"><b>${v155Esc(h.label)}</b><span>${v155Esc(ageText)} · ${v155Esc(detail)}</span></div>${h.sourceUrl?`<button type="button" onclick="v155RecheckOfficialSource('${typeof v142JsArg==='function'?v142JsArg(city):city}')">${v155Esc(action)} ↗</button>`:''}</div>`;
+  }
+
+  // Upgrade V154 source-status modal with an explicit source-health explanation and a recheck action.
+  window.v154OpenSourceStatus=function(city){
+    const s=typeof v154SourceSnapshot==='function'?v154SourceSnapshot(city):null;
+    const cfg=V140_OFFICIAL_EVENTS?.[city];if(!cfg)return;
+    const h=v155Health(city);if(!h)return;
+    let wrap=document.getElementById('v150EventTranslationOverlay');
+    if(!wrap){wrap=document.createElement('div');wrap.id='v150EventTranslationOverlay';wrap.className='v150-translation-overlay';document.body.appendChild(wrap);}
+    const cityName=typeof v140CityName==='function'?v140CityName(city):city;
+    const sourceName=lang==='ko'?(cfg.sourceNameKo||cityName):(cfg.sourceNameEn||cityName);
+    const events=(cfg.events||[]).filter(Boolean),eventOfficialCount=events.filter(e=>!!e.officialUrl).length;
+    const starts=events.filter(e=>e.start).map(e=>String(e.start)).sort(),ends=events.filter(e=>e.end).map(e=>String(e.end)).sort();
+    const coverage=starts.length&&ends.length?`${starts[0]} – ${ends[ends.length-1]}`:(lang==='ko'?'없음':'None');
+    const sourceLanguage=cfg.sourceLanguage||'unknown';
+    const sourceLangLabel=lang==='ko'?(sourceLanguage==='ko'?'한국어':sourceLanguage==='en'?'영어':'확인 필요'):(sourceLanguage==='ko'?'Korean':sourceLanguage==='en'?'English':'Needs review');
+    const ageText=h.ageDays===null?'—':(h.ageDays===0?(lang==='ko'?'오늘':'Today'):(lang==='ko'?`${h.ageDays}일`:`${h.ageDays} days`));
+    const modeText=lang==='ko'?'정적 공식 스냅샷':'STATIC OFFICIAL SNAPSHOT';
+    wrap.innerHTML=`<div class="v150-translation-sheet" role="dialog" aria-modal="true" aria-label="${lang==='ko'?'행사 출처 상태':'Event source status'}"><div class="v150-translation-head"><div><small>EVENT SOURCE HEALTH</small><h3>${v155Esc(lang==='ko'?`${cityName} 행사 출처`:`${cityName} event source`)}</h3></div><button class="v150-translation-close" type="button" onclick="v154CloseSourceStatus()" aria-label="Close">×</button></div><span class="v150-source-badge">${v155Esc(h.label)} · ${v155Esc(modeText)}</span><div class="v155-health-row"><div class="v155-health-card"><small>${lang==='ko'?'마지막 확인':'Last checked'}</small><b>${v155Esc(h.checkedOn||'—')}</b><span>${lang==='ko'?'확인 후 경과':'Age'}: ${v155Esc(ageText)}</span></div><div class="v155-health-card"><small>${lang==='ko'?'갱신 방식':'Refresh mode'}</small><b>${h.liveSync?(lang==='ko'?'자동 동기화':'LIVE SYNC'):(lang==='ko'?'수동 스냅샷':'MANUAL SNAPSHOT')}</b><span>${lang==='ko'?'공식 페이지를 열어도 이 확인일은 자동 변경되지 않습니다.':'Opening the source does not automatically update this check date.'}</span></div></div><div class="v154-source-grid"><div class="v154-source-cell"><small>${lang==='ko'?'출처':'Source'}</small><b>${v155Esc(sourceName)}</b></div><div class="v154-source-cell"><small>${lang==='ko'?'원문 언어':'Source language'}</small><b>${v155Esc(sourceLangLabel)}</b></div><div class="v154-source-cell"><small>${lang==='ko'?'연결된 행사':'Connected events'}</small><b>${events.length}</b></div><div class="v154-source-cell"><small>${lang==='ko'?'개별 공식 링크':'Event-level official links'}</small><b>${eventOfficialCount} / ${events.length}</b></div><div class="v154-source-cell"><small>${lang==='ko'?'현재 데이터 범위':'Current coverage'}</small><b>${v155Esc(coverage)}</b></div><div class="v154-source-cell"><small>${lang==='ko'?'자동 동기화':'Live sync'}</small><b>${h.liveSync?'ON':'OFF'}</b></div></div><div class="v154-source-explain">${v155Esc(lang==='ko'?'Korea Route는 현재 공식 공개 일정을 수동 확인한 스냅샷을 보여줍니다. 아래 버튼은 공식 출처를 다시 확인하기 위한 것이며 앱 데이터를 자동 갱신하지는 않습니다. 실제 자동 갱신은 데이터/API 연결 후에만 표시합니다.':'Korea Route currently shows a manually checked snapshot of published official schedules. The button below opens the source for a manual recheck; it does not refresh app data by itself. Live refresh will only be shown after a real data/API connection exists.')}</div><div class="v150-translation-actions">${h.sourceUrl?`<button type="button" class="primary" onclick="v155RecheckOfficialSource('${typeof v142JsArg==='function'?v142JsArg(city):city}')">${lang==='ko'?'공식 출처 재확인':'Recheck official source'} ↗</button>`:''}${typeof V140_VISITKOREA_FESTIVALS!=='undefined'?`<button type="button" onclick="v150ExternalVisitKorea()">VISITKOREA English ↗</button>`:''}</div></div>`;
+    wrap.classList.add('open');wrap.setAttribute('aria-hidden','false');
+  };
+
+  // Add one compact health row under Source status. It becomes visually prominent only after the feed ages.
+  const base=v140EventsHtml;
+  v140EventsHtml=function(city,context){
+    const html=base(city,context);if(!html||!V140_OFFICIAL_EVENTS?.[city])return html;
+    const inline=v155HealthInline(city);if(!inline)return html;
+    const marker=/<div class="v154-source-status">[\s\S]*?<\/div>/;
+    return marker.test(html)?html.replace(marker,m=>m+inline):html.replace(/<div class="v140-events-note">/,inline+'<div class="v140-events-note">');
+  };
+
+  try{setTimeout(v140RenderLocalEvents,0);}catch(_){ }
+})();
+</script>
+
 </body>
 </html>
