@@ -18094,5 +18094,133 @@ setTimeout(v140RenderLocalEvents,0);
 })();
 </script>
 
+
+<style id="v156-manual-source-verification-css">
+.v156-source-all{border:1px solid #dce5ef!important;background:#f7fbff!important;color:#35516f!important}
+.v156-verify-note{margin-top:10px;padding:10px;border-radius:12px;border:1px solid #dce8df;background:#f6fbf7;color:#365f45;font-size:7.4px;line-height:1.55;font-weight:850}
+.v156-verify-note.warn{border-color:#f0dfbc;background:#fffaf0;color:#805d22}
+.v156-queue{display:grid;gap:8px;margin-top:12px}
+.v156-queue-item{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #e1e7ee;background:#fff;border-radius:13px;padding:10px}
+.v156-queue-item.warn{border-color:#edd9b5;background:#fffaf1}
+.v156-queue-item.stale{border-color:#ecc9c6;background:#fff6f5}
+.v156-queue-main{min-width:0}
+.v156-queue-main b{display:block;font-size:9px;color:#244565;line-height:1.35}
+.v156-queue-main span{display:block;margin-top:3px;font-size:7px;color:#7d8998;font-weight:800;line-height:1.45}
+.v156-queue-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.v156-queue-actions button{border:1px solid #cfdae6;background:#fff;color:#274b70;border-radius:999px;padding:6px 8px;font-size:6.8px;font-weight:950;cursor:pointer;white-space:nowrap}
+.v156-manual-badge{display:inline-flex;align-items:center;border-radius:999px;background:#eaf7ee;color:#2e6843;padding:4px 7px;font-size:6.7px;font-weight:950;margin-top:6px}
+</style>
+<script id="v156-manual-source-verification-js">
+// V156 · Manual source verification queue.
+// Opening a source never marks data fresh. A user must explicitly confirm that the official page was checked and no schedule changes were found.
+(function(){
+  if(typeof V140_OFFICIAL_EVENTS!=='object')return;
+  const CITIES=['Suwon','Seoul','Busan','Gyeongju','Jeju'];
+  const KEY='kr_event_source_manual_checks_v156';
+  const opened={};
+
+  function esc(v){return typeof v145EventHtml==='function'?v145EventHtml(String(v??'')):String(v??'');}
+  function js(v){return typeof v142JsArg==='function'?v142JsArg(String(v??'')):String(v??'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
+  function today(){return typeof v140KoreaToday==='function'?v140KoreaToday():new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());}
+  function dayDiff(a,b){const A=Date.parse(String(a||'')+'T00:00:00Z'),B=Date.parse(String(b||'')+'T00:00:00Z');return Number.isFinite(A)&&Number.isFinite(B)?Math.max(0,Math.floor((B-A)/86400000)):null;}
+  function read(){try{const x=JSON.parse(localStorage.getItem(KEY)||'{}');return x&&typeof x==='object'?x:{};}catch(_){return {};}}
+  function write(x){try{localStorage.setItem(KEY,JSON.stringify(x));return true;}catch(_){return false;}}
+  function validManual(city){
+    const cfg=V140_OFFICIAL_EVENTS?.[city],all=read(),m=all?.[city];
+    if(!cfg||!m||m.result!=='no-change')return null;
+    if(String(m.baseCheckedOn||'')!==String(cfg.checkedOn||''))return null; // new build/data snapshot invalidates old manual attestation
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(String(m.verifiedOn||'')))return null;
+    return m;
+  }
+  function sourceUrl(city){const cfg=V140_OFFICIAL_EVENTS?.[city];return cfg?.festival||cfg?.official||'';}
+  function state(city){
+    const cfg=V140_OFFICIAL_EVENTS?.[city];if(!cfg)return null;
+    const base=String(cfg.checkedOn||''),manual=validManual(city),effective=(manual&&manual.verifiedOn>base)?manual.verifiedOn:base;
+    const age=effective?dayDiff(effective,today()):null;
+    let status='healthy',label=lang==='ko'?'최근 확인':'CURRENT',cls='';
+    if(age===null){status='stale';label=lang==='ko'?'확인 필요':'CHECK NEEDED';cls='stale';}
+    else if(age>30){status='stale';label=lang==='ko'?'오래된 일정':'STALE';cls='stale';}
+    else if(age>7){status='recheck';label=lang==='ko'?'재확인 권장':'RECHECK';cls='warn';}
+    if(manual&&manual.verifiedOn===effective){status='verified';label=lang==='ko'?'수동 재확인':'MANUALLY VERIFIED';cls='';}
+    return {city,status,label,cls,baseCheckedOn:base,effectiveCheckedOn:effective,ageDays:age,manual,sourceUrl:sourceUrl(city)};
+  }
+  function registry(){const out={};CITIES.forEach(c=>{const x=state(c);if(x)out[c]=x;});return out;}
+  window.V156_EVENT_SOURCE_VERIFICATION=registry();
+  window.v156GetEventSourceVerification=function(city){return city?state(city):registry();};
+
+  function openOfficial(city){
+    const u=sourceUrl(city);if(!u)return;
+    opened[city]=Date.now();
+    if(typeof v150OpenOriginalUrl==='function')v150OpenOriginalUrl(u);
+    else if(typeof v140OpenExternal==='function')v140OpenExternal(u);
+    else try{window.open(u,'_blank','noopener,noreferrer');}catch(_){location.href=u;}
+  }
+  window.v156OpenOfficialSource=openOfficial;
+
+  function markNoChange(city){
+    const cfg=V140_OFFICIAL_EVENTS?.[city];if(!cfg)return;
+    const recent=opened[city]&&Date.now()-opened[city]<(30*60*1000);
+    if(!recent){alert(lang==='ko'?'먼저 공식 출처를 열어 실제 일정을 확인해 주세요.':'Open the official source first and check the published schedule.');return;}
+    const ok=confirm(lang==='ko'?'공식 출처를 확인했고 일정 변경·취소가 없었습니까?\n\n확인하면 이 기기에서만 “수동 재확인”으로 기록됩니다.':'Did you check the official source and find no schedule changes or cancellations?\n\nIf confirmed, this device will record the feed as manually verified.');
+    if(!ok)return;
+    const all=read();all[city]={baseCheckedOn:String(cfg.checkedOn||''),verifiedOn:today(),result:'no-change',verifiedAt:Date.now()};
+    if(!write(all)){alert(lang==='ko'?'확인 기록을 저장하지 못했습니다.':'Could not save the verification record.');return;}
+    window.V156_EVENT_SOURCE_VERIFICATION=registry();
+    try{v156OpenSourceQueue();}catch(_){ }
+    try{setTimeout(v140RenderLocalEvents,0);}catch(_){ }
+  }
+  window.v156MarkNoChange=markNoChange;
+
+  function cityName(city){return typeof v140CityName==='function'?v140CityName(city):city;}
+  function ageText(x){if(x.ageDays===null)return lang==='ko'?'확인일 없음':'check date missing';if(x.ageDays===0)return lang==='ko'?'오늘 확인':'checked today';return lang==='ko'?`${x.ageDays}일 전 확인`:`checked ${x.ageDays} days ago`;}
+  function priority(x){return x.status==='stale'?3:x.status==='recheck'?2:x.status==='healthy'?1:0;}
+
+  function openQueue(){
+    let wrap=document.getElementById('v150EventTranslationOverlay');
+    if(!wrap){wrap=document.createElement('div');wrap.id='v150EventTranslationOverlay';wrap.className='v150-translation-overlay';document.body.appendChild(wrap);}
+    const items=CITIES.map(state).filter(Boolean).sort((a,b)=>priority(b)-priority(a)||(b.ageDays??999)-(a.ageDays??999));
+    const cards=items.map(x=>{
+      const manual=x.manual?`<span class="v156-manual-badge">${lang==='ko'?'변경 없음 확인':'NO CHANGES CONFIRMED'} · ${esc(x.manual.verifiedOn)}</span>`:'';
+      return `<div class="v156-queue-item ${x.cls}"><div class="v156-queue-main"><b>${esc(cityName(x.city))} · ${esc(x.label)}</b><span>${esc(ageText(x))} · ${lang==='ko'?'원본 스냅샷':'snapshot'} ${esc(x.baseCheckedOn||'—')}</span>${manual}</div><div class="v156-queue-actions">${x.sourceUrl?`<button type="button" onclick="v156OpenOfficialSource('${js(x.city)}')">${lang==='ko'?'공식 출처 열기':'Open source'} ↗</button><button type="button" onclick="v156MarkNoChange('${js(x.city)}')">${lang==='ko'?'변경 없음 확인':'No changes · verify'}</button>`:''}</div></div>`;
+    }).join('');
+    wrap.innerHTML=`<div class="v150-translation-sheet" role="dialog" aria-modal="true" aria-label="${lang==='ko'?'도시 행사 출처 점검':'City event source checks'}"><div class="v150-translation-head"><div><small>EVENT SOURCE CHECK QUEUE</small><h3>${lang==='ko'?'5개 도시 행사 출처 점검':'Five-city source check'}</h3></div><button class="v150-translation-close" type="button" onclick="v154CloseSourceStatus()" aria-label="Close">×</button></div><div class="v156-verify-note ${items.some(x=>x.status==='stale'||x.status==='recheck')?'warn':''}">${esc(lang==='ko'?'오래된 도시가 위에 표시됩니다. 공식 출처를 연 뒤 실제 일정에 변경·취소가 없을 때만 “변경 없음 확인”을 누르세요. 이 기록은 이 기기에만 저장되며 live sync가 아닙니다.':'Cities needing attention appear first. Open the official source and use “No changes · verify” only after confirming there are no schedule changes or cancellations. This is a device-local manual verification, not live sync.')}</div><div class="v156-queue">${cards}</div></div>`;
+    wrap.classList.add('open');wrap.setAttribute('aria-hidden','false');
+  }
+  window.v156OpenSourceQueue=openQueue;
+
+  // Add an all-city health button beside Source status without disturbing the existing source-health row.
+  const baseEventsHtml=v140EventsHtml;
+  v140EventsHtml=function(city,context){
+    let html=baseEventsHtml(city,context);if(!html)return html;
+    const st=state(city);
+    html=html.replace(/<div class="v154-source-status">([\s\S]*?)<\/div>/,function(m,inner){
+      if(/v156OpenSourceQueue/.test(inner))return m;
+      const manual=st?.manual?`<span>${lang==='ko'?'수동 재확인': 'manual verify'} ${esc(st.manual.verifiedOn)}</span>`:'';
+      return `<div class="v154-source-status">${inner}<button class="v156-source-all" type="button" onclick="v156OpenSourceQueue()">${lang==='ko'?'5개 도시 점검':'All city sources'}</button>${manual}</div>`;
+    });
+    return html;
+  };
+
+  // Replace the source-status modal with the V155 detail plus explicit manual verification controls.
+  const prevOpenStatus=window.v154OpenSourceStatus;
+  window.v154OpenSourceStatus=function(city){
+    if(typeof prevOpenStatus==='function')prevOpenStatus(city);
+    setTimeout(function(){
+      const sheet=document.querySelector('#v150EventTranslationOverlay .v150-translation-sheet');if(!sheet)return;
+      const x=state(city);if(!x)return;
+      const actions=sheet.querySelector('.v150-translation-actions');if(!actions)return;
+      const note=document.createElement('div');note.className='v156-verify-note'+((x.status==='stale'||x.status==='recheck')?' warn':'');
+      note.innerHTML=x.manual?`${esc(lang==='ko'?'이 기기에서 공식 출처의 변경 없음 상태를 수동 확인했습니다.':'This device has a manual “no changes found” verification for the official source.')}<span class="v156-manual-badge">${esc(x.manual.verifiedOn)}</span>`:esc(lang==='ko'?'공식 출처를 연 뒤 일정 변경·취소가 없을 때만 수동 확인하세요. 공식페이지를 여는 것만으로는 최신 상태로 바뀌지 않습니다.':'Open the official source first. Only manually verify after confirming there are no schedule changes or cancellations. Simply opening the page never marks the feed current.');
+      actions.parentNode.insertBefore(note,actions);
+      if(x.sourceUrl){
+        actions.innerHTML=`<button type="button" class="primary" onclick="v156OpenOfficialSource('${js(city)}')">${lang==='ko'?'공식 출처 재확인':'Recheck official source'} ↗</button><button type="button" onclick="v156MarkNoChange('${js(city)}')">${lang==='ko'?'변경 없음 · 오늘 확인':'No changes · verify today'}</button><button type="button" onclick="v156OpenSourceQueue()">${lang==='ko'?'5개 도시 점검':'All city sources'}</button>`;
+      }
+    },0);
+  };
+
+  try{setTimeout(v140RenderLocalEvents,0);}catch(_){ }
+})();
+</script>
+
 </body>
 </html>
