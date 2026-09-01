@@ -3191,7 +3191,7 @@ body.dark .v165-tab:not(.active),body.dark .v165-pick,body.dark .v165-check-sear
   <div class="card tip"><div class="ico">💳</div><div><b data-i18n="home.visitor.card.title">Made for international travelers</b><p data-i18n="home.visitor.card.desc">We highlight simpler booking options, local transport tips, and services that are easier to use without a Korean phone number.</p></div></div>
 
   <div class="beta-release-card" id="betaReleaseCard">
-    <div><b data-i18n="home.beta.title">Public Beta · V145</b><span data-i18n="home.beta.subtitle">Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.</span></div>
+    <div><b data-i18n="home.beta.title">Public Beta · V170</b><span data-i18n="home.beta.subtitle">Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.</span></div>
     <button type="button" onclick="shareBetaIssue()" data-i18n="home.beta.report">Report a problem</button>
   </div>
 </section>
@@ -4101,6 +4101,7 @@ body.dark .v165-tab:not(.active),body.dark .v165-pick,body.dark .v165-check-sear
 
 
 <script>
+const KR_BUILD_VERSION='V170';
 const TRANSLATIONS = {
   "ko": {
     "home.brand": "코리아 루트",
@@ -4194,7 +4195,7 @@ const TRANSLATIONS = {
     "home.visitor.badge": "여행 팁",
     "home.visitor.card.title": "외국인 여행자를 위해 만들었어요",
     "home.visitor.card.desc": "한국 전화번호가 없어도 비교적 쉽게 이용할 수 있는 예약 방법, 현지 교통 팁과 서비스를 안내합니다.",
-    "home.beta.title": "공개 베타 · V145",
+    "home.beta.title": `공개 베타 · ${KR_BUILD_VERSION}`,
     "home.beta.subtitle": "친구들과 테스트 중 문제가 보이면 화면과 재현 순서를 함께 보내주세요. 신고 문구에 위치정보는 자동으로 넣지 않습니다.",
     "home.beta.report": "문제 제보",
     "home.search.placeholder": "KTX · 화장실 · 번역 · 환급 · 짐보관...",
@@ -4347,7 +4348,7 @@ const TRANSLATIONS = {
     "home.visitor.badge": "TRAVEL TIP",
     "home.visitor.card.title": "Made for international travelers",
     "home.visitor.card.desc": "We highlight simpler booking options, local transport tips, and services that are easier to use without a Korean phone number.",
-    "home.beta.title": "Public Beta · V145",
+    "home.beta.title": `Public Beta · ${KR_BUILD_VERSION}`,
     "home.beta.subtitle": "Testing with friends? Share the screen and steps when something feels wrong. No location data is added to the report.",
     "home.beta.report": "Report a problem",
     "home.search.placeholder": "KTX · restroom · translate · tax refund...",
@@ -4631,7 +4632,7 @@ function toggleAllTools(){
 }
 
 let current='home';
-const APP_RELEASE='Korea Route Public Beta V162';
+const APP_RELEASE=`Korea Route Public Beta ${KR_BUILD_VERSION}`;
 
 // V36 safe auto-restore: persist only explicit, non-sensitive trip state and user preferences.
 // Never mirror API keys, current/GPS location, sensor state, or walk-recovery data.
