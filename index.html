@@ -4110,7 +4110,7 @@ body.dark .v175-unofficial-note,body.dark .v175-unofficial-result{background:#2a
 
 
 <script>
-const KR_BUILD_VERSION='V176';
+const KR_BUILD_VERSION='V177';
 const TRANSLATIONS = {
   "ko": {
     "home.brand": "코리아 루트",
@@ -19008,11 +19008,15 @@ function v165ValidatePriceData(data,taxiData=null){
       const sourceList=Array.isArray(group.sources)&&group.sources.length&&group.sources.every(s=>s&&typeof s.name==='string'&&s.name.trim()&&typeof s.url==='string'&&/^https?:\/\//.test(s.url));
       if(!legacySource&&!sourceList)return false;
     }
+    const groupSourceUrls=new Set((Array.isArray(group.sources)?group.sources:[]).map(s=>String(s?.url||'')));
     return group.items.every(item=>{
       if(!item||typeof item.id!=='string'||!item.id||!v165IsBiText(item.name)||!v165IsBiText(item.unit)||typeof item.fixed!=='boolean')return false;
       if(item.official!=null&&typeof item.official!=='boolean')return false;
       if(noOfficial&&(item.official===true||item.fixed===true))return false;
       if(item.official===true&&item.fixed!==true)return false;
+      if(group.id==='transport-official'&&item.official===true){
+        if(typeof item.source_url!=='string'||!/^https?:\/\//.test(item.source_url)||!groupSourceUrls.has(item.source_url))return false;
+      }
       const lo=Number(item.typical?.min),hi=Number(item.typical?.max);if(!Number.isFinite(lo)||!Number.isFinite(hi)||lo<0||hi<=0||hi<lo)return false;
       if(item.fixed){const price=Number(item.price);if(!Number.isFinite(price)||price<=0||lo!==price||hi!==price)return false;}
       return true;
@@ -19054,9 +19058,13 @@ function v165AllItems(){return v165AllItemsFromData(v165PriceData);}
 function v165FindItem(id){return v165AllItems().find(x=>String(x.item.id)===String(id))||null;}
 function v165RangeText(item){if(item.fixed){const p=Number(item.price??item.typical?.max??0);return lang==='ko'?`${v165Money(p)}원`:`₩${v165Money(p)}`;}const lo=Number(item.typical?.min||0),hi=Number(item.typical?.max||0);return lang==='ko'?`${v165Money(lo)} ~ ${v165Money(hi)}원`:`₩${v165Money(lo)} – ₩${v165Money(hi)}`;}
 function v165OpenSource(url,label){if(!url)return;if(typeof v160SafeExternalOpen==='function'){v160SafeExternalOpen(url,{label:label||v165Ui('source','Source')});return;}window.open(url,'_blank','noopener');}
-function v175SourceRows(group){
+function v175SourceRows(group,item=null){
   if(group?.no_official_source===true)return '';
-  const srcs=Array.isArray(group?.sources)?group.sources:((group?.source&&group?.source_url)?[{name:group.source,url:group.source_url}]:[]);
+  let srcs=Array.isArray(group?.sources)?group.sources:((group?.source&&group?.source_url)?[{name:group.source,url:group.source_url}]:[]);
+  if(item?.source_url){
+    const exact=srcs.filter(s=>String(s?.url||'')===String(item.source_url));
+    srcs=exact.length?exact:[{name:item.source||'Official source',url:item.source_url}];
+  }
   if(!srcs.length)return '';
   return `<div class="v165-source v175-source-list"><span>${v165Esc(v165Ui('source','Source'))}</span><div>${srcs.map((s,i)=>`<button type="button" onclick="v165OpenSource('${v165Esc(s.url||'')}','${v165Esc(s.name||'Source')}')">↗ ${v165Esc(s.name||v165Ui('source','Source'))}</button>`).join('')}</div></div>`;
 }
@@ -19122,7 +19130,7 @@ function v165Evaluate(){
   const multiple=paid/upper;const tiers=v165PriceData?.flag_rule?.tiers||[];const tier=tiers.find(t=>t.max_multiple==null||multiple<=Number(t.max_multiple))||tiers[tiers.length-1];
   const tone=tier?.tone||'neutral';const ref=v165RangeText(item);const paidText=lang==='ko'?`${v165Money(paid)}원`:`₩${v165Money(paid)}`;
   const unofficial=selected.group?.no_official_source===true?`<div class="v175-unofficial-result">⚠ ${v165Esc(v165Ui('unofficial_reference_warning','This item uses a reference range without an official statistical source.'))}</div>`:'';
-  host.innerHTML=`${unofficial}<div class="v165-result ${v165Esc(tone)}"><span class="label">${v165Esc(v165Ui('result_title','Price context'))}</span><h3>${v165Esc(v165T(tier?.message))}</h3><div class="meta">${v165Esc(v165T(item.name))} · ${v165Esc(v165Ui('usual_range','Usual reference range'))}: ${ref}<br>${v165Esc(v165Ui('paid_amount','Amount paid (KRW)'))}: ${paidText}</div><div class="disclaimer">${v165Esc(v165T(v165PriceData?.disclaimer))}<div class="higher">${v165Esc(v165T(v165PriceData?.higher_price_note))}</div></div></div>${v175SourceRows(selected.group)}`;
+  host.innerHTML=`${unofficial}<div class="v165-result ${v165Esc(tone)}"><span class="label">${v165Esc(v165Ui('result_title','Price context'))}</span><h3>${v165Esc(v165T(tier?.message))}</h3><div class="meta">${v165Esc(v165T(item.name))} · ${v165Esc(v165Ui('usual_range','Usual reference range'))}: ${ref}<br>${v165Esc(v165Ui('paid_amount','Amount paid (KRW)'))}: ${paidText}</div><div class="disclaimer">${v165Esc(v165T(v165PriceData?.disclaimer))}<div class="higher">${v165Esc(v165T(v165PriceData?.higher_price_note))}</div></div></div>${v175SourceRows(selected.group,selected.item)}`;
 }
 function v165RenderCheck(){
   const selected=v165FindItem(v165SelectedItemId);const selectedHtml=selected?`<div class="v165-selected"><b>${v165Esc(v165T(selected.item.name))}</b><span>${v165Esc(v165Ui(selected.item.fixed?'official_price':'usual_range',selected.item.fixed?'Official price':'Usual reference range'))}: ${v165RangeText(selected.item)}</span></div>`:`<div class="v165-empty">${v165Esc(v165Ui('select_first','Choose an item first.'))}</div>`;

@@ -69,21 +69,25 @@
         "ko": "교통 · 공식요금"
       },
       "note": {
-        "en": "Published standard adult fares. Transfers, early-bird discounts, distance additions, tolls and special products can change the final amount.",
-        "ko": "공개된 일반 성인 기준요금입니다. 환승, 조조할인, 거리 추가요금, 통행료와 별도 상품에 따라 최종 금액은 달라질 수 있습니다."
+        "en": "Published adult fares. Subway/bus fares are base fares; taxi values are meter base fares. AREX is the current adult non-member ticket fare; members may receive the published member discount.",
+        "ko": "공개된 성인 요금입니다. 지하철·버스는 기본요금, 택시는 미터 기본요금입니다. AREX는 현재 성인 비회원 승차권 운임이며 회원은 공식 회원 할인가가 적용될 수 있습니다."
       },
       "sources": [
         {
-          "name": "Seoul Metropolitan Government · public transport fares",
-          "url": "https://news.seoul.go.kr/traffic/traffic_price"
+          "name": "Seoul Price Information · subway fares",
+          "url": "https://sftc.seoul.go.kr/seoul/mulga/main/contents.do?menuNo=200021"
+        },
+        {
+          "name": "Seoul Price Information · bus fares",
+          "url": "https://sftc.seoul.go.kr/seoul/mulga/main/contents.do?menuNo=200022"
         },
         {
           "name": "Seoul Price Information · taxi fares",
           "url": "https://sftc.seoul.go.kr/seoul/mulga/main/contents.do?menuNo=200023"
         },
         {
-          "name": "Airport Railroad (AREX) · passenger fare rules",
-          "url": "https://www.arex.or.kr/content.do?menuNo=MN201503060000000002"
+          "name": "Airport Railroad (AREX) · current ticket fare",
+          "url": "https://www.airportrailroad.com/ticket/rsv"
         }
       ],
       "items": [
@@ -103,7 +107,8 @@
             "ko": "기본요금 · 10km 이내"
           },
           "fixed": true,
-          "official": true
+          "official": true,
+          "source_url": "https://sftc.seoul.go.kr/seoul/mulga/main/contents.do?menuNo=200021"
         },
         {
           "id": "seoul-city-bus-card",
@@ -121,7 +126,8 @@
             "ko": "간·지선버스 기본요금"
           },
           "fixed": true,
-          "official": true
+          "official": true,
+          "source_url": "https://sftc.seoul.go.kr/seoul/mulga/main/contents.do?menuNo=200022"
         },
         {
           "id": "seoul-village-bus-card",
@@ -139,7 +145,8 @@
             "ko": "기본요금"
           },
           "fixed": true,
-          "official": true
+          "official": true,
+          "source_url": "https://sftc.seoul.go.kr/seoul/mulga/main/contents.do?menuNo=200022"
         },
         {
           "id": "seoul-taxi-base-day",
@@ -157,7 +164,8 @@
             "ko": "1.6km까지 · 주간"
           },
           "fixed": true,
-          "official": true
+          "official": true,
+          "source_url": "https://sftc.seoul.go.kr/seoul/mulga/main/contents.do?menuNo=200023"
         },
         {
           "id": "seoul-taxi-base-night20",
@@ -175,7 +183,8 @@
             "ko": "1.6km까지 · 22:00–23:00 / 02:00–04:00"
           },
           "fixed": true,
-          "official": true
+          "official": true,
+          "source_url": "https://sftc.seoul.go.kr/seoul/mulga/main/contents.do?menuNo=200023"
         },
         {
           "id": "seoul-taxi-base-night40",
@@ -193,43 +202,27 @@
             "ko": "1.6km까지 · 23:00–02:00"
           },
           "fixed": true,
-          "official": true
+          "official": true,
+          "source_url": "https://sftc.seoul.go.kr/seoul/mulga/main/contents.do?menuNo=200023"
         },
         {
-          "id": "arex-express-t1-seoul",
+          "id": "arex-express-adult-nonmember",
           "name": {
-            "en": "AREX Express · Incheon Airport T1 → Seoul Station",
-            "ko": "공항철도 직통열차 · 인천공항 T1 → 서울역"
+            "en": "AREX Express · adult one-way fare (non-member)",
+            "ko": "공항철도 직통열차 · 성인 편도 운임 (비회원)"
           },
           "typical": {
-            "min": 18100,
-            "max": 18100
+            "min": 13000,
+            "max": 13000
           },
-          "price": 18100,
+          "price": 13000,
           "unit": {
-            "en": "adult one-way standard fare",
-            "ko": "성인 편도 일반운임"
+            "en": "Seoul Station ↔ Incheon Airport · current adult non-member fare",
+            "ko": "서울역 ↔ 인천공항 · 현재 성인 비회원 운임"
           },
           "fixed": true,
-          "official": true
-        },
-        {
-          "id": "arex-express-t2-seoul",
-          "name": {
-            "en": "AREX Express · Incheon Airport T2 → Seoul Station",
-            "ko": "공항철도 직통열차 · 인천공항 T2 → 서울역"
-          },
-          "typical": {
-            "min": 18700,
-            "max": 18700
-          },
-          "price": 18700,
-          "unit": {
-            "en": "adult one-way standard fare",
-            "ko": "성인 편도 일반운임"
-          },
-          "fixed": true,
-          "official": true
+          "official": true,
+          "source_url": "https://www.airportrailroad.com/ticket/rsv"
         }
       ]
     },
