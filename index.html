@@ -16898,5 +16898,219 @@ setTimeout(v140RenderLocalEvents,0);
 })();
 </script>
 
+
+<style id="v147-seoul-events-recurrence-css">
+.v147-event-note{margin-top:6px;font-size:7.7px;line-height:1.45;color:#77879a;font-weight:750}
+.v147-event-official{background:#eef4ff!important;border-color:#d8e5fb!important;color:#2458a8!important}
+</style>
+<script id="v147-seoul-events-recurrence-js">
+// V147 · Seoul event expansion + recurrence-aware matching + stable saved-event IDs.
+// Static official data checked 2026-09-01. This is NOT a live event sync.
+(function(){
+  if(typeof V140_OFFICIAL_EVENTS!=='object')return;
+
+  V140_OFFICIAL_EVENTS.Seoul={
+    official:'https://english.seoul.go.kr/category/service/amusement/cultural-event/',
+    festival:'https://english.visitseoul.net/',
+    sourceNameEn:'Seoul Metropolitan Government / Visit Seoul',
+    sourceNameKo:'서울특별시 / Visit Seoul',
+    officialLabelEn:'Official Seoul event calendar',
+    officialLabelKo:'서울시 공식 행사 일정',
+    festivalLabelEn:'Visit Seoul official guide',
+    festivalLabelKo:'Visit Seoul 공식 여행 가이드',
+    checkedOn:'2026-09-01',
+    events:[
+      {
+        key:'seoul-fashion-week-2027-ss',start:'2026-09-01',end:'2026-09-06',
+        nameEn:'Seoul Fashion Week 2027 S/S',nameKo:'2027 S/S 서울패션위크',
+        placeEn:'DDP & Lotte World Tower',placeKo:'DDP·롯데월드타워',search:'Dongdaemun Design Plaza',
+        officialUrl:'https://english.seoul.go.kr/seoul-fashion-week-expands-beyond-ddp-to-lotte-world-tower-turning-seouls-iconic-landmarks-into-runways/',
+        noteEn:'Programs span DDP and Lotte World Tower; check the official schedule for each runway or public event.',
+        noteKo:'DDP와 롯데월드타워에서 프로그램이 나뉘어 진행됩니다. 세부 런웨이·공개행사는 공식 일정을 확인하세요.'
+      },
+      {
+        key:'seoul-sculpture-festival-2026',start:'2026-08-29',end:'2026-09-04',
+        nameEn:'3rd Seoul Sculpture Festival',nameKo:'제3회 서울조각페스티벌',
+        placeEn:'Ttukseom Hangang Park',placeKo:'뚝섬한강공원',search:'Ttukseom Hangang Park',
+        officialUrl:'https://english.seoul.go.kr/seoul-launches-its-first-nighttime-economy-project-transforming-the-hangang-river-into-a-round-the-clock-destination/',
+        noteEn:'Outdoor sculpture exhibition and participatory programs near Hangang Play Place.',
+        noteKo:'한강 플레이스 인근 야외 조각 전시와 참여 프로그램입니다.'
+      },
+      {
+        key:'seoul-light-ddp-autumn-2026',start:'2026-09-03',end:'2026-09-20',
+        nameEn:'Seoul Light DDP 2026 Autumn',nameKo:'서울라이트 DDP 2026 가을',
+        placeEn:'Dongdaemun Design Plaza (DDP)',placeKo:'동대문디자인플라자(DDP)',search:'Dongdaemun Design Plaza',
+        officialUrl:'https://english.seoul.go.kr/september-2026-cultural-events/'
+      },
+      {
+        key:'try-everything-2026',start:'2026-09-09',end:'2026-09-10',
+        nameEn:'Try Everything 2026',nameKo:'트라이 에브리싱 2026',
+        placeEn:'Dongdaemun Design Plaza (DDP)',placeKo:'동대문디자인플라자(DDP)',search:'Dongdaemun Design Plaza',
+        officialUrl:'https://english.seoul.go.kr/try-everything-2026-to-open-this-september-as-seouls-startup-ecosystem-value-grows-by-usd-100-billion/',
+        noteEn:'Global startup festival with AI, robotics, talks, exhibitions and business meetups.',
+        noteKo:'AI·로봇 전시, 강연, 스타트업 비즈니스 밋업 등이 열리는 글로벌 스타트업 축제입니다.'
+      },
+      {
+        key:'seoul-outdoor-library-2026',start:'2026-04-23',end:'2026-11-01',
+        nameEn:'2026 Seoul Outdoor Library',nameKo:'2026 서울야외도서관',
+        placeEn:'Seoul Plaza · Gwanghwamun Square · Cheonggyecheon',placeKo:'서울광장·광화문광장·청계천',search:'Gwanghwamun Square',
+        activeWeekdays:[5,6,0],inactiveRanges:[['2026-07-01','2026-08-31']],
+        officialUrl:'https://english.visitseoul.net/events/2026SeoulOutdoorLibrary/ENPvro3vg',
+        noteEn:'Normally Fri–Sun. July and August are not operated; weather or other events can change the schedule.',
+        noteKo:'기본 운영은 금·토·일이며 7~8월은 운영하지 않습니다. 날씨·행사에 따라 일정이 바뀔 수 있습니다.'
+      }
+    ]
+  };
+
+  function v147YmdDay(ymd){
+    const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(String(ymd||''));
+    if(!m)return NaN;
+    return new Date(Date.UTC(Number(m[1]),Number(m[2])-1,Number(m[3]))).getUTCDay();
+  }
+  function v147InInactiveRange(e,ymd){
+    return Array.isArray(e?.inactiveRanges)&&e.inactiveRanges.some(r=>Array.isArray(r)&&r.length>=2&&String(r[0])<=ymd&&ymd<=String(r[1]));
+  }
+  function v147EventOccursOn(e,ymd){
+    if(!e||!ymd||String(e.start)>ymd||String(e.end)<ymd)return false;
+    if(Array.isArray(e.excludeDates)&&e.excludeDates.includes(ymd))return false;
+    if(v147InInactiveRange(e,ymd))return false;
+    if(Array.isArray(e.activeDates)&&e.activeDates.length&&!e.activeDates.includes(ymd))return false;
+    if(Array.isArray(e.activeWeekdays)&&e.activeWeekdays.length&&!e.activeWeekdays.includes(v147YmdDay(ymd)))return false;
+    return true;
+  }
+  function v147EachDate(start,end,limit,fn){
+    const cap=Math.max(1,Number(limit)||400);let cur=String(start||''),count=0;
+    while(cur&&cur<=end&&count<cap){if(fn(cur)===true)return cur;cur=v140AddDays(cur,1);count++;}
+    return '';
+  }
+  function v147EventOverlapsWindow(e,w){
+    if(!e||!w||e.end<w.start||e.start>w.end)return false;
+    const start=e.start>w.start?e.start:w.start;const end=e.end<w.end?e.end:w.end;
+    return !!v147EachDate(start,end,Math.max(12,Number(w.days||1)+3),d=>v147EventOccursOn(e,d));
+  }
+  function v147NextOccurrence(e,from){
+    if(!e||e.end<from)return '';
+    const start=e.start>from?e.start:from;
+    return v147EachDate(start,e.end,400,d=>v147EventOccursOn(e,d));
+  }
+  function v147StableEventId(city,e){
+    const year=String(e?.start||'').slice(0,4)||'event';
+    const key=String(e?.key||e?.nameEn||e?.nameKo||'event').trim();
+    return `${city}|${year}|${key}`;
+  }
+  window.v147EventOccursOn=v147EventOccursOn;
+  window.v147EventOverlapsWindow=v147EventOverlapsWindow;
+  window.v147NextOccurrence=v147NextOccurrence;
+
+  v141EventId=function(city,e){return v147StableEventId(city,e);};
+
+  v142NormalizeSavedEvents=function(items){
+    const out=[];const seen=new Set();
+    (Array.isArray(items)?items:[]).forEach(raw=>{
+      if(!raw||typeof raw!=='object'||!raw.city||!raw.start||!raw.end||!raw.nameEn)return;
+      const cfg=V140_OFFICIAL_EVENTS?.[raw.city];
+      const live=cfg?.events?.find(e=>e&&((raw.key&&e.key===raw.key)||e.nameEn===raw.nameEn))||null;
+      const x=live?{...raw,...live,city:raw.city}:{...raw};
+      x.id=v147StableEventId(x.city,x);
+      if(seen.has(x.id))return;
+      seen.add(x.id);out.push(x);
+    });
+    return out.slice(0,30);
+  };
+
+  v141LoadSavedEvents=function(){
+    try{return v142NormalizeSavedEvents(JSON.parse(localStorage.getItem(V141_SAVED_EVENT_KEY)||'[]'));}catch(_){return [];}
+  };
+
+  v141ToggleEvent=function(city,encodedId){
+    let id='';try{id=decodeURIComponent(encodedId||'');}catch(_){id=encodedId||'';}
+    const cfg=V140_OFFICIAL_EVENTS?.[city];if(!cfg)return;
+    const e=cfg.events?.find(x=>v141EventId(city,x)===id);if(!e)return;
+    const items=v141LoadSavedEvents();const idx=items.findIndex(x=>x&&x.id===id);let added=false;
+    if(idx>=0)items.splice(idx,1);
+    else{items.unshift({...e,id,city});added=true;}
+    const ok=v141SaveEvents(items);
+    try{if(typeof v11Toast==='function')v11Toast(!ok?(lang==='ko'?'이 기기에서 행사 저장공간을 사용할 수 없습니다.':'Could not save events on this device.'):(lang==='ko'?(added?'행사를 My Trip에 저장했어요.':'저장한 행사에서 삭제했어요.'):(added?'Event saved to My Trip.':'Event removed from My Trip.')));}catch(_){}
+    v140RenderLocalEvents();
+  };
+
+  v140EventSelection=function(city,context){
+    const cfg=V140_OFFICIAL_EVENTS?.[city];const w=v142EventWindow(context);
+    if(!cfg)return {cfg:null,items:[],during:false,w};
+    const all=[...(cfg.events||[])];
+    const during=all.filter(e=>v147EventOverlapsWindow(e,w)).sort((a,b)=>{
+      const aa=v147NextOccurrence(a,w.start)||a.start;const bb=v147NextOccurrence(b,w.start)||b.start;return aa.localeCompare(bb);
+    });
+    if(during.length)return {cfg,items:during.slice(0,5),during:true,w};
+    const next=all.map(e=>({e,next:v147NextOccurrence(e,w.start)})).filter(x=>x.next).sort((a,b)=>a.next.localeCompare(b.next)).slice(0,4).map(x=>x.e);
+    return {cfg,items:next,during:false,w};
+  };
+
+  v141EventTripDay=function(e){
+    const w=v140TripWindow();if(!e)return 0;
+    const first=v147EachDate(w.start,w.end,Math.max(12,w.days+2),d=>v147EventOccursOn(e,d));
+    if(!first)return 0;
+    const a=Date.parse(`${w.start}T00:00:00Z`),b=Date.parse(`${first}T00:00:00Z`);
+    return Math.max(1,Math.min(w.days,Math.floor((b-a)/86400000)+1));
+  };
+
+  v143SavedEventTripState=function(x){
+    const dest=v143CurrentTripDestination();const w=v140TripWindow();const sameCity=!!(x&&dest&&x.city===dest);
+    const dateMatch=!!(x&&v147EventOverlapsWindow(x,w));
+    return {sameCity,dateMatch,match:sameCity&&dateMatch,dest,w};
+  };
+  v142SavedEventMatchesTrip=function(x){return v143SavedEventTripState(x).match;};
+
+  const v147PreviousEventDate=v140EventDate;
+  v140EventDate=function(e){
+    const base=v147PreviousEventDate(e);
+    if(!Array.isArray(e?.activeWeekdays)||!e.activeWeekdays.length)return base;
+    const set=new Set(e.activeWeekdays.map(Number));
+    let recur='';
+    if(set.size===3&&set.has(5)&&set.has(6)&&set.has(0))recur=lang==='ko'?'금–일':'Fri–Sun';
+    else{
+      const en=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],ko=['일','월','화','수','목','금','토'];
+      const order=[1,2,3,4,5,6,0].filter(d=>set.has(d));recur=order.map(d=>lang==='ko'?ko[d]:en[d]).join(lang==='ko'?'·':', ');
+    }
+    return recur?`${base} · ${recur}`:base;
+  };
+
+  function v147SourceButtons(city,cfg){
+    const out=[];
+    if(cfg?.official){const label=lang==='ko'?(cfg.officialLabelKo||`${v140CityName(city)} 공식 행사`):(cfg.officialLabelEn||`Official ${v140CityName(city)} events`);out.push(`<button type="button" onclick="v140OpenExternal('${v142JsArg(cfg.official)}')">${v145EventHtml(label)} ↗</button>`);}
+    if(cfg?.festival){const label=lang==='ko'?(cfg.festivalLabelKo||`${v140CityName(city)} 축제 안내`):(cfg.festivalLabelEn||`${v140CityName(city)} festival guide`);out.push(`<button type="button" onclick="v140OpenExternal('${v142JsArg(cfg.festival)}')">${v145EventHtml(label)} ↗</button>`);}
+    out.push(`<button type="button" onclick="v140OpenExternal(V140_VISITKOREA_FESTIVALS)">${lang==='ko'?'VISITKOREA 영문 축제':'VISITKOREA English'} ↗</button>`);return out.join('');
+  }
+
+  v140EventsHtml=function(city,context){
+    const cityName=v140CityName(city);const sel=v140EventSelection(city,context);
+    if(!sel.cfg){
+      const saved=context==='trip'&&typeof v141SavedEventsHtml==='function'?v141SavedEventsHtml():'';
+      const base=`<div class="v140-events"><div class="v140-events-head"><div><span class="v140-events-kicker">LOCAL EVENTS</span><b class="v140-events-title">${lang==='ko'?`${v145EventHtml(cityName)} 행사 일정`:`What's on in ${v145EventHtml(cityName)}`}</b><span class="v140-events-sub">${lang==='ko'?'지역별 공식 행사 일정을 연결하는 중입니다. 우선 VISITKOREA 축제 정보를 확인할 수 있어요.':'City-specific official schedules are being connected. For now, check the official VISITKOREA festival guide.'}</span></div><span class="v140-events-badge">BETA</span></div><div class="v140-events-actions"><button type="button" onclick="v140OpenExternal(V140_VISITKOREA_FESTIVALS)">${lang==='ko'?'VISITKOREA 축제 보기 ↗':'VISITKOREA Festivals ↗'}</button></div></div>`;
+      return saved?`${base}<div class="v140-events v144-saved-only">${saved}</div>`:base;
+    }
+    const w=sel.w||v142EventWindow(context);const visibleItems=context==='planner'?sel.items.slice(0,3):sel.items;
+    const rows=visibleItems.length?visibleItems.map(e=>{
+      const day=context==='city'?0:v141EventTripDay(e),saved=v141IsEventSaved(city,e),eid=encodeURIComponent(v141EventId(city,e));
+      const eventName=lang==='ko'?(e.nameKo||e.nameEn):(e.nameEn||e.nameKo||''),place=lang==='ko'?(e.placeKo||e.placeEn):(e.placeEn||e.placeKo||'');
+      const note=lang==='ko'?(e.noteKo||e.noteEn):(e.noteEn||e.noteKo||'');
+      const official=e.officialUrl?`<button type="button" class="v147-event-official" onclick="v140OpenExternal('${v142JsArg(e.officialUrl)}')">${lang==='ko'?'공식 정보':'Official info'} ↗</button>`:'';
+      return `<div class="v140-event ${sel.during?'when':''}"><div class="v140-event-top"><b>${v145EventHtml(eventName)}</b><span class="v140-event-date">${v145EventHtml(v140EventDate(e))}</span></div><div class="v140-event-place">📍 ${v145EventHtml(place)}</div>${note?`<div class="v147-event-note">${v145EventHtml(note)}</div>`:''}${day?`<span class="v141-day-badge">${lang==='ko'?`추천 Day ${day}`:`Suggested Day ${day}`}</span>`:''}<div class="v140-event-actions"><button type="button" class="primary" onclick="v140OpenEventPlace('${v142JsArg(city)}','${v142JsArg(e.search||e.placeKo||e.placeEn||'')}')">${lang==='ko'?'지도에서 보기':'Show on map'}</button>${official}<button type="button" class="v141-event-save ${saved?'saved':''}" onclick="v141ToggleEvent('${v142JsArg(city)}','${v142JsArg(eid)}')">${saved?(lang==='ko'?'✓ My Trip 저장됨':'✓ Saved to My Trip'):(lang==='ko'?'＋ My Trip에 추가':'＋ Add to My Trip')}</button></div></div>`;
+    }).join(''):`<div class="v140-event"><div class="v140-event-note">${lang==='ko'?'선택한 날짜 이후 확인된 행사 데이터가 없습니다. 공식 일정을 확인해 주세요.':'No connected event is available after the selected date. Check the official schedule.'}</div></div>`;
+    const isCity=context==='city';
+    const sub=isCity?(sel.during?(lang==='ko'?`${w.start} 현재 실제 운영일과 겹치는 행사입니다.`:`Happening in ${cityName} today (${w.start}), including recurring-day rules.`):(lang==='ko'?'오늘 실제 운영일과 겹치는 연결 행사가 없어 다음 예정 행사를 보여드려요.':'No connected event is active on its actual operating day today, so here are the next scheduled events.')):(sel.during?(lang==='ko'?`${w.start} ~ ${w.end} 여행 날짜와 실제 운영일이 겹치는 행사입니다.`:`Events whose actual operating days overlap your ${w.start} – ${w.end} trip.`):(lang==='ko'?'여행 날짜의 실제 운영일과 겹치는 행사가 없어 다음 예정 행사를 보여드려요.':'No event operating day overlaps your trip dates, so here are the next scheduled events.'));
+    const contextKicker=isCity?'CITY NOW':context==='planner'?'DESTINATION EVENTS':'TRIP MATCH',savedHtml=context==='trip'?v141SavedEventsHtml():'',plannerNote=context==='planner'?`<div class="v141-planner-note">${lang==='ko'?'목적지와 날짜를 바꾸면 행사 추천도 바로 바뀝니다.':'Change destination or dates and the event match updates immediately.'}</div>`:'';
+    const badge=isCity?(sel.during?(lang==='ko'?'오늘':'TODAY'):(lang==='ko'?'다음 행사':'UP NEXT')):(sel.during?(lang==='ko'?'여행 중':'YOUR DATES'):(lang==='ko'?'다음 행사':'UP NEXT'));
+    const checked=sel.cfg.checkedOn||'',freshness=checked?`<div class="v146-events-freshness"><b>${lang==='ko'?'공식 일정 확인일':'Official schedule checked'}</b> · ${v145EventHtml(checked)} · ${lang==='ko'?'실시간 자동 동기화가 아닙니다.':'not a live sync.'}</div>`:'';
+    const source=lang==='ko'?(sel.cfg.sourceNameKo||cityName):(sel.cfg.sourceNameEn||cityName),note=lang==='ko'?`${source} 공개 일정 기반입니다. 일정·장소는 방문 전 공식 페이지에서 최종 확인하세요.`:`Based on published schedules from ${source}. Recheck the official page before visiting because event details can change.`;
+    return `<div class="v140-events"><div class="v140-events-head"><div><span class="v140-events-kicker">${contextKicker}</span><b class="v140-events-title">${lang==='ko'?`${v145EventHtml(cityName)} 행사 일정`:`What's on in ${v145EventHtml(cityName)}`}</b><span class="v140-events-sub">${sub}</span></div><span class="v140-events-badge">${badge}</span></div><div class="v140-events-list">${rows}</div>${plannerNote}${savedHtml}<div class="v140-events-actions">${v147SourceButtons(city,sel.cfg)}</div>${freshness}<div class="v140-events-note">${v145EventHtml(note)}</div></div>`;
+  };
+
+  // Persisted events saved before V147 used date-dependent IDs. Normalize in memory now;
+  // the next save/remove operation writes the stable-ID form back to localStorage.
+  setTimeout(v140RenderLocalEvents,0);
+})();
+</script>
+
 </body>
 </html>
