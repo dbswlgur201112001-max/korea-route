@@ -16507,14 +16507,17 @@ function updateTravelerFilterNote(extra=''){
   }
 }
 function setTravelerFilterBusy(text=''){
-  const results=document.getElementById('travelerFilterResults'); const count=document.getElementById('travelerFilterCount');
+  const results=document.getElementById('travelerFilterResults'); const count=document.getElementById('travelerFilterCount'); const sheet=document.getElementById('travelerFilterSheet');
+  if(sheet) sheet.style.removeProperty('display');
   if(count) count.textContent='…';
   if(results) results.innerHTML=`<div class="traveler-filter-loading">${escapeHtmlText(text||(lang==='ko'?'지도 후보를 찾는 중…':'Finding map candidates…'))}</div>`;
 }
 function setTravelerFilterEmpty(title,body){
-  const results=document.getElementById('travelerFilterResults'),count=document.getElementById('travelerFilterCount');
+  const results=document.getElementById('travelerFilterResults'),count=document.getElementById('travelerFilterCount'),sheet=document.getElementById('travelerFilterSheet');
   if(count) count.textContent='0';
   if(results) results.innerHTML=`<div class="traveler-filter-empty"><b>${escapeHtmlText(title)}</b>${escapeHtmlText(body)}</div>`;
+  if(sheet) sheet.style.setProperty('display','none','important');
+  try{if(typeof setCityMapStatus==='function')setCityMapStatus(`${title} ${body}`);}catch(_){}
 }
 function travelerFilterQuery(id,lat,lng,radius){
   const around=`around:${Math.round(radius)},${lat},${lng}`;
@@ -16570,10 +16573,11 @@ function travelerFilterResultHint(tags,id){
 }
 function renderTravelerFilterResults(items){
   travelerFilterItems=items||[];
-  const box=document.getElementById('travelerFilterResults'), count=document.getElementById('travelerFilterCount');
+  const box=document.getElementById('travelerFilterResults'), count=document.getElementById('travelerFilterCount'), sheet=document.getElementById('travelerFilterSheet');
   if(count) count.textContent=String(travelerFilterItems.length);
+  if(!travelerFilterItems.length){if(sheet) sheet.style.setProperty('display','none','important');setTravelerFilterEmpty(lang==='ko'?'조건에 맞는 핀이 없습니다.':'No matching pins yet.',lang==='ko'?'검색 범위를 바꾸거나 다른 조건을 선택해 보세요.':'Try another filter or move the map.');return;}
+  if(sheet) sheet.style.removeProperty('display');
   if(!box) return;
-  if(!travelerFilterItems.length){setTravelerFilterEmpty(lang==='ko'?'조건에 맞는 핀이 없습니다.':'No matching pins yet.',lang==='ko'?'검색 범위를 바꾸거나 다른 조건을 선택해 보세요.':'Try another filter or move the map.');return;}
   box.innerHTML=travelerFilterItems.slice(0,12).map((x,i)=>`<button type="button" class="traveler-result-card" onclick="pickTravelerFilterResult(${i})"><b>${x.icon||'📍'} ${escapeHtmlText(x.name)}</b><span class="meta">${escapeHtmlText(x.distance||'')}</span><span>${escapeHtmlText(x.travelerFilter?travelerFilterResultHint({},x.travelerFilter):(x.curated?(lang==='ko'?'Korea Route 기본 추천 장소':'Korea Route curated place'):(x.hint||'')))}</span></button>`).join('');
 }
 function drawTravelerFilterMarkers(items){
@@ -22302,9 +22306,6 @@ body.dark .v213-google-map-btn,body.dark .v213-map-action-row #v210MapMoreFloat,
     if(!url){e?.preventDefault?.();return false;}e.currentTarget.href=url;return true;
   }
   function ensureActionRow(){
-    console.log('locate buttons:', document.querySelectorAll('.city-map-locate-float').length);
-    console.log('action rows:', document.querySelectorAll('.v213-map-action-row').length);
-    console.log('google wraps:', document.querySelectorAll('#v212GoogleMapWrap').length);
     const live=document.querySelector('#city .city-map-live-wrap');if(!live)return null;
     const rows=[...document.querySelectorAll('.v213-map-action-row')];
     let row=rows[0]||null;
