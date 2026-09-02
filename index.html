@@ -3186,60 +3186,111 @@ body.dark .v197-quick-grid button.help{background:#341f28;border-color:#64404d;c
 @media(max-width:360px){.v197-intent-grid{grid-template-columns:1fr}.v197-intent{min-height:96px;grid-template-columns:44px minmax(0,1fr);grid-template-rows:auto;gap:10px;align-items:center}.v197-intent .ico{margin:0}.v197-more-grid{grid-template-columns:1fr}}
 </style>
 
+
+<style id="v220-approved-home-ui">
+/* V220 · Approved Korea Route home visual system. Home-only layout; existing feature nodes remain in DOM. */
+:root{--v220-navy:#0f172a;--v220-text:#1e293b;--v220-muted:#64748b;--v220-line:#e2e8f0;--v220-soft:#f8f9fa;--v220-shadow:0 4px 12px rgba(0,0,0,.05)}
+#home.v220-home{padding:0 0 calc(92px + env(safe-area-inset-bottom))!important;background:#fff!important;color:var(--v220-text);min-height:100vh}
+#home.v220-home .v220-home-ui{background:#fff;min-height:100%;padding-bottom:12px}
+#home.v220-home svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;display:block}
+.v220-header{position:sticky;top:0;z-index:40;height:68px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-bottom:1px solid rgba(226,232,240,.88)}
+.v220-brand{display:flex;align-items:center;gap:10px;min-width:0}.v220-brand b{font-size:18px;font-weight:950;letter-spacing:-.35px;color:var(--v220-navy);white-space:nowrap}.v220-brandmark{width:36px;height:36px;border-radius:12px;background:var(--v220-navy);color:#fff;display:grid;place-items:center;box-shadow:var(--v220-shadow);flex:0 0 auto}.v220-brandmark svg{width:20px;height:20px;stroke-width:2.1}
+.v220-head-actions{display:flex;align-items:center;justify-content:flex-end;gap:7px;min-width:0}.v220-lang{min-height:36px;border:1px solid var(--v220-line)!important;border-radius:12px!important;background:#fff!important;color:var(--v220-text)!important;padding:0 10px!important;font-size:11px!important;font-weight:900!important;box-shadow:none!important;white-space:nowrap}
+#home.v220-home #homeOfflineSnapshotBadge{min-height:36px!important;max-width:122px;margin:0!important;padding:0 9px 0 23px!important;border:1px solid var(--v220-line)!important;border-radius:12px!important;background:#fff!important;color:var(--v220-muted)!important;font-size:9px!important;font-weight:850!important;line-height:1.1!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;position:relative!important;box-shadow:none!important;opacity:1!important}
+#home.v220-home #homeOfflineSnapshotBadge::before{content:"";position:absolute;left:9px;top:50%;width:7px;height:7px;border-radius:999px;transform:translateY(-50%);background:#94a3b8;box-shadow:0 0 0 3px #f1f5f9}#home.v220-home #homeOfflineSnapshotBadge.current::before{background:#22c55e;box-shadow:0 0 0 3px #ecfdf5}#home.v220-home #homeOfflineSnapshotBadge.stale::before{background:#f59e0b;box-shadow:0 0 0 3px #fffbeb}#home.v220-home #homeOfflineSnapshotBadge.none::before{background:#94a3b8}
+.v220-intro{padding:20px 16px 0}.v220-intro>span{font-size:10px;font-weight:900;letter-spacing:.12em;color:var(--v220-muted)}.v220-intro h1{margin:5px 0 0!important;color:var(--v220-navy)!important;font-size:26px!important;line-height:1.14!important;letter-spacing:-.9px!important;font-weight:950!important}
+.v220-core-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:15px 16px 0}.v220-core-card{min-width:0;min-height:165px;padding:15px;border:1px solid var(--v220-line);border-radius:16px;background:#fff;color:var(--v220-text);text-align:left;box-shadow:var(--v220-shadow);display:flex;flex-direction:column;align-items:flex-start;cursor:pointer}.v220-core-card:active,.v220-tools-grid button:active,.v220-course-card:active,.v220-ready-card:active{transform:scale(.985)}
+.v220-core-icon{width:48px;height:48px;border-radius:999px;display:grid;place-items:center;margin-bottom:17px}.v220-core-icon.blue{background:#eff6ff;color:#0369a1}.v220-core-icon.slate{background:#f1f5f9;color:var(--v220-navy)}.v220-core-icon svg{width:24px;height:24px}.v220-core-card>b{font-size:16px;line-height:1.2;font-weight:950;letter-spacing:-.25px;color:var(--v220-navy)}.v220-core-card>small{display:block;margin-top:6px;color:var(--v220-muted);font-size:11px;line-height:1.4;font-weight:700}.v220-card-go{width:100%;margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between;color:var(--v220-muted);font-size:10px;font-weight:850}.v220-card-go svg{width:15px!important;height:15px!important}
+.v220-section{padding:25px 16px 0}.v220-section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-bottom:11px}.v220-section-head h2{margin:0;color:var(--v220-navy);font-size:17px;font-weight:950;letter-spacing:-.35px}.v220-section-head>span{color:var(--v220-muted);font-size:10px;font-weight:750;text-align:right}
+.v220-tools-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;padding:13px 5px 12px;border:1px solid var(--v220-line);border-radius:16px;background:#fff;box-shadow:var(--v220-shadow)}.v220-tools-grid button{min-width:0;border:0;background:transparent;color:var(--v220-text);padding:2px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer}.v220-tool-icon{width:46px;height:46px;border-radius:999px;background:#f8fafc;color:var(--v220-navy);display:grid;place-items:center}.v220-tool-icon svg{width:21px;height:21px}.v220-tools-grid b{font-size:9.5px;line-height:1.35;font-weight:900;text-align:center;color:var(--v220-text);min-height:27px;display:flex;align-items:center;justify-content:center}
+.v220-more{border:0;background:transparent;color:var(--v220-muted);padding:3px 0;display:flex;align-items:center;gap:1px;font-size:11px;font-weight:850}.v220-more svg{width:14px!important;height:14px!important}.v220-popular{padding-right:0}.v220-popular .v220-section-head{padding-right:16px}.v220-course-scroll{display:flex;gap:11px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 16px 5px 0;scrollbar-width:none}.v220-course-scroll::-webkit-scrollbar{display:none}.v220-course-card{position:relative;flex:0 0 78%;aspect-ratio:16/9;overflow:hidden;border:0;border-radius:16px;background:#cbd5e1 center/cover no-repeat;color:#fff;text-align:left;scroll-snap-align:start;box-shadow:var(--v220-shadow);cursor:pointer}.v220-course-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,23,42,.04) 20%,rgba(15,23,42,.82) 100%)}.v220-course-card.seoul{background-image:url('https://images.unsplash.com/photo-1538485399081-7c897eaedc4f?auto=format&fit=crop&w=900&q=80')}.v220-course-card.busan{background-image:url('https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=900&q=80')}.v220-course-card.jeju{background-image:url('https://images.unsplash.com/photo-1579283548202-8b8f1986d056?auto=format&fit=crop&w=900&q=80')}.v220-course-copy{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:14px}.v220-course-copy small{display:block;margin-bottom:4px;color:rgba(255,255,255,.76);font-size:8.5px;font-weight:900;letter-spacing:.08em}.v220-course-copy b{display:block;color:#fff;font-size:16px;line-height:1.2;font-weight:950;letter-spacing:-.25px}
+.v220-ready-card{width:calc(100% - 32px);margin:20px 16px 0;padding:14px;border:1px solid var(--v220-line);border-radius:16px;background:var(--v220-soft);color:var(--v220-text);display:grid;grid-template-columns:40px minmax(0,1fr) 18px;gap:10px;align-items:center;text-align:left;box-shadow:none}.v220-ready-icon{width:40px;height:40px;border-radius:12px;background:#fff;color:var(--v220-navy);display:grid;place-items:center;box-shadow:0 2px 8px rgba(15,23,42,.04)}.v220-ready-icon svg{width:20px;height:20px}.v220-ready-copy b{display:block;font-size:13px;font-weight:950;color:var(--v220-navy)}.v220-ready-copy small{display:block;margin-top:3px;color:var(--v220-muted);font-size:10px;line-height:1.4;font-weight:650}.v220-ready-go{color:#94a3b8}.v220-ready-go svg{width:16px!important;height:16px!important}
+/* Keep capability DOM for existing JS, but remove the old dashboard clutter from the approved home visual layer. */
+#home.v220-home>#globalSearchBox,#home.v220-home>#v60HomeShortcuts,#home.v220-home>#quickStart,#home.v220-home>#travelPulse,#home.v220-home>#quickSos,#home.v220-home>#nearbyEssentials,#home.v220-home>#featureArchitecture,#home.v220-home>.section-head,#home.v220-home>.card,#home.v220-home>#betaReleaseCard{display:none!important}
+#home.v220-home>#installBox{margin:14px 16px 0!important;border:1px solid var(--v220-line)!important;border-radius:16px!important;background:#fff!important;box-shadow:var(--v220-shadow)!important;padding:12px!important}#home.v220-home>#installBox b{color:var(--v220-navy)!important;font-size:12px!important}#home.v220-home>#installBox span{color:var(--v220-muted)!important;font-size:9.5px!important}#home.v220-home>#installBox .install-btn{border-radius:11px!important;background:var(--v220-navy)!important;font-size:10px!important}
+#home.v220-home>#cityWalkRecovery{margin:14px 16px 0!important;border-radius:16px!important;border-color:var(--v220-line)!important;box-shadow:var(--v220-shadow)!important}
+#home.active~.bottom{display:none!important}
+/* Approved 5-tab navigation: line icons, no emoji tiles. */
+.v60-tabbar.v220-tabbar{height:calc(72px + env(safe-area-inset-bottom))!important;padding:5px 4px calc(5px + env(safe-area-inset-bottom))!important;gap:0!important;background:rgba(255,255,255,.97)!important;border-top:1px solid var(--v220-line)!important;box-shadow:0 -4px 12px rgba(0,0,0,.035)!important;backdrop-filter:blur(14px)!important}
+.v60-tabbar.v220-tabbar button{min-height:60px!important;padding:4px 1px!important;gap:4px!important;border-radius:0!important;background:transparent!important;color:#94a3b8!important;font-size:10px!important;font-weight:750!important}.v60-tabbar.v220-tabbar button .ico{min-height:auto!important;font-size:0!important;display:grid!important;place-items:center!important;color:inherit!important}.v60-tabbar.v220-tabbar button .ico svg{width:21px!important;height:21px!important;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}.v60-tabbar.v220-tabbar button span:last-child{font-size:9.5px!important;line-height:1!important;font-weight:800!important;color:inherit!important}.v60-tabbar.v220-tabbar button.active{color:var(--v220-navy)!important;background:transparent!important}.v60-tabbar.v220-tabbar button.active .ico{font-size:0!important}.v60-tabbar.v220-tabbar button.active span:last-child{font-size:9.5px!important;font-weight:950!important}
+body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#fff!important;color:var(--v220-text)!important}body.dark #home.v220-home .v220-header{background:rgba(255,255,255,.96)!important}body.dark #home.v220-home .v220-core-card,body.dark #home.v220-home .v220-tools-grid,body.dark #home.v220-home>#installBox{background:#fff!important;border-color:var(--v220-line)!important;color:var(--v220-text)!important}
+@media(max-width:360px){.v220-header{padding:0 12px}.v220-brand b{font-size:16px}.v220-brandmark{width:34px;height:34px}.v220-head-actions{gap:4px}.v220-lang{padding:0 7px!important;font-size:9px!important}#home.v220-home #homeOfflineSnapshotBadge{max-width:98px!important;font-size:8px!important}.v220-intro,.v220-core-grid,.v220-section{padding-left:12px;padding-right:12px}.v220-popular{padding-right:0}.v220-popular .v220-section-head{padding-right:12px}.v220-core-grid{gap:8px}.v220-core-card{padding:12px;min-height:158px}.v220-tools-grid b{font-size:8.5px}.v220-course-card{flex-basis:82%}.v220-ready-card{width:calc(100% - 24px);margin-left:12px;margin-right:12px}}
+@media(min-width:560px){.app{max-width:560px}.v60-tabbar.v220-tabbar,.bottom{width:min(560px,100%)}.v220-course-card{flex-basis:300px}.v220-header,.v220-intro,.v220-core-grid,.v220-section{padding-left:22px;padding-right:22px}.v220-popular{padding-right:0}.v220-popular .v220-section-head{padding-right:22px}.v220-ready-card{width:calc(100% - 44px);margin-left:22px;margin-right:22px}}
+</style>
+
 </head>
 <body>
 <div class="app">
 
-<section class="screen active" id="home">
-  <div class="top">
-    <div class="brand"><div class="logo">KR</div><div data-i18n="home.brand">Korea Route</div></div>
-    <button class="pill" id="langBtn" onclick="toggleLang()">EN / 한국어</button>
-  </div>
-
-  <div class="home-offline-snapshot-wrap">
-    <button type="button" id="homeOfflineSnapshotBadge" class="home-offline-snapshot-badge none" onclick="handleHomeOfflineSnapshotBadge()" aria-live="polite">Offline copy not saved</button>
-  </div>
-
-  <div class="hero">
-    <div class="kicker" data-i18n="home.hero.kicker">Travel Korea smarter</div>
-    <h1 data-i18n="home.hero.title">Your Korea trip,<br>made simple.</h1>
-    <p data-i18n="home.hero.subtitle">Plan your trip, get around, find nearby essentials, and get help when you need it.</p>
-    <div class="quick">
-      <div><b data-i18n="home.hero.quick.transit.title">KTX · Bus</b><span data-i18n="home.hero.quick.transit.subtitle">compare routes</span></div>
-      <div><b data-i18n="home.hero.quick.cities.title">20 Cities</b><span data-i18n="home.hero.quick.cities.subtitle">starter guide</span></div>
-      <div><b data-i18n="home.hero.quick.cost.title">Compare costs</b><span data-i18n="home.hero.quick.cost.subtitle">compare choices</span></div>
-    </div>
-  </div>
-
-  
-  <div class="v197-home-drawer" id="v118HomeNav">
-    <div class="v197-home-title">
-      <div><b data-en="Start here" data-ko="여기서 시작하세요">Start here</b><span data-en="Two simple choices. Everything else stays one tap away." data-ko="먼저 두 가지만 고르세요. 나머지 기능은 한 번 더 누르면 열립니다.">Two simple choices. Everything else stays one tap away.</span></div>
-    </div>
-
-    <div class="v197-intent-grid">
-      <button type="button" class="v197-intent primary" onclick="v60OpenRouteTab()">
-        <span class="ico">⇄</span><span><b data-en="Plan Route" data-ko="경로 찾기">Plan Route</b><small data-en="From → To · compare transport" data-ko="출발 → 도착 · 교통편 비교">From → To · compare transport</small></span><span class="go">›</span>
-      </button>
-      <button type="button" class="v197-intent live" onclick="v60OpenMapTab()">
-        <span class="ico">📍</span><span><b data-en="In Korea Now" data-ko="지금 한국에서">In Korea Now</b><small data-en="Map · nearby · walking help" data-ko="지도 · 주변 찾기 · 도보 도움">Map · nearby · walking help</small></span><span class="go">›</span>
-      </button>
-    </div>
-
-    <div class="v197-quick-grid" aria-label="Quick access">
-      <button type="button" onclick="v60OpenTripOverview()"><span>🧳</span><b data-en="My Trip" data-ko="내 여행">My Trip</b></button>
-      <button type="button" class="help" onclick="v118OpenHelpTab()"><span>🆘</span><b data-en="Help" data-ko="도움">Help</b></button>
-    </div>
-
-    <details class="v197-more">
-      <summary><span data-en="More travel tools" data-ko="여행 도구 더보기">More travel tools</span><span class="chev">⌄</span></summary>
-      <div class="v197-more-grid">
-        <button type="button" onclick="go('planner')" data-en="🗓️ Make a trip plan" data-ko="🗓️ 여행 일정 만들기">🗓️ Make a trip plan</button>
-        <button type="button" onclick="openPreArrivalHub()" data-en="✈️ Before you fly" data-ko="✈️ 출발 전 준비">✈️ Before you fly</button>
-        <button type="button" onclick="go('assistantHub')" data-en="✨ Trip Assistant" data-ko="✨ 여행 도우미">✨ Trip Assistant</button>
-        <button type="button" onclick="openForeignerAccessHub()" data-en="📱 Can I use this?" data-ko="📱 이거 쓸 수 있나요?">📱 Can I use this?</button>
+<section class="screen active v220-home" id="home">
+  <div class="v220-home-ui" id="v118HomeNav">
+    <header class="v220-header">
+      <div class="v220-brand">
+        <span class="v220-brandmark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19c-1.7 0-3-1.3-3-3s1.3-3 3-3h12a3 3 0 1 0 0-6H9"/><path d="m6 10 3-3-3-3"/><circle cx="6" cy="19" r="1.3"/></svg></span>
+        <b data-en="Korea Route" data-ko="코리아 루트">Korea Route</b>
       </div>
-    </details>
+      <div class="v220-head-actions">
+        <button class="v220-lang" id="langBtn" type="button" onclick="toggleLang()">EN / 한국어</button>
+        <button type="button" id="homeOfflineSnapshotBadge" class="home-offline-snapshot-badge none" onclick="handleHomeOfflineSnapshotBadge()" aria-live="polite">Offline copy not saved</button>
+      </div>
+    </header>
+
+    <div class="v220-intro">
+      <span data-en="TRAVEL KOREA WITH EASE" data-ko="한국 여행을 더 쉽게">TRAVEL KOREA WITH EASE</span>
+      <h1 data-en="Where are you going?" data-ko="어디로 이동할까요?">Where are you going?</h1>
+    </div>
+
+    <div class="v220-core-grid">
+      <button type="button" class="v220-core-card" onclick="v60OpenRouteTab()">
+        <span class="v220-core-icon blue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19c-1.7 0-3-1.3-3-3s1.3-3 3-3h12a3 3 0 1 0 0-6H9"/><path d="m6 10 3-3-3-3"/><circle cx="6" cy="19" r="1.3"/></svg></span>
+        <b data-en="Find a route" data-ko="경로 찾기">Find a route</b>
+        <small data-en="Subway · Bus · KTX" data-ko="지하철 · 버스 · KTX">Subway · Bus · KTX</small>
+        <span class="v220-card-go"><span data-en="Plan trip" data-ko="이동 계획">Plan trip</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span>
+      </button>
+      <button type="button" class="v220-core-card" onclick="v60OpenMapTab()">
+        <span class="v220-core-icon slate"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+        <b data-en="Explore nearby" data-ko="내 주변 탐색">Explore nearby</b>
+        <small data-en="Map · Nearby places" data-ko="지도 · 주변 명소">Map · Nearby places</small>
+        <span class="v220-card-go"><span data-en="View nearby" data-ko="주변 보기">View nearby</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span>
+      </button>
+    </div>
+
+    <section class="v220-section">
+      <div class="v220-section-head">
+        <h2 data-en="Quick tools" data-ko="필수 도구">Quick tools</h2>
+        <span data-en="Travel essentials" data-ko="여행 중 자주 쓰는 기능">Travel essentials</span>
+      </div>
+      <div class="v220-tools-grid">
+        <button type="button" onclick="openSubwayMapHub()"><span class="v220-tool-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="16" rx="4"/><path d="M8 8h8M8 14h.01M16 14h.01M8 21l2-2M16 21l-2-2"/></svg></span><b data-en="Subway<br>Map" data-ko="지하철<br>노선도">Subway<br>Map</b></button>
+        <button type="button" onclick="go('walletHub')"><span class="v220-tool-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5c-.8-.7-1.9-1.1-3.2-1.1-1.8 0-3 .8-3 2.1 0 3.1 6.4 1.5 6.4 4.7 0 1.4-1.3 2.4-3.4 2.4-1.4 0-2.7-.5-3.7-1.3M12 5.5v13"/></svg></span><b data-en="Currency<br>Converter" data-ko="환율<br>계산">Currency<br>Converter</b></button>
+        <button type="button" onclick="openPreArrivalHub()"><span class="v220-tool-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 10a11 11 0 0 1 14 0M8 13.5a6.5 6.5 0 0 1 8 0M10.8 17a2 2 0 0 1 2.4 0"/><circle cx="12" cy="19" r="1"/></svg></span><b>Wi-Fi / eSIM</b></button>
+        <button type="button" onclick="openV55EmergencyFind()"><span class="v220-tool-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3h4M9 5h6l1 3v7H8V8l1-3Z"/><path d="M6 19h12M5 11H3M21 11h-2M6 6 4.5 4.5M18 6l1.5-1.5"/></svg></span><b data-en="Emergency<br>SOS" data-ko="긴급<br>SOS">Emergency<br>SOS</b></button>
+      </div>
+    </section>
+
+    <section class="v220-section v220-popular">
+      <div class="v220-section-head">
+        <h2 data-en="Popular routes" data-ko="인기 여행 코스">Popular routes</h2>
+        <button type="button" class="v220-more" onclick="go('exploreHub')"><span data-en="See more" data-ko="더보기">See more</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
+      <div class="v220-course-scroll" aria-label="Popular Korea travel routes">
+        <button type="button" class="v220-course-card seoul" onclick="v220OpenPopularCity('Seoul')">
+          <span class="v220-course-copy"><small>SEOUL · <span data-en="HALF-DAY" data-ko="반나절 코스">HALF-DAY</span></small><b data-en="Myeongdong & Palaces" data-ko="명동 · 고궁 산책">Myeongdong & Palaces</b></span>
+        </button>
+        <button type="button" class="v220-course-card busan" onclick="v220OpenPopularCity('Busan')">
+          <span class="v220-course-copy"><small>BUSAN · <span data-en="1 DAY" data-ko="하루 코스">1 DAY</span></small><b data-en="Haeundae Seaside" data-ko="해운대 · 바다 산책">Haeundae Seaside</b></span>
+        </button>
+        <button type="button" class="v220-course-card jeju" onclick="v220OpenPopularCity('Jeju')">
+          <span class="v220-course-copy"><small>JEJU · <span data-en="NATURE" data-ko="자연 코스">NATURE</span></small><b data-en="East Jeju Drive" data-ko="제주 동쪽 여행">East Jeju Drive</b></span>
+        </button>
+      </div>
+    </section>
+
+    <button type="button" class="v220-ready-card" onclick="openPreArrivalHub()">
+      <span class="v220-ready-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.6 2.8 8 7 10 4.2-2 7-5.4 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+      <span class="v220-ready-copy"><b data-en="Ready for Korea" data-ko="한국 여행 준비">Ready for Korea</b><small data-en="Offline info and essential travel tools in one place." data-ko="오프라인 정보와 필수 여행 도구를 한곳에서 확인하세요.">Offline info and essential travel tools in one place.</small></span>
+      <span class="v220-ready-go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span>
+    </button>
   </div>
 
 <div class="install-box" id="installBox">
@@ -4411,12 +4462,12 @@ body.dark .v197-quick-grid button.help{background:#341f28;border-color:#64404d;c
 
 <div class="bottom"><button class="cta" id="mainCTA" onclick="mainAction()">Plan My Korea Trip</button></div>
 
-<nav class="v60-tabbar" id="v60Tabbar" aria-label="Main navigation">
-  <button type="button" data-v60-tab="home" onclick="v60OpenHome()"><span class="ico">⌂</span><span data-en="Home" data-ko="홈">Home</span></button>
-  <button type="button" data-v60-tab="map" onclick="v60OpenMapTab()"><span class="ico">🗺️</span><span data-en="Map" data-ko="지도">Map</span></button>
-  <button type="button" data-v60-tab="route" onclick="v60OpenRouteTab()"><span class="ico">⇄</span><span data-en="Route" data-ko="경로">Route</span></button>
-  <button type="button" data-v60-tab="trip" onclick="v60OpenTripOverview()"><span class="ico">🧳</span><span data-en="Trip" data-ko="여행">Trip</span></button>
-  <button type="button" data-v60-tab="helper" onclick="v118OpenHelpTab()"><span class="ico">🆘</span><span data-en="Help" data-ko="도움">Help</span></button>
+<nav class="v60-tabbar v220-tabbar" id="v60Tabbar" aria-label="Main navigation">
+  <button type="button" data-v60-tab="home" onclick="v60OpenHome()"><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 9-8 9 8"/><path d="M5 10v10h14V10M9 20v-6h6v6"/></svg></span><span data-en="Home" data-ko="홈">Home</span></button>
+  <button type="button" data-v60-tab="map" onclick="v60OpenMapTab()"><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 6 5-3 8 3 5-3v15l-5 3-8-3-5 3V6Z"/><path d="M8 3v15M16 6v15"/></svg></span><span data-en="Map" data-ko="지도">Map</span></button>
+  <button type="button" data-v60-tab="route" onclick="v60OpenRouteTab()"><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19c-1.7 0-3-1.3-3-3s1.3-3 3-3h12a3 3 0 1 0 0-6H9"/><path d="m6 10 3-3-3-3"/><circle cx="6" cy="19" r="1.3"/></svg></span><span data-en="Route" data-ko="경로">Route</span></button>
+  <button type="button" data-v60-tab="trip" onclick="v60OpenTripOverview()"><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="7" width="14" height="13" rx="2"/><path d="M9 7V5c0-1 1-2 3-2s3 1 3 2v2M9 12v3M15 12v3"/></svg></span><span data-en="My Trip" data-ko="내 여행">My Trip</span></button>
+  <button type="button" data-v60-tab="helper" onclick="v220OpenMore()"><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></span><span data-en="More" data-ko="더보기">More</span></button>
 </nav>
 
 </div>
@@ -4433,7 +4484,7 @@ body.dark .v197-quick-grid button.help{background:#341f28;border-color:#64404d;c
 
 
 <script>
-const KR_BUILD_VERSION='V219';
+const KR_BUILD_VERSION='V220';
 const TRANSLATIONS = {
   "ko": {
     "home.brand": "코리아 루트",
@@ -22441,6 +22492,24 @@ body.dark .v213-google-map-btn,body.dark #city.v60-map-mode.v210-map2 .v213-map-
   window.v215SetCityLocationMarker=setSingleCityLocationMarker;
   window.v215ClearCityLocationMarker=clearPreviousCityLocationMarker;
   console.info('Korea Route V215 single city location marker ready');
+})();
+</script>
+
+
+<script id="v220-home-helpers">
+(function(){
+  window.v220OpenPopularCity=function(city){
+    try{
+      if(typeof openCityFromHub==='function'){ openCityFromHub(city); return; }
+      const c=window.cityGuideConfig?.[city] || (typeof cityGuideConfig!=='undefined'?cityGuideConfig[city]:null);
+      if(c && typeof openCity==='function') openCity(city,c.ko,c.emoji,c.descEn,c.descKo,c.moveEn,c.moveKo,c.costEn,c.costKo);
+      else if(typeof v60OpenMapTab==='function') v60OpenMapTab();
+    }catch(_){ if(typeof v60OpenMapTab==='function') v60OpenMapTab(); }
+  };
+  window.v220OpenMore=function(){
+    if(typeof v118OpenHelpTab==='function') v118OpenHelpTab();
+    setTimeout(()=>{ try{ if(typeof v118OpenToolMenu==='function') v118OpenToolMenu('language'); }catch(_){} },80);
+  };
 })();
 </script>
 
