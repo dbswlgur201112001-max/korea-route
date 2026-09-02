@@ -4433,7 +4433,7 @@ body.dark .v197-quick-grid button.help{background:#341f28;border-color:#64404d;c
 
 
 <script>
-const KR_BUILD_VERSION='V215';
+const KR_BUILD_VERSION='V216';
 const TRANSLATIONS = {
   "ko": {
     "home.brand": "코리아 루트",
@@ -22166,7 +22166,7 @@ body.dark .v213-google-map-btn,body.dark #city.v60-map-mode.v210-map2 .v213-map-
 }
 </style>
 <script id="v214-google-map-links-js">
-// V214 · Use real anchors for Google Maps; keep controls persistent without disturbing the V160 launch guard.
+// V216 · Use same-tab Google Maps anchors for Android/PWA handoff; no retry logic.
 (function(){
   if(window.__KR_V214_GOOGLE_MAP_LINKS__)return;window.__KR_V214_GOOGLE_MAP_LINKS__=true;
   const online=()=>navigator.onLine!==false;
@@ -22188,7 +22188,7 @@ body.dark .v213-google-map-btn,body.dark #city.v60-map-mode.v210-map2 .v213-map-
   function centerUrl(){
     const map=mapInstance(),c=map?.getCenter?.(),lat=Number(c?.lat),lng=Number(c?.lng);
     if(!Number.isFinite(lat)||!Number.isFinite(lng))return '';
-    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${lat},${lng}`)}`;
+    return `https://www.google.com/maps/@${lat},${lng},16z`;
   }
   function blockOffline(e){
     if(online())return false;
@@ -22226,10 +22226,11 @@ body.dark .v213-google-map-btn,body.dark #city.v60-map-mode.v210-map2 .v213-map-
     if(!wrap){wrap=document.createElement('div');wrap.id='v212GoogleMapWrap';wrap.className='v212-google-map-wrap';}
     let a=wrap.querySelector('#v212GoogleMapCenterBtn');
     if(!a||a.tagName!=='A'){
-      wrap.innerHTML=`<a id="v212GoogleMapCenterBtn" class="v213-google-map-btn" href="#" target="_blank" rel="noopener" aria-disabled="false">🗺️ <span data-en="Google Maps" data-ko="구글맵">${tr('구글맵','Google Maps')}</span></a><span id="v212GoogleMapOfflineNote" class="v212-map-offline-note">${tr('인터넷 필요','Needs internet')}</span>`;
+      wrap.innerHTML=`<a id="v212GoogleMapCenterBtn" class="v213-google-map-btn" href="#" aria-disabled="false">🗺️ <span data-en="Google Maps" data-ko="구글맵">${tr('구글맵','Google Maps')}</span></a><span id="v212GoogleMapOfflineNote" class="v212-map-offline-note">${tr('인터넷 필요','Needs internet')}</span>`;
       a=wrap.querySelector('#v212GoogleMapCenterBtn');
       a.addEventListener('click',prepareCenterAnchor);
     }
+    a.removeAttribute('target');a.removeAttribute('rel');
     if(wrap.parentNode!==row)row.appendChild(wrap);
   }
   function decorateTravelerCards(){
@@ -22241,8 +22242,9 @@ body.dark .v213-google-map-btn,body.dark #city.v60-map-mode.v210-map2 .v213-map-
       if(!row){row=document.createElement('div');row.className='v212-traveler-card-row';card.parentNode.insertBefore(row,card);row.appendChild(card);}
       let d=row.querySelector('.v212-directions-btn[data-v212-directions="traveler"]');
       if(!d||d.tagName!=='A'){
-        d=document.createElement('a');d.className='v212-directions-btn';d.dataset.v212Directions='traveler';d.href=directionsUrl(item)||'#';d.target='_blank';d.rel='noopener';row.appendChild(d);
+        d=document.createElement('a');d.className='v212-directions-btn';d.dataset.v212Directions='traveler';d.href=directionsUrl(item)||'#';row.appendChild(d);
       }
+      d.removeAttribute('target');d.removeAttribute('rel');
       d.onclick=(e)=>prepareTravelerAnchor(e,i);
     });
   }
@@ -22255,8 +22257,9 @@ body.dark .v213-google-map-btn,body.dark #city.v60-map-mode.v210-map2 .v213-map-
       if(!row){row=document.createElement('div');row.className='v212-facility-card-row';card.parentNode.insertBefore(row,card);row.appendChild(card);}
       let d=row.querySelector('.v212-directions-btn[data-v212-directions="facility"]');
       if(!d||d.tagName!=='A'){
-        d=document.createElement('a');d.className='v212-directions-btn';d.dataset.v212Directions='facility';d.href=directionsUrl(item)||'#';d.target='_blank';d.rel='noopener';row.appendChild(d);
+        d=document.createElement('a');d.className='v212-directions-btn';d.dataset.v212Directions='facility';d.href=directionsUrl(item)||'#';row.appendChild(d);
       }
+      d.removeAttribute('target');d.removeAttribute('rel');
       d.onclick=(e)=>prepareFacilityAnchor(e,i);
     });
   }
@@ -22311,7 +22314,7 @@ body.dark .v213-google-map-btn,body.dark #city.v60-map-mode.v210-map2 .v213-map-
   window.addEventListener('online',sync);window.addEventListener('offline',sync);
   document.addEventListener('DOMContentLoaded',()=>{observeCity();repairAll();});
   observeCity();repairAll();
-  console.info('Korea Route V214 Google Maps anchors ready');
+  console.info('Korea Route V216 same-tab Google Maps anchors ready');
 })();
 </script>
 
