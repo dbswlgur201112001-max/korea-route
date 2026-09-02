@@ -4433,7 +4433,7 @@ body.dark .v197-quick-grid button.help{background:#341f28;border-color:#64404d;c
 
 
 <script>
-const KR_BUILD_VERSION='V214';
+const KR_BUILD_VERSION='V215';
 const TRANSLATIONS = {
   "ko": {
     "home.brand": "코리아 루트",
@@ -22312,6 +22312,78 @@ body.dark .v213-google-map-btn,body.dark #city.v60-map-mode.v210-map2 .v213-map-
   document.addEventListener('DOMContentLoaded',()=>{observeCity();repairAll();});
   observeCity();repairAll();
   console.info('Korea Route V214 Google Maps anchors ready');
+})();
+</script>
+
+
+<script id="v215-single-city-location-marker-js">
+// V215 · Keep exactly one blue GPS marker on cityGuideMap.
+(function(){
+  if(window.__KR_V215_SINGLE_CITY_LOCATION_MARKER__) return;
+  window.__KR_V215_SINGLE_CITY_LOCATION_MARKER__=true;
+
+  const previousApplyCityUserPosition=applyCityUserPosition;
+  let v215CityLocationMarker=null;
+  let v215CityLocationLayer=null;
+  let v215CityLocationMap=null;
+
+  function removeLayerSafe(map,layer){
+    if(!map||!layer) return;
+    try{ if(map.hasLayer?.(layer)) map.removeLayer(layer); else layer.remove?.(); }catch(_){ try{layer.remove?.();}catch(__){} }
+  }
+
+  function clearPreviousCityLocationMarker(){
+    const maps=[];
+    if(v215CityLocationMap) maps.push(v215CityLocationMap);
+    try{ if(cityGuideMap && !maps.includes(cityGuideMap)) maps.push(cityGuideMap); }catch(_){ }
+
+    for(const map of maps){
+      removeLayerSafe(map,v215CityLocationLayer);
+      try{ if(cityUserLayer && cityUserLayer!==v215CityLocationLayer) removeLayerSafe(map,cityUserLayer); }catch(_){ }
+      removeLayerSafe(map,v215CityLocationMarker);
+      try{ if(cityUserDot && cityUserDot!==v215CityLocationMarker) removeLayerSafe(map,cityUserDot); }catch(_){ }
+      try{ if(cityUserAccuracyCircle) removeLayerSafe(map,cityUserAccuracyCircle); }catch(_){ }
+    }
+
+    // V131 introduced a second DOM-rendered blue dot. Remove it so the Leaflet GPS marker is the single source of truth.
+    try{ cityUserDomMarker?.remove?.(); }catch(_){ }
+    try{ cityUserDomMarker=null; cityUserDomLatLng=null; }catch(_){ }
+    document.querySelectorAll('#cityGuideMap #krCityUserLocationDom').forEach(el=>el.remove());
+
+    try{ cityUserLayer=null; cityUserDot=null; cityUserAccuracyCircle=null; }catch(_){ }
+    v215CityLocationMarker=null;
+    v215CityLocationLayer=null;
+    v215CityLocationMap=null;
+  }
+
+  function setSingleCityLocationMarker(lat,lng,accuracy,opts={}){
+    const nLat=Number(lat),nLng=Number(lng);
+    if(!Number.isFinite(nLat)||!Number.isFinite(nLng)){
+      return previousApplyCityUserPosition.apply(this,arguments);
+    }
+
+    // Every location path (My location, automatic refresh, Follow me) calls applyCityUserPosition.
+    // Clear the previous visual first, then let the existing logic create exactly one fresh marker.
+    clearPreviousCityLocationMarker();
+    const out=previousApplyCityUserPosition.call(this,nLat,nLng,accuracy,opts);
+
+    try{
+      v215CityLocationMarker=cityUserDot||null;
+      v215CityLocationLayer=cityUserLayer||null;
+      v215CityLocationMap=cityGuideMap||null;
+    }catch(_){ }
+
+    // The legacy DOM overlay is deliberately disabled after every update; otherwise two blue dots are visible.
+    try{ cityUserDomMarker?.remove?.(); }catch(_){ }
+    try{ cityUserDomMarker=null; cityUserDomLatLng=null; }catch(_){ }
+    document.querySelectorAll('#cityGuideMap #krCityUserLocationDom').forEach(el=>el.remove());
+    return out;
+  }
+
+  applyCityUserPosition=setSingleCityLocationMarker;
+  window.v215SetCityLocationMarker=setSingleCityLocationMarker;
+  window.v215ClearCityLocationMarker=clearPreviousCityLocationMarker;
+  console.info('Korea Route V215 single city location marker ready');
 })();
 </script>
 
