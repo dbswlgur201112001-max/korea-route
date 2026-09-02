@@ -4433,7 +4433,7 @@ body.dark .v197-quick-grid button.help{background:#341f28;border-color:#64404d;c
 
 
 <script>
-const KR_BUILD_VERSION='V204';
+const KR_BUILD_VERSION='V205';
 const TRANSLATIONS = {
   "ko": {
     "home.brand": "코리아 루트",
@@ -20861,8 +20861,7 @@ try{
    - If Overpass is unavailable, safe/basic categories can fall back to POIs already
      visible in the OpenFreeMap vector tiles. Verification-sensitive filters never guess. */
 (function(){
-  if(window.__KR_V204_MAP_INTERACTION__)return;
-  window.__KR_V204_MAP_INTERACTION__=true;
+  if(true)return; /* superseded by V205 */
 
   let pickedCenter=null;
   let anchorLayer=null;
@@ -21070,6 +21069,342 @@ try{
   };
 
   console.info('Korea Route V204 map interaction ready');
+})();
+</script>
+
+<style id="v205-map-interaction-css">
+/* V205 · map tap anchor must stay above Leaflet + MapLibre layers on Android. */
+#cityGuideMap .v205-map-anchor{position:absolute!important;width:38px!important;height:38px!important;z-index:2147483647!important;pointer-events:none!important;transform:translate(-50%,-50%)!important;display:none;visibility:visible!important;opacity:1!important}
+#cityGuideMap .v205-map-anchor-pulse{position:absolute;inset:1px;border-radius:50%;background:rgba(47,111,237,.22);box-shadow:0 0 0 1px rgba(47,111,237,.2);animation:v205AnchorPulse 1.8s ease-out infinite}
+#cityGuideMap .v205-map-anchor-core{position:absolute;left:9px;top:9px;width:20px;height:20px;border-radius:50%;background:#2f6fed;border:4px solid #fff;box-sizing:border-box;box-shadow:0 2px 12px rgba(8,31,67,.6)}
+@keyframes v205AnchorPulse{0%{transform:scale(.7);opacity:.85}100%{transform:scale(1.5);opacity:0}}
+@media(prefers-reduced-motion:reduce){#cityGuideMap .v205-map-anchor-pulse{animation:none;transform:scale(1.08);opacity:.38}}
+#cityGuideMap .leaflet-traveler-v205-pane-pane{z-index:1900!important;pointer-events:auto!important}
+</style>
+<script id="v205-map-interaction-js">
+/* V205 · Android-visible map anchor + resilient traveler POI filters.
+   - A map tap marks the exact tapped point without recentering the map.
+   - Traveler pins use a dedicated high-z Leaflet pane above the MapLibre canvas.
+   - Overpass uses conservative mirror failover; when unavailable, safe categories
+     can use POIs already present in loaded OpenFreeMap vector tiles.
+   - Verification-sensitive filters are never inferred. */
+(function(){
+  if(window.__KR_V205_MAP_INTERACTION__) return;
+  window.__KR_V205_MAP_INTERACTION__=true;
+
+  let v205PickedCenter=null;
+  let v205AnchorEl=null;
+  let v205AnchorLatLng=null;
+  let v205BoundMap=null;
+  let v205TapTimer=0;
+
+  const v205NoGuess=new Set(['vegan','vegetarian','halal','card_mapped','traveler_confirmed','quiet','luggage','no_pork','allergy']);
+  const v205VectorSafe=new Set(['food_all','parks','spa','walking','english_info','rail','bus_stop','taxi','tmoney_candidate','toilets','atm','pharmacy','convenience','mapped_sights']);
+
+  function v205Text(ko,en){try{return lang==='ko'?ko:en}catch(_){return en}}
+  function v205Valid(x){return !!x&&Number.isFinite(Number(x.lat))&&Number.isFinite(Number(x.lng))}
+
+  function v205EnsureAnchor(){
+    const host=document.getElementById('cityGuideMap');
+    if(!host) return null;
+    if(!v205AnchorEl||!host.contains(v205AnchorEl)){
+      v205AnchorEl=document.createElement('div');
+      v205AnchorEl.id='krV205MapAnchor';
+      v205AnchorEl.className='v205-map-anchor';
+      v205AnchorEl.setAttribute('aria-hidden','true');
+      v205AnchorEl.innerHTML='<span class="v205-map-anchor-pulse"></span><span class="v205-map-anchor-core"></span>';
+      host.appendChild(v205AnchorEl);
+    }
+    return v205AnchorEl;
+  }
+  function v205UpdateAnchor(){
+    if(!v205BoundMap||!v205Valid(v205AnchorLatLng)) return;
+    const el=v205EnsureAnchor(); if(!el) return;
+    try{
+      const p=v205BoundMap.latLngToContainerPoint([Number(v205AnchorLatLng.lat),Number(v205AnchorLatLng.lng)]);
+      if(!Number.isFinite(p?.x)||!Number.isFinite(p?.y)) return;
+      el.style.left=Math.round(p.x)+'px';
+      el.style.top=Math.round(p.y)+'px';
+      el.style.display='block';
+    }catch(_){ }
+  }
+  function v205ShowAnchor(lat,lng){
+    const ll={lat:Number(lat),lng:Number(lng)}; if(!v205Valid(ll)) return;
+    v205AnchorLatLng=ll;
+    v205EnsureAnchor();
+    requestAnimationFrame(v205UpdateAnchor);
+    setTimeout(v205UpdateAnchor,50);
+    setTimeout(v205UpdateAnchor,180);
+  }
+  function v205ClearAnchor({clearCenter=true}={}){
+    if(clearCenter) v205PickedCenter=null;
+    v205AnchorLatLng=null;
+    if(v205AnchorEl) v205AnchorEl.style.display='none';
+  }
+
+  const v205PreviousTravelerCenter=window.travelerFilterCenter;
+  travelerFilterCenter=function(){
+    if(v205Valid(v205PickedCenter)) return {...v205PickedCenter,name:v205Text('선택한 지점','Selected point')};
+    if(typeof v205PreviousTravelerCenter==='function') return v205PreviousTravelerCenter.apply(this,arguments);
+    const map=ensureCityGuideMap?.(); if(!map) return null;
+    const c=map.getCenter(); return {lat:Number(c.lat),lng:Number(c.lng),name:v205Text('지도 중심','Map center')};
+  };
+
+  function v205EnsureTravelerPane(map){
+    if(!map?.getPane) return null;
+    let pane=map.getPane('travelerV205Pane');
+    if(!pane&&map.createPane) pane=map.createPane('travelerV205Pane');
+    if(pane){pane.style.zIndex='1900';pane.style.pointerEvents='auto';}
+    return pane;
+  }
+
+  drawTravelerFilterMarkers=function(items){
+    const map=ensureCityGuideMap(); if(!map||typeof L==='undefined') return;
+    v205EnsureTravelerPane(map);
+    if(travelerFilterLayer){try{travelerFilterLayer.remove()}catch(_){ } travelerFilterLayer=null;}
+    const group=L.layerGroup();
+    (items||[]).forEach((item,i)=>{
+      if(!v205Valid(item)) return;
+      const marker=L.marker([Number(item.lat),Number(item.lng)],{
+        icon:travelerFilterIcon(item),pane:'travelerV205Pane',keyboard:true,title:item.name,zIndexOffset:2200
+      });
+      marker.bindPopup(`<b>${escapeHtmlText((item.icon||'📍')+' '+(item.name||''))}</b><br><small>${escapeHtmlText(item.hint||'')}</small>`);
+      marker.on('click',()=>{pickTravelerFilterResult(i);try{marker.openPopup()}catch(_){ }});
+      marker.addTo(group);
+    });
+    group.addTo(map); travelerFilterLayer=group;
+  };
+
+  async function v205FetchOverpass(q){
+    const endpoints=[
+      'https://overpass.private.coffee/api/interpreter?data=',
+      'https://overpass.kumi.systems/api/interpreter?data=',
+      'https://z.overpass-api.de/api/interpreter?data='
+    ];
+    let lastError=null;
+    for(const base of endpoints){
+      const controller=new AbortController();
+      const timer=setTimeout(()=>controller.abort(),5500);
+      try{
+        const response=await fetch(base+encodeURIComponent(q),{method:'GET',cache:'no-store',signal:controller.signal,headers:{'Accept':'application/json'}});
+        if(!response.ok) throw new Error('overpass '+response.status);
+        const data=await response.json();
+        if(data&&Array.isArray(data.elements)) return data;
+        throw new Error('invalid overpass response');
+      }catch(err){lastError=err;}finally{clearTimeout(timer);}
+    }
+    throw lastError||new Error('overpass unavailable');
+  }
+  v126FetchOverpass=v205FetchOverpass;
+
+  function v205FeatureCoord(feature){
+    const g=feature?.geometry; if(!g) return null;
+    if(g.type==='Point'&&Array.isArray(g.coordinates)){
+      const ll={lng:Number(g.coordinates[0]),lat:Number(g.coordinates[1])}; return v205Valid(ll)?ll:null;
+    }
+    const pts=[];
+    (function walk(v){
+      if(!Array.isArray(v)) return;
+      if(v.length>=2&&typeof v[0]==='number'&&typeof v[1]==='number'){pts.push([Number(v[0]),Number(v[1])]);return;}
+      for(const child of v) walk(child);
+    })(g.coordinates);
+    if(!pts.length) return null;
+    const step=Math.max(1,Math.ceil(pts.length/80)); let n=0,lat=0,lng=0;
+    for(let i=0;i<pts.length;i+=step){lng+=pts[i][0];lat+=pts[i][1];n++;}
+    const ll={lat:lat/n,lng:lng/n}; return v205Valid(ll)?ll:null;
+  }
+  function v205FeatureName(props={}){
+    const ko=props['name:ko']||props.name_ko;
+    const en=props['name:en']||props.name_en;
+    const base=props.name||props['name:latin']||props.name_latin;
+    try{return lang==='ko'?(ko||base||en):(en||base||ko)}catch(_){return en||base||ko}
+  }
+  function v205FeatureHay(feature){
+    const p=feature?.properties||{};
+    const parts=[feature?.layer?.id,feature?.sourceLayer,feature?.source_layer];
+    for(const [k,v] of Object.entries(p)) if(v!=null) parts.push(k,String(v));
+    return parts.join(' ').toLowerCase();
+  }
+  function v205Matches(fid,feature){
+    const p=feature?.properties||{}; const hay=v205FeatureHay(feature);
+    const val=(...keys)=>keys.map(k=>p[k]).filter(v=>v!=null).join(' ').toLowerCase();
+    const cls=val('class','subclass','type','amenity','shop','leisure','tourism','highway','railway','public_transport');
+    if(fid==='food_all') return /restaurant|fast.?food|food.?court|cafe|bakery|ice.?cream/.test(cls+' '+hay);
+    if(fid==='parks') return /park|garden|nature.?reserve|green.?space|recreation.?ground/.test(cls+' '+hay);
+    if(fid==='spa') return /sauna|spa|public.?bath|bathhouse|massage/.test(cls+' '+hay);
+    if(fid==='walking') return /footway|pedestrian|walking|hiking|trail|path/.test(cls+' '+hay);
+    if(fid==='english_info') return !!(p['name:en']||p.name_en||/name[:_]?en/.test(hay));
+    if(fid==='rail') return /railway|subway|train.?station|rail.?station|station/.test(cls+' '+hay);
+    if(fid==='bus_stop') return /bus.?stop|bus.?station/.test(cls+' '+hay);
+    if(fid==='taxi') return /taxi/.test(cls+' '+hay);
+    if(fid==='tmoney_candidate'||fid==='convenience') return /convenience/.test(cls+' '+hay);
+    if(fid==='toilets') return /toilet|restroom/.test(cls+' '+hay);
+    if(fid==='atm') return /(^|\s)atm(\s|$)/.test(cls+' '+hay);
+    if(fid==='pharmacy') return /pharmacy|chemist/.test(cls+' '+hay);
+    if(fid==='mapped_sights') return /attraction|museum|gallery|viewpoint|historic|monument|castle|temple|shrine|tourism/.test(cls+' '+hay);
+    return false;
+  }
+  function v205VisibleVectorFeatures(){
+    const gl=cityGuideTileLayer?.getMaplibreMap?.(); if(!gl) return [];
+    const out=[]; const seen=new Set();
+    try{
+      for(const f of (gl.queryRenderedFeatures?.()||[])){
+        const id=f?.id!=null?`${f.source}|${f.sourceLayer||f.source_layer}|${f.id}`:'';
+        const key=id||JSON.stringify([f?.layer?.id,f?.properties?.name,f?.geometry?.type,f?.geometry?.coordinates?.[0]]);
+        if(seen.has(key)) continue; seen.add(key); out.push(f);
+      }
+    }catch(_){ }
+    // querySourceFeatures can still work when the style is visibly drawn but gl.loaded() is false.
+    try{
+      const style=gl.getStyle?.();
+      const combos=new Set();
+      for(const layer of style?.layers||[]){
+        if(layer?.source&&layer['source-layer']) combos.add(layer.source+'\u0000'+layer['source-layer']);
+      }
+      for(const combo of combos){
+        const [source,sourceLayer]=combo.split('\u0000');
+        let feats=[]; try{feats=gl.querySourceFeatures?.(source,{sourceLayer})||[]}catch(_){continue;}
+        for(const f of feats){
+          const id=f?.id!=null?`${source}|${sourceLayer}|${f.id}`:'';
+          const key=id||JSON.stringify([sourceLayer,f?.properties?.name,f?.geometry?.type,f?.geometry?.coordinates?.[0]]);
+          if(seen.has(key)) continue; seen.add(key); out.push(f);
+          if(out.length>1500) return out;
+        }
+      }
+    }catch(_){ }
+    return out;
+  }
+  function v205VectorFallback(fid,center){
+    if(!v205VectorSafe.has(fid)||!v205Valid(center)) return [];
+    const meta=travelerFilterMeta(fid); const dedupe=new Set(); const out=[];
+    for(const feature of v205VisibleVectorFeatures()){
+      if(!v205Matches(fid,feature)) continue;
+      const ll=v205FeatureCoord(feature); if(!v205Valid(ll)) continue;
+      const km=typeof haversineKm==='function'?haversineKm(center.lat,center.lng,ll.lat,ll.lng):NaN;
+      if(Number.isFinite(km)&&km>6) continue;
+      const props=feature?.properties||{};
+      const name=v205FeatureName(props)||travelerLabel(travelerCurrentFilter()||{})||v205Text('지도 장소','Mapped place');
+      const key=`${name}|${ll.lat.toFixed(5)}|${ll.lng.toFixed(5)}`; if(dedupe.has(key)) continue; dedupe.add(key);
+      out.push({
+        type:travelerFilterType(fid),name:String(name),lat:ll.lat,lng:ll.lng,
+        km:Number.isFinite(km)?km:undefined,
+        distance:Number.isFinite(km)?(km<1?`${Math.max(10,Math.round(km*1000/10)*10)}m`:`${km.toFixed(1)}km`):'',
+        icon:meta?.icon||'📍',source:'OpenFreeMap',travelerFilter:fid,vectorFallback:true,
+        hint:v205Text('현재 지도에 표시된 OpenFreeMap 장소','Place currently visible in OpenFreeMap')
+      });
+    }
+    return out.sort((a,b)=>(a.km??999)-(b.km??999)).slice(0,30);
+  }
+  function v205FitPins(items,center){
+    const map=ensureCityGuideMap(); if(!map||!items?.length) return;
+    try{
+      const pts=items.slice(0,18).filter(v205Valid).map(x=>[Number(x.lat),Number(x.lng)]);
+      if(v205Valid(center)) pts.push([Number(center.lat),Number(center.lng)]);
+      if(pts.length>1) map.fitBounds(L.latLngBounds(pts),{padding:[34,34],maxZoom:16,animate:false});
+    }catch(_){ }
+  }
+
+  loadTravelerFilter=async function(){
+    const f=travelerCurrentFilter(); if(!f) return;
+    travelerFilterResetCompetingLayers();
+    clearTravelerFilterLayer();
+    if(travelerFilterCommunityOnly(f)){
+      updateTravelerFilterNote();
+      setTravelerFilterEmpty(v205Text('Traveler Confirmations 연결 전입니다.','Traveler Confirmations coming next.'),v205Text('이 조건은 사용자 확인 데이터가 생긴 뒤에만 핀을 표시합니다.','This filter will show pins only after traveler-confirmed data is connected.'));
+      return;
+    }
+    if(f.id==='curated_sights'){
+      const city=document.getElementById('city')?.dataset.currentCity||'';
+      const center=travelerFilterCenter(); if(v205Valid(center)) v205ShowAnchor(center.lat,center.lng);
+      const items=(getSelectedCityPois(city)||[]).map(p=>{const km=center?haversineKm(center.lat,center.lng,p.lat,p.lng):NaN;return {type:'attraction',name:lang==='ko'?(p.ko||p.en):(p.en||p.ko),lat:Number(p.lat),lng:Number(p.lng),km:Number.isFinite(km)?km:undefined,distance:Number.isFinite(km)?(km<1?`${Math.round(km*1000)}m`:`${km.toFixed(1)}km`):'',icon:'⭐',curated:true,hint:v205Text('Korea Route 기본 추천 장소','Korea Route curated place')}});
+      drawTravelerFilterMarkers(items); renderTravelerFilterResults(items); updateTravelerFilterNote(); v205FitPins(items,center); return;
+    }
+    const center=travelerFilterCenter();
+    if(!v205Valid(center)){setTravelerFilterEmpty(v205Text('지도가 준비되지 않았습니다.','Map not ready.'),v205Text('잠시 후 다시 눌러주세요.','Try again in a moment.'));return;}
+    v205ShowAnchor(center.lat,center.lng);
+    const radius=travelerFilterRadius(); const q=travelerFilterQuery(f.id,center.lat,center.lng,radius);
+    if(!q){setTravelerFilterEmpty(v205Text('아직 데이터 연결이 필요합니다.','Data connection needed.'),v205Text('검증 데이터 없이 결과를 추정하지 않습니다.','Korea Route does not guess without verified data.'));return;}
+    const seq=++travelerFilterRequestSeq;
+    setTravelerFilterBusy(v205Text(`${travelerLabel(f)} 후보를 찾는 중…`, `Finding ${travelerLabel(f)}…`));
+    let items=[]; let networkError=null;
+    try{
+      const cacheKey=cityMapCacheKey('traveler-filter',[f.id,Math.round(radius),cityMapCenterKey(center.lat,center.lng,4)]);
+      let data=cityMapCacheGet(cacheKey,180000);
+      if(!data) data=cityMapCacheSet(cacheKey,await v205FetchOverpass(q));
+      if(seq!==travelerFilterRequestSeq) return;
+      const meta=travelerFilterMeta(f.id); const seen=new Set();
+      items=(data.elements||[]).map(el=>{
+        const lat=Number(el.lat??el.center?.lat),lng=Number(el.lon??el.center?.lon); if(!Number.isFinite(lat)||!Number.isFinite(lng)) return null;
+        const name=travelerFilterResultName(el.tags||{},f.id); const key=`${name}|${lat.toFixed(5)}|${lng.toFixed(5)}`; if(seen.has(key)) return null; seen.add(key);
+        const km=haversineKm(center.lat,center.lng,lat,lng);
+        return {type:travelerFilterType(f.id),name,lat,lng,km:Number.isFinite(km)?km:undefined,distance:Number.isFinite(km)?(km<1?`${Math.max(10,Math.round(km*1000/10)*10)}m`:`${km.toFixed(1)}km`):'',icon:meta.icon,hint:travelerFilterResultHint(el.tags||{},f.id),source:'OpenStreetMap',travelerFilter:f.id};
+      }).filter(Boolean).sort((a,b)=>(a.km??999)-(b.km??999)).slice(0,30);
+    }catch(err){networkError=err;}
+    if(seq!==travelerFilterRequestSeq) return;
+
+    if(!items.length&&!v205NoGuess.has(f.id)){
+      // Let vector tiles finish the current paint cycle; do not require gl.loaded().
+      await new Promise(r=>setTimeout(r,180));
+      items=v205VectorFallback(f.id,center);
+    }
+    if(items.length){
+      drawTravelerFilterMarkers(items); renderTravelerFilterResults(items);
+      updateTravelerFilterNote(networkError?v205Text('공용 OSM 검색 서버 대신 현재 지도 데이터를 사용했습니다.','Used visible map data because the public OSM lookup was unavailable.'):v205Text(`${center.name} 기준 약 ${Math.round(radius/100)/10}km`,`About ${Math.round(radius/100)/10}km from ${center.name}`));
+      setCityMapStatus(v205Text(`${travelerLabel(f)} ${items.length}곳 표시 · 파란 점이 검색 기준입니다.`,`${items.length} ${travelerLabel(f)} places shown · blue point is the search center.`));
+      v205FitPins(items,center);
+      setTimeout(v205UpdateAnchor,80);
+      return;
+    }
+    renderTravelerFilterResults([]);
+    updateTravelerFilterNote();
+    if(networkError){
+      setTravelerFilterEmpty(v205Text('주변 장소 서버가 잠시 응답하지 않습니다.','Nearby-place server is temporarily unavailable.'),v205Text('파란 점은 선택되었습니다. 지도를 조금 확대하거나 이동한 뒤 다시 눌러보세요.','The blue point is selected. Zoom or move the map slightly, then retry.'));
+      setCityMapStatus(v205Text('파란 점 선택 완료 · 주변 장소 데이터만 잠시 불러오지 못했습니다.','Blue point selected · nearby-place data is temporarily unavailable.'));
+    }else{
+      setTravelerFilterEmpty(v205Text('조건에 맞는 핀이 없습니다.','No matching pins yet.'),v205Text('검색 범위를 바꾸거나 다른 조건을 선택해 보세요.','Try another filter or move the map.'));
+    }
+  };
+
+  function v205MapTap(e){
+    if(!e?.latlng) return;
+    const target=e.originalEvent?.target;
+    if(target?.closest?.('.leaflet-control,.leaflet-marker-icon,.leaflet-popup,.city-map-locate-float,button,a')) return;
+    const ll={lat:Number(e.latlng.lat),lng:Number(e.latlng.lng)}; if(!v205Valid(ll)) return;
+    v205PickedCenter=ll;
+    try{if(typeof v131TravelerCenterMode!=='undefined') v131TravelerCenterMode='map'}catch(_){ }
+    v205ShowAnchor(ll.lat,ll.lng); // Intentionally no map.setView(): tap should mark, not jump.
+    setCityMapStatus(v205Text('파란 점을 선택했습니다. 이 지점을 기준으로 주변 장소를 찾습니다.','Blue point selected. Nearby places will use this point.'));
+    clearTimeout(v205TapTimer);
+    v205TapTimer=setTimeout(()=>{try{loadTravelerFilter()}catch(err){console.warn('V205 tap filter failed',err)}},480);
+  }
+  function v205BindMap(){
+    const map=(typeof cityGuideMap!=='undefined'&&cityGuideMap)?cityGuideMap:null;
+    if(!map||v205BoundMap===map) return;
+    if(v205BoundMap){try{v205BoundMap.off('click',v205MapTap)}catch(_){ }}
+    v205BoundMap=map;
+    map.on('click',v205MapTap);
+    map.on('move zoom viewreset resize moveend zoomend',v205UpdateAnchor);
+    map.on('dragstart',()=>{v205ClearAnchor({clearCenter:true});});
+    v205EnsureTravelerPane(map);
+  }
+
+  const v205PrevEnsure=window.ensureCityGuideMap;
+  if(typeof v205PrevEnsure==='function'){
+    ensureCityGuideMap=function(){const map=v205PrevEnsure.apply(this,arguments);if(map)setTimeout(v205BindMap,0);return map;};
+  }
+  setTimeout(v205BindMap,120);
+
+  if(typeof window.locateCityMapUser==='function'){
+    const prev=window.locateCityMapUser; locateCityMapUser=function(){v205ClearAnchor({clearCenter:true});return prev.apply(this,arguments);};
+  }
+  if(typeof window.toggleCityMapFollow==='function'){
+    const prev=window.toggleCityMapFollow; toggleCityMapFollow=function(){v205ClearAnchor({clearCenter:true});return prev.apply(this,arguments);};
+  }
+  if(typeof window.renderCityGuideMap==='function'){
+    const prev=window.renderCityGuideMap; renderCityGuideMap=function(){v205ClearAnchor({clearCenter:true});const out=prev.apply(this,arguments);setTimeout(v205BindMap,90);return out;};
+  }
+
+  console.info('Korea Route V205 map interaction ready');
 })();
 </script>
 
