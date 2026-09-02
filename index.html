@@ -4433,7 +4433,7 @@ body.dark .v197-quick-grid button.help{background:#341f28;border-color:#64404d;c
 
 
 <script>
-const KR_BUILD_VERSION='V211';
+const KR_BUILD_VERSION='V212';
 const TRANSLATIONS = {
   "ko": {
     "home.brand": "코리아 루트",
@@ -22133,6 +22133,148 @@ body.dark #city.v60-map-mode.v210-map2.v210-more-open .traveler-filter-sheet,bod
   document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{if(current==='city')activate()},700));
   setTimeout(()=>{if(current==='city')activate()},900);
   console.info('Korea Route V210 Map 2.0 ready');
+})();
+</script>
+
+
+<style id="v212-google-map-links-css">
+/* V212 · External Google Maps launch buttons only. */
+.v212-google-map-wrap{position:absolute;right:12px;bottom:76px;z-index:1306;display:flex;flex-direction:column;align-items:flex-end;gap:4px;pointer-events:auto}
+.v212-google-map-float{min-height:46px;border:1px solid rgba(11,35,69,.10);border-radius:17px;background:rgba(255,255,255,.96);box-shadow:0 8px 24px rgba(8,29,61,.18);padding:9px 12px;color:#0b2345;font-size:13px;font-weight:950;white-space:nowrap}
+.v212-google-map-float:disabled,.v212-directions-btn:disabled{opacity:.55;cursor:not-allowed;filter:grayscale(.15)}
+.v212-map-offline-note{display:none;border-radius:999px;background:rgba(255,248,226,.96);border:1px solid rgba(190,125,0,.22);padding:4px 7px;color:#6d4a00;font-size:10px;font-weight:900;box-shadow:0 5px 14px rgba(8,29,61,.10)}
+.v212-map-offline-note.show{display:inline-flex}
+#city.v60-map-mode.v210-map2 .v210-map-net-pill{bottom:130px!important}
+.v212-traveler-card-row{flex:0 0 min(78vw,300px);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;align-items:stretch}
+.v212-traveler-card-row .traveler-result-card{flex:none!important;width:100%!important;min-width:0!important}
+.v212-directions-btn{align-self:stretch;border:1px solid #dce5f1;border-radius:15px;background:#f7faff;color:#174a85;padding:8px 10px;font-size:12px;font-weight:950;white-space:nowrap;cursor:pointer}
+.v212-facility-card-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;align-items:stretch;border-bottom:1px solid #edf2f7;background:#fff}
+.v212-facility-card-row:last-child{border-bottom:0}
+.v212-facility-card-row .city-facility-result{border-bottom:0!important;min-width:0}
+.v212-facility-card-row .v212-directions-btn{margin:6px 6px 6px 0;font-size:11px;padding:7px 8px}
+body.dark .v212-google-map-float,body.dark .v212-directions-btn{background:rgba(15,34,58,.96);color:#f1f6ff;border-color:#29415f}
+@media(max-width:420px){
+  .v212-google-map-wrap{right:8px;bottom:72px}
+  .v212-google-map-float{font-size:12px;padding:8px 10px}
+  .v212-traveler-card-row{flex-basis:82vw}
+}
+</style>
+<script id="v212-google-map-links-js">
+// V212 · Add Google Maps launch paths to the map screen only.
+(function(){
+  if(window.__KR_V212_GOOGLE_MAP_LINKS__)return;window.__KR_V212_GOOGLE_MAP_LINKS__=true;
+  const online=()=>navigator.onLine!==false;
+  const tr=(ko,en)=>{try{return lang==='ko'?ko:en}catch(_){return en}};
+  function safeOpen(url,label){
+    if(!url)return false;
+    if(typeof window.v160SafeExternalOpen==='function') return window.v160SafeExternalOpen(url,{label});
+    try{const w=window.open(url,'_blank','noopener');return !!w;}catch(_){return false;}
+  }
+  function mapInstance(){try{return typeof ensureCityGuideMap==='function'?ensureCityGuideMap():null}catch(_){return null}}
+  function validCoord(v){return Number.isFinite(Number(v))}
+  function directionsUrl(place){
+    if(!place||!validCoord(place.lat)||!validCoord(place.lng))return '';
+    const lat=Number(place.lat),lng=Number(place.lng);
+    const coords=`${lat},${lng}`;
+    const name=String(place.name||'').trim();
+    const destination=name?`${name} ${coords}`:coords;
+    return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}`;
+  }
+  window.v212OpenMapCenterGoogle=function(){
+    if(!online()){sync();try{setCityMapStatus?.(tr('인터넷 필요','Needs internet'));}catch(_){}return false;}
+    const map=mapInstance(),c=map?.getCenter?.();
+    const lat=Number(c?.lat),lng=Number(c?.lng);
+    if(!Number.isFinite(lat)||!Number.isFinite(lng)){try{setCityMapStatus?.(tr('지도 중심을 확인할 수 없습니다.','Map center is unavailable.'));}catch(_){}return false;}
+    const url=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${lat},${lng}`)}`;
+    return safeOpen(url,tr('현재 지도 위치 · Google Maps','Current map view · Google Maps'));
+  };
+  window.v212OpenTravelerDirections=function(index){
+    if(!online()){sync();try{setCityMapStatus?.(tr('인터넷 필요','Needs internet'));}catch(_){}return false;}
+    const item=typeof travelerFilterItems!=='undefined'?travelerFilterItems?.[Number(index)]:null;
+    const url=directionsUrl(item);if(!url)return false;
+    return safeOpen(url,tr('길찾기 · Google Maps','Directions · Google Maps'));
+  };
+  window.v212OpenFacilityDirections=function(index){
+    if(!online()){sync();try{setCityMapStatus?.(tr('인터넷 필요','Needs internet'));}catch(_){}return false;}
+    const item=typeof cityMapLoadedFacilities!=='undefined'?cityMapLoadedFacilities?.[Number(index)]:null;
+    const url=directionsUrl(item);if(!url)return false;
+    return safeOpen(url,tr('길찾기 · Google Maps','Directions · Google Maps'));
+  };
+  function ensureMapButton(){
+    const live=document.querySelector('#city .city-map-live-wrap');if(!live)return;
+    let wrap=document.getElementById('v212GoogleMapWrap');
+    if(!wrap){
+      wrap=document.createElement('div');wrap.id='v212GoogleMapWrap';wrap.className='v212-google-map-wrap';
+      wrap.innerHTML=`<button type="button" id="v212GoogleMapCenterBtn" class="v212-google-map-float" onclick="v212OpenMapCenterGoogle()">🗺️ <span data-en="Open in Google Maps" data-ko="구글맵으로 열기">${tr('구글맵으로 열기','Open in Google Maps')}</span></button><span id="v212GoogleMapOfflineNote" class="v212-map-offline-note">${tr('인터넷 필요','Needs internet')}</span>`;
+      live.appendChild(wrap);
+    }
+    sync();
+  }
+  function decorateTravelerCards(){
+    const box=document.getElementById('travelerFilterResults');if(!box)return;
+    const cards=[...box.querySelectorAll(':scope > .traveler-result-card')];
+    cards.forEach((card,i)=>{
+      const item=(typeof travelerFilterItems!=='undefined')?travelerFilterItems?.[i]:null;
+      if(!item||!validCoord(item.lat)||!validCoord(item.lng))return;
+      const row=document.createElement('div');row.className='v212-traveler-card-row';
+      card.parentNode.insertBefore(row,card);row.appendChild(card);
+      const d=document.createElement('button');d.type='button';d.className='v212-directions-btn';d.dataset.v212Directions='1';d.onclick=()=>v212OpenTravelerDirections(i);row.appendChild(d);
+    });
+    sync();
+  }
+  function decorateFacilityCards(){
+    const box=document.getElementById('cityFacilityResults');if(!box)return;
+    const cards=[...box.querySelectorAll(':scope > .city-facility-result')];
+    cards.forEach((card,i)=>{
+      const item=(typeof cityMapLoadedFacilities!=='undefined')?cityMapLoadedFacilities?.[i]:null;
+      if(!item||!validCoord(item.lat)||!validCoord(item.lng))return;
+      const row=document.createElement('div');row.className='v212-facility-card-row';
+      card.parentNode.insertBefore(row,card);row.appendChild(card);
+      const d=document.createElement('button');d.type='button';d.className='v212-directions-btn';d.dataset.v212Directions='1';d.onclick=()=>v212OpenFacilityDirections(i);row.appendChild(d);
+    });
+    sync();
+  }
+  function sync(){
+    const on=online();
+    const mapBtn=document.getElementById('v212GoogleMapCenterBtn');
+    const note=document.getElementById('v212GoogleMapOfflineNote');
+    if(mapBtn){mapBtn.disabled=!on;mapBtn.setAttribute('aria-disabled',on?'false':'true');const span=mapBtn.querySelector('span');if(span)span.textContent=tr('구글맵으로 열기','Open in Google Maps');}
+    if(note){note.textContent=tr('인터넷 필요','Needs internet');note.classList.toggle('show',!on);}
+    document.querySelectorAll('.v212-directions-btn').forEach(btn=>{btn.disabled=!on;btn.setAttribute('aria-disabled',on?'false':'true');btn.textContent=on?`↗ ${tr('길찾기','Directions')}`:tr('인터넷 필요','Needs internet');});
+  }
+  try{
+    if(typeof renderTravelerFilterResults==='function'){
+      const prev=renderTravelerFilterResults;
+      renderTravelerFilterResults=function(){const out=prev.apply(this,arguments);setTimeout(decorateTravelerCards,0);return out;};
+    }
+  }catch(_){ }
+  try{
+    if(typeof renderCityFacilityResults==='function'){
+      const prev=renderCityFacilityResults;
+      renderCityFacilityResults=function(){const out=prev.apply(this,arguments);setTimeout(decorateFacilityCards,0);return out;};
+    }
+  }catch(_){ }
+  try{
+    if(typeof v60OpenMapTab==='function'){
+      const prev=v60OpenMapTab;
+      v60OpenMapTab=function(){const out=prev.apply(this,arguments);setTimeout(ensureMapButton,180);return out;};
+    }
+    if(typeof v60ChangeMapCity==='function'){
+      const prev=v60ChangeMapCity;
+      v60ChangeMapCity=function(){const out=prev.apply(this,arguments);setTimeout(ensureMapButton,180);return out;};
+    }
+  }catch(_){ }
+  try{
+    if(typeof applyLang==='function'){
+      const prev=applyLang;
+      applyLang=function(){const out=prev.apply(this,arguments);setTimeout(()=>{ensureMapButton();sync();},0);return out;};
+    }
+  }catch(_){ }
+  window.addEventListener('online',sync);
+  window.addEventListener('offline',sync);
+  document.addEventListener('DOMContentLoaded',()=>setTimeout(ensureMapButton,750));
+  setTimeout(ensureMapButton,900);
+  console.info('Korea Route V212 Google Maps launch buttons ready');
 })();
 </script>
 
