@@ -6347,6 +6347,8 @@ function ensureCityMapResizeObserver(){
   cityMapResizeObserver.observe(el);
   const wrap=document.querySelector('#city .city-map-wrap');
   if(wrap) cityMapResizeObserver.observe(wrap);
+  const liveWrap=document.querySelector('#city .city-map-live-wrap');
+  if(liveWrap) cityMapResizeObserver.observe(liveWrap);
 }
 function ensureCityGuideMap(){
   if(typeof L==='undefined'){
@@ -10688,6 +10690,27 @@ const cityCoords={
 let routeMap=null;
 let routeLayer=null;
 let routeMapTileLayer=null;
+let routeMapResizeObserver=null;
+let routeMapInvalidateTimer=null;
+function scheduleRouteMapInvalidate(){
+  if(!routeMap) return;
+  clearTimeout(routeMapInvalidateTimer);
+  const repair=()=>{
+    try{routeMap.invalidateSize({pan:false,animate:false});}catch(e){}
+    try{routeMapTileLayer?.getMaplibreMap?.().resize();routeMapTileLayer?.getMaplibreMap?.().triggerRepaint();}catch(e){}
+  };
+  requestAnimationFrame(()=>{
+    repair();
+    routeMapInvalidateTimer=setTimeout(repair,140);
+  });
+}
+function ensureRouteMapResizeObserver(){
+  const el=document.getElementById('liveMap');
+  if(!el||typeof ResizeObserver==='undefined'||routeMapResizeObserver) return;
+  routeMapResizeObserver=new ResizeObserver(()=>scheduleRouteMapInvalidate());
+  routeMapResizeObserver.observe(el);
+  if(el.parentElement) routeMapResizeObserver.observe(el.parentElement);
+}
 
 function ensureMap(){
   if(typeof L==='undefined'){
@@ -10726,10 +10749,8 @@ function ensureMap(){
       }).addTo(routeMap);
     }
   }
-  setTimeout(()=>{
-    try{routeMap.invalidateSize({pan:false,animate:false});}catch(e){}
-    try{routeMapTileLayer?.getMaplibreMap?.().resize();routeMapTileLayer?.getMaplibreMap?.().triggerRepaint();}catch(e){}
-  },80);
+  ensureRouteMapResizeObserver();
+  setTimeout(()=>{scheduleRouteMapInvalidate();},100);
   return routeMap;
 }
 
@@ -11885,6 +11906,10 @@ function openCity(en,ko,emoji,descEn,descKo,moveEn,moveKo,costEn,costKo){
   cityState={key:en,en,ko,emoji,descEn,descKo,moveEn,moveKo,costEn,costKo};
   renderCity();
   go('city');
+  setTimeout(()=>{
+    try{cityGuideMap?.invalidateSize({pan:false,animate:false});}catch(_){ }
+    try{cityGuideTileLayer?.getMaplibreMap?.().resize();cityGuideTileLayer?.getMaplibreMap?.().triggerRepaint();}catch(_){ }
+  },100);
   renderCityAttractionManager(en);
   setTimeout(()=>{try{renderCityGuideMap(en)}catch(e){console.warn('City map unavailable',e)}},180);
 }
@@ -16040,7 +16065,17 @@ function v60OpenMapTab(){
     v60SyncTabbar('city');
   },120);
 }
-window.addEventListener('resize',()=>{if(current==='city'&&document.getElementById('city')?.classList.contains('v60-map-mode')) v63RepairCityMapLayout()},{passive:true});
+let v237MapResizeTimer=null;
+window.addEventListener('resize',()=>{
+  clearTimeout(v237MapResizeTimer);
+  v237MapResizeTimer=setTimeout(()=>{
+    if(current==='city'&&document.getElementById('city')?.classList.contains('v60-map-mode')){
+      v63RepairCityMapLayout();
+      scheduleCityMapInvalidate();
+    }
+    if(routeMap) scheduleRouteMapInvalidate();
+  },100);
+},{passive:true});
 function v60OpenRouteTab(){document.getElementById('moveHub')?.classList.add('v60-route-mode');document.getElementById('v118RouteHelp')?.removeAttribute('open');go('moveHub');v60SyncTabbar('moveHub')}
 function v60ResetTripClasses(){
   const hub=document.getElementById('myTripHub');if(!hub)return;
