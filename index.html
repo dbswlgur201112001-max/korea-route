@@ -4433,7 +4433,7 @@ body.dark .v197-quick-grid button.help{background:#341f28;border-color:#64404d;c
 
 
 <script>
-const KR_BUILD_VERSION='V210';
+const KR_BUILD_VERSION='V211';
 const TRANSLATIONS = {
   "ko": {
     "home.brand": "코리아 루트",
@@ -5077,6 +5077,28 @@ async function shareBetaIssue(){
 let lang=localStorage.getItem('koreaRouteLang')||'en';
 let cityState=null;
 
+// V211 · Keep OpenFreeMap / MapLibre labels aligned with the app language.
+// OSM features without the preferred localized name intentionally fall back to the source name.
+function v211MapLabelExpression(language=lang){
+  if(language==='ko') return ['get','name'];
+  if(language==='ja') return ['coalesce',['get','name:ja'],['get','name:en'],['get','name']];
+  return ['coalesce',['get','name:en'],['get','name:latin'],['get','name']];
+}
+function v211ApplyMapLabelLanguage(glMap,language=lang){
+  if(!glMap||typeof glMap.getStyle!=='function'||typeof glMap.setLayoutProperty!=='function') return;
+  const layers=glMap.getStyle()?.layers||[];
+  const expression=v211MapLabelExpression(language);
+  layers.forEach(layer=>{
+    if(layer?.type!=='symbol'||layer?.layout?.['text-field']==null) return;
+    try{ glMap.setLayoutProperty(layer.id,'text-field',expression); }
+    catch(err){ console.warn('Map label language skipped:',layer.id,err); }
+  });
+}
+function v211ApplyAllMapLabelLanguages(){
+  try{ v211ApplyMapLabelLanguage(cityGuideTileLayer?.getMaplibreMap?.(),lang); }catch(_){ }
+  try{ v211ApplyMapLabelLanguage(routeMapTileLayer?.getMaplibreMap?.(),lang); }catch(_){ }
+}
+
 function refreshActiveScreenState(id=current,{entry=false}={}){
   try{
     if(id==='stayHub'){
@@ -5131,6 +5153,7 @@ function applyLang(){
   if(typeof v60MountMapCitySwitch==='function'&&document.getElementById('v60CitySwitch'))v60MountMapCitySwitch();
   if(typeof renderHomeOfflineSnapshotBadge==='function') renderHomeOfflineSnapshotBadge();
   if(typeof renderLiveAirQualityFromState==='function') renderLiveAirQualityFromState();
+  if(typeof v211ApplyAllMapLabelLanguages==='function') v211ApplyAllMapLabelLanguages();
   const bigMapExit=document.querySelector('.city-map-fullscreen-exit');
   if(bigMapExit) bigMapExit.setAttribute('aria-label',lang==='ko'?'큰 지도 닫기':'Close big map');
 }
@@ -6304,7 +6327,10 @@ function ensureCityGuideMap(){
     };
     const gl=cityGuideTileLayer.getMaplibreMap?.();
     if(gl){
-      gl.on('load',()=>{cityMapInitialTileLoadPending=false;cityMapEndNetworkLoad();setCityMapHealth('ready',lang==='ko'?'벡터 지도 준비됨':'Vector map ready');});
+      const syncMapLabels=()=>v211ApplyMapLabelLanguage(gl,lang);
+      gl.on('style.load',syncMapLabels);
+      gl.on('load',()=>{syncMapLabels();cityMapInitialTileLoadPending=false;cityMapEndNetworkLoad();setCityMapHealth('ready',lang==='ko'?'벡터 지도 준비됨':'Vector map ready');});
+      try{ if(gl.isStyleLoaded?.()) syncMapLabels(); }catch(_){ }
       gl.on('idle',()=>{cityMapEndNetworkLoad();refreshCityMapOnlineState();});
       gl.on('error',()=>{cityMapTileErrors++;cityMapEndNetworkLoad();setCityMapHealth('error',lang==='ko'?'벡터 지도 일부를 불러오지 못했습니다 · 다시 불러오기를 눌러보세요.':'Some vector map data failed · tap Reload map.');});
     }else{
@@ -10623,6 +10649,15 @@ function ensureMap(){
         attributionControl:true,
         maxZoom:19
       }).addTo(routeMap);
+      try{
+        const routeGl=routeMapTileLayer.getMaplibreMap?.();
+        if(routeGl){
+          const syncRouteLabels=()=>v211ApplyMapLabelLanguage(routeGl,lang);
+          routeGl.on('style.load',syncRouteLabels);
+          routeGl.on('load',syncRouteLabels);
+          if(routeGl.isStyleLoaded?.()) syncRouteLabels();
+        }
+      }catch(_){ }
     }else{
       // Safe fallback only when the vector library fails to load.
       routeMapTileLayer=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
