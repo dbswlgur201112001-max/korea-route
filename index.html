@@ -3594,7 +3594,7 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
 </section>
 
 <section class="screen" id="city">
-  <div class="top"><button type="button" class="back" aria-label="Back / 뒤로" onclick="go('home')">‹</button><div class="brand" data-en="City Guide" data-ko="도시 가이드">City Guide</div><button type="button" class="soft" onclick="v238MeasureCityMapWidth()" style="min-width:64px;height:40px;padding:0 10px;font-size:11px;font-weight:900">폭측정</button></div>
+  <div class="top"><button type="button" class="back" aria-label="Back / 뒤로" onclick="go('home')">‹</button><div class="brand" data-en="City Guide" data-ko="도시 가이드">City Guide</div><div style="width:40px"></div></div>
   <div class="city-hero"><div class="emoji" id="cityEmoji">🏯</div><h2 id="cityName">Suwon</h2><p id="cityDesc">Fortress city</p></div>
   <div class="info-row"><div class="info"><span data-en="BEST LOCAL MOVE" data-ko="추천 현지 교통">BEST LOCAL MOVE</span><b id="cityMove">Subway + local bus</b></div><div class="info"><span data-en="DAILY TRANSPORT" data-ko="하루 교통비">DAILY TRANSPORT</span><b id="cityCost">₩10,000–20,000/day</b></div></div>
   <div id="v140CityEvents"></div>
@@ -6328,10 +6328,33 @@ function refreshCityMapOnlineState(){
     setCityMapHealth(cityMapTileErrors?'error':'ready',cityMapTileErrors?(lang==='ko'?'일부 지도 데이터 로딩 실패 · 다시 불러오기를 눌러보세요.':'Some map data failed · tap Reload map.'):(lang==='ko'?'지도 준비됨':'Map ready'));
   }
 }
+function fitCityGuideMapToViewport(){
+  const city=document.getElementById('city');
+  const el=document.getElementById('cityGuideMap');
+  const live=document.querySelector('#city .city-map-live-wrap');
+  if(!city||!el||!city.classList.contains('v60-map-mode')||!city.classList.contains('active')) return;
+  if(live?.classList.contains('city-map-fullscreen')) return;
+  const r=el.getBoundingClientRect();
+  if(r.width<1||r.top<0||r.top>=window.innerHeight) return;
+  const tab=document.querySelector('.v60-tabbar');
+  let bottom=window.innerHeight;
+  if(tab&&getComputedStyle(tab).display!=='none'){
+    const tr=tab.getBoundingClientRect();
+    if(tr.height>0) bottom=Math.min(bottom,tr.top);
+  }
+  const target=Math.floor(bottom-r.top);
+  if(target<240) return;
+  if(Math.abs(r.height-target)>1){
+    el.style.setProperty('height',target+'px','important');
+    el.style.setProperty('min-height',target+'px','important');
+    el.style.setProperty('max-height','none','important');
+  }
+}
 function scheduleCityMapInvalidate({pan=false}={}){
   if(!cityGuideMap) return;
   clearTimeout(cityMapInvalidateTimer);
   const repair=()=>{
+    try{fitCityGuideMapToViewport();}catch(e){}
     try{cityGuideMap.invalidateSize({pan:false,animate:false});}catch(e){}
     try{cityGuideTileLayer?.getMaplibreMap?.().resize();cityGuideTileLayer?.getMaplibreMap?.().triggerRepaint();}catch(e){}
   };
@@ -22595,30 +22618,13 @@ body.dark .v213-google-map-btn,body.dark .v213-map-action-row #v210MapMoreFloat,
 </style>
 
 
-
-<script id="v238-map-width-diagnostic">
-function v238MeasureCityMapWidth(){
-  const ids=['city','cityGuideMap'];
-  let out='화면폭: '+window.innerWidth+'\n\n';
-  const live=document.querySelector('#city .city-map-live-wrap');
-  const targets=[
-    ['.app', document.querySelector('.app')],
-    ['#city', document.getElementById('city')],
-    ['.city-map-live-wrap', live],
-    ['#cityGuideMap', document.getElementById('cityGuideMap')],
-    ['.leaflet-container', document.querySelector('.leaflet-container')],
-    ['.leaflet-map-pane', document.querySelector('.leaflet-map-pane')]
-  ];
-  targets.forEach(([name,el])=>{
-    if(!el){ out+=name+': 없음\n'; return; }
-    const r=el.getBoundingClientRect();
-    const cs=getComputedStyle(el);
-    out+=name+'\n';
-    out+='  폭 '+Math.round(r.width)+' 왼쪽 '+Math.round(r.left)+' 오른쪽 '+Math.round(r.right)+'\n';
-    out+='  max-width:'+cs.maxWidth+' padding:'+cs.paddingLeft+'/'+cs.paddingRight+'\n';
-  });
-  alert(out);
+<style id="v239-city-map-edge-fix">
+#city .city-map-live-wrap{
+  margin-left:-18px!important;
+  margin-right:-18px!important;
+  width:calc(100% + 36px)!important;
+  max-width:none!important;
 }
-</script>
+</style>
 </body>
 </html>
