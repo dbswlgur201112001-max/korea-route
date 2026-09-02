@@ -4433,7 +4433,7 @@ body.dark .v197-quick-grid button.help{background:#341f28;border-color:#64404d;c
 
 
 <script>
-const KR_BUILD_VERSION='V209';
+const KR_BUILD_VERSION='V210';
 const TRANSLATIONS = {
   "ko": {
     "home.brand": "코리아 루트",
@@ -21918,5 +21918,188 @@ try{
   console.info('Korea Route V209 actionable destination UX ready');
 })();
 </script>
+
+<style id="v210-map2-css">
+/* V210 · Map 2.0 — map first, controls float above it, details stay in drawers. */
+#city.v60-map-mode.v210-map2{padding-bottom:calc(var(--v60-nav-h) + env(safe-area-inset-bottom) + 8px)!important}
+#city.v60-map-mode.v210-map2>.top{position:sticky!important;top:0!important;z-index:1450!important;background:rgba(255,255,255,.96)!important;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(18,47,86,.08)}
+#city.v60-map-mode.v210-map2 .city-map-wrap{padding:6px 8px 0!important;gap:6px!important;overflow:visible!important}
+#city.v60-map-mode.v210-map2 #v60CitySwitch{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;gap:7px!important;margin:0!important}
+#city.v60-map-mode.v210-map2 #v60CitySwitch select{min-height:44px!important;padding:8px 12px!important;border-radius:14px!important;background:#f7f9fc!important;font-size:14px!important}
+#city.v60-map-mode.v210-map2 #v60CitySwitch button{min-height:44px!important;padding:8px 14px!important;border-radius:14px!important;font-size:13px!important}
+#city.v60-map-mode.v210-map2 #cityMapSearch{position:relative!important;z-index:1420!important;margin:0!important}
+#city.v60-map-mode.v210-map2 .city-map-searchbox{min-height:54px!important;border-radius:18px!important;box-shadow:0 10px 26px rgba(11,35,69,.10)!important;border-color:rgba(11,35,69,.10)!important}
+#city.v60-map-mode.v210-map2 .city-map-searchbox input{font-size:16px!important}
+#city.v60-map-mode.v210-map2 .city-map-searchbox button{min-width:86px!important;font-size:14px!important}
+#city.v60-map-mode.v210-map2 #v118MapMoreBtn,
+#city.v60-map-mode.v210-map2 #cityMapSearchFilters,
+#city.v60-map-mode.v210-map2 #cityMapNearbyQuick,
+#city.v60-map-mode.v210-map2 .city-map-search-count,
+#city.v60-map-mode.v210-map2 .city-map-search-hint,
+#city.v60-map-mode.v210-map2 #cityMapTools,
+#city.v60-map-mode.v210-map2 #cityMapStatus,
+#city.v60-map-mode.v210-map2 #cityMapHealth,
+#city.v60-map-mode.v210-map2 #citySchematic,
+#city.v60-map-mode.v210-map2 .v198-map-info-toggle,
+#city.v60-map-mode.v210-map2 .v209-map-tip{display:none!important}
+#city.v60-map-mode.v210-map2 #cityMapSearchResults.show{position:absolute!important;left:0!important;right:0!important;top:calc(100% + 6px)!important;z-index:1490!important;max-height:46dvh!important;overflow:auto!important;border-radius:18px!important;box-shadow:0 18px 45px rgba(8,28,60,.22)!important}
+#city.v60-map-mode.v210-map2 .city-map-live-wrap{position:relative!important;order:-10!important;width:100%!important;margin:0!important;border-radius:24px!important;overflow:hidden!important;background:#e9eef5!important;box-shadow:0 8px 28px rgba(11,35,69,.10)!important}
+#city.v60-map-mode.v210-map2 #cityGuideMap{display:block!important;width:100%!important;height:clamp(540px,70dvh,780px)!important;min-height:540px!important;max-height:none!important;border-radius:24px!important;margin:0!important;background:#e8eef6!important}
+#city.v60-map-mode.v210-map2 #cityGuideMap .leaflet-control-zoom{margin-top:76px!important;margin-left:10px!important;border:0!important;box-shadow:0 7px 20px rgba(11,35,69,.16)!important}
+#city.v60-map-mode.v210-map2 #cityGuideMap .leaflet-control-zoom a{width:38px!important;height:38px!important;line-height:38px!important;border:0!important;font-size:20px!important}
+#city.v60-map-mode.v210-map2 .city-map-locate-float{display:inline-flex!important;right:12px!important;bottom:18px!important;min-height:48px!important;padding:10px 13px!important;border-radius:18px!important;background:rgba(255,255,255,.96)!important;color:#0b2345!important;box-shadow:0 8px 24px rgba(8,29,61,.22)!important;border:1px solid rgba(11,35,69,.10)!important;font-size:13px!important;z-index:1305!important}
+#city.v60-map-mode.v210-map2 .city-map-locate-float .pin{font-size:18px!important}
+.v210-map-quickbar{position:absolute;z-index:1302;left:10px;right:10px;top:10px;display:flex;gap:7px;overflow-x:auto;padding:1px 2px 8px;scrollbar-width:none;pointer-events:auto}
+.v210-map-quickbar::-webkit-scrollbar{display:none}
+.v210-map-quickbar button{flex:0 0 auto;min-height:42px;border:1px solid rgba(11,35,69,.10);border-radius:999px;background:rgba(255,255,255,.96);box-shadow:0 6px 18px rgba(8,29,61,.14);padding:8px 13px;color:#102746;font-size:13px;font-weight:950;white-space:nowrap;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.v210-map-quickbar button.active{background:#0b2b55;color:#fff;border-color:#0b2b55}
+.v210-map-more-float{position:absolute;left:12px;bottom:18px;z-index:1305;min-height:46px;border:1px solid rgba(11,35,69,.10);border-radius:17px;background:rgba(255,255,255,.96);box-shadow:0 8px 24px rgba(8,29,61,.18);padding:9px 12px;color:#0b2345;font-size:13px;font-weight:950}
+.v210-map-net-pill{display:none;position:absolute;left:12px;bottom:72px;z-index:1306;max-width:min(70%,320px);border:1px solid rgba(190,125,0,.22);border-radius:14px;background:rgba(255,248,226,.96);box-shadow:0 7px 20px rgba(8,29,61,.14);padding:8px 10px;color:#6d4a00;font-size:11px;font-weight:850;line-height:1.35}
+.v210-map-net-pill.show{display:flex;align-items:center;gap:8px}
+.v210-map-net-pill button{border:0;border-radius:10px;background:#fff;color:#0b2345;font-weight:950;padding:6px 8px;white-space:nowrap}
+#city.v60-map-mode.v210-map2 .traveler-filter-sheet{display:none!important}
+#city.v60-map-mode.v210-map2.v210-more-open .traveler-filter-sheet{display:block!important;position:fixed!important;z-index:1850!important;left:8px!important;right:8px!important;bottom:calc(var(--v60-nav-h) + env(safe-area-inset-bottom) + 8px)!important;margin:0!important;max-height:58dvh!important;overflow:auto!important;border-radius:26px 26px 20px 20px!important;padding:12px 13px 18px!important;background:rgba(255,255,255,.985)!important;box-shadow:0 -16px 48px rgba(7,27,57,.28)!important;border:1px solid rgba(11,35,69,.10)!important;backdrop-filter:blur(14px)!important;-webkit-backdrop-filter:blur(14px)!important}
+.v210-more-close{display:none;width:100%;min-height:44px;margin:0 0 8px;border:0;border-radius:14px;background:#eef3f9;color:#0b2345;font-size:13px;font-weight:950}
+#city.v60-map-mode.v210-map2.v210-more-open .v210-more-close{display:block}
+#city.v60-map-mode.v210-map2 #cityMapDestCard.v209-destination-sheet.show{position:fixed!important;z-index:1800!important;left:max(8px,calc((100vw - 680px)/2))!important;right:max(8px,calc((100vw - 680px)/2))!important;bottom:calc(var(--v60-nav-h) + env(safe-area-inset-bottom) + 8px)!important;margin:0!important;max-height:42dvh!important;overflow:auto!important;border-radius:26px 26px 20px 20px!important;padding:16px!important;background:rgba(255,255,255,.985)!important;box-shadow:0 -16px 48px rgba(7,27,57,.30)!important;border:1px solid rgba(11,35,69,.10)!important;backdrop-filter:blur(14px)!important;-webkit-backdrop-filter:blur(14px)!important}
+#city.v60-map-mode.v210-map2 .v209-dest-name{font-size:20px!important;line-height:1.25!important}
+#city.v60-map-mode.v210-map2 .v209-dest-kicker,#city.v60-map-mode.v210-map2 .v209-dest-meta{font-size:12px!important}
+#city.v60-map-mode.v210-map2 .v209-route-primary button,#city.v60-map-mode.v210-map2 .v209-route-secondary button{min-height:48px!important;font-size:13px!important}
+#city.v60-map-mode.v210-map2 #cityTransitPanel{display:none!important}
+#city.v60-map-mode.v210-map2 #cityWalkGuide.show{position:fixed!important;z-index:1820!important;left:8px!important;right:8px!important;bottom:calc(var(--v60-nav-h) + env(safe-area-inset-bottom) + 8px)!important;max-height:70dvh!important;overflow:auto!important;margin:0!important;border-radius:26px!important;box-shadow:0 -16px 48px rgba(7,27,57,.30)!important}
+body.dark #city.v60-map-mode.v210-map2>.top,body.dark #city.v60-map-mode.v210-map2 .city-map-searchbox,body.dark .v210-map-quickbar button,body.dark .v210-map-more-float{background:rgba(15,34,58,.96)!important;color:#f1f6ff!important;border-color:#29415f!important}
+body.dark #city.v60-map-mode.v210-map2.v210-more-open .traveler-filter-sheet,body.dark #city.v60-map-mode.v210-map2 #cityMapDestCard.v209-destination-sheet.show{background:rgba(15,34,58,.985)!important;color:#f1f6ff!important;border-color:#29415f!important}
+@media(max-width:420px){
+  #city.v60-map-mode.v210-map2 .city-map-wrap{padding-left:5px!important;padding-right:5px!important}
+  #city.v60-map-mode.v210-map2 #cityGuideMap{height:72dvh!important;min-height:560px!important;border-radius:22px!important}
+  .v210-map-quickbar{left:7px;right:7px;top:8px;gap:6px}
+  .v210-map-quickbar button{font-size:12px;padding:8px 11px}
+  #city.v60-map-mode.v210-map2 #cityMapDestCard.v209-destination-sheet.show{left:6px!important;right:6px!important}
+}
+</style>
+<script id="v210-map2-js">
+(function(){
+  if(window.__KR_V210_MAP2__)return;window.__KR_V210_MAP2__=true;
+  const t=(ko,en)=>{try{return lang==='ko'?ko:en}catch(_){return en}};
+  let lastHealth='';
+  function city(){return document.getElementById('city')}
+  function live(){return document.querySelector('#city .city-map-live-wrap')}
+  async function quickAction(kind,btn){
+    document.querySelectorAll('.v210-map-quickbar button').forEach(x=>x.classList.toggle('active',x===btn));
+    const map={food:['food','food_all'],convenience:['needs','convenience'],station:['transport','rail'],toilets:['needs','toilets'],pharmacy:['needs','pharmacy'],atm:['needs','atm']};
+    const target=map[kind];
+    try{
+      if(target&&typeof loadTravelerFilter==='function'){
+        travelerFilterCategory=target[0];travelerFilterSub=target[1];
+        renderTravelerFilterSheet?.();
+        await loadTravelerFilter();
+        if(!Array.isArray(travelerFilterItems)||!travelerFilterItems.length){
+          const pill=document.getElementById('v210MapNetPill'),label=document.getElementById('v210MapNetText');
+          if(pill&&label){label.textContent=t('주변 후보를 찾지 못했습니다. 지도를 조금 옮기거나 다시 시도하세요.','No nearby candidates found. Move the map slightly or retry.');pill.classList.add('show');}
+        }else document.getElementById('v210MapNetPill')?.classList.remove('show');
+        return;
+      }
+      await showCityMapNearby(kind==='station'?'station':kind,null);
+    }catch(err){console.error('V210 quick map action',err);setCityMapStatus?.(t('주변 장소를 불러오지 못했습니다.','Could not load nearby places.'));}
+  }
+  window.v210QuickAction=quickAction;
+  window.v210ToggleMore=function(force){
+    const c=city();if(!c)return;const open=typeof force==='boolean'?force:!c.classList.contains('v210-more-open');
+    c.classList.toggle('v210-more-open',open);
+    if(open){try{renderTravelerFilterSheet?.()}catch(_){}}
+  };
+  function ensureOverlay(){
+    const c=city(),l=live();if(!c||!l)return;
+    c.classList.add('v210-map2');
+    if(!document.getElementById('v210QuickBar')){
+      const q=document.createElement('div');q.id='v210QuickBar';q.className='v210-map-quickbar';
+      q.innerHTML=`
+        <button type="button" onclick="v210QuickAction('food',this)">🍜 ${t('음식','Food')}</button>
+        <button type="button" onclick="v210QuickAction('convenience',this)">🏪 ${t('편의점','Convenience')}</button>
+        <button type="button" onclick="v210QuickAction('station',this)">🚉 ${t('역·교통','Transit')}</button>
+        <button type="button" onclick="v210QuickAction('toilets',this)">🚻 ${t('화장실','Restroom')}</button>
+        <button type="button" onclick="v210QuickAction('pharmacy',this)">💊 ${t('약국','Pharmacy')}</button>
+        <button type="button" onclick="v210QuickAction('atm',this)">🏧 ATM</button>`;
+      l.appendChild(q);
+    }
+    if(!document.getElementById('v210MapMoreFloat')){
+      const b=document.createElement('button');b.type='button';b.id='v210MapMoreFloat';b.className='v210-map-more-float';b.onclick=()=>v210ToggleMore();b.textContent='☰ '+t('더보기','More');l.appendChild(b);
+    }
+    if(!document.getElementById('v210MapNetPill')){
+      const n=document.createElement('div');n.id='v210MapNetPill';n.className='v210-map-net-pill';n.innerHTML=`<span id="v210MapNetText"></span><button type="button" onclick="reloadCityMapTiles()">${t('다시 불러오기','Retry')}</button>`;l.appendChild(n);
+    }
+    const sheet=document.getElementById('travelerFilterSheet');
+    if(sheet&&!sheet.querySelector('.v210-more-close')){
+      const close=document.createElement('button');close.type='button';close.className='v210-more-close';close.textContent='× '+t('지도 필터 닫기','Close map filters');close.onclick=()=>v210ToggleMore(false);sheet.insertBefore(close,sheet.firstChild);
+    }
+    try{v63RepairCityMapLayout?.()}catch(_){ }
+  }
+  function updateHealth(state,text){
+    const pill=document.getElementById('v210MapNetPill'),label=document.getElementById('v210MapNetText');if(!pill||!label)return;
+    lastHealth=String(state||'');
+    if(state==='error'){label.textContent=text||t('지도 데이터 연결이 느립니다.','Map data connection is slow.');pill.classList.add('show');}
+    else if(state==='ready'){pill.classList.remove('show');}
+  }
+  try{
+    if(typeof setCityMapHealth==='function'){
+      const prev=setCityMapHealth;
+      setCityMapHealth=function(state,text){const out=prev.apply(this,arguments);setTimeout(()=>updateHealth(state,text),0);return out;};
+    }
+  }catch(_){ }
+  async function maybeRestoreLocation(){
+    try{
+      if(!navigator.permissions?.query)return;
+      const p=await navigator.permissions.query({name:'geolocation'});
+      if(p.state==='granted'&&current==='city'&&city()?.classList.contains('v60-map-mode')) locateCityMapUser?.();
+    }catch(_){ }
+  }
+  function activate(){
+    const c=city();if(!c?.classList.contains('v60-map-mode'))return;
+    ensureOverlay();
+    c.classList.remove('v210-more-open');
+    setTimeout(()=>{try{v63RepairCityMapLayout?.()}catch(_){ }},80);
+    setTimeout(maybeRestoreLocation,220);
+  }
+  // Map 2.0 keeps advanced traveler filters on demand. Do not start a background Overpass request just by opening the map.
+  try{
+    if(typeof initTravelerFilterMap==='function'){
+      const prevInitTraveler=initTravelerFilterMap;
+      initTravelerFilterMap=function(){
+        if(city()?.classList.contains('v210-map2')){try{renderTravelerFilterSheet?.()}catch(_){ }return;}
+        return prevInitTraveler.apply(this,arguments);
+      };
+    }
+  }catch(_){ }
+  // Preserve the V203 back rule: an open Map 2.0 drawer closes before the screen changes.
+  try{
+    if(typeof v61CloseTopLayer==='function'){
+      const prevCloseLayer=v61CloseTopLayer;
+      window.v61CloseTopLayer=function(){if(window.v210HandleMapOverlayBack?.())return true;return prevCloseLayer.apply(this,arguments);};
+    }
+  }catch(_){ }
+  // Extend the existing map-tab opener without changing its route logic.
+  try{
+    if(typeof v60OpenMapTab==='function'){
+      const prev=v60OpenMapTab;
+      v60OpenMapTab=function(){const out=prev.apply(this,arguments);setTimeout(activate,150);return out;};
+    }
+    if(typeof v60ChangeMapCity==='function'){
+      const prevCity=v60ChangeMapCity;
+      v60ChangeMapCity=function(){const out=prevCity.apply(this,arguments);setTimeout(activate,150);return out;};
+    }
+  }catch(_){ }
+  // When a quick-result card is selected, close the advanced filter drawer so the destination sheet owns the bottom area.
+  try{
+    const prevPick=window.pickTravelerFilterResult;
+    if(typeof prevPick==='function')window.pickTravelerFilterResult=function(){v210ToggleMore(false);return prevPick.apply(this,arguments);};
+  }catch(_){ }
+  // Back should close Map 2.0's drawer before leaving the screen.
+  window.v210HandleMapOverlayBack=function(){const c=city();if(c?.classList.contains('v210-more-open')){v210ToggleMore(false);return true;}return false;};
+  document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{if(current==='city')activate()},700));
+  setTimeout(()=>{if(current==='city')activate()},900);
+  console.info('Korea Route V210 Map 2.0 ready');
+})();
+</script>
+
 </body>
 </html>
