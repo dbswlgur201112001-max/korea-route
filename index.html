@@ -22207,6 +22207,8 @@ body.dark #city.v60-map-mode.v210-map2.v210-more-open .traveler-filter-sheet,bod
 <style id="v214-google-map-links-css">
 /* V214 · Persistent Google Maps anchors; normal flow in the existing map action row. */
 .v213-map-action-row{position:absolute;left:12px;right:12px;bottom:18px;z-index:1306;display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:7px;align-items:stretch;pointer-events:auto}
+.v213-map-action-row > *{position:static!important;margin:0!important}
+.v213-map-action-row > :not(button):not(a){background:transparent!important;box-shadow:none!important;border:0!important;padding:0!important}
 .v213-map-action-row #v210MapMoreFloat,
 .v213-map-action-row .city-map-locate-float,
 .v213-google-map-btn{position:static!important;inset:auto!important;width:100%!important;min-width:0!important;min-height:46px!important;margin:0!important;border:1px solid rgba(11,35,69,.10)!important;border-radius:17px!important;background:rgba(255,255,255,.96)!important;box-shadow:0 8px 24px rgba(8,29,61,.18)!important;padding:8px 7px!important;color:#0b2345!important;font-size:12px!important;font-weight:950!important;line-height:1.15!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:5px!important;white-space:normal!important;text-align:center!important;text-decoration:none!important;box-sizing:border-box!important}
@@ -22304,7 +22306,12 @@ body.dark .v213-google-map-btn,body.dark .v213-map-action-row #v210MapMoreFloat,
     let row=document.getElementById('v213MapActionRow');
     if(!row){row=document.createElement('div');row.id='v213MapActionRow';row.className='v213-map-action-row';live.appendChild(row);}
     const more=document.getElementById('v210MapMoreFloat');if(more&&more.parentNode!==row)row.appendChild(more);
-    const locate=document.getElementById('cityMapLocateFloatBtn');if(locate&&locate.parentNode!==row)row.appendChild(locate);
+    const locate=document.getElementById('cityMapLocateFloatBtn');
+    if(locate&&locate.parentNode!==row){
+      const oldParent=locate.parentNode;
+      row.appendChild(locate);
+      if(oldParent&&oldParent!==live&&oldParent!==row&&!oldParent.children.length)oldParent.remove();
+    }
     return row;
   }
   function ensureMapButton(){
