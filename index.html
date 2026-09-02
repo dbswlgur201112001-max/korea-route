@@ -4433,7 +4433,7 @@ body.dark .v197-quick-grid button.help{background:#341f28;border-color:#64404d;c
 
 
 <script>
-const KR_BUILD_VERSION='V207';
+const KR_BUILD_VERSION='V208';
 const TRANSLATIONS = {
   "ko": {
     "home.brand": "코리아 루트",
@@ -21650,5 +21650,107 @@ try{
 })();
 </script>
 
+
+<style id="v208-walk-mapmode-fix-css">
+/* V208 · Walk guide must remain visible in map mode when actively started. */
+#city.v60-map-mode #cityWalkGuide.show{
+  display:block!important;
+  order:-3!important;
+  margin:10px 0 12px!important;
+  scroll-margin-top:90px!important;
+}
+</style>
+<script id="v208-walk-mapmode-fix-js">
+(function(){
+  if(window.__KR_V208_WALK_MAPMODE_FIX__) return;
+  window.__KR_V208_WALK_MAPMODE_FIX__=true;
+  const valid=x=>!!x&&Number.isFinite(Number(x.lat))&&Number.isFinite(Number(x.lng))&&Math.abs(Number(x.lat))<=90&&Math.abs(Number(x.lng))<=180;
+  const text=(ko,en)=>{try{return lang==='ko'?ko:en}catch(_){return en}};
+
+  function revealWalkPanel(target){
+    const panel=document.getElementById('cityWalkGuide');
+    if(!panel) return;
+    panel.classList.add('show');
+    const title=document.getElementById('cityWalkGuideTitle');
+    if(title&&target){
+      try{title.textContent=cityWalkTargetName(target)}catch(_){title.textContent=target.name||text('선택한 장소','Selected place')}
+    }
+    const dist=document.getElementById('cityWalkGuideDistance'); if(dist&&!exploreUserLocation) dist.textContent=text('위치 확인 중','Locating…');
+    const eta=document.getElementById('cityWalkGuideEta'); if(eta&&!exploreUserLocation) eta.textContent='—';
+    const dir=document.getElementById('cityWalkGuideDirection'); if(dir&&!exploreUserLocation) dir.textContent='—';
+    try{focusCityWalkGuidePanel?.()}catch(_){
+      requestAnimationFrame(()=>{try{panel.scrollIntoView({behavior:'smooth',block:'start'})}catch(e){}});
+    }
+  }
+
+  function launch(target){
+    if(!valid(target)){
+      setCityMapStatus?.(text('도보 안내 목적지를 확인하지 못했습니다.','Could not determine the walk destination.'));
+      return;
+    }
+    revealWalkPanel(target);
+    setCityMapStatus?.(text('도보 안내 준비 중 · GPS 위치를 확인합니다.','Preparing walk guide · checking GPS location.'));
+    try{
+      startCityWalkGuide(target);
+    }catch(err){
+      console.error('V208 walk launch failed',err);
+      setCityMapStatus?.(text('도보 안내를 시작하지 못했습니다. 외부 지도를 이용해 주세요.','Could not start the walk guide. Please use an external map.'));
+      return;
+    }
+    revealWalkPanel(target);
+    setTimeout(()=>revealWalkPanel(target),180);
+  }
+  window.krLaunchCityWalkGuide=launch;
+
+  openCityMapSearchWalk=function(){
+    const p=cityMapSelectedSearchPlace;
+    if(!p) return cityMapPromptDestination?.();
+    launch({...p,kind:'search'});
+  };
+  openCityMapSelectedWalk=function(){
+    const city=document.getElementById('city')?.dataset.currentCity||'';
+    const poi=cityMapSelectedIndex>=0?getSelectedCityPois(city)?.[cityMapSelectedIndex]:null;
+    if(!poi) return cityMapPromptDestination?.();
+    launch({lat:Number(poi.lat),lng:Number(poi.lng),name:text(poi.ko||poi.en,poi.en||poi.ko),en:poi.en||'',ko:poi.ko||'',kind:'poi'});
+  };
+  openCityTransitWalk=function(){
+    const t=cityMapCurrentTarget?.();
+    if(!t) return cityMapPromptDestination?.();
+    launch({...t,kind:t.kind||'transit-choice'});
+  };
+  startFacilityWalkGuideByCoords=function(lat,lng){
+    const f=(cityMapLoadedFacilities||[]).find(x=>Math.abs(Number(x.lat)-Number(lat))<1e-7&&Math.abs(Number(x.lng)-Number(lng))<1e-7);
+    launch(f?{...f,kind:'facility'}:{lat:Number(lat),lng:Number(lng),name:text('선택한 시설','Selected place'),kind:'facility'});
+  };
+
+  // V208: filters should still have a usable center even while vector tiles are finishing.
+  const previousCenter=typeof travelerFilterCenter==='function'?travelerFilterCenter:null;
+  travelerFilterCenter=function(){
+    try{
+      const c=previousCenter?.();
+      if(valid(c)) return c;
+    }catch(_){ }
+    if(valid(exploreUserLocation)) return {lat:Number(exploreUserLocation.lat),lng:Number(exploreUserLocation.lng),name:text('내 위치','My location')};
+    try{
+      const m=cityGuideMap||ensureCityGuideMap?.();
+      const c=m?.getCenter?.();
+      if(valid(c)) return {lat:Number(c.lat),lng:Number(c.lng),name:text('지도 중심','Map center')};
+    }catch(_){ }
+    try{
+      const city=document.getElementById('city')?.dataset.currentCity||cityState?.key||'';
+      const pois=getSelectedCityPois?.(city)||[];
+      const pts=pois.filter(valid);
+      if(pts.length){
+        const lat=pts.reduce((a,x)=>a+Number(x.lat),0)/pts.length;
+        const lng=pts.reduce((a,x)=>a+Number(x.lng),0)/pts.length;
+        if(valid({lat,lng})) return {lat,lng,name:text('도시 중심','City center')};
+      }
+    }catch(_){ }
+    return null;
+  };
+
+  console.info('Korea Route V208 walk/map-mode visibility fix ready');
+})();
+</script>
 </body>
 </html>
