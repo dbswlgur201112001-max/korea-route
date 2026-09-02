@@ -22302,16 +22302,24 @@ body.dark .v213-google-map-btn,body.dark .v213-map-action-row #v210MapMoreFloat,
     if(!url){e?.preventDefault?.();return false;}e.currentTarget.href=url;return true;
   }
   function ensureActionRow(){
+    console.log('locate buttons:', document.querySelectorAll('.city-map-locate-float').length);
+    console.log('action rows:', document.querySelectorAll('.v213-map-action-row').length);
+    console.log('google wraps:', document.querySelectorAll('#v212GoogleMapWrap').length);
     const live=document.querySelector('#city .city-map-live-wrap');if(!live)return null;
-    let row=document.getElementById('v213MapActionRow');
+    const rows=[...document.querySelectorAll('.v213-map-action-row')];
+    let row=rows[0]||null;
     if(!row){row=document.createElement('div');row.id='v213MapActionRow';row.className='v213-map-action-row';live.appendChild(row);}
+    else if(row.parentNode!==live)live.appendChild(row);
     const more=document.getElementById('v210MapMoreFloat');if(more&&more.parentNode!==row)row.appendChild(more);
+    document.querySelectorAll('.v210-map-more-float').forEach(el=>{if(el.parentNode!==row)el.remove();});
     const locate=document.getElementById('cityMapLocateFloatBtn');
     if(locate&&locate.parentNode!==row){
       const oldParent=locate.parentNode;
       row.appendChild(locate);
       if(oldParent&&oldParent!==live&&oldParent!==row&&!oldParent.children.length)oldParent.remove();
     }
+    document.querySelectorAll('.city-map-locate-float').forEach(el=>{if(el.parentNode!==row)el.remove();});
+    document.querySelectorAll('.v213-map-action-row').forEach(el=>{if(el!==row)el.remove();});
     return row;
   }
   function ensureMapButton(){
