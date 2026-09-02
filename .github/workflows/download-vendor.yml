@@ -1,0 +1,52 @@
+name: Download vendor libraries
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download map libraries into vendor/
+        run: |
+          set -e
+          mkdir -p vendor
+          curl -fsSL -o vendor/leaflet.css \
+            https://unpkg.com/leaflet@1.9.4/dist/leaflet.css
+          curl -fsSL -o vendor/leaflet.js \
+            https://unpkg.com/leaflet@1.9.4/dist/leaflet.js
+          curl -fsSL -o vendor/maplibre-gl.css \
+            https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.css
+          curl -fsSL -o vendor/maplibre-gl.js \
+            https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.js
+          curl -fsSL -o vendor/leaflet-maplibre-gl.js \
+            https://unpkg.com/@maplibre/maplibre-gl-leaflet/leaflet-maplibre-gl.js
+
+      - name: Verify files
+        run: |
+          set -e
+          for f in leaflet.css leaflet.js maplibre-gl.css maplibre-gl.js leaflet-maplibre-gl.js; do
+            if [ ! -s "vendor/$f" ]; then
+              echo "ERROR: vendor/$f is missing or empty"
+              exit 1
+            fi
+          done
+          ls -lh vendor/
+
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add vendor/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Add map libraries to vendor/ for offline support"
+            git push
+          fi
