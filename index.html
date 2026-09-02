@@ -4433,7 +4433,7 @@ body.dark .v197-quick-grid button.help{background:#341f28;border-color:#64404d;c
 
 
 <script>
-const KR_BUILD_VERSION='V218';
+const KR_BUILD_VERSION='V219';
 const TRANSLATIONS = {
   "ko": {
     "home.brand": "코리아 루트",
@@ -21451,6 +21451,9 @@ try{
   };
 
   function v205MapTap(e){
+    // V219: V209 owns generic map taps. Do not let the legacy V205 tap path
+    // schedule a traveler-filter reload that clears the destination card.
+    if(window.__KR_V209_MAP_DESTINATION_UX__) return;
     if(!e?.latlng) return;
     const target=e.originalEvent?.target;
     if(target?.closest?.('.leaflet-control,.leaflet-marker-icon,.leaflet-popup,.city-map-locate-float,button,a')) return;
@@ -21540,6 +21543,10 @@ try{
     try{const p=boundMap.latLngToContainerPoint([selected.lat,selected.lng]);if(Number.isFinite(p?.x)&&Number.isFinite(p?.y))placeDotPx(p.x,p.y)}catch(_){ }
   }
   function selectAtClient(clientX,clientY){
+    // V219: once the actionable V209 destination UX is active, generic map taps
+    // belong to V209 only. The legacy V206 path used to trigger loadTravelerFilter()
+    // 260ms later, which reset competing layers and erased cityMapDestCard.
+    if(window.__KR_V209_MAP_DESTINATION_UX__) return false;
     const host=document.getElementById('cityGuideMap'),map=ensureCityGuideMap?.(); if(!host||!map)return false;
     const r=host.getBoundingClientRect(); const x=clientX-r.left,y=clientY-r.top;
     if(x<0||y<0||x>r.width||y>r.height)return false;
@@ -21923,7 +21930,7 @@ try{
     el.addEventListener('pointerup',ev=>{
       if(!down)return; const dx=ev.clientX-down.x,dy=ev.clientY-down.y,dt=Date.now()-down.t;down=null;
       if(Math.hypot(dx,dy)>11||dt>700)return;
-      const target=ev.target;if(target?.closest?.('button,a,.leaflet-control,.leaflet-marker-icon,.leaflet-popup'))return;
+      const target=ev.target;if(target?.closest?.('button,a,.leaflet-control,.leaflet-marker-icon,.leaflet-interactive,.leaflet-popup'))return;
       setTimeout(()=>selectAt(ev),0);
     },true);
     const map=currentMap(); if(map){map.on('move zoom viewreset resize moveend zoomend',updateMarker);}
