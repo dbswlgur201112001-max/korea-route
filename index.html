@@ -4433,7 +4433,7 @@ body.dark .v197-quick-grid button.help{background:#341f28;border-color:#64404d;c
 
 
 <script>
-const KR_BUILD_VERSION='V202';
+const KR_BUILD_VERSION='V203';
 const TRANSLATIONS = {
   "ko": {
     "home.brand": "코리아 루트",
@@ -5138,24 +5138,6 @@ function toggleLang(){lang=lang==='en'?'ko':'en';localStorage.setItem('koreaRout
 function go(id,opts={}){
   const target=document.getElementById(id);
   if(!target){console.warn('Unknown screen:',id);return;}
-
-  // V202: every forward screen transition becomes a distinct browser-history step.
-  // If a visible Back control targets a screen already behind us, use browser history
-  // rather than creating a duplicate loop.
-  if(v202HistoryReady && !v202Restoring && opts?.history!==false && id!==current){
-    let previousIndex=-1;
-    for(let i=v202NavDepth-1;i>=0;i--){
-      if(v202NavStack[i]===id){previousIndex=i;break;}
-    }
-    if(previousIndex>=0){
-      const delta=previousIndex-v202NavDepth;
-      if(delta){history.go(delta);return;}
-    }
-    v202NavStack=v202NavStack.slice(0,v202NavDepth+1);
-    v202NavDepth+=1;
-    v202NavStack[v202NavDepth]=id;
-    try{v202PushScreenState(id,v202NavDepth);}catch(err){console.warn('V202 history push skipped:',err);}
-  }
 
   if(id!=='city'&&typeof stopCityWalkGuide==='function'&&cityWalkGuideTarget) stopCityWalkGuide({silent:true});
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -16234,11 +16216,8 @@ function v202HandlePop(event){
   }
 }
 
-window.addEventListener('popstate',v202HandlePop);
-v202InitHistory();
-setTimeout(v202InitHistory,0);
-document.addEventListener('DOMContentLoaded',v202InitHistory);
-window.addEventListener('pageshow',()=>{v202ExitInProgress=false;if(!v202HistoryReady)setTimeout(v202InitHistory,0);});
+// V203: legacy V202 history boot intentionally disabled.
+// The independent router at the end of <body> owns system Back navigation.
 </script>
 
 <script id="v118-navigation-architecture">
@@ -20735,6 +20714,135 @@ try{
 
 <script id="v199-place-search-fix-marker">
 /* V199 · Map place search now gives immediate visual response; known transport hubs also work without geocoding. */
+</script>
+
+<script id="v203-independent-back-router">
+/* V203 · Independent Android/PWA Back router.
+   Runs in its own script tag so a runtime error in the legacy mega-script cannot
+   prevent system Back initialization. Internal Back restores exactly one prior
+   screen; Home Back asks before leaving Korea Route. */
+(function(){
+  if(window.__KR_V203_BACK_ROUTER__)return;
+  window.__KR_V203_BACK_ROUTER__=true;
+
+  const baseGo=window.go;
+  if(typeof baseGo!=='function'){
+    console.error('V203 back router: go() unavailable');
+    return;
+  }
+
+  let restoring=false;
+  let exiting=false;
+  let navIndex=0;
+  let navStack=[];
+  let seq=0;
+
+  function activeScreen(){
+    try{
+      if(typeof current!=='undefined'&&current&&document.getElementById(current))return current;
+    }catch(_){ }
+    return document.querySelector('.screen.active')?.id||'home';
+  }
+  function baseUrl(){return location.pathname+location.search;}
+  function state(screen,index,base=false){return {koreaRouteV203:true,koreaRouteV203Base:base,screen:screen||'home',index:Number(index)||0};}
+  function routeUrl(screen,index){
+    seq+=1;
+    return `${baseUrl()}#kr203=${encodeURIComponent(screen||'home')}&step=${Math.max(0,Number(index)||0)}&n=${Date.now().toString(36)}${seq.toString(36)}`;
+  }
+  function push(screen,index){history.pushState(state(screen,index,false),document.title,routeUrl(screen,index));}
+  function show(screen){
+    if(!screen||!document.getElementById(screen))screen='home';
+    restoring=true;
+    try{baseGo(screen,{history:false,__kr203Restore:true});}
+    finally{restoring=false;}
+  }
+  function rearmCurrent(){
+    const screen=activeScreen();
+    try{push(screen,navIndex);}catch(err){console.warn('V203 Back rearm failed',err);}
+  }
+  function askExit(){
+    const ko=(typeof lang!=='undefined'&&lang==='ko');
+    return window.confirm(ko?'Korea Route를 나가시겠어요?':'Exit Korea Route?');
+  }
+
+  function boot(){
+    const initial=activeScreen();
+    navStack=[initial];navIndex=0;exiting=false;
+    try{
+      // Keep a sentinel directly behind Home. Android Back on Home lands here,
+      // which lets us ask before the standalone window closes.
+      history.replaceState(state('home',-1,true),document.title,baseUrl());
+      push(initial,0);
+    }catch(err){console.error('V203 Back boot failed',err);return;}
+  }
+
+  window.go=function(id,opts={}){
+    if(restoring||opts?.history===false||opts?.__kr203Restore)return baseGo(id,opts);
+    const before=activeScreen();
+    if(!id||!document.getElementById(id)||id===before)return baseGo(id,opts);
+
+    // A visible in-app back control often points to the immediately previous screen.
+    // Traverse the real history entry instead of creating a loop.
+    if(navIndex>0&&navStack[navIndex-1]===id){
+      history.back();
+      return;
+    }
+
+    navStack=navStack.slice(0,navIndex+1);
+    navIndex+=1;
+    navStack[navIndex]=id;
+    try{push(id,navIndex);}catch(err){console.warn('V203 history push failed',err);}
+    return baseGo(id,{...opts,history:false,__kr203Restore:true});
+  };
+
+  window.addEventListener('popstate',function(event){
+    if(exiting)return;
+
+    // If a sheet/drawer/full-screen layer is open, Back closes only that layer.
+    // Because the browser already traversed one entry, put the current screen
+    // back on top so the next Back returns to the previous screen.
+    try{
+      if(typeof v61CloseTopLayer==='function'&&v61CloseTopLayer()){
+        rearmCurrent();
+        return;
+      }
+    }catch(err){console.warn('V203 top-layer close failed',err);}
+
+    const s=event.state||{};
+    if(s.koreaRouteV203&&s.koreaRouteV203Base){
+      // The sentinel is reachable only when the app is at its first screen.
+      if(activeScreen()!=='home')show('home');
+      navStack=['home'];navIndex=0;
+      if(askExit()){
+        exiting=true;
+        setTimeout(()=>history.back(),0);
+      }else{
+        try{push('home',0);}catch(err){console.warn('V203 Home guard restore failed',err);}
+      }
+      return;
+    }
+
+    if(s.koreaRouteV203){
+      const idx=Math.max(0,Number(s.index)||0);
+      navIndex=idx;
+      navStack=navStack.slice(0,idx+1);
+      navStack[idx]=s.screen||'home';
+      show(s.screen||'home');
+      return;
+    }
+
+    // Old/stale history entry after an update: keep the user inside Korea Route
+    // and normalize to Home instead of letting an internal Back appear to exit.
+    if(activeScreen()!=='home'){
+      navStack=['home'];navIndex=0;show('home');
+      try{push('home',0);}catch(_){ }
+    }
+  },true);
+
+  window.addEventListener('pageshow',()=>{exiting=false;});
+  boot();
+  console.info('Korea Route V203 Back router ready',history.length,history.state);
+})();
 </script>
 </body>
 </html>
