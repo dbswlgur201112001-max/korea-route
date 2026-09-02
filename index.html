@@ -22110,9 +22110,12 @@ body.dark #city.v60-map-mode.v210-map2.v210-more-open .traveler-filter-sheet,bod
   }
   window.v210QuickAction=quickAction;
   window.v210ToggleMore=function(force){
-    const c=city();if(!c)return;const open=typeof force==='boolean'?force:!c.classList.contains('v210-more-open');
+    const c=city();if(!c)return;c.classList.add('v210-map2');const open=typeof force==='boolean'?force:!c.classList.contains('v210-more-open');
     c.classList.toggle('v210-more-open',open);
-    if(open){try{renderTravelerFilterSheet?.()}catch(_){}}
+    if(open){
+      const sheet=document.getElementById('travelerFilterSheet');if(sheet)sheet.style.removeProperty('display');
+      try{renderTravelerFilterSheet?.()}catch(_){}
+    }
   };
   function ensureOverlay(){
     const c=city(),l=live();if(!c||!l)return;
@@ -22128,9 +22131,12 @@ body.dark #city.v60-map-mode.v210-map2.v210-more-open .traveler-filter-sheet,bod
         <button type="button" onclick="v210QuickAction('atm',this)">🏧 ATM</button>`;
       l.appendChild(q);
     }
-    if(!document.getElementById('v210MapMoreFloat')){
-      const b=document.createElement('button');b.type='button';b.id='v210MapMoreFloat';b.className='v210-map-more-float';b.onclick=()=>v210ToggleMore();b.textContent='☰ '+t('더보기','More');l.appendChild(b);
+    let more=document.getElementById('v210MapMoreFloat');
+    if(!more){
+      more=document.createElement('button');more.type='button';more.id='v210MapMoreFloat';more.className='v210-map-more-float';more.textContent='☰ '+t('더보기','More');l.appendChild(more);
     }
+    more.onclick=()=>v210ToggleMore();
+    const actionRow=document.getElementById('v213MapActionRow');if(actionRow&&more.parentNode!==actionRow)actionRow.appendChild(more);
     if(!document.getElementById('v210MapNetPill')){
       const n=document.createElement('div');n.id='v210MapNetPill';n.className='v210-map-net-pill';n.innerHTML=`<span id="v210MapNetText"></span><button type="button" onclick="reloadCityMapTiles()">${t('다시 불러오기','Retry')}</button>`;l.appendChild(n);
     }
@@ -22210,7 +22216,7 @@ body.dark #city.v60-map-mode.v210-map2.v210-more-open .traveler-filter-sheet,bod
 
 <style id="v214-google-map-links-css">
 /* V214 · Persistent Google Maps anchors; normal flow in the existing map action row. */
-.v213-map-action-row{position:absolute;left:12px;right:12px;bottom:calc(var(--v60-nav-h) + env(safe-area-inset-bottom) + 14px);z-index:1306;display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:7px;align-items:stretch;pointer-events:auto}
+.v213-map-action-row{position:absolute;left:12px;right:12px;bottom:calc(var(--v60-nav-h) + env(safe-area-inset-bottom) + 14px);z-index:1306;display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:5px;align-items:stretch;pointer-events:auto}
 .v213-map-action-row > *{position:static!important;margin:0!important}
 .v213-map-action-row > :not(button):not(a){background:transparent!important;box-shadow:none!important;border:0!important;padding:0!important}
 .v213-map-action-row #v210MapMoreFloat,
@@ -22231,7 +22237,7 @@ body.dark #city.v60-map-mode.v210-map2.v210-more-open .traveler-filter-sheet,bod
 .v212-facility-card-row .v212-directions-btn{margin:6px 6px 6px 0;font-size:11px;padding:7px 8px}
 body.dark .v213-google-map-btn,body.dark .v213-map-action-row #v210MapMoreFloat,body.dark .v213-map-action-row .city-map-locate-float,body.dark .v212-directions-btn{background:rgba(15,34,58,.96)!important;color:#f1f6ff!important;border-color:#29415f!important}
 @media(max-width:420px){
-  .v213-map-action-row{left:8px;right:8px;bottom:calc(var(--v60-nav-h) + env(safe-area-inset-bottom) + 14px);gap:5px}
+  .v213-map-action-row{left:8px;right:8px;bottom:calc(var(--v60-nav-h) + env(safe-area-inset-bottom) + 14px);gap:4px}
   .v213-map-action-row #v210MapMoreFloat,
   .v213-map-action-row .city-map-locate-float,
   .v213-google-map-btn{font-size:11px!important;padding:7px 4px!important;min-height:44px!important}
@@ -22311,7 +22317,7 @@ body.dark .v213-google-map-btn,body.dark .v213-map-action-row #v210MapMoreFloat,
     let row=rows[0]||null;
     if(!row){row=document.createElement('div');row.id='v213MapActionRow';row.className='v213-map-action-row';live.appendChild(row);}
     else if(row.parentNode!==live)live.appendChild(row);
-    const more=document.getElementById('v210MapMoreFloat');if(more&&more.parentNode!==row)row.appendChild(more);
+    const more=document.getElementById('v210MapMoreFloat');if(more){if(more.parentNode!==row)row.appendChild(more);more.onclick=()=>v210ToggleMore();}
     document.querySelectorAll('.v210-map-more-float').forEach(el=>{if(el.parentNode!==row)el.remove();});
     const locate=document.getElementById('cityMapLocateFloatBtn');
     if(locate&&locate.parentNode!==row){
