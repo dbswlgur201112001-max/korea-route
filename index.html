@@ -4433,7 +4433,7 @@ body.dark .v197-quick-grid button.help{background:#341f28;border-color:#64404d;c
 
 
 <script>
-const KR_BUILD_VERSION='V203';
+const KR_BUILD_VERSION='V204';
 const TRANSLATIONS = {
   "ko": {
     "home.brand": "코리아 루트",
@@ -20844,5 +20844,234 @@ try{
   console.info('Korea Route V203 Back router ready',history.length,history.state);
 })();
 </script>
+
+
+<style id="v204-map-interaction-css">
+/* V204 · clear map-search anchor. A tap/search center is visible even before place data returns. */
+#cityGuideMap .v204-search-anchor{filter:drop-shadow(0 3px 8px rgba(14,55,112,.32))}
+#cityGuideMap .v204-search-anchor-dot{width:18px;height:18px;border-radius:50%;background:#2f6fed;border:4px solid #fff;box-sizing:border-box;box-shadow:0 0 0 5px rgba(47,111,237,.22),0 2px 8px rgba(13,49,104,.34)}
+#cityGuideMap .v204-search-anchor-pulse{position:absolute;left:-7px;top:-7px;width:32px;height:32px;border:2px solid rgba(47,111,237,.45);border-radius:50%;box-sizing:border-box;animation:v204AnchorPulse 1.7s ease-out infinite;pointer-events:none}
+@keyframes v204AnchorPulse{0%{transform:scale(.65);opacity:.8}100%{transform:scale(1.45);opacity:0}}
+@media(prefers-reduced-motion:reduce){#cityGuideMap .v204-search-anchor-pulse{animation:none;opacity:.32;transform:scale(1)}}
+</style>
+<script id="v204-map-interaction-js">
+/* V204 · Traveler-filter interaction repair.
+   - Filter click always shows a blue search anchor.
+   - Tapping the map moves that anchor and searches around the tapped point.
+   - If Overpass is unavailable, safe/basic categories can fall back to POIs already
+     visible in the OpenFreeMap vector tiles. Verification-sensitive filters never guess. */
+(function(){
+  if(window.__KR_V204_MAP_INTERACTION__)return;
+  window.__KR_V204_MAP_INTERACTION__=true;
+
+  let pickedCenter=null;
+  let anchorLayer=null;
+  let boundMap=null;
+  let tapTimer=0;
+
+  function validLatLng(x){return x&&Number.isFinite(Number(x.lat))&&Number.isFinite(Number(x.lng));}
+  function langText(ko,en){try{return (typeof lang!=='undefined'&&lang==='ko')?ko:en}catch(_){return en}}
+
+  function anchorIcon(){
+    return L.divIcon({className:'v204-search-anchor',html:'<div class="v204-search-anchor-pulse"></div><div class="v204-search-anchor-dot"></div>',iconSize:[18,18],iconAnchor:[9,9]});
+  }
+  function clearAnchor(){
+    if(anchorLayer){try{anchorLayer.remove()}catch(_){ } anchorLayer=null;}
+  }
+  function showAnchor(lat,lng,{pan=false,zoom=false}={}){
+    const map=ensureCityGuideMap?.();
+    if(!map||typeof L==='undefined')return;
+    const ll={lat:Number(lat),lng:Number(lng)};
+    if(!validLatLng(ll))return;
+    clearAnchor();
+    anchorLayer=L.marker([ll.lat,ll.lng],{icon:anchorIcon(),interactive:false,keyboard:false,zIndexOffset:1600}).addTo(map);
+    if(pan){
+      try{
+        const z=zoom?Math.max(15,Number(map.getZoom())||15):map.getZoom();
+        map.setView([ll.lat,ll.lng],z,{animate:false});
+      }catch(_){ }
+    }
+  }
+  function currentSearchCenter(){
+    if(validLatLng(pickedCenter))return {...pickedCenter,name:langText('선택한 지점','Selected point')};
+    try{
+      if(typeof travelerFilterCenter==='function'){
+        const c=travelerFilterCenter();if(validLatLng(c))return c;
+      }
+    }catch(_){ }
+    const map=ensureCityGuideMap?.();
+    if(map){const c=map.getCenter();return {lat:Number(c.lat),lng:Number(c.lng),name:langText('지도 중심','Map center')}}
+    return null;
+  }
+
+  // Keep traveler filtering centered on the user's explicit map tap until the map is dragged,
+  // My location is pressed, or the city map is rebuilt.
+  const previousTravelerCenter=window.travelerFilterCenter;
+  window.travelerFilterCenter=function(){
+    if(validLatLng(pickedCenter))return {...pickedCenter,name:langText('선택한 지점','Selected point')};
+    return typeof previousTravelerCenter==='function'?previousTravelerCenter.apply(this,arguments):null;
+  };
+
+  function featureCoordinates(feature){
+    const g=feature?.geometry;if(!g)return null;
+    if(g.type==='Point'&&Array.isArray(g.coordinates))return {lng:Number(g.coordinates[0]),lat:Number(g.coordinates[1])};
+    const pts=[];
+    (function walk(v){
+      if(!Array.isArray(v))return;
+      if(v.length>=2&&typeof v[0]==='number'&&typeof v[1]==='number'){pts.push([Number(v[0]),Number(v[1])]);return;}
+      v.forEach(walk);
+    })(g.coordinates);
+    if(!pts.length)return null;
+    const n=Math.min(pts.length,80),sample=pts.length>n?pts.filter((_,i)=>i%(Math.ceil(pts.length/n))===0).slice(0,n):pts;
+    return {lng:sample.reduce((a,p)=>a+p[0],0)/sample.length,lat:sample.reduce((a,p)=>a+p[1],0)/sample.length};
+  }
+  function featureName(props={}){
+    const isKo=(()=>{try{return lang==='ko'}catch(_){return false}})();
+    return isKo?(props['name:ko']||props.name_ko||props.name||props['name:en']||props.name_en):(props['name:en']||props.name_en||props.name||props['name:ko']||props.name_ko);
+  }
+  function vectorPattern(id){
+    const patterns={
+      food_all:/restaurant|fast[_ -]?food|food[_ -]?court|cafe|bakery|food_and_drink|ice[_ -]?cream|\bfood\b/i,
+      parks:/\bpark\b|garden|nature[_ -]?reserve|green[_ -]?space|recreation[_ -]?ground/i,
+      spa:/sauna|spa|public[_ -]?bath|bathhouse|massage/i,
+      walking:/footway|pedestrian|walking|hiking|trail|\bpath\b/i,
+      english_info:/name[:_]?en|english/i,
+      rail:/railway|subway|train[_ -]?station|rail[_ -]?station/i,
+      bus_stop:/bus[_ -]?stop|bus[_ -]?station|public[_ -]?transport/i,
+      taxi:/\btaxi\b/i,
+      tmoney_candidate:/convenience/i,
+      toilets:/toilet|restroom/i,
+      atm:/\batm\b/i,
+      pharmacy:/pharmacy|chemist/i,
+      convenience:/convenience/i,
+      mapped_sights:/attraction|museum|gallery|viewpoint|historic|monument|castle|temple|shrine|tourism/i
+    };
+    return patterns[id]||null;
+  }
+  function vectorFallbackItems(filterId,center){
+    const rx=vectorPattern(filterId);if(!rx||!validLatLng(center))return [];
+    const gl=cityGuideTileLayer?.getMaplibreMap?.();
+    if(!gl||!gl.loaded?.())return [];
+    let features=[];try{features=gl.queryRenderedFeatures()||[]}catch(_){return []}
+    const meta=typeof travelerFilterMeta==='function'?travelerFilterMeta(filterId):{icon:'📍'};
+    const seen=new Set(),out=[];
+    for(const f of features){
+      const props=f?.properties||{};
+      const hay=[f?.layer?.id,f?.sourceLayer,f?.source_layer,...Object.entries(props).flatMap(([k,v])=>[k,v])].filter(v=>v!=null).join(' ').toLowerCase();
+      if(!rx.test(hay))continue;
+      const name=featureName(props);if(!name)continue;
+      const ll=featureCoordinates(f);if(!validLatLng(ll))continue;
+      const key=`${name}|${ll.lat.toFixed(5)}|${ll.lng.toFixed(5)}`;if(seen.has(key))continue;seen.add(key);
+      const km=typeof haversineKm==='function'?haversineKm(center.lat,center.lng,ll.lat,ll.lng):NaN;
+      if(Number.isFinite(km)&&km>6)continue;
+      out.push({
+        type:typeof travelerFilterType==='function'?travelerFilterType(filterId):'place',
+        name:String(name),lat:ll.lat,lng:ll.lng,km:Number.isFinite(km)?km:undefined,
+        distance:Number.isFinite(km)?(km<1?`${Math.max(10,Math.round(km*1000/10)*10)}m`:`${km.toFixed(1)}km`):'',
+        icon:meta?.icon||'📍',source:'OpenFreeMap',travelerFilter:filterId,vectorFallback:true,
+        hint:langText('현재 지도에 표시된 OpenFreeMap 장소','Place visible on the current OpenFreeMap map')
+      });
+    }
+    return out.sort((a,b)=>(a.km??999)-(b.km??999)).slice(0,24);
+  }
+  function fitFilterPins(items,center){
+    const map=ensureCityGuideMap?.();if(!map||!Array.isArray(items)||!items.length)return;
+    try{
+      const pts=items.slice(0,18).map(x=>[Number(x.lat),Number(x.lng)]).filter(x=>Number.isFinite(x[0])&&Number.isFinite(x[1]));
+      if(validLatLng(center))pts.push([Number(center.lat),Number(center.lng)]);
+      if(pts.length>1)map.fitBounds(L.latLngBounds(pts),{padding:[34,34],maxZoom:16,animate:false});
+      else if(pts.length===1)map.setView(pts[0],Math.max(15,map.getZoom()),{animate:false});
+    }catch(_){ }
+  }
+
+  const previousLoad=window.loadTravelerFilter;
+  if(typeof previousLoad==='function'){
+    window.loadTravelerFilter=async function(){
+      const beforeFilter=typeof travelerCurrentFilter==='function'?travelerCurrentFilter():null;
+      const center=currentSearchCenter();
+      if(validLatLng(center)){
+        showAnchor(center.lat,center.lng);
+        try{setCityMapStatus(langText(`${beforeFilter?travelerLabel(beforeFilter):'주변 장소'} · 파란 점 기준으로 찾는 중…`,`${beforeFilter?travelerLabel(beforeFilter):'Nearby places'} · searching around the blue point…`))}catch(_){ }
+      }
+      const result=await previousLoad.apply(this,arguments);
+      const filter=typeof travelerCurrentFilter==='function'?travelerCurrentFilter():beforeFilter;
+      const fid=filter?.id||'';
+      // Never infer verification-sensitive facts from vector styling.
+      const noGuess=new Set(['vegan','vegetarian','halal','card_mapped','traveler_confirmed','quiet','luggage']);
+      if((typeof travelerFilterItems==='undefined'||!travelerFilterItems.length)&&fid&&!noGuess.has(fid)){
+        // Give the vector layer one frame to settle after a tap/pan, then use only visible mapped POIs.
+        await new Promise(r=>setTimeout(r,90));
+        const fallback=vectorFallbackItems(fid,currentSearchCenter()||center);
+        if(fallback.length){
+          try{drawTravelerFilterMarkers(fallback);renderTravelerFilterResults(fallback);updateTravelerFilterNote(langText('OpenFreeMap 화면 내 장소를 보조 후보로 표시했습니다.','Showing fallback places visible on OpenFreeMap.'));fitFilterPins(fallback,currentSearchCenter()||center);}
+          catch(err){console.warn('V204 vector fallback render failed',err)}
+          try{setCityMapStatus(langText(`${travelerLabel(filter)} ${fallback.length}곳 표시 · 파란 점이 검색 기준입니다.`,`${fallback.length} ${travelerLabel(filter)} places shown · blue point is the search center.`))}catch(_){ }
+        }
+      }else if(typeof travelerFilterItems!=='undefined'&&travelerFilterItems.length){
+        fitFilterPins(travelerFilterItems,currentSearchCenter()||center);
+      }
+      return result;
+    };
+  }
+
+  function mapTap(e){
+    if(!e?.latlng)return;
+    // Ignore taps that originated on Leaflet controls, buttons or marker icons.
+    const target=e.originalEvent?.target;
+    if(target?.closest?.('.leaflet-control,.leaflet-marker-icon,.leaflet-popup,.city-map-locate-float,button,a'))return;
+    pickedCenter={lat:Number(e.latlng.lat),lng:Number(e.latlng.lng)};
+    try{if(typeof v131TravelerCenterMode!=='undefined')v131TravelerCenterMode='map'}catch(_){ }
+    showAnchor(pickedCenter.lat,pickedCenter.lng,{pan:true,zoom:false});
+    try{setCityMapStatus(langText('파란 점을 검색 기준으로 선택했습니다. 주변 장소를 다시 찾습니다.','Blue point selected as the search center. Refreshing nearby places.'))}catch(_){ }
+    clearTimeout(tapTimer);
+    tapTimer=setTimeout(()=>{try{window.loadTravelerFilter?.()}catch(err){console.warn('V204 tap reload failed',err)}},260);
+  }
+  function bindMap(){
+    const map=(typeof cityGuideMap!=='undefined'&&cityGuideMap)?cityGuideMap:null;if(!map||boundMap===map)return;
+    if(boundMap){try{boundMap.off('click',mapTap)}catch(_){ }}
+    boundMap=map;map.on('click',mapTap);
+    map.on('dragstart',()=>{pickedCenter=null;clearAnchor();});
+  }
+
+  const prevEnsure=window.ensureCityGuideMap;
+  if(typeof prevEnsure==='function'){
+    window.ensureCityGuideMap=function(){const map=prevEnsure.apply(this,arguments);if(map)setTimeout(bindMap,0);return map;};
+  }
+  // Current map may already exist before the wrapper is installed.
+  setTimeout(bindMap,120);
+
+  if(typeof window.locateCityMapUser==='function'){
+    const prev=window.locateCityMapUser;
+    window.locateCityMapUser=function(){pickedCenter=null;clearAnchor();return prev.apply(this,arguments);};
+  }
+  if(typeof window.toggleCityMapFollow==='function'){
+    const prev=window.toggleCityMapFollow;
+    window.toggleCityMapFollow=function(){pickedCenter=null;clearAnchor();return prev.apply(this,arguments);};
+  }
+  if(typeof window.renderCityGuideMap==='function'){
+    const prev=window.renderCityGuideMap;
+    window.renderCityGuideMap=function(){pickedCenter=null;clearAnchor();const out=prev.apply(this,arguments);setTimeout(bindMap,80);return out;};
+  }
+
+  // Make Overpass retrieval a little more resilient without changing data semantics.
+  window.v126FetchOverpass=async function(q){
+    const endpoints=['https://overpass-api.de/api/interpreter','https://overpass.kumi.systems/api/interpreter','https://overpass.private.coffee/api/interpreter'];
+    let lastError=null;
+    for(const endpoint of endpoints){
+      const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),4500);
+      try{
+        const r=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},body:'data='+encodeURIComponent(q),cache:'no-store',signal:controller.signal});
+        if(!r.ok)throw new Error('overpass '+r.status);
+        const data=await r.json();if(data&&Array.isArray(data.elements))return data;
+        throw new Error('invalid overpass data');
+      }catch(e){lastError=e}finally{clearTimeout(timer)}
+    }
+    throw lastError||new Error('overpass unavailable');
+  };
+
+  console.info('Korea Route V204 map interaction ready');
+})();
+</script>
+
 </body>
 </html>
