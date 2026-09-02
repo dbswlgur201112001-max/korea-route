@@ -4433,7 +4433,7 @@ body.dark .v197-quick-grid button.help{background:#341f28;border-color:#64404d;c
 
 
 <script>
-const KR_BUILD_VERSION='V217';
+const KR_BUILD_VERSION='V218';
 const TRANSLATIONS = {
   "ko": {
     "home.brand": "코리아 루트",
@@ -22166,7 +22166,7 @@ body.dark .v213-google-map-btn,body.dark #city.v60-map-mode.v210-map2 .v213-map-
 }
 </style>
 <script id="v214-google-map-links-js">
-// V217 · Pause Google Maps repair while any map/phrase/event overlay is visibly open.
+// V218 · Repair only missing Google Maps controls; never disturb visible map destination cards/overlays.
 (function(){
   if(window.__KR_V214_GOOGLE_MAP_LINKS__)return;window.__KR_V214_GOOGLE_MAP_LINKS__=true;
   const online=()=>navigator.onLine!==false;
@@ -22179,7 +22179,8 @@ body.dark .v213-google-map-btn,body.dark #city.v60-map-mode.v210-map2 .v213-map-
       '#v113MapChoice',
       '.v76-map-choice-backdrop',
       '#phraseSheetLayer',
-      '#v150EventTranslationOverlay'
+      '#v150EventTranslationOverlay',
+      '.city-map-dest-card.show'
     ];
     const visible=(el)=>{
       if(!el)return false;
@@ -22288,10 +22289,35 @@ body.dark .v213-google-map-btn,body.dark #city.v60-map-mode.v210-map2 .v213-map-
     if(note){note.textContent=tr('인터넷 필요','Needs internet');note.classList.toggle('show',!on);}
     document.querySelectorAll('.v212-directions-btn').forEach(a=>{a.setAttribute('aria-disabled',on?'false':'true');if(!on)a.href='#';a.textContent=on?`↗ ${tr('길찾기','Directions')}`:tr('인터넷 필요','Needs internet');});
   }
-  function repairAll(){
+  function travelerDirectionsMissing(){
+    const box=document.getElementById('travelerFilterResults');if(!box)return false;
+    const cards=[...box.querySelectorAll('.traveler-result-card')];
+    return cards.some((card,i)=>{
+      const item=(typeof travelerFilterItems!=='undefined')?travelerFilterItems?.[i]:null;
+      if(!item||!validCoord(item.lat)||!validCoord(item.lng))return false;
+      const row=card.closest('.v212-traveler-card-row');
+      return !row||!row.querySelector('.v212-directions-btn[data-v212-directions="traveler"]');
+    });
+  }
+  function facilityDirectionsMissing(){
+    const box=document.getElementById('cityFacilityResults');if(!box)return false;
+    const cards=[...box.querySelectorAll('.city-facility-result')];
+    return cards.some((card,i)=>{
+      const item=(typeof cityMapLoadedFacilities!=='undefined')?cityMapLoadedFacilities?.[i]:null;
+      if(!item||!validCoord(item.lat)||!validCoord(item.lng))return false;
+      const row=card.closest('.v212-facility-card-row');
+      return !row||!row.querySelector('.v212-directions-btn[data-v212-directions="facility"]');
+    });
+  }
+  function repairAll(forceSync=false){
     if(repairing||guardVisible())return;repairing=true;
-    try{observer?.disconnect();ensureMapButton();decorateTravelerCards();decorateFacilityCards();sync();}
-    finally{repairing=false;observeCity();}
+    let changed=false;
+    try{
+      if(!document.getElementById('v212GoogleMapWrap')){ensureMapButton();changed=true;}
+      if(travelerDirectionsMissing()){decorateTravelerCards();changed=true;}
+      if(facilityDirectionsMissing()){decorateFacilityCards();changed=true;}
+      if(changed||forceSync)sync();
+    }finally{repairing=false;}
   }
   function queueRepair(){
     if(queued||repairing||guardVisible())return;queued=true;
@@ -22301,8 +22327,10 @@ body.dark .v213-google-map-btn,body.dark #city.v60-map-mode.v210-map2 .v213-map-
     const city=document.getElementById('city');if(!city)return;
     if(!observer)observer=new MutationObserver(()=>{
       if(repairing||guardVisible())return;
-      if(!document.getElementById('v212GoogleMapWrap')){queueRepair();return;}
-      queueRepair();
+      const mapMissing=!document.getElementById('v212GoogleMapWrap');
+      const travelerMissing=travelerDirectionsMissing();
+      const facilityMissing=facilityDirectionsMissing();
+      if(mapMissing||travelerMissing||facilityMissing)queueRepair();
     });
     if(observedCity!==city)observedCity=city;
     try{observer.observe(city,{childList:true,subtree:true});}catch(_){ }
@@ -22327,13 +22355,13 @@ body.dark .v213-google-map-btn,body.dark #city.v60-map-mode.v210-map2 .v213-map-
   }catch(_){ }
   try{
     if(typeof applyLang==='function'){
-      const prev=applyLang;applyLang=function(){const out=prev.apply(this,arguments);repairAll();return out;};
+      const prev=applyLang;applyLang=function(){const out=prev.apply(this,arguments);repairAll(true);return out;};
     }
   }catch(_){ }
   window.addEventListener('online',sync);window.addEventListener('offline',sync);
   document.addEventListener('DOMContentLoaded',()=>{observeCity();repairAll();});
   observeCity();repairAll();
-  console.info('Korea Route V217 overlay-safe Google Maps repair ready');
+  console.info('Korea Route V218 selective Google Maps repair ready');
 })();
 </script>
 
