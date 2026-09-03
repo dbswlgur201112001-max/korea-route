@@ -6253,6 +6253,8 @@ function renderCitySchematic(city){
 
 let cityMapResizeObserver=null;
 let cityMapInvalidateTimer=null;
+let cityMapInteracting=false;
+let cityMapInteractionSettleTimer=null;
 let cityGuideTileLayer=null;
 let cityMapTileErrors=0;
 let cityMapBusyTimer=null;
@@ -6329,6 +6331,7 @@ function refreshCityMapOnlineState(){
   }
 }
 function fitCityGuideMapToViewport(){
+  if(cityMapInteracting) return;
   const city=document.getElementById('city');
   const el=document.getElementById('cityGuideMap');
   const live=document.querySelector('#city .city-map-live-wrap');
@@ -6351,9 +6354,11 @@ function fitCityGuideMapToViewport(){
   }
 }
 function scheduleCityMapInvalidate({pan=false}={}){
+  if(cityMapInteracting) return;
   if(!cityGuideMap) return;
   clearTimeout(cityMapInvalidateTimer);
   const repair=()=>{
+    if(cityMapInteracting) return;
     try{fitCityGuideMapToViewport();}catch(e){}
     try{cityGuideMap.invalidateSize({pan:false,animate:false});}catch(e){}
     try{cityGuideTileLayer?.getMaplibreMap?.().resize();cityGuideTileLayer?.getMaplibreMap?.().triggerRepaint();}catch(e){}
@@ -6366,7 +6371,10 @@ function scheduleCityMapInvalidate({pan=false}={}){
 function ensureCityMapResizeObserver(){
   const el=document.getElementById('cityGuideMap');
   if(!el||typeof ResizeObserver==='undefined'||cityMapResizeObserver) return;
-  cityMapResizeObserver=new ResizeObserver(()=>scheduleCityMapInvalidate());
+  cityMapResizeObserver=new ResizeObserver(()=>{
+    if(cityMapInteracting) return;
+    scheduleCityMapInvalidate();
+  });
   cityMapResizeObserver.observe(el);
   const wrap=document.querySelector('#city .city-map-wrap');
   if(wrap) cityMapResizeObserver.observe(wrap);
@@ -6388,6 +6396,18 @@ function ensureCityGuideMap(){
       inertia:true,inertiaDeceleration:coarsePointer?4200:3600,inertiaMaxSpeed:coarsePointer?1200:1500,
       bounceAtZoomLimits:false,preferCanvas:true
     }).setView([37.2636,127.0286],12);
+    cityGuideMap.on('movestart zoomstart dragstart',()=>{
+      cityMapInteracting=true;
+      clearTimeout(cityMapInteractionSettleTimer);
+    });
+    cityGuideMap.on('moveend zoomend dragend',()=>{
+      cityMapInteracting=false;
+      clearTimeout(cityMapInteractionSettleTimer);
+      cityMapInteractionSettleTimer=setTimeout(()=>{
+        scheduleCityMapInvalidate();
+        fitCityGuideMapToViewport();
+      },200);
+    });
     if(typeof maplibregl==='undefined'||typeof L.maplibreGL!=='function'){
       // V131: do not leave a half-created Leaflet instance behind. A later retry must be able to rebuild the map.
       try{cityGuideMap.remove();}catch(e){}
