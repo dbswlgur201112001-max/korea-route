@@ -16652,6 +16652,34 @@ function travelerFilterResultHint(tags,id){
   if(id==='tmoney_candidate') return lang==='ko'?'편의점 후보 · 충전 가능 여부 확인 필요':'Convenience candidate · verify top-up';
   return lang==='ko'?'지도 등록 정보':'Mapped place data';
 }
+function travelerFilterBadgeInfo(tags){
+  const t=(tags&&typeof tags==='object')?tags:{};
+  const yes=v=>String(v??'').trim().toLowerCase()==='yes';
+  const yesOrOnly=v=>{const n=String(v??'').trim().toLowerCase();return n==='yes'||n==='only';};
+  const badges=[];
+  const english=!!String(t['name:en']??'').trim()||yes(t['menu:en']);
+  const card=yes(t['payment:credit_cards'])||yes(t['payment:visa'])||yes(t['payment:mastercard']);
+  const vegan=yesOrOnly(t['diet:vegan']);
+  const vegetarian=yesOrOnly(t['diet:vegetarian']);
+  const halal=yesOrOnly(t['diet:halal']);
+  const wheelchair=yes(t.wheelchair);
+  if(english) badges.push(lang==='ko'?'🇬🇧 영어 정보':'🇬🇧 English info');
+  if(card) badges.push(lang==='ko'?'💳 카드 가능':'💳 Card OK');
+  if(vegan) badges.push(lang==='ko'?'🌱 비건':'🌱 Vegan');
+  if(vegetarian) badges.push(lang==='ko'?'🥬 채식':'🥬 Vegetarian');
+  if(halal) badges.push(lang==='ko'?'☪️ 할랄 표시':'☪️ Halal tagged');
+  const hours=String(t.opening_hours??'').trim();
+  if(hours&&hours.length<=32) badges.push(`🕐 ${hours}`);
+  if(wheelchair) badges.push(lang==='ko'?'♿ 휠체어':'♿ Accessible');
+  return {badges,caution:vegan||halal};
+}
+function travelerFilterBadgesHtml(tags){
+  const info=travelerFilterBadgeInfo(tags);
+  if(!info.badges.length) return '';
+  const pills=`<div class="traveler-result-badges">${info.badges.map(v=>`<span class="traveler-result-badge">${escapeHtmlText(v)}</span>`).join('')}</div>`;
+  const caution=info.caution?`<div class="traveler-result-caution">${escapeHtmlText(lang==='ko'?'지도 등록 정보이며 인증이나 실제 조리 방식을 보장하지 않습니다.':'Mapped data only — not certification or a guarantee of preparation.')}</div>`:'';
+  return pills+caution;
+}
 function renderTravelerFilterResults(items){
   travelerFilterItems=items||[];
   const box=document.getElementById('travelerFilterResults'), count=document.getElementById('travelerFilterCount'), sheet=document.getElementById('travelerFilterSheet');
@@ -16659,7 +16687,12 @@ function renderTravelerFilterResults(items){
   if(!travelerFilterItems.length){if(sheet) sheet.style.setProperty('display','none','important');setTravelerFilterEmpty(lang==='ko'?'조건에 맞는 핀이 없습니다.':'No matching pins yet.',lang==='ko'?'검색 범위를 바꾸거나 다른 조건을 선택해 보세요.':'Try another filter or move the map.');return;}
   if(sheet) sheet.style.removeProperty('display');
   if(!box) return;
-  box.innerHTML=travelerFilterItems.slice(0,12).map((x,i)=>`<button type="button" class="traveler-result-card" onclick="pickTravelerFilterResult(${i})"><b>${x.icon||'📍'} ${escapeHtmlText(x.name)}</b><span class="meta">${escapeHtmlText(x.distance||'')}</span><span>${escapeHtmlText(x.travelerFilter?travelerFilterResultHint({},x.travelerFilter):(x.curated?(lang==='ko'?'Korea Route 기본 추천 장소':'Korea Route curated place'):(x.hint||'')))}</span></button>`).join('');
+  box.innerHTML=travelerFilterItems.slice(0,12).map((x,i)=>{
+    const distance=x.distance?` <small class="traveler-result-distance">(${escapeHtmlText(x.distance)})</small>`:'';
+    const badges=travelerFilterBadgesHtml(x.tags);
+    const hint=x.travelerFilter?travelerFilterResultHint({},x.travelerFilter):(x.curated?(lang==='ko'?'Korea Route 기본 추천 장소':'Korea Route curated place'):(x.hint||''));
+    return `<button type="button" class="traveler-result-card" onclick="pickTravelerFilterResult(${i})"><b>${x.icon||'📍'} ${escapeHtmlText(x.name)}${distance}</b>${badges}<span class="traveler-result-hint">${escapeHtmlText(hint)}</span></button>`;
+  }).join('');
 }
 function drawTravelerFilterMarkers(items){
   const map=ensureCityGuideMap(); if(!map) return;
@@ -16704,7 +16737,7 @@ async function loadTravelerFilter(){
       const lat=Number(el.lat??el.center?.lat),lng=Number(el.lon??el.center?.lon);if(!Number.isFinite(lat)||!Number.isFinite(lng)) return null;
       const name=travelerFilterResultName(el.tags||{},f.id);const key=`${name}|${lat.toFixed(5)}|${lng.toFixed(5)}`;if(seen.has(key)) return null;seen.add(key);
       const km=haversineKm(center.lat,center.lng,lat,lng);
-      return {type:travelerFilterType(f.id),name,lat,lng,km:Number.isFinite(km)?km:undefined,distance:Number.isFinite(km)?(km<1?`${Math.max(10,Math.round(km*1000/10)*10)}m`:`${km.toFixed(1)}km`):'',icon:meta.icon,hint:travelerFilterResultHint(el.tags||{},f.id),source:'OpenStreetMap',travelerFilter:f.id};
+      return {type:travelerFilterType(f.id),name,lat,lng,km:Number.isFinite(km)?km:undefined,distance:Number.isFinite(km)?(km<1?`${Math.max(10,Math.round(km*1000/10)*10)}m`:`${km.toFixed(1)}km`):'',icon:meta.icon,hint:travelerFilterResultHint(el.tags||{},f.id),source:'OpenStreetMap',travelerFilter:f.id,tags:el.tags||{}};
     }).filter(Boolean).sort((a,b)=>(a.km??999)-(b.km??999)).slice(0,30);
     drawTravelerFilterMarkers(items); renderTravelerFilterResults(items); updateTravelerFilterNote(lang==='ko'?`${center.name} 기준 약 ${Math.round(radius/100)/10}km`:`About ${Math.round(radius/100)/10}km from ${center.name}`);
     setCityMapStatus(lang==='ko'?`${travelerLabel(f)} ${items.length}곳 표시 · 태그는 현장에서 다시 확인하세요.`:`${items.length} ${travelerLabel(f)} pins shown · verify tags on site.`);
@@ -21567,7 +21600,7 @@ try{
         const lat=Number(el.lat??el.center?.lat),lng=Number(el.lon??el.center?.lon); if(!Number.isFinite(lat)||!Number.isFinite(lng)) return null;
         const name=travelerFilterResultName(el.tags||{},f.id); const key=`${name}|${lat.toFixed(5)}|${lng.toFixed(5)}`; if(seen.has(key)) return null; seen.add(key);
         const km=haversineKm(center.lat,center.lng,lat,lng);
-        return {type:travelerFilterType(f.id),name,lat,lng,km:Number.isFinite(km)?km:undefined,distance:Number.isFinite(km)?(km<1?`${Math.max(10,Math.round(km*1000/10)*10)}m`:`${km.toFixed(1)}km`):'',icon:meta.icon,hint:travelerFilterResultHint(el.tags||{},f.id),source:'OpenStreetMap',travelerFilter:f.id};
+        return {type:travelerFilterType(f.id),name,lat,lng,km:Number.isFinite(km)?km:undefined,distance:Number.isFinite(km)?(km<1?`${Math.max(10,Math.round(km*1000/10)*10)}m`:`${km.toFixed(1)}km`):'',icon:meta.icon,hint:travelerFilterResultHint(el.tags||{},f.id),source:'OpenStreetMap',travelerFilter:f.id,tags:el.tags||{}};
       }).filter(Boolean).sort((a,b)=>(a.km??999)-(b.km??999)).slice(0,30);
     }catch(err){networkError=err;}
     if(seq!==travelerFilterRequestSeq) return;
@@ -22669,6 +22702,12 @@ body.dark .v213-google-map-btn,body.dark .v213-map-action-row #v210MapMoreFloat,
 @media(min-width:560px){
   #home.v220-home .v245-tools-scroll>.v220-section-head{padding-right:22px;}
 }
+</style>
+<style id="v250-traveler-card-badges">
+#city .traveler-result-card .traveler-result-distance{font-size:.78em;color:#2f6fed;font-weight:900;margin-left:3px}
+#city .traveler-result-card .traveler-result-badges{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+#city .traveler-result-card .traveler-result-badge{display:inline-flex!important;align-items:center;width:auto!important;margin:0!important;padding:3px 7px;border-radius:999px;background:#eef1f4;color:#506072;font-size:11px!important;line-height:1.25!important;font-weight:800!important;white-space:nowrap}
+#city .traveler-result-card .traveler-result-caution{margin-top:5px;color:#7a8797;font-size:10px;line-height:1.35;font-weight:650}
 </style>
 <style id="v242-city-map-pad-sync">
 #city{
