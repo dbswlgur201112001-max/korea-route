@@ -1,4 +1,4 @@
-const CACHE='korea-route-public-beta-v242-0903';
+const CACHE='korea-route-public-beta-v247-0904';
 const CORE=['/','/index.html','/foreigner-access.json','/taxi-fare.json','/price-baseline.json','/pre-arrival.json','/two-way-talk.json','/kiosk-help.json','/hospital-help.json','/payment-access.json','/air-quality-help.json','/dietary-map.json','/indoor-transfer-guide.json','/solo-safety.json','/cash-and-convenience.json','/vendor/leaflet.css','/vendor/leaflet.js','/vendor/maplibre-gl.css','/vendor/maplibre-gl.js','/vendor/leaflet-maplibre-gl.js'];
 const OPTIONAL=['/manifest.json','/icon-192.png','/icon-512.png'];
 const DATA_PATHS=new Set(['/foreigner-access.json','/taxi-fare.json','/price-baseline.json','/pre-arrival.json','/two-way-talk.json','/kiosk-help.json','/hospital-help.json','/payment-access.json','/air-quality-help.json','/dietary-map.json','/indoor-transfer-guide.json','/solo-safety.json','/cash-and-convenience.json']);
