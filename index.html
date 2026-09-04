@@ -4817,103 +4817,6 @@ function pickLangText(obj,fallbackKey){
 }
 
 
-const JA_DICT = {
-  "Emergency": "緊急",
-  "Call": "電話する",
-  "Close": "閉じる",
-  "Retry": "再試行",
-  "Loading…": "読み込み中…"
-};
-const JA_TEXT_ORIGINAL=new WeakMap();
-const JA_ATTR_ORIGINAL=new WeakMap();
-let jaDictionaryTouched=false;
-function applyJaDictionary(root){
-  if(lang!=='ja') return;
-  const target=root||document.body;
-  if(!target) return;
-  const walker=document.createTreeWalker(target,NodeFilter.SHOW_TEXT,{
-    acceptNode(node){
-      const p=node.parentElement;
-      if(!p)return NodeFilter.FILTER_REJECT;
-      const tag=p.tagName;
-      if(tag==='SCRIPT'||tag==='STYLE'||tag==='TEXTAREA')return NodeFilter.FILTER_REJECT;
-      if(p.isContentEditable)return NodeFilter.FILTER_REJECT;
-      return NodeFilter.FILTER_ACCEPT;
-    }
-  });
-  const jobs=[];
-  let n;
-  while(n=walker.nextNode()){
-    const raw=n.nodeValue;
-    const key=raw.trim();
-    if(!key)continue;
-    const hit=JA_DICT[key];
-    if(hit){
-      if(!JA_TEXT_ORIGINAL.has(n))JA_TEXT_ORIGINAL.set(n,raw);
-      jobs.push([n,raw.replace(key,hit)]);
-    }
-  }
-  jobs.forEach(([node,val])=>{node.nodeValue=val;});
-
-  const elements=[];
-  if(target.nodeType===Node.ELEMENT_NODE)elements.push(target);
-  if(target.querySelectorAll)elements.push(...target.querySelectorAll('[placeholder],[aria-label]'));
-  elements.forEach(el=>{
-    ['placeholder','aria-label'].forEach(attr=>{
-      const raw=el.getAttribute(attr);
-      if(raw===null)return;
-      const hit=JA_DICT[raw];
-      if(!hit)return;
-      let saved=JA_ATTR_ORIGINAL.get(el);
-      if(!saved){saved={};JA_ATTR_ORIGINAL.set(el,saved);}
-      if(!(attr in saved))saved[attr]=raw;
-      el.setAttribute(attr,hit);
-    });
-  });
-  if(jobs.length||elements.some(el=>JA_ATTR_ORIGINAL.has(el)))jaDictionaryTouched=true;
-}
-function restoreJaDictionary(root){
-  if(!jaDictionaryTouched)return;
-  const target=root||document.body;
-  if(!target)return;
-  const walker=document.createTreeWalker(target,NodeFilter.SHOW_TEXT,{
-    acceptNode(node){
-      const p=node.parentElement;
-      if(!p)return NodeFilter.FILTER_REJECT;
-      const tag=p.tagName;
-      if(tag==='SCRIPT'||tag==='STYLE'||tag==='TEXTAREA')return NodeFilter.FILTER_REJECT;
-      if(p.isContentEditable)return NodeFilter.FILTER_REJECT;
-      return NodeFilter.FILTER_ACCEPT;
-    }
-  });
-  let n;
-  while(n=walker.nextNode()){
-    if(!JA_TEXT_ORIGINAL.has(n))continue;
-    const raw=JA_TEXT_ORIGINAL.get(n);
-    const key=String(raw||'').trim();
-    const translated=JA_DICT[key]?String(raw).replace(key,JA_DICT[key]):null;
-    if(translated!==null&&n.nodeValue===translated)n.nodeValue=raw;
-    JA_TEXT_ORIGINAL.delete(n);
-  }
-  const elements=[];
-  if(target.nodeType===Node.ELEMENT_NODE)elements.push(target);
-  if(target.querySelectorAll)elements.push(...target.querySelectorAll('[placeholder],[aria-label]'));
-  elements.forEach(el=>{
-    const saved=JA_ATTR_ORIGINAL.get(el);
-    if(!saved)return;
-    Object.entries(saved).forEach(([attr,raw])=>{
-      if(el.getAttribute(attr)===JA_DICT[raw])el.setAttribute(attr,raw);
-    });
-    JA_ATTR_ORIGINAL.delete(el);
-  });
-  jaDictionaryTouched=false;
-}
-function queueJaDictionary(root){
-  if(lang!=='ja')return;
-  requestAnimationFrame(()=>applyJaDictionary(root||document.body));
-}
-
-
 
 // V56 English Subway Map Hub — official external pages; no map image is copied into Korea Route.
 const V56_SUBWAY_MAPS={
@@ -4937,7 +4840,6 @@ function openSubwayMapHub(preferred=''){
   overlay.innerHTML=`<div class="v56-subway-sheet" role="dialog" aria-modal="true" aria-label="English subway maps"><div class="v56-subway-head"><div><small>V56 · SUBWAY MAP HUB</small><h3>🚇 ${lang==='ko'?'영문 지하철 노선도':'English Subway Maps'}</h3><p>${lang==='ko'?'서울·부산·대구·대전·광주의 공식 영문 노선 페이지를 빠르게 엽니다.':'Quickly open official English metro pages for Seoul, Busan, Daegu, Daejeon and Gwangju.'}</p></div><button class="v56-subway-close" type="button" onclick="closeSubwayMapHub()" aria-label="Close">×</button></div><div class="v56-subway-all"><b>🇰🇷 ${lang==='ko'?'5개 도시 통합 지하철 길찾기':'5-city subway route finder'}</b><span>${lang==='ko'?'한국관광공사 다국어 지하철 지도에서 5개 도시의 출발역·도착역을 찾을 수 있습니다.':'Korea Tourism Organization multilingual subway map can search departure and arrival stations across the five cities.'}</span><button type="button" onclick="v56OpenExternalSubway(V56_ALL_CITY_SUBWAY)">${lang==='ko'?'통합 지하철 지도 열기':'Open 5-city route map'} ↗</button></div><div class="v56-subway-grid">${cards}</div><div class="v56-subway-note"><b>${lang==='ko'?'공식 외부 페이지':'Official external pages'}</b> · ${lang==='ko'?'노선도는 인터넷 연결이 필요하며 Korea Route가 복사·캐시한 이미지가 아닙니다. 노선·역명·공사 정보가 바뀔 수 있으므로 실제 이동 전 공식 페이지와 현장 안내를 최종 확인하세요.':'Internet is required. Korea Route does not copy or cache these map images. Lines, station names and construction information can change, so confirm the official page and on-site signs before travel.'}</div></div>`;
   overlay.addEventListener('click',e=>{if(e.target===overlay)closeSubwayMapHub();});
   document.body.appendChild(overlay);
-  queueJaDictionary(overlay);
 }
 
 // V55 Global Search + Emergency Find — local index first; search text is not persisted.
@@ -5110,7 +5012,7 @@ function openV55EmergencyFind(focus=''){
   clearV55EmergencyFind();
   const wrap=document.createElement('div');wrap.id='v55EmergencyFind';wrap.className='v55-emergency-backdrop';
   wrap.innerHTML=`<div class="v55-emergency-sheet" role="dialog" aria-modal="true"><div class="v55-emergency-head"><div><span>${lang==='ko'?'급할 때 바로':'URGENT FIND'}</span><h3>🆘 ${lang==='ko'?'지금 필요한 도움':'What do you need now?'}</h3><p>${lang==='ko'?'검색하지 않아도 바로 실행할 수 있어요.':'Open the most important help without searching.'}</p></div><button type="button" class="v55-emergency-close" onclick="clearV55EmergencyFind()">×</button></div><div class="v55-emergency-grid"><button type="button" class="primary" onclick="runGlobalSearchAction('emergency')"><strong>🆘</strong>${lang==='ko'?'112 경찰 · 119 구급/소방':'112 Police · 119 Ambulance/Fire'}</button><button type="button" class="tourist-help" onclick="runGlobalSearchAction('touristhelp')"><strong>☎️ 1330</strong>${lang==='ko'?'외국인 여행안내 · 통역 도움':'Korea Travel Helpline · interpretation help'}<small>${lang==='ko'?'탭하여 1330 전화':'Tap to call 1330'}</small></button><button type="button" onclick="clearV55EmergencyFind();showTravelPhraseFocus(10)"><strong>🩺</strong>${lang==='ko'?'몸이 아파요':'I feel sick'}</button><button type="button" onclick="clearV55EmergencyFind();openPhraseSheet('lost')"><strong>🎒</strong>${lang==='ko'?'잃어버렸어요':'I lost something'}</button><button type="button" onclick="runGlobalSearchAction('missed')"><strong>😵</strong>${lang==='ko'?'기차·버스를 놓쳤어요':'I missed my ride'}</button><button type="button" onclick="runGlobalSearchAction('restroom')"><strong>🚻</strong>${lang==='ko'?'화장실이 급해요':'Need a restroom'}</button></div><div class="v55-emergency-note">${lang==='ko'?'위급한 상황은 112·119와 현장 직원의 안내를 우선하세요. 여행정보·통역 도움은 1330을 이용할 수 있습니다. 주변시설 결과는 실시간 영업·이용 가능 여부를 보장하지 않습니다.':'For urgent emergencies, prioritize 112/119 and on-site staff. For travel information or interpretation help, use 1330. Nearby-place results do not guarantee current opening or availability.'}</div></div>`;
-  wrap.addEventListener('click',e=>{if(e.target===wrap)clearV55EmergencyFind();});document.body.appendChild(wrap);queueJaDictionary(wrap);
+  wrap.addEventListener('click',e=>{if(e.target===wrap)clearV55EmergencyFind();});document.body.appendChild(wrap);
 }
 function initGlobalSearchV55(){
   const input=document.getElementById('globalSearchInput');if(!input)return;
@@ -5297,7 +5199,6 @@ function refreshActiveScreenState(id=current,{entry=false}={}){
 }
 
 function applyLang(){
-  if(lang!=='ja')restoreJaDictionary(document.body);
   document.documentElement.lang=lang==='ko'?'ko':lang==='ja'?'ja':'en';
   document.documentElement.setAttribute('translate','no');
   document.documentElement.classList.add('notranslate');
@@ -5344,7 +5245,6 @@ function go(id,opts={}){
   target.classList.add('active'); current=id; updateCTA(); if(typeof v60SyncTabbar==='function')v60SyncTabbar(id);
   window.scrollTo({top:0,behavior:'smooth'});
   setTimeout(()=>refreshActiveScreenState(id,{entry:true}),0);
-  requestAnimationFrame(()=>applyJaDictionary(target));
 
   if(id==='moveHub'||id==='move'){
     setTimeout(()=>{
@@ -7301,7 +7201,6 @@ function openMyTripEmergencySheet(){
       ${stay?`<div class="emergency-sheet-stay"><span>${lang==='ko'?'숙소':'Stay'}</span><b>${stay}</b></div>`:''}
     </div>`;
   document.body.appendChild(wrap);
-  queueJaDictionary(wrap);
 }
 
 function closeMyTripEmergencySheet(){
@@ -14056,7 +13955,6 @@ function ensurePhraseSheetLayer(){
     document.body.appendChild(layer);
   }
   layer.classList.add('show');
-  queueJaDictionary(layer);
   return layer;
 }
 
@@ -22775,23 +22673,6 @@ body.dark .v213-google-map-btn,body.dark .v213-map-action-row #v210MapMoreFloat,
 })();
 </script>
 
-<script id="v253-ja-dictionary-final-hook">
-(function(){
-  if(window.__KR_V253_JA_DICTIONARY_FINAL_HOOK__)return;
-  window.__KR_V253_JA_DICTIONARY_FINAL_HOOK__=true;
-  const previousApplyLang=window.applyLang;
-  if(typeof previousApplyLang==='function'){
-    window.applyLang=function(){
-      const out=previousApplyLang.apply(this,arguments);
-      applyJaDictionary(document.body);
-      queueJaDictionary(document.body);
-      return out;
-    };
-  }
-})();
-</script>
-
-
 <style id="v229-city-locate-row-final-override">
 .v213-map-action-row .city-map-locate-float{
   position:static!important;
@@ -22843,6 +22724,154 @@ body.dark .v213-google-map-btn,body.dark .v213-map-action-row #v210MapMoreFloat,
 #city .traveler-result-card .traveler-result-badge{display:inline-flex!important;align-items:center;width:auto!important;margin:0!important;padding:3px 7px;border-radius:999px;background:#eef1f4;color:#506072;font-size:11px!important;line-height:1.25!important;font-weight:800!important;white-space:nowrap}
 #city .traveler-result-card .traveler-result-caution{margin-top:5px;color:#7a8797;font-size:10px;line-height:1.35;font-weight:650}
 </style>
+<script id="v253-ja-dictionary-layer">
+const JA_DICT = {
+  "Emergency": "緊急",
+  "Call": "電話する",
+  "Close": "閉じる",
+  "Retry": "再試行",
+  "Loading…": "読み込み中…",
+  "URGENT FIND": "今すぐ助けが必要なとき",
+  "What do you need now?": "今、何が必要ですか？",
+  "Open the most important help without searching.": "検索しなくても、必要な助けをすぐに開けます。",
+  "112 Police · 119 Ambulance/Fire": "112 警察 ・ 119 救急/消防",
+  "Korea Travel Helpline · interpretation help": "韓国旅行ヘルプライン ・ 通訳サポート",
+  "Tap to call 1330": "タップして 1330 に電話",
+  "I feel sick": "体調が悪い",
+  "I lost something": "落とし物・紛失",
+  "I missed my ride": "電車・バスに乗り遅れた",
+  "Need a restroom": "トイレを探している",
+  "Copy and send this report.": "この内容をコピーして送信してください。",
+  "For urgent emergencies, prioritize 112/119 and on-site staff. For travel information or interpretation help, use 1330. Nearby-place results do not guarantee current opening or availability.": "緊急時はまず112/119と現場のスタッフを優先してください。旅行情報や通訳のサポートが必要な場合は1330をご利用ください。周辺スポットの検索結果は、現在の営業状況や利用可否を保証するものではありません。"
+};
+
+const JA_TEXT_ORIGINALS=new Map();
+const JA_ATTR_ORIGINALS=new Map();
+
+function applyJaDictionary(root){
+  if(lang!=='ja') return;
+  const target=root||document.body;
+  if(!target) return;
+  const walker=document.createTreeWalker(target,NodeFilter.SHOW_TEXT,{
+    acceptNode(node){
+      const p=node.parentElement;
+      if(!p) return NodeFilter.FILTER_REJECT;
+      const tag=p.tagName;
+      if(tag==='SCRIPT'||tag==='STYLE'||tag==='TEXTAREA') return NodeFilter.FILTER_REJECT;
+      if(p.isContentEditable) return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+  const jobs=[];
+  let n;
+  while(n=walker.nextNode()){
+    const raw=n.nodeValue;
+    const key=raw.trim();
+    if(!key) continue;
+    const hit=JA_DICT[key];
+    if(hit){
+      if(!JA_TEXT_ORIGINALS.has(n)) JA_TEXT_ORIGINALS.set(n,raw);
+      jobs.push([n,raw.replace(key,hit)]);
+    }
+  }
+  jobs.forEach(([node,val])=>{node.nodeValue=val;});
+
+  const elements=[];
+  if(target.nodeType===1) elements.push(target);
+  if(typeof target.querySelectorAll==='function') elements.push(...target.querySelectorAll('[placeholder],[aria-label]'));
+  elements.forEach(el=>{
+    const original=JA_ATTR_ORIGINALS.get(el)||{};
+    let changed=false;
+    if(el.hasAttribute?.('placeholder')){
+      const value=el.getAttribute('placeholder');
+      if(Object.prototype.hasOwnProperty.call(JA_DICT,value)){
+        if(!Object.prototype.hasOwnProperty.call(original,'placeholder')) original.placeholder=value;
+        el.setAttribute('placeholder',JA_DICT[value]);
+        changed=true;
+      }
+    }
+    if(el.hasAttribute?.('aria-label')){
+      const value=el.getAttribute('aria-label');
+      if(Object.prototype.hasOwnProperty.call(JA_DICT,value)){
+        if(!Object.prototype.hasOwnProperty.call(original,'ariaLabel')) original.ariaLabel=value;
+        el.setAttribute('aria-label',JA_DICT[value]);
+        changed=true;
+      }
+    }
+    if(changed) JA_ATTR_ORIGINALS.set(el,original);
+  });
+}
+
+function restoreJaDictionary(){
+  JA_TEXT_ORIGINALS.forEach((raw,node)=>{try{node.nodeValue=raw}catch(_){}});
+  JA_TEXT_ORIGINALS.clear();
+  JA_ATTR_ORIGINALS.forEach((original,el)=>{
+    try{
+      if(Object.prototype.hasOwnProperty.call(original,'placeholder')) el.setAttribute('placeholder',original.placeholder);
+      if(Object.prototype.hasOwnProperty.call(original,'ariaLabel')) el.setAttribute('aria-label',original.ariaLabel);
+    }catch(_){ }
+  });
+  JA_ATTR_ORIGINALS.clear();
+}
+
+function v253ApplyJaSoon(root){
+  if(lang!=='ja') return;
+  requestAnimationFrame(()=>applyJaDictionary(root||document.body));
+}
+
+(function(){
+  const previousApplyLang=window.applyLang;
+  if(typeof previousApplyLang==='function'){
+    window.applyLang=function(){
+      if(lang!=='ja') restoreJaDictionary();
+      const out=previousApplyLang.apply(this,arguments);
+      if(lang==='ja'){
+        applyJaDictionary(document.body);
+        v253ApplyJaSoon(document.body);
+      }
+      return out;
+    };
+  }
+
+  const previousGo=window.go;
+  if(typeof previousGo==='function'){
+    window.go=function(id,opts={}){
+      const out=previousGo.apply(this,arguments);
+      const root=document.getElementById(id)||document.body;
+      v253ApplyJaSoon(root);
+      return out;
+    };
+  }
+
+  const previousEnsurePhraseSheetLayer=window.ensurePhraseSheetLayer;
+  if(typeof previousEnsurePhraseSheetLayer==='function'){
+    window.ensurePhraseSheetLayer=function(){
+      const layer=previousEnsurePhraseSheetLayer.apply(this,arguments);
+      v253ApplyJaSoon(layer);
+      return layer;
+    };
+  }
+
+  const previousEmergency=window.openV55EmergencyFind;
+  if(typeof previousEmergency==='function'){
+    window.openV55EmergencyFind=function(){
+      const out=previousEmergency.apply(this,arguments);
+      v253ApplyJaSoon(document.getElementById('v55EmergencyFind'));
+      return out;
+    };
+  }
+
+  const previousDestinationCard=window.openDestinationCard;
+  if(typeof previousDestinationCard==='function'){
+    window.openDestinationCard=function(){
+      const out=previousDestinationCard.apply(this,arguments);
+      v253ApplyJaSoon(document.getElementById('taxiCardLayer'));
+      return out;
+    };
+  }
+})();
+</script>
+
 <style id="v242-city-map-pad-sync">
 #city{
   --city-pad-x:18px;
