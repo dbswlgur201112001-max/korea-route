@@ -101,7 +101,7 @@ const OUTPUT_SCHEMA = {
         }
       }
     },
-    amount_seen: { type: 'NUMBER', nullable: true },
+    amount_seen: { anyOf: [{ type: 'NUMBER' }, { type: 'STRING' }, { type: 'NULL' }] },
     unclear_parts: { type: 'ARRAY', items: { type: 'STRING' } },
     note: { type: 'STRING' }
   }
@@ -151,7 +151,7 @@ export default async function handler(req,res){
   const image=parseImageDataUrl(req.body?.imageDataUrl);
   if(!image) return res.status(400).json({error:'INVALID_IMAGE'});
 
-  const model=process.env.GEMINI_KIOSK_MODEL || process.env.GEMINI_MODEL || 'gemini-3.6-flash';
+  const model=process.env.GEMINI_KIOSK_MODEL || process.env.GEMINI_MODEL || 'gemini-3.8-flash';
   const endpoint=`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`;
   const controller=new AbortController();
   const timeout=setTimeout(()=>controller.abort(),20000);
@@ -163,6 +163,7 @@ export default async function handler(req,res){
       body:JSON.stringify({
         contents:[{role:'user',parts:[{text:KIOSK_PROMPT},{inlineData:{mimeType:image.mimeType,data:image.data}}]}],
         generationConfig:{
+          temperature:0,
           maxOutputTokens:1800,
           responseMimeType:'application/json',
           responseSchema:OUTPUT_SCHEMA
@@ -171,9 +172,11 @@ export default async function handler(req,res){
     });
     const payload=await response.json().catch(()=>({}));
     if(!response.ok){
-      if(response.status===429) return res.status(429).json({error:'RATE_LIMITED'});
-      console.error('Kiosk Gemini error',response.status,payload?.error?.message||'unknown');
-      return res.status(502).json({error:'AI_UPSTREAM_FAILED'});
+      const upstreamMessage=String(payload?.error?.message||payload?.message||response.statusText||'unknown');
+      const debug={model,status:response.status,message:upstreamMessage};
+      console.error('Kiosk Gemini error',response.status,upstreamMessage);
+      if(response.status===429) return res.status(429).json({error:'RATE_LIMITED',debug});
+      return res.status(502).json({error:'AI_UPSTREAM_FAILED',debug});
     }
     const text=payload?.candidates?.[0]?.content?.parts?.map(p=>p?.text||'').join('')||'';
     if(!text) return res.status(502).json({error:'AI_EMPTY_RESULT'});
@@ -182,9 +185,9 @@ export default async function handler(req,res){
     catch(_){ return res.status(502).json({error:'AI_INVALID_RESULT'}); }
     return res.status(200).json(normalizeResult(parsed));
   }catch(err){
-    if(err?.name==='AbortError') return res.status(504).json({error:'AI_TIMEOUT'});
+    if(err?.name==='AbortError') return res.status(504).json({error:'AI_TIMEOUT',debug:{model,status:504,message:'Gemini request timed out after 20000ms'}});
     console.error('Kiosk API failure',err);
-    return res.status(500).json({error:'AI_FAILED'});
+    return res.status(500).json({error:'AI_FAILED',debug:{model,status:500,message:String(err?.message||err||'unknown')}});
   }finally{
     clearTimeout(timeout);
   }
