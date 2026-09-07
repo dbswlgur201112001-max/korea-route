@@ -22899,6 +22899,49 @@ function v253ApplyJaSoon(root){
   requestAnimationFrame(()=>applyJaDictionary(root||document.body));
 }
 
+let v259JaRenderObserver=null;
+let v259JaObserverApplying=false;
+let v259JaObserverQueued=false;
+const v259JaObserverRoots=new Set();
+
+function v259StartJaRenderObserver(){
+  if(v259JaRenderObserver||!document.body) return;
+  v259JaRenderObserver=new MutationObserver(records=>{
+    if(lang!=='ja'||v259JaObserverApplying) return;
+    let found=false;
+    records.forEach(record=>{
+      if(record.type!=='childList'||!record.addedNodes?.length) return;
+      record.addedNodes.forEach(node=>{
+        if(node.nodeType===Node.ELEMENT_NODE){
+          v259JaObserverRoots.add(node);
+          found=true;
+        }else if(node.nodeType===Node.TEXT_NODE){
+          const root=record.target?.nodeType===Node.ELEMENT_NODE?record.target:record.target?.parentElement;
+          if(root){v259JaObserverRoots.add(root);found=true;}
+        }
+      });
+    });
+    if(!found||v259JaObserverQueued) return;
+    v259JaObserverQueued=true;
+    requestAnimationFrame(()=>{
+      v259JaObserverQueued=false;
+      if(lang!=='ja'){v259JaObserverRoots.clear();return;}
+      v259JaObserverApplying=true;
+      try{
+        const roots=[...v259JaObserverRoots];
+        v259JaObserverRoots.clear();
+        roots.forEach(root=>{if(root?.isConnected) applyJaDictionary(root);});
+      }finally{
+        v259JaObserverApplying=false;
+      }
+    });
+  });
+  v259JaRenderObserver.observe(document.body,{childList:true,subtree:true});
+}
+
+if(document.body)v259StartJaRenderObserver();
+else document.addEventListener('DOMContentLoaded',v259StartJaRenderObserver,{once:true});
+
 (function(){
   const previousApplyLang=window.applyLang;
   if(typeof previousApplyLang==='function'){
