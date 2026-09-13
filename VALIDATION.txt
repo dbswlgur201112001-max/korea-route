@@ -1,0 +1,18 @@
+KOREA ROUTE PATCH 01 validation
+
+- Base: v267 index.html supplied for PATCH 01 work
+- Scope: Move rail result display only
+- Inline JavaScript syntax: PASS (all inline JS blocks checked with node --check)
+- Helper smoke tests: PASS
+  - EN 수원 -> Suwon Station
+  - EN 부산역 -> Busan Station
+  - unknown station with code -> Station {code}
+  - unknown station without code -> Unknown station
+  - YYYYMMDD display formatting removes raw YYYYMMDD in EN
+  - KO keeps original Korean station name
+  - JA follows existing app policy and reuses existing English station label where no JA station field exists
+- sw.js: unchanged
+- My Trip: no intended code changes; PATCH01.diff should be reviewed before deployment
+- Not deployed from this environment because the connected Vercel account currently exposes only the project "packing-pass", not the KOREA ROUTE project.
+
+After deployment, Astra must perform production re-test before KR-ISSUE-001 is considered FIXED.

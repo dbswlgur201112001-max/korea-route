@@ -5193,6 +5193,9 @@ function refreshActiveScreenState(id=current,{entry=false}={}){
       const {fromCity,toCity}=typeof currentMoveSegmentCities==='function'?currentMoveSegmentCities():{fromCity:'',toCity:''};
       if(lastLiveTransitResult?.routes?.length && lastLiveTransitResult.fromCity===fromCity && lastLiveTransitResult.toCity===toCity){
         renderMoveLiveRoutes(lastLiveTransitResult.routes);
+      }else if(lastRailLiveResult && lastRailLiveResult.fromCity===fromCity && lastRailLiveResult.toCity===toCity){
+        if(lastRailLiveResult.kind==='cards') renderRailLiveCards(fromCity,toCity,lastRailLiveResult.payload);
+        else if(lastRailLiveResult.kind==='empty') renderRailConnectedEmptySummary(fromCity,toCity,lastRailLiveResult.status);
       }
     }
   }catch(err){ console.warn('Screen refresh skipped:',id,err); }
@@ -12142,6 +12145,43 @@ function formatRailFare(v){
   return 'Unavailable';
 }
 
+function railCityKeyByStationName(name){
+  const raw=String(name==null?'':name).trim();
+  if(!raw) return '';
+  if(ODSAY_MOVE_POINTS[raw]) return raw;
+  const bare=raw.replace(/역$/,'');
+  for(const city in ODSAY_MOVE_POINTS){
+    const ko=String(ODSAY_MOVE_POINTS[city]?.ko||'');
+    if(ko===raw||ko.replace(/역$/,'')===bare) return city;
+  }
+  for(const city in cityMeta){
+    if(String(cityMeta[city]?.ko||'')===bare) return city;
+  }
+  return '';
+}
+function railStationLabel(rawName,fallbackCity,code){
+  const raw=String(rawName==null?'':rawName).trim();
+  if(lang==='ko') return raw||(ODSAY_MOVE_POINTS[fallbackCity]?odsayMoveLabel(fallbackCity):String(fallbackCity||''));
+  if(raw&&!/[가-힣]/.test(raw)) return raw;
+  const resolved=railCityKeyByStationName(raw)||(ODSAY_MOVE_POINTS[fallbackCity]?fallbackCity:'');
+  if(resolved) return odsayMoveLabel(resolved);
+  console.warn('[i18n:station] missing label',{nameKo:raw,code:code||null,lang});
+  if(code) return lang==='ja'?`駅 ${code}`:`Station ${code}`;
+  return lang==='ja'?'不明な駅':'Unknown station';
+}
+function formatRailDateLabel(v){
+  const s=String(v==null?'':v).trim();
+  const m=s.match(/^(\d{4})-?(\d{2})-?(\d{2})$/);
+  if(!m) return s;
+  const d=new Date(Number(m[1]),Number(m[2])-1,Number(m[3]));
+  if(Number.isNaN(d.getTime())) return s;
+  try{
+    return new Intl.DateTimeFormat(lang==='ko'?'ko-KR':lang==='ja'?'ja-JP':'en-GB',
+      {year:'numeric',month:'short',day:'numeric',weekday:'short'}).format(d);
+  }catch(_){ return `${m[1]}-${m[2]}-${m[3]}`; }
+}
+let lastRailLiveResult=null;
+
 function renderRailLiveCards(fromCity,toCity,payload){
   const summary=document.getElementById('moveLiveSummary');
   const list=document.getElementById('moveLiveRoutes');
@@ -12156,6 +12196,7 @@ function renderRailLiveCards(fromCity,toCity,payload){
   });
 
   const first=sorted[0];
+  lastRailLiveResult={kind:'cards',fromCity,toCity,payload};
   const firstService=escapeHtmlText(first.service||first.trainType||'Train');
   summary.className='data-slot';
   summary.innerHTML=`<b>${lang==='ko'?'철도 운행계획':'Rail operating plan'}</b><span>${firstService} · ${escapeHtmlText(formatRailTime(first.departureTime))} → ${escapeHtmlText(formatRailTime(first.arrivalTime))}${payload?.fallbackUsed?` · ${lang==='ko'?'날짜 전체조회 복구':'date fallback'}`:''}</span>`;
@@ -12164,8 +12205,8 @@ function renderRailLiveCards(fromCity,toCity,payload){
     const service=String(t.service||t.trainType||'Train');
     const serviceHtml=escapeHtmlText(service);
     const trainNoHtml=t.trainNo?` #${escapeHtmlText(t.trainNo)}`:'';
-    const departureHtml=escapeHtmlText(t.departureStation||fromCity);
-    const arrivalHtml=escapeHtmlText(t.arrivalStation||toCity);
+    const departureHtml=escapeHtmlText(railStationLabel(t.departureStation,fromCity,t.departureStationCode));
+    const arrivalHtml=escapeHtmlText(railStationLabel(t.arrivalStation,toCity,t.arrivalStationCode));
     const sourceHtml=escapeHtmlText(payload.sourceLabel||'KORAIL Open API');
     return `
     <div class="rail-card ${i===0?'primary':''}">
@@ -12317,8 +12358,12 @@ function renderRailConnectedEmptySummary(fromCity,toCity,status){
   const summary=document.getElementById('moveLiveSummary');
   if(!summary) return;
   const q=status.query||{};
+  lastRailLiveResult={kind:'empty',fromCity,toCity,status};
+  const depLabel=escapeHtmlText(railStationLabel(q.departureStation,fromCity,q.departureStationCode));
+  const arrLabel=escapeHtmlText(railStationLabel(q.arrivalStation,toCity,q.arrivalStationCode));
+  const dateLabel=escapeHtmlText(formatRailDateLabel(q.runYmd||railTripDate()));
   summary.className='data-slot';
-  summary.innerHTML=`<b>${lang==='ko'?'철도 운행계획 · 조회 결과 0건':'Rail operating plan · 0 results'}</b><span>${q.departureStation||fromCity} → ${q.arrivalStation||toCity} · ${q.runYmd||railTripDate()} · ${lang==='ko'?'날짜 전체조회까지 확인했지만 해당 철도 운행계획을 찾지 못했습니다. 가까운 도시권 이동은 실제 대중교통 경로를 다시 확인하세요.':'The date-wide fallback found no matching rail plan. For local/regional travel, recheck a live public-transit route.'}</span>`;
+  summary.innerHTML=`<b>${lang==='ko'?'철도 운행계획 · 조회 결과 0건':'Rail operating plan · 0 results'}</b><span>${depLabel} → ${arrLabel} · ${dateLabel} · ${lang==='ko'?'날짜 전체조회까지 확인했지만 해당 철도 운행계획을 찾지 못했습니다. 가까운 도시권 이동은 실제 대중교통 경로를 다시 확인하세요.':'The date-wide fallback found no matching rail plan. For local/regional travel, recheck a live public-transit route.'}</span>`;
 }
 
 async function tryRailLiveThenFallback(fromCity,toCity,isCurrent=()=>true){
@@ -22945,6 +22990,39 @@ const JA_DICT = {
   "Seoul 120 Dasan Call Center": "ソウル120 タサン・コールセンター",
   "Seoul taxi inconvenience reports. Multilingual service is listed for 09:00–18:00 KST; keep the full license plate number.": "ソウルのタクシーに関する申告窓口です。多言語対応は韓国時間 09:00〜18:00 と案内されています。ナンバープレートは全桁控えておいてください。",
   "Please use the meter.": "メーターでお願いします。",
+  "This is not medical advice and does not diagnose anything. It only helps you find where and how to get care in Korea. If you are seriously injured or cannot breathe normally, call 119 immediately.": "これは医学的な助言ではなく、診断も行いません。韓国でどこでどのように受診すればよいかを案内するだけです。大きなけがをした場合や、うまく呼吸できない場合は、すぐに119に電話してください。",
+  "Chest pain, can't breathe, heavy bleeding, unconscious, severe allergic reaction, broken bone": "胸の痛み、呼吸困難、大量の出血、意識がない、重いアレルギー反応、骨折",
+  "Call 119 now. It's free, works from any phone, and dispatchers can arrange interpretation.": "今すぐ119に電話してください。無料で、どの電話からでもかけられ、通訳の手配もしてもらえます。",
+  "Needs a doctor, not an emergency": "受診は必要だが、緊急ではない",
+  "Fever that won't go down, ongoing vomiting, a cut that may need stitches, ear or eye pain": "下がらない熱、続く嘔吐、縫合が必要かもしれない傷、耳や目の痛み",
+  "Go to an international clinic below, or any hospital's outpatient department (외래). A hotel front desk or your accommodation host can often point you to the nearest one.": "下の国際診療センター、または病院の外来（외래）へ行ってください。ホテルのフロントや宿泊先の方に聞くと、近い場所を教えてもらえることが多いです。",
+  "Minor and manageable": "軽い症状",
+  "Cold symptoms, mild headache, upset stomach, small cuts, motion sickness": "風邪の症状、軽い頭痛、胃の不調、小さな傷、乗り物酔い",
+  "A pharmacy (약국) can help without an appointment. Look for a green cross sign. Most close by 7-9pm and on Sundays, so check hours if it's evening.": "薬局（약국）なら予約なしで相談できます。緑の十字の看板が目印です。多くは19〜21時頃と日曜は閉まるので、夕方以降は営業時間を確認してください。",
+  "Ambulance / fire / medical emergency": "救急・消防・医療の緊急通報",
+  "Free, 24/7, works from any phone including one without a Korean SIM. Say '영어 되나요?' (Do you speak English?) or just wait — they can bring in an interpreter.": "無料・24時間対応で、韓国のSIMがない電話からでもかけられます。「영어 되나요?」（英語は話せますか？）と言うか、そのまま待っていれば通訳につないでもらえます。",
+  "BBB Korea — free 3-way interpretation": "BBBコリア ― 無料の三者通話通訳",
+  "Free volunteer phone interpretation in 20 languages, 24/7. Call this number, then have hospital staff speak to the interpreter with you. Very commonly used for hospital visits.": "20言語に対応した24時間無料のボランティア電話通訳です。この番号にかけて、病院のスタッフと通訳を三者通話でつなぎます。受診時によく使われています。",
+  "Korea Travel Hotline": "韓国観光案内ホットライン",
+  "24/7 tourist help line in English, Japanese, Chinese, Russian, Vietnamese, Thai, Malay/Indonesian. Can help you find a nearby hospital and explain the situation.": "英語・日本語・中国語・ロシア語・ベトナム語・タイ語・マレー/インドネシア語に対応した24時間の観光案内です。近くの病院探しや状況説明を手伝ってもらえます。",
+  "Foreigner Contact Center": "外国人総合案内センター",
+  "Weekdays 9am-10pm, 20 languages. More for visa/stay questions, but can also connect you to help.": "平日9時〜22時、20言語対応。主にビザ・滞在の相談窓口ですが、必要な支援につないでもらえます。",
+  "Severance Hospital — International Health Care Center": "セブランス病院 ― 国際診療センター",
+  "One of Korea's largest teaching hospitals, English-speaking coordinators, walk-ins possible for urgent (non-emergency) cases.": "韓国最大級の大学病院です。英語対応のコーディネーターが常駐し、緊急ではないが急ぎの場合は予約なしでも受診できます。",
+  "Seoul National University Hospital — International Clinic": "ソウル大学病院 ― 国際診療センター",
+  "24-hour emergency contact line specifically for international patients: 0130-484-0505. Can issue English medical certificates and receipts.": "外国人患者専用の24時間相談窓口があります（0130-484-0505）。英文の診断書・領収書の発行も可能です。",
+  "Asan Medical Center — International Healthcare Center": "ソウル峨山病院 ― 国際診療センター",
+  "Native-level English and Japanese-speaking physicians available.": "ネイティブレベルの英語・日本語が話せる医師が在籍しています。",
+  "Seoul St. Mary's Hospital — International Clinic": "ソウル聖母病院 ― 国際診療センター",
+  "Handles walk-in international patients without Korean national health insurance.": "韓国の健康保険に加入していない外国人患者も、予約なしで受診できます。",
+  "Seoul National University Bundang Hospital — International Health Care Center": "盆唐ソウル大学病院 ― 国際診療センター",
+  "Call center 1588-3369 for appointment questions; international department cannot be booked online.": "予約の問い合わせはコールセンター（1588-3369）へ。国際診療科はオンライン予約ができません。",
+  "Can I get a medical certificate in English?": "英文の診断書をもらえますか？",
+  "I need a receipt in English for my medical expenses.": "医療費の英文領収書が必要です。",
+  "Please issue an admission (or outpatient visit) confirmation.": "入院（または外来受診）証明書を発行してください。",
+  "I have travel insurance. Please give me all the documents I'll need to file a claim later.": "海外旅行保険に入っています。あとで請求できるよう、必要な書類をすべてください。",
+  "Can I pay by credit card?": "クレジットカードで支払えますか？",
+  "Staff don't speak enough English": "スタッフが英語をあまり話せない",
   "Photo reading needs a connection. The word list below works offline.": "写真の読み取りにはインターネット接続が必要です。下の用語リストはオフラインでも使えます。"
 };
 

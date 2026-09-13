@@ -1,0 +1,89 @@
+--- /mnt/data/KOREA_ROUTE_PATCH01_READY_v267/index.html.bak	2026-09-13 12:15:16.207299854 +0000
++++ /mnt/data/KOREA_ROUTE_PATCH01_READY_v267/index.html	2026-09-13 12:15:16.679415670 +0000
+@@ -5193,6 +5193,9 @@
+       const {fromCity,toCity}=typeof currentMoveSegmentCities==='function'?currentMoveSegmentCities():{fromCity:'',toCity:''};
+       if(lastLiveTransitResult?.routes?.length && lastLiveTransitResult.fromCity===fromCity && lastLiveTransitResult.toCity===toCity){
+         renderMoveLiveRoutes(lastLiveTransitResult.routes);
++      }else if(lastRailLiveResult && lastRailLiveResult.fromCity===fromCity && lastRailLiveResult.toCity===toCity){
++        if(lastRailLiveResult.kind==='cards') renderRailLiveCards(fromCity,toCity,lastRailLiveResult.payload);
++        else if(lastRailLiveResult.kind==='empty') renderRailConnectedEmptySummary(fromCity,toCity,lastRailLiveResult.status);
+       }
+     }
+   }catch(err){ console.warn('Screen refresh skipped:',id,err); }
+@@ -12142,6 +12145,43 @@
+   return 'Unavailable';
+ }
+ 
++function railCityKeyByStationName(name){
++  const raw=String(name==null?'':name).trim();
++  if(!raw) return '';
++  if(ODSAY_MOVE_POINTS[raw]) return raw;
++  const bare=raw.replace(/역$/,'');
++  for(const city in ODSAY_MOVE_POINTS){
++    const ko=String(ODSAY_MOVE_POINTS[city]?.ko||'');
++    if(ko===raw||ko.replace(/역$/,'')===bare) return city;
++  }
++  for(const city in cityMeta){
++    if(String(cityMeta[city]?.ko||'')===bare) return city;
++  }
++  return '';
++}
++function railStationLabel(rawName,fallbackCity,code){
++  const raw=String(rawName==null?'':rawName).trim();
++  if(lang==='ko') return raw||(ODSAY_MOVE_POINTS[fallbackCity]?odsayMoveLabel(fallbackCity):String(fallbackCity||''));
++  if(raw&&!/[가-힣]/.test(raw)) return raw;
++  const resolved=railCityKeyByStationName(raw)||(ODSAY_MOVE_POINTS[fallbackCity]?fallbackCity:'');
++  if(resolved) return odsayMoveLabel(resolved);
++  console.warn('[i18n:station] missing label',{nameKo:raw,code:code||null,lang});
++  if(code) return lang==='ja'?`駅 ${code}`:`Station ${code}`;
++  return lang==='ja'?'不明な駅':'Unknown station';
++}
++function formatRailDateLabel(v){
++  const s=String(v==null?'':v).trim();
++  const m=s.match(/^(\d{4})-?(\d{2})-?(\d{2})$/);
++  if(!m) return s;
++  const d=new Date(Number(m[1]),Number(m[2])-1,Number(m[3]));
++  if(Number.isNaN(d.getTime())) return s;
++  try{
++    return new Intl.DateTimeFormat(lang==='ko'?'ko-KR':lang==='ja'?'ja-JP':'en-GB',
++      {year:'numeric',month:'short',day:'numeric',weekday:'short'}).format(d);
++  }catch(_){ return `${m[1]}-${m[2]}-${m[3]}`; }
++}
++let lastRailLiveResult=null;
++
+ function renderRailLiveCards(fromCity,toCity,payload){
+   const summary=document.getElementById('moveLiveSummary');
+   const list=document.getElementById('moveLiveRoutes');
+@@ -12156,6 +12196,7 @@
+   });
+ 
+   const first=sorted[0];
++  lastRailLiveResult={kind:'cards',fromCity,toCity,payload};
+   const firstService=escapeHtmlText(first.service||first.trainType||'Train');
+   summary.className='data-slot';
+   summary.innerHTML=`<b>${lang==='ko'?'철도 운행계획':'Rail operating plan'}</b><span>${firstService} · ${escapeHtmlText(formatRailTime(first.departureTime))} → ${escapeHtmlText(formatRailTime(first.arrivalTime))}${payload?.fallbackUsed?` · ${lang==='ko'?'날짜 전체조회 복구':'date fallback'}`:''}</span>`;
+@@ -12164,8 +12205,8 @@
+     const service=String(t.service||t.trainType||'Train');
+     const serviceHtml=escapeHtmlText(service);
+     const trainNoHtml=t.trainNo?` #${escapeHtmlText(t.trainNo)}`:'';
+-    const departureHtml=escapeHtmlText(t.departureStation||fromCity);
+-    const arrivalHtml=escapeHtmlText(t.arrivalStation||toCity);
++    const departureHtml=escapeHtmlText(railStationLabel(t.departureStation,fromCity,t.departureStationCode));
++    const arrivalHtml=escapeHtmlText(railStationLabel(t.arrivalStation,toCity,t.arrivalStationCode));
+     const sourceHtml=escapeHtmlText(payload.sourceLabel||'KORAIL Open API');
+     return `
+     <div class="rail-card ${i===0?'primary':''}">
+@@ -12317,8 +12358,12 @@
+   const summary=document.getElementById('moveLiveSummary');
+   if(!summary) return;
+   const q=status.query||{};
++  lastRailLiveResult={kind:'empty',fromCity,toCity,status};
++  const depLabel=escapeHtmlText(railStationLabel(q.departureStation,fromCity,q.departureStationCode));
++  const arrLabel=escapeHtmlText(railStationLabel(q.arrivalStation,toCity,q.arrivalStationCode));
++  const dateLabel=escapeHtmlText(formatRailDateLabel(q.runYmd||railTripDate()));
+   summary.className='data-slot';
+-  summary.innerHTML=`<b>${lang==='ko'?'철도 운행계획 · 조회 결과 0건':'Rail operating plan · 0 results'}</b><span>${q.departureStation||fromCity} → ${q.arrivalStation||toCity} · ${q.runYmd||railTripDate()} · ${lang==='ko'?'날짜 전체조회까지 확인했지만 해당 철도 운행계획을 찾지 못했습니다. 가까운 도시권 이동은 실제 대중교통 경로를 다시 확인하세요.':'The date-wide fallback found no matching rail plan. For local/regional travel, recheck a live public-transit route.'}</span>`;
++  summary.innerHTML=`<b>${lang==='ko'?'철도 운행계획 · 조회 결과 0건':'Rail operating plan · 0 results'}</b><span>${depLabel} → ${arrLabel} · ${dateLabel} · ${lang==='ko'?'날짜 전체조회까지 확인했지만 해당 철도 운행계획을 찾지 못했습니다. 가까운 도시권 이동은 실제 대중교통 경로를 다시 확인하세요.':'The date-wide fallback found no matching rail plan. For local/regional travel, recheck a live public-transit route.'}</span>`;
+ }
+ 
+ async function tryRailLiveThenFallback(fromCity,toCity,isCurrent=()=>true){
