@@ -9938,7 +9938,7 @@ async function openCityTransitOptions(){
     if(routeBox) routeBox.innerHTML=cityTransitExternalHtml(target);
     return;
   }
-  if(!ODSAY_WEB_KEY || location.hostname!=='korea-route.vercel.app'){
+  if(!ODSAY_WEB_KEY || !koreaRouteHostAllowed()){
     const status=panel.querySelector('#cityTransitStatus'), routeBox=panel.querySelector('#cityTransitRoutes');
     if(status){status.className='city-transit-status warn';status.textContent=lang==='ko'?'앱 내 상세 대중교통 데이터가 연결되지 않은 환경입니다. Google/네이버 대중교통 경로로 바로 확인하세요.':'Detailed in-app transit data is not connected in this environment. Open Google or Naver transit below.';}
     if(routeBox) routeBox.innerHTML=cityTransitExternalHtml(target);
@@ -12015,6 +12015,15 @@ function alertLang(){
 
 
 let ODSAY_WEB_KEY=sessionStorage.getItem('ODSAY_WEB_KEY')||'';
+function koreaRouteHostAllowed(){
+  const h=location.hostname.toLowerCase();
+  return h==='korea-route.com'
+    || h==='www.korea-route.com'
+    || h==='korea-route.vercel.app'
+    || h.endsWith('.vercel.app')
+    || h==='localhost'
+    || h==='127.0.0.1';
+}
 let moveLiveRequestSerial=0;
 let moveLiveAbortController=null;
 function isMoveLiveRequestCurrent(token,fromCity,toCity){
@@ -15163,7 +15172,7 @@ async function searchLiveMoveRoute(){
       renderTransitExternalFallback(fromCity,toCity,lang==='ko'?'현재 앱 내부 상세 대중교통 데이터가 연결되지 않았습니다.':'In-app detailed transit data is not connected for this route.');
       return;
     }
-    if(location.hostname!=='korea-route.vercel.app'){
+    if(!koreaRouteHostAllowed()){
       summary.className='data-slot error';
       summary.innerHTML=`<b>${lang==='ko'?'Production에서 테스트':'Production only'}</b><span>korea-route.vercel.app</span>`;
       return;
