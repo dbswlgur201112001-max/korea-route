@@ -11880,6 +11880,21 @@ function v11TripData(){
     style:document.getElementById('travelStyle').value
   };
 }
+function v11PersistTripData(data=v11TripData()){
+  try{
+    const raw=JSON.stringify(data);
+    // My Trip reads koreaRouteTrip from sessionStorage.
+    sessionStorage.setItem('koreaRouteTrip',raw);
+    // Keep the existing planner reload compatibility key.
+    localStorage.setItem('koreaRouteSavedTrip',raw);
+    // Persist the registered session key immediately instead of waiting for the 4s timer/pagehide.
+    if(typeof koreaRoutePersistSessionState==='function') koreaRoutePersistSessionState();
+    return true;
+  }catch(err){
+    console.warn('[Korea Route trip] save failed',err);
+    return false;
+  }
+}
 function v11Refresh(){
   if(current!=='result') return;
   try{v11RenderOptions();v11RenderItinerary();}catch(e){console.warn(e)}
@@ -15254,8 +15269,8 @@ document.getElementById('v11RecoTabs')?.addEventListener('click',e=>{
 });
 
 document.getElementById('v11SaveBtn')?.addEventListener('click',()=>{
-  localStorage.setItem('koreaRouteSavedTrip',JSON.stringify(v11TripData()));
-  v11Toast(lang==='ko'?'여행을 저장했어요':'Trip saved');
+  const ok=v11PersistTripData();
+  v11Toast(ok?(lang==='ko'?'여행을 저장했어요':'Trip saved'):(lang==='ko'?'여행 저장에 실패했어요':'Could not save trip'));
 });
 document.getElementById('v11ShareBtn')?.addEventListener('click',async()=>{
   const d=v11TripData();
@@ -16852,6 +16867,8 @@ function v126CreateTrip(){
     if(travelers) travelers.value=String(Math.max(1,Math.min(9,Number(travelers.value)||1)));
     if(days) days.value=String(Math.max(1,Math.min(10,Number(days.value)||1)));
   }catch(_){ }
+  // "Create My Trip" must create the My Trip state, not only preview the result.
+  v11PersistTripData();
   go('result');
   setTimeout(()=>{try{calculate();window.scrollTo({top:0,behavior:'smooth'});}catch(e){console.error(e);}},40);
 }
