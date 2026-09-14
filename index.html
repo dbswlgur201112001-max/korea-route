@@ -7586,21 +7586,25 @@ function buildOfflineTripSnapshot(){
   };
 }
 
+function offlineCopyText(ko,en,ja){
+  return lang==='ko'?ko:lang==='ja'?ja:en;
+}
+
 function saveOfflineTripSnapshot(){
   const snapshot=buildOfflineTripSnapshot();
   try{
     localStorage.setItem(OFFLINE_TRIP_STORAGE_KEY,JSON.stringify(snapshot));
     renderOfflineTripSnapshot();
-    showOfflineTripFeedback(lang==='ko'?'오프라인 여행 사본을 저장했습니다.':'Offline trip copy saved.');
+    showOfflineTripFeedback(offlineCopyText('오프라인 여행 사본을 저장했습니다.','Offline trip copy saved.','オフライン旅行コピーを保存しました。'));
   }catch(e){
-    showOfflineTripFeedback(lang==='ko'?'오프라인 저장에 실패했습니다.':'Could not save offline trip copy.');
+    showOfflineTripFeedback(offlineCopyText('오프라인 저장에 실패했습니다.','Could not save offline trip copy.','オフライン旅行コピーを保存できませんでした。'));
   }
 }
 
 function restoreOfflineTripSnapshot(){
   const snapshot=readOfflineTripSnapshot();
   if(!snapshot?.data){
-    showOfflineTripFeedback(lang==='ko'?'저장된 오프라인 여행 사본이 없습니다.':'No offline trip copy found.');
+    showOfflineTripFeedback(offlineCopyText('저장된 오프라인 여행 사본이 없습니다.','No offline trip copy found.','保存されたオフライン旅行コピーがありません。'));
     return;
   }
 
@@ -7624,7 +7628,7 @@ function restoreOfflineTripSnapshot(){
   const city=document.getElementById('city')?.dataset.currentCity;
   if(city) renderCityPoiList(city);
 
-  showOfflineTripFeedback(lang==='ko'?'오프라인 여행 사본을 현재 세션에 불러왔습니다.':'Offline trip copy restored to this session.');
+  showOfflineTripFeedback(offlineCopyText('오프라인 여행 사본을 현재 세션에 불러왔습니다.','Offline trip copy restored to this session.','オフライン旅行コピーを現在のセッションに復元しました。'));
   renderOfflineTripSnapshot();
   const {fromCity,toCity}=currentMoveSegmentCities();
   if(fromCity&&toCity){
@@ -7638,7 +7642,7 @@ function clearOfflineTripSnapshot(){
     localStorage.removeItem(OFFLINE_TRIP_STORAGE_KEY);
   }catch(e){}
   renderOfflineTripSnapshot();
-  showOfflineTripFeedback(lang==='ko'?'오프라인 여행 사본을 삭제했습니다.':'Offline trip copy cleared.');
+  showOfflineTripFeedback(offlineCopyText('오프라인 여행 사본을 삭제했습니다.','Offline trip copy cleared.','オフライン旅行コピーを削除しました。'));
 }
 
 function showOfflineTripFeedback(text){
@@ -7686,15 +7690,15 @@ function stableOfflineSnapshotString(value){
 
 function offlineSnapshotFreshness(){
   const saved=readOfflineTripSnapshot();
-  if(!saved) return {state:'none',labelKo:'오프라인 복사본 없음',labelEn:'No offline copy'};
+  if(!saved) return {state:'none',labelKo:'오프라인 복사본 없음',labelEn:'No offline copy',labelJa:'オフラインコピーなし'};
 
   const a=stableOfflineSnapshotString(offlineSnapshotComparableData(saved));
   const b=stableOfflineSnapshotString(currentOfflineComparableData());
 
   if(a===b){
-    return {state:'current',labelKo:'최신 상태',labelEn:'Up to date'};
+    return {state:'current',labelKo:'최신 상태',labelEn:'Up to date',labelJa:'最新の状態'};
   }
-  return {state:'changed',labelKo:'변경사항 미저장',labelEn:'Changes not saved'};
+  return {state:'changed',labelKo:'변경사항 미저장',labelEn:'Changes not saved',labelJa:'変更が未保存'};
 }
 
 function renderHomeOfflineSnapshotBadge(){
@@ -7706,13 +7710,13 @@ function renderHomeOfflineSnapshotBadge(){
   badge.className=`home-offline-snapshot-badge ${state}`;
   badge.dataset.state=state;
   if(state==='current'){
-    badge.textContent=lang==='ko'?'오프라인 준비 완료':'Offline ready';
+    badge.textContent=offlineCopyText('오프라인 준비 완료','Offline ready','オフライン準備完了');
     badge.setAttribute('aria-disabled','true');
   }else if(state==='stale'){
-    badge.textContent=lang==='ko'?'오프라인 사본이 오래됨':'Offline copy is stale';
+    badge.textContent=offlineCopyText('오프라인 사본이 오래됨','Offline copy is stale','オフラインコピーの更新が必要です');
     badge.setAttribute('aria-disabled','true');
   }else{
-    badge.textContent=lang==='ko'?'오프라인 사본 없음 · 지금 저장':'No offline copy · Save now';
+    badge.textContent=offlineCopyText('오프라인 사본 없음 · 지금 저장','No offline copy · Save now','オフラインコピーなし · 今すぐ保存');
     badge.setAttribute('aria-disabled','false');
   }
 }
@@ -7757,23 +7761,24 @@ function renderOfflineTripSnapshot(){
   block.innerHTML=`
     <div class="offline-trip-head">
       <div>
-        <span class="move-kicker">${lang==='ko'?'오프라인 여행 사본':'OFFLINE TRIP COPY'}</span>
-        <h3>${lang==='ko'?'여행 정보를 이 기기에 보관':'Keep a trip copy on this device'}</h3><span class="offline-freshness-badge ${freshness.state}">${lang==='ko'?freshness.labelKo:freshness.labelEn}</span>
+        <span class="move-kicker">${offlineCopyText('오프라인 여행 사본','OFFLINE TRIP COPY','オフライン旅行コピー')}</span>
+        <h3>${offlineCopyText('여행 정보를 이 기기에 보관','Keep a trip copy on this device','旅行情報をこの端末に保存')}</h3><span class="offline-freshness-badge ${freshness.state}">${lang==='ko'?freshness.labelKo:lang==='ja'?freshness.labelJa:freshness.labelEn}</span>
       </div>
       ${snapshot?`<span class="offline-trip-badge">${count}${lang==='ko'?'곳':' places'}</span>`:''}
     </div>
 
-    <p class="offline-trip-note">${lang==='ko'
-      ?'저장 장소·일차·숙소·예산·선택 경로·체크리스트는 이 기기에서 자동 복원될 수 있습니다. 현재 위치·GPS 기록·ODsay 키는 저장하지 않습니다.'
-      :'Saved places, day plan, stay, budget, selected route and checklist may auto-restore on this device. Current/GPS location and the ODsay key are not stored.'
-    }</p>
+    <p class="offline-trip-note">${offlineCopyText(
+      '저장 장소·일차·숙소·예산·선택 경로·체크리스트는 이 기기에서 자동 복원될 수 있습니다. 현재 위치·GPS 기록·ODsay 키는 저장하지 않습니다.',
+      'Saved places, day plan, stay, budget, selected route and checklist may auto-restore on this device. Current/GPS location and the ODsay key are not stored.',
+      '保存した場所・日程・宿泊先・予算・選択した経路・チェックリストは、この端末で自動復元される場合があります。現在地・GPS履歴・ODsayキーは保存しません。'
+    )}</p>
 
-    ${snapshot?`<div class="offline-trip-status">${lang==='ko'?'마지막 저장':'Last saved'} · ${savedAt||'-'}</div>`:''}
+    ${snapshot?`<div class="offline-trip-status">${offlineCopyText('마지막 저장','Last saved','最終保存')} · ${savedAt||'-'}</div>`:''}
 
     <div class="offline-trip-actions">
-      <button type="button" onclick="saveOfflineTripSnapshot()">${snapshot?(lang==='ko'?'현재 내용으로 덮어쓰기':'Update offline copy'):(lang==='ko'?'오프라인 사본 저장':'Save offline copy')}</button>
-      ${snapshot?`<button type="button" onclick="restoreOfflineTripSnapshot()">${lang==='ko'?'사본 불러오기':'Restore copy'}</button>
-      <button type="button" onclick="clearOfflineTripSnapshot()">${lang==='ko'?'사본 삭제':'Clear copy'}</button>`:''}
+      <button type="button" onclick="saveOfflineTripSnapshot()">${snapshot?offlineCopyText('현재 내용으로 덮어쓰기','Update offline copy','現在の内容で更新'):offlineCopyText('오프라인 사본 저장','Save offline copy','オフラインコピーを保存')}</button>
+      ${snapshot?`<button type="button" onclick="restoreOfflineTripSnapshot()">${offlineCopyText('사본 불러오기','Restore copy','コピーを復元')}</button>
+      <button type="button" onclick="clearOfflineTripSnapshot()">${offlineCopyText('사본 삭제','Clear copy','コピーを削除')}</button>`:''}
     </div>
     <div id="offlineTripFeedback" class="offline-trip-feedback" aria-live="polite"></div>
   `;
