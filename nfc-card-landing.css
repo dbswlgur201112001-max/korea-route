@@ -22,3 +22,62 @@ body{min-height:100vh}
 .kr-card-choices{display:grid;gap:10px;margin-top:18px}.kr-card-choice{display:grid;grid-template-columns:52px minmax(0,1fr);gap:12px;align-items:center;min-height:76px;padding:13px;border:1px solid var(--line);border-radius:16px;background:#f8fafc;color:var(--ink);text-decoration:none}.kr-card-choice-num{height:50px;border-radius:13px;display:grid;place-items:center;background:var(--navy);color:#fff;font-size:14px;font-weight:950}.kr-card-choice-copy{min-width:0}.kr-card-choice-copy b,.kr-card-choice-copy small{display:block}.kr-card-choice-copy b{font-size:15px;overflow-wrap:anywhere}.kr-card-choice-copy small{margin-top:3px;color:var(--muted);font-size:12px;font-weight:750}.kr-card-choice:hover{background:#eef4fc;border-color:#94a3b8}
 .kr-card-main a:focus-visible,.kr-card-brand:focus-visible{outline:3px solid #2563eb;outline-offset:3px}
 @media(max-width:360px){.kr-card-main{padding-left:14px;padding-right:14px}.kr-card-main h1{font-size:27px}.kr-card-actions{grid-template-columns:1fr}.kr-card-art-title{font-size:21px}}
+
+/* Hwahongmun V2: every selector is scoped to 001. */
+.kr-hwahongmun-v2{padding-top:0;font-size:16px;line-height:1.6}
+.kr-hwahongmun-v2 .hw-hero{margin:0 -18px;padding:28px 18px 24px;background:#0b2345;color:#fff}
+.kr-hwahongmun-v2 .hw-eyebrow{margin:0 0 12px;color:#e2bd78;font-size:14px;font-weight:800;letter-spacing:.13em}
+.kr-hwahongmun-v2 .hw-hero h1{font-size:32px;line-height:1.1;letter-spacing:-.8px;margin:0 0 16px}
+.kr-hwahongmun-v2 .hw-korean{display:block;margin-top:10px;font-size:20px;font-weight:500;color:#d6e4f4;letter-spacing:0}
+.kr-hwahongmun-v2 .hw-intro{margin:0 0 20px;color:#edf3fb;font-size:17px;line-height:1.6;max-width:36ch}
+.kr-hwahongmun-v2 .hw-primary{display:flex;justify-content:center;align-items:center;min-height:52px;padding:12px 18px;background:#fff;color:#0b2345;border-radius:12px;text-decoration:none;font-weight:800}
+.kr-hwahongmun-v2 .hw-card-image{width:min(76%,280px);margin:24px auto 20px;border:1px solid #c5a065;border-radius:18px;padding:0;overflow:hidden;background:#071a32;box-shadow:0 18px 34px rgba(0,0,0,.26)}
+.kr-hwahongmun-v2 .hw-card-image-art{display:block;width:100%;height:auto;aspect-ratio:468/742;object-fit:cover;background:#071a32}
+.kr-hwahongmun-v2 .hw-card-image figcaption{padding:9px 12px;background:#091f3f;color:#e7d1a7;font-size:12px;font-weight:800;letter-spacing:.08em;text-align:center}
+.kr-hwahongmun-v2 .hw-section{padding:28px 0;border-bottom:1px solid #e4eaf1;scroll-margin-top:16px}
+.kr-hwahongmun-v2 .hw-section:last-child{border-bottom:0;padding-bottom:0}
+.kr-hwahongmun-v2 h2{margin:0 0 16px;font-size:24px;line-height:1.25;letter-spacing:-.5px;color:#0b2345}
+.kr-hwahongmun-v2 h3{margin:0 0 7px;font-size:18px;line-height:1.35;color:#0b2345}
+.kr-hwahongmun-v2 p{margin:0 0 12px}
+.kr-hwahongmun-v2 p:last-child{margin-bottom:0}
+.kr-hwahongmun-v2 .hw-reasons{padding-left:22px;margin:0}
+.kr-hwahongmun-v2 .hw-reasons li+li{margin-top:9px}
+.kr-hwahongmun-v2 .hw-reasons li::marker{color:#97703a}
+.kr-hwahongmun-v2 .hw-facts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0}
+.kr-hwahongmun-v2 .hw-facts>div{min-width:0;background:#f2f6fb;border:1px solid #e2eaf4;border-radius:14px;padding:14px}
+.kr-hwahongmun-v2 dt{font-size:14px;color:#4b607b;font-weight:700;margin:0 0 6px}
+.kr-hwahongmun-v2 dd{margin:0;font-size:16px;line-height:1.5;font-weight:700;overflow-wrap:anywhere}
+.kr-hwahongmun-v2 .hw-fact-note{font-size:14px;font-weight:400;color:#52657e;margin-top:8px;line-height:1.45}
+.kr-hwahongmun-v2 .hw-sights{padding-left:24px;margin:0}
+.kr-hwahongmun-v2 .hw-sights li{padding-left:6px;margin-bottom:20px}
+.kr-hwahongmun-v2 .hw-sights li:last-child{margin-bottom:0}
+.kr-hwahongmun-v2 .hw-sights li::marker{font-weight:800;color:#987442}
+.kr-hwahongmun-v2 .hw-review{padding:13px 14px;border-left:3px solid #bd9456;background:#fff9ef;color:#685025;font-size:14px;line-height:1.55}
+.kr-hwahongmun-v2 .hw-lead{color:#52657e;margin-bottom:18px}
+.kr-hwahongmun-v2 .hw-next-card{border:1px solid #dfe7f0;border-radius:16px;padding:18px;margin:0 0 12px;background:#fff}
+.kr-hwahongmun-v2 .hw-next-card:first-of-type{border-color:#b99861;background:#fffdf7}
+.kr-hwahongmun-v2 .hw-next-tag{font-size:14px;font-weight:800;color:#765421;margin:0 0 8px}
+.kr-hwahongmun-v2 .hw-experience{color:#52657e}
+.kr-hwahongmun-v2 .hw-link{display:inline-flex;align-items:center;min-height:48px;padding:8px 0;color:#225fc8;font-size:16px;font-weight:700;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
+.kr-hwahongmun-v2 .hw-note{font-size:14px;color:#52657e;line-height:1.55;margin-top:14px}
+.kr-hwahongmun-v2 .hw-mission{display:flex;align-items:flex-start;gap:14px;min-height:72px;padding:18px 14px;margin:0 0 10px;border:1px solid #dbe4f0;border-radius:14px;cursor:pointer;background:#f7faff}
+.kr-hwahongmun-v2 .hw-mission input{flex:0 0 24px;width:24px;height:24px;accent-color:#225fc8;margin:2px 0 0;cursor:pointer}
+.kr-hwahongmun-v2 .hw-mission>span{min-width:0}
+.kr-hwahongmun-v2 .hw-mission strong{display:block;font-size:15px;letter-spacing:.08em;margin-bottom:5px}
+.kr-hwahongmun-v2 .hw-mission span span{display:block;font-size:16px;line-height:1.55}
+.kr-hwahongmun-v2 .hw-mission:has(input:checked){border-color:#94b9df;background:#edf5ff}
+.kr-hwahongmun-v2 .hw-mission-progress{font-weight:800;margin-top:16px;color:#0b2345}
+.kr-hwahongmun-v2 .hw-collection-count{font-weight:800;font-size:16px;letter-spacing:.05em}
+.kr-hwahongmun-v2 .kr-card-status{margin:12px 0 20px}
+.kr-hwahongmun-v2 .kr-card-status p{font-size:16px}
+.kr-hwahongmun-v2 .hw-collection-list{margin:0;padding:0;list-style:none}
+.kr-hwahongmun-v2 .hw-collection-list li{display:flex;flex-wrap:wrap;justify-content:space-between;gap:5px 12px;padding:13px 0;border-bottom:1px solid #e4eaf1}
+.kr-hwahongmun-v2 .hw-collection-list b{font-size:16px}
+.kr-hwahongmun-v2 .hw-collection-list span{font-size:14px;color:#52657e}
+.kr-hwahongmun-v2 .kr-card-actions{grid-template-columns:1fr}
+.kr-hwahongmun-v2 .kr-card-actions a{font-size:16px;min-height:52px}
+.kr-hwahongmun-v2 .kr-card-home{order:-1}
+.kr-hwahongmun-v2 .hw-sources{margin-top:24px;padding-top:18px;border-top:1px solid #e4eaf1;font-size:14px;color:#52657e}
+.kr-hwahongmun-v2 .hw-sources summary{cursor:pointer;min-height:48px;display:list-item;padding:10px 0;color:#233e60;font-size:15px;font-weight:700}
+.kr-hwahongmun-v2 input:focus-visible,.kr-hwahongmun-v2 summary:focus-visible{outline:3px solid #2563eb;outline-offset:4px}
+@media(max-width:360px){.kr-hwahongmun-v2 .hw-hero{margin-left:-14px;margin-right:-14px;padding-left:14px;padding-right:14px}.kr-hwahongmun-v2 .hw-hero h1{font-size:29px}.kr-hwahongmun-v2 .hw-facts{grid-template-columns:1fr}}
