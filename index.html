@@ -3227,6 +3227,7 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
 @media(min-width:640px){.app{max-width:460px}.v60-tabbar,.bottom{left:50%;right:auto;transform:translateX(-50%);width:min(460px,100%)}}
 </style>
 
+3230  .va||function(){(window.vaq=window.vaq||[]).push(arguments)}</script><script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 <div class="app">
@@ -22202,7 +22203,7 @@ try{
       const target=ev.target;if(target?.closest?.('button,a,.leaflet-control,.leaflet-marker-icon,.leaflet-interactive,.leaflet-popup'))return;
       setTimeout(()=>selectAt(ev),0);
     },true);
-    const map=currentMap(); if(map){map.on('move zoom viewreset resize moveend zoomend',updateMarker);}
+    const map=currentMap(); if(typeof map?.on==='function'){map.on('move zoom viewreset resize moveend zoomend',updateMarker);}
   }
   window.v209CloseDestination=function(){
     const card=document.getElementById('cityMapDestCard'); if(card){card.classList.remove('show','v209-destination-sheet');card.innerHTML='';}
