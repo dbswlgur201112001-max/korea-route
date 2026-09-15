@@ -3227,7 +3227,7 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
 @media(min-width:640px){.app{max-width:460px}.v60-tabbar,.bottom{left:50%;right:auto;transform:translateX(-50%);width:min(460px,100%)}}
 </style>
 
-3230  .va||function(){(window.vaq=window.vaq||[]).push(arguments)}</script><script defer src="/_vercel/insights/script.js"></script>
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)}</script><script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 <div class="app">
@@ -15364,9 +15364,7 @@ if(savedTrip){
 }
 
 loadCityWalkAlertPrefs();
-applyLang();
-updateRoutePreview();
-setTimeout(renderNearbyEssentialsStatus,0);
+
 
 
 
@@ -16534,6 +16532,10 @@ function v202HandlePop(event){
 
 // V203: legacy V202 history boot intentionally disabled.
 // The independent router at the end of <body> owns system Back navigation.
+// Initialize UI after all state declarations in this script.
+applyLang();
+updateRoutePreview();
+setTimeout(renderNearbyEssentialsStatus,0);
 </script>
 
 <script id="v118-navigation-architecture">
