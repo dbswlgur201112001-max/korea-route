@@ -81,3 +81,13 @@ body{min-height:100vh}
 .kr-hwahongmun-v2 .hw-sources summary{cursor:pointer;min-height:48px;display:list-item;padding:10px 0;color:#233e60;font-size:15px;font-weight:700}
 .kr-hwahongmun-v2 input:focus-visible,.kr-hwahongmun-v2 summary:focus-visible{outline:3px solid #2563eb;outline-offset:4px}
 @media(max-width:360px){.kr-hwahongmun-v2 .hw-hero{margin-left:-14px;margin-right:-14px;padding-left:14px;padding-right:14px}.kr-hwahongmun-v2 .hw-hero h1{font-size:29px}.kr-hwahongmun-v2 .hw-facts{grid-template-columns:1fr}}
+
+/* 002-only differences; reuse the existing V2 rules without editing 001. */
+.kr-haenggung-v2 .hw-hero h1{overflow-wrap:anywhere}
+.kr-haenggung-v2 .hg-card-visual{margin:24px 0 20px;min-width:0}
+.kr-haenggung-v2 .hg-card-visual .kr-card-art{margin:0;width:100%}
+.kr-haenggung-v2 .hg-has-image{width:min(76%,280px);margin-left:auto;margin-right:auto;border:1px solid #c5a065;border-radius:18px;overflow:hidden;background:#071a32}
+.kr-haenggung-v2 .hg-card-image-art{display:block;width:100%;height:auto;max-width:100%}
+.kr-haenggung-v2 .hg-card-visual figcaption{padding:10px 12px;color:#e7d1a7;background:#091f3f;font-size:14px;line-height:1.5;text-align:center}
+.kr-haenggung-v2 .hg-seasonal{padding:16px;margin-top:14px;background:#fff9ef;border-left:3px solid #bd9456;border-radius:0 12px 12px 0}
+.kr-haenggung-v2 .hw-facts>div:last-child{grid-column:1/-1}
