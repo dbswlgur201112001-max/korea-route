@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/t", "destination": "/nfc-card.html" },
+    { "source": "/t/:path*", "destination": "/nfc-card.html" }
+  ]
+}

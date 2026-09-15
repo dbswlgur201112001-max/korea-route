@@ -1,5 +1,5 @@
-const CACHE='korea-route-public-beta-v267-0905';
-const CORE=['/','/index.html','/foreigner-access.json','/taxi-fare.json','/price-baseline.json','/pre-arrival.json','/two-way-talk.json','/kiosk-help.json','/hospital-help.json','/payment-access.json','/air-quality-help.json','/dietary-map.json','/indoor-transfer-guide.json','/solo-safety.json','/cash-and-convenience.json','/vendor/leaflet.css','/vendor/leaflet.js','/vendor/maplibre-gl.css','/vendor/maplibre-gl.js','/vendor/leaflet-maplibre-gl.js'];
+const CACHE='korea-route-public-beta-v268-0915';
+const CORE=['/','/index.html','/nfc-card.html','/nfc-card-landing.css','/nfc-card-landing.js','/foreigner-access.json','/taxi-fare.json','/price-baseline.json','/pre-arrival.json','/two-way-talk.json','/kiosk-help.json','/hospital-help.json','/payment-access.json','/air-quality-help.json','/dietary-map.json','/indoor-transfer-guide.json','/solo-safety.json','/cash-and-convenience.json','/vendor/leaflet.css','/vendor/leaflet.js','/vendor/maplibre-gl.css','/vendor/maplibre-gl.js','/vendor/leaflet-maplibre-gl.js'];
 const OPTIONAL=['/manifest.json','/icon-192.png','/icon-512.png'];
 const DATA_PATHS=new Set(['/foreigner-access.json','/taxi-fare.json','/price-baseline.json','/pre-arrival.json','/two-way-talk.json','/kiosk-help.json','/hospital-help.json','/payment-access.json','/air-quality-help.json','/dietary-map.json','/indoor-transfer-guide.json','/solo-safety.json','/cash-and-convenience.json']);
 
@@ -9,6 +9,10 @@ async function taggedResponse(response,source){
   headers.set('X-Korea-Route-Data-Source',source);
   const body=await response.clone().arrayBuffer();
   return new Response(body,{status:response.status,statusText:response.statusText,headers});
+}
+
+function isNfcEntryPath(pathname){
+  return pathname==='/t' || pathname.startsWith('/t/');
 }
 
 self.addEventListener('install',event=>{
@@ -32,6 +36,20 @@ self.addEventListener('fetch',event=>{
   if(url.origin===self.location.origin && url.pathname.startsWith('/api/')) return;
   if(url.origin!==self.location.origin) return;
   if(request.mode==='navigate'){
+    if(isNfcEntryPath(url.pathname)){
+      event.respondWith(
+        fetch(request,{cache:'no-store'})
+          .then(response=>{
+            if(response.ok){
+              const copy=response.clone();
+              caches.open(CACHE).then(cache=>cache.put('/nfc-card.html',copy)).catch(()=>{});
+            }
+            return response;
+          })
+          .catch(()=>caches.match('/nfc-card.html').then(response=>response||Response.error()))
+      );
+      return;
+    }
     event.respondWith(
       fetch(request,{cache:'no-store'})
         .then(response=>{
