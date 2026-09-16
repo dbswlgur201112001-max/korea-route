@@ -100,3 +100,90 @@ body{min-height:100vh}
 .kr-banghwasuryujeong-v2 .bg-card-image-art{display:block;width:100%;height:auto;max-width:100%}
 .kr-banghwasuryujeong-v2 .bg-card-visual figcaption{padding:10px 12px;color:#e7d1a7;background:#091f3f;font-size:14px;line-height:1.5;text-align:center}
 .kr-banghwasuryujeong-v2 .kr-card-art-title{overflow-wrap:anywhere;max-width:100%}
+
+/* Travel Pack V1: scoped presentation; selector/invalid entry remain unchanged. */
+.kr-travel-pack-shell{background:#fbfaf7;box-shadow:none}
+.kr-travel-pack-shell .kr-card-header{min-height:64px;background:#fbfaf7;border-color:#e4dfd4}
+.kr-travel-pack-shell .kr-card-mark{background:#0b2345;border-radius:10px;box-shadow:none;color:#e6c98b}
+.kr-travel-pack-shell .kr-card-brand small{color:#71592e;letter-spacing:.1em}
+.kr-travel-pack{--tp-gold:#80622f;--tp-border:#deded8;font-size:16px;line-height:1.6}
+.kr-travel-pack .hw-hero{background:#0b2345;padding-top:24px;padding-bottom:24px;text-align:left}
+.kr-travel-pack .hw-eyebrow{font-size:12px;letter-spacing:.14em;margin-bottom:5px}
+.kr-travel-pack .tp-theme{font-size:11px;font-weight:750;letter-spacing:.08em;color:#e2bd78;margin:0 0 16px}
+.kr-travel-pack .hw-hero h1{font-size:clamp(25px,7.3vw,32px);line-height:1.15;overflow-wrap:anywhere;margin-bottom:12px}
+.kr-travel-pack .hw-korean{font-size:17px;margin-top:7px}
+.kr-travel-pack .hw-intro{font-size:16px;line-height:1.5;margin-bottom:16px}
+.kr-travel-pack .tp-card-image{width:126px;max-width:100%;margin:18px auto;border-radius:10px;border:1px solid #bfa571;box-shadow:none;background:#071a32;overflow:hidden}
+.kr-travel-pack .tp-card-image img{display:block;width:100%;height:auto;aspect-ratio:auto;object-fit:contain}
+.kr-travel-pack .tp-card-image figcaption{display:none}
+.kr-travel-pack .tp-card-image .kr-card-art{min-height:194px;border-radius:0;box-shadow:none;background:#112b49;padding:14px}
+.kr-travel-pack .tp-card-image .kr-card-art-number{right:12px;font-size:25px}
+.kr-travel-pack .tp-card-image .kr-card-art-title{left:10px;right:10px;font-size:16px}
+.kr-travel-pack .tp-card-image .kr-card-art-korean{left:10px;font-size:12px}
+.kr-travel-pack .tp-card-image .kr-card-art:after{display:none}
+.kr-travel-pack .tp-image-fallback{display:grid;gap:12px;align-content:center;min-height:194px;padding:14px;font-size:12px;color:#e6c98b;overflow-wrap:anywhere}
+.kr-travel-pack .hw-primary{background:#f4ebd7;color:#10233f;border-radius:8px;min-height:48px;font-size:16px}
+.kr-travel-pack .tp-nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding:12px 0;border-bottom:1px solid var(--tp-border)}
+.kr-travel-pack .tp-nav a{min-height:44px;padding:10px 0;font-size:11px;font-weight:800;letter-spacing:.02em;text-align:center;text-decoration:none;color:#10233f}
+.kr-travel-pack .tp-section{padding:36px 0;border-color:var(--tp-border);scroll-margin-top:16px}
+.kr-travel-pack h2{font-size:25px;letter-spacing:-.6px;margin-bottom:18px}
+.kr-travel-pack h3{font-size:18px}
+.kr-travel-pack .tp-first-action{font-size:20px;line-height:1.5;font-weight:600;margin-bottom:12px}
+.kr-travel-pack .tp-context{color:#526073;font-size:15px;line-height:1.6}
+.kr-travel-pack .tp-small{color:#596577;font-size:14px;line-height:1.55;margin-top:16px}
+.kr-travel-pack .tp-link{display:inline-flex;align-items:center;min-height:44px;padding:8px 0;color:#245b87;font-weight:650;font-size:15px;text-underline-offset:4px;overflow-wrap:anywhere}
+.kr-travel-pack .tp-visit{margin-top:20px;border-top:1px solid var(--tp-border);font-size:15px}
+.kr-travel-pack summary{cursor:pointer;min-height:48px;padding:12px 0;color:#10233f}
+.kr-travel-pack .tp-visit summary{font-weight:650}
+.kr-travel-pack .tp-see-list{list-style:none;counter-reset:sights;padding:0;margin:0}
+.kr-travel-pack .tp-see-list li{counter-increment:sights;position:relative;padding:0 0 20px 38px}
+.kr-travel-pack .tp-see-list li:last-child{padding-bottom:0}
+.kr-travel-pack .tp-see-list li:before{content:'0' counter(sights);position:absolute;left:0;top:2px;font-size:13px;color:var(--tp-gold);font-weight:700}
+.kr-travel-pack .tp-see-list p{font-size:15px;color:#526073}
+.kr-travel-pack .hw-mission{background:transparent;border:0;border-bottom:1px solid var(--tp-border);border-radius:0;padding:17px 0;margin:0;min-height:76px}
+.kr-travel-pack .hw-mission:has(input:checked){background:#f0f1ed;border-color:var(--tp-border)}
+.kr-travel-pack .hw-mission input{accent-color:#80622f}
+.kr-travel-pack .hw-mission strong{color:var(--tp-gold);font-size:12px}
+.kr-travel-pack .hw-mission span span{font-size:15px}
+.kr-travel-pack .hw-lead,.kr-travel-pack .hw-note{font-size:14px;color:#596577}
+.kr-travel-pack .tp-photo-areas{list-style:none;padding:0;margin:18px 0 0;border-left:2px solid #b5a078}
+.kr-travel-pack .tp-photo-areas li{padding:5px 0 5px 16px;font-size:16px}
+.kr-travel-pack .tp-route-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:20px 0}
+.kr-travel-pack .tp-route-choices button{font:inherit;font-size:12px;letter-spacing:.04em;font-weight:750;min-height:48px;border:1px solid #d5dadd;background:#f1f3f4;color:#10233f;border-radius:8px;cursor:pointer;padding:10px 5px}
+.kr-travel-pack .tp-route-choices button[aria-pressed=true]{background:#0b2345;border-color:#0b2345;color:#fff}
+.kr-travel-pack .tp-route-panel{padding:20px 18px;background:#f1f4f5;border-radius:12px;min-width:0}
+.kr-travel-pack .tp-stops{list-style:none;counter-reset:stops;margin:14px 0;padding:0}
+.kr-travel-pack .tp-stops li{counter-increment:stops;position:relative;padding-left:30px;border-left:1px solid #ccd5da;margin-left:8px}
+.kr-travel-pack .tp-stops li:before{content:counter(stops);position:absolute;left:-10px;top:13px;width:19px;height:19px;line-height:19px;border-radius:50%;text-align:center;background:#f1f4f5;color:#526073;font-size:12px;font-weight:700}
+.kr-travel-pack .tp-stops li:last-child{border-left-color:transparent}
+.kr-travel-pack .tp-stops a{font-size:15px;line-height:1.5;max-width:100%}
+.kr-travel-pack .tp-local-pick{border-top:1px solid var(--tp-border);margin-top:8px;padding:8px 0}
+.kr-travel-pack .tp-local-pick summary{position:relative;display:block;list-style:none;padding-right:26px}
+.kr-travel-pack .tp-local-pick summary::-webkit-details-marker{display:none}
+.kr-travel-pack .tp-local-pick summary:after{content:'+';position:absolute;right:3px;top:27px;color:var(--tp-gold);font-size:22px;font-weight:400}
+.kr-travel-pack .tp-local-pick[open] summary:after{content:'−'}
+.kr-travel-pack .tp-category{display:block;color:var(--tp-gold);font-size:11px;font-weight:800;letter-spacing:.12em;margin:0 0 6px}
+.kr-travel-pack .tp-local-pick strong{display:block;font-size:18px;line-height:1.4}
+.kr-travel-pack .tp-branch{display:block;font-size:14px;color:#596577;margin-top:5px}
+.kr-travel-pack .tp-local-pick p{font-size:15px}
+.kr-travel-pack .tp-address{color:#596577}
+.kr-travel-pack .tp-local-actions{display:flex;flex-wrap:wrap;gap:6px 24px}
+.kr-travel-pack .tp-next{padding:18px 0;border-bottom:1px solid var(--tp-border)}
+.kr-travel-pack .tp-next:last-of-type{border:0;padding-bottom:0}
+.kr-travel-pack .tp-next p:not(.tp-category){font-size:15px;color:#526073}
+.kr-travel-pack .kr-card-status{background:#f1f2ee;border-color:#dadfd4;color:#344638;border-radius:8px;box-shadow:none}
+.kr-travel-pack .kr-card-complete{background:#f3edde;border-color:#d4c29b;color:#564526}
+.kr-travel-pack .kr-card-status p{font-size:13px;letter-spacing:.04em;font-weight:600}
+.kr-travel-pack .hw-collection-count{font-size:13px;letter-spacing:.08em;font-weight:650}
+.kr-travel-pack .hw-collection-list b{font-weight:600}
+.kr-travel-pack .tp-complete{background:#0b2345;color:#f3f0e8;border-radius:14px;border:0;padding:26px 20px;margin-top:32px}
+.kr-travel-pack .tp-complete h2{color:#f3f0e8;font-size:23px;line-height:1.35;font-weight:600}
+.kr-travel-pack .tp-complete h3{color:#fff;font-size:20px;margin-top:22px}
+.kr-travel-pack .tp-collector-label{font-size:12px;letter-spacing:.08em;color:#e5c88f}
+.kr-travel-pack .tp-complete .tp-stops a{color:#fff}
+.kr-travel-pack .tp-complete .tp-stops li:before{background:#0b2345;color:#e5c88f}
+.kr-travel-pack .tp-complete .tp-small{color:#d2dbe4}
+.kr-travel-pack .kr-card-actions a{border-radius:8px}
+.kr-travel-pack .kr-card-secondary{background:transparent}
+.kr-travel-pack button:focus-visible,.kr-travel-pack summary:focus-visible,.kr-travel-pack a:focus-visible{outline:3px solid #98763e;outline-offset:4px}
+@media(prefers-reduced-motion:reduce){.kr-travel-pack *{scroll-behavior:auto}}

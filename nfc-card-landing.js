@@ -752,6 +752,213 @@
     open.appendChild(sources);
   }
 
+  // SUWON TRAVEL PACK V1: presentation only; V2 handlers and storage stay intact.
+  function enhanceSuwonTravelPack(main, result) {
+    const places = {
+      gate: ['Hwahongmun', 'Hwahongmun'],
+      pond: ['Yongyeon', 'Yongyeon Pond Banghwasuryujeong'],
+      pavilion: ['Banghwasuryujeong', 'Banghwasuryujeong'],
+      palace: ['Hwaseong Haenggung', 'Hwaseong Haenggung'],
+      entrance: ['Shinpungnu', 'Shinpungnu Hwaseong Haenggung'],
+      courts: ['Palace courtyards', 'Hwaseong Haenggung'],
+      hall: ['Bongsudang', 'Bongsudang Hwaseong Haenggung'],
+      neighbourhood: ['Haenggung-dong', 'Haenggung-dong'],
+      culture: ['Suwon Traditional Culture Center', '수원전통문화관 정조로 893'],
+      coffeeGate: ['Jung Jiyoung · Hwahongmun', '정지영커피로스터즈 화홍문점 수원천로 375'],
+      coffeePalace: ['Jung Jiyoung · Haenggung', '정지영커피로스터즈 행궁본점 신풍로 42']
+    };
+    const picks = {
+      dumplings: ['EAT', 'Boyoung Mandu', 'North Gate main branch', 'Dumplings and jjolmyeon noodles to make a meal of your northern fortress walk.', '271 Paldal-ro', '보영만두 북문본점 팔달로 271', 'https://www.diningcode.com/profile.php?rid=qiiPwhoYeuEZ'],
+      chicken: ['EAT', 'Jinmi Tongdak', 'Suwon chicken street', 'Continue from the palace to Suwon’s chicken street for a fried-chicken meal.', '21 Jeongjo-ro 800beon-gil', '진미통닭 정조로800번길 21', 'https://www.diningcode.com/profile.php?rid=ZmukzrEgQ4Er'],
+      coffeeGate: ['CAFE', 'Jung Jiyoung Coffee Roasters', 'Hwahongmun branch', 'A Suwoncheon-ro coffee stop that keeps your break close to the water-gate walk.', '375 Suwoncheon-ro', places.coffeeGate[1], 'https://jungjiyoungcoffee.com/shopinfo/store.html'],
+      coffeePalace: ['CAFE', 'Jung Jiyoung Coffee Roasters', 'Haenggung main branch', 'A coffee stop on Sinpung-ro, keeping your palace visit and neighbourhood walk together.', '42 Sinpung-ro', places.coffeePalace[1], 'https://jungjiyoungcoffee.com/shopinfo/store.html'],
+      culture: ['LOCAL', 'Suwon Traditional Culture Center', 'Traditional culture & exhibitions', 'Connect the fortress walk with Suwon’s traditional culture. Check the programme; activities may need booking.', '893 Jeongjo-ro', places.culture[1], 'https://www.swcf.or.kr/?p=155']
+    };
+    const plans = {
+      'suwon-001': {
+        theme: 'FOLLOW THE WATER', intro: 'A water gate, a stream, a place to begin.',
+        start: 'Pause near the water gate and notice how Suwoncheon passes through the fortress.',
+        context: 'Hwahongmun connects the fortress landscape with the stream below.',
+        see: [['The arches', 'Notice the repeating stone openings.'], ['The water', 'Watch Suwoncheon pass through the gate.'], ['The fortress view', 'Look at the gate as part of the surrounding wall.']],
+        photo: ['Hwahongmun area', 'Suwoncheon public paths'],
+        routes: [
+          ['Water & pavilion', ['gate','pond','pavilion'], 'Keep this a short look at the gate, pond and pavilion.'],
+          ['A pause for coffee', ['gate','pavilion','pond','coffeeGate'], 'Add a coffee stop if there is space and time.'],
+          ['From water to palace', ['gate','pavilion','culture','neighbourhood','palace'], 'Choose a brief culture stop, then continue toward the palace. A full palace visit needs extra time.']
+        ], local: ['dumplings','coffeeGate','culture'],
+        next: [['pavilion','CARD 003','Continue from the water gate to the pavilion and pond.'], ['neighbourhood','NEIGHBOURHOOD','Make room for a street walk and a break.']]
+      },
+      'suwon-002': {
+        theme: 'STEP INTO JEONGJO’S SUWON', intro: 'A palace visit, then a neighbourhood to explore.',
+        start: 'Start at the main entrance and look over the palace layout before going inside.',
+        context: 'This temporary palace was used by King Jeongjo during visits to Suwon.',
+        see: [['Shinpungnu', 'Begin with the palace’s main gate.'], ['The courtyards', 'Follow the open visitor route through the complex.'], ['Bongsudang', 'Look for the palace’s royal audience chamber.']],
+        photo: ['Palace courtyards', 'Shinpungnu area'],
+        routes: [
+          ['A palace sampler', ['entrance','courts','hall'], 'A short visit after admission. Allow extra time for tickets and follow the open visitor route.'],
+          ['Palace & coffee', ['palace','neighbourhood','coffeePalace'], 'Keep the palace visit focused, then choose a coffee break.'],
+          ['Palace to pond', ['palace','neighbourhood','gate','pond','pavilion'], 'Continue toward the water gate and pond. Extend your visit if you want to explore the whole palace.']
+        ], local: ['chicken','coffeePalace','culture'],
+        next: [['neighbourhood','NEIGHBOURHOOD','Leave time for the streets around the palace.'], ['gate','CARD 001','Pick up the fortress story at the water gate.']]
+      },
+      'suwon-003': {
+        theme: 'PAUSE BY YONGYEON', intro: 'A pavilion, a pond, a moment to slow down.',
+        start: 'Begin around Yongyeon and notice how the pavilion, wall and pond form one scene.',
+        context: 'Built in 1794, the pavilion combined lookout and command functions with a place to pause.',
+        see: [['The pavilion', 'Notice the structure within its natural setting.'], ['Yongyeon', 'Spend a moment around the pond-side area.'], ['The fortress landscape', 'Look at how the pavilion, wall and landscape connect.']],
+        photo: ['Yongyeon pond-side area', 'Around Banghwasuryujeong pavilion'],
+        routes: [
+          ['Pavilion, pond & gate', ['pavilion','pond','gate'], 'Stay with the northern fortress sights for a short visit.'],
+          ['Water & a coffee break', ['pavilion','pond','gate','coffeeGate'], 'Continue to the gate, then decide whether to stop for coffee.'],
+          ['Continue into Suwon', ['pavilion','gate','culture','neighbourhood','palace'], 'Add a brief culture stop and the palace neighbourhood. Allow extra time for a full palace visit.']
+        ], local: ['dumplings','coffeeGate','culture'],
+        next: [['gate','CARD 001','See how the water passes through the fortress.'], ['palace','CARD 002','Make the palace the next chapter. Check admission before setting off.']]
+      }
+    };
+    const plan = plans[card.id];
+    const shell = document.getElementById('kr-card-landing');
+    shell.classList.add('kr-travel-pack-shell');
+    main.classList.add('kr-travel-pack');
+    const brandLine = shell.querySelector('.kr-card-brand small');
+    if (brandLine) brandLine.textContent = 'SUWON TRAVEL PACK';
+
+    function link(text, href, className = 'tp-link') {
+      const node = element('a', className, text); node.href = href; return node;
+    }
+    function external(text, href) {
+      const node = link(text, href); node.target = '_blank'; node.rel = 'noopener noreferrer';
+      node.setAttribute('aria-label', text + ' (opens in a new tab)'); return node;
+    }
+    function mapLink(query, label = 'Open map') {
+      return external(label, 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(query + ', Suwon, South Korea'));
+    }
+    function section(id, title) {
+      const node = element('section', 'hw-section tp-section'); node.id = 'tp-' + id;
+      const heading = element('h2', '', title); heading.id = node.id + '-title';
+      node.setAttribute('aria-labelledby', heading.id); node.appendChild(heading); return node;
+    }
+    function stopList(ids) {
+      const list = element('ol', 'tp-stops');
+      ids.forEach(id => {
+        const row = element('li'); row.appendChild(mapLink(places[id][1], places[id][0])); list.appendChild(row);
+      }); return list;
+    }
+
+    // Move existing nodes: checkbox handlers, state and collection announcements survive.
+    const hero = main.querySelector('.hw-hero');
+    const missions = main.querySelector('[id$="-missions"]');
+    const collection = main.querySelector('[id$="-collection"]');
+    const actions = main.querySelector('.kr-card-actions');
+    hero.querySelector('.hw-intro').textContent = plan.intro;
+    hero.querySelector('.hw-eyebrow').after(element('p', 'tp-theme', plan.theme));
+    const heroAction = hero.querySelector('.hw-primary');
+    heroAction.textContent = 'Your first move'; heroAction.href = '#tp-start';
+    const art = hero.querySelector('figure'); art.classList.add('tp-card-image');
+    // V2 002/003 retain their original detached-image fallback. Add one for 001.
+    if (card.id === 'suwon-001') {
+      const img = art.querySelector('img');
+      const fallback = () => {
+        const label = element('div', 'tp-image-fallback');
+        label.append(element('span', '', 'SUWON CARD 001'), element('strong', '', 'HWAHONGMUN'), element('span', '', '화홍문'));
+        art.replaceChildren(label);
+      };
+      img.addEventListener('error', fallback, {once:true});
+      if (img.complete && !img.naturalWidth) fallback();
+    }
+    const nav = element('nav', 'tp-nav'); nav.setAttribute('aria-label', 'Travel Pack sections');
+    [['START','start'],['ROUTE','routes'],['LOCAL','local'],['COLLECTION','collection']].forEach(([label,id]) => nav.appendChild(link(label, '#tp-' + id)));
+
+    const start = section('start', 'Your first move');
+    start.append(element('p', 'tp-first-action', plan.start), element('p', 'tp-context', plan.context));
+    const visit = element('details', 'tp-visit');
+    visit.appendChild(element('summary', '', 'Before you go'));
+    if (card.id === 'suwon-002') {
+      visit.appendChild(element('p', '', 'Adult admission KRW 2,000 · Regular hours 09:00–18:00 · Last admission 17:00.'));
+      visit.appendChild(element('p', '', '2026 seasonal night opening: May 1 – Nov 1, Friday–Sunday and public holidays. 18:00–21:30; last admission 21:00.'));
+    } else {
+      visit.appendChild(element('p', '', 'Free fortress admission. Check current notices for access to the places you plan to visit.'));
+    }
+    visit.appendChild(external('Current visitor information', 'https://www.swcf.or.kr/?p=65'));
+    start.appendChild(visit);
+
+    const see = section('see', 'Worth noticing');
+    const sights = element('ol', 'tp-see-list');
+    plan.see.forEach(([title, copy]) => { const row = element('li'); row.append(element('h3', '', title), element('p', '', copy)); sights.appendChild(row); });
+    see.appendChild(sights);
+    missions.id = 'tp-missions'; missions.classList.add('tp-section');
+    missions.querySelector('h2').textContent = '3 Suwon moments';
+    missions.querySelector('.hw-lead').textContent = 'Notice. Explore. Keep a memory. Check each moment when you’re done.';
+    const photo = section('photo', 'Photo zone');
+    photo.appendChild(element('p', '', 'Leave a photo memory here, in your own way.'));
+    const zones = element('ul', 'tp-photo-areas');
+    plan.photo.forEach(text => zones.appendChild(element('li', '', text))); photo.appendChild(zones);
+
+    const routes = section('routes', 'Choose your pace');
+    routes.appendChild(element('p', 'tp-context', 'Choose how much to explore, at your own pace. Allow time for stops.'));
+    const choices = element('div', 'tp-route-choices'); choices.setAttribute('role','group'); choices.setAttribute('aria-label','Route pace');
+    const panel = element('div', 'tp-route-panel'); panel.id = 'tp-route-panel';
+    panel.setAttribute('aria-labelledby','tp-route-name');
+    const routeButtons = [];
+    function chooseRoute(index) {
+      routeButtons.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
+      const [name, stops, note] = plan.routes[index];
+      const heading = element('h3', '', name); heading.id = 'tp-route-name';
+      panel.replaceChildren(heading, stopList(stops), element('p', 'tp-context', note));
+      panel.dataset.route = String(index);
+    }
+    ['SHORT','STANDARD','EXTENDED'].forEach((label,index) => {
+      const button = element('button', '', label); button.type = 'button'; button.setAttribute('aria-controls',panel.id);
+      button.addEventListener('click', () => chooseRoute(index)); routeButtons.push(button); choices.appendChild(button);
+    });
+    chooseRoute(0);
+    routes.append(choices, panel, element('p','tp-small','Tap a stop to search it on the map. Follow local signs between stops.'));
+
+    const local = section('local', 'Selected for your visit');
+    local.appendChild(element('p', 'tp-context', 'One food stop, one coffee break, one local culture stop. Choose what you need.'));
+    plan.local.forEach(id => {
+      const [category,name,branch,copy,address,query,url] = picks[id];
+      const item = element('details','tp-local-pick');
+      const summary = element('summary');
+      summary.append(element('span','tp-category',category), element('strong','',name), element('span','tp-branch',branch));
+      item.append(summary,element('p','',copy),element('p','tp-address',address + ', Suwon'));
+      const links = element('div','tp-local-actions'); links.append(mapLink(query),external('Visitor details',url));
+      item.appendChild(links); local.appendChild(item);
+    });
+    local.appendChild(element('p','tp-small','Checked 16 Sep 2026. Confirm today’s opening before setting off.'));
+
+    const next = section('next', 'Continue your Suwon journey');
+    plan.next.forEach(([id,tag,copy]) => {
+      const row = element('article','tp-next');
+      row.append(element('p','tp-category',tag),element('h3','',places[id][0]),element('p','',copy),mapLink(places[id][1])); next.appendChild(row);
+    });
+    next.appendChild(element('p','tp-small','At the next place, tap its card to collect it. Opening a map does not collect a card.'));
+    collection.id = 'tp-collection'; collection.classList.add('tp-section');
+    collection.querySelector('h2').textContent = 'Suwon collection';
+    // Presentation only: use the existing tap result; never read or write storage here.
+    if (result) {
+      collection.querySelector('.hw-collection-count').textContent = `SUWON COLLECTION · ${suwonProgress(result.collection)} OF 3`;
+      const messages = collection.querySelectorAll('.kr-card-status p');
+      messages[0].textContent = result.isNew ? `CARD ${card.number} ADDED` : `CARD ${card.number} IN YOUR COLLECTION`;
+      if (messages[1]) messages[1].textContent = 'SUWON COLLECTION COMPLETE';
+    }
+    collection.querySelector('.hw-note').textContent = 'Your cards are collected separately from your Suwon moments.';
+    const open = section('open', 'Your tools for the rest of the day');
+    open.append(element('p','tp-context','Open Korea Route, then choose Find a route, Explore nearby or My Trip.'),actions);
+
+    main.replaceChildren(hero,nav,start,see,missions,photo,routes,local,next,collection);
+    if (result && isSuwonComplete(result.collection)) {
+      const complete = section('complete', 'Your Suwon collection is complete');
+      complete.classList.add('tp-complete');
+      complete.appendChild(element('p','tp-collector-label','COLLECTOR ROUTE'));
+      complete.appendChild(element('h3','','The Complete Suwon Route'));
+      complete.appendChild(element('p','','Three cards. One curated day through Suwon.'));
+      complete.appendChild(stopList(['palace','neighbourhood','gate','pond','pavilion']));
+      complete.appendChild(element('p','tp-small','Start with palace admission, pause for food or coffee in Haenggung-dong, then continue toward the water. Allow time for queues and stops; check current access.'));
+      main.appendChild(complete);
+    }
+    main.appendChild(open);
+  }
+
   function render() {
     const main = document.getElementById('kr-card-main');
     if (!main) return;
@@ -776,6 +983,7 @@
       if (card.id === 'suwon-001') renderHwahongmunV2(main, result);
       if (card.id === 'suwon-002') renderHaenggungV2(main, result);
       if (card.id === 'suwon-003') renderBanghwasuryujeongV2(main, result);
+      enhanceSuwonTravelPack(main, result);
       document.title = `Card ${card.number} · ${card.title} | Korea Route`;
     } else {
       renderSelector(main, collection, storageOk);
