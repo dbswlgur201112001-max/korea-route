@@ -555,6 +555,203 @@
     open.appendChild(sources);
   }
 
+  // BANGHWASURYUJEONG V2 ONLY: preserve the original renderers and collection code.
+  function renderBanghwasuryujeongV2(main, result) {
+    const status = main.querySelector('.kr-card-status');
+    const actions = main.querySelector('.kr-card-actions');
+    const fallbackArt = main.querySelector('.kr-card-art');
+    main.replaceChildren();
+    // Reuse the existing V2 style class without changing any 001/002 CSS.
+    main.classList.add('kr-hwahongmun-v2', 'kr-banghwasuryujeong-v2');
+    const shell = document.getElementById('kr-card-landing');
+    // Announce collection/mission changes, not the entire long travel guide.
+    shell.removeAttribute('aria-live');
+
+    function section(id, title) {
+      const node = element('section', 'hw-section');
+      node.id = id;
+      node.setAttribute('aria-labelledby', id + '-title');
+      const heading = element('h2', '', title);
+      heading.id = id + '-title';
+      node.appendChild(heading);
+      main.appendChild(node);
+      return node;
+    }
+    function link(text, href, className = 'hw-link') {
+      const node = element('a', className, text);
+      node.href = href;
+      return node;
+    }
+    function mapLink(text, query) {
+      const node = link(text, 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(query + ', Suwon, South Korea'));
+      node.target = '_blank';
+      node.rel = 'noopener noreferrer';
+      node.setAttribute('aria-label', text + ' (opens Google Maps in a new tab)');
+      return node;
+    }
+
+    const hero = element('section', 'hw-hero');
+    hero.setAttribute('aria-labelledby', 'bg-title');
+    hero.appendChild(element('p', 'hw-eyebrow', 'SUWON CARD 003'));
+    const title = element('h1', '', 'BANGHWASURYUJEONG');
+    title.id = 'bg-title';
+    title.appendChild(element('span', 'hw-korean', '방화수류정'));
+    hero.appendChild(title);
+    hero.appendChild(element('p', 'hw-intro', 'Pause by Yongyeon and see another side of Suwon Hwaseong.'));
+    const art = element('figure', 'bg-card-visual');
+    art.appendChild(fallbackArt);
+    hero.appendChild(art);
+    // Keep the current art visible until the real image successfully loads.
+    // Failed/missing images are never attached, so no broken-image UI appears.
+    const artImage = element('img', 'bg-card-image-art');
+    artImage.alt = 'Korea Route Suwon 003 Banghwasuryujeong card artwork';
+    artImage.width = 468;
+    artImage.height = 742;
+    artImage.loading = 'eager';
+    artImage.decoding = 'async';
+    artImage.addEventListener('load', () => {
+      if (!artImage.naturalWidth) return;
+      art.classList.add('bg-has-image');
+      art.replaceChildren(artImage, element('figcaption', '', 'SUWON 003 · BANGHWASURYUJEONG'));
+    }, { once: true });
+    artImage.addEventListener('error', () => { /* Existing card art remains visible. */ }, { once: true });
+    artImage.src = '/nfc-suwon-003-banghwasuryujeong.webp';
+    hero.appendChild(link('Start with LOOK', '#bg-missions', 'hw-primary'));
+    main.appendChild(hero);
+
+    const why = section('bg-why', 'Why visit');
+    const reasons = element('ul', 'hw-reasons');
+    ['Built in 1794 within Suwon Hwaseong Fortress', 'A lookout, command post and pavilion in one', 'Architecture shaped to fit the surrounding landscape', 'Yongyeon pond is part of the scene around the pavilion'].forEach(text => reasons.appendChild(element('li', '', text)));
+    why.appendChild(reasons);
+
+    const quick = section('bg-quick', 'Quick visit info');
+    const facts = element('dl', 'hw-facts');
+    [
+      ['Hwaseong Fortress admission', 'Free', 'Current official visitor information'],
+      ['Fortress viewing', 'Open access', 'Official guide: night viewing is possible']
+    ].forEach(([label, value, note]) => {
+      const item = element('div');
+      item.appendChild(element('dt', '', label));
+      item.appendChild(element('dd', '', value));
+      item.appendChild(element('dd', 'hw-fact-note', note));
+      facts.appendChild(item);
+    });
+    quick.appendChild(facts);
+    quick.appendChild(element('p', 'hw-note', 'Check current visitor information before your visit.'));
+    quick.appendChild(link('Official visitor information', 'https://www.visitsuwon.or.kr/base/contents/view?contentsNo=11&menuLevel=3&menuNo=19'));
+
+    const miss = section('bg-dont-miss', 'Don’t miss');
+    const sights = element('ol', 'hw-sights');
+    [
+      ['The pavilion itself', 'Notice how the structure combines a fortress function with a place to pause and look out.'],
+      ['Yongyeon', 'Spend a moment around the pond-side area.'],
+      ['The fortress surroundings', 'Look at how the pavilion, wall and landscape connect.']
+    ].forEach(([name, copy]) => {
+      const item = element('li');
+      item.append(element('h3', '', name), element('p', '', copy));
+      sights.appendChild(item);
+    });
+    miss.appendChild(sights);
+
+    const photo = section('bg-photo-zone', 'PHOTO ZONE');
+    photo.appendChild(element('p', 'hw-lead', 'Leave a photo memory around Yongyeon or the pavilion area.'));
+    const zones = element('ul', 'hw-reasons');
+    ['Yongyeon pond-side area', 'Around Banghwasuryujeong pavilion'].forEach(text => zones.appendChild(element('li', '', text)));
+    photo.appendChild(zones);
+
+    const missions = section('bg-missions', 'Three small missions');
+    missions.appendChild(element('p', 'hw-lead', 'Look. Walk. Make a memory. Check each one when you’re done.'));
+    const missionKey = 'koreaRouteBanghwasuryujeongMissionsV2';
+    const missionIds = ['look', 'walk', 'photo'];
+    let checked = { look: false, walk: false, photo: false };
+    let canSave = true;
+    try {
+      const raw = localStorage.getItem(missionKey);
+      if (raw !== null) {
+        const saved = JSON.parse(raw);
+        if (!saved || Array.isArray(saved) || Object.keys(saved).length !== 3 || !missionIds.every(id => typeof saved[id] === 'boolean')) throw new Error('Invalid mission record');
+        checked = saved;
+      }
+    } catch (_) { canSave = false; }
+    const progress = element('p', 'hw-mission-progress');
+    progress.setAttribute('role', 'status');
+    const saveNote = element('p', 'hw-note');
+    function updateMissionStatus() {
+      const count = missionIds.filter(id => checked[id]).length;
+      progress.textContent = count === 3 ? '3/3 missions complete. A little Suwon memory, made by you.' : `${count}/3 missions complete`;
+      saveNote.textContent = canSave
+        ? 'Self-checked, saved in this browser. No GPS check or photo upload.'
+        : 'Checks work for this visit only. Mission progress could not be saved; existing records were left unchanged.';
+    }
+    [
+      ['look', 'LOOK', 'Pause and notice how the pavilion, fortress wall and landscape meet.'],
+      ['walk', 'WALK', 'Take a short walk around the open public area near Yongyeon and Banghwasuryujeong.'],
+      ['photo', 'PHOTO', 'Leave one photo memory around Yongyeon or the pavilion area.']
+    ].forEach(([id, title, text]) => {
+      const label = element('label', 'hw-mission');
+      const input = element('input');
+      input.type = 'checkbox';
+      input.id = 'bg-mission-' + id;
+      input.checked = checked[id];
+      input.setAttribute('aria-labelledby', input.id + '-title');
+      input.setAttribute('aria-describedby', input.id + '-text');
+      const copy = element('span');
+      const name = element('strong', '', title); name.id = input.id + '-title';
+      const detail = element('span', '', text); detail.id = input.id + '-text';
+      copy.append(name, detail);
+      input.addEventListener('change', () => {
+        checked[id] = input.checked;
+        if (canSave) {
+          try { localStorage.setItem(missionKey, JSON.stringify(checked)); }
+          catch (_) { canSave = false; }
+        }
+        updateMissionStatus();
+      });
+      label.append(input, copy);
+      missions.appendChild(label);
+    });
+    updateMissionStatus();
+    missions.append(progress, saveNote);
+
+    const next = section('bg-next', 'Explore next');
+    next.appendChild(element('p', 'hw-lead', 'Choose your next Suwon stop.'));
+    [
+      ['Hwahongmun', 'Card 001', 'Continue the fortress story with the water gate and stream.', 'Find Hwahongmun'],
+      ['Yongyeon', 'Pond surroundings', 'Stay with the landscape and explore the public area around the pond.', 'Find Yongyeon'],
+      ['Haenggung-dong', 'Explore the neighbourhood', 'Continue into the surrounding streets and choose a stop on site.', 'Find Haenggung-dong'],
+      ['Hwaseong Haenggung', 'Card 002', 'Add a palace visit to your Suwon journey. Check visitor information before entering.', 'Find Hwaseong Haenggung']
+    ].forEach(([name, tag, copy, action]) => {
+      const item = element('article', 'hw-next-card');
+      item.append(element('p', 'hw-next-tag', tag), element('h3', '', name), element('p', '', copy), mapLink(action, name));
+      next.appendChild(item);
+    });
+    next.appendChild(element('p', 'hw-note', 'These map links search for places. Walking times and exact routes are not verified; opening a map does not collect a card.'));
+
+    const collection = section('bg-collection', 'Your Suwon collection');
+    collection.appendChild(element('p', 'hw-collection-count', result ? `SUWON COLLECTION ${suwonProgress(result.collection)}/3` : 'SUWON COLLECTION · unavailable'));
+    collection.appendChild(status);
+    const list = element('ul', 'hw-collection-list');
+    cards.forEach(item => {
+      const owned = result && result.collection.some(entry => entry.id === item.id);
+      const row = element('li');
+      row.appendChild(element('b', '', `${item.number} ${item.title}`));
+      row.appendChild(element('span', '', result ? (owned ? 'Collected' : 'Still to discover') : 'Status unavailable'));
+      list.appendChild(row);
+    });
+    collection.appendChild(list);
+    collection.appendChild(element('p', 'hw-note', 'One place, one card, one more memory. Mission checks are separate from card collecting.'));
+
+    const open = section('bg-open', 'Keep travelling with Korea Route');
+    open.appendChild(element('p', '', 'Open Korea Route, then choose Find a route, Explore nearby or My Trip from the home screen.'));
+    open.appendChild(actions);
+    const sources = element('details', 'hw-sources');
+    sources.appendChild(element('summary', '', 'Visitor information & review notes'));
+    sources.appendChild(link('Suwon Cultural Foundation · pavilion history', 'https://www.swcf.or.kr/english/?idx=681&mode=view&p=34&rIdx=99998857'));
+    sources.appendChild(link('Official fortress visitor information', 'https://www.visitsuwon.or.kr/base/contents/view?contentsNo=11&menuLevel=3&menuNo=19'));
+    sources.appendChild(element('p', '', 'History and current fortress visitor information checked 16 Sep 2026. Check the latest visitor notices before your visit.'));
+    open.appendChild(sources);
+  }
+
   function render() {
     const main = document.getElementById('kr-card-main');
     if (!main) return;
@@ -578,6 +775,7 @@
       renderCard(main, result);
       if (card.id === 'suwon-001') renderHwahongmunV2(main, result);
       if (card.id === 'suwon-002') renderHaenggungV2(main, result);
+      if (card.id === 'suwon-003') renderBanghwasuryujeongV2(main, result);
       document.title = `Card ${card.number} · ${card.title} | Korea Route`;
     } else {
       renderSelector(main, collection, storageOk);

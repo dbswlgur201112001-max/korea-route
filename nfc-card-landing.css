@@ -91,3 +91,12 @@ body{min-height:100vh}
 .kr-haenggung-v2 .hg-card-visual figcaption{padding:10px 12px;color:#e7d1a7;background:#091f3f;font-size:14px;line-height:1.5;text-align:center}
 .kr-haenggung-v2 .hg-seasonal{padding:16px;margin-top:14px;background:#fff9ef;border-left:3px solid #bd9456;border-radius:0 12px 12px 0}
 .kr-haenggung-v2 .hw-facts>div:last-child{grid-column:1/-1}
+
+/* 003-only differences; reuse V2 presentation without editing 001/002. */
+.kr-banghwasuryujeong-v2 .hw-hero h1{overflow-wrap:anywhere}
+.kr-banghwasuryujeong-v2 .bg-card-visual{margin:24px 0 20px;min-width:0}
+.kr-banghwasuryujeong-v2 .bg-card-visual .kr-card-art{margin:0;width:100%}
+.kr-banghwasuryujeong-v2 .bg-has-image{width:min(76%,280px);margin-left:auto;margin-right:auto;border:1px solid #c5a065;border-radius:18px;overflow:hidden;background:#071a32}
+.kr-banghwasuryujeong-v2 .bg-card-image-art{display:block;width:100%;height:auto;max-width:100%}
+.kr-banghwasuryujeong-v2 .bg-card-visual figcaption{padding:10px 12px;color:#e7d1a7;background:#091f3f;font-size:14px;line-height:1.5;text-align:center}
+.kr-banghwasuryujeong-v2 .kr-card-art-title{overflow-wrap:anywhere;max-width:100%}
