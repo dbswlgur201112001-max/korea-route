@@ -5222,6 +5222,9 @@ function applyLang(){
   });
   const langBtn=document.getElementById('langBtn');
   if(langBtn) langBtn.textContent=lang==='ko'?'한국어 / 日本語 / EN':lang==='ja'?'日本語 / EN / 한국어':'EN / 한국어 / 日本語';
+const pillLangBtns=document.querySelectorAll('.pill[onclick="toggleLang()"]');
+const pillLabel=lang==='ko'?'한국어 / 日本語 / EN':lang==='ja'?'日本語 / EN / 한국어':'EN / 한국어 / 日本語';
+pillLangBtns.forEach(btn=>{btn.textContent=pillLabel;});
   if(cityState){ renderCity(); setTimeout(()=>{try{renderCityGuideMap(cityState.key||cityState.en)}catch(e){}},120); }
   updateRoutePreview();
   if(current==='result') calculate();
