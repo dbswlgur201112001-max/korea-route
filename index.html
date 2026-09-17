@@ -3797,13 +3797,13 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
 
   <div class="v60-screen-intro"><h1 data-i18n="route.intro.title">Where are you going?</h1><p data-i18n="route.intro.subtitle">Choose departure and destination first. Open extra transport tools only when you need them.</p></div>
   <div class="v60-route-shortcuts"><button type="button" onclick="openSubwayMapHub()"><span>🚇</span><b data-i18n="route.shortcut.subway">Subway map</b></button><button type="button" onclick="openCheckRide()"><span>📷</span><b data-i18n="route.shortcut.checkRide">Check & Ride</b></button><button type="button" onclick="go('helperHub')"><span>•••</span><b data-i18n="route.shortcut.more">More tools</b></button></div>
-  <div class="arch-hero"><div class="eyebrow">MOVE</div><h1 data-en="Move with confidence." data-ko="이동을 빠르게 확인하세요.">Move with confidence.</h1><p data-en="Search route data, check transit near you, and see current weather before you go." data-ko="경로를 찾고, 내 주변 교통과 현재 날씨를 출발 전에 확인하세요.">Search route data, check transit near you, and see current weather before you go.</p><div class="arch-status"><span class="arch-badge">ROUTE</span><span class="arch-badge">NEAR ME</span><span class="arch-badge">WEATHER</span></div></div>
+  <div class="arch-hero"><div class="eyebrow">MOVE</div><h1 data-en="Move with confidence." data-ko="이동을 빠르게 확인하세요." data-ja="安心して移動しましょう。">Move with confidence.</h1><p data-en="Search route data, check transit near you, and see current weather before you go." data-ko="경로를 찾고, 내 주변 교통과 현재 날씨를 출발 전에 확인하세요." data-ja="ルートを検索し、周辺の交通機関と現在の天気を出発前に確認しましょう。">Search route data, check transit near you, and see current weather before you go.</p><div class="arch-status"><span class="arch-badge">ROUTE</span><span class="arch-badge">NEAR ME</span><span class="arch-badge">WEATHER</span></div></div>
   <div class="beginner-task-row" aria-label="Move quick actions">
-    <button type="button" onclick="document.getElementById('liveMovePlanner')?.scrollIntoView({behavior:'smooth',block:'start'})">🧭 <span data-en="Find route" data-ko="경로 찾기">Find route</span></button>
-    <button type="button" onclick="document.getElementById('liveTransitLayer')?.scrollIntoView({behavior:'smooth',block:'start'})">📍 <span data-en="Transit near me" data-ko="내 주변 교통">Transit near me</span></button>
-    <button type="button" onclick="document.getElementById('liveWeatherLayer')?.scrollIntoView({behavior:'smooth',block:'start'})">☁️ <span data-en="Weather now" data-ko="현재 날씨">Weather now</span></button>
-    <button type="button" onclick="openCheckRide()">📷 <span data-en="Check train/bus" data-ko="기차·버스 확인">Check train/bus</span></button>
-    <button type="button" onclick="openSubwayMapHub()">🚇 <span data-en="English subway map" data-ko="영문 지하철 노선도">English subway map</span></button>
+    <button type="button" onclick="document.getElementById('liveMovePlanner')?.scrollIntoView({behavior:'smooth',block:'start'})">🧭 <span data-en="Find route" data-ko="경로 찾기" data-ja="ルート検索">Find route</span></button>
+    <button type="button" onclick="document.getElementById('liveTransitLayer')?.scrollIntoView({behavior:'smooth',block:'start'})">📍 <span data-en="Transit near me" data-ko="내 주변 교통" data-ja="周辺の交通機関">Transit near me</span></button>
+    <button type="button" onclick="document.getElementById('liveWeatherLayer')?.scrollIntoView({behavior:'smooth',block:'start'})">☁️ <span data-en="Weather now" data-ko="현재 날씨" data-ja="現在の天気">Weather now</span></button>
+    <button type="button" onclick="openCheckRide()">📷 <span data-en="Check train/bus" data-ko="기차·버스 확인" data-ja="電車・バス確認">Check train/bus</span></button>
+    <button type="button" onclick="openSubwayMapHub()">🚇 <span data-en="English subway map" data-ko="영문 지하철 노선도" data-ja="英語版地下鉄路線図">English subway map</span></button>
   </div>
   <div class="feature-stack">
 
@@ -3828,11 +3828,11 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
     </div>
     <button class="screen-link" type="button" id="moveLiveSearchBtn" data-i18n="route.search.button">Find route</button>
     <details class="move-dev-setup" id="moveApiSetup">
-      <summary data-en="Developer API setup" data-ko="개발용 API 설정">Developer API setup</summary>
+      <summary data-en="Developer API setup" data-ko="개발용 API 설정" data-ja="開発用API設定">Developer API setup</summary>
       <div class="move-dev-body">
         <input id="odsayKeyInput" type="password" autocomplete="off" placeholder="ODsay Web API key">
-        <button type="button" id="saveOdsayKeyBtn" class="mini-action" data-en="Save for this session" data-ko="이 세션에 저장">Save for this session</button>
-        <span data-en="Prototype only. The key is stored in sessionStorage and is not included in this ZIP." data-ko="프로토타입 전용입니다. 키는 sessionStorage에만 저장되며 ZIP에는 포함되지 않습니다.">Prototype only.</span>
+        <button type="button" id="saveOdsayKeyBtn" class="mini-action" data-en="Save for this session" data-ko="이 세션에 저장" data-ja="このセッションに保存">Save for this session</button>
+        <span data-en="Prototype only. The key is stored in sessionStorage and is not included in this ZIP." data-ko="프로토타입 전용입니다. 키는 sessionStorage에만 저장되며 ZIP에는 포함되지 않습니다." data-ja="プロトタイプ専用です。キーはsessionStorageにのみ保存され、このZIPには含まれません。">Prototype only.</span>
       </div>
     </details>
     <div id="moveLiveSummary" class="data-slot">
@@ -3841,18 +3841,18 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
     </div>
     <div id="moveLiveRoutes" class="live-route-list"></div>
     <div class="v120-route-secondary-links">
-      <button type="button" class="primary" onclick="openTransitCardHub()">💳 <span data-en="Transit card guide" data-ko="교통카드 추천">Transit card guide</span></button>
+      <button type="button" class="primary" onclick="openTransitCardHub()">💳 <span data-en="Transit card guide" data-ko="교통카드 추천" data-ja="交通カードガイド">Transit card guide</span></button>
       <button type="button" onclick="openSubwayMapHub()">🚇 <span data-en="Subway map" data-ko="지하철 노선도">Subway map</span></button>
       <button type="button" onclick="openTaxiCheckHub()">🚕 <span data-en="Taxi Check" data-ko="택시 요금 확인">Taxi Check</span></button>
     </div>
-    <div class="v120-route-note" data-en="Route first. Payment cards and travel helpers are separated so this screen stays focused on how to get there." data-ko="이 화면은 이동 방법만 보여줍니다. 교통카드·결제·여행 도구는 별도 화면에서 확인하세요.">Route first. Payment cards and travel helpers are separated.</div>
+    <div class="v120-route-note" data-en="Route first. Payment cards and travel helpers are separated so this screen stays focused on how to get there." data-ko="이 화면은 이동 방법만 보여줍니다. 교통카드·결제·여행 도구는 별도 화면에서 확인하세요." data-ja="この画面は移動方法のみを表示します。交通カード・決済・旅行ツールは別画面でご確認ください。">Route first. Payment cards and travel helpers are separated.</div>
 
     <details class="v118-route-help" id="v118RouteHelp">
-      <summary><span data-en="Need help with this route?" data-ko="이동 중 문제가 생겼나요?">Need help with this route?</span></summary>
+      <summary><span data-en="Need help with this route?" data-ko="이동 중 문제가 생겼나요?" data-ja="移動中にトラブルが発生しましたか?">Need help with this route?</span></summary>
       <div class="v118-route-help-grid">
-        <button type="button" onclick="openCheckRide()">📷 <span data-en="Check train / bus" data-ko="기차·버스 확인">Check train / bus</span></button>
-        <button type="button" onclick="v105OpenCanIMakeIt()">🚦 <span data-en="Can I make it?" data-ko="지금 출발해도 될까?">Can I make it?</span></button>
-        <button type="button" onclick="v107OpenStaffHelper()">🪪 <span data-en="Show staff" data-ko="직원에게 보여주기">Show staff</span></button>
+        <button type="button" onclick="openCheckRide()">📷 <span data-en="Check train / bus" data-ko="기차·버스 확인" data-ja="電車・バス確認">Check train / bus</span></button>
+        <button type="button" onclick="v105OpenCanIMakeIt()">🚦 <span data-en="Can I make it?" data-ko="지금 출발해도 될까?" data-ja="今から間に合う?">Can I make it?</span></button>
+        <button type="button" onclick="v107OpenStaffHelper()">🪪 <span data-en="Show staff" data-ko="직원에게 보여주기" data-ja="係員に見せる">Show staff</span></button>
         <button type="button" onclick="openSubwayMapHub()">🚇 <span data-en="Subway map" data-ko="지하철 노선도">Subway map</span></button>
         <button type="button" onclick="openTaxiCheckHub()">🚕 <span data-en="Taxi Check" data-ko="택시 요금 확인">Taxi Check</span></button>
       </div>
@@ -3864,77 +3864,77 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
   <div class="feature-card" id="checkRideLayer">
     <div class="feature-top">
       <div>
-        <h3 data-en="Check & Ride · photo helper" data-ko="체크 & 라이드 · 사진 확인">Check & Ride · photo helper</h3>
-        <p data-en="Photograph a train board, platform sign, bus display, or stop sign. AI reads only what is visible and compares it with the destination or route you enter." data-ko="기차 안내판·승강장 표지·버스 전광판·정류장 표지를 찍으세요. AI가 사진에 보이는 정보만 읽어 입력한 목적지·노선과 비교합니다.">Photograph a train board, platform sign, bus display, or stop sign.</p>
+        <h3 data-en="Check & Ride · photo helper" data-ko="체크 & 라이드 · 사진 확인" data-ja="チェック&amp;ライド・写真確認">Check & Ride · photo helper</h3>
+        <p data-en="Photograph a train board, platform sign, bus display, or stop sign. AI reads only what is visible and compares it with the destination or route you enter." data-ko="기차 안내판·승강장 표지·버스 전광판·정류장 표지를 찍으세요. AI가 사진에 보이는 정보만 읽어 입력한 목적지·노선과 비교합니다." data-ja="電車の案内板、プラットフォームの標識、バスの表示、停留所の標識を撮影してください。AIは写真に写っている情報のみを読み取り、入力した目的地やルートと照合します。">Photograph a train board, platform sign, bus display, or stop sign.</p>
       </div>
       <span class="slot-type api">AI PHOTO CHECK</span>
     </div>
     <div class="checkride-grid">
-      <label><span data-en="What are you checking?" data-ko="무엇을 확인하나요?">What are you checking?</span>
-        <select id="checkRideMode"><option value="train" data-en="Train" data-ko="기차">Train</option><option value="bus" data-en="Bus" data-ko="버스">Bus</option></select>
+      <label><span data-en="What are you checking?" data-ko="무엇을 확인하나요?" data-ja="何を確認しますか?">What are you checking?</span>
+        <select id="checkRideMode"><option value="train" data-en="Train" data-ko="기차" data-ja="電車">Train</option><option value="bus" data-en="Bus" data-ko="버스" data-ja="バス">Bus</option></select>
       </label>
-      <label><span data-en="I want to go to" data-ko="내 목적지">I want to go to</span><input id="checkRideTarget" maxlength="120" placeholder="e.g. Suwon / 수원"></label>
-      <label style="grid-column:1/-1"><span data-en="Expected line / route / train no. · optional" data-ko="예상 노선·버스번호·열차번호 · 선택">Expected line / route / train no. · optional</span><input id="checkRideRoute" maxlength="80" placeholder="e.g. Line 1 / Bus 300 / KTX 123"></label>
+      <label><span data-en="I want to go to" data-ko="내 목적지" data-ja="目的地">I want to go to</span><input id="checkRideTarget" maxlength="120" placeholder="e.g. Suwon / 수원"></label>
+      <label style="grid-column:1/-1"><span data-en="Expected line / route / train no. · optional" data-ko="예상 노선·버스번호·열차번호 · 선택" data-ja="予想される路線・バス番号・列車番号(任意)">Expected line / route / train no. · optional</span><input id="checkRideRoute" maxlength="80" placeholder="e.g. Line 1 / Bus 300 / KTX 123"></label>
     </div>
     <div class="checkride-actions">
-      <button type="button" class="mini-action" onclick="syncCheckRideFromMove()" data-en="Use current Move destination" data-ko="현재 Move 목적지 사용">Use current Move destination</button>
-      <label class="checkride-upload" for="checkRideFile">📷 <span data-en="Take / choose photo" data-ko="사진 촬영·선택">Take / choose photo</span></label>
+      <button type="button" class="mini-action" onclick="syncCheckRideFromMove()" data-en="Use current Move destination" data-ko="현재 Move 목적지 사용" data-ja="現在のMove目的地を使用">Use current Move destination</button>
+      <label class="checkride-upload" for="checkRideFile">📷 <span data-en="Take / choose photo" data-ko="사진 촬영·선택" data-ja="写真を撮影・選択">Take / choose photo</span></label>
       <input class="checkride-file" id="checkRideFile" type="file" accept="image/jpeg,image/png,image/webp" capture="environment">
-      <button type="button" class="screen-link" id="checkRideAnalyzeBtn" onclick="analyzeCheckRidePhoto()" data-en="Analyze photo" data-ko="사진 확인">Analyze photo</button>
+      <button type="button" class="screen-link" id="checkRideAnalyzeBtn" onclick="analyzeCheckRidePhoto()" data-en="Analyze photo" data-ko="사진 확인" data-ja="写真を確認">Analyze photo</button>
     </div>
     <div class="checkride-preview" id="checkRidePreview"><img id="checkRidePreviewImg" alt="Selected transport photo preview"><div class="checkride-meta" id="checkRidePhotoMeta"></div></div>
     <div class="checkride-result unclear" id="checkRideResult" aria-live="polite">
-      <span class="cr-badge" data-en="NOT CHECKED" data-ko="확인 전">NOT CHECKED</span>
-      <b data-en="Take a clear photo of the transport information." data-ko="교통 정보를 선명하게 찍어주세요.">Take a clear photo of the transport information.</b>
-      <span data-en="Best results: include the destination, line/route number, train number, platform, or departure time in one frame." data-ko="목적지·노선/버스번호·열차번호·승강장·출발시간이 한 화면에 보이면 확인이 더 쉽습니다.">Best results: include the destination, route/train number, platform, or time.</span>
+      <span class="cr-badge" data-en="NOT CHECKED" data-ko="확인 전" data-ja="未確認">NOT CHECKED</span>
+      <b data-en="Take a clear photo of the transport information." data-ko="교통 정보를 선명하게 찍어주세요." data-ja="交通情報がはっきり写るように撮影してください。">Take a clear photo of the transport information.</b>
+      <span data-en="Best results: include the destination, line/route number, train number, platform, or departure time in one frame." data-ko="목적지·노선/버스번호·열차번호·승강장·출발시간이 한 화면에 보이면 확인이 더 쉽습니다." data-ja="目的地・路線番号・列車番号・プラットフォーム・出発時刻が一枚に収まると確認しやすくなります。">Best results: include the destination, route/train number, platform, or time.</span>
     </div>
-    <div class="checkride-note" data-en="AI photo check can be wrong. It is not an official boarding confirmation. Confirm the vehicle, destination, platform/stop and departure display before boarding. Your photo is sent to the configured Gemini API only after you tap Analyze; Korea Route does not save it." data-ko="AI 사진 확인은 틀릴 수 있으며 공식 탑승 확인이 아닙니다. 탑승 전 차량·행선지·승강장/정류장·출발 안내를 다시 확인하세요. 사진은 ‘사진 확인’을 누른 뒤에만 설정된 Gemini API로 전송되며 Korea Route에는 저장하지 않습니다.">AI photo check can be wrong. Confirm before boarding.</div>
+    <div class="checkride-note" data-en="AI photo check can be wrong. It is not an official boarding confirmation. Confirm the vehicle, destination, platform/stop and departure display before boarding. Your photo is sent to the configured Gemini API only after you tap Analyze; Korea Route does not save it." data-ko="AI 사진 확인은 틀릴 수 있으며 공식 탑승 확인이 아닙니다. 탑승 전 차량·행선지·승강장/정류장·출발 안내를 다시 확인하세요. 사진은 ‘사진 확인’을 누른 뒤에만 설정된 Gemini API로 전송되며 Korea Route에는 저장하지 않습니다." data-ja="AI写真確認は誤る可能性があり、公式な乗車確認ではありません。乗車前に車両・行き先・プラットフォーム/停留所・出発表示を必ず再確認してください。写真は「写真を確認」をタップした後のみ設定されたGemini APIに送信され、Korea Routeには保存されません。">AI photo check can be wrong. Confirm before boarding.</div>
   </div>
 
   <div class="feature-card" id="liveTransitLayer">
     <div class="feature-top">
       <div>
-        <h3 data-en="Transit near me · sample" data-ko="내 주변 교통 · 샘플">Transit near me · sample</h3>
-        <p data-en="Use your location to preview nearby-stop flow. Arrival minutes remain demo data until an official transit provider is connected." data-ko="현재 위치로 주변 정류장 흐름을 미리 봅니다. 공식 교통 API 연결 전까지 도착 분 정보는 데모입니다.">Use your location to preview nearby-stop flow. Arrival minutes remain demo data until an official transit provider is connected.</p>
+        <h3 data-en="Transit near me · sample" data-ko="내 주변 교통 · 샘플" data-ja="周辺の交通機関・サンプル">Transit near me · sample</h3>
+        <p data-en="Use your location to preview nearby-stop flow. Arrival minutes remain demo data until an official transit provider is connected." data-ko="현재 위치로 주변 정류장 흐름을 미리 봅니다. 공식 교통 API 연결 전까지 도착 분 정보는 데모입니다." data-ja="現在地を使って周辺停留所の流れをプレビューします。公式交通APIと連携するまで、到着時刻はデモデータです。">Use your location to preview nearby-stop flow. Arrival minutes remain demo data until an official transit provider is connected.</p>
       </div>
       <span class="slot-type api" id="liveTransitProviderBadge">SAMPLE UI</span>
     </div>
     <div class="live-transit-actions">
-      <button type="button" class="screen-link" id="liveTransitLocateBtn" data-en="Use my location" data-ko="현재 위치 사용">Use my location</button>
+      <button type="button" class="screen-link" id="liveTransitLocateBtn" data-en="Use my location" data-ko="현재 위치 사용" data-ja="現在地を使用">Use my location</button>
       <button type="button" class="mini-action" id="liveTransitRefreshBtn" data-en="Refresh" data-ko="새로고침">Refresh</button>
     </div>
     <div id="liveTransitLocation" class="live-transit-location" aria-live="polite">
-      <b data-en="Location not requested" data-ko="위치 권한을 아직 요청하지 않았습니다">Location not requested</b>
-      <span data-en="Tap “Use my location”. Your coordinates are kept only in this browser session." data-ko="‘현재 위치 사용’을 누르세요. 좌표는 이 브라우저 세션에서만 사용합니다.">Tap “Use my location”. Your coordinates are kept only in this browser session.</span>
+      <b data-en="Location not requested" data-ko="위치 권한을 아직 요청하지 않았습니다" data-ja="位置情報はまだリクエストされていません">Location not requested</b>
+      <span data-en="Tap “Use my location”. Your coordinates are kept only in this browser session." data-ko="‘현재 위치 사용’을 누르세요. 좌표는 이 브라우저 세션에서만 사용합니다." data-ja="「現在地を使用」をタップしてください。座標はこのブラウザセッションのみで使用されます。">Tap “Use my location”. Your coordinates are kept only in this browser session.</span>
     </div>
-    <div class="live-transit-mode-note" id="liveTransitModeNote" data-en="SAMPLE PREVIEW · Arrival minutes below are demo data until an official transit provider is connected." data-ko="샘플 미리보기 · 아래 도착 분 정보는 공식 교통 API 연결 전까지 데모 데이터입니다.">SAMPLE PREVIEW · Arrival minutes below are demo data until an official transit provider is connected.</div>
+    <div class="live-transit-mode-note" id="liveTransitModeNote" data-en="SAMPLE PREVIEW · Arrival minutes below are demo data until an official transit provider is connected." data-ko="샘플 미리보기 · 아래 도착 분 정보는 공식 교통 API 연결 전까지 데모 데이터입니다." data-ja="サンプルプレビュー・以下の到着時刻は公式交通APIと連携するまでデモデータです。">SAMPLE PREVIEW · Arrival minutes below are demo data until an official transit provider is connected.</div>
     <div id="liveTransitBoard" class="live-transit-board"></div>
     <div id="liveTransitJourney" class="live-transit-journey"></div>
   </div>
   <div class="feature-card" id="liveWeatherLayer">
     <div class="feature-top">
       <div>
-        <h3 data-en="Live weather · right now" data-ko="실시간 날씨 · 지금">Live weather · right now</h3>
-        <p data-en="Current conditions for your location or selected city, useful while you are actually traveling." data-ko="여행 중 바로 판단할 수 있도록 현재 위치 또는 선택 도시의 현재 날씨를 확인합니다.">Current conditions for your location or selected city, useful while you are actually traveling.</p>
+        <h3 data-en="Live weather · right now" data-ko="실시간 날씨 · 지금" data-ja="リアルタイム天気・現在">Live weather · right now</h3>
+        <p data-en="Current conditions for your location or selected city, useful while you are actually traveling." data-ko="여행 중 바로 판단할 수 있도록 현재 위치 또는 선택 도시의 현재 날씨를 확인합니다." data-ja="現在地または選択した都市の天気を確認でき、旅行中に役立ちます。">Current conditions for your location or selected city, useful while you are actually traveling.</p>
       </div>
       <span class="slot-type api" id="liveWeatherBadge">LIVE WEB DATA</span>
     </div>
-    <div id="liveWeatherStatus" class="live-weather-status" aria-live="polite" data-en="Loading current weather…" data-ko="현재 날씨 불러오는 중…">Loading current weather…</div>
+    <div id="liveWeatherStatus" class="live-weather-status" aria-live="polite" data-en="Loading current weather…" data-ko="현재 날씨 불러오는 중…" data-ja="現在の天気を読み込み中…">Loading current weather…</div>
     <div id="liveWeatherGrid" class="live-weather-grid"></div>
     <div id="liveWeatherAdvice"></div>
     <div class="live-weather-actions">
-      <button type="button" class="mini-action" id="liveWeatherRefreshBtn" data-en="Refresh weather" data-ko="날씨 새로고침">Refresh weather</button>
+      <button type="button" class="mini-action" id="liveWeatherRefreshBtn" data-en="Refresh weather" data-ko="날씨 새로고침" data-ja="天気を更新">Refresh weather</button>
     </div>
   </div>
   <div class="feature-card live-air-quality-card" id="liveAirQualityLayer">
     <div class="feature-top">
       <div>
-        <h3 data-en="Air quality · PM2.5 / PM10" data-ko="미세먼지 · PM2.5 / PM10">Air quality · PM2.5 / PM10</h3>
-        <p data-en="Uses the same location or selected-city coordinates as live weather, then grades PM2.5 and PM10 using Korea's local thresholds." data-ko="실시간 날씨와 같은 현재 위치 또는 선택 도시 좌표를 사용하고, PM2.5·PM10을 한국 기준으로 직접 등급 계산합니다.">Uses the same location or selected-city coordinates as live weather, then grades PM2.5 and PM10 using Korea's local thresholds.</p>
+        <h3 data-en="Air quality · PM2.5 / PM10" data-ko="미세먼지 · PM2.5 / PM10" data-ja="大気質・PM2.5 / PM10">Air quality · PM2.5 / PM10</h3>
+        <p data-en="Uses the same location or selected-city coordinates as live weather, then grades PM2.5 and PM10 using Korea's local thresholds." data-ko="실시간 날씨와 같은 현재 위치 또는 선택 도시 좌표를 사용하고, PM2.5·PM10을 한국 기준으로 직접 등급 계산합니다." data-ja="天気と同じ現在地または選択都市の座標を使用し、韓国の基準でPM2.5とPM10を評価します。">Uses the same location or selected-city coordinates as live weather, then grades PM2.5 and PM10 using Korea's local thresholds.</p>
       </div>
       <span class="slot-type api" id="liveAirQualityBadge">LIVE WEB DATA</span>
     </div>
-    <div id="liveAirQualityStatus" class="live-air-quality-status" aria-live="polite" data-en="Loading current air quality…" data-ko="현재 미세먼지 불러오는 중…">Loading current air quality…</div>
+    <div id="liveAirQualityStatus" class="live-air-quality-status" aria-live="polite" data-en="Loading current air quality…" data-ko="현재 미세먼지 불러오는 중…" data-ja="現在の大気質を読み込み中…">Loading current air quality…</div>
     <div id="liveAirQualityGrid" class="live-air-quality-grid"></div>
     <div id="liveAirQualityGrade"></div>
     <div id="liveAirQualityAdvice"></div>
@@ -3945,8 +3945,8 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
   <div class="feature-card" id="koreaTimeLayer">
     <div class="feature-top">
       <div>
-        <h3 data-en="Korea time · late-arrival check" data-ko="한국 시간 · 늦은 도착 체크">Korea time · late-arrival check</h3>
-        <p data-en="Uses Korea Standard Time to warn when last-mile transport may need extra checking. It does not claim live last-train data." data-ko="한국 표준시를 기준으로 늦은 시간 이동 시 마지막 이동수단 확인을 안내합니다. 실시간 막차 정보라고 표시하지 않습니다.">Uses Korea Standard Time to warn when last-mile transport may need extra checking. It does not claim live last-train data.</p>
+        <h3 data-en="Korea time · late-arrival check" data-ko="한국 시간 · 늦은 도착 체크" data-ja="韓国時間・遅延到着チェック">Korea time · late-arrival check</h3>
+        <p data-en="Uses Korea Standard Time to warn when last-mile transport may need extra checking. It does not claim live last-train data." data-ko="한국 표준시를 기준으로 늦은 시간 이동 시 마지막 이동수단 확인을 안내합니다. 실시간 막차 정보라고 표시하지 않습니다." data-ja="韓国標準時を基準に、最終区間の移動手段を追加で確認すべきタイミングを知らせます。リアルタイムの終電情報ではありません。">Uses Korea Standard Time to warn when last-mile transport may need extra checking. It does not claim live last-train data.</p>
       </div>
       <span class="slot-type local" id="koreaTimeBadge">KST</span>
     </div>
@@ -3954,11 +3954,11 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
     <div id="koreaTimeAdvice"></div>
   </div>
     <details class="tool-fold">
-      <summary><span data-en="Upcoming movement tools" data-ko="추후 연결 이동 기능">Upcoming movement tools</span><small data-en="Not active yet" data-ko="아직 미연결">Not active yet</small></summary>
+      <summary><span data-en="Upcoming movement tools" data-ko="추후 연결 이동 기능" data-ja="今後追加予定の移動機能">Upcoming movement tools</span><small data-en="Not active yet" data-ko="아직 미연결">Not active yet</small></summary>
       <div class="feature-stack tool-fold-stack">
-        <div class="feature-card"><div class="feature-top"><div><h3 data-en="Multi-stop optimizer" data-ko="여러 경유지 최적 순서">Multi-stop optimizer</h3><p data-en="Planned tool for comparing waypoint order after verified travel-time data is connected." data-ko="검증된 이동시간 데이터 연결 후 경유지 순서를 비교할 예정인 기능입니다.">Planned tool for comparing waypoint order after verified travel-time data is connected.</p></div><span class="slot-type local">FUTURE</span></div></div>
-        <div class="feature-card"><div class="feature-top"><div><h3 data-en="Live ETA & alternate transport" data-ko="실시간 ETA · 대체 이동수단">Live ETA & alternate transport</h3><p data-en="Future integration for verified traffic delay and alternate-mode data." data-ko="검증된 교통 지연·대체 이동수단 데이터 연결을 위한 추후 기능입니다.">Future integration for verified traffic delay and alternate-mode data.</p></div><span class="slot-type api">FUTURE</span></div></div>
-        <div class="feature-card"><div class="feature-top"><div><h3 data-en="Transfers, exits & accessibility" data-ko="환승·출구·접근성">Transfers, exits & accessibility</h3><p data-en="Future verified data layer for station transfer and accessibility details." data-ko="역 환승·접근성 세부정보를 검증 데이터로 연결하기 위한 추후 레이어입니다.">Future verified data layer for station transfer and accessibility details.</p></div><span class="slot-type api">FUTURE</span></div></div>
+        <div class="feature-card"><div class="feature-top"><div><h3 data-en="Multi-stop optimizer" data-ko="여러 경유지 최적 순서" data-ja="複数経由地の最適化">Multi-stop optimizer</h3><p data-en="Planned tool for comparing waypoint order after verified travel-time data is connected." data-ko="검증된 이동시간 데이터 연결 후 경유지 순서를 비교할 예정인 기능입니다." data-ja="検証済みの移動時間データと連携後、経由地の順序を比較する予定の機能です。">Planned tool for comparing waypoint order after verified travel-time data is connected.</p></div><span class="slot-type local">FUTURE</span></div></div>
+        <div class="feature-card"><div class="feature-top"><div><h3 data-en="Live ETA & alternate transport" data-ko="실시간 ETA · 대체 이동수단" data-ja="リアルタイムETA・代替交通手段">Live ETA & alternate transport</h3><p data-en="Future integration for verified traffic delay and alternate-mode data." data-ko="검증된 교통 지연·대체 이동수단 데이터 연결을 위한 추후 기능입니다." data-ja="検証済みの交通遅延・代替手段データとの連携を予定しています。">Future integration for verified traffic delay and alternate-mode data.</p></div><span class="slot-type api">FUTURE</span></div></div>
+        <div class="feature-card"><div class="feature-top"><div><h3 data-en="Transfers, exits & accessibility" data-ko="환승·출구·접근성" data-ja="乗り換え・出口・バリアフリー">Transfers, exits & accessibility</h3><p data-en="Future verified data layer for station transfer and accessibility details." data-ko="역 환승·접근성 세부정보를 검증 데이터로 연결하기 위한 추후 레이어입니다." data-ja="駅の乗り換え・バリアフリー詳細情報の追加を予定しています。">Future verified data layer for station transfer and accessibility details.</p></div><span class="slot-type api">FUTURE</span></div></div>
       </div>
     </details>
   </div>
