@@ -20,3 +20,4 @@ This bundle is intentionally limited to QA/CI scaffolding. It does not change `i
 
 ## Next phase
 After baseline smoke passes, add automated versions of REG-001, REG-002 and REG-003 using stable selectors from the actual UI. Keep ODsay Preview-host limitations classified as `BLOCKED_ENV` until KR-ISSUE-004 is resolved, per AGENTS.md.
+AI Dev Command end-to-end test passed.
