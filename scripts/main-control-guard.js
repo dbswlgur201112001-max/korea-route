@@ -10,6 +10,18 @@ const read = (rel) => fs.readFileSync(path.join(root, rel), 'utf8');
 const exists = (rel) => fs.existsSync(path.join(root, rel));
 const digest = (text) => crypto.createHash('sha256').update(text.replace(/\r\n/g, '\n')).digest('hex');
 const check = (condition, message) => { if (!condition) failures.push(message); };
+// These baseline declarations have top-level, column-zero closing delimiters.
+// Fail closed on missing/duplicate/changed declarations; never execute app code.
+// Hash only the matched declaration, so unrelated HTML/JS remains editable.
+const storageRegions = {
+  KOREA_ROUTE_AUTO_PERSIST_KEY: /^const KOREA_ROUTE_AUTO_PERSIST_KEY=[^\n]+;$/gm,
+  KOREA_ROUTE_PERSIST_SESSION_KEYS: /^const KOREA_ROUTE_PERSIST_SESSION_KEYS=\[[\s\S]*?^\];$/gm,
+  KOREA_ROUTE_PERSIST_EXCLUDED_KEYS: /^const KOREA_ROUTE_PERSIST_EXCLUDED_KEYS=new Set\(\[[\s\S]*?^\]\);$/gm,
+};
+for (const name of ['v11PersistTripData', 'koreaRoutePersistSessionState',
+  'koreaRouteBuildPersistedState', 'koreaRouteRestorePersistedSessionState']) {
+  storageRegions[name] = new RegExp(`^function ${name}\\([^\\n]*\\{[\\s\\S]*?^\\}`, 'gm');
+}
 
 try {
   const baseline = JSON.parse(fs.readFileSync(inventory, 'utf8'));
@@ -20,15 +32,25 @@ try {
     check(exists(file), `Missing frozen source: ${file}`);
     if (exists(file)) check(digest(read(file)) === expected, `Baseline source changed: ${file}`);
   }
-  check(Boolean(baseline.frozenSourceSha256['index.html']), 'Missing storage/host source fingerprint');
+  check(!Object.hasOwn(baseline.frozenSourceSha256, 'index.html'), 'Whole index.html fingerprint is not allowed');
   for (const file of baseline.requiredDataFiles) {
     if (!exists(file)) continue;
     try { JSON.parse(read(file)); } catch { failures.push(`Invalid JSON: ${file}`); }
   }
   if (exists('index.html')) {
-    const index = read('index.html');
-    // Names alone do not prove schema preservation. The full source fingerprint
-    // above also freezes call sites, registration/exclusion arrays and restore policy.
+    const index = read('index.html').replace(/\r\n/g, '\n');
+    // Function fingerprints cover the payload schema, null-only restore policy,
+    // dual trip writes and immediate backup call, not just identifier presence.
+    const fingerprints = baseline.storageSourceSha256 || {};
+    check(Object.keys(fingerprints).length === Object.keys(storageRegions).length,
+      'Storage contract fingerprint inventory mismatch');
+    for (const [name, pattern] of Object.entries(storageRegions)) {
+      const matches = [...index.matchAll(pattern)];
+      check(matches.length === 1, `Missing or ambiguous storage contract: ${name}`);
+      check(typeof fingerprints[name] === 'string' && /^[a-f0-9]{64}$/.test(fingerprints[name]),
+        `Missing storage contract fingerprint: ${name}`);
+      if (matches.length === 1) check(digest(matches[0][0]) === fingerprints[name], `Storage contract changed: ${name}`);
+    }
     for (const key of baseline.protectedStorageKeys) check(index.includes(key), `Missing storage key: ${key}`);
     for (const fn of baseline.protectedFunctions) check(index.includes(fn), `Missing function: ${fn}`);
   }
@@ -68,7 +90,8 @@ try {
   console.log(`Baseline: ${baseline.sourceCommit}`);
   console.log(`${files.length} runtime files; ${baseline.requiredDataFiles.length} valid data JSON files; ${baseline.protectedStorageKeys.length} protected keys`);
   console.log(`${Object.keys(baseline.frozenSourceSha256).length} baseline source fingerprints match (LF normalized)`);
-  console.log('Storage implementation and ODsay host logic unchanged at source level.');
+  console.log(`${Object.keys(storageRegions).length} storage contract fingerprints match (LF normalized).`);
+  console.log('Only selected storage declarations are frozen in index.html; other code, including host logic, is not verified.');
   console.log('Static workflow checks passed; these are not a general shell security proof.');
   console.log('BROWSER BEHAVIOR / REG-001 / REG-002 / REG-003: UNTESTED by this guard');
 } catch (error) {
