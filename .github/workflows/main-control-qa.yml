@@ -1,0 +1,73 @@
+name: Main Control QA
+
+on:
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: "Optional HTTPS Preview URL. Leave blank to run against the local static server."
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  baseline_guard:
+    name: Baseline guard
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout selected ref
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Verify protected baseline
+        run: node scripts/main-control-guard.js
+
+  smoke:
+    name: Mobile smoke
+    needs: baseline_guard
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      BASE_URL: ${{ inputs.base_url }}
+
+    steps:
+      - name: Checkout selected ref
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install --no-package-lock
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run mobile smoke
+        run: npm run qa:smoke
+
+      - name: Upload Playwright evidence on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: main-control-playwright-evidence-${{ github.run_id }}
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+          retention-days: 7

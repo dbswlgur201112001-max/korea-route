@@ -1,10 +1,14 @@
-name: AI Dev Command
+name: AI Dev Command - Patch Only
 
 on:
   workflow_dispatch:
     inputs:
+      source_ref:
+        description: "Existing non-production branch name or refs/heads/branch; no tags or commit expressions."
+        required: true
+        type: string
       task:
-        description: "Describe the code change you want Codex to make"
+        description: "Describe the smallest code change to prepare"
         required: true
         type: string
 
@@ -13,130 +17,97 @@ permissions:
 
 jobs:
   generate_patch:
-    name: Generate Codex patch
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    outputs:
-      has_patch: ${{ steps.diff.outputs.has_patch }}
-
+    timeout-minutes: 20
     steps:
-      - name: Checkout main
+      - name: Validate existing non-production branch name
+        id: source
+        shell: bash
+        env:
+          SOURCE_REF: ${{ inputs.source_ref }}
+        run: |
+          case "$SOURCE_REF" in
+            refs/heads/*) branch="${SOURCE_REF#refs/heads/}" ;;
+            refs/*) echo "Only branch refs are accepted" >&2; exit 1 ;;
+            *) branch="$SOURCE_REF" ;;
+          esac
+          case "${branch,,}" in
+            main|master|'') echo "Production/default branch is forbidden" >&2; exit 1 ;;
+          esac
+          git check-ref-format "refs/heads/$branch"
+          echo "ref=refs/heads/$branch" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout existing branch without saved credentials
         uses: actions/checkout@v5
         with:
-          ref: main
+          ref: ${{ steps.source.outputs.ref }}
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Run Codex
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Snapshot and run static guard before editing
+        shell: bash
+        run: |
+          cp scripts/main-control-guard.js "$RUNNER_TEMP/main-control-guard.js"
+          cp main-control/baseline.json "$RUNNER_TEMP/main-control-baseline.json"
+          node "$RUNNER_TEMP/main-control-guard.js" "$GITHUB_WORKSPACE" "$RUNNER_TEMP/main-control-baseline.json"
+
+      - name: Generate working-tree edits only
         uses: openai/codex-action@v1
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           sandbox: workspace-write
           prompt: |
-            You are working in the KOREA ROUTE repository.
+            Read AGENTS.md first and follow it. Read MAIN_CONTROL.md and main-control/baseline.json.
+            Task: ${{ inputs.task }}
+            Make only the smallest requested working-tree edits.
+            Preserve storage schemas, keys, session registration/exclusions, restore policy,
+            persistence functions, NFC behavior and current ODsay host handling.
+            Do not modify control/guard/workflow files or weaken validation.
+            Do not create branches, commit, publish, open PRs, merge, deploy, promote,
+            change domains, or change secrets/environment variables.
+            Leave edits in the working tree only. Static checks are not browser QA.
 
-            First, read AGENTS.md and follow it exactly.
+      - name: Check original guard and control files after editing
+        shell: bash
+        run: |
+          node "$RUNNER_TEMP/main-control-guard.js" "$GITHUB_WORKSPACE" "$RUNNER_TEMP/main-control-baseline.json"
+          git add -N .
+          git diff --exit-code HEAD -- AGENTS.md MAIN_CONTROL.md main-control scripts/main-control-guard.js .github/workflows
 
-            User task:
-            ${{ inputs.task }}
-
-            Rules:
-            - Make the smallest change necessary for the requested task.
-            - Do not modify unrelated code.
-            - Do not commit, push, open a pull request, merge, or deploy.
-            - Never write secrets or API keys into the repository.
-            - Do not change production/main directly; only edit the checked-out working tree.
-            - Preserve existing storage keys and data structures unless the task explicitly requires otherwise.
-            - Respect all restrictions in AGENTS.md.
-            - When finished, leave the requested code changes in the working tree.
-
-      - name: Create patch artifact
+      - name: Generate binary-safe patch outside repository
         id: diff
         shell: bash
         run: |
           git add -N .
-          git diff --binary HEAD > codex.patch
-
-          if [ -s codex.patch ]; then
+          git diff --binary HEAD > "$RUNNER_TEMP/codex.patch"
+          if [ -s "$RUNNER_TEMP/codex.patch" ]; then
             echo "has_patch=true" >> "$GITHUB_OUTPUT"
           else
             echo "has_patch=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Upload patch artifact
+      - name: Install existing QA dependencies
         if: steps.diff.outputs.has_patch == 'true'
+        run: npm install --no-package-lock
+
+      - name: Install Playwright Chromium
+        if: steps.diff.outputs.has_patch == 'true'
+        run: npx playwright install --with-deps chromium
+
+      - name: Run existing mobile smoke
+        if: steps.diff.outputs.has_patch == 'true'
+        run: npm run qa:smoke
+
+      - name: Upload validated patch artifact only
+        if: success() && steps.diff.outputs.has_patch == 'true'
         uses: actions/upload-artifact@v4
         with:
-          name: codex-task-patch-${{ github.run_id }}
-          path: codex.patch
+          name: codex-main-control-patch-${{ github.run_id }}
+          path: ${{ runner.temp }}/codex.patch
           if-no-files-found: error
           retention-days: 3
-
-  open_pr:
-    name: Open review PR
-    runs-on: ubuntu-latest
-    needs: generate_patch
-    if: needs.generate_patch.outputs.has_patch == 'true'
-    permissions:
-      contents: write
-      pull-requests: write
-
-    steps:
-      - name: Checkout main
-        uses: actions/checkout@v5
-        with:
-          ref: main
-          fetch-depth: 0
-
-      - name: Download Codex patch
-        uses: actions/download-artifact@v4
-        with:
-          name: codex-task-patch-${{ github.run_id }}
-
-      - name: Apply patch
-        run: git apply --index codex.patch
-
-      - name: Commit and push review branch
-        id: branch
-        shell: bash
-        env:
-          RUN_ID: ${{ github.run_id }}
-        run: |
-          branch="codex/ai-task-$RUN_ID"
-
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git switch -c "$branch"
-          git commit -m "chore(ai): automated task $RUN_ID"
-          git push origin "$branch"
-
-          echo "name=$branch" >> "$GITHUB_OUTPUT"
-
-      - name: Open pull request
-        shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
-          TASK: ${{ inputs.task }}
-          BRANCH: ${{ steps.branch.outputs.name }}
-          RUN_ID: ${{ github.run_id }}
-        run: |
-          {
-            echo "## AI task"
-            echo
-            printf '%s\n' "$TASK"
-            echo
-            echo "## Automation"
-            echo
-            echo "- Generated by the official OpenAI Codex GitHub Action."
-            echo "- Changes are on a review branch only."
-            echo "- Existing PR checks, including QA Smoke and Vercel Preview, should run before merge."
-            echo "- Production merge still requires approval."
-          } > pr-body.md
-
-          gh pr create \
-            --base main \
-            --head "$BRANCH" \
-            --title "AI task $RUN_ID" \
-            --body-file pr-body.md
