@@ -3239,6 +3239,12 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
 #todayTripSummary dl>div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:12px;font-size:13px;line-height:1.5}
 #todayTripSummary dt{color:#53657d}#todayTripSummary dd{margin:0;font-weight:700;overflow-wrap:anywhere}
 #todayTripSummary button{width:100%;min-height:44px;padding:10px;border:0;border-radius:12px;background:#10233f;color:white;font-weight:700;font-size:14px;white-space:normal}
+#helperHub #scanTranslateChoices{display:none}
+#helperHub.scan-translate-open>:not(#scanTranslateChoices){display:none!important}
+#helperHub.scan-translate-open #scanTranslateChoices{display:grid;gap:12px;min-width:0}
+#scanTranslateChoices h1{font-size:24px;line-height:1.4;overflow-wrap:anywhere}
+#scanTranslateChoices button{min-height:48px;width:100%;padding:14px;border:1px solid #dce5ef;border-radius:12px;background:white;color:#10233f;text-align:left;font-size:16px;white-space:normal;overflow-wrap:anywhere}
+#moveHub #checkRideLayer.scan-check-ride{display:block!important}
 #todayAssignedPlaces{margin:0 0 16px;padding:0 16px;min-width:0;overflow-wrap:anywhere}
 #todayAssignedPlaces[hidden]{display:none}
 #todayAssignedPlaces h3{font-size:14px;line-height:1.5;margin:0 0 8px}
@@ -4434,6 +4440,14 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
 </section>
 
 <section class="screen" id="helperHub">
+  <div id="scanTranslateChoices">
+    <button type="button" onclick="v60OpenHome()" data-en="Back" data-ko="뒤로" data-ja="戻る">Back</button>
+    <h1 data-en="Scan & translate" data-ko="사진·번역" data-ja="撮影・翻訳">Scan & translate</h1>
+    <button type="button" onclick="openTranslationHub()" data-en="Translate text" data-ko="글자 번역" data-ja="テキスト翻訳">Translate text</button>
+    <button type="button" onclick="openTwoWayTalkHub()" data-en="Two-way talk" data-ko="양방향 대화" data-ja="双方向会話">Two-way talk</button>
+    <button type="button" onclick="openKioskHelpHub()" data-en="Read a menu / kiosk" data-ko="메뉴·키오스크 읽기" data-ja="メニュー・キオスクを読む">Read a menu / kiosk</button>
+    <button type="button" onclick="openCheckRide()" data-en="Check my ride" data-ko="탑승 확인" data-ja="乗車確認">Check my ride</button>
+  </div>
   <div class="top"><button type="button" class="back" aria-label="Back / 뒤로" onclick="go('home')">‹</button><div class="brand" data-en="Help" data-ja="ヘルプ" data-ko="도움">Help</div><button class="pill" onclick="toggleLang()">EN / 한국어</button></div>
   <div class="v60-screen-intro"><h1 data-en="What do you need help with?" data-ko="어떤 도움이 필요한가요?">What do you need help with?</h1><p data-en="Start with the urgent action. Open the full toolbox only when you need it." data-ko="지금 필요한 행동부터 선택하세요. 전체 여행 도구는 필요할 때만 여세요.">Start with the urgent action. Open the full toolbox only when you need it.</p></div>
   <div class="v118-help-overview" id="v118HelpOverview">
@@ -16164,6 +16178,7 @@ window.addEventListener('pagehide',()=>{if(v53StopAlertActive){v53ClearWatch();v
 let checkRideImageDataUrl='';
 let checkRideOriginalName='';
 function openCheckRide(){
+  document.getElementById('checkRideLayer')?.classList.add('scan-check-ride');
   go('moveHub');
   setTimeout(()=>{syncCheckRideFromMove(false);document.getElementById('checkRideLayer')?.scrollIntoView({behavior:'smooth',block:'start'});},80);
 }
@@ -16742,7 +16757,7 @@ setTimeout(renderNearbyEssentialsStatus,0);
 <script id="v118-navigation-architecture">
 function v118OpenHelpTab(){
   const hub=document.getElementById('helperHub');
-  if(hub) hub.classList.remove('v118-tools-open');
+  if(hub) hub.classList.remove('v118-tools-open','scan-translate-open');
   go('helperHub');
   if(typeof v60SyncTabbar==='function')v60SyncTabbar('helperHub');
   window.scrollTo({top:0,behavior:'smooth'});
@@ -16756,7 +16771,7 @@ function v118OpenToolMenu(group='language'){
 }
 function v118CloseToolMenu(){
   const hub=document.getElementById('helperHub'); if(!hub)return;
-  hub.classList.remove('v118-tools-open');
+  hub.classList.remove('v118-tools-open','scan-translate-open');
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function v118Call1330(){
@@ -22948,7 +22963,7 @@ body.dark .v213-google-map-btn,body.dark .v213-map-action-row #v210MapMoreFloat,
   };
   window.v220OpenMore=function(){
     if(typeof v118OpenHelpTab==='function') v118OpenHelpTab();
-    setTimeout(()=>{ try{ if(typeof v118OpenToolMenu==='function') v118OpenToolMenu('language'); }catch(_){} },80);
+    setTimeout(()=>{ try{ if(typeof v118OpenToolMenu==='function') v118OpenToolMenu('language'); document.getElementById('helperHub')?.classList.add('scan-translate-open'); }catch(_){} },80);
   };
 })();
 </script>
