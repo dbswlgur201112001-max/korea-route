@@ -3239,6 +3239,10 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
 #todayTripSummary dl>div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:12px;font-size:13px;line-height:1.5}
 #todayTripSummary dt{color:#53657d}#todayTripSummary dd{margin:0;font-weight:700;overflow-wrap:anywhere}
 #todayTripSummary button{width:100%;min-height:44px;padding:10px;border:0;border-radius:12px;background:#10233f;color:white;font-weight:700;font-size:14px;white-space:normal}
+#todayTripSummary .today-plan-status{padding:12px;margin:12px 0;border-radius:12px;background:#f1f6fc;overflow-wrap:anywhere}
+#todayTripSummary .today-plan-status small{display:block;color:#53657d;font-size:11px;line-height:1.5;margin-bottom:6px}
+#todayTripSummary .today-plan-status strong{display:block;font-size:14px;line-height:1.5}
+#todayTripSummary .today-plan-status a{display:block;padding:10px;margin-top:8px;border-radius:9px;background:#10233f;color:#fff;text-align:center;text-decoration:none;font-size:14px;line-height:1.5}
 </style>
 
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)}</script><script defer src="/_vercel/insights/script.js"></script>
@@ -5229,12 +5233,75 @@ function v211ApplyAllMapLabelLanguages(){
   try{ v211ApplyMapLabelLanguage(routeMapTileLayer?.getMaplibreMap?.(),lang); }catch(_){ }
 }
 
-// Display only: reads existing selections; never derives a day or writes storage.
+// Calendar ordinals avoid browser-local midnight and DST arithmetic.
+function homeTripDayOrdinal(value){
+  if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(value)) return null;
+  const [year,month,day]=value.split('-').map(Number);
+  if(year<1) return null;
+  const date=new Date(0);date.setUTCHours(0,0,0,0);date.setUTCFullYear(year,month-1,day);
+  if(date.getUTCFullYear()!==year||date.getUTCMonth()!==month-1||date.getUTCDate()!==day) return null;
+  return date.getTime()/86400000;
+}
+function readHomeTripDates(raw){
+  try{
+    const trip=JSON.parse(raw);
+    if(!trip||typeof trip!=='object'||Array.isArray(trip)) return null;
+    if(typeof trip.start!=='string'||!trip.start.trim()||typeof trip.dest!=='string'||!trip.dest.trim()) return null;
+    if(!['string','number'].includes(typeof trip.days)||! /^(?:[1-9]|10)$/.test(String(trip.days))) return null;
+    const startDay=homeTripDayOrdinal(trip.date),days=Number(trip.days);
+    if(startDay===null) return null;
+    const endDay=startDay+days-1;
+    if(new Date(endDay*86400000).getUTCFullYear()>9999) return null;
+    return {start:trip.start,dest:trip.dest,date:trip.date,days,startDay,endDay};
+  }catch(_){return null;}
+}
+function homeTripIntelligence(now=new Date()){
+  const unknown={state:'NO_DATES',day:null};
+  try{
+    const session=sessionStorage.getItem('koreaRouteTrip');
+    const local=localStorage.getItem('koreaRouteSavedTrip');
+    if(session===null&&local===null) return unknown;
+    const a=session===null?null:readHomeTripDates(session);
+    const b=local===null?null:readHomeTripDates(local);
+    if((session!==null&&!a)||(local!==null&&!b)) return unknown;
+    if(a&&b&&['start','dest','date','days'].some(key=>a[key]!==b[key])) return unknown;
+    const trip=a||b,today=homeTripDayOrdinal(todayLocalYmd(now));
+    if(today===null) return unknown;
+    const state=today<trip.startDay?'PRE_TRIP':today>trip.endDay?'POST_TRIP':today===trip.endDay?'LAST_DAY':'IN_TRIP';
+    const day=state==='IN_TRIP'||state==='LAST_DAY'?today-trip.startDay+1:null;
+    if(day!==null&&(day<1||day>trip.days)) return unknown;
+    return {...trip,state,day};
+  }catch(_){return unknown;}
+}
+function homeTripIntelligenceHtml(){
+  const trip=homeTripIntelligence();
+  const text=(en,ko,ja)=>lang==='ko'?ko:lang==='ja'?ja:en;
+  let title='',detail='',action='v60OpenTripOverview()',label=text('Open My Trip','내 여행 열기','マイ旅行を開く');
+  if(trip.state==='NO_DATES'){
+    title=text('Trip dates not confirmed','여행 날짜를 확인해 주세요','旅行日程を確認してください');
+    detail=text('Check your saved dates in Planner.','Planner에서 저장된 날짜를 확인해 주세요.','Plannerで保存した日付を確認してください。');
+    action='go(&quot;planner&quot;)';label=text('Check dates','날짜 확인','日付を確認');
+  }else if(trip.state==='PRE_TRIP'){
+    const date=new Intl.DateTimeFormat(lang==='ko'?'ko-KR':lang==='ja'?'ja-JP':'en-US',{timeZone:'UTC',year:'numeric',month:'long',day:'numeric'}).format(new Date(trip.startDay*86400000));
+    title=text('Before your saved trip','저장된 여행 전','保存した旅行の前');
+    detail=text('Your saved trip starts on '+date+'.','저장된 여행은 '+date+'에 시작합니다.','保存した旅行は'+date+'に始まります。');
+  }else if(trip.state==='POST_TRIP'){
+    title=text('Saved trip period ended','저장된 여행 기간이 지났어요','保存した旅行期間は終了しました');
+  }else{
+    title=trip.state==='LAST_DAY'
+      ?text('Last day of your saved trip · Day '+trip.day,'저장된 여행의 마지막 날 · '+trip.day+'일차','保存した旅行の最終日 · '+trip.day+'日目')
+      :text('Saved trip · Day '+trip.day+' of '+trip.days,'저장된 여행 · '+trip.days+'일 중 '+trip.day+'일차','保存した旅行 · '+trip.days+'日中 '+trip.day+'日目');
+    action='v60OpenRouteTab()';label=text('Get there','이동하기','移動する');
+  }
+  return '<div class="today-plan-status" data-plan-state="'+trip.state+'"><small>'+text('Based on your saved trip plan · Korea dates','저장된 여행계획 기간 기준 · 한국 날짜','保存した旅行計画の期間に基づく · 韓国の日付')+'</small><strong>'+escapeHtmlText(title)+'</strong>'+(detail?'<p>'+escapeHtmlText(detail)+'</p>':'')+'<a href="#home" onclick="'+action+';return false">'+label+'</a></div>';
+}
+
+// Display only: reads existing selections; never writes storage.
 function renderHomeTripSummary(){
   const host=document.getElementById('todayTripSummary'); if(!host)return;
   const text=(en,ko,ja)=>lang==='ko'?ko:lang==='ja'?ja:en;
   const esc=escapeHtmlText;
-  const routeText=routeSummaryText(myTripRouteSelection());
+  const routeText=routeSummaryText(myTripRouteSelection())||routeSummaryText(homeTripIntelligence());
   const stay=myTripStaySelection();
   const stayName=stay&&typeof stay==='object'
     ? (lang==='ko'?(stay.nameKo||stay.nameEn):(lang==='ja'?(stay.nameJa||stay.nameEn||stay.nameKo):(stay.nameEn||stay.nameKo))) : '';
@@ -5247,7 +5314,7 @@ function renderHomeTripSummary(){
   const count=Array.isArray(places)?places.length:0;
   const hasData=!!(routeText||stayText||walletText||checklist.done||count);
   const notSet=text('Not set','미설정','未設定');
-  const heading='<h2>'+text('Trip overview','여행 요약','旅行サマリー')+'</h2><p>'+text('Your saved trip at a glance','저장된 여행 한눈에 보기','保存した旅行をひと目で確認')+'</p>';
+  const heading='<h2>'+text('Trip overview','여행 요약','旅行サマリー')+'</h2><p>'+text('Your saved trip at a glance','저장된 여행 한눈에 보기','保存した旅行をひと目で確認')+'</p>'+homeTripIntelligenceHtml();
   if(!hasData){
     host.innerHTML=heading+'<h3>'+text('No trip saved yet','아직 저장된 여행이 없어요','保存された旅行はまだありません')+'</h3><p>'+text('Add a plan to see your trip summary here.','일정을 추가하면 여기에서 여행 요약을 볼 수 있어요.','予定を追加すると、ここで旅行の概要を確認できます。')+'</p><button type="button" onclick="go(&quot;planner&quot;)">'+text('Add a plan','일정 추가','予定を追加')+'</button>';
     return;
