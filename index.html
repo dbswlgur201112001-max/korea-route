@@ -4955,10 +4955,10 @@ function globalSearchDynamicResults(query){
   try{
     Object.entries(cityGuideConfig).forEach(([key,cfg])=>{
       const score=globalSearchScore(query,`${key} ${cfg.ko||''} city 도시 여행`);
-      if(score)out.push({type:'city',group:'city',icon:cfg.emoji||'📍',en:key,ko:cfg.ko||key,descEn:'Open city guide',descKo:'도시 가이드 열기',city:key,score:score+6});
+      if(score)out.push({type:'city',group:'city',icon:cfg.emoji||'📍',en:key,ko:cfg.ko||key,descEn:'Open city guide',descKo:'도시 가이드 열기',descJa:'都市ガイドを開く',city:key,score:score+6});
       (getSelectedCityPois(key)||[]).forEach((p,index)=>{
         const ps=globalSearchScore(query,`${p.en||''} ${p.ko||''} ${key} ${cfg.ko||''}`);
-        if(ps)out.push({type:'poi',group:'place',icon:'📍',en:p.en||p.ko||'',ko:p.ko||p.en||'',descEn:`${key} · destination card`,descKo:`${cfg.ko||key} · 목적지 카드`,city:key,index,score:ps+4});
+        if(ps)out.push({type:'poi',group:'place',icon:'📍',en:p.en||p.ko||'',ko:p.ko||p.en||'',descEn:`${key} · destination card`,descKo:`${cfg.ko||key} · 목적지 카드`,descJa:`${key} · 目的地カード`,city:key,index,score:ps+4});
       });
     });
   }catch(_){ }
@@ -4985,7 +4985,7 @@ function renderGlobalSearchResults(query,groupFilter=''){
   if(label)label.textContent=groupFilter==='nearby'?t('home.search.results.nearbyTitle'):t('home.search.results.title');
   if(count)count.textContent=t(results.length===1?'home.search.results.countOne':'home.search.results.countMany').replace('{count}',results.length);
   if(!results.length){list.innerHTML=`<div class="global-search-empty">${escapeHtmlText(t('home.search.results.empty'))}</div>`;return;}
-  list.innerHTML=results.map((r,i)=>`<button type="button" class="global-search-result" onclick="runGlobalSearchResult(${i})"><span class="icon">${escapeHtmlText(r.icon||'🔎')}</span><span><b>${escapeHtmlText(lang==='ko'?(r.ko||r.en):(r.en||r.ko))}</b><small>${escapeHtmlText(lang==='ko'?(r.descKo||r.descEn||''):(r.descEn||r.descKo||''))}</small></span><em>${escapeHtmlText(globalSearchGroupLabel(r.group))}</em></button>`).join('');
+  list.innerHTML=results.map((r,i)=>`<button type="button" class="global-search-result" onclick="runGlobalSearchResult(${i})"><span class="icon">${escapeHtmlText(r.icon||'🔎')}</span><span><b>${escapeHtmlText(lang==='ko'?(r.ko||r.en):(lang==='ja'&&r.ja?r.ja:(r.en||r.ko)))}</b><small>${escapeHtmlText(lang==='ko'?(r.descKo||r.descEn||''):(lang==='ja'&&r.descJa?r.descJa:(r.descEn||r.descKo||'')))}</small></span><em>${escapeHtmlText(globalSearchGroupLabel(r.group))}</em></button>`).join('');
 }
 function globalSearchInputChanged(){renderGlobalSearchResults(document.getElementById('globalSearchInput')?.value||'');}
 function setGlobalSearchQuery(value){const input=document.getElementById('globalSearchInput');if(!input)return;input.value=value;input.focus();renderGlobalSearchResults(value);}

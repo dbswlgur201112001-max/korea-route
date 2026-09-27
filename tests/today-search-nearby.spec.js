@@ -70,6 +70,18 @@ for (const width of [360, 390]) {
         await expect(page.locator('#v60Tabbar button')).toHaveText(tabs);
         await expect(page.locator('#home .v220-core-card')).toHaveCount(4);
         await page.locator('#globalSearchInput').fill('Suwon');
+        const descriptions = [
+          ['Open city guide', 'Suwon · destination card'],
+          ['도시 가이드 열기', '수원 · 목적지 카드'],
+          ['都市ガイドを開く', 'Suwon · 目的地カード'],
+        ][i];
+        await expect(page.locator('#globalSearchResultList small')).toHaveText([
+          descriptions[0], descriptions[1], descriptions[1], descriptions[1],
+        ]);
+        if (i === 2) {
+          await expect(page.locator('#globalSearchResults')).not.toContainText('Open city guide');
+          await expect(page.locator('#globalSearchResults')).not.toContainText('destination card');
+        }
         if (i === 2) await expect(page.locator('#nearbyEssentialsStatus')).toContainText('を中心に検索');
         await expect(page.locator('#globalSearchResultsLabel')).toHaveText(['SEARCH RESULTS', '검색 결과', '検索結果'][i]);
         expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
@@ -77,8 +89,13 @@ for (const width of [360, 390]) {
         await page.screenshot({ path: test.info().outputPath(`today-search-${width}-${i}.png`), fullPage: true });
         if (i < 2) await page.locator('#langBtn').click();
       }
-      // Record existing result content separately: the search engine remains unchanged.
+      // Japanese descriptions change only presentation; the same city result still opens Suwon.
       await test.info().attach('Japanese search result text', { body: await page.locator('#globalSearchResults').innerText(), contentType: 'text/plain' });
+      await page.locator('#globalSearchResultList button').filter({ hasText: '都市ガイドを開く' }).click();
+      await expect(page.locator('#city')).toHaveClass(/active/);
+      await expect(page.locator('#city')).toHaveAttribute('data-current-city', 'Suwon');
+      await page.goBack();
+      await expect(page.locator('#home')).toHaveClass(/active/);
     });
   });
 }
