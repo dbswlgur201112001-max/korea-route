@@ -3256,6 +3256,17 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
 </style>
 
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)}</script><script defer src="/_vercel/insights/script.js"></script>
+<style>
+#expenseLedgerSection{overflow-wrap:anywhere;min-width:0}
+#expenseLedgerSection form{display:grid;gap:12px;margin:16px 0}
+#expenseLedgerSection label{display:grid;gap:6px;min-width:0}
+#expenseLedgerSection input,#expenseLedgerSection textarea{box-sizing:border-box;width:100%;min-width:0;max-width:100%;padding:10px;border:1px solid #d5dce5;border-radius:10px;font:inherit}
+#expenseLedgerSection button{padding:10px 14px;border-radius:10px;border:1px solid #cbd5e1;background:#f1f5f9;color:#172b45;font:inherit}
+#expenseLedgerSection .expense-actions{display:flex;gap:8px;flex-wrap:wrap}
+#expenseLedgerSection article{border-top:1px solid #d5dce5;padding:14px 0}
+#expenseLedgerSection article p{white-space:pre-wrap}
+#expenseLedgerSection [role=status]{min-height:1.5em}
+</style>
 </head>
 <body>
 <div class="app">
@@ -4083,6 +4094,7 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
     <div id="walletResults"></div>
     <div class="wallet-note" data-en="Budget figures are planning estimates. FX is a daily reference rate, not a card, ATM or cash-exchange quote. Pass, eSIM and card-acceptance data is not live." data-ko="예산 금액은 계획용 예상치입니다. 환율은 일일 기준환율이며 카드·ATM·환전소 실제 적용환율이 아닙니다. 패스·eSIM·카드 사용 가능 정보는 실시간이 아닙니다.">Budget figures are planning estimates. FX is a daily reference rate, not a card, ATM or cash-exchange quote. Pass, eSIM and card-acceptance data is not live.</div>
   </div>
+  <section id="expenseLedgerSection" class="wallet-panel" aria-labelledby="expenseLedgerTitle"></section>
 </section>
 
 
@@ -5391,6 +5403,7 @@ function refreshActiveScreenState(id=current,{entry=false}={}){
     }else if(id==='stayHub'){
       if(entry) initStayHub(); else renderStayOptions();
     }else if(id==='walletHub'){
+      renderExpenseLedger();
       if(entry) initWalletHub(); else { renderTripWallet(); renderLiveFxConversion(); }
     }else if(id==='assistantHub'){
       initAssistantHub();
@@ -7796,6 +7809,139 @@ function parseKoreaRouteExpenseLedger(raw){
     return payload;
   }catch(e){return null;}
 }
+
+
+// Manual purchases are independent of the estimated Budget Wallet.
+let expenseLedgerEditId=null;
+let expenseLedgerMessage='';
+function expenseLedgerText(key){
+  const texts={
+    title:['Expenses','지출 내역','支出記録'], intro:['Track purchases you enter manually.','직접 입력한 구매 내역을 기록합니다.','手動で入力した購入履歴を記録します。'],
+    store:['Store name','상점명','店舗名'],date:['Purchase date','구매일','購入日'],amount:['Amount (KRW)','금액 (KRW)','金額 (KRW)'],note:['Note (optional)','메모 (선택)','メモ（任意）'],
+    add:['Add expense','구매 추가','支出を追加'],edit:['Edit','수정','編集'],save:['Save edit','수정 저장','変更を保存'],cancel:['Cancel','취소','キャンセル'],remove:['Delete','삭제','削除'],
+    empty:['No expenses yet.','아직 구매 내역이 없습니다.','支出記録はまだありません。'],
+    warning:['Do not enter passport numbers, card numbers, passwords or verification codes.','여권번호, 카드번호, 비밀번호, 인증번호를 입력하지 마세요.','パスポート番号、カード番号、パスワード、認証コードを入力しないでください。'],
+    unreadable:['Expense data could not be read. Your stored data was not changed.','지출 데이터를 읽을 수 없습니다. 저장된 데이터는 변경하지 않았습니다.','支出データを読み込めませんでした。保存データは変更していません。'],
+    invalid:['Check the store name (1–100 characters), purchase date (1900 through today in Korea), whole KRW amount (1–999999999), and note (up to 500 characters).','상점명 1~100자, 구매일 1900년부터 한국 기준 오늘까지, 정수 금액 1~999999999원, 메모 500자 이하를 확인하세요.','店舗名1～100文字、購入日1900年から韓国の今日まで、整数金額1～999999999ウォン、メモ500文字以内を確認してください。'],
+    failed:['Could not save. Your stored data was not changed.','저장할 수 없습니다. 저장된 데이터는 변경하지 않았습니다.','保存できませんでした。保存データは変更していません。'],
+    missing:['This record changed or no longer exists. Reopen the record before editing.','기록이 변경되었거나 없습니다. 기록을 다시 열어 주세요.','記録が変更されたか、存在しません。記録を開き直してください。'],
+    confirm:['Delete this purchase?','이 구매 내역을 삭제할까요?','この購入記録を削除しますか？'],
+    saved:['Expense saved.','구매 내역을 저장했습니다.','支出記録を保存しました。'],deleted:['Expense deleted.','구매 내역을 삭제했습니다.','支出記録を削除しました。']
+  };
+  return texts[key]?.[lang==='ko'?1:lang==='ja'?2:0]||'';
+}
+function readExpenseLedger(){
+  try{
+    const raw=localStorage.getItem(KOREA_ROUTE_EXPENSE_LEDGER_KEY);
+    return {raw,payload:raw===null?{version:1,records:[]}:parseKoreaRouteExpenseLedger(raw)};
+  }catch(e){return {raw:null,payload:null};}
+}
+function writeKoreaRouteExpenseLedger(payload,expectedRaw){
+  try{
+    const raw=JSON.stringify(payload);
+    if(!parseKoreaRouteExpenseLedger(raw)) return false;
+    // Compare with the mutation's fresh read; never write over unreadable/newer data.
+    const current=readExpenseLedger();
+    if(!current.payload||current.raw!==expectedRaw) return false;
+    localStorage.setItem(KOREA_ROUTE_EXPENSE_LEDGER_KEY,raw);
+    return true;
+  }catch(e){return false;}
+}
+function expenseLedgerFeedback(key){
+  expenseLedgerMessage=key;
+  const el=document.getElementById('expenseLedgerStatus');
+  if(el) el.textContent=expenseLedgerText(key);
+}
+function saveManualExpense(event){
+  event.preventDefault();
+  const form=document.getElementById('expenseLedgerForm');
+  const values={storeName:form.elements.storeName.value.trim(),purchaseDate:form.elements.purchaseDate.value,
+    amountKrw:Number(form.elements.amountKrw.value),note:form.elements.note.value};
+  const now=new Date().toISOString();
+  // Reuse the contract validator for calendar, size and integer validation.
+  const probe={id:'00000000-0000-4000-8000-000000000000',...values,createdAt:now,updatedAt:now};
+  if(values.purchaseDate>todayLocalYmd()||!parseKoreaRouteExpenseLedger(JSON.stringify({version:1,records:[probe]}))){expenseLedgerFeedback('invalid');return;}
+  const current=readExpenseLedger();
+  if(!current.payload){expenseLedgerFeedback('unreadable');return;}
+  let next;
+  if(expenseLedgerEditId!==null){
+    const matches=current.payload.records.filter(r=>r.id===expenseLedgerEditId);
+    if(matches.length!==1){expenseLedgerFeedback('missing');return;}
+    next=current.payload.records.map(r=>r.id===expenseLedgerEditId?{...r,...values,updatedAt:now}:r);
+  }else{
+    let id;
+    try{if(typeof crypto.randomUUID!=='function') throw new Error('UUID unavailable');id=crypto.randomUUID();}catch(e){expenseLedgerFeedback('failed');return;}
+    if(current.payload.records.some(r=>r.id===id)){expenseLedgerFeedback('failed');return;}
+    next=[...current.payload.records,{...values,id,createdAt:now,updatedAt:now}];
+  }
+  if(!writeKoreaRouteExpenseLedger({version:1,records:next},current.raw)){expenseLedgerFeedback('failed');return;}
+  expenseLedgerEditId=null;form.reset();expenseLedgerMessage='saved';
+  renderExpenseLedger();watchOfflineTripSessionChanges();
+}
+function editManualExpense(id){
+  const current=readExpenseLedger();
+  if(!current.payload){expenseLedgerFeedback('unreadable');return;}
+  const matches=current.payload.records.filter(r=>r.id===id);
+  if(matches.length!==1){expenseLedgerFeedback('missing');return;}
+  expenseLedgerEditId=id;expenseLedgerMessage='';renderExpenseLedger();
+  const form=document.getElementById('expenseLedgerForm');
+  for(const field of ['storeName','purchaseDate','amountKrw','note']) form.elements[field].value=matches[0][field];
+  form.elements.storeName.focus();
+}
+function deleteManualExpense(id){
+  if(!window.confirm(expenseLedgerText('confirm'))) return;
+  const current=readExpenseLedger();
+  if(!current.payload){expenseLedgerFeedback('unreadable');return;}
+  const matches=current.payload.records.filter(r=>r.id===id);
+  if(matches.length!==1){expenseLedgerFeedback('missing');return;}
+  const next=current.payload.records.filter(r=>r.id!==id);
+  if(!writeKoreaRouteExpenseLedger({version:1,records:next},current.raw)){expenseLedgerFeedback('failed');return;}
+  if(expenseLedgerEditId===id){expenseLedgerEditId=null;document.getElementById('expenseLedgerForm')?.reset();}
+  expenseLedgerMessage='deleted';renderExpenseLedger();watchOfflineTripSessionChanges();
+}
+function renderExpenseLedger(){
+  const root=document.getElementById('expenseLedgerSection');if(!root) return;
+  const oldForm=document.getElementById('expenseLedgerForm');
+  const draft=oldForm?Object.fromEntries(new FormData(oldForm)):null;
+  root.replaceChildren();
+  const el=(tag,text,parent=root)=>{const node=document.createElement(tag);if(text!==undefined) node.textContent=text;parent.appendChild(node);return node;};
+  el('h2',expenseLedgerText('title')).id='expenseLedgerTitle';el('p',expenseLedgerText('intro'));
+  const status=el('p',expenseLedgerText(expenseLedgerMessage));status.id='expenseLedgerStatus';status.setAttribute('role','status');
+  const current=readExpenseLedger();
+  if(!current.payload){status.textContent=expenseLedgerText('unreadable');return;}
+  const records=current.payload.records;
+  const amount=value=>'₩'+value.toLocaleString('en-US');
+  const count=records.length,total=amount(records.reduce((sum,r)=>sum+r.amountKrw,0));
+  el('p',lang==='ko'?'구매 '+count+'건':lang==='ja'?'購入 '+count+'件':count+' purchases').id='expenseLedgerCount';
+  el('strong',lang==='ko'?'총 '+total:lang==='ja'?'合計 '+total:total+' total').id='expenseLedgerTotal';
+  const form=el('form');form.id='expenseLedgerForm';form.noValidate=true;form.onsubmit=saveManualExpense;
+  for(const [name,key,type] of [['storeName','store','text'],['purchaseDate','date','date'],['amountKrw','amount','number'],['note','note','textarea']]){
+    const label=el('label',expenseLedgerText(key),form);
+    const input=el(type==='textarea'?'textarea':'input',undefined,label);input.name=name;
+    if(type!=='textarea') input.type=type;
+    if(name==='purchaseDate'){input.min='1900-01-01';input.max=todayLocalYmd();}
+    if(name==='amountKrw'){input.min='1';input.max='999999999';input.step='1';input.inputMode='numeric';}
+    if(draft) input.value=draft[name]||'';
+  }
+  el('p',expenseLedgerText('warning'),form);
+  const actions=el('div',undefined,form);actions.className='expense-actions';
+  const save=el('button',expenseLedgerText(expenseLedgerEditId===null?'add':'save'),actions);save.type='submit';
+  if(expenseLedgerEditId!==null){const cancel=el('button',expenseLedgerText('cancel'),actions);cancel.type='button';cancel.onclick=()=>{expenseLedgerEditId=null;expenseLedgerMessage='';form.reset();renderExpenseLedger();};}
+  const list=el('div');list.id='expenseLedgerList';
+  if(!records.length) el('p',expenseLedgerText('empty'),list);
+  // Sort a copy for display; rendering never writes or reorders canonical records.
+  [...records].sort((a,b)=>b.purchaseDate.localeCompare(a.purchaseDate)||Date.parse(b.createdAt)-Date.parse(a.createdAt)).forEach(record=>{
+    const row=el('article',undefined,list);row.dataset.expenseId=record.id;
+    el('h3',record.storeName,row);el('p',record.purchaseDate,row);el('strong',amount(record.amountKrw),row);
+    if(record.note) el('p',record.note,row);
+    const buttons=el('div',undefined,row);buttons.className='expense-actions';
+    const edit=el('button',expenseLedgerText('edit'),buttons);edit.type='button';edit.onclick=()=>editManualExpense(record.id);
+    const remove=el('button',expenseLedgerText('remove'),buttons);remove.type='button';remove.onclick=()=>deleteManualExpense(record.id);
+  });
+}
+window.addEventListener('storage',event=>{
+  if((event.key===KOREA_ROUTE_EXPENSE_LEDGER_KEY||event.key===null)&&event.storageArea===localStorage) renderExpenseLedger();
+});
 
 const OFFLINE_TRIP_STORAGE_KEY='koreaRouteOfflineTrip';
 const OFFLINE_TRIP_SESSION_KEYS=KOREA_ROUTE_PERSIST_SESSION_KEYS;
@@ -23340,6 +23486,8 @@ function applyJaDictionary(root){
     acceptNode(node){
       const p=node.parentElement;
       if(!p) return NodeFilter.FILTER_REJECT;
+      // Expenses owns its EN/KO/JA labels; user-entered store names/notes stay literal.
+      if(p.closest('#expenseLedgerSection')) return NodeFilter.FILTER_REJECT;
       const tag=p.tagName;
       if(tag==='SCRIPT'||tag==='STYLE'||tag==='TEXTAREA') return NodeFilter.FILTER_REJECT;
       if(p.isContentEditable) return NodeFilter.FILTER_REJECT;
