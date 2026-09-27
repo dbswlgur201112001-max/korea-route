@@ -4063,41 +4063,41 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
 
 
 <section class="screen arch-screen" id="walletHub">
-  <div class="top"><button type="button" class="back" aria-label="Back / 뒤로" onclick="go('home')">‹</button><div class="brand" data-en="Trip Wallet" data-ko="여행 지갑">Trip Wallet</div><button class="pill" onclick="toggleLang()">EN / 한국어</button></div>
+  <div class="top"><button type="button" class="back" aria-label="Back / 뒤로" onclick="go('home')">‹</button><div class="brand" data-en="Trip Wallet" data-ja="旅行ウォレット" data-ko="여행 지갑">Trip Wallet</div><button class="pill" onclick="toggleLang()">EN / 한국어</button></div>
   <div class="arch-hero">
-    <div class="eyebrow">TRIP WALLET</div>
-    <h1 data-en="Check money first, then set a budget." data-ko="환율 먼저 확인하고 여행 예산을 잡으세요.">Check money first, then set a budget.</h1>
-    <p data-en="Use the daily KRW reference rate for a quick check, then build a simple planning estimate." data-ko="일일 원화 기준환율을 빠르게 확인한 뒤 간단한 여행 예산을 계산하세요.">Use the daily KRW reference rate for a quick check, then build a simple planning estimate.</p>
+    <div class="eyebrow" data-en="TRIP WALLET" data-ko="여행 지갑" data-ja="旅行ウォレット">TRIP WALLET</div>
+    <h1 data-en="Check money first, then set a budget." data-ja="まず為替を確認し、旅行予算を立てましょう。" data-ko="환율 먼저 확인하고 여행 예산을 잡으세요.">Check money first, then set a budget.</h1>
+    <p data-en="Use the daily KRW reference rate for a quick check, then build a simple planning estimate." data-ja="日次のKRW参考レートを確認して、旅行予算の目安を計算します。" data-ko="일일 원화 기준환율을 빠르게 확인한 뒤 간단한 여행 예산을 계산하세요.">Use the daily KRW reference rate for a quick check, then build a simple planning estimate.</p>
   </div>
 
   <div class="v30-quickbar" aria-label="Wallet quick actions">
-    <button type="button" onclick="document.getElementById('liveFxCard')?.scrollIntoView({behavior:'smooth',block:'center'})" data-en="💱 Check FX" data-ko="💱 환율 확인">💱 Check FX</button>
-    <button type="button" onclick="document.getElementById('walletBudgetSetup')?.scrollIntoView({behavior:'smooth',block:'center'})" data-en="🧾 Plan budget" data-ko="🧾 예산 계산">🧾 Plan budget</button>
-    <button type="button" onclick="openTaxRefundHelper()" data-en="🛍️ Tax refund" data-ko="🛍️ 세금 환급">🛍️ Tax refund</button>
-    <button type="button" onclick="openFairPriceCheckHub()" data-en="💸 Fair Price" data-ko="💸 정상가 확인">💸 Fair Price</button>
+    <button type="button" onclick="document.getElementById('liveFxCard')?.scrollIntoView({behavior:'smooth',block:'center'})" data-en="💱 Check FX" data-ja="💱 為替を確認" data-ko="💱 환율 확인">💱 Check FX</button>
+    <button type="button" onclick="document.getElementById('walletBudgetSetup')?.scrollIntoView({behavior:'smooth',block:'center'})" data-en="🧾 Plan budget" data-ja="🧾 予算を計算" data-ko="🧾 예산 계산">🧾 Plan budget</button>
+    <button type="button" onclick="openTaxRefundHelper()" data-en="🛍️ Tax refund" data-ja="🛍️ 免税・還付" data-ko="🛍️ 세금 환급">🛍️ Tax refund</button>
+    <button type="button" onclick="openFairPriceCheckHub()" data-en="💸 Fair Price" data-ja="💸 適正価格" data-ko="💸 정상가 확인">💸 Fair Price</button>
   </div>
   <div class="wallet-panel">
-    <b id="walletBudgetSetup" data-en="Budget setup" data-ko="예산 설정">Budget setup</b>
+    <b id="walletBudgetSetup" data-en="Budget setup" data-ja="予算設定" data-ko="예산 설정">Budget setup</b>
     <div class="wallet-grid">
-      <label class="v83-wallet-field"><span data-en="City" data-ko="도시">City</span><select id="walletCity"><option value="Seoul">Seoul</option><option value="Suwon">Suwon</option><option value="Incheon">Incheon</option><option value="Chuncheon">Chuncheon</option><option value="Gangneung">Gangneung</option><option value="Sokcho">Sokcho</option><option value="Daejeon">Daejeon</option><option value="Gongju">Gongju</option><option value="Jeonju">Jeonju</option><option value="Yeosu">Yeosu</option><option value="Suncheon">Suncheon</option><option value="Gyeongju">Gyeongju</option><option value="Andong">Andong</option><option value="Daegu">Daegu</option><option value="Ulsan">Ulsan</option><option value="Pohang">Pohang</option><option value="Busan">Busan</option><option value="Tongyeong">Tongyeong</option><option value="Geoje">Geoje</option><option value="Jeju">Jeju</option></select></label>
-      <label class="v83-wallet-field"><span data-en="Travel style" data-ko="여행 스타일">Travel style</span><select id="walletStyle">
-        <option value="budget">Budget</option>
-        <option value="balanced" selected>Balanced</option>
-        <option value="comfort">Comfort</option>
+      <label class="v83-wallet-field"><span data-en="City" data-ja="都市" data-ko="도시">City</span><select id="walletCity"><option value="Seoul">Seoul</option><option value="Suwon">Suwon</option><option value="Incheon">Incheon</option><option value="Chuncheon">Chuncheon</option><option value="Gangneung">Gangneung</option><option value="Sokcho">Sokcho</option><option value="Daejeon">Daejeon</option><option value="Gongju">Gongju</option><option value="Jeonju">Jeonju</option><option value="Yeosu">Yeosu</option><option value="Suncheon">Suncheon</option><option value="Gyeongju">Gyeongju</option><option value="Andong">Andong</option><option value="Daegu">Daegu</option><option value="Ulsan">Ulsan</option><option value="Pohang">Pohang</option><option value="Busan">Busan</option><option value="Tongyeong">Tongyeong</option><option value="Geoje">Geoje</option><option value="Jeju">Jeju</option></select></label>
+      <label class="v83-wallet-field"><span data-en="Travel style" data-ja="旅行スタイル" data-ko="여행 스타일">Travel style</span><select id="walletStyle">
+        <option value="budget" data-en="Budget" data-ko="절약형" data-ja="節約">Budget</option>
+        <option value="balanced" selected data-en="Balanced" data-ko="균형형" data-ja="バランス">Balanced</option>
+        <option value="comfort" data-en="Comfort" data-ko="편안형" data-ja="快適">Comfort</option>
       </select></label>
-      <label class="v83-wallet-field"><span data-en="Days" data-ko="여행 일수">Days</span><input id="walletDays" type="number" min="1" max="30" value="3" aria-label="Trip days"></label>
-      <label class="v83-wallet-field"><span data-en="Travelers" data-ko="인원">Travelers</span><input id="walletPeople" type="number" min="1" max="10" value="1" aria-label="People"></label>
+      <label class="v83-wallet-field"><span data-en="Days" data-ja="日数" data-ko="여행 일수">Days</span><input id="walletDays" type="number" min="1" max="30" value="3" aria-label="Trip days"></label>
+      <label class="v83-wallet-field"><span data-en="Travelers" data-ja="人数" data-ko="인원">Travelers</span><input id="walletPeople" type="number" min="1" max="10" value="1" aria-label="People"></label>
     </div>
-    <button class="stay-search-btn" type="button" onclick="renderTripWallet()" data-en="Build wallet estimate" data-ko="여행 지갑 계산">Build wallet estimate</button>
+    <button class="stay-search-btn" type="button" onclick="renderTripWallet()" data-en="Build wallet estimate" data-ja="旅行予算を計算" data-ko="여행 지갑 계산">Build wallet estimate</button>
     <div class="fx-card" id="liveFxCard">
-      <div class="fx-head"><div><h3 data-en="Today's KRW reference rate" data-ko="오늘의 원화 기준환율">Today's KRW reference rate</h3><p data-en="Latest daily reference rate · not a card, ATM or cash-exchange quote" data-ko="최신 일일 기준환율 · 카드·ATM·환전소 실제 적용환율과 다를 수 있음">Latest daily reference rate · not a card, ATM or cash-exchange quote</p></div><span class="fx-badge" id="liveFxBadge">DAILY FX</span></div>
+      <div class="fx-head"><div><h3 data-en="Today's KRW reference rate" data-ja="本日のKRW参考レート" data-ko="오늘의 원화 기준환율">Today's KRW reference rate</h3><p data-en="Latest daily reference rate · not a card, ATM or cash-exchange quote" data-ja="最新の日次参考レート・カード、ATM、両替所の適用レートとは異なります" data-ko="최신 일일 기준환율 · 카드·ATM·환전소 실제 적용환율과 다를 수 있음">Latest daily reference rate · not a card, ATM or cash-exchange quote</p></div><span class="fx-badge" id="liveFxBadge">DAILY FX</span></div>
       <div class="fx-controls"><input id="liveFxAmount" type="number" min="0" step="1" value="100" inputmode="decimal" aria-label="Currency amount"><select id="liveFxCurrency" aria-label="Currency"><option value="USD">USD · $</option><option value="JPY">JPY · ¥</option><option value="EUR">EUR · €</option><option value="GBP">GBP · £</option><option value="CNY">CNY · ¥</option></select></div>
-      <div class="fx-result" id="liveFxResult"><strong>—</strong><span data-en="Loading latest daily rate…" data-ko="최신 일일 환율 불러오는 중…">Loading latest daily rate…</span></div>
-      <div class="fx-actions"><button type="button" class="fx-mini primary" onclick="refreshLiveFx()" data-en="Refresh rate" data-ko="환율 새로고침">Refresh rate</button><button type="button" class="fx-mini" onclick="setFxQuickAmount(10)">10</button><button type="button" class="fx-mini" onclick="setFxQuickAmount(100)">100</button><button type="button" class="fx-mini" onclick="setFxQuickAmount(1000)">1,000</button></div>
+      <div class="fx-result" id="liveFxResult"><strong>—</strong><span data-en="Loading latest daily rate…" data-ja="最新の日次レートを読み込み中…" data-ko="최신 일일 환율 불러오는 중…">Loading latest daily rate…</span></div>
+      <div class="fx-actions"><button type="button" class="fx-mini primary" onclick="refreshLiveFx()" data-en="Refresh rate" data-ja="レートを更新" data-ko="환율 새로고침">Refresh rate</button><button type="button" class="fx-mini" onclick="setFxQuickAmount(10)">10</button><button type="button" class="fx-mini" onclick="setFxQuickAmount(100)">100</button><button type="button" class="fx-mini" onclick="setFxQuickAmount(1000)">1,000</button></div>
     </div>
     <div id="walletSummary" class="wallet-summary"></div>
     <div id="walletResults"></div>
-    <div class="wallet-note" data-en="Budget figures are planning estimates. FX is a daily reference rate, not a card, ATM or cash-exchange quote. Pass, eSIM and card-acceptance data is not live." data-ko="예산 금액은 계획용 예상치입니다. 환율은 일일 기준환율이며 카드·ATM·환전소 실제 적용환율이 아닙니다. 패스·eSIM·카드 사용 가능 정보는 실시간이 아닙니다.">Budget figures are planning estimates. FX is a daily reference rate, not a card, ATM or cash-exchange quote. Pass, eSIM and card-acceptance data is not live.</div>
+    <div class="wallet-note" data-en="Budget figures are planning estimates. FX is a daily reference rate, not a card, ATM or cash-exchange quote. Pass, eSIM and card-acceptance data is not live." data-ja="予算額は計画用の目安です。為替は日次参考レートであり、カード、ATM、両替所の適用レートではありません。パス、eSIM、カード利用可否の情報はリアルタイムではありません。" data-ko="예산 금액은 계획용 예상치입니다. 환율은 일일 기준환율이며 카드·ATM·환전소 실제 적용환율이 아닙니다. 패스·eSIM·카드 사용 가능 정보는 실시간이 아닙니다.">Budget figures are planning estimates. FX is a daily reference rate, not a card, ATM or cash-exchange quote. Pass, eSIM and card-acceptance data is not live.</div>
   </div>
   <section id="expenseLedgerSection" class="wallet-panel" aria-labelledby="expenseLedgerTitle"></section>
   <section id="refundWalletSection" class="wallet-panel" aria-labelledby="refundWalletTitle"></section>
@@ -4993,7 +4993,7 @@ function globalSearchDynamicResults(query){
   try{
     savedPlaces().forEach(p=>{
       const nameEn=p.en||p.ko||'',nameKo=p.ko||p.en||'',score=globalSearchScore(query,`${nameEn} ${nameKo} ${p.city||''} saved place 저장 장소`);
-      if(score)out.push({type:'savedPlace',group:'trip',icon:'⭐',en:nameEn,ko:nameKo,descEn:`Saved place · ${p.city||''}`,descKo:`저장 장소 · ${p.city||''}`,key:p.key,score:score+18});
+      if(score)out.push({type:'savedPlace',group:'trip',icon:'⭐',en:nameEn,ko:nameKo,descEn:`Saved place · ${p.city||''}`,descKo:`저장 장소 · ${p.city||''}`,descJa:`保存した場所 · ${p.city||''}`,key:p.key,score:score+18});
     });
   }catch(_){ }
   try{
@@ -7930,7 +7930,7 @@ function renderExpenseLedger(){
   const records=current.payload.records;
   const amount=value=>'₩'+value.toLocaleString('en-US');
   const count=records.length,total=amount(records.reduce((sum,r)=>sum+r.amountKrw,0));
-  el('p',lang==='ko'?'구매 '+count+'건':lang==='ja'?'購入 '+count+'件':count+' purchases').id='expenseLedgerCount';
+  el('p',lang==='ko'?'구매 '+count+'건':lang==='ja'?'購入 '+count+'件':count+(count===1?' purchase':' purchases')).id='expenseLedgerCount';
   el('strong',lang==='ko'?'총 '+total:lang==='ja'?'合計 '+total:total+' total').id='expenseLedgerTotal';
   const form=el('form');form.id='expenseLedgerForm';form.noValidate=true;form.onsubmit=saveManualExpense;
   for(const [name,key,type] of [['storeName','store','text'],['purchaseDate','date','date'],['amountKrw','amount','number'],['note','note','textarea']]){
@@ -8023,7 +8023,7 @@ function renderRefundWallet(){
   const current=readExpenseLedger();if(!current.payload){feedback.textContent=expenseLedgerText('unreadable');return;}
   const records=current.payload.records.filter(record=>record.refund);
   const count=records.length,received=records.filter(record=>record.refund.status==='REFUND_RECEIVED').length;
-  el('p',lang==='ko'?'환급 추적 '+count+'건':lang==='ja'?'還付記録 '+count+'件':count+' tracked purchases').id='refundWalletCount';
+  el('p',lang==='ko'?'환급 추적 '+count+'건':lang==='ja'?'還付記録 '+count+'件':count+(count===1?' tracked purchase':' tracked purchases')).id='refundWalletCount';
   el('p',lang==='ko'?'수령 기록 '+received+'건':lang==='ja'?'受取記録 '+received+'件':received+' recorded as received').id='refundWalletReceived';
   if(!count){el('p',refundWalletText('empty'));el('p',refundWalletText('emptyHelp'));}
   records.sort((a,b)=>b.purchaseDate.localeCompare(a.purchaseDate)||Date.parse(b.createdAt)-Date.parse(a.createdAt)).forEach(record=>{
@@ -13650,9 +13650,9 @@ const WALLET_CITY_BASE={
 };
 
 const WALLET_STYLE={
-  budget:{factor:.78,label:'Budget',labelKo:'절약형'},
-  balanced:{factor:1,label:'Balanced',labelKo:'균형형'},
-  comfort:{factor:1.35,label:'Comfort',labelKo:'편안형'}
+  budget:{factor:.78,label:'Budget',labelKo:'절약형',labelJa:'節約'},
+  balanced:{factor:1,label:'Balanced',labelKo:'균형형',labelJa:'バランス'},
+  comfort:{factor:1.35,label:'Comfort',labelKo:'편안형',labelJa:'快適'}
 };
 
 function walletFmt(n){
@@ -13679,13 +13679,16 @@ function renderLiveFxConversion(){
   const amountEl=document.getElementById('liveFxAmount');
   const currency=document.getElementById('liveFxCurrency')?.value||'USD';
   if(!result) return;
+  const badge=document.getElementById('liveFxBadge');
+  const state=badge?.dataset.fxState||'idle';
+  if(badge) badge.textContent=state==='loading'?(lang==='ko'?'불러오는 중':lang==='ja'?'読み込み中':'LOADING'):state==='unavailable'?(lang==='ko'?'이용 불가':lang==='ja'?'利用不可':'UNAVAILABLE'):(lang==='ko'?'일일 환율':lang==='ja'?'日次為替':'DAILY FX');
   if(!Number.isFinite(liveFxRate)||liveFxRate<=0){
-    result.innerHTML=`<strong>—</strong><span>${lang==='ko'?'환율을 불러오면 원화 환산값을 표시합니다.':'Load the rate to see the KRW conversion.'}</span>`;
+    result.innerHTML=`<strong>—</strong><span>${state==='loading'?(lang==='ko'?'최신 일일 환율 확인 중…':lang==='ja'?'最新の日次レートを確認中…':'Checking the latest daily rate…'):state==='unavailable'?(lang==='ko'?'환율을 불러오지 못했습니다. 임의 환율은 표시하지 않습니다.':lang==='ja'?'為替を取得できません。架空のレートは表示しません。':'FX is unavailable. No made-up rate is shown.'):(lang==='ko'?'환율을 불러오면 원화 환산값을 표시합니다.':lang==='ja'?'レートを読み込むとKRW換算額を表示します。':'Load the rate to see the KRW conversion.')}</span>`;
     return;
   }
   const amount=Math.max(0,Number(amountEl?.value||0));
   const krw=amount*liveFxRate;
-  result.innerHTML=`<strong>${fxCurrencySymbol(currency)}${fxAmountFmt(amount,currency)} ≈ ₩${Math.round(krw).toLocaleString()}</strong><span>1 ${currency} = ₩${liveFxRate.toLocaleString(undefined,{maximumFractionDigits:4})}${liveFxDate?' · '+liveFxDate:''} · ${lang==='ko'?'기준환율':'reference rate'}</span>`;
+  result.innerHTML=`<strong>${fxCurrencySymbol(currency)}${fxAmountFmt(amount,currency)} ≈ ₩${Math.round(krw).toLocaleString()}</strong><span>1 ${currency} = ₩${liveFxRate.toLocaleString(undefined,{maximumFractionDigits:4})}${liveFxDate?' · '+liveFxDate:''} · ${lang==='ko'?'기준환율':lang==='ja'?'参考レート':'reference rate'}</span>`;
 }
 async function refreshLiveFx(){
   const result=document.getElementById('liveFxResult');
@@ -13693,8 +13696,8 @@ async function refreshLiveFx(){
   const currency=document.getElementById('liveFxCurrency')?.value||'USD';
   if(!result) return;
   sessionStorage.setItem('koreaRouteFxCurrency',currency);
-  result.innerHTML=`<strong>—</strong><span>${lang==='ko'?'최신 일일 환율 확인 중…':'Checking the latest daily rate…'}</span>`;
-  if(badge) badge.textContent='LOADING';
+  result.innerHTML=`<strong>—</strong><span>${lang==='ko'?'최신 일일 환율 확인 중…':lang==='ja'?'最新の日次レートを確認中…':'Checking the latest daily rate…'}</span>`;
+  if(badge){badge.dataset.fxState='loading';badge.textContent=lang==='ko'?'불러오는 중':lang==='ja'?'読み込み中':'LOADING';}
   try{
     const controller=new AbortController();
     const timer=setTimeout(()=>controller.abort(),5000);
@@ -13705,12 +13708,12 @@ async function refreshLiveFx(){
     const rate=Number(d?.rate);
     if(!Number.isFinite(rate)||rate<=0) throw new Error('No rate');
     liveFxRate=rate; liveFxDate=d?.date||'';
-    if(badge) badge.textContent='DAILY FX';
+    if(badge) badge.dataset.fxState='ready';
     renderLiveFxConversion();
   }catch(e){
     liveFxRate=null; liveFxDate='';
-    if(badge) badge.textContent='UNAVAILABLE';
-    result.innerHTML=`<strong>—</strong><span>${lang==='ko'?'환율을 불러오지 못했습니다. 임의 환율은 표시하지 않습니다.':'FX is unavailable. No made-up rate is shown.'}</span>`;
+    if(badge){badge.dataset.fxState='unavailable';badge.textContent=lang==='ko'?'이용 불가':lang==='ja'?'利用不可':'UNAVAILABLE';}
+    result.innerHTML=`<strong>—</strong><span>${lang==='ko'?'환율을 불러오지 못했습니다. 임의 환율은 표시하지 않습니다.':lang==='ja'?'為替を取得できません。架空のレートは表示しません。':'FX is unavailable. No made-up rate is shown.'}</span>`;
   }
 }
 function setFxQuickAmount(v){
@@ -13803,6 +13806,8 @@ function evaluateTaxRefund(){
 }
 
 function renderTripWallet(){
+  const aria=lang==='ko'?['뒤로','지갑 바로가기','여행 일수','인원','외화 금액','통화']:lang==='ja'?['戻る','ウォレットの操作','旅行日数','人数','外貨金額','通貨']:['Back','Wallet quick actions','Trip days','People','Currency amount','Currency'];
+  ['#walletHub .back','#walletHub .v30-quickbar','#walletDays','#walletPeople','#liveFxAmount','#liveFxCurrency'].forEach((selector,i)=>document.querySelector(selector)?.setAttribute('aria-label',aria[i]));
   const city=document.getElementById('walletCity')?.value||'Seoul';
   const style=document.getElementById('walletStyle')?.value||'balanced';
   const days=Math.max(1,Math.min(30,Number(document.getElementById('walletDays')?.value||3)));
@@ -13826,58 +13831,58 @@ function renderTripWallet(){
   if(!sum||!res) return;
 
   sum.innerHTML=`
-    <div class="wallet-stat"><span>${lang==='ko'?'1인 하루':'Per person/day'}</span><b>${walletFmt(daily)}</b></div>
-    <div class="wallet-stat"><span>${lang==='ko'?'전체 예상':'Trip estimate'}</span><b>${walletFmt(grand)}</b></div>
-    <div class="wallet-stat"><span>${lang==='ko'?'현금 의존':'Cash friction'}</span><b>${lang==='ko'?base.cashKo:base.cash}</b></div>
+    <div class="wallet-stat"><span>${lang==='ko'?'1인 하루':lang==='ja'?'1人・1日あたり':'Per person/day'}</span><b>${walletFmt(daily)}</b></div>
+    <div class="wallet-stat"><span>${lang==='ko'?'전체 예상':lang==='ja'?'旅行費用の目安':'Trip estimate'}</span><b>${walletFmt(grand)}</b></div>
+    <div class="wallet-stat"><span>${lang==='ko'?'현금 의존':lang==='ja'?'現金の必要度':'Cash friction'}</span><b>${lang==='ko'?base.cashKo:lang==='ja'?(base.cash==='Low'?'低い':'中程度'):base.cash}</b></div>
   `;
 
-  const passLabel=lang==='ko'?base.passKo:base.pass;
-  const styleLabel=lang==='ko'?sf.labelKo:sf.label;
+  const passLabel=lang==='ko'?base.passKo:lang==='ja'?base.pass.replace('Climate Card','気候同行カード').replace('local transit','地域交通').replace('local bus','市内バス').replace('tourist bus','観光バス').replace('local pass','地域パス').replace('rental / bus','レンタカー / バス'):base.pass;
+  const styleLabel=lang==='ko'?sf.labelKo:lang==='ja'?sf.labelJa:sf.label;
 
   res.innerHTML=`
     <div class="wallet-card best">
       <div class="wallet-card-top">
         <div><h3>${walletCityName(city)} · ${styleLabel}</h3></div>
-        <span class="wallet-badge">${savedMatches?(lang==='ko'?'저장됨':'SAVED'):(lang==='ko'?'추천 예산안':'BUDGET PLAN')}</span>
+        <span class="wallet-badge">${savedMatches?(lang==='ko'?'저장됨':lang==='ja'?'保存済み':'SAVED'):(lang==='ko'?'추천 예산안':lang==='ja'?'予算プラン':'BUDGET PLAN')}</span>
       </div>
       <div class="wallet-breakdown">
-        <div><span>${lang==='ko'?'식비 / 일':'Food / day'}</span><b>${walletFmt(base.food*sf.factor)}</b></div>
-        <div><span>${lang==='ko'?'현지교통 / 일':'Local transit / day'}</span><b>${walletFmt(base.local*sf.factor)}</b></div>
-        <div><span>${lang==='ko'?'관광 / 일':'Attractions / day'}</span><b>${walletFmt(base.attraction*sf.factor)}</b></div>
-        <div><span>${lang==='ko'?'기타 / 일':'Misc / day'}</span><b>${walletFmt(base.misc*sf.factor)}</b></div>
+        <div><span>${lang==='ko'?'식비 / 일':lang==='ja'?'食費 / 日':'Food / day'}</span><b>${walletFmt(base.food*sf.factor)}</b></div>
+        <div><span>${lang==='ko'?'현지교통 / 일':lang==='ja'?'現地交通費 / 日':'Local transit / day'}</span><b>${walletFmt(base.local*sf.factor)}</b></div>
+        <div><span>${lang==='ko'?'관광 / 일':lang==='ja'?'観光費 / 日':'Attractions / day'}</span><b>${walletFmt(base.attraction*sf.factor)}</b></div>
+        <div><span>${lang==='ko'?'기타 / 일':lang==='ja'?'その他 / 日':'Misc / day'}</span><b>${walletFmt(base.misc*sf.factor)}</b></div>
       </div>
       <div class="wallet-tags">
-        <span>${lang==='ko'?'교통패스 후보: ':'Pass candidate: '}${passLabel}</span>
-        <span>${lang==='ko'?'해외카드 확인 슬롯':'Foreign-card check slot'}</span>
-        <span>${lang==='ko'?'일일 기준환율 연결':'Daily FX connected'}</span>
-        <span>${lang==='ko'?'eSIM 가격 슬롯':'eSIM price slot'}</span>
+        <span>${lang==='ko'?'교통패스 후보: ':lang==='ja'?'パス候補: ':'Pass candidate: '}${passLabel}</span>
+        <span>${lang==='ko'?'해외카드 확인 슬롯':lang==='ja'?'海外発行カード確認欄':'Foreign-card check slot'}</span>
+        <span>${lang==='ko'?'일일 기준환율 연결':lang==='ja'?'日次参考レート連携':'Daily FX connected'}</span>
+        <span>${lang==='ko'?'eSIM 가격 슬롯':lang==='ja'?'eSIM料金欄':'eSIM price slot'}</span>
       </div>
       <div class="wallet-actions">
-        <button class="wallet-btn primary" type="button" onclick="saveWalletPlan('${city}','${style}',${days},${people},${Math.round(grand)})">${savedMatches?(lang==='ko'?'저장된 예산':'Saved budget'):(lang==='ko'?'예산 저장':'Save budget')}</button>
-        <button class="wallet-btn secondary" type="button" onclick="showWalletPassPlaceholder('${city}')">${lang==='ko'?'패스 비교':'Compare passes'}</button>
+        <button class="wallet-btn primary" type="button" onclick="saveWalletPlan('${city}','${style}',${days},${people},${Math.round(grand)})">${savedMatches?(lang==='ko'?'저장된 예산':lang==='ja'?'保存済み予算':'Saved budget'):(lang==='ko'?'예산 저장':lang==='ja'?'予算を保存':'Save budget')}</button>
+        <button class="wallet-btn secondary" type="button" onclick="showWalletPassPlaceholder('${city}')">${lang==='ko'?'패스 비교':lang==='ja'?'パスを比較':'Compare passes'}</button>
       </div>
     </div>
 
     <div class="wallet-card">
-      <div class="wallet-card-top"><h3>${lang==='ko'?'결제 불편 체크':'Payment friction check'}</h3><span class="wallet-badge">${lang==='ko'?'외국인 관점':'VISITOR'}</span></div>
+      <div class="wallet-card-top"><h3>${lang==='ko'?'결제 불편 체크':lang==='ja'?'支払い時の注意点':'Payment friction check'}</h3><span class="wallet-badge">${lang==='ko'?'외국인 관점':lang==='ja'?'旅行者向け':'VISITOR'}</span></div>
       <div class="wallet-tags">
-        <span>${lang==='ko'?'해외 발급 카드':'Foreign-issued cards'}</span>
-        <span>${lang==='ko'?'한국 전화번호 요구':'Korean phone requirement'}</span>
-        <span>${lang==='ko'?'교통카드 충전 방식':'Transit-card top-up method'}</span>
-        <span>${lang==='ko'?'현금 필요 가능성':'Possible cash need'}</span>
+        <span>${lang==='ko'?'해외 발급 카드':lang==='ja'?'海外発行カード':'Foreign-issued cards'}</span>
+        <span>${lang==='ko'?'한국 전화번호 요구':lang==='ja'?'韓国の電話番号の必要性':'Korean phone requirement'}</span>
+        <span>${lang==='ko'?'교통카드 충전 방식':lang==='ja'?'交通カードのチャージ方法':'Transit-card top-up method'}</span>
+        <span>${lang==='ko'?'현금 필요 가능성':lang==='ja'?'現金が必要になる可能性':'Possible cash need'}</span>
       </div>
-      <div class="wallet-note">${lang==='ko'?'이 항목들은 현재 구조만 구현되어 있으며 실제 매장/서비스별 조건은 검증 데이터 연결 후 표시합니다.':'These are structural placeholders only; actual merchant/service requirements will appear after verified data is connected.'}</div>
+      <div class="wallet-note">${lang==='ko'?'이 항목들은 현재 구조만 구현되어 있으며 실제 매장/서비스별 조건은 검증 데이터 연결 후 표시합니다.':lang==='ja'?'現在は表示欄のみです。店舗・サービスごとの実際の条件は、確認済みデータの連携後に表示します。':'These are structural placeholders only; actual merchant/service requirements will appear after verified data is connected.'}</div>
     </div>
 
     <div class="wallet-card">
-      <div class="wallet-card-top"><h3>${lang==='ko'?'통신비':'Connectivity'}</h3><span class="wallet-badge">eSIM</span></div>
+      <div class="wallet-card-top"><h3>${lang==='ko'?'통신비':lang==='ja'?'通信費':'Connectivity'}</h3><span class="wallet-badge">eSIM</span></div>
       <div class="wallet-breakdown">
-        <div><span>${lang==='ko'?'프로토타입 기준':'Prototype estimate'}</span><b>${walletFmt(connectivity)}</b></div>
-        <div><span>${lang==='ko'?'비교 예정':'Planned comparison'}</span><b>${lang==='ko'?'eSIM / SIM / 로밍':'eSIM / SIM / roaming'}</b></div>
+        <div><span>${lang==='ko'?'프로토타입 기준':lang==='ja'?'試算の目安':'Prototype estimate'}</span><b>${walletFmt(connectivity)}</b></div>
+        <div><span>${lang==='ko'?'비교 예정':lang==='ja'?'比較予定':'Planned comparison'}</span><b>${lang==='ko'?'eSIM / SIM / 로밍':lang==='ja'?'eSIM / SIM / ローミング':'eSIM / SIM / roaming'}</b></div>
       </div>
       <div class="wallet-actions">
-        <button class="wallet-btn secondary" type="button" onclick="showESimPlaceholder()">${lang==='ko'?'eSIM 비교':'Compare eSIM'}</button>
-        <button class="wallet-btn secondary" type="button" onclick="document.getElementById('liveFxCard')?.scrollIntoView({behavior:'smooth',block:'center'});refreshLiveFx()">${lang==='ko'?'환율 보기':'View FX'}</button>
+        <button class="wallet-btn secondary" type="button" onclick="showESimPlaceholder()">${lang==='ko'?'eSIM 비교':lang==='ja'?'eSIMを比較':'Compare eSIM'}</button>
+        <button class="wallet-btn secondary" type="button" onclick="document.getElementById('liveFxCard')?.scrollIntoView({behavior:'smooth',block:'center'});refreshLiveFx()">${lang==='ko'?'환율 보기':lang==='ja'?'為替を見る':'View FX'}</button>
       </div>
     </div>`;
 }
@@ -13887,6 +13892,7 @@ function saveWalletPlan(city,style,days,people,total){
   const hero=document.querySelector('#walletHub .arch-hero p');
   if(hero) hero.textContent=lang==='ko'
     ? `${walletCityName(city)} ${days}일 예산을 저장했습니다. 이후 Plan/Move 비용 합산에 연결할 수 있습니다.`
+    : lang==='ja' ? `${walletCityName(city)}の${days}日間の予算を保存しました。今後、移動プランの費用合計に利用できます。`
     : `${days}-day ${walletCityName(city)} budget saved. It can feed future Plan/Move cost totals.`;
 
   renderTripWallet();
@@ -13900,12 +13906,14 @@ function showWalletPassPlaceholder(city){
   const hero=document.querySelector('#walletHub .arch-hero p');
   if(hero) hero.textContent=lang==='ko'
     ? `${walletCityName(city)} 교통패스 실제 가격/손익분기점 비교 API 또는 검증 데이터 연결 전입니다.`
+    : lang==='ja' ? `${walletCityName(city)}のパス料金・損益分岐点の比較は、確認済みデータの連携待ちです。`
     : `${walletCityName(city)} pass pricing and break-even comparison is awaiting a verified data source.`;
 }
 function showESimPlaceholder(){
   const hero=document.querySelector('#walletHub .arch-hero p');
   if(hero) hero.textContent=lang==='ko'
     ? 'eSIM 제휴/가격 데이터 연결 전입니다. 현재는 비교 슬롯만 준비되어 있습니다.'
+    : lang==='ja' ? 'eSIMの提携・料金データは未連携です。現在は比較欄のみ用意しています。'
     : 'eSIM affiliate/pricing data is not connected yet; the comparison slot is ready.';
 }
 function showFxPlaceholder(){
