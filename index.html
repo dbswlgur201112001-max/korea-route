@@ -5975,7 +5975,8 @@ function visibleExplorePoiEntries(){
 
 
 function assignVisibleExplorePlacesToDay(day){
-  const targetDay=Math.max(1,Math.min(10,Number(day)||1));
+  const targetDay=Number(day);
+  if(!Number.isInteger(targetDay)||targetDay<1||targetDay>10) return;
   const entries=visibleExplorePoiEntries();
 
   if(!entries.length){
@@ -6010,9 +6011,7 @@ function assignVisibleExplorePlacesToDay(day){
 
   entries.forEach(({city,poi})=>{
     const key=placeSaveKey(city,poi);
-    if(!plan[key]) return;
-    plan[key].day=targetDay;
-    plan[key].order=nextOrder++;
+    plan[key]={day:targetDay,order:nextOrder++};
   });
 
   sessionStorage.setItem('koreaRouteSavedPlacePlan',JSON.stringify(plan));
@@ -6946,20 +6945,21 @@ function syncSavedPlacePlan(){
   const items=savedPlaces();
   const plan=savedPlacePlan();
   const next={};
-  items.forEach((p,i)=>{
-    next[p.key]={
-      day:Number(plan[p.key]?.day)||1,
-      order:Number.isFinite(Number(plan[p.key]?.order))?Number(plan[p.key].order):i
-    };
+  items.forEach(p=>{
+    if(Object.prototype.hasOwnProperty.call(plan,p.key)) next[p.key]=plan[p.key];
   });
-  sessionStorage.setItem('koreaRouteSavedPlacePlan',JSON.stringify(next));
+  if(JSON.stringify(next)!==JSON.stringify(plan)) sessionStorage.setItem('koreaRouteSavedPlacePlan',JSON.stringify(next));
   return next;
 }
 
 function setSavedPlaceDay(key,day){
+  const targetDay=Number(day);
+  if(!Number.isInteger(targetDay)||targetDay<1||targetDay>10||!savedPlaces().some(p=>p.key===key)) return;
   const plan=syncSavedPlacePlan();
-  if(!plan[key]) return;
-  plan[key].day=Math.max(1,Math.min(10,Number(day)||1));
+  if(!Number.isInteger(plan[key]?.day)||plan[key].day<1||plan[key].day>10){
+    const orders=Object.values(plan).filter(v=>v?.day===targetDay).map(v=>v.order).filter(Number.isFinite);
+    plan[key]={day:targetDay,order:orders.length?Math.max(...orders)+1:0};
+  }else plan[key].day=targetDay;
   sessionStorage.setItem('koreaRouteSavedPlacePlan',JSON.stringify(plan));
   renderSavedPlacesInMyTrip();
   renderUnifiedItinerarySummary();
@@ -6974,10 +6974,10 @@ function moveSavedPlace(key,dir){
   const items=savedPlaces();
   const plan=syncSavedPlacePlan();
   const current=plan[key];
-  if(!current) return;
+  if(!Number.isInteger(current?.day)||current.day<1||current.day>10) return;
 
   const sameDay=items
-    .filter(p=>(plan[p.key]?.day||1)===current.day)
+    .filter(p=>plan[p.key]?.day===current.day)
     .sort((a,b)=>(plan[a.key]?.order||0)-(plan[b.key]?.order||0));
 
   const idx=sameDay.findIndex(p=>p.key===key);
@@ -6999,7 +6999,7 @@ function dayRoutePlaces(day){
   const items=savedPlaces();
   const {plan}=savedPlacePlanGroups(items);
   return items
-    .filter(p=>(plan[p.key]?.day||1)===Number(day))
+    .filter(p=>Number.isInteger(plan[p.key]?.day)&&plan[p.key].day>=1&&plan[p.key].day<=10&&plan[p.key].day===Number(day))
     .sort((a,b)=>(plan[a.key]?.order||0)-(plan[b.key]?.order||0));
 }
 
@@ -7060,7 +7060,9 @@ function buildPrintableTripHtml(){
               </li>`).join('')}
           </ol>
         </section>
-      `).join(''):`<p>${lang==='ko'?'저장한 장소가 없습니다.':'No saved places yet.'}</p>`}
+      `).join(''):''}
+      ${data.unassigned.length?`<section class="print-day"><h2>${unassignedPlacesLabel()}</h2><ol>${data.unassigned.map(p=>`<li><b>${escapeHtmlText(lang==='ko'?(p.ko||p.en):(lang==='ja'?(p.ja||p.en||p.ko):(p.en||p.ko)))}</b><span>${escapeHtmlText(p.city)}</span></li>`).join('')}</ol></section>`:''}
+      ${!data.items.length?`<p>${lang==='ko'?'저장한 장소가 없습니다.':'No saved places yet.'}</p>`:''}
 
       <section class="print-trip-emergency">
         <h2>${lang==='ko'?'긴급 연락':'Emergency'}</h2>
@@ -7094,7 +7096,7 @@ function printMyTrip(){
 
 function buildMyTripShareText(){
   const items=savedPlaces();
-  const {plan,groups}=savedPlacePlanGroups(items);
+  const {plan,groups,unassigned}=savedPlacePlanGroups(items);
   const days=Object.keys(groups).map(Number).sort((a,b)=>a-b);
 
   const lines=[];
@@ -7114,6 +7116,10 @@ function buildMyTripShareText(){
     });
   });
 
+  if(unassigned.length){
+    lines.push('',unassignedPlacesLabel());
+    unassigned.forEach((p,i)=>lines.push(`${i+1}. ${lang==='ko'?(p.ko||p.en):(lang==='ja'?(p.ja||p.en||p.ko):(p.en||p.ko))} · ${p.city}`));
+  }
   lines.push('');
   lines.push(lang==='ko'
     ?'※ 저장 순서 기준이며 자동 최적화 일정이 아닙니다.'
@@ -7158,15 +7164,19 @@ function copyDayRouteList(day){
 }
 
 function savedPlacePlanGroups(items){
-  const plan=syncSavedPlacePlan();
-  const groups={};
+  const plan=savedPlacePlan();
+  const groups={},unassigned=[];
   items.forEach(p=>{
-    const d=plan[p.key]?.day||1;
-    (groups[d]||(groups[d]=[])).push(p);
+    const d=plan[p.key]?.day;
+    if(Number.isInteger(d)&&d>=1&&d<=10) (groups[d]||(groups[d]=[])).push(p);
+    else unassigned.push(p);
   });
   Object.values(groups).forEach(arr=>arr.sort((a,b)=>(plan[a.key]?.order||0)-(plan[b.key]?.order||0)));
-  return {plan,groups};
+  return {plan,groups,unassigned};
 }
+
+function unassignedPlacesLabel(){return lang==='ko'?'일차 미지정':lang==='ja'?'日程未設定':'Unassigned';}
+function chooseSavedPlaceDayLabel(){return lang==='ko'?'일차 선택':lang==='ja'?'日程を選択':'Choose day';}
 
 function savedPlaces(){
   try{return JSON.parse(sessionStorage.getItem('koreaRouteSavedPlaces')||'[]')||[]}
@@ -7201,6 +7211,7 @@ function toggleSavedPlace(city,index){
     });
   }
   sessionStorage.setItem('koreaRouteSavedPlaces',JSON.stringify(items));
+  if(exists) syncSavedPlacePlan();
   renderCityPoiList(city);
   renderSavedPlacesInMyTrip();
 
@@ -7492,12 +7503,12 @@ async function copyEmergencyPhrase(text,buttonId){
 
 function myTripUnifiedData(){
   const items=savedPlaces();
-  const {plan,groups}=savedPlacePlanGroups(items);
+  const {plan,groups,unassigned}=savedPlacePlanGroups(items);
   const stay=myTripStaySelection();
   const wallet=myTripWalletSelection();
   const route=myTripRouteSelection();
   return {
-    items,plan,groups,
+    items,plan,groups,unassigned,
     stay, wallet, route,
     stayText:staySummaryText(stay),
     walletText:walletSummaryText(wallet),
@@ -7524,7 +7535,7 @@ function myTripTodayFirstDayPlaces(){
     if(!saved.length) return [];
     const day=myTripTodayDayNumber();
     const {groups}=savedPlacePlanGroups(saved);
-    return groups?.[day]?.length?groups[day]:saved.slice(0,3);
+    return groups?.[day]||[];
   }catch(e){
     return [];
   }
@@ -8376,7 +8387,7 @@ function renderSavedPlacesInMyTrip(){
   }
 
   const items=savedPlaces();
-  const {plan,groups}=savedPlacePlanGroups(items);
+  const {plan,groups,unassigned}=savedPlacePlanGroups(items);
   const days=Object.keys(groups).map(Number).sort((a,b)=>a-b);
 
   block.innerHTML=`<div class="saved-places-head">
@@ -8404,7 +8415,7 @@ function renderSavedPlacesInMyTrip(){
             <div class="saved-place-plan-controls">
               <label>${lang==='ko'?'일차':'Day'}
                 <select onchange="setSavedPlaceDay('${p.key}',this.value)">
-                  ${[1,2,3,4,5,6,7].map(d=>`<option value="${d}" ${Number(plan[p.key]?.day||1)===d?'selected':''}>${d}</option>`).join('')}
+                  ${Array.from({length:10},(_,i)=>i+1).map(d=>`<option value="${d}" ${plan[p.key]?.day===d?'selected':''}>${d}</option>`).join('')}
                 </select>
               </label>
               <button ${idx===0?'disabled':''} onclick="moveSavedPlace('${p.key}',-1)">↑</button>
@@ -8418,7 +8429,8 @@ function renderSavedPlacesInMyTrip(){
             <button onclick="removeSavedPlace(${items.findIndex(x=>x.key===p.key)})">${lang==='ko'?'삭제':'Remove'}</button>
           </div>
         </div>`).join('')}</div>
-    </section>`).join('')}</div>`:`<p class="saved-empty">${lang==='ko'?'Explore에서 마음에 드는 장소를 저장해보세요.':'Save places from Explore to build your trip list.'}</p>`}`;
+    </section>`).join('')}
+    ${unassigned.length?`<section class="saved-day-group saved-unassigned"><div class="saved-day-title"><b>${unassignedPlacesLabel()}</b><span>${unassigned.length}</span></div><div class="saved-places-list">${unassigned.map(p=>`<div class="saved-place-row"><div class="saved-place-main"><b>${escapeHtmlText(lang==='ko'?(p.ko||p.en):(lang==='ja'?(p.ja||p.en||p.ko):(p.en||p.ko)))}</b><span>${escapeHtmlText(p.city)}</span><label>${chooseSavedPlaceDayLabel()} <select onchange="setSavedPlaceDay(decodeURIComponent(this.dataset.placeKey),this.value)" data-place-key="${escapeHtmlText(encodeURIComponent(p.key))}"><option value="" selected disabled>${chooseSavedPlaceDayLabel()}</option>${Array.from({length:10},(_,i)=>i+1).map(d=>`<option value="${d}">${d}</option>`).join('')}</select></label></div><div class="saved-place-actions"><button onclick="openDestinationCardBySavedKey('${encodeURIComponent(p.key)}')">${lang==='ko'?'카드':lang==='ja'?'カード':'Card'}</button><button onclick="removeSavedPlace(${items.findIndex(x=>x.key===p.key)})">${lang==='ko'?'삭제':lang==='ja'?'削除':'Remove'}</button></div></div>`).join('')}</div></section>`:''}</div>`:`<p class="saved-empty">${lang==='ko'?'Explore에서 마음에 드는 장소를 저장해보세요.':'Save places from Explore to build your trip list.'}</p>`}`;
 
   renderMyTripTodayCard();
   renderUnifiedItinerarySummary();
@@ -9446,7 +9458,8 @@ function cityWalkNextItineraryPlace(target=cityWalkGuideTarget){
     const match=cityWalkTargetSavedMatch(target);
     if(!match) return null;
     const {plan,groups}=savedPlacePlanGroups(items);
-    const day=Number(plan[match.key]?.day)||1;
+    const day=plan[match.key]?.day;
+    if(!Number.isInteger(day)||day<1||day>10) return null;
     const dayItems=groups?.[day]||[];
     const idx=dayItems.findIndex(p=>p.key===match.key);
     if(idx>=0){
@@ -12360,6 +12373,7 @@ async function v38RenderRecommendations(){
   }catch(e){if(seq!==v38RecoRequestSeq)return;box.innerHTML=`<div class="v38-reco-status">${lang==='ko'?'지금은 주변 후보를 불러오지 못했습니다. Explore에서 직접 검색해 주세요.':'Could not load nearby candidates right now. Please use Explore search.'}</div>`;}
 }
 function v38AddRecommendation(city,p,day){
+  if(!Number.isInteger(Number(day))||Number(day)<1||Number(day)>10) return;
   const key=v38RecommendationKey(city,p); let items=savedPlaces();
   if(!items.some(x=>x.key===key)) items.push({key,city,en:p.en||'',ko:p.ko||'',lat:Number(p.lat),lng:Number(p.lng)});
   sessionStorage.setItem('koreaRouteSavedPlaces',JSON.stringify(items));
