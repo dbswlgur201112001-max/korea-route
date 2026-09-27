@@ -3239,6 +3239,10 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
 #todayTripSummary dl>div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:12px;font-size:13px;line-height:1.5}
 #todayTripSummary dt{color:#53657d}#todayTripSummary dd{margin:0;font-weight:700;overflow-wrap:anywhere}
 #todayTripSummary button{width:100%;min-height:44px;padding:10px;border:0;border-radius:12px;background:#10233f;color:white;font-weight:700;font-size:14px;white-space:normal}
+#todayAssignedPlaces{margin:0 0 16px;padding:0 16px;min-width:0;overflow-wrap:anywhere}
+#todayAssignedPlaces[hidden]{display:none}
+#todayAssignedPlaces h3{font-size:14px;line-height:1.5;margin:0 0 8px}
+#todayAssignedPlaces button{display:block;width:100%;min-height:44px;text-align:left;white-space:normal;overflow-wrap:anywhere;margin:6px 0;padding:10px;border:1px solid #dce5ef;border-radius:10px;background:#fff;color:#10233f;font-size:14px}
 #todayTripSummary .today-plan-status{padding:12px;margin:12px 0;border-radius:12px;background:#f1f6fc;overflow-wrap:anywhere}
 #todayTripSummary .today-plan-status small{display:block;color:#53657d;font-size:11px;line-height:1.5;margin-bottom:6px}
 #todayTripSummary .today-plan-status strong{display:block;font-size:14px;line-height:1.5}
@@ -5296,9 +5300,46 @@ function homeTripIntelligenceHtml(){
   return '<div class="today-plan-status" data-plan-state="'+trip.state+'"><small>'+text('Based on your saved trip plan · Korea dates','저장된 여행계획 기간 기준 · 한국 날짜','保存した旅行計画の期間に基づく · 韓国の日付')+'</small><strong>'+escapeHtmlText(title)+'</strong>'+(detail?'<p>'+escapeHtmlText(detail)+'</p>':'')+'<a href="#home" onclick="'+action+';return false">'+label+'</a></div>';
 }
 
+// Read only: explicit numeric day assignments; never normalize or persist a plan.
+function readHomeTodayPlaces(day){
+  if(!Number.isInteger(day)||day<1||day>10) return [];
+  try{
+    const places=JSON.parse(sessionStorage.getItem('koreaRouteSavedPlaces')||'[]');
+    const plan=JSON.parse(sessionStorage.getItem('koreaRouteSavedPlacePlan')||'{}');
+    if(!Array.isArray(places)||!plan||typeof plan!=='object'||Array.isArray(plan)) return [];
+    const rows=places.filter(p=>{
+      if(!p||typeof p.key!=='string'||!p.key.trim()||!Object.prototype.hasOwnProperty.call(plan,p.key)) return false;
+      const entry=plan[p.key];
+      return entry&&typeof entry==='object'&&!Array.isArray(entry)&&Number.isInteger(entry.day)&&entry.day===day;
+    });
+    const ordered=p=>Number.isSafeInteger(plan[p.key].order)&&plan[p.key].order>=0;
+    const sorted=rows.filter(ordered).sort((a,b)=>plan[a.key].order-plan[b.key].order);
+    let cursor=0;
+    // Invalid-order rows retain their slots; only explicitly ordered rows exchange slots.
+    return rows.map(p=>ordered(p)?sorted[cursor++]:p);
+  }catch(_){return [];}
+}
+function renderHomeTodayPlaces(){
+  const summary=document.getElementById('todayTripSummary');if(!summary)return;
+  let host=document.getElementById('todayAssignedPlaces');
+  if(!host){host=document.createElement('section');host.id='todayAssignedPlaces';summary.after(host);}
+  const trip=homeTripIntelligence();
+  host.hidden=!['IN_TRIP','LAST_DAY'].includes(trip.state);
+  host.innerHTML='';if(host.hidden)return;
+  const text=(en,ko,ja)=>lang==='ko'?ko:lang==='ja'?ja:en;
+  const items=readHomeTodayPlaces(trip.day),n=trip.day,esc=escapeHtmlText;
+  const heading=items.length?text('Places assigned to Day '+n,n+'일차에 지정한 장소',n+'日目に設定した場所'):text('No places assigned to Day '+n,n+'일차에 지정된 장소가 없어요',n+'日目に設定された場所はありません');
+  host.innerHTML='<h3>'+heading+'</h3>'+items.slice(0,3).map(p=>{
+    const name=lang==='ko'?(p.ko||p.en):lang==='ja'?(p.ja||p.en||p.ko):(p.en||p.ko);
+    // Existing destination modal can clip its Close control on mobile; use the approved My Trip fallback.
+    return '<button type="button" data-saved-key="'+esc(p.key)+'" onclick="v60OpenTripOverview()">'+esc(name||'')+'</button>';
+  }).join('')+(!items.length||items.length>3?'<button type="button" onclick="v60OpenTripOverview()">'+(items.length>3?text('+'+(items.length-3)+' more','+'+(items.length-3)+'곳 더보기','あと'+(items.length-3)+'か所'):text('Open My Trip','내 여행 열기','マイ旅行を開く'))+'</button>':'');
+}
+
 // Display only: reads existing selections; never writes storage.
 function renderHomeTripSummary(){
   const host=document.getElementById('todayTripSummary'); if(!host)return;
+  renderHomeTodayPlaces();
   const text=(en,ko,ja)=>lang==='ko'?ko:lang==='ja'?ja:en;
   const esc=escapeHtmlText;
   const routeText=routeSummaryText(myTripRouteSelection())||routeSummaryText(homeTripIntelligence());
