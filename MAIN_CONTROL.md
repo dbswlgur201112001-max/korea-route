@@ -49,17 +49,30 @@ Only MAIN_CONTROL.md, main-control/baseline.json, scripts/main-control-guard.js,
 .github/workflows/main-control-qa.yml and .github/workflows/ai-dev-command.yml
 belong to this foundation change. Do not apply APPLY_PLAN.md from the bundle.
 
-The 22 AGENTS.md keys plus koreaRouteAutoPersist are protected. Preserve the
+The original 22 AGENTS.md keys plus koreaRouteAutoPersist and koreaRouteExpenseLedger
+are protected: 24 protectedStorageKeys. koreaRouteOfflineTrip remains the existing
+snapshot key and is not newly counted in this inventory. Preserve the
 {version, savedAt, data} backup schema, registered session keys, exclusion of
 GPS/map-cache/walk-session data, and restore only when a session value is absent.
 Preserve v11PersistTripData(), its writes to sessionStorage.koreaRouteTrip and
 localStorage.koreaRouteSavedTrip, and immediate koreaRoutePersistSessionState().
 
-The guard compares LF-normalized SHA-256 fingerprints of frozen product source,
-including the entire index.html, against this baseline. This conservatively
-rejects changes anywhere in storage logic or its call sites, even when names
-remain present. Future product changes require a separately approved scope and
-review of these fingerprints; never regenerate them merely to make checks pass.
+The guard compares LF-normalized SHA-256 fingerprints of selected storage
+declarations/functions in index.html, not the entire index.html. Other product
+code may receive minimal approved feature-branch changes. Storage contract
+changes require a dedicated approved task; never regenerate fingerprints merely
+to make checks pass. Other frozen runtime/data/API/NFC/vendor files retain their
+existing fingerprints.
+
+Storage contract revision 2 adds koreaRouteExpenseLedger (schema version 1,
+maximum 500 records), canonical in localStorage and separate from Budget Wallet.
+It is not created on startup or included in the 16-key session auto-persist.
+Offline Copy includes its valid raw JSON string inside the existing data object.
+Missing legacy or invalid ledger snapshot values preserve the current ledger;
+a valid empty ledger explicitly replaces it. Existing session restore removal
+semantics are unchanged. Freshness and the existing polling/debounce track this
+local ledger without a new timer. The auto-persist storageContract.version stays 1.
+
 Static PASS means source/inventory checks passed, not working storage, routes,
 or UI. Only actual browser evidence can establish behavior. The existing smoke
 suite checks shell/data availability and does not cover REG-001/002/003.

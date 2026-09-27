@@ -7761,6 +7761,42 @@ function renderUnifiedItinerarySummary(){
 }
 
 
+// Local canonical ledger: never registered in session auto-persist or created on startup.
+const KOREA_ROUTE_EXPENSE_LEDGER_KEY='koreaRouteExpenseLedger';
+
+function parseKoreaRouteExpenseLedger(raw){
+  try{
+    if(typeof raw!=='string') return null;
+    const payload=JSON.parse(raw);
+    const plain=value=>value!==null&&typeof value==='object'&&Object.getPrototypeOf(value)===Object.prototype;
+    const allowed=(value,fields)=>Object.keys(value).every(key=>fields.includes(key));
+    const dateValid=value=>{
+      if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(value)||value<'1900-01-01') return false;
+      const date=new Date(value+'T00:00:00.000Z');
+      return Number.isFinite(date.getTime())&&date.toISOString().slice(0,10)===value;
+    };
+    const utcValid=value=>{
+      if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/.test(value)) return false;
+      const date=new Date(value);
+      return Number.isFinite(date.getTime())&&date.toISOString()===(value.length===20?value.slice(0,-1)+'.000Z':value);
+    };
+    if(!plain(payload)||!allowed(payload,['version','records'])||payload.version!==1||!Array.isArray(payload.records)||payload.records.length>500) return null;
+    const fields=['id','storeName','purchaseDate','amountKrw','refund','note','createdAt','updatedAt'];
+    const statuses=['UNVERIFIED','CHECK_REQUIRED','STORE_CONFIRMED','REFUND_RECEIVED'];
+    for(const record of payload.records){
+      if(!plain(record)||!allowed(record,fields)) return null;
+      if(typeof record.id!=='string'||!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(record.id)) return null;
+      if(typeof record.storeName!=='string'||record.storeName.trim().length<1||record.storeName.trim().length>100) return null;
+      // Calendar validity only: device clock changes must not invalidate saved purchases.
+      if(!dateValid(record.purchaseDate)) return null;
+      if(!Number.isInteger(record.amountKrw)||record.amountKrw<1||record.amountKrw>999999999) return null;
+      if(Object.prototype.hasOwnProperty.call(record,'refund')&&(!plain(record.refund)||!allowed(record.refund,['status'])||!statuses.includes(record.refund.status))) return null;
+      if(typeof record.note!=='string'||record.note.length>500||!utcValid(record.createdAt)||!utcValid(record.updatedAt)) return null;
+    }
+    return payload;
+  }catch(e){return null;}
+}
+
 const OFFLINE_TRIP_STORAGE_KEY='koreaRouteOfflineTrip';
 const OFFLINE_TRIP_SESSION_KEYS=KOREA_ROUTE_PERSIST_SESSION_KEYS;
 
@@ -7794,6 +7830,8 @@ function buildOfflineTripSnapshot(){
     const value=sessionStorage.getItem(key);
     if(value!==null) data[key]=value;
   });
+  const ledger=localStorage.getItem(KOREA_ROUTE_EXPENSE_LEDGER_KEY);
+  if(parseKoreaRouteExpenseLedger(ledger)) data[KOREA_ROUTE_EXPENSE_LEDGER_KEY]=ledger;
   return {
     version:1,
     savedAt:new Date().toISOString(),
@@ -7830,6 +7868,15 @@ function restoreOfflineTripSnapshot(){
       sessionStorage.removeItem(key);
     }
   });
+
+  // Legacy/malformed copies preserve the current ledger; valid empty records replace it.
+  const ledger=snapshot.data[KOREA_ROUTE_EXPENSE_LEDGER_KEY];
+  if(Object.prototype.hasOwnProperty.call(snapshot.data,KOREA_ROUTE_EXPENSE_LEDGER_KEY)&&parseKoreaRouteExpenseLedger(ledger)){
+    try{localStorage.setItem(KOREA_ROUTE_EXPENSE_LEDGER_KEY,ledger);}catch(e){
+      showOfflineTripFeedback(offlineCopyText('오프라인 저장에 실패했습니다.','Could not save offline trip copy.','オフライン旅行コピーを保存できませんでした。'));
+      return;
+    }
+  }
 
   renderSavedPlacesInMyTrip();
   renderUnifiedItinerarySummary();
@@ -7880,6 +7927,7 @@ function offlineSnapshotComparableData(snapshot){
     const value=source[key];
     if(value!==undefined&&value!==null&&value!=='') out[key]=value;
   });
+  if(Object.prototype.hasOwnProperty.call(source,KOREA_ROUTE_EXPENSE_LEDGER_KEY)) out[KOREA_ROUTE_EXPENSE_LEDGER_KEY]=source[KOREA_ROUTE_EXPENSE_LEDGER_KEY];
   return out;
 }
 
@@ -7889,6 +7937,8 @@ function currentOfflineComparableData(){
     const value=sessionStorage.getItem(key);
     if(value!==null&&value!=='') out[key]=value;
   });
+  const ledger=localStorage.getItem(KOREA_ROUTE_EXPENSE_LEDGER_KEY);
+  if(ledger!==null) out[KOREA_ROUTE_EXPENSE_LEDGER_KEY]=ledger;
   return out;
 }
 
@@ -8011,6 +8061,7 @@ function offlineTripTrackedSessionFingerprint(){
     const value=sessionStorage.getItem(key);
     data[key]=value===null?null:value;
   });
+  data[KOREA_ROUTE_EXPENSE_LEDGER_KEY]=localStorage.getItem(KOREA_ROUTE_EXPENSE_LEDGER_KEY);
   return stableOfflineSnapshotString(data);
 }
 
@@ -8022,6 +8073,8 @@ function offlineTripStoredSnapshotFingerprint(){
       ?String(snapshot.data[key])
       :null;
   });
+  data[KOREA_ROUTE_EXPENSE_LEDGER_KEY]=snapshot?.data&&Object.prototype.hasOwnProperty.call(snapshot.data,KOREA_ROUTE_EXPENSE_LEDGER_KEY)
+    ?snapshot.data[KOREA_ROUTE_EXPENSE_LEDGER_KEY]:null;
   return stableOfflineSnapshotString(data);
 }
 

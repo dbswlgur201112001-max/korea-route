@@ -115,6 +115,12 @@ API 키는 소스에 넣지 않는다. Vercel 환경변수에만 둔다. .env는
 
 아래 키는 사용자의 저장 데이터다. 이름·구조를 바꾸면 기존 사용자의 데이터가 사라진다: ODSAY_WEB_KEY, koreaRouteCanIMakeIt, koreaRouteFxCurrency, koreaRouteLang, koreaRouteLivePosition, koreaRouteMove, koreaRouteMoveSituation, koreaRouteMoveVerify, koreaRoutePlan, koreaRouteRoute, koreaRouteSavedJourney, koreaRouteSavedPlacePlan, koreaRouteSavedPlaces, koreaRouteSavedTrip, koreaRouteStayArea, koreaRouteStopAlertKeepAwake, koreaRouteTransitPayment, koreaRouteTrip, koreaRouteTripChecklist, koreaRouteVisitedPlaces, koreaRouteWalkAlerts, koreaRouteWallet
 
+추가 보호 계약: 위 기존 22개 키 + koreaRouteAutoPersist + koreaRouteExpenseLedger = 총 24개 protectedStorageKeys다. koreaRouteOfflineTrip은 기존 Offline Copy snapshot 키이며 이 24개에 새로 포함하지 않는다.
+
+koreaRouteWallet은 예상 여행 Budget이다. koreaRouteExpenseLedger는 실제 사용자 입력 구매 장부이며 localStorage를 canonical source로 사용한다. 두 키와 스키마를 섞지 않는다. Ledger V1은 {version:1,records:[{id,storeName,purchaseDate,amountKrw,refund?,note,createdAt,updatedAt}]}이며 refund는 허용된 status만 가진다. 저장/복원 경계는 parseKoreaRouteExpenseLedger()로 검증한다. 앱 시작만으로 빈 장부를 생성하지 않는다.
+
+Ledger는 기존 16개 KOREA_ROUTE_PERSIST_SESSION_KEYS에 등록하거나 koreaRouteAutoPersist에 중복 저장하지 않는다. 기존 자동 백업 version/복원/제외 정책은 유지한다. Offline Copy의 기존 {version,savedAt,data} 안에 검증된 Ledger JSON 문자열만 포함한다. 구버전 사본에서 Ledger가 없거나 invalid이면 현재 localStorage Ledger를 보존한다. 유효한 빈 records는 명시적 빈 장부로 복원한다. 기존 session key가 사본에 없으면 제거하는 정책은 그대로 유지한다.
+
 특히 주의: 여행 저장 키 이중 구조. KR-BLOCK-001의 원인이 여기였다. sessionStorage의 koreaRouteTrip은 My Trip 화면이 읽는 키이고, localStorage의 koreaRouteSavedTrip은 플래너 새로고침 호환용 키다. PATCH 03에서 v11PersistTripData() 함수가 두 키를 동시에 쓰고 koreaRoutePersistSessionState()를 즉시 호출하도록 다리를 놓았다. 이 함수를 우회해 어느 한쪽 키만 쓰는 코드를 추가하면 KR-BLOCK-001이 재발한다. 여행 저장은 반드시 v11PersistTripData()를 통한다.
 
 ## 12. 부록 B — 알려진 선결 과제

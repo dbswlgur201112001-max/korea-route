@@ -14,12 +14,20 @@ const check = (condition, message) => { if (!condition) failures.push(message); 
 // Fail closed on missing/duplicate/changed declarations; never execute app code.
 // Hash only the matched declaration, so unrelated HTML/JS remains editable.
 const storageRegions = {
+  KOREA_ROUTE_EXPENSE_LEDGER_KEY: /^const KOREA_ROUTE_EXPENSE_LEDGER_KEY=[^\n]+;$/gm,
   KOREA_ROUTE_AUTO_PERSIST_KEY: /^const KOREA_ROUTE_AUTO_PERSIST_KEY=[^\n]+;$/gm,
   KOREA_ROUTE_PERSIST_SESSION_KEYS: /^const KOREA_ROUTE_PERSIST_SESSION_KEYS=\[[\s\S]*?^\];$/gm,
   KOREA_ROUTE_PERSIST_EXCLUDED_KEYS: /^const KOREA_ROUTE_PERSIST_EXCLUDED_KEYS=new Set\(\[[\s\S]*?^\]\);$/gm,
 };
 for (const name of ['v11PersistTripData', 'koreaRoutePersistSessionState',
-  'koreaRouteBuildPersistedState', 'koreaRouteRestorePersistedSessionState']) {
+  'koreaRouteBuildPersistedState', 'koreaRouteRestorePersistedSessionState',
+  'parseKoreaRouteExpenseLedger',
+  'buildOfflineTripSnapshot',
+  'restoreOfflineTripSnapshot',
+  'offlineSnapshotComparableData',
+  'currentOfflineComparableData',
+  'offlineTripTrackedSessionFingerprint',
+  'offlineTripStoredSnapshotFingerprint']) {
   storageRegions[name] = new RegExp(`^function ${name}\\([^\\n]*\\{[\\s\\S]*?^\\}`, 'gm');
 }
 

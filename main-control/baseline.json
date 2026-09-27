@@ -65,7 +65,8 @@
     "koreaRouteVisitedPlaces",
     "koreaRouteWalkAlerts",
     "koreaRouteWallet",
-    "koreaRouteAutoPersist"
+    "koreaRouteAutoPersist",
+    "koreaRouteExpenseLedger"
   ],
   "protectedFunctions": [
     "v11PersistTripData",
@@ -113,7 +114,21 @@
     ],
     "restorePolicy": "Only restore registered keys when sessionStorage.getItem(key) === null",
     "tripWriteBridge": "v11PersistTripData writes sessionStorage.koreaRouteTrip and localStorage.koreaRouteSavedTrip, then immediately calls koreaRoutePersistSessionState",
-    "behaviorStatus": "UNTESTED by static guard"
+    "behaviorStatus": "UNTESTED by static guard",
+    "contractRevision": 2,
+    "localStorageContracts": {
+      "expenseLedger": {
+        "key": "koreaRouteExpenseLedger",
+        "schemaVersion": 1,
+        "canonicalStore": "localStorage",
+        "maxRecords": 500,
+        "includedInAutoPersist": false,
+        "includedInOfflineCopy": true,
+        "offlineSnapshotEncoding": "JSON string",
+        "legacySnapshotMissingPolicy": "preserve-current",
+        "invalidSnapshotPolicy": "preserve-current"
+      }
+    }
   },
   "frozenSourceSha256": {
     "sw.js": "feed14a20c1c48f8d5f013b0432abb85f9a491d12d533f1abcb9e86143de1c53",
@@ -145,7 +160,7 @@
     "api/gemini.js": "776ddeca4a7e34974e5cc3bc5feca5374113472fcf46153b8f1d71ea00bf5843",
     "api/kiosk.js": "515840e284d2849b5527ecf6dba9d79e22e3a2647d88a2c1a1f020f7748f4434",
     "api/check-ride.js": "fc953221ba7f8191f05fa2a91b3c5ec8cc4e997ac4c0c711d36bd75a3ca7f53a",
-    "AGENTS.md": "4c9fbc2ccde2ac42eed36fa567f93260ba7af564b84e49e3af7474be0353fb04",
+    "AGENTS.md": "93415102b59ad38f45288d2aa6144632a895255f8dcc43f2e610650afda333be",
     "package.json": "7b16d1836d219fb6ab539bdfd417556178d33837884e73926969d02d10a3e7ce",
     "playwright.config.js": "8b17f10098a7869414e43b67b0791712512c666647f874e1da1469a5bba97252",
     "tests/smoke.spec.js": "df697c87282857cbcba23e1502e2d834ff0a4d16ae38fed09327a379474be9ea"
@@ -157,6 +172,14 @@
     "v11PersistTripData": "57681a1e64afe5c888c1f889b0b1d6780fef974e37929f2c718d8a457e2cf0a7",
     "koreaRoutePersistSessionState": "3e675b294bb99f5fa349f3d5ccbb23cfb580cef4486d137671a9305e7488a1cb",
     "koreaRouteBuildPersistedState": "2b4bb8559406dc40bf5434ad84bfae27999e41c70a5583ee58aae9e51cd2be73",
-    "koreaRouteRestorePersistedSessionState": "467a5b39ac82c0cc52848b5ebd4005f0d839b0a7f48814b25f82e44cf2352f87"
+    "koreaRouteRestorePersistedSessionState": "467a5b39ac82c0cc52848b5ebd4005f0d839b0a7f48814b25f82e44cf2352f87",
+    "KOREA_ROUTE_EXPENSE_LEDGER_KEY": "3110951f535662d39e69a72d63f5102f316b1e60e1ad772d5320e5c67801eedb",
+    "parseKoreaRouteExpenseLedger": "07b95faf4bfc288d7a28f830be37cab1f48c5ef7382e98e28efc133580270479",
+    "buildOfflineTripSnapshot": "4fe90d745537646ad309cf70cd305467e9712679cd0b3974eea83af6da25a431",
+    "restoreOfflineTripSnapshot": "4316ab4008c1cd5431e1b6ed07ff082db39cc0ae4a0fc673609edf7f506753ad",
+    "offlineSnapshotComparableData": "96b9379d50e00436dcb8ef8ee7bda725241a2fa110c5aa7ee0b903b71e3ff62f",
+    "currentOfflineComparableData": "3be4bc4e4cdfa621ff580d1c8a8fe5f8ac31589fbe93734a06f79bbde9d41f00",
+    "offlineTripTrackedSessionFingerprint": "2912efee4e2a0c95836bbfc6ae65b0b1919bcc1a01f2a8d2a4f37407cf6dc24c",
+    "offlineTripStoredSnapshotFingerprint": "70902b57844a4edd86bb96a8ae3d2a025847e590a352e20a944dec79ce7b008b"
   }
 }
