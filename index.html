@@ -3257,6 +3257,11 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
 
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)}</script><script defer src="/_vercel/insights/script.js"></script>
 <style>
+#refundWalletSection{overflow-wrap:anywhere;min-width:0}
+#refundWalletSection article{border-top:1px solid #d5dce5;padding:14px 0}
+#refundWalletSection label{display:grid;gap:6px;margin:10px 0}
+#refundWalletSection select{width:100%;max-width:100%;min-width:0;padding:10px;font:inherit}
+#refundWalletSection button{padding:10px;border:1px solid #cbd5e1;border-radius:10px;margin:4px;font:inherit}
 #expenseLedgerSection{overflow-wrap:anywhere;min-width:0}
 #expenseLedgerSection form{display:grid;gap:12px;margin:16px 0}
 #expenseLedgerSection label{display:grid;gap:6px;min-width:0}
@@ -4095,6 +4100,7 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
     <div class="wallet-note" data-en="Budget figures are planning estimates. FX is a daily reference rate, not a card, ATM or cash-exchange quote. Pass, eSIM and card-acceptance data is not live." data-ko="예산 금액은 계획용 예상치입니다. 환율은 일일 기준환율이며 카드·ATM·환전소 실제 적용환율이 아닙니다. 패스·eSIM·카드 사용 가능 정보는 실시간이 아닙니다.">Budget figures are planning estimates. FX is a daily reference rate, not a card, ATM or cash-exchange quote. Pass, eSIM and card-acceptance data is not live.</div>
   </div>
   <section id="expenseLedgerSection" class="wallet-panel" aria-labelledby="expenseLedgerTitle"></section>
+  <section id="refundWalletSection" class="wallet-panel" aria-labelledby="refundWalletTitle"></section>
 </section>
 
 
@@ -7900,6 +7906,7 @@ function deleteManualExpense(id){
   expenseLedgerMessage='deleted';renderExpenseLedger();watchOfflineTripSessionChanges();
 }
 function renderExpenseLedger(){
+  renderRefundWallet();
   const root=document.getElementById('expenseLedgerSection');if(!root) return;
   const oldForm=document.getElementById('expenseLedgerForm');
   const draft=oldForm?Object.fromEntries(new FormData(oldForm)):null;
@@ -7937,11 +7944,89 @@ function renderExpenseLedger(){
     const buttons=el('div',undefined,row);buttons.className='expense-actions';
     const edit=el('button',expenseLedgerText('edit'),buttons);edit.type='button';edit.onclick=()=>editManualExpense(record.id);
     const remove=el('button',expenseLedgerText('remove'),buttons);remove.type='button';remove.onclick=()=>deleteManualExpense(record.id);
+    const refund=el('button',refundWalletText(record.refund?'stop':'track'),buttons);refund.type='button';
+    refund.onclick=()=>mutateRefundTracking(record.id,record.refund?'stop':'start');
   });
 }
 window.addEventListener('storage',event=>{
   if((event.key===KOREA_ROUTE_EXPENSE_LEDGER_KEY||event.key===null)&&event.storageArea===localStorage) renderExpenseLedger();
 });
+
+
+let refundWalletMessage='';
+function refundWalletText(key){
+  const text={
+    title:['Tax Refund','택스 리펀드','免税・還付'],intro:['Track refund status for purchases you choose.','선택한 구매의 환급 확인 상태를 기록합니다.','選択した購入の還付確認状況を記録します。'],
+    track:['Track refund','환급 추적','還付を記録'],stop:['Stop tracking','환급 추적 해제','還付記録を解除'],conditions:['Check conditions','환급 조건 확인','還付条件を確認'],
+    status:['Refund tracking status · your record','환급 추적 상태 · 사용자 기록','還付確認状況・ご自身の記録'],
+    UNVERIFIED:['Not checked','미확인','未確認'],CHECK_REQUIRED:['Check required','추가 확인 필요','追加確認が必要'],STORE_CONFIRMED:['Store confirmed','매장 확인','店舗確認済み'],REFUND_RECEIVED:['Refund received','환급 수령 기록','還付受取を記録済み'],
+    storeNote:['You marked that the store information was checked. This does not guarantee refund approval.','사용자가 매장 안내를 확인했다고 기록한 상태입니다. 환급 승인을 보장하지 않습니다.','店舗案内を確認した記録です。還付承認を保証するものではありません。'],
+    receivedNote:['Recorded by you as received.','사용자가 수령 완료로 기록했습니다.','受取済みとして記録されています。'],
+    userNote:['Statuses are your records, not verification by the app.','각 상태는 앱의 검증 결과가 아닌 사용자 기록입니다.','各状況はアプリの検証結果ではなく、ご自身の記録です。'],
+    empty:['No purchases are being tracked for a refund.','환급 추적 중인 구매가 없습니다.','還付を記録している購入はありません。'],
+    emptyHelp:['Choose Track refund from an expense.','지출 내역에서 환급 추적을 선택하세요.','支出記録から「還付を記録」を選んでください。'],
+    confirm:['Stop refund tracking? The purchase will be kept.','환급 추적을 해제할까요? 구매 내역은 유지됩니다.','還付記録を解除しますか？購入記録は保持されます。'],
+    saved:['Refund tracking updated.','환급 추적 기록을 변경했습니다.','還付記録を更新しました。']
+  };
+  return text[key]?.[lang==='ko'?1:lang==='ja'?2:0]||expenseLedgerText(key);
+}
+function refundWalletFeedback(key){
+  refundWalletMessage=key;
+  const node=document.getElementById('refundWalletStatus');if(node) node.textContent=refundWalletText(key);
+}
+function mutateRefundTracking(id,action,status){
+  if(action==='stop'&&!window.confirm(refundWalletText('confirm'))) return;
+  const current=readExpenseLedger();
+  if(!current.payload){refundWalletFeedback('unreadable');return;}
+  const matches=current.payload.records.filter(record=>record.id===id);
+  if(matches.length!==1){renderRefundWallet();refundWalletFeedback('missing');return;}
+  const old=matches[0],record={...old};
+  if(action==='start'){
+    if(old.refund) return;
+    record.refund={status:'UNVERIFIED'};
+  }else if(action==='stop'){
+    if(!old.refund) return;
+    delete record.refund;
+  }else if(action==='status'&&old.refund&&['UNVERIFIED','CHECK_REQUIRED','STORE_CONFIRMED','REFUND_RECEIVED'].includes(status)){
+    if(old.refund.status===status) return;
+    record.refund={status};
+  }else{renderRefundWallet();refundWalletFeedback('missing');return;}
+  record.updatedAt=new Date().toISOString();
+  const payload={version:1,records:current.payload.records.map(item=>item.id===id?record:item)};
+  if(!writeKoreaRouteExpenseLedger(payload,current.raw)){renderRefundWallet();refundWalletFeedback('failed');return;}
+  refundWalletMessage='saved';renderExpenseLedger();watchOfflineTripSessionChanges();
+}
+function checkExpenseRefundConditions(id){
+  const current=readExpenseLedger();
+  if(!current.payload){refundWalletFeedback('unreadable');return;}
+  const matches=current.payload.records.filter(record=>record.id===id);
+  if(matches.length!==1){refundWalletFeedback('missing');return;}
+  openTaxRefundHelper(matches[0].amountKrw);
+}
+function renderRefundWallet(){
+  const root=document.getElementById('refundWalletSection');if(!root) return;
+  root.replaceChildren();
+  const el=(tag,text,parent=root)=>{const node=document.createElement(tag);if(text!==undefined) node.textContent=text;parent.appendChild(node);return node;};
+  el('h2',refundWalletText('title')).id='refundWalletTitle';el('p',refundWalletText('intro'));el('p',refundWalletText('userNote'));el('p',expenseLedgerText('warning'));
+  const feedback=el('p',refundWalletText(refundWalletMessage));feedback.id='refundWalletStatus';feedback.setAttribute('role','status');
+  const current=readExpenseLedger();if(!current.payload){feedback.textContent=expenseLedgerText('unreadable');return;}
+  const records=current.payload.records.filter(record=>record.refund);
+  const count=records.length,received=records.filter(record=>record.refund.status==='REFUND_RECEIVED').length;
+  el('p',lang==='ko'?'환급 추적 '+count+'건':lang==='ja'?'還付記録 '+count+'件':count+' tracked purchases').id='refundWalletCount';
+  el('p',lang==='ko'?'수령 기록 '+received+'건':lang==='ja'?'受取記録 '+received+'件':received+' recorded as received').id='refundWalletReceived';
+  if(!count){el('p',refundWalletText('empty'));el('p',refundWalletText('emptyHelp'));}
+  records.sort((a,b)=>b.purchaseDate.localeCompare(a.purchaseDate)||Date.parse(b.createdAt)-Date.parse(a.createdAt)).forEach(record=>{
+    const row=el('article');row.dataset.refundId=record.id;
+    el('h3',record.storeName,row);el('p',record.purchaseDate,row);el('strong','₩'+record.amountKrw.toLocaleString('en-US'),row);
+    const label=el('label',refundWalletText('status'),row),select=el('select',undefined,label);
+    for(const status of ['UNVERIFIED','CHECK_REQUIRED','STORE_CONFIRMED','REFUND_RECEIVED']){const option=el('option',refundWalletText(status),select);option.value=status;}
+    select.value=record.refund.status;select.onchange=()=>mutateRefundTracking(record.id,'status',select.value);
+    if(record.refund.status==='STORE_CONFIRMED') el('p',refundWalletText('storeNote'),row);
+    if(record.refund.status==='REFUND_RECEIVED') el('p',refundWalletText('receivedNote'),row);
+    const conditions=el('button',refundWalletText('conditions'),row);conditions.type='button';conditions.onclick=()=>checkExpenseRefundConditions(record.id);
+    const stop=el('button',refundWalletText('stop'),row);stop.type='button';stop.onclick=()=>mutateRefundTracking(record.id,'stop');
+  });
+}
 
 const OFFLINE_TRIP_STORAGE_KEY='koreaRouteOfflineTrip';
 const OFFLINE_TRIP_SESSION_KEYS=KOREA_ROUTE_PERSIST_SESSION_KEYS;
@@ -13621,32 +13706,34 @@ function taxRefundWon(v){
   const n=Number(v||0);
   return Number.isFinite(n)?`₩${Math.max(0,Math.round(n)).toLocaleString()}`:'—';
 }
-function openTaxRefundHelper(){
+function taxRefundText(ko,en,ja){return lang==='ko'?ko:lang==='ja'?ja:en;}
+function openTaxRefundHelper(prefillAmount){
   let layer=document.getElementById('phraseSheetLayer');
   if(!layer){layer=document.createElement('div');layer.id='phraseSheetLayer';layer.className='phrase-sheet-layer';document.body.appendChild(layer);}
   layer.innerHTML=`<div class="phrase-sheet">
-    <div class="phrase-sheet-head"><div><span>${lang==='ko'?'외국인 쇼핑 환급 체크':'TAX REFUND HELPER'}</span><h3>${lang==='ko'?'결제 전·출국 전 필요한 조건을 확인하세요':'Check the basics before paying and before departure'}</h3></div><button type="button" onclick="closePhraseSheet()">×</button></div>
-    <div class="tax-refund-phrase"><b>택스 리펀드 받을 수 있나요?</b><span>Can I get a tax refund?</span></div>
+    <div class="phrase-sheet-head"><div><span>${taxRefundText('외국인 쇼핑 환급 체크','TAX REFUND HELPER',"免税・還付ヘルパー")}</span><h3>${taxRefundText('결제 전·출국 전 필요한 조건을 확인하세요','Check the basics before paying and before departure',"支払い前・出国前に基本条件を確認してください")}</h3></div><button type="button" aria-label="${taxRefundText('닫기','Close','閉じる')}" onclick="closePhraseSheet()">×</button></div>
+    <div class="tax-refund-phrase"><b>택스 리펀드 받을 수 있나요?</b><span>${taxRefundText('택스 리펀드를 받을 수 있나요?','Can I get a tax refund?','免税・還付を受けられますか？')}</span></div>
     <div class="tax-refund-grid">
-      <div class="tax-refund-field"><label>${lang==='ko'?'이번 결제금액 (원)':'This purchase (KRW)'}</label><input id="taxRefundAmount" type="number" min="0" step="1000" inputmode="numeric" placeholder="15000"></div>
-      <div class="tax-refund-field"><label>${lang==='ko'?'이번 여행 즉시환급 구매 누계 (선택)':'Trip immediate-refund spending (optional)'}</label><input id="taxRefundTripTotal" type="number" min="0" step="1000" inputmode="numeric" placeholder="5000000"></div>
+      <div class="tax-refund-field"><label for="taxRefundAmount">${taxRefundText('이번 결제금액 (원)','This purchase (KRW)',"今回の購入金額（KRW）")}</label><input id="taxRefundAmount" type="number" min="0" step="1000" inputmode="numeric" placeholder="15000"></div>
+      <div class="tax-refund-field"><label for="taxRefundTripTotal">${taxRefundText('이번 여행 즉시환급 구매 누계 (선택)','Trip immediate-refund spending (optional)',"今回の旅行の即時還付対象購入累計（任意）")}</label><input id="taxRefundTripTotal" type="number" min="0" step="1000" inputmode="numeric" placeholder="5000000"></div>
     </div>
     <div class="tax-refund-checks">
-      ${taxRefundCheckHtml('taxRefundStore',lang==='ko'?'Tax Refund / Tax Free 표시 매장':'Store shows Tax Refund / Tax Free',lang==='ko'?'매장 입구·계산대 또는 환급 영수증 표시를 확인':'Check the sign at the store/counter or the refund receipt')}
-      ${taxRefundCheckHtml('taxRefundPassport',lang==='ko'?'여권을 제시할 수 있음':'Passport available',lang==='ko'?'즉시환급은 결제 시 여권 제시가 필요':'Immediate refund requires presenting a passport at purchase')}
-      ${taxRefundCheckHtml('taxRefundUnused',lang==='ko'?'새 상품이며 사용·개봉하지 않음':'New, unopened and unused goods',lang==='ko'?'사용·개봉한 물품은 일반 환급 대상에서 제외될 수 있음':'Opened or used goods can be ineligible')}
-      ${taxRefundCheckHtml('taxRefundDeparture',lang==='ko'?'구매 후 3개월 안에 한국 출국':'Depart Korea within 3 months',lang==='ko'?'환급 기본 요건 중 하나':'One of the basic refund requirements')}
-      ${taxRefundCheckHtml('taxRefundVisitor',lang==='ko'?'한국 체류 6개월 미만 외국인 방문객':'Foreign visitor staying in Korea under 6 months',lang==='ko'?'일반 외국인 관광객 기준':'General foreign-visitor eligibility')}
+      ${taxRefundCheckHtml('taxRefundStore',taxRefundText('Tax Refund / Tax Free 표시 매장','Store shows Tax Refund / Tax Free',"Tax Refund / Tax Free 表示のある店舗"),taxRefundText('매장 입구·계산대 또는 환급 영수증 표시를 확인','Check the sign at the store/counter or the refund receipt',"店舗入口・レジ、または還付用レシートの表示を確認してください"))}
+      ${taxRefundCheckHtml('taxRefundPassport',taxRefundText('여권을 제시할 수 있음','Passport available',"パスポートを提示できる"),taxRefundText('즉시환급은 결제 시 여권 제시가 필요','Immediate refund requires presenting a passport at purchase',"即時還付には購入時のパスポート提示が必要です"))}
+      ${taxRefundCheckHtml('taxRefundUnused',taxRefundText('새 상품이며 사용·개봉하지 않음','New, unopened and unused goods',"新品で未開封・未使用の商品"),taxRefundText('사용·개봉한 물품은 일반 환급 대상에서 제외될 수 있음','Opened or used goods can be ineligible',"開封済み・使用済みの商品は対象外になる場合があります"))}
+      ${taxRefundCheckHtml('taxRefundDeparture',taxRefundText('구매 후 3개월 안에 한국 출국','Depart Korea within 3 months',"購入後3か月以内に韓国を出国する"),taxRefundText('환급 기본 요건 중 하나','One of the basic refund requirements',"還付の基本条件の一つです"))}
+      ${taxRefundCheckHtml('taxRefundVisitor',taxRefundText('한국 체류 6개월 미만 외국인 방문객','Foreign visitor staying in Korea under 6 months',"韓国滞在が6か月未満の外国人旅行者"),taxRefundText('일반 외국인 관광객 기준','General foreign-visitor eligibility',"一般的な外国人旅行者の条件です"))}
     </div>
-    <div class="tax-refund-actions"><button type="button" class="primary" onclick="evaluateTaxRefund()">✓ ${lang==='ko'?'환급 조건 확인':'Check refund conditions'}</button><button type="button" onclick="openTaxRefundOfficial()">↗ ${lang==='ko'?'공식 환급 안내':'Official guide'}</button></div>
+    <div class="tax-refund-actions"><button type="button" class="primary" onclick="evaluateTaxRefund()">✓ ${taxRefundText('환급 조건 확인','Check refund conditions',"還付条件を確認")}</button><button type="button" onclick="openTaxRefundOfficial()">↗ ${taxRefundText('공식 환급 안내','Official guide',"公式案内")}</button></div>
     <div id="taxRefundResult" class="tax-refund-result"></div>
     <div class="tax-refund-facts">
-      <div class="tax-refund-fact"><b>${lang==='ko'?'일반 환급 기본금액':'General refund minimum'}</b><span>${lang==='ko'?'공식 관광안내 기준 영수증당 ₩15,000 이상. 인증 환급 매장이어야 하며 물품·체류 자격 등 다른 조건도 충족해야 합니다.':'Official tourism guidance: at least ₩15,000 per receipt, at a participating refund store, with other goods and visitor requirements met.'}</span></div>
-      <div class="tax-refund-fact"><b>${lang==='ko'?'매장 즉시환급':'Immediate refund at participating stores'}</b><span>${lang==='ko'?'1회 결제 ₩15,000 이상 ~ ₩1,000,000 미만, 여행 중 즉시환급 구매 누계 ₩5,000,000 이하가 현재 공식 안내 기준입니다.':'Current official guidance: ₩15,000 or more but less than ₩1,000,000 in one payment, and no more than ₩5,000,000 in total immediate-refund purchases during the trip.'}</span></div>
-      <div class="tax-refund-fact"><b>${lang==='ko'?'도심·공항 환급':'Downtown / airport refund'}</b><span>${lang==='ko'?'도심 환급은 영수증 1장당 ₩6,000,000 이하 안내가 있으며, 공항·항만은 절차가 다를 수 있습니다. 출국 공항 현장 안내를 다시 확인하세요.':'Downtown refund guidance uses a ₩6,000,000 per-receipt limit. Airport/port procedures can differ, so recheck the departure-terminal instructions.'}</span></div>
+      <div class="tax-refund-fact"><b>${taxRefundText('일반 환급 기본금액','General refund minimum',"一般還付の最低購入金額")}</b><span>${taxRefundText('공식 관광안내 기준 영수증당 ₩15,000 이상. 인증 환급 매장이어야 하며 물품·체류 자격 등 다른 조건도 충족해야 합니다.','Official tourism guidance: at least ₩15,000 per receipt, at a participating refund store, with other goods and visitor requirements met.',"公式観光案内ではレシート1枚につき₩15,000以上です。還付参加店舗で、商品・滞在資格などの条件も満たす必要があります。")}</span></div>
+      <div class="tax-refund-fact"><b>${taxRefundText('매장 즉시환급','Immediate refund at participating stores',"参加店舗での即時還付")}</b><span>${taxRefundText('1회 결제 ₩15,000 이상 ~ ₩1,000,000 미만, 여행 중 즉시환급 구매 누계 ₩5,000,000 이하가 현재 공식 안내 기준입니다.','Current official guidance: ₩15,000 or more but less than ₩1,000,000 in one payment, and no more than ₩5,000,000 in total immediate-refund purchases during the trip.',"掲載済みの公式案内では1回の購入が₩15,000以上・₩1,000,000未満、旅行中の即時還付対象購入累計は₩5,000,000以下です。")}</span></div>
+      <div class="tax-refund-fact"><b>${taxRefundText('도심·공항 환급','Downtown / airport refund',"市内・空港での還付")}</b><span>${taxRefundText('도심 환급은 영수증 1장당 ₩6,000,000 이하 안내가 있으며, 공항·항만은 절차가 다를 수 있습니다. 출국 공항 현장 안내를 다시 확인하세요.','Downtown refund guidance uses a ₩6,000,000 per-receipt limit. Airport/port procedures can differ, so recheck the departure-terminal instructions.',"市内還付の案内ではレシート1枚につき₩6,000,000以下です。空港・港では手続きが異なる場合があるため、出国ターミナルの案内を再確認してください。")}</span></div>
     </div>
-    <div class="tax-refund-source">${lang==='ko'?'공식 기준 확인: VISITKOREA 및 관세청 자료 · 2026-08-31 확인. Korea Route는 실제 환급 승인·환급액·매장 참여 여부를 보장하지 않습니다. 여권번호나 카드번호는 이 화면에 입력하지 마세요.':'Checked against VISITKOREA and Korea Customs Service information on 2026-08-31. Korea Route does not guarantee approval, refund amount, or store participation. Do not enter passport or card numbers here.'}</div>
+    <div class="tax-refund-source">${taxRefundText('공식 기준 확인: VISITKOREA 및 관세청 자료 · 2026-08-31 확인. Korea Route는 실제 환급 승인·환급액·매장 참여 여부를 보장하지 않습니다. 여권번호나 카드번호는 이 화면에 입력하지 마세요.','Checked against VISITKOREA and Korea Customs Service information on 2026-08-31. Korea Route does not guarantee approval, refund amount, or store participation. Do not enter passport or card numbers here.',"VISITKOREAおよび韓国関税庁の資料を2026-08-31に確認した案内です。Korea Routeは実際の還付承認・還付額・店舗の参加を保証しません。この画面にパスポート番号やカード番号を入力しないでください。")}</div>
   </div>`;
+  if(Number.isInteger(prefillAmount)&&prefillAmount>=1&&prefillAmount<=999999999) document.getElementById('taxRefundAmount').value=String(prefillAmount);
   layer.classList.add('show');
 }
 function taxRefundCheckHtml(id,title,note){
@@ -13659,29 +13746,29 @@ function evaluateTaxRefund(){
   const store=checked('taxRefundStore'), passport=checked('taxRefundPassport'), unused=checked('taxRefundUnused'), departure=checked('taxRefundDeparture'), visitor=checked('taxRefundVisitor');
   const result=document.getElementById('taxRefundResult'); if(!result) return;
   const missing=[];
-  if(!store) missing.push(lang==='ko'?'환급 참여 매장 표시':'participating-store mark');
-  if(!passport) missing.push(lang==='ko'?'여권 제시':'passport');
-  if(!unused) missing.push(lang==='ko'?'미사용·미개봉 물품':'new/unused goods');
-  if(!departure) missing.push(lang==='ko'?'3개월 내 출국':'departure within 3 months');
-  if(!visitor) missing.push(lang==='ko'?'방문객 체류 조건':'visitor stay condition');
+  if(!store) missing.push(taxRefundText('환급 참여 매장 표시','participating-store mark',"還付参加店舗の表示"));
+  if(!passport) missing.push(taxRefundText('여권 제시','passport',"パスポート提示"));
+  if(!unused) missing.push(taxRefundText('미사용·미개봉 물품','new/unused goods',"新品・未使用品"));
+  if(!departure) missing.push(taxRefundText('3개월 내 출국','departure within 3 months',"3か月以内の出国"));
+  if(!visitor) missing.push(taxRefundText('방문객 체류 조건','visitor stay condition',"旅行者の滞在条件"));
   let cls='warn', title='', lines=[];
   if(amount<15000){
-    title=lang==='ko'?'현재 입력금액은 일반 환급 최소금액보다 낮아요':'This amount is below the general refund minimum';
-    lines.push(lang==='ko'?`${taxRefundWon(amount)} 입력 · 공식 관광안내의 일반 최소금액은 영수증당 ₩15,000입니다.`:`Entered ${taxRefundWon(amount)} · official tourism guidance uses a ₩15,000 minimum per receipt.`);
+    title=taxRefundText('현재 입력금액은 일반 환급 최소금액보다 낮아요','This amount is below the general refund minimum',"入力金額は一般還付の最低購入金額を下回っています");
+    lines.push(taxRefundText(`${taxRefundWon(amount)} 입력 · 공식 관광안내의 일반 최소금액은 영수증당 ₩15,000입니다.`,`Entered ${taxRefundWon(amount)} · official tourism guidance uses a ₩15,000 minimum per receipt.`,`入力金額 ${taxRefundWon(amount)}・公式観光案内の最低購入金額はレシート1枚につき₩15,000です。`));
   }else if(missing.length){
-    title=lang==='ko'?'금액은 기준 이상이지만 확인할 조건이 남아 있어요':'The amount meets the minimum, but checks remain';
-    lines.push((lang==='ko'?'다시 확인: ':'Recheck: ')+missing.join(' · '));
+    title=taxRefundText('금액은 기준 이상이지만 확인할 조건이 남아 있어요','The amount meets the minimum, but checks remain',"最低購入金額を満たしていますが、未確認の条件があります");
+    lines.push((taxRefundText('다시 확인: ','Recheck: ',"再確認："))+missing.join(' · '));
   }else{
     cls='good';
-    title=lang==='ko'?'기본 환급 조건에는 맞을 가능성이 높아요':'The basic refund conditions look likely to fit';
-    lines.push(lang==='ko'?'최종 가능 여부와 환급액은 매장 환급 사업자 또는 출국지에서 확인하세요.':'Confirm final eligibility and the refund amount with the store/refund operator or at departure.');
+    title=taxRefundText('기본 환급 조건에는 맞을 가능성이 높아요','The basic refund conditions look likely to fit',"基本条件に合う可能性があります");
+    lines.push(taxRefundText('최종 가능 여부와 환급액은 매장 환급 사업자 또는 출국지에서 확인하세요.','Confirm final eligibility and the refund amount with the store/refund operator or at departure.',"最終的な対象可否と還付額は、店舗・還付事業者または出国時に確認してください。"));
   }
   if(amount>=15000 && amount<1000000){
-    if(tripTotal>5000000) lines.push(lang==='ko'?'입력한 여행 누계가 ₩5,000,000을 넘어서 매장 즉시환급 한도는 다시 확인해야 합니다.':'The entered trip total exceeds ₩5,000,000, so immediate-refund eligibility needs rechecking.');
-    else if(tripTotal>0) lines.push(lang==='ko'?`즉시환급 금액 구간에는 들어갑니다. 입력 누계 ${taxRefundWon(tripTotal)} 기준으로도 ₩5,000,000 이하입니다. 매장 참여 여부를 확인하세요.`:`The purchase is within the immediate-refund amount band. The entered trip total ${taxRefundWon(tripTotal)} is also within ₩5,000,000. Confirm store participation.`);
-    else lines.push(lang==='ko'?'즉시환급 금액 구간에는 들어갑니다. 여행 중 즉시환급 구매 누계가 ₩5,000,000 이하인지도 확인하세요.':'The purchase is within the immediate-refund amount band. Also check that your trip total for immediate refunds is no more than ₩5,000,000.');
+    if(tripTotal>5000000) lines.push(taxRefundText('입력한 여행 누계가 ₩5,000,000을 넘어서 매장 즉시환급 한도는 다시 확인해야 합니다.','The entered trip total exceeds ₩5,000,000, so immediate-refund eligibility needs rechecking.',"入力した旅行累計が₩5,000,000を超えるため、即時還付の条件を再確認してください。"));
+    else if(tripTotal>0) lines.push(taxRefundText(`즉시환급 금액 구간에는 들어갑니다. 입력 누계 ${taxRefundWon(tripTotal)} 기준으로도 ₩5,000,000 이하입니다. 매장 참여 여부를 확인하세요.`,`The purchase is within the immediate-refund amount band. The entered trip total ${taxRefundWon(tripTotal)} is also within ₩5,000,000. Confirm store participation.`,`購入金額は即時還付の金額範囲内です。入力した旅行累計 ${taxRefundWon(tripTotal)} も₩5,000,000以下です。店舗の参加を確認してください。`));
+    else lines.push(taxRefundText('즉시환급 금액 구간에는 들어갑니다. 여행 중 즉시환급 구매 누계가 ₩5,000,000 이하인지도 확인하세요.','The purchase is within the immediate-refund amount band. Also check that your trip total for immediate refunds is no more than ₩5,000,000.',"購入金額は即時還付の金額範囲内です。旅行中の即時還付対象購入累計も₩5,000,000以下か確認してください。"));
   }else if(amount>=1000000){
-    lines.push(lang==='ko'?'₩1,000,000 이상 결제는 현재 매장 즉시환급 금액 범위를 벗어납니다. 인증 매장이라면 일반/출국 환급 가능성은 별도로 확인하세요.':'A purchase of ₩1,000,000 or more is outside the current immediate-refund payment band. At a participating store, check regular/departure refund options separately.');
+    lines.push(taxRefundText('₩1,000,000 이상 결제는 현재 매장 즉시환급 금액 범위를 벗어납니다. 인증 매장이라면 일반/출국 환급 가능성은 별도로 확인하세요.','A purchase of ₩1,000,000 or more is outside the current immediate-refund payment band. At a participating store, check regular/departure refund options separately.',"₩1,000,000以上の購入は掲載された即時還付の金額範囲外です。参加店舗で一般還付・出国時還付の方法を別途確認してください。"));
   }
   result.className=`tax-refund-result show ${cls}`;
   result.innerHTML=`<h4>${title}</h4>${lines.map(x=>`<p>${x}</p>`).join('')}`;
@@ -23487,7 +23574,7 @@ function applyJaDictionary(root){
       const p=node.parentElement;
       if(!p) return NodeFilter.FILTER_REJECT;
       // Expenses owns its EN/KO/JA labels; user-entered store names/notes stay literal.
-      if(p.closest('#expenseLedgerSection')) return NodeFilter.FILTER_REJECT;
+      if(p.closest('#expenseLedgerSection, #refundWalletSection')) return NodeFilter.FILTER_REJECT;
       const tag=p.tagName;
       if(tag==='SCRIPT'||tag==='STYLE'||tag==='TEXTAREA') return NodeFilter.FILTER_REJECT;
       if(p.isContentEditable) return NodeFilter.FILTER_REJECT;
