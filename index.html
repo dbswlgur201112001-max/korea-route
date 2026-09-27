@@ -3225,6 +3225,13 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
 @media(max-width:360px){.v220-header{padding:0 12px}.v220-brand b{font-size:16px}.v220-brandmark{width:34px;height:34px}.v220-head-actions{gap:4px}.v220-lang{padding:0 7px!important;font-size:9px!important}#home.v220-home #homeOfflineSnapshotBadge{max-width:98px!important;font-size:8px!important}.v220-intro,.v220-core-grid,.v220-section{padding-left:12px;padding-right:12px}.v220-popular{padding-right:0}.v220-popular .v220-section-head{padding-right:12px}.v220-core-grid{gap:8px}.v220-core-card{padding:12px;min-height:158px}.v220-tools-grid b{font-size:8.5px}.v220-course-card{flex-basis:82%}.v220-ready-card{width:calc(100% - 24px);margin-left:12px;margin-right:12px}}
 @media(min-width:560px){.v220-course-card{flex-basis:300px}.v220-header,.v220-intro,.v220-core-grid,.v220-section{padding-left:22px;padding-right:22px}.v220-popular{padding-right:0}.v220-popular .v220-section-head{padding-right:22px}.v220-ready-card{width:calc(100% - 44px);margin-left:22px;margin-right:22px}}
 @media(min-width:640px){.app{max-width:460px}.v60-tabbar,.bottom{left:50%;right:auto;transform:translateX(-50%);width:min(460px,100%)}}
+/* Today search / nearby: existing DOM inside the Home shell. */
+#v118HomeNav .global-search-fast{display:none}
+#v118HomeNav .global-search-field{grid-template-columns:34px minmax(0,1fr) 42px}
+#v118HomeNav .global-search,#v118HomeNav .nearby-essentials{min-width:0;max-width:100%;box-sizing:border-box}
+#v118HomeNav .nearby-essentials-head>div{min-width:0}
+#v118HomeNav .nearby-essentials-foot{flex-wrap:wrap}
+#v118HomeNav .global-search-result span{min-width:0;overflow-wrap:anywhere}
 </style>
 
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)}</script><script defer src="/_vercel/insights/script.js"></script>
@@ -3250,6 +3257,15 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
       <h1 data-en="Where are you going?" data-ja="どこへ行きますか？" data-ko="어디로 이동할까요?">Where are you going?</h1>
     </div>
 
+<div class="global-search" id="globalSearchBox">
+  <div class="global-search-head"><div><b data-i18n="home.search.title">Find anything fast</b><span data-i18n="home.search.subtitle">Search tools, nearby essentials, cities, saved places, journeys and offline phrases.</span></div><span class="global-search-badge" data-en="Search" data-ko="검색" data-ja="検索">Search</span></div>
+  <div class="global-search-field"><span class="search-ico">🔎</span><input id="globalSearchInput" type="search" autocomplete="off" enterkeyhint="search" maxlength="80" aria-label="Search Korea Route" data-i18n-placeholder="home.search.placeholder"><button class="global-search-clear" type="button" onclick="clearGlobalSearch()" aria-label="Clear search">×</button></div>
+  <div class="global-search-suggest" id="globalSearchSuggest" style="display:none"><button type="button" onclick="runGlobalSearchQuickAction('move')">🚆 KTX</button><button type="button" onclick="runGlobalSearchQuickAction('convenience')">🏪 <span data-i18n="home.search.quick.convenience">Convenience</span></button><button type="button" onclick="runGlobalSearchQuickAction('restroom')">🚻 <span data-i18n="home.search.quick.restroom">Restroom</span></button><button type="button" onclick="runGlobalSearchQuickAction('luggage')">🧳 <span data-i18n="home.search.quick.luggage">Luggage</span></button></div>
+  <div class="global-search-fast"><button type="button" onclick="v60OpenRouteTab()"><span>🚆</span><span data-i18n="home.search.fast.move">Move</span></button><button type="button" onclick="v60OpenMapTab()"><span>🗺️</span><span data-i18n="home.search.fast.nearby">Nearby</span></button><button type="button" onclick="runGlobalSearchAction('translation')"><span>💬</span><span data-i18n="home.search.fast.translate">Translate</span></button><button type="button" class="emergency" onclick="openV55EmergencyFind()"><span>🆘</span><span data-i18n="home.search.fast.urgent">Urgent</span></button></div>
+  <div class="global-search-results" id="globalSearchResults" hidden aria-live="polite"><div class="global-search-results-head"><b id="globalSearchResultsLabel">SEARCH RESULTS</b><span id="globalSearchResultsCount"></span></div><div class="global-search-result-list" id="globalSearchResultList"></div></div>
+</div>
+
+
     <div class="v220-core-grid">
       <button type="button" class="v220-core-card" onclick="v60OpenRouteTab()">
         <span class="v220-core-icon blue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19c-1.7 0-3-1.3-3-3s1.3-3 3-3h12a3 3 0 1 0 0-6H9"/><path d="m6 10 3-3-3-3"/><circle cx="6" cy="19" r="1.3"/></svg></span>
@@ -3274,6 +3290,17 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
         <small data-en="Emergency · Language · 1330" data-ja="緊急時・言語・1330" data-ko="긴급·언어·1330">Emergency · Language · 1330</small>
       </button>
     </div>
+
+<div class="nearby-essentials" id="nearbyEssentials">
+  <div class="nearby-essentials-head"><div><b data-i18n="home.essentials.title">Nearby Essentials</b><span data-en="Open the map to find nearby places." data-ko="지도를 열어 주변 장소를 찾아보세요." data-ja="地図で周辺のスポットをさがしましょう。">Open the map to find nearby places.</span></div><span class="nearby-essentials-badge" data-en="Nearby" data-ko="주변" data-ja="周辺">Nearby</span></div>
+  <div class="nearby-essentials-grid">
+    <button class="nearby-essential-btn" type="button" onclick="v60OpenMapTab();setTimeout(()=>v210QuickAction('toilets'),260)">🚻 <span data-en="Toilet" data-ko="화장실" data-ja="トイレ">Toilet</span></button>
+    <button class="nearby-essential-btn" type="button" onclick="v60OpenMapTab();setTimeout(()=>v210QuickAction('food'),260)">🍽️ <span data-en="Food" data-ko="음식점" data-ja="食事">Food</span></button>
+    <button class="nearby-essential-btn" type="button" onclick="v60OpenMapTab();setTimeout(()=>showCityMapNearby('cafe'),260)">☕ <span data-en="Cafe" data-ko="카페" data-ja="カフェ">Cafe</span></button>
+  </div>
+  <div class="nearby-essentials-foot"><div class="nearby-essentials-status" id="nearbyEssentialsStatus"></div><button class="nearby-location-btn" type="button" onclick="requestNearbyEssentialsLocation()" data-i18n="home.essentials.useLocation">Use my location</button></div>
+</div>
+
 
     <section class="v220-section v245-tools-scroll">
       <div class="v220-section-head">
@@ -3328,15 +3355,6 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
   <div class="city-walk-recovery-actions"><button type="button" class="primary" onclick="resumeRecoveredCityWalk()" data-i18n="home.walkRecovery.continue">🚶 Continue walk</button><button type="button" class="soft" onclick="dismissRecoveredCityWalk()" data-i18n="home.walkRecovery.dismiss">Dismiss</button></div>
 </div>
 
-<div class="global-search" id="globalSearchBox">
-  <div class="global-search-head"><div><b data-i18n="home.search.title">Find anything fast</b><span data-i18n="home.search.subtitle">Search tools, nearby essentials, cities, saved places, journeys and offline phrases.</span></div><span class="global-search-badge">3-SEC FIND</span></div>
-  <div class="global-search-field"><span class="search-ico">🔎</span><input id="globalSearchInput" type="search" autocomplete="off" enterkeyhint="search" maxlength="80" aria-label="Search Korea Route" data-i18n-placeholder="home.search.placeholder"><button class="global-search-clear" type="button" onclick="clearGlobalSearch()" aria-label="Clear search">×</button></div>
-  <div class="global-search-suggest" id="globalSearchSuggest" style="display:none"><button type="button" onclick="runGlobalSearchQuickAction('move')">🚆 KTX</button><button type="button" onclick="runGlobalSearchQuickAction('convenience')">🏪 <span data-i18n="home.search.quick.convenience">Convenience</span></button><button type="button" onclick="runGlobalSearchQuickAction('restroom')">🚻 <span data-i18n="home.search.quick.restroom">Restroom</span></button><button type="button" onclick="runGlobalSearchQuickAction('luggage')">🧳 <span data-i18n="home.search.quick.luggage">Luggage</span></button></div>
-  <div class="global-search-fast"><button type="button" onclick="v60OpenRouteTab()"><span>🚆</span><span data-i18n="home.search.fast.move">Move</span></button><button type="button" onclick="v60OpenMapTab()"><span>🗺️</span><span data-i18n="home.search.fast.nearby">Nearby</span></button><button type="button" onclick="runGlobalSearchAction('translation')"><span>💬</span><span data-i18n="home.search.fast.translate">Translate</span></button><button type="button" class="emergency" onclick="openV55EmergencyFind()"><span>🆘</span><span data-i18n="home.search.fast.urgent">Urgent</span></button></div>
-  <div class="global-search-results" id="globalSearchResults" hidden aria-live="polite"><div class="global-search-results-head"><b id="globalSearchResultsLabel">SEARCH RESULTS</b><span id="globalSearchResultsCount"></span></div><div class="global-search-result-list" id="globalSearchResultList"></div></div>
-</div>
-
-
 <div class="v60-home-shortcuts" id="v60HomeShortcuts">
   <button type="button" class="primary" onclick="go('planner')"><span>🗓️</span><b data-i18n="home.shortcuts.plan">Plan trip</b></button>
   <button type="button" onclick="v60OpenTripOverview()"><span>🧳</span><b data-i18n="home.shortcuts.myTrip">My Trip</b></button>
@@ -3374,20 +3392,6 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
   </div>
   <div class="quick-sos-note" data-i18n="home.sos.note">Emergency calls: Police 112 · Fire/Ambulance 119. For travel information or interpretation help, call 1330. Pharmacy results open in an external map; verify availability there.</div>
 </div>
-
-<div class="nearby-essentials" id="nearbyEssentials">
-  <div class="nearby-essentials-head"><div><b data-i18n="home.essentials.title">Nearby Essentials</b><span data-i18n="home.essentials.subtitle">One tap to search around you. Results open in an external map; verify hours and availability there.</span></div><span class="nearby-essentials-badge">TRIP TOOLS</span></div>
-  <div class="nearby-essentials-grid">
-    <button class="nearby-essential-btn" type="button" onclick="openNearbyEssential('restroom')">🚻 <span data-i18n="home.essentials.restroom">Restroom</span></button>
-    <button class="nearby-essential-btn" type="button" onclick="openNearbyEssential('convenience')">🏪 <span data-i18n="home.essentials.convenience">Convenience</span></button>
-    <button class="nearby-essential-btn" type="button" onclick="openNearbyEssential('pharmacy')">💊 <span data-i18n="home.essentials.pharmacy">Pharmacy</span></button>
-    <button class="nearby-essential-btn" type="button" onclick="openNearbyEssential('atm')">🏧 <span data-i18n="home.essentials.atm">ATM</span></button>
-    <button class="nearby-essential-btn" type="button" onclick="openNearbyEssential('luggage')">🧳 <span data-i18n="home.essentials.luggage">Luggage</span></button>
-    <button class="nearby-essential-btn" type="button" onclick="openNearbyEssential('tourist')">ℹ️ <span data-i18n="home.essentials.tourist">Tourist info</span></button>
-  </div>
-  <div class="nearby-essentials-foot"><div class="nearby-essentials-status" id="nearbyEssentialsStatus"></div><button class="nearby-location-btn" type="button" onclick="requestNearbyEssentialsLocation()" data-i18n="home.essentials.useLocation">Use my location</button></div>
-</div>
-
 
 <div class="arch-section beginner-collapsed" id="featureArchitecture">
   <div class="arch-title">
@@ -4815,6 +4819,38 @@ const TRANSLATIONS = {
     "route.result.empty": "Choose cities and search."
   }
 };
+// Today search and nearby presentation labels.
+TRANSLATIONS.ja = {
+  "home.search.title": "必要なものをすぐに検索",
+  "home.search.subtitle": "都市・スポット・保存した場所や経路・オフライン会話を検索できます。",
+  "home.search.placeholder": "都市・スポット・保存した場所・会話を検索",
+  "home.search.quick.convenience": "コンビニ",
+  "home.search.quick.restroom": "トイレ",
+  "home.search.quick.luggage": "荷物預かり",
+  "home.search.fast.move": "移動",
+  "home.search.fast.nearby": "周辺",
+  "home.search.fast.translate": "翻訳",
+  "home.search.fast.urgent": "緊急",
+  "home.search.group.tool": "ツール",
+  "home.search.group.nearby": "周辺",
+  "home.search.group.myTrip": "マイ旅行",
+  "home.search.group.urgent": "緊急",
+  "home.search.group.city": "都市",
+  "home.search.group.place": "場所",
+  "home.search.group.phrase": "会話",
+  "home.search.results.nearbyTitle": "周辺をさがす",
+  "home.search.results.title": "検索結果",
+  "home.search.results.countOne": "{count}件",
+  "home.search.results.countMany": "{count}件",
+  "home.search.results.empty": "見つかりませんでした。都市名や短いキーワードで検索してください。",
+  "home.essentials.title": "周辺の便利な施設",
+  "home.essentials.useLocation": "現在地を使う",
+  "home.essentials.status.city": "{city}を中心に検索 · 現在地を使うとより正確に検索できます",
+  "home.essentials.status.location": "現在地を中心に検索します。位置情報はこのセッション中のみ保存されます。",
+  "home.essentials.status.unavailable": "このブラウザでは位置情報を利用できません。",
+  "home.essentials.status.loading": "現在地を確認中…",
+  "home.essentials.status.denied": "位置情報を利用できません。都市を中心に検索できます。"
+};
 function t(key){
   if(lang==='ja') return TRANSLATIONS.ja?.[key] || TRANSLATIONS.en?.[key] || key;
   return TRANSLATIONS[lang]?.[key] || TRANSLATIONS.en?.[key] || key;
@@ -5245,6 +5281,7 @@ pillLangBtns.forEach(btn=>{btn.textContent=pillLabel;});
   if(gs){gs.placeholder=t('home.search.placeholder');if(gs.value)renderGlobalSearchResults(gs.value);}
   if(typeof refreshMoveSelectorLanguage==='function') refreshMoveSelectorLanguage();
   if(typeof v60MountMapCitySwitch==='function'&&document.getElementById('v60CitySwitch'))v60MountMapCitySwitch();
+  if(typeof renderNearbyEssentialsStatus==='function') renderNearbyEssentialsStatus();
   if(typeof renderHomeOfflineSnapshotBadge==='function') renderHomeOfflineSnapshotBadge();
   if(typeof renderLiveAirQualityFromState==='function') renderLiveAirQualityFromState();
   if(typeof v211ApplyAllMapLabelLanguages==='function') v211ApplyAllMapLabelLanguages();
