@@ -1096,7 +1096,7 @@ button:disabled{opacity:.55;cursor:not-allowed}
 :root{--v60-nav-h:76px;--v60-soft:#f7f9fd;--v60-ink:#10233f;--v60-blue:#2f6fed}
 .screen{padding-bottom:calc(var(--v60-nav-h) + 34px + env(safe-area-inset-bottom))}
 .bottom{display:none!important}
-.v60-tabbar{position:fixed;z-index:9000;left:0;right:0;bottom:0;transform:none;width:100%;height:calc(var(--v60-nav-h) + env(safe-area-inset-bottom));padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,1fr);gap:3px;background:rgba(255,255,255,.97);border-top:1px solid #dce4ee;box-shadow:0 -8px 26px rgba(20,45,78,.08);backdrop-filter:blur(14px)}
+.v60-tabbar{position:fixed;z-index:9000;left:0;right:0;bottom:0;transform:none;width:100%;height:calc(var(--v60-nav-h) + env(safe-area-inset-bottom));padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(4,1fr);gap:3px;background:rgba(255,255,255,.97);border-top:1px solid #dce4ee;box-shadow:0 -8px 26px rgba(20,45,78,.08);backdrop-filter:blur(14px)}
 .v60-tabbar button{border:0;background:transparent;color:#536174;border-radius:15px;min-width:0;padding:6px 2px;display:grid;place-items:center;gap:3px;font-size:12px;font-weight:950;cursor:pointer}
 .v60-tabbar button .ico{font-size:23px;line-height:1}.v60-tabbar button.active{color:#174985;background:#eef4ff}.v60-tabbar button span:last-child{white-space:nowrap}
 .v60-home-shortcuts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 0 4px}.v60-home-shortcuts button{min-height:72px;border:1px solid #dfe7f0;background:#fff;border-radius:18px;color:var(--v60-ink);font-weight:950;font-size:10px;box-shadow:0 6px 18px rgba(18,45,80,.05)}.v60-home-shortcuts button span{display:block;font-size:22px;margin-bottom:5px}.v60-home-shortcuts button.primary{background:#0b2a54;color:#fff;border-color:#0b2a54}
@@ -3218,7 +3218,7 @@ body.dark .v197-quick-grid button.help{background:#341f28;border-color:#64404d;c
 #home.v220-home>#installBox{margin:14px 16px 0!important;border:1px solid var(--v220-line)!important;border-radius:16px!important;background:#fff!important;box-shadow:var(--v220-shadow)!important;padding:12px!important}#home.v220-home>#installBox b{color:var(--v220-navy)!important;font-size:12px!important}#home.v220-home>#installBox span{color:var(--v220-muted)!important;font-size:9.5px!important}#home.v220-home>#installBox .install-btn{border-radius:11px!important;background:var(--v220-navy)!important;font-size:10px!important}
 #home.v220-home>#cityWalkRecovery{margin:14px 16px 0!important;border-radius:16px!important;border-color:var(--v220-line)!important;box-shadow:var(--v220-shadow)!important}
 #home.active~.bottom{display:none!important}
-/* Approved 5-tab navigation: line icons, no emoji tiles. */
+/* Today shell: four tabs, existing destination screens. */
 .v60-tabbar.v220-tabbar{height:calc(72px + env(safe-area-inset-bottom))!important;padding:5px 4px calc(5px + env(safe-area-inset-bottom))!important;gap:0!important;background:rgba(255,255,255,.97)!important;border-top:1px solid var(--v220-line)!important;box-shadow:0 -4px 12px rgba(0,0,0,.035)!important;backdrop-filter:blur(14px)!important}
 .v60-tabbar.v220-tabbar button{min-height:60px!important;padding:4px 1px!important;gap:4px!important;border-radius:0!important;background:transparent!important;color:#94a3b8!important;font-size:10px!important;font-weight:750!important}.v60-tabbar.v220-tabbar button .ico{min-height:auto!important;font-size:0!important;display:grid!important;place-items:center!important;color:inherit!important}.v60-tabbar.v220-tabbar button .ico svg{width:21px!important;height:21px!important;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}.v60-tabbar.v220-tabbar button span:last-child{font-size:9.5px!important;line-height:1!important;font-weight:800!important;color:inherit!important}.v60-tabbar.v220-tabbar button.active{color:var(--v220-navy)!important;background:transparent!important}.v60-tabbar.v220-tabbar button.active .ico{font-size:0!important}.v60-tabbar.v220-tabbar button.active span:last-child{font-size:9.5px!important;font-weight:950!important}
 body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#fff!important;color:var(--v220-text)!important}body.dark #home.v220-home .v220-header{background:rgba(255,255,255,.96)!important}body.dark #home.v220-home .v220-core-card,body.dark #home.v220-home .v220-tools-grid,body.dark #home.v220-home>#installBox{background:#fff!important;border-color:var(--v220-line)!important;color:var(--v220-text)!important}
@@ -3253,15 +3253,25 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
     <div class="v220-core-grid">
       <button type="button" class="v220-core-card" onclick="v60OpenRouteTab()">
         <span class="v220-core-icon blue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19c-1.7 0-3-1.3-3-3s1.3-3 3-3h12a3 3 0 1 0 0-6H9"/><path d="m6 10 3-3-3-3"/><circle cx="6" cy="19" r="1.3"/></svg></span>
-        <b data-en="Find a route" data-ja="ルート検索" data-ko="경로 찾기">Find a route</b>
+        <b data-en="Get there" data-ja="移動する" data-ko="이동하기">Get there</b>
         <small data-en="Subway · Bus · KTX" data-ja="地下鉄・バス・KTX" data-ko="지하철 · 버스 · KTX">Subway · Bus · KTX</small>
         <span class="v220-card-go"><span data-en="Plan trip" data-ja="移動プラン" data-ko="이동 계획">Plan trip</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span>
       </button>
       <button type="button" class="v220-core-card" onclick="v60OpenMapTab()">
         <span class="v220-core-icon slate"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
-        <b data-en="Explore nearby" data-ja="周辺をさがす" data-ko="내 주변 탐색">Explore nearby</b>
+        <b data-en="Nearby" data-ja="周辺をさがす" data-ko="주변 찾기">Nearby</b>
         <small data-en="Map · Nearby places" data-ja="地図・周辺スポット" data-ko="지도 · 주변 명소">Map · Nearby places</small>
         <span class="v220-card-go"><span data-en="View nearby" data-ja="周辺を見る" data-ko="주변 보기">View nearby</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span>
+      </button>
+      <button type="button" class="v220-core-card" onclick="v220OpenMore()">
+        <span class="v220-core-icon blue"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="15" rx="2"/><path d="m8 6 2-3h4l2 3"/><circle cx="12" cy="13" r="4"/></svg></span>
+        <b data-en="Scan &amp; translate" data-ja="撮影・翻訳" data-ko="사진·번역">Scan &amp; translate</b>
+        <small data-en="Language &amp; kiosk tools" data-ja="翻訳・キオスクのヘルプ" data-ko="언어·키오스크 도구">Language &amp; kiosk tools</small>
+      </button>
+      <button type="button" class="v220-core-card" onclick="v118OpenHelpTab()">
+        <span class="v220-core-icon slate"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 9a3 3 0 0 1 6 0c0 2-3 2-3 5M12 17h.01"/></svg></span>
+        <b data-en="Help" data-ja="ヘルプ" data-ko="도움">Help</b>
+        <small data-en="Emergency · Language · 1330" data-ja="緊急時・言語・1330" data-ko="긴급·언어·1330">Emergency · Language · 1330</small>
       </button>
     </div>
 
@@ -4476,11 +4486,10 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
 <div class="bottom"><button class="cta" id="mainCTA" onclick="mainAction()">Plan My Korea Trip</button></div>
 
 <nav class="v60-tabbar v220-tabbar" id="v60Tabbar" aria-label="Main navigation">
-  <button type="button" data-v60-tab="home" onclick="v60OpenHome()"><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 9-8 9 8"/><path d="M5 10v10h14V10M9 20v-6h6v6"/></svg></span><span data-en="Home" data-ja="ホーム" data-ko="홈">Home</span></button>
-  <button type="button" data-v60-tab="map" onclick="v60OpenMapTab()"><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 6 5-3 8 3 5-3v15l-5 3-8-3-5 3V6Z"/><path d="M8 3v15M16 6v15"/></svg></span><span data-en="Map" data-ja="地図" data-ko="지도">Map</span></button>
-  <button type="button" data-v60-tab="route" onclick="v60OpenRouteTab()"><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19c-1.7 0-3-1.3-3-3s1.3-3 3-3h12a3 3 0 1 0 0-6H9"/><path d="m6 10 3-3-3-3"/><circle cx="6" cy="19" r="1.3"/></svg></span><span data-en="Route" data-ja="ルート" data-ko="경로">Route</span></button>
+  <button type="button" data-v60-tab="home" onclick="v60OpenHome()"><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 9-8 9 8"/><path d="M5 10v10h14V10M9 20v-6h6v6"/></svg></span><span data-en="Today" data-ja="今日" data-ko="오늘">Today</span></button>
+  <button type="button" data-v60-tab="map" onclick="go('exploreHub')"><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 6 5-3 8 3 5-3v15l-5 3-8-3-5 3V6Z"/><path d="M8 3v15M16 6v15"/></svg></span><span data-en="Explore" data-ja="探索" data-ko="둘러보기">Explore</span></button>
+  <button type="button" data-v60-tab="wallet" onclick="go('walletHub')"><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="15" rx="2"/><path d="M3 8h18M16 12h5v5h-5z"/></svg></span><span data-en="Wallet" data-ja="ウォレット" data-ko="지갑">Wallet</span></button>
   <button type="button" data-v60-tab="trip" onclick="v60OpenTripOverview()"><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="7" width="14" height="13" rx="2"/><path d="M9 7V5c0-1 1-2 3-2s3 1 3 2v2M9 12v3M15 12v3"/></svg></span><span data-en="My Trip" data-ja="マイ旅行" data-ko="내 여행">My Trip</span></button>
-  <button type="button" data-v60-tab="helper" onclick="v220OpenMore()"><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></span><span data-en="More" data-ja="もっと見る" data-ko="더보기">More</span></button>
 </nav>
 
 </div>
@@ -16143,16 +16152,17 @@ document.addEventListener('DOMContentLoaded',()=>setTimeout(renderCityWalkRecove
 function v60TabForScreen(id){
   if(id==='home')return 'home';
   if(['city','exploreHub'].includes(id))return 'map';
-  if(['moveHub','result'].includes(id))return 'route';
-  if(['myTripHub','planner'].includes(id))return 'trip';
-  if(['helperHub','assistantHub','walletHub','stayHub','transitCardHub'].includes(id))return 'helper';
-  return '';
+  if(id==='walletHub'||id==='transitCardHub')return 'wallet';
+  if(['myTripHub','planner','result','stayHub'].includes(id))return 'trip';
+  // Move and help/tool screens are reached from Today's primary actions.
+  return 'home';
 }
 function v60SyncTabbar(id=current){
   const tab=v60TabForScreen(id);
   document.querySelectorAll('#v60Tabbar [data-v60-tab]').forEach(b=>b.classList.toggle('active',b.dataset.v60Tab===tab));
 }
 function v60OpenHome(){
+  if(current==='helperHub') v118CloseToolMenu();
   document.getElementById('city')?.classList.remove('v60-map-mode');
   document.getElementById('moveHub')?.classList.remove('v60-route-mode');
   go('home');
