@@ -8093,12 +8093,26 @@ function restoreOfflineTripSnapshot(){
   }
 
   OFFLINE_TRIP_SESSION_KEYS.forEach(key=>{
+    // Trip restoration owns both existing stores; invalid copies preserve both.
+    if(key==='koreaRouteTrip'){
+      if(!Object.prototype.hasOwnProperty.call(snapshot.data,key)){
+        localStorage.removeItem('koreaRouteSavedTrip');
+        sessionStorage.removeItem(key);
+      }else if(typeof snapshot.data[key]==='string'&&readHomeTripDates(snapshot.data[key])){
+        localStorage.setItem('koreaRouteSavedTrip',snapshot.data[key]);
+        sessionStorage.setItem(key,snapshot.data[key]);
+      }
+      return;
+    }
     if(Object.prototype.hasOwnProperty.call(snapshot.data,key)){
       sessionStorage.setItem(key,String(snapshot.data[key]));
     }else{
       sessionStorage.removeItem(key);
     }
   });
+
+  // Refresh the existing backup now, including explicit removal of a missing trip.
+  if(typeof koreaRoutePersistSessionState==='function') koreaRoutePersistSessionState();
 
   // Legacy/malformed copies preserve the current ledger; valid empty records replace it.
   const ledger=snapshot.data[KOREA_ROUTE_EXPENSE_LEDGER_KEY];
