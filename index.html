@@ -3232,6 +3232,13 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
 #v118HomeNav .nearby-essentials-head>div{min-width:0}
 #v118HomeNav .nearby-essentials-foot{flex-wrap:wrap}
 #v118HomeNav .global-search-result span{min-width:0;overflow-wrap:anywhere}
+/* Read-only saved trip overview; independent of My Trip's date/day cards. */
+#todayTripSummary{margin:0 12px 16px;padding:16px;border:1px solid #dfe8f3;border-radius:20px;background:#fff;color:#10233f;min-width:0}
+#todayTripSummary h2{margin:0;font-size:19px}#todayTripSummary p{margin:6px 0 12px;color:#53657d;font-size:13px;line-height:1.5}
+#todayTripSummary h3{font-size:16px;margin:16px 0 6px}#todayTripSummary dl{margin:14px 0;display:grid;gap:10px}
+#todayTripSummary dl>div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:12px;font-size:13px;line-height:1.5}
+#todayTripSummary dt{color:#53657d}#todayTripSummary dd{margin:0;font-weight:700;overflow-wrap:anywhere}
+#todayTripSummary button{width:100%;min-height:44px;padding:10px;border:0;border-radius:12px;background:#10233f;color:white;font-weight:700;font-size:14px;white-space:normal}
 </style>
 
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)}</script><script defer src="/_vercel/insights/script.js"></script>
@@ -3257,6 +3264,7 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
       <h1 data-en="Where are you going?" data-ja="どこへ行きますか？" data-ko="어디로 이동할까요?">Where are you going?</h1>
     </div>
 
+<section id="todayTripSummary" aria-live="polite"></section>
 <div class="global-search" id="globalSearchBox">
   <div class="global-search-head"><div><b data-i18n="home.search.title">Find anything fast</b><span data-i18n="home.search.subtitle">Search tools, nearby essentials, cities, saved places, journeys and offline phrases.</span></div><span class="global-search-badge" data-en="Search" data-ko="검색" data-ja="検索">Search</span></div>
   <div class="global-search-field"><span class="search-ico">🔎</span><input id="globalSearchInput" type="search" autocomplete="off" enterkeyhint="search" maxlength="80" aria-label="Search Korea Route" data-i18n-placeholder="home.search.placeholder"><button class="global-search-clear" type="button" onclick="clearGlobalSearch()" aria-label="Clear search">×</button></div>
@@ -5221,9 +5229,44 @@ function v211ApplyAllMapLabelLanguages(){
   try{ v211ApplyMapLabelLanguage(routeMapTileLayer?.getMaplibreMap?.(),lang); }catch(_){ }
 }
 
+// Display only: reads existing selections; never derives a day or writes storage.
+function renderHomeTripSummary(){
+  const host=document.getElementById('todayTripSummary'); if(!host)return;
+  const text=(en,ko,ja)=>lang==='ko'?ko:lang==='ja'?ja:en;
+  const esc=escapeHtmlText;
+  const routeText=routeSummaryText(myTripRouteSelection());
+  const stay=myTripStaySelection();
+  const stayName=stay&&typeof stay==='object'
+    ? (lang==='ko'?(stay.nameKo||stay.nameEn):(lang==='ja'?(stay.nameJa||stay.nameEn||stay.nameKo):(stay.nameEn||stay.nameKo))) : '';
+  let stayText=staySummaryText(stayName?{...stay,name:stayName}:stay);
+  if(lang==='ja') stayText=stayText.replace(/\bArea\b/g,'エリア');
+  let walletText=walletSummaryText(myTripWalletSelection());
+  if(lang==='ja') walletText=({budget:'節約',balanced:'バランス',comfort:'快適'})[walletText.toLowerCase()]||walletText;
+  const checklist=myTripChecklistProgress();
+  const places=savedPlaces();
+  const count=Array.isArray(places)?places.length:0;
+  const hasData=!!(routeText||stayText||walletText||checklist.done||count);
+  const notSet=text('Not set','미설정','未設定');
+  const heading='<h2>'+text('Trip overview','여행 요약','旅行サマリー')+'</h2><p>'+text('Your saved trip at a glance','저장된 여행 한눈에 보기','保存した旅行をひと目で確認')+'</p>';
+  if(!hasData){
+    host.innerHTML=heading+'<h3>'+text('No trip saved yet','아직 저장된 여행이 없어요','保存された旅行はまだありません')+'</h3><p>'+text('Add a plan to see your trip summary here.','일정을 추가하면 여기에서 여행 요약을 볼 수 있어요.','予定を追加すると、ここで旅行の概要を確認できます。')+'</p><button type="button" onclick="go(&quot;planner&quot;)">'+text('Add a plan','일정 추가','予定を追加')+'</button>';
+    return;
+  }
+  const rows=[
+    [text('Route','이동','移動'),routeText||notSet],
+    [text('Stay','숙소','宿泊'),stayText||notSet],
+    [text('Budget','예산','予算'),walletText||notSet],
+    [text('Checklist','체크리스트','チェックリスト'),sessionStorage.getItem('koreaRouteTripChecklist')?checklist.done+' / '+checklist.total:notSet],
+    [text('Saved places','저장 장소','保存した場所'),String(count)]
+  ];
+  host.innerHTML=heading+'<dl>'+rows.map(([label,value])=>'<div><dt>'+esc(label)+'</dt><dd>'+esc(value)+'</dd></div>').join('')+'</dl><button type="button" onclick="v60OpenTripOverview()">'+text('Open My Trip','내 여행 열기','マイ旅行を開く')+'</button>';
+}
+
 function refreshActiveScreenState(id=current,{entry=false}={}){
   try{
-    if(id==='stayHub'){
+    if(id==='home'){
+      renderHomeTripSummary();
+    }else if(id==='stayHub'){
       if(entry) initStayHub(); else renderStayOptions();
     }else if(id==='walletHub'){
       if(entry) initWalletHub(); else { renderTripWallet(); renderLiveFxConversion(); }
