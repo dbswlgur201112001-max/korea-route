@@ -7569,7 +7569,7 @@ function offlineSnapshotDateText(savedAt){
   const d=new Date(savedAt);
   if(Number.isNaN(d.getTime())) return '';
   try{
-    return new Intl.DateTimeFormat(lang==='ko'?'ko-KR':'en-US',{
+    return new Intl.DateTimeFormat(lang==='ko'?'ko-KR':lang==='ja'?'ja-JP':'en-US',{
       year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'
     }).format(d);
   }catch(e){
@@ -7768,7 +7768,7 @@ function renderOfflineTripSnapshot(){
         <span class="move-kicker">${offlineCopyText('오프라인 여행 사본','OFFLINE TRIP COPY','オフライン旅行コピー')}</span>
         <h3>${offlineCopyText('여행 정보를 이 기기에 보관','Keep a trip copy on this device','旅行情報をこの端末に保存')}</h3><span class="offline-freshness-badge ${freshness.state}">${lang==='ko'?freshness.labelKo:lang==='ja'?freshness.labelJa:freshness.labelEn}</span>
       </div>
-      ${snapshot?`<span class="offline-trip-badge">${count}${lang==='ko'?'곳':' places'}</span>`:''}
+      ${snapshot?`<span class="offline-trip-badge">${count}${offlineCopyText('곳',' places','か所')}</span>`:''}
     </div>
 
     <p class="offline-trip-note">${offlineCopyText(
