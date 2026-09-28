@@ -49,6 +49,11 @@ for(const width of [360,390]){
   for(let i=0;i<3;i++){
    await page.goto('/t/'+ids[i]);
    await expect(page.locator('html')).toHaveAttribute('lang',locale);
+   if(i===1){
+    await expect(page.locator('.hw-intro')).not.toContainText('Start here');
+    await expect(page.locator('.hw-intro')).toContainText({en:'Pause here',ko:'이곳에서 잠시 멈춰',ja:'ここで少し立ち止まり'}[locale]);
+   }
+   if(i===2)await expect(page.locator('.hw-intro')).toContainText({en:'last place on this suggested route',ko:'이 후보 코스의 마지막',ja:'このルート候補の最後の場所'}[locale]);
    await expect(page.locator('#'+prefixes[i]+'-missions input')).toHaveCount(3);
    const start=await raw(page);
    for(const l of ['ja','ko','en',locale])await page.locator('.suwon-card-language').selectOption(l);

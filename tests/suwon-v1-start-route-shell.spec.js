@@ -19,6 +19,11 @@ for(const width of [360,390]){
    ['ko','수원 여행 시작','카드 번호는 방문 순서가 아닙니다.'],
    ['ja','水原の旅を始める','カード番号は訪問順ではありません。']
   ]){
+   await expect(shell(page).locator('.suwon-scenic-option')).toHaveText({en:'Scenic walk option along Suwoncheon',ko:'수원천을 따라 걷는 풍경 코스 후보',ja:'水原川沿いを歩く景色の楽しめるルート候補'}[language]);
+   await expect(shell(page).locator('.suwon-route-story')).toContainText({en:'Field check required.',ko:'현장 확인 필요.',ja:'現地確認が必要です。'}[language]);
+   await expect(shell(page)).not.toContainText('Walk through three Suwon places');
+   await expect(shell(page)).toContainText({en:'Explore three Suwon places',ko:'수원의 세 장소를 둘러보며',ja:'水原の3つの場所を巡り'}[language]);
+   await expect(shell(page).locator('li')).toHaveCount(3);
    await expect(shell(page).locator('li h4')).toHaveText(names[language]);await expect(shell(page)).toContainText(note);
    await expect(shell(page).getByRole('button',{name:cta,exact:true})).toBeVisible();
    await expect(shell(page)).not.toContainText(/Haenggung-dong|행궁동|Best route|Optimal route|guaranteed|Always open|Verified visit|\d+\s*(hours?|minutes?|km)\b/i);

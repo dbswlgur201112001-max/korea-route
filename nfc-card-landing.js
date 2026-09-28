@@ -38,7 +38,7 @@
     'Official visitor information':['공식 방문 안내','公式の訪問案内'],
     'Check current visitor information before your visit.':['방문 전 최신 안내를 확인하세요.','訪問前に最新の案内を確認してください。'],
     'Check current visitor information before your visit. Seasonal dates may change.':['방문 전 최신 안내를 확인하세요. 계절 운영 일정은 변경될 수 있습니다.','訪問前に最新の案内を確認してください。季節営業の日程は変更される場合があります。'],
-    'Start here. Follow the water gate to one of Suwon’s most beautiful walks.':['수문과 물길을 따라 수원의 풍경을 살펴보세요.','水門と水の流れに沿って、水原の風景を眺めてみましょう。'],
+    'Pause here and take in Hwahongmun’s stone arches and waterway.':['이곳에서 잠시 멈춰 화홍문의 돌 아치와 물길을 살펴보세요.','ここで少し立ち止まり、華虹門の石造アーチと水路を眺めてみましょう。'],
     'A historic water gate in Hwaseong Fortress':['수원화성의 역사적인 수문','水原華城の歴史ある水門'],
     'Stone arches over Suwoncheon Stream':['수원천 위에 놓인 돌 아치','水原川に架かる石のアーチ'],
     'A place to pause, look and follow the water':['잠시 멈춰 물길을 바라보는 곳','立ち止まって水の流れを眺める場所'],
@@ -92,7 +92,7 @@
     'Change the palace view for stone arches and the stream.':['궁궐 다음에는 돌 아치와 물길을 만나보세요.','宮殿の次は石のアーチと川の流れを眺めましょう。'],
     'Make the pavilion your next place to pause and look around.':['정자에서 잠시 멈춰 주변을 둘러보세요.','亭でひと息つき、周辺を見てみましょう。'],
     'These map links search for places. Walking times and exact routes are not verified; opening a map does not collect a card.':['지도 링크는 장소 검색용입니다. 도보 시간과 정확한 경로는 미검증이며 지도를 열어도 카드가 수집되지 않습니다.','地図リンクは場所の検索用です。徒歩時間と正確な経路は未確認です。地図を開いてもカードは収集されません。'],
-    'Pause by Yongyeon and see another side of Suwon Hwaseong.':['용연 곁에서 수원화성의 또 다른 풍경을 만나보세요.','龍淵のそばで、水原華城の別の表情を眺めましょう。'],
+    'The last place on this suggested route: Banghwasuryujeong and Yongyeon.':['이 후보 코스의 마지막 풍경 장소, 방화수류정과 용연을 만나보세요.','このルート候補の最後の場所、訪花隨柳亭と龍淵の景色を楽しみましょう。'],
     'Built in 1794 within Suwon Hwaseong Fortress':['1794년에 수원화성에 세워진 건축물','1794年に水原華城内に建てられた建築物'],
     'A lookout, command post and pavilion in one':['망루, 지휘소, 정자의 역할을 함께한 곳','見張り台、指揮所、亭の役割を兼ねた場所'],
     'Architecture shaped to fit the surrounding landscape':['주변 지형과 어우러지는 건축','周辺の地形に調和した建築'],
@@ -347,7 +347,7 @@
     title.id = 'hw-title';
     title.appendChild(element('span', 'hw-korean', '화홍문'));
     hero.appendChild(title);
-    hero.appendChild(element('p', 'hw-intro', 'Start here. Follow the water gate to one of Suwon’s most beautiful walks.'));
+    hero.appendChild(element('p', 'hw-intro', 'Pause here and take in Hwahongmun’s stone arches and waterway.'));
     const art = element('figure', 'hw-card-image');
     const artImage = element('img', 'hw-card-image-art');
     artImage.src = '/nfc-suwon-001-hwahongmun.webp';
@@ -736,7 +736,7 @@
     title.id = 'bg-title';
     title.appendChild(element('span', 'hw-korean', '방화수류정'));
     hero.appendChild(title);
-    hero.appendChild(element('p', 'hw-intro', 'Pause by Yongyeon and see another side of Suwon Hwaseong.'));
+    hero.appendChild(element('p', 'hw-intro', 'The last place on this suggested route: Banghwasuryujeong and Yongyeon.'));
     const art = element('figure', 'bg-card-visual');
     art.appendChild(fallbackArt);
     hero.appendChild(art);
