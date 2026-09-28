@@ -20,7 +20,7 @@ for(const width of [360,390]){
    ['ja','水原の旅を始める','カード番号は訪問順ではありません。']
   ]){
    await expect(shell(page).locator('.suwon-scenic-option')).toHaveText({en:'Scenic walk option along Suwoncheon',ko:'수원천을 따라 걷는 풍경 코스 후보',ja:'水原川沿いを歩く景色の楽しめるルート候補'}[language]);
-   await expect(shell(page).locator('.suwon-route-story')).toContainText({en:'Field check required.',ko:'현장 확인 필요.',ja:'現地確認が必要です。'}[language]);
+   await expect(shell(page).locator('.suwon-route-story')).toContainText({en:'Take the scenic route along Suwoncheon if you feel like walking, or use Get there to choose another way.',ko:'걷고 싶다면 수원천 풍경을 따라 천천히 이동해보세요. 다른 방법으로 가고 싶다면 길찾기를 이용하세요.',ja:'歩きたいときは水原川沿いの景色を楽しみながら進んでみましょう。別の方法で移動したいときは行き方を確認できます。'}[language]);
    await expect(shell(page)).not.toContainText('Walk through three Suwon places');
    await expect(shell(page)).toContainText({en:'Explore three Suwon places',ko:'수원의 세 장소를 둘러보며',ja:'水原の3つの場所を巡り'}[language]);
    await expect(shell(page).locator('li')).toHaveCount(3);
