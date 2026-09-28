@@ -3253,6 +3253,28 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
 #todayTripSummary .today-plan-status small{display:block;color:#53657d;font-size:11px;line-height:1.5;margin-bottom:6px}
 #todayTripSummary .today-plan-status strong{display:block;font-size:14px;line-height:1.5}
 #todayTripSummary .today-plan-status a{display:block;padding:10px;margin-top:8px;border-radius:9px;background:#10233f;color:#fff;text-align:center;text-decoration:none;font-size:14px;line-height:1.5}
+#suwonStartShell{margin:12px;padding:18px;border:1px solid #dfe8f3;border-radius:20px;background:#fff;color:#10233f;min-width:0;overflow-wrap:anywhere}
+#suwonStartShell[hidden]{display:none}
+#suwonStartShell .suwon-product-name{font-size:12px;letter-spacing:.08em;font-weight:800;color:#53657d}
+#suwonStartShell h2{font-size:23px;line-height:1.3;margin:8px 0}
+#suwonStartShell h3{font-size:19px;margin:22px 0 8px;scroll-margin-top:16px}
+#suwonStartShell h4{font-size:16px;line-height:1.4;margin:0 0 4px}
+#suwonStartShell p{font-size:14px;line-height:1.6;margin:8px 0}
+#suwonStartShell button,#suwonStartShell a{box-sizing:border-box;min-height:44px;padding:10px 12px;border:1px solid #cbd5e1;border-radius:10px;background:#f6f8fb;color:#10233f;font:inherit;font-size:13px;line-height:1.5;white-space:normal;text-decoration:none;text-align:center}
+#suwonStartShell .suwon-start-cta{display:block;width:100%;margin-top:16px;background:#10233f;color:#fff;border-color:#10233f;font-size:16px;font-weight:750}
+#suwonStartShell .suwon-places{list-style:none;margin:16px 0;padding:0;display:grid;gap:14px}
+#suwonStartShell .suwon-places li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;padding-top:14px;border-top:1px solid #e1e7ef}
+#suwonStartShell .suwon-stop-number{font-weight:800;color:#53657d}
+#suwonStartShell small,#suwonStartShell .suwon-route-note{color:#53657d;font-size:12px}
+#suwonStartShell .suwon-place-status{font-size:12px;font-weight:700;color:#275645}
+#suwonStartShell .suwon-save-note{font-size:12px}
+#suwonStartShell .suwon-route-actions{display:none;flex-wrap:wrap;gap:6px;margin:12px 0}
+#suwonStartShell.route-open .suwon-route-actions{display:flex}
+#suwonStartShell .suwon-secondary{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+#suwonStartShell .suwon-secondary button{flex:1 1 70px;background:white}
+#suwonStartShell .suwon-meaning{margin-top:18px;font-size:13px}
+#suwonStartShell .suwon-meaning summary{cursor:pointer;padding:10px 0}
+#home.suwon-context .v220-intro,#home.suwon-context .v220-popular,#home.suwon-context .v245-tools-scroll{display:none}
 </style>
 
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)}</script><script defer src="/_vercel/insights/script.js"></script>
@@ -3299,6 +3321,7 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
       <h1 data-en="Where are you going?" data-ja="どこへ行きますか？" data-ko="어디로 이동할까요?">Where are you going?</h1>
     </div>
 
+<section id="suwonStartShell" hidden aria-label="SUWON TRAVEL PACK"></section>
 <section id="todayTripSummary" aria-live="polite"></section>
 <div class="global-search" id="globalSearchBox">
   <div class="global-search-head"><div><b data-i18n="home.search.title">Find anything fast</b><span data-i18n="home.search.subtitle">Search tools, nearby essentials, cities, saved places, journeys and offline phrases.</span></div><span class="global-search-badge" data-en="Search" data-ko="검색" data-ja="検索">Search</span></div>
@@ -5374,7 +5397,66 @@ function renderHomeTodayPlaces(){
 }
 
 // Display only: reads existing selections; never writes storage.
+// Suwon product shell: presentation only; all mutations remain in existing user actions.
+const SUWON_SHELL_PLACES=[
+  {id:'suwon-002',en:'Hwaseong Haenggung Palace',ko:'화성행궁',ja:'華城行宮',key:'Suwon::Hwaseong Haenggung',mission:'hg-missions',description:['Read the palace story and look around its courtyards.','궁궐의 이야기를 읽고 마당을 둘러보세요.','宮殿の物語を読み、中庭を見てみましょう。']},
+  {id:'suwon-001',en:'Hwahongmun Gate',ko:'화홍문',ja:'華虹門',key:'Suwon::Hwahongmun',mission:'hw-missions',description:['Look at the stone arches and the waterway.','돌로 된 아치와 물길을 살펴보세요.','石のアーチと水の流れを眺めてみましょう。']},
+  {id:'suwon-003',en:'Banghwasuryujeong Pavilion',ko:'방화수류정',ja:'訪花隨柳亭',key:'Suwon::Banghwasuryujeong',mission:'bg-missions',description:['See how the pavilion, fortress and pond meet.','정자와 성곽, 연못이 어우러진 풍경을 보세요.','亭と城壁、池がつくる景色を眺めてみましょう。']}
+];
+function suwonShellRead(store,key,fallback){try{return JSON.parse(store.getItem(key)||'null')??fallback;}catch(_){return fallback;}}
+function suwonShellState(){
+  const items=suwonShellRead(sessionStorage,'koreaRouteSavedPlaces',[]);
+  const places=Array.isArray(items)?items:[];
+  const rawPlan=suwonShellRead(sessionStorage,'koreaRouteSavedPlacePlan',{});
+  const plan=rawPlan&&typeof rawPlan==='object'&&!Array.isArray(rawPlan)?rawPlan:{};
+  const rawCards=suwonShellRead(localStorage,'koreaRouteCardCollection',[]);
+  const ids=new Set();
+  const validCards=Array.isArray(rawCards)&&rawCards.every(c=>{
+    if(!c||typeof c.id!=='string'||!c.id||ids.has(c.id)||typeof c.firstTapAt!=='string'||!Number.isFinite(Date.parse(c.firstTapAt))||!Number.isSafeInteger(c.tapCount)||c.tapCount<1)return false;
+    ids.add(c.id);return true;
+  });
+  const cards=validCards?rawCards:[];
+  const trip=[suwonShellRead(sessionStorage,'koreaRouteTrip',null),suwonShellRead(localStorage,'koreaRouteSavedTrip',null)].some(t=>t&&t.dest==='Suwon');
+  const rows=SUWON_SHELL_PLACES.map(p=>{
+    const saved=places.some(s=>s&&s.key===p.key&&s.city==='Suwon');
+    const day=saved&&Number.isInteger(plan[p.key]?.day)&&plan[p.key].day>=1&&plan[p.key].day<=10?plan[p.key].day:null;
+    return {...p,saved,day,collected:cards.some(c=>c.id===p.id)};
+  });
+  const progress=trip||rows.some(p=>p.saved||p.collected);
+  // An explicitly opened city takes precedence over older stored Suwon history.
+  const context=cityState?.key?cityState.key==='Suwon':trip||document.getElementById('dest')?.value==='Suwon'||rows.some(p=>p.saved||p.collected);
+  return {context,progress,rows};
+}
+function openSuwonRouteShell(){
+  const host=document.getElementById('suwonStartShell');if(!host||host.hidden)return;
+  host.classList.add('route-open');
+  host.querySelector('.suwon-start-cta')?.setAttribute('aria-expanded','true');
+  const route=document.getElementById('suwonRouteTitle');route?.focus({preventScroll:true});route?.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function renderSuwonStartShell(){
+  const host=document.getElementById('suwonStartShell');if(!host)return;
+  const state=suwonShellState();host.hidden=!state.context;
+  document.getElementById('home')?.classList.toggle('suwon-context',state.context);
+  if(!state.context)return;
+  const t=(en,ko,ja)=>lang==='ko'?ko:lang==='ja'?ja:en;
+  const esc=escapeHtmlText;
+  const open=host.classList.contains('route-open');
+  host.innerHTML=`<p class="suwon-product-name">SUWON TRAVEL PACK</p>
+    <h2>${t('Three places. Three Suwon stories.','세 장소, 세 장의 수원 이야기.','3つの場所、3枚の水原の物語。')}</h2>
+    <p>${t('Walk through three Suwon places, read their stories, try small missions and collect three cards.','수원의 세 장소를 걸으며 이야기를 읽고, 작은 미션을 해보고, 세 장의 카드를 수집하는 여행 팩입니다.','水原の3つの場所を歩き、物語を読み、小さなミッションに挑戦して、3枚のカードを集める旅のパックです。')}</p>
+    <button type="button" class="suwon-start-cta" aria-expanded="${open}" aria-controls="suwonRouteOverview" onclick="openSuwonRouteShell()">${state.progress?t('Continue Suwon trip','수원 여행 계속하기','水原の旅を続ける'):t('Start Suwon trip','수원 여행 시작','水原の旅を始める')}</button>
+    <div id="suwonRouteOverview"><h3 id="suwonRouteTitle" tabindex="-1">${t('Your Suwon route','수원 코스','水原ルート')}</h3>
+    <p class="suwon-route-note">${t('Candidate order — field checks are pending. Card numbers are not the visiting order.','현장 검증 전 코스 후보입니다. 카드 번호는 방문 순서가 아닙니다.','現地確認前のコース候補です。カード番号は訪問順ではありません。')}</p>
+    <ol class="suwon-places">${state.rows.map((p,i)=>`<li data-card-id="${p.id}"><span class="suwon-stop-number" aria-hidden="true">${i+1}</span><div><h4>${esc(t(p.en,p.ko,p.ja))}</h4><small>${t('Card','카드','カード')} ${p.id.slice(-3)}</small><p>${t(...p.description)}</p>
+      <div class="suwon-place-status">${p.saved?(p.day?t('In trip','일정에 포함','日程に追加済み'):t('Saved','저장됨','保存済み')):''}${p.saved&&p.collected?' · ':''}${p.collected?t('Collected','수집됨','収集済み'):''}${!p.saved&&!p.collected?t('Not started','시작 전','未開始'):''}</div>
+      ${p.saved&&!p.day?`<p class="suwon-save-note">${t('Saved — not added to a trip day yet.','저장됨 — 아직 여행 일정에는 넣지 않았습니다.','保存済み — まだ旅行の日程には追加されていません。')}</p>`:''}
+      <div class="suwon-route-actions"><button type="button" onclick="v140OpenEventPlace('Suwon','${p.ko}')">${t('Get there','길찾기','行き方を見る')}</button><a href="/t/${p.id}">${t('View card','카드 보기','カードを見る')}</a><a href="/t/${p.id}#${p.mission}">${t('Open mission','미션 열기','ミッションを開く')}</a>${p.saved?`<button type="button" onclick="v60OpenTripDetail('myTripSavedPlaces')">${t('Choose day','일차 선택','日程を選択')}</button>`:''}</div></div></li>`).join('')}</ol>
+    <div class="suwon-route-actions suwon-route-footer"><button type="button" onclick="v60OpenRouteTab()">${t('Check transport','교통 확인','交通を確認')}</button><button type="button" onclick="openCityFromHub('Suwon')">${t('Explore more','더 둘러보기','ほかの場所を見る')}</button><button type="button" onclick="v60OpenTripOverview()">${t('Open My Trip','내 여행 열기','マイ旅行を開く')}</button><a href="/t">${t('View collection','수집 보기','コレクションを見る')}</a></div></div>
+    <details class="suwon-meaning"><summary>${t('How it works','이용 방법','使い方')}</summary><p>${t('Collected means a card page has been added to this browser’s collection. It is not proof of a visit or purchase.','수집됨은 카드 페이지가 현재 브라우저 컬렉션에 추가된 상태입니다. 방문이나 구매의 증명이 아닙니다.','収集済みは、このブラウザのコレクションにカードページが追加された状態です。訪問や購入の証明ではありません。')}</p><p>${t('Mission complete means you checked LOOK, WALK and PHOTO yourself. Visit verification and purchase status are not provided here.','미션 완료는 LOOK / WALK / PHOTO를 사용자가 모두 체크한 상태입니다. 여기에서는 방문 인증이나 구매 상태를 제공하지 않습니다.','ミッション完了は、見る・歩く・撮るを自分ですべてチェックした状態です。ここでは訪問認証や購入状況は提供しません。')}</p><p>${t('Card and mission pages currently use English. Collection is stored in this browser.','카드·미션 페이지는 현재 영어로 제공됩니다. 수집 기록은 현재 브라우저에 저장됩니다.','カードとミッションのページは現在英語です。収集記録はこのブラウザに保存されます。')}</p></details>
+    <div class="suwon-secondary"><button type="button" onclick="openCityFromHub('Suwon')">${t('Nearby','주변','周辺')}</button><button type="button" onclick="v220OpenMore()">${t('Scan & translate','사진·번역','撮影・翻訳')}</button><button type="button" onclick="v118OpenHelpTab()">${t('Help','도움','ヘルプ')}</button></div>`;
+}
 function renderHomeTripSummary(){
+  renderSuwonStartShell();
   const host=document.getElementById('todayTripSummary'); if(!host)return;
   renderHomeTodayPlaces();
   const text=(en,ko,ja)=>lang==='ko'?ko:lang==='ja'?ja:en;
