@@ -1,7 +1,7 @@
 const {test,expect}=require('@playwright/test');
 test.use({serviceWorkers:'block'});
 async function setup(page,count=1){
- await page.goto('/');const tips=page.getByRole('button',{name:'Got it',exact:true});if(await tips.isVisible())await tips.click();
+ await page.goto('/');const tips=page.getByRole('button',{name:'Got it',exact:true});await tips.click();
  await page.evaluate(count=>{
   const places=Array.from({length:count},(_,i)=>({key:'qa'+i,city:'Suwon',en:'QA place '+i,ko:'시험 장소 '+i,ja:'確認場所 '+i,lat:37.28,lng:127.01}));
   sessionStorage.setItem('koreaRouteSavedPlaces',JSON.stringify(places));sessionStorage.setItem('koreaRouteSavedPlacePlan',JSON.stringify(Object.fromEntries(places.map((p,i)=>[p.key,{day:1,order:i}]))));
@@ -46,4 +46,10 @@ test('Japanese empty state and Today core labels',async({page})=>{
  await expect(page.locator('#myTripTodayCard')).toContainText('保存された予定はまだありません');await expect(page.locator('#myTripTodayCard')).toContainText('+ 予定を追加');await expect(page.locator('#myTripSavedPlaces')).toContainText('旅行リストを作りましょう');
  await page.evaluate(()=>{sessionStorage.setItem('koreaRouteTrip',JSON.stringify({start:'Seoul',dest:'Suwon'}));sessionStorage.setItem('koreaRouteStayArea',JSON.stringify({area:'Suwon'}));sessionStorage.setItem('koreaRouteWallet',JSON.stringify({total:12000}));renderMyTripTodayCard();});
  await expect(page.locator('#myTripTodayCard')).toContainText('移動');await expect(page.locator('#myTripTodayCard')).toContainText('予算');await expect(page.locator('#myTripTodayCard')).toContainText('宿泊');
+});
+
+test('My Trip overview navigation labels explicitly support Japanese',async({page})=>{
+ await setup(page);await page.getByRole('button',{name:'EN / 한국어 / 日本語',exact:true}).click();await page.getByRole('button',{name:'한국어 / 日本語 / EN',exact:true}).click();
+ await expect(page.locator('#v60TripGrid')).toContainText('保存済み');await expect(page.locator('#myTripHub .v64-trip-more summary')).toHaveText('その他の旅行ツール');await expect(page.locator('#myTripSummary')).not.toContainText(/Route|Stay|Budget|Travelers/);
+ await page.getByRole('button',{name:'⭐ 保存済み',exact:true}).click();await expect(page.locator('#myTripSavedPlaces .v60-detail-back')).toHaveText('← マイ旅行の概要');
 });
