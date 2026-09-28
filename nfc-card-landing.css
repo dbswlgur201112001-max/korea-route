@@ -23,6 +23,16 @@ body{min-height:100vh}
 .kr-card-main a:focus-visible,.kr-card-brand:focus-visible{outline:3px solid #2563eb;outline-offset:3px}
 @media(max-width:360px){.kr-card-main{padding-left:14px;padding-right:14px}.kr-card-main h1{font-size:27px}.kr-card-actions{grid-template-columns:1fr}.kr-card-art-title{font-size:21px}}
 
+.kr-card-header{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.suwon-card-language{max-width:120px;padding:9px;border:1px solid #c5a065;border-radius:8px;background:#fff;color:#0b2345}
+.suwon-card-flow{display:flex;flex-direction:column;gap:8px;padding:18px 0}
+.suwon-card-flow a{display:block;text-align:center;padding:12px;border-radius:10px;text-decoration:none;overflow-wrap:anywhere}
+.kr-card-choices .kr-card-choice{display:grid;grid-template-columns:64px 1fr;gap:8px;padding:12px;position:relative;align-items:center}
+.suwon-collection-art{grid-row:span 3;width:64px;height:102px;object-fit:cover;border-radius:6px}
+.kr-card-choices .kr-card-choice-num{display:none}
+.kr-card-choices .kr-card-choice.is-collected{border:2px solid #b48b43;background:#fffbef}
+.suwon-owned{font-size:13px;color:#53657d}.is-collected .suwon-owned{color:#624610;font-weight:800}
+.kr-card-main .kr-card-complete{background:#fff2c9;color:#493305;padding:14px;border-radius:12px;font-size:20px}
 /* Hwahongmun V2: every selector is scoped to 001. */
 .kr-hwahongmun-v2{padding-top:0;font-size:16px;line-height:1.6}
 .kr-hwahongmun-v2 .hw-hero{margin:0 -18px;padding:28px 18px 24px;background:#0b2345;color:#fff}
