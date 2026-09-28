@@ -20345,6 +20345,105 @@ setTimeout(v140RenderLocalEvents,0);
 
 
 
+<script id="mytrip-event-ja-display">
+// Localize only My Trip output, after V152–V159 have composed cards and trust notices.
+// Keep names, data, attributes, event handlers and EN/KO output untouched.
+(function(){
+  const labels={
+    "Programs span DDP and Lotte World Tower; check the official schedule for each runway or public event.":"DDPとロッテワールドタワーで開催されます。各ランウェイや一般公開イベントの公式日程をご確認ください。",
+    "Outdoor sculpture exhibition and participatory programs near Hangang Play Place.":"漢江プレイプレイス付近の屋外彫刻展示と参加型プログラムです。",
+    "Global startup festival with AI, robotics, talks, exhibitions and business meetups.":"AI・ロボット・講演・展示・商談を含む世界的なスタートアップイベントです。",
+    "Normally Fri–Sun. July and August are not operated; weather or other events can change the schedule.":"通常は金～日曜日に開催します。7月と8月は休止し、天候や他のイベントにより日程が変わる場合があります。",
+    "Dissident Chorus. Open Tue–Sun, 10:00–18:00; Mondays are closed, with an additional closure on Oct 6. Three venues are connected by a free shuttle on exhibition days.":"Dissident Chorus。火～日曜日の10:00～18:00に開場し、月曜日と10月6日は休場です。開催日は3会場を無料シャトルで結びます。",
+    "Runs only Sep 4–5, 11–12 and 18–19, 17:00–22:00, with sunset dining, live music, picnic and wellness programs.":"9月4～5日・11～12日・18～19日の17:00～22:00のみ開催します。夕景を楽しむ食事、生演奏、ピクニック、ウェルネス企画があります。",
+    "Saturday shows on Sep 5, 12, 19 and 26. The Sep 26 Chuseok show uses 3,000 drones and is scheduled once at 20:00. Weather or communications can cause same-day changes.":"9月5・12・19・26日の土曜日に開催します。9月26日の秋夕公演はドローン3,000機を使用し、20:00の1回を予定しています。天候や通信状況により当日変更される場合があります。",
+    "Sep 9–11 at BEXCO. Exhibition hours are 10:00–17:00 on Sep 9–10 and 10:00–16:00 on Sep 11.":"9月9～11日にBEXCOで開催します。展示時間は9～10日が10:00～17:00、11日が10:00～16:00です。",
+    "Three-day international rock festival at Samnak Ecological Park. Check the official site for daily lineup, entry and ticket details.":"三楽生態公園で開催する3日間の国際ロックフェスティバルです。日別出演者・入場・チケット情報は公式サイトをご確認ください。",
+    "The 31st BIFF runs for 10 days. Screening locations and times vary by film, so use the official program before heading to a theater.":"第31回BIFFは10日間開催されます。会場と上映時間は作品ごとに異なるため、映画館へ行く前に公式プログラムをご確認ください。",
+    "Main festival date is Nov 7. Viewing areas include Gwangalli Beach, Igidae and Dongbaekseom; check official traffic and ticket guidance closer to the date.":"主な開催日は11月7日です。観覧エリアには広安里海水浴場・二妓台・冬柏島が含まれます。開催日が近づいたら公式の交通・チケット案内をご確認ください。",
+    "Open Tue–Sun, 10:00–18:00; last entry 17:30. Closed Mondays.":"火～日曜日の10:00～18:00に開場し、最終入場は17:30です。月曜日は休場します。",
+    "Open Tue–Sun, 10:00–17:30. Free admission. Closed Mondays and Sep 25 (Chuseok day).":"火～日曜日の10:00～17:30に開場し、入場無料です。月曜日と9月25日（秋夕）は休場します。",
+    "Two-day environmental film event listed on Gyeongju City’s September culture calendar.":"慶州市の9月文化カレンダーに掲載された2日間の環境映画イベントです。",
+    "One-day musical performance at Hwarang Hall. Check the official page for session and ticket details.":"花郎ホールで開催する1日限りのミュージカル公演です。公演回とチケット情報は公式ページをご確認ください。",
+    "One-day winners concert at Hwarang Hall. Confirm performance time and ticket status before visiting.":"花郎ホールで開催する1日限りの受賞者コンサートです。訪問前に公演時間とチケット状況をご確認ください。",
+    "Free Chuseok special performance scheduled for 13:00. Rain or other conditions may change the schedule.":"13:00開始予定の無料秋夕特別公演です。雨天などの条件により日程が変更される場合があります。",
+    "Gyeongju’s flagship heritage-and-arts festival runs Oct 9–11 around Bonghwangdae and Woljeonggyo.":"慶州を代表する文化遺産と芸術の祭典で、10月9～11日に鳳凰台・月精橋周辺で開催します。",
+    "Inclusive-tourism promotion for travelers with disabilities, older travelers, families with infants and pregnant travelers. Benefits vary by participating partner; use the official page to check eligible locations.":"障害のある旅行者、高齢の旅行者、乳幼児連れの家族、妊娠中の旅行者を対象とする旅行促進企画です。特典は参加施設によって異なります。対象施設は公式ページをご確認ください。",
+    "Regular performances are scheduled Fri–Sun, 19:00–20:00. The date range alone does not mean a performance happens every day.":"定期公演は金～日曜日の19:00～20:00に予定されています。掲載期間中の毎日開催を意味するものではありません。",
+    "Weekend night performance with live music, fireworks and fountain content. Regular operation is Fri–Sat; weather and production conditions can change individual sessions.":"生演奏・花火・噴水を楽しむ週末の夜間公演です。通常は金・土曜日に開催し、天候や制作上の事情により各公演が変更される場合があります。",
+    "Two-day festival combining water and land leisure sports, yoga, meditation, drawing, local performances and nighttime programs.":"水上・陸上スポーツ、ヨガ、瞑想、絵画、地域の公演、夜間企画を組み合わせた2日間の祭りです。",
+    "Cycling festival with criterium, coastal riding, bicycle expo and family programs. Some riding programs require advance registration; check the official page before travel.":"クリテリウム・海岸サイクリング・自転車博覧会・家族向け企画を含む自転車の祭りです。一部の走行企画は事前登録が必要です。旅行前に公式ページをご確認ください。",
+    "Visit Jeju lists the 2026 festival for Sep 23–Oct 11. This is an autumn night-light event; recheck the official festival listing for daily program details.":"Visit Jejuでは2026年の開催期間を9月23日～10月11日としています。秋の夜間ライトアップイベントです。日別の詳細は公式掲載情報をご確認ください。",
+    "Five-day flagship culture festival celebrating Jeju history, folk traditions and arts. The current detailed event page is Korean, so use Translated info first in English mode.":"済州の歴史・民俗・芸術を祝う5日間の代表的な文化祭です。現在の詳細ページは韓国語で提供されています。",
+    'TRIP MATCH':'旅行マッチ','LOCAL EVENTS':'地域のイベント','BETA':'試験提供',
+    'Show on map':'地図で見る','✓ Saved to My Trip':'✓ My Tripに保存済み','＋ Add to My Trip':'＋ My Tripに追加',
+    'MATCHES THIS TRIP':'旅行日程内','MATCHES TRIP DATES':'旅行日程内','OUTSIDE TRIP DATES':'旅行日程外',
+    'PAST EVENT':'終了したイベント','CURRENT TRIP':'現在の旅行','SAVED EVENTS':'保存したイベント','OTHER CITY':'他の都市',
+    'Map':'地図','Remove':'削除','Info':'情報','Events saved to My Trip':'My Tripに保存したイベント',
+    'YOUR DATES':'旅行期間','UP NEXT':'次のイベント','RECHECK':'再確認','STALE':'古い情報',
+    'RECENTLY CHECKED':'最近確認済み','CHECK DATE MISSING':'確認日なし','MANUALLY VERIFIED':'手動確認済み',
+    'Official Suwon events':'水原市公式イベント','Suwon festival guide':'水原観光・祭りガイド',
+    'Official Seoul event calendar':'ソウル市公式イベントカレンダー','Visit Seoul official guide':'Visit Seoul公式ガイド',
+    'Busan official event calendar':'釜山市公式イベントカレンダー','Visit Busan event calendar':'Visit Busanイベントカレンダー',
+    'Gyeongju official event calendar':'慶州市公式イベントカレンダー','Silla Cultural Festival':'新羅文化祭',
+    'Visit Jeju event calendar':'Visit Jejuイベントカレンダー','Visit Jeju autumn event guide':'Visit Jeju秋のイベントガイド',
+    'VISITKOREA English':'VISITKOREA','VISITKOREA Festivals':'VISITKOREAの祭り情報',
+    'Translated info':'翻訳情報','Event info':'イベント情報','Original Korean':'韓国語の原文','Official info':'公式情報',
+    'Source status':'出典の状態','All city sources':'各都市の出典','Source checks · current':'出典確認 · 確認済み',
+    'Check official source':'公式日程を確認','Recheck official source':'公式出典を再確認',
+    'Recheck this event schedule':'イベント日程を再確認してください','Event schedule needs verification':'イベント日程の確認が必要です',
+    'SCHEDULE CHECK NEEDED':'日程の確認が必要','RECHECK RECOMMENDED':'再確認を推奨',
+    'Kept as trip history. Remove it when you no longer need it.':'旅行の記録として保存しています。不要になったら削除できます。',
+    'No event operating day overlaps your trip dates, so here are the next scheduled events.':'旅行日程と実際の開催日が重なるイベントがないため、次の開催予定を表示します。',
+    'No connected event is available after the selected date. Check the official schedule.':'選択した日付以降に確認済みのイベントはありません。公式日程をご確認ください。',
+    'This city does not have a connected local event feed yet. Check the official VISITKOREA festival guide.':'この都市の地域イベント情報はまだ接続されていません。VISITKOREAの公式祭りガイドをご確認ください。',
+    'Recheck the official source before relying on this list.':'この一覧を利用する前に公式出典を再確認してください。'
+  };
+  const cityNames={Seoul:'ソウル',Suwon:'水原',Busan:'釜山',Gyeongju:'慶州',Jeju:'済州'};
+  const cityName=c=>cityNames[c]||c;
+  function textJa(text){
+    let t=text.trim();if(!t)return text;
+    if(t.startsWith('· '))return ' · '+textJa(t.slice(2));
+    const arrow=t.endsWith(' ↗')?' ↗':'';if(arrow)t=t.slice(0,-2);
+    const sourceSuffix=t.endsWith(' · Korean source')?' · 韓国語の出典':'';if(sourceSuffix)t=t.slice(0,-16);
+    if(sourceSuffix)return textJa(t)+sourceSuffix+arrow;
+    if(labels[t])return labels[t]+arrow;
+    return t
+      .replace(/^What's on in (.+)$/,(_,c)=>cityName(c)+'のイベント')
+      .replace(/^Suggested Day (\d+)$/,'おすすめ $1日目')
+      .replace(/^SAVED FOR (.+)$/,(_,c)=>cityName(Object.keys(cityNames).find(k=>k.toUpperCase()===c)||c)+'に保存済み')
+      .replace(/^Events whose actual operating days overlap your (.+) – (.+) trip\.$/,'$1～$2の旅行日程と実際の開催日が重なるイベントです。')
+      .replace(/^(YOUR DATES|UP NEXT) · RECHECK$/,(_,v)=>labels[v]+' · 再確認')
+      .replace(/^Source checks · (\d+) due$/,'出典確認 · $1都市の再確認が必要')
+      .replace(/^(\d+) events · checked (.+)$/,'$1件のイベント · 確認日 $2')
+      .replace(/^Checked (\d+) days ago · recheck the official schedule before visiting$/,'$1日前に確認 · 訪問前に公式日程を再確認してください')
+      .replace(/^Checked (\d+) days ago · official recheck required$/,'$1日前に確認 · 公式日程の再確認が必要です')
+      .replace(/^Checked (.+) · static snapshot, not live sync$/,'確認日 $1 · 保存時点の情報であり、リアルタイム同期ではありません')
+      .replace(/^Manually rechecked (.+) · not live sync$/,'手動確認日 $1 · リアルタイム同期ではありません')
+      .replace(/^checked (\d+) days ago · static official snapshot$/,'$1日前に確認 · 公式情報の保存時点の内容')
+      .replace(/^Official schedule checked (\d+) days ago\. Confirm changes or cancellations on the official source before visiting or booking\.$/,'$1日前に確認した公式日程です。訪問・予約前に公式出典で変更・中止の有無をご確認ください。')
+      .replace(/^Confirm changes or cancellations on the official source before visiting or booking\.$/,'訪問・予約前に公式出典で変更・中止の有無をご確認ください。')
+      .replace(/^Based on published schedules from (.+)\. Use Translated info before opening the Korean source\.$/,'$1の公開日程に基づく情報です。韓国語の出典を開く前に翻訳情報をご確認ください。')
+      .replace(/^Based on published schedules from (.+)\. Recheck the official page before visiting because event details can change\.$/,'$1の公開日程に基づく情報です。内容は変更される場合があるため、訪問前に公式ページをご確認ください。')
+      .replace(/^Saved events for (.+) use source snapshots that need rechecking\. Your saves are kept, but verify the official source before visiting\.$/,'$1に保存したイベントの出典情報は再確認が必要です。保存記録は保持されますが、訪問前に公式出典をご確認ください。')
+      .replace(/ · Korean source$/,' · 韓国語の出典')+arrow;
+  }
+  function localize(html){
+    if(lang!=='ja'||!html)return html;
+    const template=document.createElement('template');template.innerHTML=html;
+    // Restrict translation to interface text: never rewrite stored event names or places.
+    template.content.querySelectorAll('.v140-events-kicker,.v140-events-title,.v140-events-sub,.v140-events-badge,.v141-day-badge,.v140-event-actions button,.v140-events-actions button,.v140-event-note,.v147-event-note,.v140-events-note,.v141-saved-head b,.v143-saved-city-title span,.v142-saved-status,.v142-saved-actions button,.v153-past-note,.v153-feed-health,.v154-source-status,.v155-source-health,.v158-source-caution,.v158-saved-trust').forEach(el=>{
+      const walker=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);let node;
+      while((node=walker.nextNode()))node.nodeValue=textJa(node.nodeValue);
+    });
+    return template.innerHTML;
+  }
+  const events=v140EventsHtml,saved=v141SavedEventsHtml;
+  v140EventsHtml=function(city,context){const html=events(city,context);return context==='trip'?localize(html):html;};
+  v141SavedEventsHtml=function(){return localize(saved());};
+})();
+</script>
+
 <style id="v160-external-launch-guard-css">
 .v160-launch-guard{position:fixed;inset:0;z-index:2147483000;display:none;align-items:flex-end;justify-content:center;background:rgba(7,18,35,.58);padding:16px;box-sizing:border-box}
 .v160-launch-guard.open{display:flex}
