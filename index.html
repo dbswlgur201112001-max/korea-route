@@ -3271,6 +3271,11 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
 #expenseLedgerSection article{border-top:1px solid #d5dce5;padding:14px 0}
 #expenseLedgerSection article p{white-space:pre-wrap}
 #expenseLedgerSection [role=status]{min-height:1.5em}
+#receiptScan{border:1px solid #d5dce5;border-radius:12px;padding:12px;margin:12px 0;display:grid;gap:10px;min-width:0}
+#receiptScan img{max-width:100%;max-height:220px;object-fit:contain}
+#receiptScan button:disabled{opacity:.55}
+#receiptScanReview{display:grid;gap:10px;min-width:0}
+#receiptScan [hidden]{display:none!important}
 </style>
 </head>
 <body>
@@ -5476,6 +5481,7 @@ function toggleLang(){lang=lang==='en'?'ko':lang==='ko'?'ja':'en';localStorage.s
 function go(id,opts={}){
   const target=document.getElementById(id);
   if(!target){console.warn('Unknown screen:',id);return;}
+  if(current==='walletHub'&&id!=='walletHub') closeReceiptScan();
 
   if(id!=='city'&&typeof stopCityWalkGuide==='function'&&cityWalkGuideTarget) stopCityWalkGuide({silent:true});
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -7828,6 +7834,153 @@ function parseKoreaRouteExpenseLedger(raw){
 }
 
 
+// Receipt drafts are memory-only. Only the existing manual form can save an expense.
+let receiptScan={open:false,image:'',meta:'',result:null,draft:null,status:'NO_IMAGE',sequence:0,controller:null};
+function receiptText(key){
+  const copy={
+    entry:['Scan receipt','영수증 스캔','レシートを読み取る'],camera:['Take photo','사진 촬영','写真を撮る'],upload:['Choose photo','사진 선택','写真を選ぶ'],
+    analyze:['Analyze receipt','영수증 분석','レシートを解析'],ANALYZING:['Analyzing…','분석 중…','解析中…'],PREPARING:['Preparing photo…','사진 준비 중…','写真を準備中…'],
+    review:['Review before saving','저장 전 확인','保存前に確認'],storeName:['Store name','상점명','店舗名'],purchaseDate:['Purchase date','구매일','購入日'],
+    totalAmountKrw:['Total paid (KRW)','최종 결제액 (KRW)','支払総額（KRW）'],use:['Use these details','이 내용 사용','この内容を使用'],
+    another:['Try another photo','다른 사진 선택','別の写真を選ぶ'],manual:['Enter manually','직접 입력','手入力する'],cancel:['Cancel','취소','キャンセル'],
+    preview:['Receipt preview','영수증 미리보기','レシートのプレビュー'],READY:['Photo ready','사진 준비 완료','写真の準備完了'],NO_IMAGE:['Choose a receipt photo to begin.','영수증 사진을 선택하세요.','レシートの写真を選んでください。'],
+    SUCCESS:['Check all details before using them.','사용하기 전에 내용을 확인하세요.','使用する前に内容を確認してください。'],
+    PARTIAL:['Some details need your review.','일부 항목을 직접 확인해 주세요.','一部の項目を確認してください。'],
+    UNREADABLE:['Could not read this field clearly.','이 항목을 명확히 읽지 못했습니다.','この項目をはっきり読み取れませんでした。'],
+    AMBIGUOUS:['More than one value may match. Please check it.','여러 값이 가능해 직접 확인이 필요합니다.','複数の候補があるため確認してください。'],
+    INVALID:['The detected value cannot be used. Enter it manually.','읽은 값을 사용할 수 없습니다. 직접 입력하세요.','読み取った値を使用できません。手入力してください。'],
+    NOT_RECEIPT:['This image could not be identified as a receipt.','이 사진을 영수증으로 확인하지 못했습니다.','この画像をレシートとして確認できませんでした。'],receipt:['Receipt','영수증','レシート'],
+    INVALID_IMAGE:['Choose a readable JPEG, PNG or WebP image.','읽을 수 있는 JPEG, PNG 또는 WebP 사진을 선택하세요.','読み取れるJPEG、PNG、WebP画像を選んでください。'],
+    IMAGE_TOO_LARGE:['Choose a photo up to 12 MiB that can be compressed within the limit.','12 MiB 이하이며 압축 크기 제한을 충족하는 사진을 선택하세요.','12 MiB以下で圧縮サイズ制限内に収まる写真を選んでください。'],
+    RATE_LIMITED:['Too many requests. Try again later or enter manually.','요청이 많습니다. 나중에 다시 시도하거나 직접 입력하세요.','リクエストが多すぎます。後でもう一度試すか手入力してください。'],
+    AI_NOT_CONFIGURED:['Receipt analysis is unavailable. Enter the expense manually.','영수증 분석을 사용할 수 없습니다. 지출을 직접 입력하세요.','レシート解析を利用できません。支出を手入力してください。'],
+    AI_TIMEOUT:['Analysis timed out. Try another photo or enter manually.','분석 시간이 초과되었습니다. 다른 사진을 선택하거나 직접 입력하세요.','解析がタイムアウトしました。別の写真を選ぶか手入力してください。'],
+    AI_UPSTREAM_FAILED:['Analysis failed. Try again later or enter manually.','분석에 실패했습니다. 나중에 다시 시도하거나 직접 입력하세요.','解析に失敗しました。後でもう一度試すか手入力してください。'],
+    AI_INVALID_RESULT:['The analysis result was invalid. Enter manually or try another photo.','분석 결과가 올바르지 않습니다. 직접 입력하거나 다른 사진을 선택하세요.','解析結果が無効です。手入力するか別の写真を選んでください。'],
+    AI_EMPTY_RESULT:['No analysis result was returned. Try another photo or enter manually.','분석 결과가 없습니다. 다른 사진을 선택하거나 직접 입력하세요.','解析結果がありません。別の写真を選ぶか手入力してください。'],
+    offline:['Receipt analysis needs an internet connection. You can still enter the expense manually.','영수증 분석에는 인터넷 연결이 필요합니다. 지출은 직접 입력할 수 있습니다.','レシート解析にはインターネット接続が必要です。支出は手入力できます。'],
+    editing:['Finish editing this expense before scanning a new receipt.','현재 지출 수정을 끝낸 뒤 새 영수증을 스캔하세요.','現在の支出編集を完了してから、新しいレシートを読み取ってください。'],
+    privacy:['The photo is sent to an AI provider for analysis. Korea Route does not store the photo in your expense ledger or its own app storage.','사진은 분석을 위해 AI 제공자에게 전송됩니다. Korea Route는 사진을 지출 장부나 앱 자체 저장소에 보관하지 않습니다.','写真は解析のためAI提供者に送信されます。Korea Routeは写真を支出記録やアプリ内ストレージに保存しません。']
+  };
+  return copy[key]?.[lang==='ko'?1:lang==='ja'?2:0]||'';
+}
+function resetReceiptScan(open=false){
+  receiptScan.controller?.abort();
+  const sequence=receiptScan.sequence+1;
+  receiptScan={open,image:'',meta:'',result:null,draft:null,status:'NO_IMAGE',sequence,controller:null};
+  const root=document.getElementById('receiptScan');
+  root?.querySelectorAll('input[type=file]').forEach(el=>{el.value='';});
+  root?.querySelectorAll('img').forEach(el=>el.removeAttribute('src'));
+}
+function closeReceiptScan(){resetReceiptScan();renderReceiptScan();}
+function startReceiptScan(){
+  if(expenseLedgerEditId!==null)return;
+  resetReceiptScan(true);renderReceiptScan();
+}
+async function selectReceiptPhoto(file){
+  if(!file||!receiptScan.open||expenseLedgerEditId!==null)return;
+  resetReceiptScan(true);
+  const sequence=receiptScan.sequence;
+  if(!/^image\/(jpeg|png|webp)$/i.test(file.type||'')){receiptScan.status='INVALID_IMAGE';renderReceiptScan();return;}
+  if(file.size>12*1024*1024){receiptScan.status='IMAGE_TOO_LARGE';renderReceiptScan();return;}
+  receiptScan.status='PREPARING';renderReceiptScan();
+  try{
+    const packed=await compressCheckRideImage(file);
+    if(sequence!==receiptScan.sequence||!receiptScan.open)return;
+    receiptScan.image=packed.data;receiptScan.meta=`${packed.w}×${packed.h} · ${Math.round(packed.bytes/1024)} KB`;receiptScan.status='READY';
+  }catch(error){
+    if(sequence!==receiptScan.sequence)return;
+    receiptScan.status=error?.message==='IMAGE_TOO_LARGE'?'IMAGE_TOO_LARGE':'INVALID_IMAGE';
+  }
+  renderReceiptScan();
+}
+function validReceiptResponse(value){
+  const object=x=>x!==null&&typeof x==='object'&&!Array.isArray(x);
+  const fields=['storeName','purchaseDate','totalAmountKrw','issues'];
+  if(!object(value)||Object.keys(value).length!==4||!fields.every(k=>Object.hasOwn(value,k)))return false;
+  if(value.storeName!==null&&(typeof value.storeName!=='string'||value.storeName.length>100))return false;
+  if(value.purchaseDate!==null){
+    if(typeof value.purchaseDate!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(value.purchaseDate))return false;
+    const date=new Date(value.purchaseDate+'T00:00:00Z');
+    if(!Number.isFinite(date.getTime())||date.toISOString().slice(0,10)!==value.purchaseDate)return false;
+  }
+  if(value.totalAmountKrw!==null&&(!Number.isInteger(value.totalAmountKrw)||value.totalAmountKrw<1||value.totalAmountKrw>999999999))return false;
+  return Array.isArray(value.issues)&&value.issues.length<=12&&value.issues.every(x=>object(x)&&Object.keys(x).length===2&&
+    ['storeName','purchaseDate','totalAmountKrw','receipt'].includes(x.field)&&['UNREADABLE','AMBIGUOUS','INVALID','NOT_RECEIPT'].includes(x.code));
+}
+async function analyzeReceiptPhoto(){
+  if(!receiptScan.open||!receiptScan.image||receiptScan.controller||expenseLedgerEditId!==null)return;
+  if(!navigator.onLine){renderReceiptScan();return;}
+  const sequence=++receiptScan.sequence,controller=new AbortController();
+  receiptScan.controller=controller;receiptScan.status='ANALYZING';receiptScan.result=null;receiptScan.draft=null;renderReceiptScan();
+  const timer=setTimeout(()=>controller.abort(),23000);
+  try{
+    const response=await fetch('/api/receipt',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({imageDataUrl:receiptScan.image}),signal:controller.signal});
+    const value=await response.json().catch(error=>{if(error?.name==='AbortError')throw error;throw Object.assign(Error(),{code:'AI_INVALID_RESULT'});});
+    if(sequence!==receiptScan.sequence||!receiptScan.open)return;
+    if(!response.ok)throw Object.assign(Error(),{code:['INVALID_IMAGE','IMAGE_TOO_LARGE','RATE_LIMITED','AI_NOT_CONFIGURED','AI_TIMEOUT','AI_UPSTREAM_FAILED','AI_INVALID_RESULT','AI_EMPTY_RESULT'].includes(value?.error)?value.error:'AI_UPSTREAM_FAILED'});
+    if(!validReceiptResponse(value))throw Object.assign(Error(),{code:'AI_INVALID_RESULT'});
+    receiptScan.result=value;
+    const uncertain=field=>value.issues.some(x=>x.field===field||x.field==='receipt');
+    receiptScan.draft={};
+    for(const field of ['storeName','purchaseDate','totalAmountKrw'])receiptScan.draft[field]=uncertain(field)?'':String(value[field]??'');
+    receiptScan.status=value.issues.some(x=>x.code==='NOT_RECEIPT')?'UNREADABLE':value.issues.length||Object.values(receiptScan.draft).some(x=>!x)?'PARTIAL':'SUCCESS';
+  }catch(error){
+    if(sequence!==receiptScan.sequence||!receiptScan.open)return;
+    receiptScan.result=null;receiptScan.draft=null;receiptScan.status=error?.name==='AbortError'?'AI_TIMEOUT':error?.code||'AI_UPSTREAM_FAILED';
+  }finally{
+    clearTimeout(timer);
+    if(sequence===receiptScan.sequence){receiptScan.controller=null;renderReceiptScan();}
+  }
+}
+function useReceiptDetails(){
+  if(expenseLedgerEditId!==null||!receiptScan.draft)return;
+  const form=document.getElementById('expenseLedgerForm');if(!form)return;
+  for(const [target,source] of [['storeName','storeName'],['purchaseDate','purchaseDate'],['amountKrw','totalAmountKrw']]){
+    if(form.elements[target].value==='')form.elements[target].value=receiptScan.draft[source];
+  }
+  // Never submit, write storage, fill note or create a refund here.
+  closeReceiptScan();form.elements.storeName.focus();
+}
+function renderReceiptScan(){
+  const root=document.getElementById('receiptScan');if(!root)return;
+  root.replaceChildren();
+  const el=(tag,text,parent=root)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;parent.appendChild(node);return node;};
+  const button=(key,action,parent=root)=>{const b=el('button',receiptText(key),parent);b.type='button';b.onclick=action;return b;};
+  if(!receiptScan.open){
+    const entry=button('entry',startReceiptScan);entry.disabled=expenseLedgerEditId!==null;
+    if(entry.disabled)el('p',receiptText('editing'));return;
+  }
+  el('h3',receiptText('entry'));el('p',receiptText('privacy'));
+  const actions=el('div');actions.className='expense-actions';
+  for(const key of ['camera','upload']){
+    const input=el('input');input.type='file';input.hidden=true;input.id='receiptScan'+(key==='camera'?'Camera':'Upload');
+    input.accept='image/jpeg,image/png,image/webp';if(key==='camera')input.setAttribute('capture','environment');
+    input.onchange=()=>selectReceiptPhoto(input.files?.[0]);button(key,()=>input.click(),actions);
+  }
+  if(receiptScan.image){const img=el('img');img.alt=receiptText('preview');img.src=receiptScan.image;el('small',receiptScan.meta);}
+  const status=el('p',receiptText(receiptScan.status));status.id='receiptScanStatus';status.setAttribute('role','status');
+  if(!navigator.onLine)el('p',receiptText('offline'));
+  const analyze=button('analyze',analyzeReceiptPhoto);analyze.disabled=!receiptScan.image||!!receiptScan.controller||!navigator.onLine;
+  if(receiptScan.draft){
+    const review=el('div');review.id='receiptScanReview';el('h4',receiptText('review'),review);
+    for(const field of ['storeName','purchaseDate','totalAmountKrw']){
+      const label=el('label',receiptText(field),review),input=el('input',undefined,label);input.name=field;
+      input.type=field==='purchaseDate'?'date':field==='totalAmountKrw'?'number':'text';input.value=receiptScan.draft[field];
+      if(field==='totalAmountKrw'){input.step='1';input.inputMode='numeric';}
+      input.oninput=()=>{receiptScan.draft[field]=input.value;};
+    }
+    for(const issue of receiptScan.result.issues)el('p',receiptText(issue.field)+': '+receiptText(issue.code),review);
+    button('use',useReceiptDetails,review);
+  }
+  const end=el('div');end.className='expense-actions';
+  button('another',startReceiptScan,end);button('manual',closeReceiptScan,end);button('cancel',closeReceiptScan,end);
+}
+window.addEventListener('online',renderReceiptScan);
+window.addEventListener('offline',renderReceiptScan);
+window.addEventListener('pagehide',closeReceiptScan);
+
 // Manual purchases are independent of the estimated Budget Wallet.
 let expenseLedgerEditId=null;
 let expenseLedgerMessage='';
@@ -7893,6 +8046,7 @@ function saveManualExpense(event){
   }
   if(!writeKoreaRouteExpenseLedger({version:1,records:next},current.raw)){expenseLedgerFeedback('failed');return;}
   expenseLedgerEditId=null;form.reset();expenseLedgerMessage='saved';
+  resetReceiptScan();
   renderExpenseLedger();watchOfflineTripSessionChanges();
 }
 function editManualExpense(id){
@@ -7928,6 +8082,8 @@ function renderExpenseLedger(){
   const current=readExpenseLedger();
   if(!current.payload){status.textContent=expenseLedgerText('unreadable');return;}
   const records=current.payload.records;
+  if(expenseLedgerEditId!==null) resetReceiptScan();
+  const scanner=el('div');scanner.id='receiptScan';renderReceiptScan();
   const amount=value=>'₩'+value.toLocaleString('en-US');
   const count=records.length,total=amount(records.reduce((sum,r)=>sum+r.amountKrw,0));
   el('p',lang==='ko'?'구매 '+count+'건':lang==='ja'?'購入 '+count+'件':count+(count===1?' purchase':' purchases')).id='expenseLedgerCount';
