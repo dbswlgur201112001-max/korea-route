@@ -126,3 +126,12 @@ Ledger는 기존 16개 KOREA_ROUTE_PERSIST_SESSION_KEYS에 등록하거나 korea
 ## 12. 부록 B — 알려진 선결 과제
 
 KR-ISSUE-004 (P1) — 호스트명 하드코딩. index.html 9941행, 15166행에 다음과 같이 박혀 있다: ODsay 경로 조회 코드가 location.hostname이 정확히 'korea-route.vercel.app'일 때만 동작하도록 조건이 걸려 있다. 영향: Vercel Preview URL은 호스트명이 매번 달라서 Preview에서 Move 기능이 운영본과 다르게 동작하며, 이를 모르는 QA는 REG-001을 환경 탓에 STILL FAIL로 오판한다. 또한 korea-route.com 커스텀 도메인에서도 동작하지 않는다. 이 두 줄을 허용 호스트 목록 방식으로 바꾸기 전까지, Preview에서의 ODsay 관련 실패는 BLOCKED_ENV로 판정한다.
+
+## Stage 4B — Memory foundation inventory (Staging only)
+
+추가 런타임: memory.html, memory.js, memory.css. 기존 index/NFC 진입과 저장 의미는 유지한다.
+추가 API: api/memory-auth.js, api/memory-data.js, api/memory-media.js.
+서버 모듈: server/memory/core.js, server/memory/media.js.
+DB migration: supabase/migrations/20260928085936_memory_foundation.sql.
+검증: tests/time-slip-db.spec.js, tests/time-slip-api.spec.js, tests/time-slip-shell.spec.js.
+이 목록은 파일 inventory 추가이며 기존 로컬 storage contract 변경이 아니다.

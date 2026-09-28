@@ -7,6 +7,7 @@
     "qa:smoke:headed": "playwright test --headed"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "0.5.8",
     "@playwright/test": "^1.55.0",
     "http-server": "^14.1.1"
   }

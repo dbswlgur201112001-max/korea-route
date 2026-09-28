@@ -35,6 +35,8 @@ self.addEventListener('fetch',event=>{
   const url=new URL(request.url);
   if(url.origin===self.location.origin && url.pathname.startsWith('/api/')) return;
   if(url.origin!==self.location.origin) return;
+  // Private Memory/Auth documents must never become the offline index fallback.
+  if(/^\/(?:memory(?:[./-]|$)|auth(?:[./-]|$))/.test(url.pathname) || url.searchParams.has('token')) return;
   if(request.mode==='navigate'){
     if(isNfcEntryPath(url.pathname)){
       event.respondWith(

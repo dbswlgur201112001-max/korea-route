@@ -11,7 +11,13 @@
     "vercel.json",
     "nfc-card.html",
     "nfc-card-landing.js",
-    "nfc-card-landing.css"
+    "nfc-card-landing.css",
+    "memory.html",
+    "memory.js",
+    "memory.css",
+    "server/memory/core.js",
+    "server/memory/media.js",
+    "supabase/migrations/20260928085936_memory_foundation.sql"
   ],
   "requiredVendorFiles": [
     "vendor/leaflet.js",
@@ -40,7 +46,10 @@
     "api/rail.js",
     "api/gemini.js",
     "api/kiosk.js",
-    "api/check-ride.js"
+    "api/check-ride.js",
+    "api/memory-auth.js",
+    "api/memory-data.js",
+    "api/memory-media.js"
   ],
   "protectedStorageKeys": [
     "ODSAY_WEB_KEY",
@@ -131,7 +140,7 @@
     }
   },
   "frozenSourceSha256": {
-    "sw.js": "feed14a20c1c48f8d5f013b0432abb85f9a491d12d533f1abcb9e86143de1c53",
+    "sw.js": "44dd27e1804e6786960e70e740c6fb68ce5a06b83fa2ad11989d92b21253c0f1",
     "manifest.json": "b39ffa72bdc2b5e53854d85473d70da284b303c2063437e6b3d57c7be99e943b",
     "vercel.json": "d57451e3d905c2e7818319f31f85f7409090060ce7cd96dd6ab582e1bb961f15",
     "nfc-card.html": "ab87e41dc0fe5e54976e082f12c0c99bbbfe67b139c3dcf9b387eb22bd2607d3",
@@ -160,8 +169,8 @@
     "api/gemini.js": "776ddeca4a7e34974e5cc3bc5feca5374113472fcf46153b8f1d71ea00bf5843",
     "api/kiosk.js": "515840e284d2849b5527ecf6dba9d79e22e3a2647d88a2c1a1f020f7748f4434",
     "api/check-ride.js": "fc953221ba7f8191f05fa2a91b3c5ec8cc4e997ac4c0c711d36bd75a3ca7f53a",
-    "AGENTS.md": "93415102b59ad38f45288d2aa6144632a895255f8dcc43f2e610650afda333be",
-    "package.json": "7b16d1836d219fb6ab539bdfd417556178d33837884e73926969d02d10a3e7ce",
+    "AGENTS.md": "51d1ed8ed3e429042fbffde1c26c069ce32ec5cc7a2711a2d258ad9d01f4ac93",
+    "package.json": "f38e799a3392d59baf3531523a3e2b93992d059046ff953dd70ccb764a89c7ba",
     "playwright.config.js": "8b17f10098a7869414e43b67b0791712512c666647f874e1da1469a5bba97252",
     "tests/smoke.spec.js": "df697c87282857cbcba23e1502e2d834ff0a4d16ae38fed09327a379474be9ea"
   },

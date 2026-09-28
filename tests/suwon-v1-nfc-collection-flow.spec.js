@@ -85,6 +85,10 @@ test('approved fingerprint scope and original collection writer/mission schema r
  for(const key of keys)expect(after.split("const missionKey = '"+key+"'").length).toBe(2);
  const b=JSON.parse(git('main-control/baseline.json')),a=JSON.parse(fs.readFileSync('main-control/baseline.json','utf8'));
  for(const file of ['nfc-card.html','nfc-card-landing.js','nfc-card-landing.css'])a.frozenSourceSha256[file]=b.frozenSourceSha256[file];
+ // Stage 4B explicitly approves only these foundation inventory and fingerprint changes.
+ for(const file of ['sw.js','AGENTS.md','package.json'])a.frozenSourceSha256[file]=b.frozenSourceSha256[file];
+ a.requiredRuntimeFiles=a.requiredRuntimeFiles.filter(f=>!['memory.html','memory.js','memory.css','server/memory/core.js','server/memory/media.js','supabase/migrations/20260928085936_memory_foundation.sql'].includes(f));
+ a.requiredApiFiles=a.requiredApiFiles.filter(f=>!['api/memory-auth.js','api/memory-data.js','api/memory-media.js'].includes(f));
  expect(a).toEqual(b);expect(fs.readFileSync('scripts/main-control-guard.js','utf8').replaceAll('\r\n','\n')).toBe(git('scripts/main-control-guard.js'));
 });
 test('invalid collection and mission raw are preserved on language changes',async({page})=>{

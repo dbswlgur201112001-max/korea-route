@@ -98,3 +98,64 @@ under the user's explicit authorization; that is not a workflow capability.
 - No storage-key renaming or persistence-schema migration without a dedicated approved task.
 - No full rewrite of `index.html`.
 - No automatic acceptance of OCR/AI output as authoritative travel, payment, or refund data.
+
+## Stage 4B — Memory foundation inventory and deployment contract
+
+Runtime: `memory.html`, `memory.js`, `memory.css`. Server API: `api/memory-auth.js`,
+`api/memory-data.js`, `api/memory-media.js`. Shared server: `server/memory/core.js`,
+`server/memory/media.js`. Migration: `supabase/migrations/20260928085936_memory_foundation.sql`.
+Tests: `tests/time-slip-{db,api,shell}.spec.js`; pinned PGlite 0.5.8 executes actual PostgreSQL
+constraints/RLS locally with synthetic auth/storage schemas. This is not remote Supabase Auth/Storage QA.
+
+A dedicated KOREA ROUTE STAGING project has NOT been identified. No migration was applied remotely.
+Custom SMTP: NOT CONFIGURED. REMOTE_SUPABASE: BLOCKED_PENDING_SETUP.
+Do not reuse another project's Supabase or create paid resources without approval.
+
+Preview server-only environment contract (never commit values):
+- MEMORY_ENV=staging; VERCEL_ENV must not be production.
+- SUPABASE_URL: exact dedicated staging project origin.
+- MEMORY_STAGING_PROJECT_REF: same explicitly approved staging project reference.
+- SUPABASE_PUBLISHABLE_KEY; SUPABASE_SECRET_KEY: server-side only.
+- MEMORY_COOKIE_KEY: cryptographically random 32-byte hex key; rotation signs out sessions.
+- MEMORY_APP_ORIGIN: exact HTTPS Preview origin, no trailing slash. Same-origin write checks.
+
+Configure Custom SMTP and allow only the exact Preview callback. The Magic Link email template must
+link to `{{ .RedirectTo }}#token_hash={{ .TokenHash }}`. The server supplies RedirectTo with a random
+state query. The browser immediately removes the fragment/query and requires a confirmation click;
+it POSTs the one-time hash. A short-lived encrypted HttpOnly flow cookie binds verification to the
+requesting browser. Opening in another browser requires requesting a new link there. Never use the
+default implicit-token URL template. No access/refresh token is returned to browser JavaScript.
+Encrypted session cookies use __Host-, Secure, HttpOnly and SameSite=Lax. Session checks validate
+with Auth and active-account RLS; refresh stays server-side. No email, token, note or signed URL logs.
+
+Journey ownership uses a composite foreign key. UNIQUE(journey_id,card_id) preserves return visits.
+DB server timestamps/revisions, plain-text constraints and column-level grants protect ownership.
+No cloud migration of existing local data. No Memory condition is added to Suwon Complete.
+Private `travel-memories` bucket paths are user UUID/memory UUID/media UUID.extension.
+Authenticated users have no Storage upload/delete policy and no direct media row writes.
+Upload reservation and finalize endpoints deliberately return MEDIA_UPLOAD_NOT_ENABLED in 4B.
+The five-photo/one-video schema limit is present; byte limits, file sniffing and signed upload issuance
+must be implemented and validated in 4C/4D BEFORE enabling uploads. No actual media upload UI exists.
+Signed read authorization rechecks ownership via user JWT/RLS and issues a 60-second private URL.
+Such URLs are bearer credentials until expiry; deletion/sign-out cannot recall a previously issued URL.
+
+Memory deletion records a durable operation, tombstones the memory, removes Storage objects, then
+removes metadata. Storage failure retains rows and operation for retry; repeating delete is idempotent.
+The internal account-delete worker blocks RLS first, deletes memories/objects and journeys, then
+soft-deletes Auth identity. No public account-delete endpoint is exposed before reauthentication UX.
+Operation records remain for retry/audit; hard purge/retention policy is a later explicit decision.
+No background scheduler is installed. Pending operations require an authorized retry.
+
+SW change: bypass Memory/Auth documents/assets before navigation caching so private HTML cannot
+replace the general offline index. Existing cross-origin/API exclusions and travel/NFC offline flow remain.
+No Memory HTML or signed URLs are added to CORE. API responses send no-store at browser/CDN levels.
+The static shell has no user data, no inline code, a restrictive CSP and no-referrer/noindex.
+Before remote release: dedicated project approval, migration apply, custom SMTP, exact callback allowlist,
+real A/B/anonymous REST+Storage tests, expired link/logout/refresh tests, and Preview browser QA required.
+
+Approved baseline changes: runtime/API/migration inventory additions; SHA updates only for sw.js,
+AGENTS.md inventory and package.json test dependency. Existing storage fingerprints are unchanged.
+
+An internal signed-upload helper is prepared and mock-tested for owned reserved rows only.
+It is not invoked by any public endpoint in 4B. Storage provider upload-token lifetime and byte/MIME
+policy require remote verification in 4C before exposing it. No real signed upload or upload occurred.
