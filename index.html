@@ -7038,46 +7038,46 @@ function buildPrintableTripHtml(){
   const items=data.items||[];
   const days=Object.keys(data.groups||{}).map(Number).sort((a,b)=>a-b);
 
-  const route=data.routeText || (lang==='ko'?'경로 미선택':'No route selected');
-  const stay=data.stayText || (lang==='ko'?'숙소 미선택':'No stay selected');
-  const budget=data.walletText || (lang==='ko'?'예산 미설정':'No budget set');
+  const route=data.routeText || (lang==='ko'?'경로 미선택':lang==='ja'?"移動ルート未選択":'No route selected');
+  const stay=data.stayText || (lang==='ko'?'숙소 미선택':lang==='ja'?"宿泊未選択":'No stay selected');
+  const budget=data.walletText || (lang==='ko'?'예산 미설정':lang==='ja'?"予算未設定":'No budget set');
 
   return `
     <div class="print-trip-sheet">
       <header class="print-trip-header">
         <span>Korea Route</span>
-        <h1>${lang==='ko'?'나의 여행 일정':'My Trip Itinerary'}</h1>
+        <h1>${lang==='ko'?'나의 여행 일정':lang==='ja'?"マイ旅行の予定":'My Trip Itinerary'}</h1>
       </header>
 
       <section class="print-trip-overview">
-        <div><span>${lang==='ko'?'이동':'Route'}</span><b>${route}</b></div>
-        <div><span>${lang==='ko'?'숙소':'Stay'}</span><b>${stay}</b></div>
-        <div><span>${lang==='ko'?'예산':'Budget'}</span><b>${budget}</b></div>
+        <div><span>${lang==='ko'?'이동':lang==='ja'?"移動":'Route'}</span><b>${route}</b></div>
+        <div><span>${lang==='ko'?'숙소':lang==='ja'?"宿泊":'Stay'}</span><b>${stay}</b></div>
+        <div><span>${lang==='ko'?'예산':lang==='ja'?"予算":'Budget'}</span><b>${budget}</b></div>
       </section>
 
       ${days.length?days.map(day=>`
         <section class="print-day">
-          <h2>${lang==='ko'?`${day}일차`:`Day ${day}`}</h2>
+          <h2>${lang==='ko'?`${day}일차`:lang==='ja'?`${day}日目`:`Day ${day}`}</h2>
           <ol>
             ${data.groups[day].map(p=>`
               <li>
-                <b>${lang==='ko'?(p.ko||p.en):(p.en||p.ko)}</b>
+                <b>${lang==='ko'?(p.ko||p.en):lang==='ja'?(p.ja||p.en||p.ko):(p.en||p.ko)}</b>
                 <span>${p.city}</span>
               </li>`).join('')}
           </ol>
         </section>
       `).join(''):''}
       ${data.unassigned.length?`<section class="print-day"><h2>${unassignedPlacesLabel()}</h2><ol>${data.unassigned.map(p=>`<li><b>${escapeHtmlText(lang==='ko'?(p.ko||p.en):(lang==='ja'?(p.ja||p.en||p.ko):(p.en||p.ko)))}</b><span>${escapeHtmlText(p.city)}</span></li>`).join('')}</ol></section>`:''}
-      ${!data.items.length?`<p>${lang==='ko'?'저장한 장소가 없습니다.':'No saved places yet.'}</p>`:''}
+      ${!data.items.length?`<p>${lang==='ko'?'저장한 장소가 없습니다.':lang==='ja'?"保存した場所はまだありません。":'No saved places yet.'}</p>`:''}
 
       <section class="print-trip-emergency">
-        <h2>${lang==='ko'?'긴급 연락':'Emergency'}</h2>
-        <p><b>112</b> ${lang==='ko'?'경찰':'Police'} · <b>119</b> ${lang==='ko'?'구급·소방':'Ambulance / Fire'}</p>
+        <h2>${lang==='ko'?'긴급 연락':lang==='ja'?"緊急連絡":'Emergency'}</h2>
+        <p><b>112</b> ${lang==='ko'?'경찰':lang==='ja'?"警察":'Police'} · <b>119</b> ${lang==='ko'?'구급·소방':lang==='ja'?"救急・消防":'Ambulance / Fire'}</p>
       </section>
 
       <footer>${lang==='ko'
         ?'저장 순서 기준 일정입니다. 실시간 예약·좌석·요금 정보가 아닙니다.'
-        :'This follows your saved order and does not include live booking, seat or fare guarantees.'
+        :lang==='ja'?"保存した順序に基づく予定です。リアルタイムの予約・空席・料金を保証するものではありません。":'This follows your saved order and does not include live booking, seat or fare guarantees.'
       }</footer>
     </div>`;
 }
@@ -7106,10 +7106,10 @@ function buildMyTripShareText(){
   const days=Object.keys(groups).map(Number).sort((a,b)=>a-b);
 
   const lines=[];
-  lines.push(lang==='ko'?'Korea Route · 나의 여행':'Korea Route · My Trip');
+  lines.push(lang==='ko'?'Korea Route · 나의 여행':lang==='ja'?"Korea Route · マイ旅行":'Korea Route · My Trip');
 
   if(!items.length){
-    lines.push(lang==='ko'?'저장한 장소가 없습니다.':'No saved places yet.');
+    lines.push(lang==='ko'?'저장한 장소가 없습니다.':lang==='ja'?"保存した場所はまだありません。":'No saved places yet.');
     return lines.join('\n');
   }
 
@@ -7117,7 +7117,7 @@ function buildMyTripShareText(){
     lines.push('');
     lines.push(lang==='ko'?`Day ${day}`:`Day ${day}`);
     groups[day].forEach((p,i)=>{
-      const name=lang==='ko'?(p.ko||p.en):(p.en||p.ko);
+      const name=lang==='ko'?(p.ko||p.en):lang==='ja'?(p.ja||p.en||p.ko):(p.en||p.ko);
       lines.push(`${i+1}. ${name} · ${p.city}`);
     });
   });
@@ -7129,7 +7129,7 @@ function buildMyTripShareText(){
   lines.push('');
   lines.push(lang==='ko'
     ?'※ 저장 순서 기준이며 자동 최적화 일정이 아닙니다.'
-    :'Note: This follows your saved order and is not an auto-optimized itinerary.'
+    :lang==='ja'?"※ 保存した順序に基づく予定です。自動最適化された旅程ではありません。":'Note: This follows your saved order and is not an auto-optimized itinerary.'
   );
   return lines.join('\n');
 }
@@ -7139,7 +7139,7 @@ async function shareMyTrip(){
   if(navigator.share){
     try{
       await navigator.share({
-        title:lang==='ko'?'Korea Route · 나의 여행':'Korea Route · My Trip',
+        title:lang==='ko'?'Korea Route · 나의 여행':lang==='ja'?"Korea Route · マイ旅行":'Korea Route · My Trip',
         text
       });
       return;
@@ -7297,12 +7297,12 @@ function walletSummaryText(wallet){
 
 
 const MYTRIP_CHECKLIST_ITEMS=[
-  {id:'passport',en:'Passport / ID',ko:'여권 / 신분증'},
-  {id:'payment',en:'Foreign card + backup payment',ko:'해외결제 카드 + 예비 결제수단'},
-  {id:'transit',en:'Transit card plan',ko:'교통카드 준비'},
-  {id:'esim',en:'eSIM / roaming',ko:'eSIM / 로밍'},
-  {id:'stay',en:'Stay address saved',ko:'숙소 주소 저장'},
-  {id:'airport',en:'Airport transfer checked',ko:'공항 이동수단 확인'}
+  {id:'passport',en:'Passport / ID',ko:'여권 / 신분증',ja:'パスポート・身分証明書'},
+  {id:'payment',en:'Foreign card + backup payment',ko:'해외결제 카드 + 예비 결제수단',ja:'海外対応カードと予備の支払い手段'},
+  {id:'transit',en:'Transit card plan',ko:'교통카드 준비',ja:'交通カードの準備'},
+  {id:'esim',en:'eSIM / roaming',ko:'eSIM / 로밍',ja:'eSIM・ローミング'},
+  {id:'stay',en:'Stay address saved',ko:'숙소 주소 저장',ja:'宿泊先の住所を保存'},
+  {id:'airport',en:'Airport transfer checked',ko:'공항 이동수단 확인',ja:'空港への移動手段を確認'}
 ];
 
 function myTripChecklistState(){
@@ -7342,8 +7342,8 @@ function renderMyTripChecklist(){
 
   block.innerHTML=`
     <div class="trip-check-head">
-      <div><span class="move-kicker">${lang==='ko'?'출발 준비':'TRIP CHECK'}</span>
-      <h3>${lang==='ko'?'여행 준비 체크':'Before you go'}</h3></div>
+      <div><span class="move-kicker">${lang==='ko'?'출발 준비':lang==='ja'?"旅行準備":'TRIP CHECK'}</span>
+      <h3>${lang==='ko'?'여행 준비 체크':lang==='ja'?"出発前のチェック":'Before you go'}</h3></div>
       <b>${done}/${MYTRIP_CHECKLIST_ITEMS.length}</b>
     </div>
     <div class="trip-check-progress"><i style="width:${pct}%"></i></div>
@@ -7351,12 +7351,12 @@ function renderMyTripChecklist(){
       ${MYTRIP_CHECKLIST_ITEMS.map(item=>`
         <label class="trip-check-item ${state[item.id]?'done':''}">
           <input type="checkbox" ${state[item.id]?'checked':''} onchange="toggleMyTripChecklist('${item.id}',this.checked)">
-          <span>${lang==='ko'?item.ko:item.en}</span>
+          <span>${lang==='ko'?item.ko:lang==='ja'?item.ja:item.en}</span>
         </label>`).join('')}
     </div>
     <p class="trip-check-note">${lang==='ko'
       ?'개인 준비용 체크리스트입니다. 입국·비자·항공사 요건은 공식 안내를 별도로 확인하세요.'
-      :'Personal preparation checklist only. Check official entry, visa and airline requirements separately.'
+      :lang==='ja'?"個人の準備用チェックリストです。入国・ビザ・航空会社の要件は公式案内で別途確認してください。":'Personal preparation checklist only. Check official entry, visa and airline requirements separately.'
     }</p>`;
 }
 
@@ -7367,47 +7367,47 @@ function myTripEmergencyCardHtml(){
   return `
     <div class="emergency-card-head">
       <div>
-        <span class="move-kicker">${lang==='ko'?'비상 도움':'EMERGENCY'}</span>
-        <h3>${lang==='ko'?'도움이 필요할 때':'Need help?'}</h3>
+        <span class="move-kicker">${lang==='ko'?'비상 도움':lang==='ja'?"緊急時のサポート":'EMERGENCY'}</span>
+        <h3>${lang==='ko'?'도움이 필요할 때':lang==='ja'?"お困りですか？":'Need help?'}</h3>
       </div>
-      <button type="button" class="emergency-show-btn" onclick="openMyTripEmergencySheet()">${lang==='ko'?'크게 보기':'Show card'}</button>
+      <button type="button" class="emergency-show-btn" onclick="openMyTripEmergencySheet()">${lang==='ko'?'크게 보기':lang==='ja'?"カードを表示":'Show card'}</button>
     </div>
 
     <div class="emergency-number-grid">
-      <a class="emergency-number-card emergency-call-card" href="tel:112" aria-label="${lang==='ko'?'경찰 112 전화':'Call Police 112'}">
-        <span>${lang==='ko'?'경찰':'Police'}</span>
+      <a class="emergency-number-card emergency-call-card" href="tel:112" aria-label="${lang==='ko'?'경찰 112 전화':lang==='ja'?"警察112に電話":'Call Police 112'}">
+        <span>${lang==='ko'?'경찰':lang==='ja'?"警察":'Police'}</span>
         <b>112</b>
-        <small>☎ ${lang==='ko'?'탭하여 전화':'Tap to call'}</small>
+        <small>☎ ${lang==='ko'?'탭하여 전화':lang==='ja'?"タップして電話":'Tap to call'}</small>
       </a>
-      <a class="emergency-number-card emergency-call-card" href="tel:119" aria-label="${lang==='ko'?'구급 소방 119 전화':'Call Ambulance or Fire 119'}">
-        <span>${lang==='ko'?'구급·소방':'Ambulance / Fire'}</span>
+      <a class="emergency-number-card emergency-call-card" href="tel:119" aria-label="${lang==='ko'?'구급 소방 119 전화':lang==='ja'?"救急・消防119に電話":'Call Ambulance or Fire 119'}">
+        <span>${lang==='ko'?'구급·소방':lang==='ja'?"救急・消防":'Ambulance / Fire'}</span>
         <b>119</b>
-        <small>☎ ${lang==='ko'?'탭하여 전화':'Tap to call'}</small>
+        <small>☎ ${lang==='ko'?'탭하여 전화':lang==='ja'?"タップして電話":'Tap to call'}</small>
       </a>
-      <a class="emergency-number-card tourist-help emergency-call-card" href="tel:1330" aria-label="${lang==='ko'?'외국인 여행객 대표 문의 1330 전화':'Call Korea Travel Helpline 1330'}">
+      <a class="emergency-number-card tourist-help emergency-call-card" href="tel:1330" aria-label="${lang==='ko'?'외국인 여행객 대표 문의 1330 전화':lang==='ja'?"韓国旅行案内1330に電話":'Call Korea Travel Helpline 1330'}">
         <div class="emergency-tourist-copy">
-          <span>${lang==='ko'?'외국인 여행객 대표 문의':'Travel help & interpretation'}</span>
-          <small>${lang==='ko'?'한국관광공사 여행 안내·통역':'Korea Tourism Organization Travel Helpline'}</small>
+          <span>${lang==='ko'?'외국인 여행객 대표 문의':lang==='ja'?"旅行案内・通訳":'Travel help & interpretation'}</span>
+          <small>${lang==='ko'?'한국관광공사 여행 안내·통역':lang==='ja'?"韓国観光公社の旅行案内":'Korea Tourism Organization Travel Helpline'}</small>
         </div>
-        <div class="emergency-tourist-number"><b>1330</b><small>☎ ${lang==='ko'?'탭하여 전화':'Tap to call'}</small></div>
+        <div class="emergency-tourist-number"><b>1330</b><small>☎ ${lang==='ko'?'탭하여 전화':lang==='ja'?"タップして電話":'Tap to call'}</small></div>
       </a>
     </div>
 
-    <p class="emergency-phrase-help">${lang==='ko'?'아래 문장을 누르면 한국어가 복사됩니다. 상대방에게 보여주거나 번역기에 붙여넣으세요.':'Tap a phrase to copy the Korean text. Show it to someone nearby or paste it into a translator.'}</p>
+    <p class="emergency-phrase-help">${lang==='ko'?'아래 문장을 누르면 한국어가 복사됩니다. 상대방에게 보여주거나 번역기에 붙여넣으세요.':lang==='ja'?"文をタップすると韓国語をコピーできます。近くの人に見せるか、翻訳ツールに貼り付けてください。":'Tap a phrase to copy the Korean text. Show it to someone nearby or paste it into a translator.'}</p>
     <div class="emergency-phrase-list">
-      <button type="button" id="emergencyPhraseHelp" onclick="copyEmergencyPhrase('도와주세요.','emergencyPhraseHelp')"><span>${lang==='ko'?'도와주세요.':'도와주세요. · Please help me.'}</span><span class="phrase-copy-label">📋 ${lang==='ko'?'복사':'Copy'}</span></button>
-      <button type="button" id="emergencyPhrasePolice" onclick="copyEmergencyPhrase('경찰을 불러주세요.','emergencyPhrasePolice')"><span>${lang==='ko'?'경찰을 불러주세요.':'경찰을 불러주세요. · Please call the police.'}</span><span class="phrase-copy-label">📋 ${lang==='ko'?'복사':'Copy'}</span></button>
-      <button type="button" id="emergencyPhraseAmbulance" onclick="copyEmergencyPhrase('구급차를 불러주세요.','emergencyPhraseAmbulance')"><span>${lang==='ko'?'구급차를 불러주세요.':'구급차를 불러주세요. · Please call an ambulance.'}</span><span class="phrase-copy-label">📋 ${lang==='ko'?'복사':'Copy'}</span></button>
+      <button type="button" id="emergencyPhraseHelp" onclick="copyEmergencyPhrase('도와주세요.','emergencyPhraseHelp')"><span>${lang==='ko'?'도와주세요.':lang==='ja'?"도와주세요. · 助けてください。":'도와주세요. · Please help me.'}</span><span class="phrase-copy-label">📋 ${lang==='ko'?'복사':lang==='ja'?"コピー":'Copy'}</span></button>
+      <button type="button" id="emergencyPhrasePolice" onclick="copyEmergencyPhrase('경찰을 불러주세요.','emergencyPhrasePolice')"><span>${lang==='ko'?'경찰을 불러주세요.':lang==='ja'?"경찰을 불러주세요. · 警察を呼んでください。":'경찰을 불러주세요. · Please call the police.'}</span><span class="phrase-copy-label">📋 ${lang==='ko'?'복사':lang==='ja'?"コピー":'Copy'}</span></button>
+      <button type="button" id="emergencyPhraseAmbulance" onclick="copyEmergencyPhrase('구급차를 불러주세요.','emergencyPhraseAmbulance')"><span>${lang==='ko'?'구급차를 불러주세요.':lang==='ja'?"구급차를 불러주세요. · 救急車を呼んでください。":'구급차를 불러주세요. · Please call an ambulance.'}</span><span class="phrase-copy-label">📋 ${lang==='ko'?'복사':lang==='ja'?"コピー":'Copy'}</span></button>
     </div>
 
     <div class="emergency-stay-line">
-      <span>${lang==='ko'?'숙소':'Stay'}</span>
-      <b>${stayText || (lang==='ko'?'Stay에서 숙소 지역을 저장하세요.':'Save your stay area in Stay.')}</b>
+      <span>${lang==='ko'?'숙소':lang==='ja'?"宿泊":'Stay'}</span>
+      <b>${stayText || (lang==='ko'?'Stay에서 숙소 지역을 저장하세요.':lang==='ja'?"Stayで宿泊エリアを保存してください。":'Save your stay area in Stay.')}</b>
     </div>
 
     <p class="trip-check-note">${lang==='ko'
       ?'오프라인 상황에서도 바로 보여주기 위한 간단 카드입니다. 긴급 상황에서는 현지 안내와 공식 기관 지시에 따르세요.'
-      :'A simple offline-friendly card to show quickly. In an emergency, follow local and official instructions.'
+      :lang==='ja'?"オフラインでもすぐに見せられる簡易カードです。緊急時は現地の案内と公的機関の指示に従ってください。":'A simple offline-friendly card to show quickly. In an emergency, follow local and official instructions.'
     }</p>
   `;
 }
@@ -7443,16 +7443,16 @@ function openMyTripEmergencySheet(){
   wrap.innerHTML=`
     <div class="emergency-sheet" role="dialog" aria-modal="true">
       <button class="emergency-sheet-close" onclick="closeMyTripEmergencySheet()">×</button>
-      <span class="move-kicker">${lang==='ko'?'비상 도움 카드':'EMERGENCY HELP CARD'}</span>
-      <div class="emergency-sheet-number"><a class="emergency-sheet-call" href="tel:112">112</a> <small>${lang==='ko'?'경찰':'Police'}</small></div>
-      <div class="emergency-sheet-number"><a class="emergency-sheet-call" href="tel:119">119</a> <small>${lang==='ko'?'구급·소방':'Ambulance / Fire'}</small></div>
-      <div class="emergency-sheet-number"><a class="emergency-sheet-call" href="tel:1330">1330</a> <small>${lang==='ko'?'여행 안내·통역':'Travel Helpline'}</small></div>
+      <span class="move-kicker">${lang==='ko'?'비상 도움 카드':lang==='ja'?'緊急サポートカード':'EMERGENCY HELP CARD'}</span>
+      <div class="emergency-sheet-number"><a class="emergency-sheet-call" href="tel:112">112</a> <small>${lang==='ko'?'경찰':lang==='ja'?'警察':'Police'}</small></div>
+      <div class="emergency-sheet-number"><a class="emergency-sheet-call" href="tel:119">119</a> <small>${lang==='ko'?'구급·소방':lang==='ja'?'救急・消防':'Ambulance / Fire'}</small></div>
+      <div class="emergency-sheet-number"><a class="emergency-sheet-call" href="tel:1330">1330</a> <small>${lang==='ko'?'여행 안내·통역':lang==='ja'?'旅行案内・通訳':'Travel Helpline'}</small></div>
       <div class="emergency-sheet-phrases">
-        <b>도와주세요.</b><span>Please help me.</span>
-        <b>경찰을 불러주세요.</b><span>Please call the police.</span>
-        <b>구급차를 불러주세요.</b><span>Please call an ambulance.</span>
+        <b>도와주세요.</b><span>${lang==='ja'?'助けてください。':'Please help me.'}</span>
+        <b>경찰을 불러주세요.</b><span>${lang==='ja'?'警察を呼んでください。':'Please call the police.'}</span>
+        <b>구급차를 불러주세요.</b><span>${lang==='ja'?'救急車を呼んでください。':'Please call an ambulance.'}</span>
       </div>
-      ${stay?`<div class="emergency-sheet-stay"><span>${lang==='ko'?'숙소':'Stay'}</span><b>${stay}</b></div>`:''}
+      ${stay?`<div class="emergency-sheet-stay"><span>${lang==='ko'?'숙소':lang==='ja'?'宿泊':'Stay'}</span><b>${stay}</b></div>`:''}
     </div>`;
   document.body.appendChild(wrap);
 }
@@ -7627,63 +7627,63 @@ function myTripTodayCardHtml(){
     return `<section class="mytrip-today-card v64-empty-card">
       <div class="mytrip-today-head">
         <div>
-          <span class="mytrip-kicker">${lang==='ko'?'오늘의 여행':'TODAY'}</span>
-          <h3>${lang==='ko'?'아직 등록된 일정이 없어요':'No trip plan yet'}</h3>
+          <span class="mytrip-kicker">${lang==='ko'?'오늘의 여행':lang==='ja'?"今日の旅行":'TODAY'}</span>
+          <h3>${lang==='ko'?'아직 등록된 일정이 없어요':lang==='ja'?"保存された予定はまだありません":'No trip plan yet'}</h3>
         </div>
       </div>
-      <p>${lang==='ko'?'일정을 하나 추가하면 오늘 필요한 정보만 여기에 보여드릴게요.':'Add a plan and this card will show only what you need today.'}</p>
-      <button class="v64-primary-action" type="button" onclick="go('planner')">${lang==='ko'?'+ 일정 추가하기':'+ Add a plan'}</button>
+      <p>${lang==='ko'?'일정을 하나 추가하면 오늘 필요한 정보만 여기에 보여드릴게요.':lang==='ja'?"予定を追加すると、旅行に必要な情報をここで確認できます。":'Add a plan and this card will show only what you need today.'}</p>
+      <button class="v64-primary-action" type="button" onclick="go('planner')">${lang==='ko'?'+ 일정 추가하기':lang==='ja'?"+ 予定を追加":'+ Add a plan'}</button>
     </section>`;
   }
 
   return `<section class="mytrip-today-card">
     <div class="mytrip-today-head">
       <div>
-        <span class="mytrip-kicker">${lang==='ko'?'오늘의 여행':'TODAY'}</span>
-        <h3>${lang==='ko'?'지금 필요한 것만 보기':'What you need now'}</h3>
+        <span class="mytrip-kicker">${lang==='ko'?'오늘의 여행':lang==='ja'?"今日の旅行":'TODAY'}</span>
+        <h3>${lang==='ko'?'지금 필요한 것만 보기':lang==='ja'?"今必要な情報":'What you need now'}</h3>
       </div>
-      <span class="prototype-pill">${lang==='ko'?'준비 요약':'Prep'}</span>
+      <span class="prototype-pill">${lang==='ko'?'준비 요약':lang==='ja'?"準備":'Prep'}</span>
     </div>
 
     ${routeText?`<div class="v64-primary-route">
-      <span>${lang==='ko'?'이동':'Route'}</span>
+      <span>${lang==='ko'?'이동':lang==='ja'?"移動":'Route'}</span>
       <b>${routeText}</b>
     </div>`:''}
 
     <div class="v64-trip-facts">
-      ${stayText?`<div><span>${lang==='ko'?'숙소':'Stay'}</span><b>${stayText}</b></div>`:''}
-      ${walletText?`<div><span>${lang==='ko'?'예산':'Budget'}</span><b>${walletText}</b></div>`:''}
-      <div><span>${lang==='ko'?'출발 준비':'Checklist'}</span><b>${checklistReady}</b></div>
-      ${data.moveVerify.total?`<div><span>${lang==='ko'?'출발 확인':'Departure check'}</span><b>${verifyReady}</b></div>`:''}
+      ${stayText?`<div><span>${lang==='ko'?'숙소':lang==='ja'?"宿泊":'Stay'}</span><b>${stayText}</b></div>`:''}
+      ${walletText?`<div><span>${lang==='ko'?'예산':lang==='ja'?"予算":'Budget'}</span><b>${walletText}</b></div>`:''}
+      <div><span>${lang==='ko'?'출발 준비':lang==='ja'?"チェックリスト":'Checklist'}</span><b>${checklistReady}</b></div>
+      ${data.moveVerify.total?`<div><span>${lang==='ko'?'출발 확인':lang==='ja'?"出発前確認":'Departure check'}</span><b>${verifyReady}</b></div>`:''}
     </div>
 
     ${places.length?`<div class="mytrip-today-places">
-      <span>${lang==='ko'?`Day ${myTripTodayDayNumber()} 장소`:`Day ${myTripTodayDayNumber()} places`}</span>
+      <span>${lang==='ko'?`Day ${myTripTodayDayNumber()} 장소`:lang==='ja'?`${myTripTodayDayNumber()}日目の場所`:`Day ${myTripTodayDayNumber()} places`}</span>
       <ol>${places.slice(0,3).map(p=>`<li class="${isCityWalkPlaceVisited(p.key)?'visited':''}">${lang==='ko'?(p.ko||p.en||''):(p.en||p.ko||'')}</li>`).join('')}</ol>
-      ${data.visitProgress?.total?`<div class="mytrip-today-progress">✓ ${lang==='ko'?'방문':'Visited'} · ${data.visitProgress.done}/${data.visitProgress.total}</div>`:''}
+      ${data.visitProgress?.total?`<div class="mytrip-today-progress">✓ ${lang==='ko'?'방문':lang==='ja'?"訪問済み":'Visited'} · ${data.visitProgress.done}/${data.visitProgress.total}</div>`:''}
     </div>`:''}
 
     <button class="v64-primary-action" type="button" onclick="v64TodayPrimaryAction()">${places.length
-      ? (lang==='ko'?'오늘 동선 보기':'Open today route')
+      ? (lang==='ko'?'오늘 동선 보기':lang==='ja'?"今日のルートを見る":'Open today route')
       : routeText
-        ? (lang==='ko'?'이동경로 보기':'Open route')
-        : (lang==='ko'?'일정 보기':'Open plan')
+        ? (lang==='ko'?'이동경로 보기':lang==='ja'?"ルートを見る":'Open route')
+        : (lang==='ko'?'일정 보기':lang==='ja'?"予定を見る":'Open plan')
     }</button>
 
     <details class="v64-secondary-actions">
-      <summary>${lang==='ko'?'더보기':'More'}</summary>
+      <summary>${lang==='ko'?'더보기':lang==='ja'?"その他":'More'}</summary>
       <div>
-        <button type="button" id="myTripTodayCopyBtn" onclick="copyMyTripTodayList()">${lang==='ko'?'오늘 목록 복사':'Copy day list'}</button>
-        <button type="button" onclick="openMyTripMoveVerify()">${lang==='ko'?'출발 확인':'Departure checks'}</button>
-        <button type="button" onclick="openMyTripEmergencySheet()">${lang==='ko'?'긴급 카드':'Emergency card'}</button>
+        <button type="button" id="myTripTodayCopyBtn" onclick="copyMyTripTodayList()">${lang==='ko'?'오늘 목록 복사':lang==='ja'?"今日のリストをコピー":'Copy day list'}</button>
+        <button type="button" onclick="openMyTripMoveVerify()">${lang==='ko'?'출발 확인':lang==='ja'?"出発前確認":'Departure checks'}</button>
+        <button type="button" onclick="openMyTripEmergencySheet()">${lang==='ko'?'긴급 카드':lang==='ja'?"緊急カード":'Emergency card'}</button>
       </div>
     </details>
 
     <details class="v64-info-note">
-      <summary>${lang==='ko'?'안내':'About this card'}</summary>
+      <summary>${lang==='ko'?'안내':lang==='ja'?"このカードについて":'About this card'}</summary>
       <p>${lang==='ko'
         ?'저장된 여행정보를 요약한 준비용 카드입니다. 실시간 운행·영업·예약 가능 여부를 뜻하지 않습니다.'
-        :'A preparation summary from saved trip data. It does not represent live transport, opening hours, or booking availability.'
+        :lang==='ja'?"保存した旅行情報に基づく準備用の概要です。リアルタイムの運行・営業時間・予約可否を示すものではありません。":'A preparation summary from saved trip data. It does not represent live transport, opening hours, or booking availability.'
       }</p>
     </details>
   </section>`;
@@ -7750,30 +7750,30 @@ function renderUnifiedItinerarySummary(){
 
   const data=myTripUnifiedData();
   const days=Object.keys(data.groups).map(Number).sort((a,b)=>a-b);
-  const routeLine=data.routeText || (lang==='ko'?'Plan/Move에서 경로를 선택하면 표시됩니다.':'Choose a route in Plan/Move to show it here.');
-  const stayLine=data.stayText || (lang==='ko'?'Stay에서 숙소 지역을 선택하면 표시됩니다.':'Choose a stay area in Stay to show it here.');
-  const walletLine=data.walletText || (lang==='ko'?'Trip Wallet에서 예산을 만들면 표시됩니다.':'Build a budget in Trip Wallet to show it here.');
+  const routeLine=data.routeText || (lang==='ko'?'Plan/Move에서 경로를 선택하면 표시됩니다.':lang==='ja'?"Plan/Moveで移動ルートを選択すると、ここに表示されます。":'Choose a route in Plan/Move to show it here.');
+  const stayLine=data.stayText || (lang==='ko'?'Stay에서 숙소 지역을 선택하면 표시됩니다.':lang==='ja'?"Stayで宿泊エリアを選択すると、ここに表示されます。":'Choose a stay area in Stay to show it here.');
+  const walletLine=data.walletText || (lang==='ko'?'Trip Wallet에서 예산을 만들면 표시됩니다.':lang==='ja'?"Trip Walletで予算を作成すると、ここに表示されます。":'Build a budget in Trip Wallet to show it here.');
 
   block.innerHTML=`
     <div class="unified-itinerary-head">
       <div>
-        <span class="move-kicker">${lang==='ko'?'통합 일정':'UNIFIED ITINERARY'}</span>
-        <h3>${lang==='ko'?'내 여행 한눈에 보기':'Your trip at a glance'}</h3>
+        <span class="move-kicker">${lang==='ko'?'통합 일정':lang==='ja'?"旅程一覧":'UNIFIED ITINERARY'}</span>
+        <h3>${lang==='ko'?'내 여행 한눈에 보기':lang==='ja'?"旅行をひと目で確認":'Your trip at a glance'}</h3>
       </div>
-      <span class="unified-itinerary-count">${data.items.length}${lang==='ko'?'곳':' places'}</span>
+      <span class="unified-itinerary-count">${data.items.length}${lang==='ko'?'곳':lang==='ja'?'か所':data.items.length===1?' place':' places'}</span>
     </div>
 
     <div class="unified-itinerary-grid">
       <div class="unified-itinerary-card">
-        <span>${lang==='ko'?'이동':'Route'}</span>
+        <span>${lang==='ko'?'이동':lang==='ja'?"移動":'Route'}</span>
         <b>${routeLine}</b>
       </div>
       <div class="unified-itinerary-card">
-        <span>${lang==='ko'?'숙소':'Stay'}</span>
+        <span>${lang==='ko'?'숙소':lang==='ja'?"宿泊":'Stay'}</span>
         <b>${stayLine}</b>
       </div>
       <div class="unified-itinerary-card">
-        <span>${lang==='ko'?'예산':'Budget'}</span>
+        <span>${lang==='ko'?'예산':lang==='ja'?"予算":'Budget'}</span>
         <b>${walletLine}</b>
       </div>
     </div>
@@ -7782,8 +7782,8 @@ function renderUnifiedItinerarySummary(){
       <div class="unified-day-strip">
         ${days.map(day=>`
           <div class="unified-day-chip">
-            <b>${lang==='ko'?`${day}일차`:`Day ${day}`}</b>
-            <span>${data.groups[day].length}${lang==='ko'?'곳':' places'}</span>
+            <b>${lang==='ko'?`${day}일차`:lang==='ja'?`${day}日目`:`Day ${day}`}</b>
+            <span>${data.groups[day].length}${lang==='ko'?'곳':lang==='ja'?'か所':data.groups[day].length===1?' place':' places'}</span>
           </div>
         `).join('')}
       </div>
@@ -7791,7 +7791,7 @@ function renderUnifiedItinerarySummary(){
 
     <p class="unified-itinerary-note">${lang==='ko'
       ?'저장한 장소, 숙소, 이동, 예산을 한 화면에 모은 요약입니다. 실시간 예약·좌석·요금 보장은 포함하지 않습니다.'
-      :'This combines saved places, stay, route and budget in one view. It does not guarantee live booking, seats or fares.'
+      :lang==='ja'?"保存した場所・宿泊・移動・予算をまとめた概要です。リアルタイムの予約・空席・料金を保証するものではありません。":'This combines saved places, stay, route and budget in one view. It does not guarantee live booking, seats or fares.'
     }</p>
   `;
 }
@@ -8441,7 +8441,7 @@ function renderOfflineTripSnapshot(){
         <span class="move-kicker">${offlineCopyText('오프라인 여행 사본','OFFLINE TRIP COPY','オフライン旅行コピー')}</span>
         <h3>${offlineCopyText('여행 정보를 이 기기에 보관','Keep a trip copy on this device','旅行情報をこの端末に保存')}</h3><span class="offline-freshness-badge ${freshness.state}">${lang==='ko'?freshness.labelKo:lang==='ja'?freshness.labelJa:freshness.labelEn}</span>
       </div>
-      ${snapshot?`<span class="offline-trip-badge">${count}${offlineCopyText('곳',' places','か所')}</span>`:''}
+      ${snapshot?`<span class="offline-trip-badge">${count}${offlineCopyText('곳',count===1?' place':' places','か所')}</span>`:''}
     </div>
 
     <p class="offline-trip-note">${offlineCopyText(
@@ -8547,29 +8547,29 @@ function renderSavedPlacesInMyTrip(){
   const days=Object.keys(groups).map(Number).sort((a,b)=>a-b);
 
   block.innerHTML=`<div class="saved-places-head">
-    <div><span class="move-kicker">${lang==='ko'?'저장한 장소':'SAVED PLACES'}</span>
-    <h3>${lang==='ko'?`저장한 장소 ${items.length}곳`:`${items.length} saved place${items.length===1?'':'s'}`}</h3></div>
+    <div><span class="move-kicker">${lang==='ko'?'저장한 장소':lang==='ja'?"保存した場所":'SAVED PLACES'}</span>
+    <h3>${lang==='ko'?`저장한 장소 ${items.length}곳`:lang==='ja'?`保存した場所 ${items.length}か所`:`${items.length} saved place${items.length===1?'':'s'}`}</h3></div>
     <div class="mytrip-share-actions">
-      <button type="button" id="myTripShareBtn" class="mytrip-share-btn" onclick="shareMyTrip()">${lang==='ko'?'여행 공유':'Share trip'}</button>
-      <button type="button" class="mytrip-share-btn" onclick="printMyTrip()">${lang==='ko'?'인쇄 / PDF':'Print / PDF'}</button>
+      <button type="button" id="myTripShareBtn" class="mytrip-share-btn" onclick="shareMyTrip()">${lang==='ko'?'여행 공유':lang==='ja'?"旅行を共有":'Share trip'}</button>
+      <button type="button" class="mytrip-share-btn" onclick="printMyTrip()">${lang==='ko'?'인쇄 / PDF':lang==='ja'?"印刷 / PDF":'Print / PDF'}</button>
     </div>
   </div>
-  ${items.length?`<div class="saved-route-note">${lang==='ko'?'지도 열기는 현재 저장 순서를 그대로 넘깁니다. 자동 최적화 경로가 아닙니다.':'Map handoff uses your saved order. It does not auto-optimize the route.'}</div><div class="saved-day-groups">${days.map(day=>`
+  ${items.length?`<div class="saved-route-note">${lang==='ko'?'지도 열기는 현재 저장 순서를 그대로 넘깁니다. 자동 최적화 경로가 아닙니다.':lang==='ja'?"保存した順序で地図を開きます。ルートの自動最適化は行いません。":'Map handoff uses your saved order. It does not auto-optimize the route.'}</div><div class="saved-day-groups">${days.map(day=>`
     <section class="saved-day-group">
       <div class="saved-day-title">
-        <div class="saved-day-title-left"><b>${lang==='ko'?`${day}일차`:`Day ${day}`}</b><span>${groups[day].length}</span></div>
+        <div class="saved-day-title-left"><b>${lang==='ko'?`${day}일차`:lang==='ja'?`${day}日目`:`Day ${day}`}</b><span>${groups[day].length}</span></div>
         <div class="saved-day-actions">
-          <button type="button" onclick="openDayRoute(${day})">${lang==='ko'?'순서대로 지도 열기':'Open route'}</button>
-          <button type="button" onclick="copyDayRouteList(${day})">${lang==='ko'?'목록 복사':'Copy list'}</button>
+          <button type="button" onclick="openDayRoute(${day})">${lang==='ko'?'순서대로 지도 열기':lang==='ja'?"ルートを見る":'Open route'}</button>
+          <button type="button" onclick="copyDayRouteList(${day})">${lang==='ko'?'목록 복사':lang==='ja'?"リストをコピー":'Copy list'}</button>
         </div>
       </div>
       <div class="saved-places-list">${groups[day].map((p,idx)=>`
         <div class="saved-place-row">
           <div class="saved-place-main">
-            <b>${lang==='ko'?(p.ko||p.en):(p.en||p.ko)}</b>
+            <b>${lang==='ko'?(p.ko||p.en):lang==='ja'?(p.ja||p.en||p.ko):(p.en||p.ko)}</b>
             <span>${p.city}</span>
             <div class="saved-place-plan-controls">
-              <label>${lang==='ko'?'일차':'Day'}
+              <label>${lang==='ko'?'일차':lang==='ja'?"日程":'Day'}
                 <select onchange="setSavedPlaceDay('${p.key}',this.value)">
                   ${Array.from({length:10},(_,i)=>i+1).map(d=>`<option value="${d}" ${plan[p.key]?.day===d?'selected':''}>${d}</option>`).join('')}
                 </select>
@@ -8579,14 +8579,14 @@ function renderSavedPlacesInMyTrip(){
             </div>
           </div>
           <div class="saved-place-actions">
-            <button onclick="openDestinationCardBySavedKey('${encodeURIComponent(p.key)}')">${lang==='ko'?'카드':'Card'}</button>
+            <button onclick="openDestinationCardBySavedKey('${encodeURIComponent(p.key)}')">${lang==='ko'?'카드':lang==='ja'?"カード":'Card'}</button>
             <button onclick="window.open('https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((p.ko||p.en||'')+' '+p.lat+','+p.lng)}','_blank','noopener')">${lang==='ko'?'Google':'Google'}</button>
             <button onclick="openNaverMapForPlace('${encodeURIComponent(p.ko||p.en||'')}',${p.lat},${p.lng})">${lang==='ko'?'네이버':'Naver'}</button>
-            <button onclick="removeSavedPlace(${items.findIndex(x=>x.key===p.key)})">${lang==='ko'?'삭제':'Remove'}</button>
+            <button onclick="removeSavedPlace(${items.findIndex(x=>x.key===p.key)})">${lang==='ko'?'삭제':lang==='ja'?"削除":'Remove'}</button>
           </div>
         </div>`).join('')}</div>
     </section>`).join('')}
-    ${unassigned.length?`<section class="saved-day-group saved-unassigned"><div class="saved-day-title"><b>${unassignedPlacesLabel()}</b><span>${unassigned.length}</span></div><div class="saved-places-list">${unassigned.map(p=>`<div class="saved-place-row"><div class="saved-place-main"><b>${escapeHtmlText(lang==='ko'?(p.ko||p.en):(lang==='ja'?(p.ja||p.en||p.ko):(p.en||p.ko)))}</b><span>${escapeHtmlText(p.city)}</span><label>${chooseSavedPlaceDayLabel()} <select onchange="setSavedPlaceDay(decodeURIComponent(this.dataset.placeKey),this.value)" data-place-key="${escapeHtmlText(encodeURIComponent(p.key))}"><option value="" selected disabled>${chooseSavedPlaceDayLabel()}</option>${Array.from({length:10},(_,i)=>i+1).map(d=>`<option value="${d}">${d}</option>`).join('')}</select></label></div><div class="saved-place-actions"><button onclick="openDestinationCardBySavedKey('${encodeURIComponent(p.key)}')">${lang==='ko'?'카드':lang==='ja'?'カード':'Card'}</button><button onclick="removeSavedPlace(${items.findIndex(x=>x.key===p.key)})">${lang==='ko'?'삭제':lang==='ja'?'削除':'Remove'}</button></div></div>`).join('')}</div></section>`:''}</div>`:`<p class="saved-empty">${lang==='ko'?'Explore에서 마음에 드는 장소를 저장해보세요.':'Save places from Explore to build your trip list.'}</p>`}`;
+    ${unassigned.length?`<section class="saved-day-group saved-unassigned"><div class="saved-day-title"><b>${unassignedPlacesLabel()}</b><span>${unassigned.length}</span></div><div class="saved-places-list">${unassigned.map(p=>`<div class="saved-place-row"><div class="saved-place-main"><b>${escapeHtmlText(lang==='ko'?(p.ko||p.en):(lang==='ja'?(p.ja||p.en||p.ko):(p.en||p.ko)))}</b><span>${escapeHtmlText(p.city)}</span><label>${chooseSavedPlaceDayLabel()} <select onchange="setSavedPlaceDay(decodeURIComponent(this.dataset.placeKey),this.value)" data-place-key="${escapeHtmlText(encodeURIComponent(p.key))}"><option value="" selected disabled>${chooseSavedPlaceDayLabel()}</option>${Array.from({length:10},(_,i)=>i+1).map(d=>`<option value="${d}">${d}</option>`).join('')}</select></label></div><div class="saved-place-actions"><button onclick="openDestinationCardBySavedKey('${encodeURIComponent(p.key)}')">${lang==='ko'?'카드':lang==='ja'?'カード':'Card'}</button><button onclick="removeSavedPlace(${items.findIndex(x=>x.key===p.key)})">${lang==='ko'?'삭제':lang==='ja'?'削除':'Remove'}</button></div></div>`).join('')}</div></section>`:''}</div>`:`<p class="saved-empty">${lang==='ko'?'Explore에서 마음에 드는 장소를 저장해보세요.':lang==='ja'?"Exploreで気になる場所を保存して、旅行リストを作りましょう。":'Save places from Explore to build your trip list.'}</p>`}`;
 
   renderMyTripTodayCard();
   renderUnifiedItinerarySummary();
