@@ -26,7 +26,16 @@ test('SW never intercepts private documents/auth/API/signed URLs; travel navigat
 });
 test('existing engines, collections, missions and all storage contracts byte-identical to approved base',()=>{
  const git=file=>cp.execFileSync('git',['-c',`safe.directory=${process.cwd().replaceAll('\\','/')}`,'show','f9de19c5f2854eb7bd004a74f01fadf398452337:'+file],{encoding:'utf8',maxBuffer:16*1024*1024}).replaceAll('\r\n','\n');
- for(const file of ['index.html','nfc-card.html','nfc-card-landing.js','nfc-card-landing.css','scripts/main-control-guard.js','api/receipt.js'])expect(fs.readFileSync(file,'utf8').replaceAll('\r\n','\n')).toBe(git(file));
+ for(const file of ['nfc-card.html','nfc-card-landing.js','nfc-card-landing.css','scripts/main-control-guard.js','api/receipt.js'])expect(fs.readFileSync(file,'utf8').replaceAll('\r\n','\n')).toBe(git(file));
+ // Home visual shell is approved to change; every script and all non-Home markup stay frozen.
+ const index=fs.readFileSync('index.html','utf8').replaceAll('\r\n','\n'),baseIndex=git('index.html');
+ const scripts=src=>[...src.matchAll(/<script\b[^>]*>[\s\S]*?<\/script>/gi)].map(match=>match[0]);
+ expect(scripts(index)).toEqual(scripts(baseIndex));
+ const outsideHome=src=>src
+   .replace(/<div class="v220-home-ui[^\"]*" id="v118HomeNav">[\s\S]*?(?=<div class="install-box" id="installBox">)/,'HOME_VISUAL_SHELL\n')
+   .replace(/<style id="kr-home-redesign-v1">[\s\S]*?<\/style>/,'')
+   .replace(/\n{2,}/g,'\n');
+ expect(outsideHome(index)).toBe(outsideHome(baseIndex));
  const base=JSON.parse(git('main-control/baseline.json')),now=JSON.parse(fs.readFileSync('main-control/baseline.json','utf8'));for(const key of ['protectedStorageKeys','storageContract','storageSourceSha256'])expect(now[key]).toEqual(base[key]);
  for(const file of ['memory.js','memory.html'])expect(fs.readFileSync(file,'utf8')).not.toMatch(/localStorage|sessionStorage|indexedDB|caches\.open|service_role|SUPABASE_SECRET/);
 });

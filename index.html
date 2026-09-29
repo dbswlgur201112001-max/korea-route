@@ -3304,34 +3304,60 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
 <div class="app">
 
 <section class="screen active v220-home" id="home">
-  <div class="v220-home-ui" id="v118HomeNav">
+  <div class="v220-home-ui kr-home-editorial" id="v118HomeNav">
     <header class="v220-header">
       <div class="v220-brand">
         <span class="v220-brandmark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19c-1.7 0-3-1.3-3-3s1.3-3 3-3h12a3 3 0 1 0 0-6H9"/><path d="m6 10 3-3-3-3"/><circle cx="6" cy="19" r="1.3"/></svg></span>
-        <b data-en="Korea Route" data-ja="コリアルート" data-ko="코리아 루트">Korea Route</b>
+        <b>KOREA ROUTE</b>
       </div>
       <div class="v220-head-actions">
         <button class="v220-lang" id="langBtn" type="button" onclick="toggleLang()">EN / 한국어 / 日本語</button>
-        <button type="button" id="homeOfflineSnapshotBadge" class="home-offline-snapshot-badge none" onclick="handleHomeOfflineSnapshotBadge()" aria-live="polite">Offline copy not saved</button>
+
       </div>
     </header>
 
-    <div class="v220-intro">
-      <span data-en="TRAVEL KOREA WITH EASE" data-ja="韓国旅行をもっと簡単に" data-ko="한국 여행을 더 쉽게">TRAVEL KOREA WITH EASE</span>
-      <h1 data-en="Where are you going?" data-ja="どこへ行きますか？" data-ko="어디로 이동할까요?">Where are you going?</h1>
-    </div>
+    <section class="kr-home-hero" aria-labelledby="krHomeTitle">
+      <p class="kr-eyebrow" data-en="A PLACE. A STORY. A MEMORY." data-ko="장소를 만나고, 이야기를 간직하다." data-ja="場所に出会い、物語を持ち帰る。">A PLACE. A STORY. A MEMORY.</p>
+      <h1 id="krHomeTitle" data-en="Explore Korea.<br><em>Keep the memory.</em>" data-ko="한국을 만나고,<br><em>기억을 간직하세요.</em>" data-ja="韓国を巡り、<br><em>思い出を残そう。</em>">Explore Korea.<br><em>Keep the memory.</em></h1>
+      <figure class="kr-hero-photo">
+        <img src="./assets/home/seoul-palace.jpg" width="1280" height="720" fetchpriority="high" alt="" aria-hidden="true">
+        <figcaption data-en="Gyeongbokgung · Seoul" data-ko="서울, 경복궁" data-ja="ソウル・景福宮">Gyeongbokgung · Seoul</figcaption>
+      </figure>
+      <button class="kr-editorial-cta" type="button" onclick="go('exploreHub')"><span data-en="Start exploring" data-ko="여행 시작하기" data-ja="旅をはじめる">Start exploring</span><span class="kr-arrow" aria-hidden="true">↗</span></button>
+    </section>
 
-<section id="suwonStartShell" hidden aria-label="SUWON TRAVEL PACK"></section>
-<section id="todayTripSummary" aria-live="polite"></section>
-<div class="global-search" id="globalSearchBox">
-  <div class="global-search-head"><div><b data-i18n="home.search.title">Find anything fast</b><span data-i18n="home.search.subtitle">Search tools, nearby essentials, cities, saved places, journeys and offline phrases.</span></div><span class="global-search-badge" data-en="Search" data-ko="검색" data-ja="検索">Search</span></div>
-  <div class="global-search-field"><span class="search-ico">🔎</span><input id="globalSearchInput" type="search" autocomplete="off" enterkeyhint="search" maxlength="80" aria-label="Search Korea Route" data-i18n-placeholder="home.search.placeholder"><button class="global-search-clear" type="button" onclick="clearGlobalSearch()" aria-label="Clear search">×</button></div>
-  <div class="global-search-suggest" id="globalSearchSuggest" style="display:none"><button type="button" onclick="runGlobalSearchQuickAction('move')">🚆 KTX</button><button type="button" onclick="runGlobalSearchQuickAction('convenience')">🏪 <span data-i18n="home.search.quick.convenience">Convenience</span></button><button type="button" onclick="runGlobalSearchQuickAction('restroom')">🚻 <span data-i18n="home.search.quick.restroom">Restroom</span></button><button type="button" onclick="runGlobalSearchQuickAction('luggage')">🧳 <span data-i18n="home.search.quick.luggage">Luggage</span></button></div>
-  <div class="global-search-fast"><button type="button" onclick="v60OpenRouteTab()"><span>🚆</span><span data-i18n="home.search.fast.move">Move</span></button><button type="button" onclick="v60OpenMapTab()"><span>🗺️</span><span data-i18n="home.search.fast.nearby">Nearby</span></button><button type="button" onclick="runGlobalSearchAction('translation')"><span>💬</span><span data-i18n="home.search.fast.translate">Translate</span></button><button type="button" class="emergency" onclick="openV55EmergencyFind()"><span>🆘</span><span data-i18n="home.search.fast.urgent">Urgent</span></button></div>
-  <div class="global-search-results" id="globalSearchResults" hidden aria-live="polite"><div class="global-search-results-head"><b id="globalSearchResultsLabel">SEARCH RESULTS</b><span id="globalSearchResultsCount"></span></div><div class="global-search-result-list" id="globalSearchResultList"></div></div>
-</div>
+    <section class="kr-travel-pack" aria-labelledby="krPackTitle">
+      <p class="kr-eyebrow" data-en="THE COLLECTIBLE JOURNEY" data-ko="수집하는 여행" data-ja="集める旅">THE COLLECTIBLE JOURNEY</p>
+      <h2 id="krPackTitle">SUWON<br><span>TRAVEL PACK</span></h2>
+      <div class="kr-collectible-stack">
+        <a href="/t/suwon-001" aria-label="001 Hwahongmun"><img src="./nfc-suwon-001-hwahongmun.webp" width="468" height="742" loading="lazy" alt="001 Hwahongmun"></a>
+        <a href="/t/suwon-002" aria-label="002 Hwaseong Haenggung"><img src="./nfc-suwon-002-hwaseong-haenggung.webp" width="468" height="742" loading="lazy" alt="002 Hwaseong Haenggung"></a>
+        <a href="/t/suwon-003" aria-label="003 Banghwasuryujeong"><img src="./nfc-suwon-003-banghwasuryujeong.webp" width="468" height="742" loading="lazy" alt="003 Banghwasuryujeong"></a>
+      </div>
+      <p class="kr-section-copy" data-en="Three places. Three stories.<br>Memories to keep." data-ko="세 장소, 세 이야기.<br>오래 간직할 여행의 기억." data-ja="3つの場所、3つの物語。<br>大切にしたい旅の思い出。">Three places. Three stories.<br>Memories to keep.</p>
+      <a class="kr-editorial-cta kr-cta-outline" href="/?suwon=route"><span data-en="Discover Suwon" data-ko="수원 여행 만나보기" data-ja="水原の旅へ">Discover Suwon</span><span class="kr-arrow" aria-hidden="true">↗</span></a>
+    </section>
+    <section id="suwonStartShell" hidden aria-label="SUWON TRAVEL PACK"></section>
 
+    <section class="v220-section v220-popular kr-destinations" aria-labelledby="krDestinationsTitle">
+      <div class="v220-section-head"><div><p class="kr-eyebrow" data-en="FIND YOUR NEXT STORY" data-ko="다음 이야기가 기다리는 곳" data-ja="次の物語を探しに">FIND YOUR NEXT STORY</p><h2 id="krDestinationsTitle" data-en="Explore Korea" data-ko="한국 둘러보기" data-ja="韓国を巡る">Explore Korea</h2></div><button class="v220-more" type="button" onclick="go('exploreHub')"><span data-en="All places" data-ko="모든 여행지" data-ja="すべての場所">All places</span><span aria-hidden="true">↗</span></button></div>
+      <div class="v220-course-scroll">
+        <button type="button" class="v220-course-card seoul" onclick="v220OpenPopularCity('Seoul')"><img src="./assets/home/seoul-palace.jpg" width="1280" height="720" loading="lazy" alt=""><span class="v220-course-copy"><small data-en="PALACES &amp; CITY STREETS" data-ko="궁궐과 도시의 골목" data-ja="宮殿と街の風景">PALACES &amp; CITY STREETS</small><b data-en="Seoul" data-ko="서울" data-ja="ソウル">Seoul</b><span class="kr-city-story" data-en="Old walls. New nights." data-ko="오래된 성벽, 새로운 밤." data-ja="古い城壁、新しい夜。">Old walls. New nights.</span></span><span class="kr-city-arrow" aria-hidden="true">↗</span></button>
+        <button type="button" class="v220-course-card busan" onclick="v220OpenPopularCity('Busan')"><img src="./assets/home/busan-beach.jpg" width="1280" height="960" loading="lazy" alt=""><span class="v220-course-copy"><small data-en="COAST &amp; CITY" data-ko="바다와 조금 더 가까이" data-ja="海をもっと身近に">COAST &amp; CITY</small><b data-en="Busan" data-ko="부산" data-ja="釜山">Busan</b><span class="kr-city-story" data-en="Sea breeze. City energy." data-ko="바닷바람과 도시의 활기." data-ja="潮風と街の躍動。">Sea breeze. City energy.</span></span><span class="kr-city-arrow" aria-hidden="true">↗</span></button>
+        <button type="button" class="v220-course-card jeju" onclick="v220OpenPopularCity('Jeju')"><img src="./assets/home/jeju-coast.jpg" width="1280" height="720" loading="lazy" alt=""><span class="v220-course-copy"><small data-en="ISLAND ESCAPES" data-ko="머물고 싶은 섬" data-ja="ゆっくり巡りたい島">ISLAND ESCAPES</small><b data-en="Jeju" data-ko="제주" data-ja="済州">Jeju</b><span class="kr-city-story" data-en="Wind, stone and open horizons." data-ko="바람과 돌, 탁 트인 수평선." data-ja="風と石、広がる水平線。">Wind, stone and open horizons.</span></span><span class="kr-city-arrow" aria-hidden="true">↗</span></button>
+      </div>
+    </section>
 
+    <section class="kr-time-slip" aria-labelledby="krMemoryTitle">
+      <div class="kr-memory-still" aria-hidden="true"><div class="kr-memory-photo"><img src="./nfc-suwon-003-banghwasuryujeong.webp" width="468" height="742" loading="lazy" alt=""></div><img class="kr-memory-card" src="./nfc-suwon-003-banghwasuryujeong.webp" width="468" height="742" loading="lazy" alt=""><span class="kr-memory-line"></span></div>
+      <p class="kr-eyebrow">TRAVEL TIME SLIP</p>
+      <h2 id="krMemoryTitle" data-en="Keep the card.<br><em>Revisit the story.</em>" data-ko="카드 한 장에,<br><em>다시 만나는 여행.</em>" data-ja="カードを手元に。<br><em>旅の物語を再び。</em>">Keep the card.<br><em>Revisit the story.</em></h2>
+      <p class="kr-section-copy" data-en="A place. A card. A story to return to." data-ko="장소 하나, 카드 한 장. 다시 펼쳐볼 여행의 이야기." data-ja="ひとつの場所、一枚のカード。何度でも開きたい旅の物語。">A place. A card. A story to return to.</p>
+      <a class="kr-memory-link" href="/t"><span data-en="View collection" data-ko="컬렉션 보기" data-ja="コレクションを見る">View collection</span><span aria-hidden="true">↗</span></a>
+      <small class="kr-memory-note" data-en="Save the moment. Return to it anytime." data-ko="여행의 순간을 남기고, 다시 꺼내보세요." data-ja="旅の瞬間を残して、いつでも思い出せます。">Save the moment. Return to it anytime.</small>
+    </section>
+
+    <div class="kr-utility-heading"><p class="kr-eyebrow" data-en="A LITTLE HELP ALONG THE WAY" data-ko="여행 중 필요한 순간에" data-ja="旅の途中に、少しのサポート">A LITTLE HELP ALONG THE WAY</p><h2 data-en="Useful while you travel" data-ko="여행할 때 유용하게" data-ja="旅に役立つツール">Useful while you travel</h2></div>
     <div class="v220-core-grid">
       <button type="button" class="v220-core-card" onclick="v60OpenRouteTab()">
         <span class="v220-core-icon blue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19c-1.7 0-3-1.3-3-3s1.3-3 3-3h12a3 3 0 1 0 0-6H9"/><path d="m6 10 3-3-3-3"/><circle cx="6" cy="19" r="1.3"/></svg></span>
@@ -3357,6 +3383,15 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
       </button>
     </div>
 
+<div class="global-search" id="globalSearchBox">
+  <div class="global-search-head"><div><b data-i18n="home.search.title">Find anything fast</b><span data-i18n="home.search.subtitle">Search tools, nearby essentials, cities, saved places, journeys and offline phrases.</span></div><span class="global-search-badge" data-en="Search" data-ko="검색" data-ja="検索">Search</span></div>
+  <div class="global-search-field"><span class="search-ico">🔎</span><input id="globalSearchInput" type="search" autocomplete="off" enterkeyhint="search" maxlength="80" aria-label="Search Korea Route" data-i18n-placeholder="home.search.placeholder"><button class="global-search-clear" type="button" onclick="clearGlobalSearch()" aria-label="Clear search">×</button></div>
+  <div class="global-search-suggest" id="globalSearchSuggest" style="display:none"><button type="button" onclick="runGlobalSearchQuickAction('move')">🚆 KTX</button><button type="button" onclick="runGlobalSearchQuickAction('convenience')">🏪 <span data-i18n="home.search.quick.convenience">Convenience</span></button><button type="button" onclick="runGlobalSearchQuickAction('restroom')">🚻 <span data-i18n="home.search.quick.restroom">Restroom</span></button><button type="button" onclick="runGlobalSearchQuickAction('luggage')">🧳 <span data-i18n="home.search.quick.luggage">Luggage</span></button></div>
+  <div class="global-search-fast"><button type="button" onclick="v60OpenRouteTab()"><span>🚆</span><span data-i18n="home.search.fast.move">Move</span></button><button type="button" onclick="v60OpenMapTab()"><span>🗺️</span><span data-i18n="home.search.fast.nearby">Nearby</span></button><button type="button" onclick="runGlobalSearchAction('translation')"><span>💬</span><span data-i18n="home.search.fast.translate">Translate</span></button><button type="button" class="emergency" onclick="openV55EmergencyFind()"><span>🆘</span><span data-i18n="home.search.fast.urgent">Urgent</span></button></div>
+  <div class="global-search-results" id="globalSearchResults" hidden aria-live="polite"><div class="global-search-results-head"><b id="globalSearchResultsLabel">SEARCH RESULTS</b><span id="globalSearchResultsCount"></span></div><div class="global-search-result-list" id="globalSearchResultList"></div></div>
+</div>
+
+
 <div class="nearby-essentials" id="nearbyEssentials">
   <div class="nearby-essentials-head"><div><b data-i18n="home.essentials.title">Nearby Essentials</b><span data-en="Open the map to find nearby places." data-ko="지도를 열어 주변 장소를 찾아보세요." data-ja="地図で周辺のスポットをさがしましょう。">Open the map to find nearby places.</span></div><span class="nearby-essentials-badge" data-en="Nearby" data-ko="주변" data-ja="周辺">Nearby</span></div>
   <div class="nearby-essentials-grid">
@@ -3368,6 +3403,7 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
 </div>
 
 
+    <section id="todayTripSummary" aria-live="polite"></section>
     <section class="v220-section v245-tools-scroll">
       <div class="v220-section-head">
         <h2 data-en="Quick tools" data-ja="便利ツール" data-ko="필수 도구">Quick tools</h2>
@@ -3384,29 +3420,14 @@ body.dark #home.v220-home,body.dark #home.v220-home .v220-home-ui{background:#ff
       </div>
     </section>
 
-    <section class="v220-section v220-popular">
-      <div class="v220-section-head">
-        <h2 data-en="Popular routes" data-ja="人気の旅行コース" data-ko="인기 여행 코스">Popular routes</h2>
-        <button type="button" class="v220-more" onclick="go('exploreHub')"><span data-en="See more" data-ja="もっと見る" data-ko="더보기">See more</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
-      </div>
-      <div class="v220-course-scroll" aria-label="Popular Korea travel routes">
-        <button type="button" class="v220-course-card seoul" onclick="v220OpenPopularCity('Seoul')">
-          <span class="v220-course-copy"><small>SEOUL · <span data-en="HALF-DAY" data-ja="半日コース" data-ko="반나절 코스">HALF-DAY</span></small><b data-en="Myeongdong & Palaces" data-ja="明洞・古宮さんぽ" data-ko="명동 · 고궁 산책">Myeongdong & Palaces</b></span>
-        </button>
-        <button type="button" class="v220-course-card busan" onclick="v220OpenPopularCity('Busan')">
-          <span class="v220-course-copy"><small>BUSAN · <span data-en="1 DAY" data-ja="1日コース" data-ko="하루 코스">1 DAY</span></small><b data-en="Haeundae Seaside" data-ja="海雲台・海辺さんぽ" data-ko="해운대 · 바다 산책">Haeundae Seaside</b></span>
-        </button>
-        <button type="button" class="v220-course-card jeju" onclick="v220OpenPopularCity('Jeju')">
-          <span class="v220-course-copy"><small>JEJU · <span data-en="NATURE" data-ja="自然コース" data-ko="자연 코스">NATURE</span></small><b data-en="East Jeju Drive" data-ja="済州島 東部ドライブ" data-ko="제주 동쪽 여행">East Jeju Drive</b></span>
-        </button>
-      </div>
-    </section>
-
     <button type="button" class="v220-ready-card" onclick="openPreArrivalHub()">
       <span class="v220-ready-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.6 2.8 8 7 10 4.2-2 7-5.4 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg></span>
       <span class="v220-ready-copy"><b data-en="Ready for Korea" data-ja="韓国旅行の準備" data-ko="한국 여행 준비">Ready for Korea</b><small data-en="Offline info and essential travel tools in one place." data-ja="オフライン情報と必須の旅行ツールをまとめて確認できます。" data-ko="오프라인 정보와 필수 여행 도구를 한곳에서 확인하세요.">Offline info and essential travel tools in one place.</small></span>
       <span class="v220-ready-go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span>
     </button>
+
+    <div class="kr-offline-row"><button type="button" id="homeOfflineSnapshotBadge" class="home-offline-snapshot-badge none" onclick="handleHomeOfflineSnapshotBadge()" aria-live="polite">Offline copy not saved</button></div>
+    <details class="kr-photo-credits"><summary data-en="Photography credits" data-ko="사진 출처" data-ja="写真クレジット">Photography credits</summary><p>Seoul: <a href="https://commons.wikimedia.org/wiki/File:Front_view_of_the_Imperial_Throne_Hall_Geunjeongjeon_at_Gyeongbokgung_Palace_with_blue_sky_in_Seoul.jpg" target="_blank" rel="noopener noreferrer">Basile Morin</a> · Busan: <a href="https://commons.wikimedia.org/wiki/File:Recent_Haeundae_Beach.jpg" target="_blank" rel="noopener noreferrer">Yunjinlee</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>. Jeju: <a href="https://commons.wikimedia.org/wiki/File:Seongsan,_Jeju_Island.jpg" target="_blank" rel="noopener noreferrer">Bernard Gagnon</a> · <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>.</p><p data-en="Photos resized and framed for this layout." data-ko="사진 크기와 표시 구도를 조정했습니다." data-ja="写真のサイズと表示範囲を調整しています。">Photos resized and framed for this layout.</p></details>
   </div>
 
 <div class="install-box" id="installBox">
@@ -24124,5 +24145,164 @@ else document.addEventListener('DOMContentLoaded',v259StartJaRenderObserver,{onc
   #city{--city-pad-x:14px;}
 }
 </style>
+
+<style id="kr-home-redesign-v1">
+/* Home presentation only. Existing navigation, renderers and storage stay unchanged. */
+#home.v220-home,#home.v220-home .kr-home-editorial,body.dark #home.v220-home,body.dark #home.v220-home .kr-home-editorial{background:#fcfaf6!important;color:#152b40!important}
+#home .kr-home-editorial{--v220-text:#152b40;--v220-muted:#69716e;--v220-navy:#152b40;--v220-line:#e4e0d7;--v220-shadow:none;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+#home .v220-header{position:relative;height:70px;padding:0 22px;background:#fcfaf6!important;backdrop-filter:none;border:0}
+#home .v220-brand{gap:8px}#home .v220-brand b{font-family:Georgia,"Times New Roman",serif;font-size:17px!important;letter-spacing:1.1px;font-weight:600}
+#home .v220-brandmark{background:transparent;color:#152b40;width:24px;height:30px;box-shadow:none}
+#home .v220-lang{min-height:44px;background:transparent!important;border:0!important;padding:0!important;font-size:10px!important;letter-spacing:0}
+#home .kr-eyebrow{font-size:10px!important;font-weight:650;letter-spacing:.14em;line-height:1.7!important;color:#6f725f;margin:0 0 12px}
+#home .kr-home-hero{padding:10px 22px 0;position:relative}
+#home .kr-home-hero h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(32px,9.2vw,43px)!important;font-weight:400;letter-spacing:-1.8px;line-height:1.04!important;color:#152b40;margin:0 0 20px;text-wrap:balance}
+#home .kr-home-hero h1 em{font-weight:400;color:#776946}
+#home .kr-hero-photo{margin:0 -22px;position:relative;background:#dce8ef;overflow:hidden}
+#home .kr-hero-photo img{display:block;width:100%;height:270px;object-fit:cover;object-position:50% 47%}
+#home .kr-hero-photo figcaption{position:absolute;bottom:14px;left:22px;padding:6px 10px;color:#fff;background:#152b40bb;font-size:10px!important;letter-spacing:.04em;border-radius:2px}
+#home .kr-editorial-cta{display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;min-height:54px;margin:18px 0 0;padding:9px 10px 9px 20px;box-sizing:border-box;border:1px solid #152b40;border-radius:8px;background:#152b40;color:#fcfaf6;font-family:inherit;font-size:14px!important;font-weight:600;line-height:1.5!important;text-align:left;text-decoration:none;white-space:normal;cursor:pointer}
+#home .kr-arrow{display:grid;place-items:center;flex:0 0 34px;height:34px;border-radius:50%;background:transparent;color:inherit;font-size:20px!important}
+#home .kr-travel-pack{padding:38px 22px 36px;text-align:center;background:radial-gradient(ellipse at 50% 65%,#ede5d5 0,transparent 65%)}
+#home .kr-travel-pack h2{font-family:Georgia,"Times New Roman",serif;font-size:34px!important;line-height:1.05!important;font-weight:400;letter-spacing:2px;margin:0;color:#152b40}
+#home .kr-travel-pack h2>span{font-family:system-ui,sans-serif;font-size:11px!important;letter-spacing:.24em;font-weight:600}
+#home .kr-section-copy{font-size:14px!important;line-height:1.7!important;color:#68716f;margin:14px 0 0;text-wrap:balance}
+#home .kr-collectible-stack{display:flex;align-items:center;justify-content:center;min-width:0;padding:30px 0 28px;isolation:isolate}
+#home .kr-collectible-stack a{display:block;flex:0 0 43%;position:relative;border:1px solid #bcaa79;border-radius:5px;box-shadow:0 18px 30px #5c503b19,0 2px 3px #5c503b12;background:#13263b;transform:rotate(-5deg);overflow:hidden}
+#home .kr-collectible-stack a+a{margin-left:-17%}
+#home .kr-collectible-stack a:nth-child(2){z-index:2;transform:translateY(-8px)}
+#home .kr-collectible-stack a:nth-child(3){transform:rotate(5deg)}
+#home .kr-collectible-stack img{display:block;width:100%;height:auto;aspect-ratio:468/742}
+#home .kr-travel-pack .kr-section-copy{margin:0 0 20px}
+#home .kr-cta-outline{background:transparent;color:#152b40;border-color:#a79b81;margin-top:0}#home .kr-cta-outline .kr-arrow{background:#eae4d6}
+#home .kr-destinations{padding:28px 0 38px 22px}
+#home .kr-destinations .v220-section-head{padding-right:22px;align-items:flex-end;margin-bottom:20px}
+#home .kr-destinations h2,#home .kr-utility-heading h2{font-family:Georgia,"Times New Roman",serif;font-size:29px!important;font-weight:400;letter-spacing:-.6px;line-height:1.2!important;color:#152b40;margin:0}
+#home .kr-destinations .v220-more{min-height:44px;gap:8px;font-size:11px!important;color:#152b40;flex-shrink:0}
+#home .kr-destinations .v220-course-scroll{gap:12px;padding:0 22px 10px 0}
+#home .kr-destinations .v220-course-card{padding:0!important;border:0!important;border-radius:6px;box-shadow:none;background:#d1dfdf}
+#home .v220-course-card img{width:100%;height:100%;object-fit:cover;display:block}
+#home .kr-destinations .v220-course-card::after{background:linear-gradient(180deg,transparent 30%,#12293cf2)}
+#home .kr-destinations .v220-course-copy{padding:22px}
+#home .kr-destinations .v220-course-copy b{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:34px!important;letter-spacing:0}
+#home .kr-destinations .v220-course-copy small{font-size:9px!important;letter-spacing:.1em;line-height:1.6!important;color:#fff;font-weight:500}
+#home .kr-time-slip{padding:0 24px 30px;margin:18px 14px 0;background:#193747;color:#f8f1e3;overflow:hidden;border-radius:8px}
+#home .kr-time-slip .kr-eyebrow{color:#d5c59d;margin:5px 0 12px}
+#home .kr-memory-still{height:260px;position:relative;margin:0 -24px 20px;overflow:hidden;background:#224656}
+#home .kr-memory-photo{position:absolute;width:78%;height:176px;object-fit:cover;left:-12px;top:24px;transform:rotate(-5deg);border:7px solid #f0e8d8;border-bottom-width:23px;box-sizing:border-box;box-shadow:0 8px 20px #07151c33}
+#home .kr-memory-card{position:absolute;right:19px;top:40px;width:112px;height:auto;transform:rotate(5deg);border:1px solid #c5b27c;border-radius:3px;box-shadow:0 8px 20px #07151c55}
+#home .kr-memory-line{position:absolute;left:26px;bottom:12px;width:45px;height:1px;background:#c5b27c}
+#home .kr-time-slip h2{font-family:Georgia,"Times New Roman",serif;font-size:35px!important;line-height:1.1!important;font-weight:400;letter-spacing:-.7px;color:#fff8ec;margin:0}
+#home .kr-time-slip h2 em{color:#d8c9a7;font-weight:400}
+#home .kr-time-slip .kr-section-copy{color:#cbd6d7;font-size:13px!important;text-align:left;text-wrap:pretty}
+#home .kr-memory-link{display:flex;gap:16px;justify-content:space-between;align-items:center;min-height:48px;color:#f9f2df;text-decoration:none;font-size:14px!important;border-bottom:1px solid #698084;margin-top:15px}
+#home .kr-memory-note{display:block;color:#bbc9cd;font-size:11px!important;line-height:1.6!important;margin-top:14px}
+#home .kr-utility-heading{padding:58px 22px 12px}
+#home .v220-core-grid{padding:12px 22px 20px;gap:0 20px}
+#home .v220-core-card,body.dark #home .v220-core-card{min-height:98px;padding:15px 0!important;background:transparent!important;border:0;border-bottom:1px solid #ddd9cd;border-radius:0;box-shadow:none;display:grid;grid-template-columns:30px minmax(0,1fr);align-content:start;align-items:center;column-gap:8px}
+#home .v220-core-icon{width:28px;height:30px;margin:0;background:transparent!important;color:#253b46;grid-row:1/3}
+#home .v220-core-icon svg{width:22px;height:22px;stroke-width:1.4}
+#home .v220-core-card>b{font-size:13px!important;line-height:1.5!important;font-weight:600;letter-spacing:0;overflow-wrap:anywhere}
+#home .v220-core-card>small{font-size:10px!important;line-height:1.5!important;font-weight:400;color:#717972;margin-top:3px;grid-column:2}
+#home .v220-card-go{display:none}
+#home #globalSearchBox,#home #nearbyEssentials,#home #todayTripSummary{margin:12px 22px 22px;padding:16px 0;border:0;border-top:1px solid #dfdace;background:transparent!important;box-shadow:none;border-radius:0;color:#152b40}
+#home #globalSearchBox .global-search-head>div>span,#home #nearbyEssentials .nearby-essentials-head>div>span{font-size:12px!important;color:#68716f;line-height:1.5!important}
+#home #globalSearchBox .global-search-badge,#home .nearby-essentials-badge{display:none}
+#home #globalSearchBox .global-search-field{background:#f0ede5;border:0;border-radius:8px;min-height:48px}
+#home #globalSearchBox input{font-size:14px!important;background:transparent!important;color:#152b40!important;min-width:0}
+#home .nearby-essential-btn{background:transparent;border:1px solid #dbd4c6;border-radius:8px;box-shadow:none;min-height:44px;color:#152b40}
+#home #todayTripSummary h2{font-size:18px!important;font-weight:600}#home #todayTripSummary h3{font-size:15px!important}#home #todayTripSummary button{background:#ebe6db;color:#152b40;font-size:13px!important}
+#home #todayTripSummary .today-plan-status{background:#f6f9fa;border:1px solid #e5e9e7}
+#home #todayTripSummary .today-plan-status a,#home #todayTripSummary button,#home .nearby-location-btn{background:linear-gradient(120deg,#fffefa,#f8f1e2);color:#19384b;border:1px solid #c8b687;box-shadow:0 3px 10px #8d765208}
+#home #globalSearchBox .global-search-field{background:#faf7ef;border:1px solid #e7dfce}
+#home #todayAssignedPlaces{padding:0 22px}
+#home .v245-tools-scroll{padding-left:22px!important;padding-top:8px}#home .v245-tools-scroll .v220-tools-grid{border:0!important;background:transparent!important;box-shadow:none!important;border-radius:0!important}
+#home .v220-tool-icon{background:#efebe2;color:#263c48}#home .v220-ready-card{background:transparent;border:0;border-top:1px solid #dfdace;border-radius:0;padding:20px 0;margin:18px 22px 0;width:calc(100% - 44px)}
+#home .kr-offline-row{padding:12px 22px}#home .kr-photo-credits{padding:8px 22px 20px;color:#777d75;font-size:11px!important;line-height:1.7!important}#home .kr-photo-credits summary{min-height:44px;display:flex;align-items:center;cursor:pointer}#home .kr-photo-credits a{color:inherit;text-decoration:underline}
+body:has(#home.active) #v60Tabbar{background:#fcfaf6f5!important;border-top-color:#e2dccf!important;box-shadow:none!important}
+body:has(#home.active) #v60Tabbar button.active .ico{background:#ebe4d5;border-radius:10px;min-width:38px;min-height:29px!important}
+#home .kr-home-editorial button,#home .kr-home-editorial a{touch-action:manipulation;transition:transform .2s cubic-bezier(.2,.7,.3,1),background-color .2s cubic-bezier(.2,.7,.3,1)}
+#home .kr-home-editorial :is(button,a,input,summary):focus-visible{outline:3px solid #957940;outline-offset:4px}
+#home .kr-editorial-cta:active{transform:translateY(1px)}
+@media(hover:hover){#home .kr-collectible-stack a:hover{z-index:3;translate:0 -3px}#home .v220-course-card:hover img{transform:scale(1.02)}#home .v220-course-card img{transition:transform .35s cubic-bezier(.2,.7,.3,1)}}
+@media(prefers-reduced-motion:reduce){#home .kr-home-editorial *{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+html[lang="ja"] #home .kr-home-hero h1,html[lang="ko"] #home .kr-home-hero h1{font-family:Georgia,"Yu Mincho","Batang",serif;font-size:clamp(27px,7.4vw,33px)!important;letter-spacing:-1px;line-height:1.25!important}
+html[lang="ja"] #home .kr-time-slip h2,html[lang="ko"] #home .kr-time-slip h2{font-size:30px!important;line-height:1.4!important}
+html[lang="ja"] #home .kr-eyebrow,html[lang="ko"] #home .kr-eyebrow{letter-spacing:.06em}
+#home #krHomeTitle em,#home #krMemoryTitle em{font-size:inherit!important;line-height:inherit!important}
+#home .kr-editorial-cta>span:not(.kr-arrow),#home .kr-memory-link>span{font-size:14px!important;line-height:1.5!important}
+#home .v245-tools-scroll .v220-tools-grid>button{flex:0 0 82px!important}
+#home .v245-tools-scroll .v220-tools-grid b{font-size:11px!important;line-height:1.4!important;word-break:normal;overflow-wrap:normal}
+#home .kr-time-slip .kr-memory-note{font-size:11px!important;line-height:1.6!important}
+#home .kr-destinations .kr-city-story{display:block;margin-top:9px;font-size:12px!important;line-height:1.5!important;color:#f6f1e7;letter-spacing:0}
+#home .kr-city-arrow{position:absolute;top:18px;right:20px;z-index:2;color:#fff;font-size:23px!important;transition:translate .2s ease}
+#home .kr-destinations .v220-course-copy{padding:22px 18px}
+#home .kr-collectible-stack a{transition:translate .2s ease,box-shadow .2s ease}
+@media(hover:hover){#home .kr-collectible-stack a:nth-child(2):hover{box-shadow:0 18px 32px #5c503b26,0 0 0 1px #c5b27c}#home .v220-course-card:hover .kr-city-arrow{translate:2px -2px}}
+/* V3: brighter photographic surfaces; all existing actions and data remain intact. */
+#home.v220-home,#home.v220-home .kr-home-editorial,body.dark #home.v220-home,body.dark #home.v220-home .kr-home-editorial{background:#fffefa!important}
+#home .v220-header{height:64px;background:#f4fbff!important}
+#home .kr-home-hero{padding-top:12px;background:linear-gradient(180deg,#f4fbff 0%,#e1f3ff 48%,#fffefa 100%)}
+#home .kr-home-hero h1{position:relative;z-index:2;margin-bottom:8px;letter-spacing:-1.5px;line-height:1.08!important;color:#102c45}
+#home .kr-home-hero h1 em{color:#917748}
+#home .kr-home-hero .kr-eyebrow{color:#7e704f;letter-spacing:.16em}
+#home .kr-hero-photo{background:#e1f3ff}
+#home .kr-hero-photo::before{content:"";position:absolute;z-index:1;inset:0 0 auto;height:62px;background:linear-gradient(#e1f3ff 0%,#e1f3ff80 42%,transparent 100%);pointer-events:none}
+#home .kr-hero-photo img{height:auto;aspect-ratio:16/9;object-fit:contain;filter:brightness(1.09) saturate(1.17) contrast(1.025)}
+#home .kr-hero-photo figcaption{bottom:24px;background:#fffaf0e8;color:#183a50;border:1px solid #c7b88966;padding:5px 9px;letter-spacing:.03em;box-shadow:0 2px 10px #183a5010}
+#home .kr-home-hero .kr-editorial-cta{position:relative;z-index:2;margin-top:-9px;border-radius:7px;height:56px;min-height:54px;padding-block:9px!important;background:linear-gradient(120deg,#fffdf7,#f4ecd9);border-color:#c7b889;color:#17394f;box-shadow:0 6px 18px #7e704f14}
+#home .kr-home-hero .kr-editorial-cta .kr-arrow{color:#9a7d40;font-size:18px!important;transition:translate .2s ease}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){#home .kr-home-hero .kr-editorial-cta:hover .kr-arrow{translate:2px -2px}}
+@media(prefers-reduced-motion:reduce){#home .kr-home-hero .kr-editorial-cta .kr-arrow{transition:none;translate:none}}
+#home .kr-travel-pack{padding:30px 22px 24px;background:radial-gradient(ellipse at 50% 54%,#f4e8ce80 0%,#f6faff55 49%,#fffefa 76%)}
+#home .kr-travel-pack .kr-eyebrow{color:#8b806b;font-weight:500}
+#home .kr-travel-pack h2{font-size:32px!important;letter-spacing:1.6px}
+#home .kr-travel-pack h2>span{font-weight:500;letter-spacing:.26em}
+#home .kr-collectible-stack{position:relative;padding:30px 0 24px}
+#home .kr-collectible-stack::before{content:"";position:absolute;z-index:-1;bottom:15px;left:8%;right:8%;height:24px;border-radius:50%;background:radial-gradient(ellipse,#8b71452b 0%,#8b714510 45%,transparent 72%);pointer-events:none}
+#home .kr-collectible-stack a{border-color:#c7ad72;box-shadow:0 10px 20px #8d76521c,0 2px 3px #79603e26;transform:rotate(-4deg)}
+#home .kr-collectible-stack a:nth-child(2){transform:translateY(-8px) scale(1.06);box-shadow:0 13px 24px #79603e29,0 2px 4px #79603e26}
+#home .kr-collectible-stack a:nth-child(3){transform:rotate(4deg)}
+#home .kr-collectible-stack a::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px #fff4d933;pointer-events:none;background:linear-gradient(125deg,#fff7df14,transparent 35%)}
+#home .kr-collectible-stack img{filter:saturate(1.12) brightness(1.055) contrast(1.015)}
+#home .kr-travel-pack .kr-section-copy{margin-bottom:13px;font-size:13px!important;line-height:1.6!important}
+#home .kr-travel-pack .kr-cta-outline{background:linear-gradient(120deg,#fffefa,#fcf8ee);border-color:#c8b687;color:#19384b;box-shadow:0 3px 10px #8d765208}
+#home .kr-travel-pack .kr-cta-outline .kr-arrow{background:#f3eddf;color:#957b48}
+@media(prefers-reduced-motion:reduce){#home .kr-collectible-stack a{transition:none;translate:none!important}}
+#home .kr-destinations{padding-top:22px;padding-bottom:22px}
+#home .kr-destinations .v220-section-head{margin-bottom:15px}
+#home .kr-destinations .v220-course-scroll{align-items:flex-start;scroll-padding-right:22px}
+#home .kr-destinations .v220-course-card{position:relative;isolation:isolate;flex:0 0 min(78vw, calc(80% + 35.2px));width:min(78vw, calc(80% + 35.2px));max-width:none;min-width:0;aspect-ratio:16/9;min-height:0;height:auto;max-height:none;box-sizing:border-box;border-radius:10px;overflow:hidden;background-image:none;scroll-margin-block:24px 100px}
+#home .kr-destinations .v220-course-card img{position:absolute;inset:0;width:100%;height:100%;max-width:none;max-height:none;object-fit:cover;transform:none!important}
+#home .kr-destinations .v220-course-card.seoul img{object-position:65% 50%;filter:brightness(1.075) saturate(1.14) contrast(1.025)}
+#home .kr-destinations .v220-course-card.busan img{object-position:50% 50%;filter:brightness(1.09) saturate(1.17) contrast(1.02)}
+#home .kr-destinations .v220-course-card.jeju img{object-position:50% 42%;filter:brightness(1.08) saturate(1.18) contrast(1.025)}
+#home .kr-destinations .v220-course-card::after{background:linear-gradient(180deg,transparent 50%,#163c5010 62%,#163c50b8 100%)}
+#home .kr-destinations .v220-course-copy{padding:12px 18px;text-shadow:0 1px 3px #16344980}
+#home .kr-destinations .v220-course-copy small{margin-bottom:3px;font-weight:400;line-height:1.35!important}
+#home .kr-destinations .v220-course-copy b{font-size:28px!important;line-height:1.08!important;text-shadow:0 1px 4px #16344966}
+#home .kr-destinations .kr-city-story{margin-top:3px;font-size:11px!important;line-height:1.4!important}
+#home .kr-time-slip{margin-top:8px;padding-bottom:24px;background:linear-gradient(145deg,#edf8ff,#fffdf7 60%,#f9f1df);color:#183549;border:0}
+#home .kr-memory-still{height:226px;margin-bottom:8px;background:radial-gradient(ellipse at 30% 18%,#fffdf2,#edf8ff80 65%,transparent)}
+#home .kr-memory-photo{left:12px;top:24px;width:76%;height:170px;border-color:#fffefa;border-bottom-width:19px;transform:rotate(-4deg);box-shadow:0 9px 18px #79613b24;overflow:hidden}
+#home .kr-memory-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 48%;filter:brightness(1.09) saturate(1.1)}
+#home .kr-memory-card{right:17px;top:39px;width:102px;transform:rotate(4deg);border-color:#c4aa72;box-shadow:0 10px 18px #79613b2b,0 2px 3px #79613b20;filter:saturate(1.1) brightness(1.055)}
+#home .kr-memory-line{background:#b59b60;bottom:8px}
+#home .kr-time-slip .kr-eyebrow{color:#78683f}
+#home .kr-time-slip h2{color:#17354c;font-size:31px!important}
+#home .kr-time-slip h2 em{color:#917748}
+#home .kr-time-slip .kr-section-copy{color:#516673;margin-top:10px}
+#home .kr-memory-link{background:#fffdf7b3;color:#19384b;padding:0 15px;border:1px solid #c9b78a;border-radius:6px;min-height:50px}
+#home .kr-memory-link>span:last-child{color:#957b48}
+#home .kr-time-slip .kr-memory-note{color:#617681}
+#home .kr-utility-heading{padding-top:34px}
+#home .v220-core-icon{background:#f3f0e8!important;border-radius:50%;width:30px;height:30px}
+#home .v220-core-grid{padding-bottom:10px}
+#home #globalSearchBox .global-search-field{background:#f4f8fa}
+#home .v220-tool-icon{background:#f5f2e9}
+body:has(#home.active) #v60Tabbar{background:#fffefaf7!important;border-top-color:#edf0ee!important}
+html[lang="ja"] #home .kr-time-slip h2,html[lang="ko"] #home .kr-time-slip h2{font-size:29px!important}
+</style>
+
 </body>
 </html>
