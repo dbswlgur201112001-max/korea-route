@@ -9,13 +9,28 @@ const record = {
 };
 const ledger = { version: 1, records: [record] };
 
-test.beforeEach(async ({ page }) => {
-  await page.clock.install({ time: new Date('2026-09-27T03:16:00Z') });
+const realTimerTests = new Set([
+  'startup, polling, auto-persist and reload do not create a ledger',
+  'local ledger changes reach freshness and existing polling/debounce without losing session tracking',
+]);
+// Actual app intervals: poll 500ms + debounce 2500ms; allow 2000ms scheduling margin.
+const saveWait = { timeout: 5000, intervals: [500] };
+// Actual auto-persist interval 4000ms + 2000ms scheduling margin.
+const persistWait = { timeout: 6000, intervals: [500] };
+test.beforeEach(async ({ page }, testInfo) => {
+  if (!realTimerTests.has(testInfo.title)) {
+    await page.clock.install({ time: new Date('2026-09-27T03:16:00Z') });
+  }
   await page.goto('/');
 });
 
 test('startup, polling, auto-persist and reload do not create a ledger', async ({ page }) => {
-  await page.clock.runFor(10000);
+  const contract = () => page.evaluate(key => ({ local: localStorage.getItem(key), session: sessionStorage.getItem(key),
+    registered: KOREA_ROUTE_PERSIST_SESSION_KEYS.includes(key), snapshot: buildOfflineTripSnapshot().data[key],
+    backup: koreaRouteBuildPersistedState().data[key] }), key);
+  expect(await contract()).toEqual({ local: null, session: null, registered: false });
+  const initialSavedAt = await page.evaluate(() => JSON.parse(localStorage.getItem('koreaRouteAutoPersist') || 'null')?.savedAt ?? null);
+  await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('koreaRouteAutoPersist') || 'null')?.savedAt ?? null), persistWait).not.toBe(initialSavedAt);
   expect(await page.evaluate(key => ({ local: localStorage.getItem(key), session: sessionStorage.getItem(key),
     registered: KOREA_ROUTE_PERSIST_SESSION_KEYS.includes(key), snapshot: buildOfflineTripSnapshot().data[key],
     backup: koreaRouteBuildPersistedState().data[key] }), key)).toEqual({ local: null, session: null, registered: false });
@@ -119,10 +134,8 @@ test('restore preserves ledger for legacy/invalid copies, replaces valid/empty a
 });
 
 test('local ledger changes reach freshness and existing polling/debounce without losing session tracking', async ({ page }) => {
-  await page.clock.runFor(4000);
   await page.evaluate(({ key, ledger }) => {
     localStorage.setItem(key, JSON.stringify(ledger)); saveOfflineTripSnapshot();
-    watchOfflineTripSessionChanges();
   }, { key, ledger });
   expect(await page.evaluate(() => offlineSnapshotFreshness().state)).toBe('current');
   await page.evaluate(key => {
@@ -130,12 +143,14 @@ test('local ledger changes reach freshness and existing polling/debounce without
     localStorage.setItem(key, JSON.stringify(changed));
   }, key);
   expect(await page.evaluate(() => offlineSnapshotFreshness().state)).toBe('changed');
-  await page.clock.runFor(3500);
+  expect(await page.evaluate(key => JSON.parse(readOfflineTripSnapshot().data[key]).records[0].amountKrw, key)).toBe(12000);
+  await expect.poll(() => page.evaluate(key => JSON.parse(readOfflineTripSnapshot().data[key]).records[0].amountKrw, key), saveWait).toBe(15000);
   expect(await page.evaluate(key => JSON.parse(readOfflineTripSnapshot().data[key]).records[0].amountKrw, key)).toBe(15000);
   expect(await page.evaluate(() => offlineSnapshotFreshness().state)).toBe('current');
   await page.evaluate(() => sessionStorage.setItem('koreaRouteWalkAlerts', '{"test":true}'));
   expect(await page.evaluate(() => offlineSnapshotFreshness().state)).toBe('changed');
-  await page.clock.runFor(3500);
+  expect(await page.evaluate(() => readOfflineTripSnapshot().data.koreaRouteWalkAlerts)).not.toBe('{"test":true}');
+  await expect.poll(() => page.evaluate(() => readOfflineTripSnapshot().data.koreaRouteWalkAlerts), saveWait).toBe('{"test":true}');
   expect(await page.evaluate(() => readOfflineTripSnapshot().data.koreaRouteWalkAlerts)).toBe('{"test":true}');
   await page.reload();
   expect(await page.evaluate(key => JSON.parse(localStorage.getItem(key)).records[0].amountKrw, key)).toBe(15000);
